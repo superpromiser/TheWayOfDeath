@@ -13,7 +13,7 @@ $config = [
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <title>{{ config('app.name') }}</title>
-
+  <link rel="stylesheet" href="{{ mix('dist/css/all.css')}}">
   <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
 </head>
 <body>
@@ -23,7 +23,10 @@ $config = [
   <script>
     window.config = @json($config);
   </script>
-
+  <script cript type="text/javascript">
+    let base_url = "{{ URL::to('/') }}"
+    window.base_url = "{{ URL::to('/') }}"
+  </script>
   {{-- Load the application scripts --}}
   <script src="{{ mix('dist/js/app.js') }}"></script>
 </body>

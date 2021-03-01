@@ -1,0 +1,52 @@
+<template>
+  <v-app-bar
+  color="white" app
+  >
+    <v-toolbar-title>
+      <img :src="`${baseUrl}/asset/img/logo_original.png`" alt="Logo" class="logo-img">
+    </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn text>
+      IOS
+    </v-btn>
+    <v-btn text>
+      Android
+    </v-btn>
+    <v-btn text>
+      Windows
+    </v-btn>
+    <v-btn text>
+      Mac
+    </v-btn>
+  </v-app-bar>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+import LocaleDropdown from './LocaleDropdown'
+
+export default {
+  components: {
+    LocaleDropdown
+  },
+
+  data: () => ({
+    appName: window.config.appName,
+    baseUrl:window.base_url,
+  }),
+
+  computed: mapGetters({
+    user: 'auth/user'
+  }),
+
+  methods: {
+    async logout () {
+      // Log out the user.
+      await this.$store.dispatch('auth/logout')
+
+      // Redirect to login.
+      this.$router.push({ name: 'login' })
+    }
+  }
+}
+</script>

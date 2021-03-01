@@ -1,34 +1,33 @@
 <template>
   <v-app>
-    <v-app-bar app></v-app-bar>
-
-    <v-main>
+    <LoggedNavbar v-if="isLogged" />
+    <BeforeLogNavbar v-else />
+    <v-main class="">
       <child />
     </v-main>
+    <LoggedFooter v-if="isLogged" />
+    <BeforeLogFooter v-else />
   </v-app>
 </template>
 
 <script>
+import BeforeLogNavbar from '../components/BeforeLogNavbar'
+import LoggedNavbar from '../components/LoggedNavbar'
+import BeforeLogFooter from '../components/BeforeLogFooter'
+import LoggedFooter from '../components/LoggedFooter'
+
 export default {
-  name: 'BasicLayout'
+  name: 'BasicLayout',
+  components: {
+    BeforeLogNavbar,
+    LoggedNavbar,
+    BeforeLogFooter,
+    LoggedFooter
+  },
+  data: () => ({
+    isLogged : false,
+
+  }),
 }
 </script>
 
-<style lang="scss">
-.basic-layout {
-  color: #636b6f;
-  height: 100vh;
-  font-weight: 100;
-  position: relative;
-
-  .links > a {
-    color: #636b6f;
-    padding: 0 25px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .1rem;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-}
-</style>
