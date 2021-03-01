@@ -7,15 +7,27 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn text>
+      <v-icon left>
+        mdi-apple
+      </v-icon> 
       IOS
     </v-btn>
     <v-btn text>
+      <v-icon left>
+        mdi-android
+      </v-icon> 
       Android
     </v-btn>
     <v-btn text>
+      <v-icon left>
+        mdi-microsoft-windows
+      </v-icon> 
       Windows
     </v-btn>
     <v-btn text>
+      <v-icon left>
+        mdi-apple-finder
+      </v-icon> 
       Mac
     </v-btn>
   </v-app-bar>

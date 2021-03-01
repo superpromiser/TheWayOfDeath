@@ -1,11 +1,11 @@
 <template>
   <v-container fluid class="login-bg d-flex justify-center align-center">
     <v-row class="justify-center align-center">
-      <v-col md="4" sm="12" xs="12" class="align-center">
+      <v-col cols="12" lg="4" class="align-center">
         <p class="text-left white--text">教育是什么，往简单方面说，只需一句话，就是养成良好的习惯。</p>
         <p class="text-right white--text">——布鲁纳（教育家）</p>
       </v-col>
-      <v-col md="4" sm="12" xs="12">
+      <v-col cols="12" lg="4">
         <v-row class="justify-center">
           <v-col md="7" sm="12" xs="12">
             <v-card>
@@ -27,10 +27,8 @@
                 </v-tab>
               </v-tabs>
               <v-tabs-items v-model="tab">
-                <v-tab-item
-                  value='tab-1'
-                >
-                  <v-card flat class="pb-8">
+                <v-tab-item value='tab-1' >
+                  <v-card flat class="pb-8 d-flex justify-center">
                     <qrcode value="http://47.111.233.60" :options="{ width: 350 }"></qrcode>
                   </v-card>
                 </v-tab-item>
