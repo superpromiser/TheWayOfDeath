@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/password', 'Settings\PasswordController@update');
 });
 
-Route::group(['middleware' => 'guest:api'], function () {
+Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {
     Route::post('login', 'Auth\LoginController@login');
     Route::post('register', 'Auth\RegisterController@register');
 

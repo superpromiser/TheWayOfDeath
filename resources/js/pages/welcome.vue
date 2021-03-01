@@ -57,14 +57,13 @@
                       ></v-text-field>
                       <v-checkbox
                         v-model="checkbox"
-                        :error-messages="errors"
                         value="1"
                         label="已阅读并同意《用户服务协议》和《隐私》"
                         type="checkbox"
                         :rules="[rules.required]"
                       ></v-checkbox>
 
-                      <v-btn color="primary" block>
+                      <v-btn color="primary" block @click="login">
                         <v-icon left>
                           mdi-login
                         </v-icon> 
@@ -102,6 +101,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { loginApi } from '~/api/auth';
 
 export default {
   layout: 'basic',
@@ -127,6 +127,20 @@ export default {
   }),
 
   methods: {
+    async login(){
+      let payload = {
+        phoneNumber : this.phoneNumber,
+        password : this.password
+      };
+          
+      await loginApi(payload)
+        .then(res=>{
+          console.log(res)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+    }
   },
 }
 </script>

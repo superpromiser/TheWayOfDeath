@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Exceptions\VerifyEmailException;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -31,16 +32,17 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        $token = $this->guard()->attempt($this->credentials($request));
+        $credentials = $request->only(['phoneNumber', 'password']);
+        $token = $this->guard()->attempt($credentials);
 
         if (! $token) {
             return false;
         }
 
         $user = $this->guard()->user();
-        if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
-            return false;
-        }
+        // if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
+        //     return false;
+        // }
 
         $this->guard()->setToken($token);
 
@@ -55,6 +57,7 @@ class LoginController extends Controller
      */
     protected function sendLoginResponse(Request $request)
     {
+
         $this->clearLoginAttempts($request);
 
         $token = (string) $this->guard()->getToken();
