@@ -43,6 +43,10 @@
       </v-list-item-group>
     </v-list>
   </v-card>
+  <v-row justify="center">
+    <v-date-picker v-model="picker" color="green lighten-1"
+      header-color="primary" locale="zh-cn"></v-date-picker>
+  </v-row>
       </div>
 
       <div class="links">
@@ -70,6 +74,7 @@ export default {
         { text: 'Audience', icon: 'mdi-account' },
         { text: 'Conversions', icon: 'mdi-flag' },
       ],
+      picker: new Date().toISOString().substr(0, 10),
   }),
 
   computed: mapGetters({

@@ -6,6 +6,7 @@ import App from '~/components/App'
 import Vuetify from 'vuetify'
 
 import '@mdi/font/css/materialdesignicons.css'
+import zhHans from 'vuetify/es5/locale/zh-Hans'
 
 import '~/plugins'
 import '~/components'
@@ -16,6 +17,7 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
+  // vuetify,
   i18n,
   store,
   router,
@@ -23,6 +25,10 @@ new Vue({
   vuetify: new Vuetify({
     icons: {
       iconfont: 'mdi', // default - only for display purposes
+    },
+    lang: {
+      locales: { zhHans },
+      current: 'zhHans',
     },
   }),
 })

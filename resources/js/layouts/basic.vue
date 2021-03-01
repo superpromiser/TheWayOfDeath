@@ -1,7 +1,11 @@
 <template>
-  <div class="basic-layout d-flex align-items-center justify-content-center m-0 bg-white">
-    <child />
-  </div>
+  <v-app>
+    <v-app-bar app></v-app-bar>
+
+    <v-main>
+      <child />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
