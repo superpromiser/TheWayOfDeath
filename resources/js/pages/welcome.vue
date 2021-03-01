@@ -30,8 +30,8 @@
                 <v-tab-item
                   value='tab-1'
                 >
-                  <v-card flat>
-                    <v-card-text>asdf</v-card-text>
+                  <v-card flat class="pb-8">
+                    <qrcode value="http://47.111.233.60" :options="{ width: 350 }"></qrcode>
                   </v-card>
                 </v-tab-item>
                 
@@ -61,7 +61,7 @@
                         value="1"
                         label="已阅读并同意《用户服务协议》和《隐私》"
                         type="checkbox"
-                        required
+                        :rules="[rules.required]"
                       ></v-checkbox>
 
                       <v-btn color="primary" block>
