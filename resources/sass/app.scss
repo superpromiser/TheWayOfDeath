@@ -1,8 +1,13 @@
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~sweetalert2/src/sweetalert2';
+@import "~vuetify/dist/vuetify.min.css";
 
 @import 'elements/card';
 @import 'elements/navbar';
 @import 'elements/buttons';
 @import 'elements/transitions';
+
+// @import url('https://fonts.googleapis.com/css?family=Material+Icons');
+// @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+// @import url('https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css');
