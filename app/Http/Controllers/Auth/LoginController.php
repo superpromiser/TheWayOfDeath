@@ -32,17 +32,16 @@ class LoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        $credentials = $request->only(['phoneNumber', 'password']);
-        $token = $this->guard()->attempt($credentials);
+        $token = $this->guard()->attempt($this->credentials($request));
 
         if (! $token) {
             return false;
         }
 
         $user = $this->guard()->user();
-        // if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
-        //     return false;
-        // }
+        if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
+            return false;
+        }
 
         $this->guard()->setToken($token);
 
