@@ -17,30 +17,32 @@
                 icons-and-text
               >
                 <v-tabs-slider></v-tabs-slider>
-                <v-tab href="#tab-1">
+                <v-tab href="#qr-login">
                   扫码登录
                   <v-icon>mdi-qrcode</v-icon>
                 </v-tab>
-                <v-tab href="#tab-2">
+                <v-tab href="#phone-login">
                   账户登录
                   <v-icon>mdi-account</v-icon>
                 </v-tab>
               </v-tabs>
               <v-tabs-items v-model="tab">
-                <v-tab-item value='tab-1' >
+                <v-tab-item value='qr-login' >
                   <v-card flat class="pb-8 d-flex justify-center">
                     <qrcode value="http://47.111.233.60" :options="{ width: 350 }"></qrcode>
                   </v-card>
                 </v-tab-item>
                 
-                <v-tab-item value='tab-2' >
+                <v-tab-item value='phone-login' >
                   <v-card flat>
-                    <v-card-text>
+                    <v-card-text ref="form">
                       <v-text-field
                         v-model="phoneNumber"
                         :rules="[rules.required]"
                         label="帐号"
                         :counter="11"
+                        prepend-inner-icon="mdi-phone"
+                        :error="true"
                       ></v-text-field>
                       <v-text-field
                         v-model="password"
@@ -51,7 +53,9 @@
                         label="密码"
                         hint="至少8个字符"
                         counter
+                        prepend-inner-icon="mdi-key-chain-variant"
                         @click:append="show1 = !show1"
+                        :error="false"
                       ></v-text-field>
                       <v-checkbox
                         v-model="checkbox"
@@ -61,7 +65,7 @@
                         :rules="[rules.required]"
                       ></v-checkbox>
 
-                      <v-btn color="primary" block @click="login">
+                      <v-btn color="primary" block @click="login" :loading="isLogging">
                         <v-icon left>
                           mdi-login
                         </v-icon> 
@@ -109,23 +113,36 @@ export default {
   },
 
   data: () => ({
-    tab: 'tab-2',
-    phoneNumber: '',
-    checkbox: null,
-    show1: false,
-    password: '',
-    rules: {
+    tab : 'phone-login',
+    phoneNumber : '',
+    checkbox : null,
+    show1 : false,
+    password : '',
+    rules : {
       required: value => !!value || '必需的。',
       min: v => v.length >= 8 || '最少8个字符',
     },
+    isLogging : false,
+    loginFormHasErrors : false,
+    errorMessages : '',
   }),
 
-  computed: mapGetters({
-    authenticated: 'auth/check'
-  }),
+  computed: {
+    form () {
+      return {
+        phoneNumber: this.phoneNumber,
+        password: this.password,
+      }
+    },
+
+    ...mapGetters({
+      authenticated: 'auth/check'
+    })
+  },
 
   methods: {
     async login(){
+      this.isLogging = true;
       let payload = {
         phoneNumber : this.phoneNumber,
         password : this.password
@@ -134,9 +151,11 @@ export default {
       await loginApi(payload)
         .then(res=>{
           console.log(res)
+          this.isLogging = false;
         })
         .catch(err=>{
           console.log(err)
+          this.isLogging = false;
         })
     }
   },
