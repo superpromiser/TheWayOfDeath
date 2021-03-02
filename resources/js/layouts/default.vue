@@ -2,7 +2,8 @@
   <v-app>
     <LoggedNavbar /> 
     <v-main>
-      <child />
+      <Drawer/>
+      <!-- <child /> -->
     </v-main>
     <LoggedFooter />
   </v-app>
@@ -11,13 +12,15 @@
 <script>
 import LoggedNavbar from '~/components/LoggedNavbar'
 import LoggedFooter from '~/components/LoggedFooter'
+import Drawer from '~/components/Drawer'
 
 export default {
   name: 'MainLayout',
 
   components: {
     LoggedNavbar,
-    LoggedFooter
+    LoggedFooter,
+    Drawer
   }
 }
 </script>
