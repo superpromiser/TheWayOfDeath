@@ -36,41 +36,54 @@
                 <v-tab-item value='phone-login' >
                   <v-card flat>
                     <v-card-text ref="form">
-                      <v-text-field
-                        v-model="phoneNumber"
-                        :rules="[rules.required]"
-                        label="帐号"
-                        :counter="11"
-                        prepend-inner-icon="mdi-phone"
-                        :error="true"
-                      ></v-text-field>
-                      <v-text-field
-                        v-model="password"
-                        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                        :rules="[rules.required, rules.min]"
-                        :type="show1 ? 'text' : 'password'"
-                        name="password"
-                        label="密码"
-                        hint="至少8个字符"
-                        counter
-                        prepend-inner-icon="mdi-key-chain-variant"
-                        @click:append="show1 = !show1"
-                        :error="false"
-                      ></v-text-field>
-                      <v-checkbox
-                        v-model="checkbox"
-                        value="1"
-                        label="已阅读并同意《用户服务协议》和《隐私》"
-                        type="checkbox"
-                        :rules="[rules.required]"
-                      ></v-checkbox>
-
-                      <v-btn color="primary" block @click="login" :loading="isLogging">
-                        <v-icon left>
-                          mdi-login
-                        </v-icon> 
-                        登录
-                      </v-btn>
+                      <v-form v-model="isFormValid" @submit="login">
+                        <v-text-field
+                          v-model="phoneNumber"
+                          label="帐号"
+                          prepend-inner-icon="mdi-phone"
+                          :rules="[rules.required]"
+                          :counter="11"
+                        ></v-text-field>
+                        <v-text-field
+                          v-model="password"
+                          name="password"
+                          label="密码"
+                          hint="至少8个字符"
+                          counter
+                          prepend-inner-icon="mdi-key-chain-variant"
+                          :rules="[rules.required, rules.min]"
+                          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                          :type="show1 ? 'text' : 'password'"
+                          @click:append="show1 = !show1"
+                        ></v-text-field>
+                        <v-checkbox
+                          v-model="agreeTerms"
+                          label="已阅读并同意《用户服务协议》和《隐私》"
+                          type="checkbox"
+                          :rules="[rules.required]"
+                        >
+                          <template v-slot:label>
+                            <div @click.stop="">
+                              已阅读并同意
+                              <a
+                                href="#"
+                                @click.prevent="terms = true"
+                              >《用户服务协议》</a>
+                              和
+                              <a
+                                href="#"
+                                @click.prevent="conditions = true"
+                              >《隐私》</a>
+                            </div>
+                          </template>
+                        </v-checkbox>
+                        <v-btn color="primary" block @click="login" :loading="isLogging" :disabled="!isFormValid">
+                          <v-icon left>
+                            mdi-login
+                          </v-icon> 
+                          登录
+                        </v-btn>
+                      </v-form>
                       <v-row class="justify-end pa-3">
                         <v-btn color="primary" text class="align-right">
                           忘记密码?
@@ -89,6 +102,55 @@
                           企业微信
                         </v-btn>
                       </v-row>
+                      <v-dialog v-model="terms" width="70%" >
+                        <v-card>
+                          <v-card-title class="title">
+                            Terms
+                          </v-card-title>
+                          <v-card-text
+                            v-for="n in 5"
+                            :key="n"
+                          >
+                            {{ content }}
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="terms = false"
+                            >
+                              Ok
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                      <v-dialog
+                        v-model="conditions"
+                        width="70%"
+                      >
+                        <v-card>
+                          <v-card-title class="title">
+                            Conditions
+                          </v-card-title>
+                          <v-card-text
+                            v-for="n in 5"
+                            :key="n"
+                          >
+                            {{ content }}
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="conditions = false"
+                            >
+                              Ok
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
                     </v-card-text>
                   </v-card>
                 </v-tab-item>
@@ -115,26 +177,22 @@ export default {
   data: () => ({
     tab : 'phone-login',
     phoneNumber : '',
-    checkbox : null,
-    show1 : false,
     password : '',
+    show1 : false,
+    agreeTerms : true,
+    remember : false,
     rules : {
       required: value => !!value || '必需的。',
       min: v => v.length >= 8 || '最少8个字符',
     },
     isLogging : false,
-    loginFormHasErrors : false,
-    errorMessages : '',
+    isFormValid : false,
+    terms : false,
+    conditions : false,
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
   }),
 
   computed: {
-    form () {
-      return {
-        phoneNumber: this.phoneNumber,
-        password: this.password,
-      }
-    },
-
     ...mapGetters({
       authenticated: 'auth/check'
     })
@@ -147,11 +205,21 @@ export default {
         phoneNumber : this.phoneNumber,
         password : this.password
       };
-          
       await loginApi(payload)
         .then(res=>{
           console.log(res)
           this.isLogging = false;
+          // Save the token.
+          this.$store.dispatch('auth/saveToken', {
+            token: res.data.token,
+            remember: this.remember
+          })
+
+          // Fetch the user.
+          this.$store.dispatch('auth/fetchUser')
+
+          // Redirect home.
+          this.$router.push({ name: 'home' })
         })
         .catch(err=>{
           console.log(err)

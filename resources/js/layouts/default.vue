@@ -1,28 +1,23 @@
 <template>
-  <!-- <div class="main-layout">
-    <navbar />
-
-    <div class="container mt-4">
-      <child />
-    </div>
-  </div> -->
   <v-app>
-    <v-app-bar app></v-app-bar>
-
+    <LoggedNavbar /> 
     <v-main>
-      Hello World
+      <child />
     </v-main>
+    <LoggedFooter />
   </v-app>
 </template>
 
 <script>
-// import Navbar from '~/components/Navbar'
+import LoggedNavbar from '~/components/LoggedNavbar'
+import LoggedFooter from '~/components/LoggedFooter'
 
 export default {
   name: 'MainLayout',
 
-  // components: {
-  //   Navbar
-  // }
+  components: {
+    LoggedNavbar,
+    LoggedFooter
+  }
 }
 </script>
