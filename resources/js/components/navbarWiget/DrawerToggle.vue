@@ -4,7 +4,7 @@
     elevation="1"
     fab
     small
-    @click="mini = !mini"
+    @click="toggleDrawer"
   >
     <v-icon>
       {{ mini ? 'mdi-format-list-bulleted' : 'mdi-dots-vertical' }}
@@ -13,8 +13,7 @@
 </template>
 
 <script>
-  // Utilities
-  // import { sync } from 'vuex-pathify'
+ import { mapGetters } from 'vuex'
 
   export default {
     name: 'DrawerToggle',
@@ -23,10 +22,18 @@
 
     //   mini: sync('app/mini'),
     // },
-    
-    data: () => ({
-      mini : false,
+    computed: mapGetters({
+      mini: 'toggledrawer/mini'
     }),
-
+    data: () => ({
+      
+    }),
+    methods: {
+      toggleDrawer(){
+        this.$store.dispatch('toggledrawer/toggleMiniDrawer', {
+          mini: !this.mini,
+        })
+      }
+    }
   }
 </script>

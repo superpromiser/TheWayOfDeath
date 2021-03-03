@@ -5,7 +5,7 @@
       <Drawer/>
       <!-- <child /> -->
     </v-main>
-    <LoggedFooter />
+    <!-- <LoggedFooter /> -->
   </v-app>
 </template>
 

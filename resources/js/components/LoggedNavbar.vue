@@ -6,7 +6,8 @@
     >
     <v-app-bar-nav-icon
       class="hidden-md-and-up"
-      @click="drawer = !drawer"
+      color="white"
+      @click="toggleDrawer"
     />
 
     <DrawerToggle class="hidden-sm-and-down" />
@@ -48,9 +49,12 @@ export default {
     baseUrl: window.base_url,
   }),
 
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+      drawer: 'toggledrawer/drawer'
+    }),
+  },
 
   methods: {
     async logout () {
@@ -59,6 +63,12 @@ export default {
 
       // Redirect to login.
       this.$router.push({ name: 'login' })
+    },
+    toggleDrawer(){
+      console.log("123", this.drawer);
+      this.$store.dispatch('toggledrawer/turnDrawer', {
+        drawer: !this.drawer,
+      })
     }
   }
 }

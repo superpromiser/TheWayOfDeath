@@ -3,8 +3,9 @@
     v-model="drawer"
     :mini-variant.sync="mini"
     src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
-    permanent
     dark
+    width="260"
+    @input="changedStatusToggle"
   >
     <v-list-item class="px-2">
       <v-list-item-avatar>
@@ -17,12 +18,6 @@
 
       <v-list-item-title>John Leider</v-list-item-title>
 
-      <v-btn
-        icon
-        @click.stop="mini = !mini"
-      >
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
     </v-list-item>
 
     <v-divider></v-divider>
@@ -46,27 +41,51 @@
 </template>
 
 <script>
-  export default {
-    name: 'DefaultDrawer',
+import { mapGetters, } from 'vuex'
+export default {
+  name: 'DefaultDrawer',
 
-    components: {
-      
-    },
-
-    computed: {
-      
-    },
+  components: {
     
-    data: () => ({
-      drawer: true,
-      items: [
-        { title: 'Home', icon: 'mdi-home-city' },
-        { title: 'My Account', icon: 'mdi-account' },
-        { title: 'Users', icon: 'mdi-account-group-outline' },
-      ],
-      mini: false,
+  },
+
+  computed: {
+    ...mapGetters({
+      mini : 'toggledrawer/mini',
+      // drawer : 'toggledrawer/drawer'
     }),
+    drawer: {
+      get() {
+        return this.$store.state.toggledrawer.drawer;
+      },
+      set(value) {
+        this.$store.dispatch('toggledrawer/turnDrawer', {
+          drawer: value,
+        })
+      }
+    }
+    // ...mapActions(['toggledrawer/turnDrawer'])
+  },
+  
+  data: () => ({
+    items: [
+      { title: 'Home', icon: 'mdi-home-city' },
+      { title: 'My Account', icon: 'mdi-account' },
+      { title: 'Users', icon: 'mdi-account-group-outline' },
+    ],
+    // drawer: null
+  }),
+
+  methods:{
+    changedStatusToggle(val){
+      if(val == false){
+        this.$store.dispatch('toggledrawer/turnDrawer', {
+          drawer: val,
+        })
+      }
+    }
   }
+}
 </script>
 
 <style lang="sass">
