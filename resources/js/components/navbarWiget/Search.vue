@@ -1,6 +1,6 @@
 <template>
   <v-text-field
-    placeholder="Search"
+    placeholder="搜索"
     class="mr-16"
     color="white"
     hide-details
