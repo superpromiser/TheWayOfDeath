@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
-    color="blue accent-2"
-    height="70" 
+    color="blue"
+    height="74" 
     app
     >
     <v-app-bar-nav-icon
@@ -10,11 +10,9 @@
       @click="toggleDrawer"
     />
 
-    <DrawerToggle class="hidden-sm-and-down" />
+    <!-- <DrawerToggle class="hidden-sm-and-down" /> -->
 
-    <v-toolbar-title class="d-flex align-center pl-4">
-      <img :src="`${baseUrl}/asset/img/logo.png`" alt="Logo" class="logo-img">
-    </v-toolbar-title>
+    
 
     <v-spacer />
 

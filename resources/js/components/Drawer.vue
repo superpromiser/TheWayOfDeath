@@ -1,27 +1,42 @@
 <template>
   <v-navigation-drawer
     v-model="drawer"
-    :mini-variant.sync="mini"
-    src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
     dark
     width="260"
     @input="changedStatusToggle"
-  >
-    <v-list-item class="px-2">
+    app
+    :permanent="!$vuetify.breakpoint.smAndDown"
+  > 
+    <template v-slot:prepend>
+      <v-toolbar
+        color="blue"
+        height="74"
+        >
+        <v-toolbar-title class="d-flex align-center pl-4">
+          <img :src="`${baseUrl}/asset/img/logo.png`" alt="Logo" class="logo-img">
+        </v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+      </v-toolbar>
+    </template>
+    <!-- <v-list-item class="pa-2" color="blue accent-2">
       <v-list-item-avatar>
         <v-avatar
           color="blue accent-3"
           size="90"
-        ></v-avatar>
-        <!-- <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img> -->
+          >
+          <span class="white--text headline"> {{user.name[0]}}</span>
+        </v-avatar>
+        <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
       </v-list-item-avatar>
 
-      <v-list-item-title>John Leider</v-list-item-title>
+      <v-list-item-title>{{user.name}}</v-list-item-title>
 
-    </v-list-item>
+    </v-list-item> -->
 
     <v-divider></v-divider>
-    <div class="px-3">
+    
       <v-list>
         <v-list-item>
           <v-list-item-icon>
@@ -34,7 +49,7 @@
         <v-list-group
           :value="true"
           prepend-icon="mdi-account-circle"
-          active-class="pink--text primary"
+          
         >
           <template v-slot:activator>
             <v-list-item-title>Users</v-list-item-title>
@@ -90,7 +105,7 @@
           </v-list-group>
         </v-list-group>
       </v-list>
-    </div>
+    
   </v-navigation-drawer>
 </template>
 
@@ -106,6 +121,7 @@ export default {
   computed: {
     ...mapGetters({
       mini : 'toggledrawer/mini',
+      user : 'auth/user'
       // drawer : 'toggledrawer/drawer'
     }),
     drawer: {
@@ -126,13 +142,13 @@ export default {
         ['Management', 'mdi-account-multiple-outline'],
         ['Settings', 'mdi-cog-outline'],
       ],
-      cruds: [
-        ['Create', 'mdi-plus-outline'],
-        ['Read', 'mdi-file-outline'],
-        ['Update', 'mdi-update'],
-        ['Delete', 'mdi-delete'],
-      ],
-    // drawer: null
+    cruds: [
+      ['Create', 'mdi-plus-outline'],
+      ['Read', 'mdi-file-outline'],
+      ['Update', 'mdi-update'],
+      ['Delete', 'mdi-delete'],
+    ],
+    baseUrl: window.base_url,
   }),
 
   methods:{

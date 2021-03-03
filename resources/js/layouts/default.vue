@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <LoggedNavbar /> 
+    <Drawer/>
     <v-main>
-      <Drawer/>
-      <!-- <child /> -->
+      <child />
     </v-main>
     <!-- <LoggedFooter /> -->
   </v-app>
