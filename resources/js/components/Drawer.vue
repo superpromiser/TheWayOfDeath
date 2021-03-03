@@ -45,6 +45,7 @@
         </template>
           <v-list-item
             link
+            to="/admin/userlist"
             >
             <v-list-item-title>名单</v-list-item-title>
             <v-list-item-icon>
@@ -53,6 +54,7 @@
           </v-list-item>
           <v-list-item
             link
+            to="/admin/assignRole"
             >
             <v-list-item-title>角色</v-list-item-title>
             <v-list-item-icon>
@@ -61,6 +63,7 @@
           </v-list-item>
           <v-list-item
             link
+            to="/admin/school"
             >
             <v-list-item-title>学校</v-list-item-title>
             <v-list-item-icon>
@@ -69,6 +72,7 @@
           </v-list-item>
           <v-list-item
             link
+            to="/admin/grade"
             >
             <v-list-item-title>创建年级</v-list-item-title>
             <v-list-item-icon>
@@ -77,6 +81,7 @@
           </v-list-item>
           <v-list-item
             link
+            to="/admin/class"
             >
             <v-list-item-title>班级</v-list-item-title>
             <v-list-item-icon>
@@ -85,6 +90,7 @@
           </v-list-item>
           <v-list-item
             link
+            to="/admin/stream"
             >
             <v-list-item-title>stream</v-list-item-title>
             <v-list-item-icon>
@@ -93,6 +99,7 @@
           </v-list-item>
           <v-list-item
             link
+            to="/admin/imei"
             >
             <v-list-item-title>IMEI管理</v-list-item-title>
             <v-list-item-icon>

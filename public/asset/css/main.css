@@ -18,6 +18,7 @@ html{
 
 .h-out-navbar{
     height: calc(100vh - 74px);
+    overflow: auto;
 }
 
 @media (min-width: 1904px){

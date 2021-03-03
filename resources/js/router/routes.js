@@ -12,7 +12,17 @@ export default [
   { path: '/email/verify/:id', name: 'verification.verify', component: page('auth/verification/verify.vue') },
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
+  //home
   { path: '/home', name: 'home', component: page('home.vue') },
+  //Admin
+  { path: '/admin/assignRole', name: 'admin.assignRole', component: page('admin/assignRole.vue') },
+  { path: '/admin/class', name: 'admin.class', component: page('admin/class.vue') },
+  { path: '/admin/grade', name: 'admin.grade', component: page('admin/grade.vue') },
+  { path: '/admin/imei', name: 'admin.imei', component: page('admin/imei.vue') },
+  { path: '/admin/school', name: 'admin.school', component: page('admin/school.vue') },
+  { path: '/admin/stream', name: 'admin.stream', component: page('admin/stream.vue') },
+  { path: '/admin/userlist', name: 'admin.userlist', component: page('admin/userList.vue') },
+
   { path: '/settings',
     component: page('settings/index.vue'),
     children: [
