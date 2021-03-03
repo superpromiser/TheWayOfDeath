@@ -2,10 +2,19 @@
   <v-app>
     <LoggedNavbar /> 
     <Drawer/>
-    <v-main>
-      <child />
+    <v-main class="main-bg-pattern d-flex justify-center align-center ">
+      <!-- <v-container class="h-out-navbar bg-white">
+        <child />
+      </v-container> -->
+      <v-sheet
+          class="h-out-navbar container"
+          color="white"
+          elevation="8"
+        >
+        <child />
+      </v-sheet>
+      <!-- <LoggedFooter /> -->
     </v-main>
-    <!-- <LoggedFooter /> -->
   </v-app>
 </template>
 

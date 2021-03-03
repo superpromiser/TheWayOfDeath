@@ -20,92 +20,139 @@
 
       </v-toolbar>
     </template>
-    <!-- <v-list-item class="pa-2" color="blue accent-2">
+    <!-------------User Info--------------->
+    <v-list-item class="pa-2" color="blue accent-2">
       <v-list-item-avatar>
         <v-avatar
           color="blue accent-3"
-          size="90"
+          size="40"
           >
           <span class="white--text headline"> {{user.name[0]}}</span>
         </v-avatar>
-        <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
       </v-list-item-avatar>
-
       <v-list-item-title>{{user.name}}</v-list-item-title>
-
-    </v-list-item> -->
-
+    </v-list-item>
+    <!-------------User Info--------------->
     <v-divider></v-divider>
-    
-      <v-list>
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-title>Home</v-list-item-title>
-        </v-list-item>
-
-        <v-list-group
+    <!----------------Menu------------------>
+    <v-list>
+      <v-list-group
+        :value="true"
+        prepend-icon="mdi-account-circle"
+      >
+        <template v-slot:activator>
+          <v-list-item-title>系统设置</v-list-item-title>
+        </template>
+          <v-list-item
+            link
+            >
+            <v-list-item-title>名单</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-account-group</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            >
+            <v-list-item-title>角色</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-account-box-multiple</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            >
+            <v-list-item-title>学校</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-school</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            >
+            <v-list-item-title>创建年级</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-medal</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            >
+            <v-list-item-title>班级</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-google-classroom</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            >
+            <v-list-item-title>stream</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-view-stream</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            >
+            <v-list-item-title>IMEI管理</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-sd</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        <!-- <v-list-group
           :value="true"
-          prepend-icon="mdi-account-circle"
-          
+          no-action
+          sub-group
+          class="py-1"
         >
           <template v-slot:activator>
-            <v-list-item-title>Users</v-list-item-title>
+            <v-list-item-content>
+              <v-list-item-title>Admin</v-list-item-title>
+            </v-list-item-content>
           </template>
 
-          <v-list-group
-            :value="true"
-            no-action
-            sub-group
-            class="py-1"
-          >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>Admin</v-list-item-title>
-              </v-list-item-content>
-            </template>
-
-            <v-list-item
-              v-for="([title, icon], i) in admins"
-              :key="i"
-              link
+          <v-list-item
+            link
             >
-              <v-list-item-title v-text="title"></v-list-item-title>
+            <v-list-item-title>someting</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon v-text="icon"></v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        </v-list-group> -->
 
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-group>
+        <!-- <v-list-group
+          no-action
+          sub-group
+          class="py-1"
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title>Actions</v-list-item-title>
+            </v-list-item-content>
+          </template>
 
-          <v-list-group
-            no-action
-            sub-group
-            class="py-1"
+          <v-list-item
+            v-for="([title, icon], i) in cruds"
+            :key="i"
+            link
           >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>Actions</v-list-item-title>
-              </v-list-item-content>
-            </template>
+            <v-list-item-title v-text="title"></v-list-item-title>
 
-            <v-list-item
-              v-for="([title, icon], i) in cruds"
-              :key="i"
-              link
-            >
-              <v-list-item-title v-text="title"></v-list-item-title>
+            <v-list-item-icon>
+              <v-icon v-text="icon"></v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        </v-list-group> -->
+      </v-list-group>
+      <v-list-item>
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
 
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-group>
-        </v-list-group>
-      </v-list>
-    
+        <v-list-item-title>Home</v-list-item-title>
+      </v-list-item>
+    </v-list>
   </v-navigation-drawer>
 </template>
 

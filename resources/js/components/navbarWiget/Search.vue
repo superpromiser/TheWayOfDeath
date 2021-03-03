@@ -2,7 +2,7 @@
   <v-text-field
     placeholder="Search"
     class="mr-16"
-    color="light-green lighten-3"
+    color="white"
     hide-details
     style="max-width: 220px"
   >

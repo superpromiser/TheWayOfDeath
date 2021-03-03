@@ -11,3 +11,21 @@ html{
     background-size: cover;
     background-position: center center;
 }
+.main-bg-pattern { 
+    background-image: url(../img/pattern_main_250.jpg);
+    background-repeat: repeat;
+}
+
+.h-out-navbar{
+    height: calc(100vh - 74px);
+}
+
+@media (min-width: 1904px){
+    .container {
+        max-width: 1400px!important;
+    }
+}
+
+.bg-white{
+    background: white;
+}
