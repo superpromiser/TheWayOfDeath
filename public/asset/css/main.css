@@ -22,7 +22,7 @@ html{
 }
 
 @media (min-width: 1904px){
-    .container {
+    .h-out-navbar.container {
         max-width: 1400px!important;
     }
 }

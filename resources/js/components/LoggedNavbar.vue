@@ -67,7 +67,8 @@ export default {
       this.$store.dispatch('toggledrawer/turnDrawer', {
         drawer: !this.drawer,
       })
-    }
+    },
+    
   }
 }
 </script>

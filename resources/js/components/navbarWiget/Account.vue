@@ -24,21 +24,24 @@
       flat
       nav
     >
-      <template v-for="(p, i) in profile">
-        <v-divider
-          v-if="p.divider"
-          :key="`divider-${i}`"
-          class="mb-2 mt-2"
-        />
-
-        <AppBarItem
-          v-else
-          :key="`item-${i}`"
-          to="#"
-        >
-          <v-list-item-title v-text="p.title" />
-        </AppBarItem>
-      </template>
+      <AppBarItem
+        to="#"
+      >
+        <v-list-item-title>Profile</v-list-item-title>
+      </AppBarItem>
+      <AppBarItem
+        to="#"
+      >
+        <v-list-item-title>Settings</v-list-item-title>
+      </AppBarItem>
+      <v-divider
+        class="mb-2 mt-2"
+      />
+      <AppBarItem
+        
+      >
+        <v-list-item-title @click="logout">Log out</v-list-item-title>
+      </AppBarItem>
     </v-list>
   </v-menu>
 </template>
@@ -60,5 +63,14 @@ export default {
       { title: 'Log out' },
     ],
   }),
+
+  methods: {
+    async logout () {
+      // Log out the user.
+      await this.$store.dispatch('auth/logout')
+      // Redirect to login.
+      this.$router.push({ name: 'welcome' })
+    },
+  }
 }
 </script>
