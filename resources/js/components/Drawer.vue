@@ -68,6 +68,7 @@
           <v-list-group
             no-action
             sub-group
+            class="py-1"
           >
             <template v-slot:activator>
               <v-list-item-content>
@@ -79,7 +80,6 @@
               v-for="([title, icon], i) in cruds"
               :key="i"
               link
-              class="py-1"
             >
               <v-list-item-title v-text="title"></v-list-item-title>
 
