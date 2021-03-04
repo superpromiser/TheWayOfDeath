@@ -11,7 +11,7 @@
                         <v-toolbar
                             flat
                         >
-                            <v-toolbar-title>角色</v-toolbar-title>
+                            <v-toolbar-title><strong>角色</strong></v-toolbar-title>
                             <v-divider
                             class="mx-4"
                             inset
