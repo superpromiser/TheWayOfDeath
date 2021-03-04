@@ -52,7 +52,7 @@ export default {
 
   methods: {
     async update () {
-      await this.form.patch('/api/settings/password')
+      await this.form.patch('/api/v1/settings/password')
 
       this.form.reset()
     }

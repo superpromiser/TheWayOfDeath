@@ -164,10 +164,12 @@
 </template>
 
 <script>
+
 import { mapGetters } from 'vuex';
 import { loginApi } from '~/api/auth';
 
 export default {
+  middleware: 'guest',
   layout: 'basic',
 
   metaInfo () {
@@ -217,7 +219,7 @@ export default {
 
           // Fetch the user.
           this.$store.dispatch('auth/fetchUser')
-
+          
           // Redirect home.
           this.$router.push({ name: 'home' })
         })

@@ -112,6 +112,8 @@
 </template>
 
 <script>
+  import {getUserRole} from '~/api/userRole';
+
   export default {
     data: () => ({
       dialog: false,
@@ -196,29 +198,14 @@
 
     methods: {
       initialize () {
-        this.userRoleList = [
-          {
-            roleName: 'admin',
-            created_at: 159,
-          },
-          {
-            roleName: 'manager',
-            created_at: 159,
-          },
-          {
-            roleName: '老师',
-            created_at: 159,
-          },
-          {
-            roleName: '家长',
-            created_at: 159,
-          },
-          {
-            roleName: '学生',
-            created_at: 159,
-          },
+        getUserRole().then(res=>{
+          console.log(res.data)
+          this.userRoleList = res.data
+          this.userRoleList.map(item=>{
+            item.created_at = this.TimeView(item.created_at)
+          })
           
-        ]
+        })
       },
 
       editItem (item) {

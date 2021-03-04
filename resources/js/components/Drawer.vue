@@ -27,10 +27,10 @@
           color="blue accent-3"
           size="40"
           >
-          <span class="white--text headline"> {{user.name[0]}}</span>
+          <span class="white--text headline"> {{user? user.name : ''}}</span>
         </v-avatar>
       </v-list-item-avatar>
-      <v-list-item-title>{{user.name}}</v-list-item-title>
+      <v-list-item-title>{{user? user.name : ''}}</v-list-item-title>
     </v-list-item>
     <!-------------User Info--------------->
     <v-divider></v-divider>
@@ -171,7 +171,6 @@ export default {
   components: {
     
   },
-
   computed: {
     ...mapGetters({
       mini : 'toggledrawer/mini',

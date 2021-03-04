@@ -4,9 +4,10 @@ import router from '~/router'
 import i18n from '~/plugins/i18n'
 import App from '~/components/App'
 import Vuetify from 'vuetify'
-
+import common from './helper/common'
 import '@mdi/font/css/materialdesignicons.css'
 import zhHans from 'vuetify/es5/locale/zh-Hans'
+Vue.mixin(common)
 
 import '~/plugins'
 import '~/components'
@@ -22,7 +23,7 @@ new Vue({
   store,
   router,
   ...App,
-  vuetify: new Vuetify({
+   vuetify: new Vuetify({
     icons: {
       iconfont: 'mdi', // default - only for display purposes
     },
