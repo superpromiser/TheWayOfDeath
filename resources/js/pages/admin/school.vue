@@ -42,56 +42,38 @@
                                 <v-card-text>
                                 <v-container>
                                     <v-row>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                    >
-                                        <v-text-field
-                                        v-model="editedItem.name"
-                                        label="Dessert name"
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                    >
-                                        <v-text-field
-                                        v-model="editedItem.calories"
-                                        label="Calories"
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                    >
-                                        <v-text-field
-                                        v-model="editedItem.fat"
-                                        label="Fat (g)"
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                    >
-                                        <v-text-field
-                                        v-model="editedItem.carbs"
-                                        label="Carbs (g)"
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col
-                                        cols="12"
-                                        sm="6"
-                                        md="4"
-                                    >
-                                        <v-text-field
-                                        v-model="editedItem.protein"
-                                        label="Protein (g)"
-                                        ></v-text-field>
-                                    </v-col>
+                                        <v-col cols="12" sm="6" md="4" >
+                                            <v-text-field
+                                            v-model="editedItem.schoolName"
+                                            label="机构名称"
+                                            ></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4" >
+                                            <v-text-field
+                                            v-model="editedItem.code"
+                                            label="组织机构代码"
+                                            ></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4" >
+                                            <v-text-field
+                                            v-model="editedItem.phoneNum"
+                                            label="固定电话"
+                                            ></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4" >
+                                            <v-text-field
+                                            v-model="editedItem.zipCode"
+                                            label="邮编"
+                                            ></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4" >
+                                            <v-text-field
+                                            v-model="editedItem.head"
+                                            label="学校负责人"
+                                            ></v-text-field>
+                                        </v-col>
+                                        
+                                    
                                     </v-row>
                                 </v-container>
                                 </v-card-text>
@@ -159,52 +141,117 @@
 </template>
 
 <script>
-  export default {
+
+import cityListJson from '!!raw-loader!./cityLaw.txt';
+export default {
     data: () => ({
-      dialog: false,
-      dialogDelete: false,
-      headers: [
-        { text: '号码', value: 'id', align: 'start'},
-        { text: '图标图像', value: 'imgUrl', sortable: false },
-        { text: '机构名称', value: 'schoolName', sortable: false },
-        { text: '组织机构代码', value: 'code' },
-        { text: '固定电话', value: 'phoneNum' },
-        { text: '邮编', value: 'zipCode' },
-        { text: '学校负责人', value: 'head', sortable: false },
-        { text: '学校地址', value: 'address', sortable: false },
-        { text: '学校简介', value: 'introduce', sortable: false },
-        { text: '行动', value: 'actions', sortable: false },
-      ],
-      schoolData: [],
-      editedIndex: -1,
-      editedItem: {
-        id: 0,
-        imgUrl: '',
-        schoolName: '',
-        code: 0,
-        phoneNum: 0,
-        zipCode: 0,
-        head: '',
-        address: '',
-        introduce: '',
-      },
-      defaultItem: {
-        id: 0,
-        imgUrl: '',
-        schoolName: '',
-        code: 0,
-        phoneNum: 0,
-        zipCode: 0,
-        head: '',
-        address: '',
-        introduce: '',
-      },
+        dialog: false,
+        dialogDelete: false,
+        headers: [
+            { text: '号码', value: 'id', align: 'start'},
+            { text: '图标图像', value: 'imgUrl', sortable: false },
+            { text: '机构名称', value: 'schoolName', sortable: false },
+            { text: '组织机构代码', value: 'code' },
+            { text: '固定电话', value: 'phoneNum' },
+            { text: '邮编', value: 'zipCode' },
+            { text: '学校负责人', value: 'head', sortable: false },
+            { text: '学校地址', value: 'address', sortable: false },
+            { text: '学校简介', value: 'introduce', sortable: false },
+            { text: '行动', value: 'actions', sortable: false },
+        ],
+        schoolData: [],
+        editedIndex: -1,
+        editedItem: {
+            id: 0,
+            imgUrl: '',
+            schoolName: '',
+            code: 0,
+            phoneNum: 0,
+            zipCode: 0,
+            head: '',
+            address : {
+                province : null,
+                city : null, 
+                region : null,
+                detail : '',
+            },
+            introduce: '',
+        },
+        defaultItem: {
+            id: 0,
+            imgUrl: '',
+            schoolName: '',
+            code: 0,
+            phoneNum: 0,
+            zipCode: 0,
+            head: '',
+            address : {
+                province : null,
+                city : null, 
+                region : null,
+                detail : '',
+            },
+            introduce: '',
+        },
+        provinceListJsonArr:[],
+        madeJsonFromString : [],
+        willBeCityDataOfSchoolAddress : null,
+        willBeRegionDataOfSchoolAddress : null,
+        willBeCityDataOfResidenceAddress : null,
+        willBeCityDataOfFamilyAddress : null,
+        willBeRegionDataOfResidenceAddress : null,
+        willBeRegionDataOfFamilyAddress : null,
     }),
 
     computed: {
       formTitle () {
         return this.editedIndex === -1 ? '新增学校' : '编辑学校'
       },
+    },
+
+    async created(){
+        this.provinceListJsonArr = cityListJson.split("#");
+        for (let i = 0; i < this.provinceListJsonArr.length; i++) {
+            let provinceObj = {
+                value : 1,
+                label : "",
+                city : []
+            }
+            let province = this.provinceListJsonArr[i].split("$")[0];
+            provinceObj.value = province.split("-")[0];
+            provinceObj.label = province.split("-")[1];
+            this.madeJsonFromString.push(provinceObj);
+            let TArea = this.provinceListJsonArr[i].split("$")[1].split("|");
+            for(let j = 0 ; j < TArea.length ; j++){
+                let cityObj = {
+                    value : 1,
+                    label : "",
+                    region : []
+                }
+                let cityArr = TArea[j].split(",");
+                cityObj.value = cityArr[0].split("-")[0];
+                cityObj.label = cityArr[0].split("-")[1];
+                for( let k = 1 ; k < cityArr.length ; k++){
+                    let regionObj = {
+                        value : 1, 
+                        label : "",
+                    }
+                    regionObj.value = cityArr[k].split("-")[0];
+                    regionObj.label = cityArr[k].split("-")[1];
+                    cityObj.region.push(regionObj);
+                }
+                this.madeJsonFromString[i].city.push(cityObj);
+            }
+        }
+        // const res = await this.callApi('get','/api/school');
+        // if(res.status == 200){
+        //     this.schoolList = res.data;
+        //     for(let i = 0 ; i < this.schoolList.length ; i++){
+        //         let clonedVal = JSON.parse(JSON.stringify(this.schoolList[i]));
+        //         this.schoolListRaw.push(clonedVal); 
+        //         this.schoolList[i].address = this.convertAddress(this.schoolList[i].address);
+        //     }
+        // }
     },
 
     watch: {
