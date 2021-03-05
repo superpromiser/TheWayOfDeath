@@ -225,6 +225,7 @@ export default {
         })
         .catch(err=>{
           console.log(err)
+          alert('login failed')
           this.isLogging = false;
         })
     }

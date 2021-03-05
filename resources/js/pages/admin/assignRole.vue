@@ -24,7 +24,7 @@
                             scrollable
                             >
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+                                    <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" @click="addRole">
                                     添加
                                     </v-btn>
                                 </template>
@@ -112,7 +112,7 @@
 </template>
 
 <script>
-  import {getUserRole} from '~/api/userRole';
+  import {getUserRole,updateUserRole,deleteUserRole} from '~/api/userRole';
 
   export default {
     data: () => ({
@@ -207,7 +207,9 @@
           
         })
       },
-
+      addRole(item){
+        console.log('------',item)
+      },
       editItem (item) {
         this.editedIndex = this.userRoleList.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -233,20 +235,29 @@
         })
       },
 
-      closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
+      async closeDelete () {
+        await deleteUserRole(this.editedItem).then(res=>{
+          this.dialogDelete = false
+          this.$nextTick(() => {
+            this.editedItem = Object.assign({}, this.defaultItem)
+            this.editedIndex = -1
+          })
+        }).catch(err=>{
+          console.log(err)
         })
       },
 
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.userRoleList[this.editedIndex], this.editedItem)
-        } else {
-          this.userRoleList.push(this.editedItem)
-        }
+     async save () {
+        console.log(this.editedItem)
+        await updateUserRole(this.editedItem).then(res=>{
+          if (this.editedIndex > -1) {
+            Object.assign(this.userRoleList[this.editedIndex], this.editedItem)
+          } else {
+            this.userRoleList.push(this.editedItem)
+          }
+        }).catch(err=>{
+          console.log(err)
+        })
         this.close()
       },
     },
