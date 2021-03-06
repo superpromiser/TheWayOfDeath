@@ -27,7 +27,7 @@
           color="blue accent-3"
           size="40"
           >
-          <span class="white--text headline"> {{user? user.name : ''}}</span>
+          <span class="white--text headline"> {{user? user.name[0] : ''}}</span>
         </v-avatar>
       </v-list-item-avatar>
       <v-list-item-title>{{user? user.name : ''}}</v-list-item-title>
