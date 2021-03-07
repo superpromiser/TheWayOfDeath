@@ -25,7 +25,6 @@
                     v-bind="attrs"
                     v-on="on"
                     >
-                    New Item
                     </v-btn>
                   </template>
                   <v-card>
