@@ -16,9 +16,14 @@ function deleteGrade(payload){
     return axios.delete('/api/v1/grade',{data:payload});
 }
 
+function getSchoolInfo(){
+    return axios.get('/api/v1/schoolName')
+}
+
 export{
     getGrade,
     createGrade,
     updateGrade,
     deleteGrade,
+    getSchoolInfo,
 }
