@@ -26,6 +26,23 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('userRole', 'UserRoleController@createUseRole');
     Route::put('userRole', 'UserRoleController@updateUserRole');
     Route::delete('userRole', 'UserRoleController@deleteUserRole');
+
+    //upload file
+    Route::post('file/image','UploadController@imageUpload');
+    Route::post('file/other','UploadController@otherUpload');
+    Route::post('file/video','UploadController@videoUpload');
+    Route::delete('file','UploadController@deleteFile');
+
+    //school
+    Route::get('school','SchoolController@getSchool')->name('getSchool');
+    Route::post('school','SchoolController@storeSchool')->name('storeSchool');
+    Route::put('school','SchoolController@updateSchool')->name('updateSchool');
+    Route::delete('school','SchoolController@removeSchool')->name('removeSchool');
+    Route::post('school/manager','SchoolController@storeManager')->name('storeManager');
+    Route::get('school/manager','SchoolController@getManager')->name('getManager');
+    Route::put('school/manager','SchoolController@updateManager')->name('updateManager');
+    Route::delete('school/manager','SchoolController@removeManager')->name('removeManager');
+
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

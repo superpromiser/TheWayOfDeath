@@ -44,7 +44,7 @@ export default {
 
   data: () => ({
     appName: window.config.appName,
-    baseUrl:window.base_url,
+    baseUrl:window.Laravel.base_url,
   }),
 
   computed: mapGetters({

@@ -201,7 +201,7 @@ export default {
       ['Update', 'mdi-update'],
       ['Delete', 'mdi-delete'],
     ],
-    baseUrl: window.base_url,
+    baseUrl: window.Laravel.base_url,
   }),
 
   methods:{

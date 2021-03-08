@@ -5,6 +5,12 @@ html{
 .logo-img {
     width: 150px;
 }
+
+.school-table-img{
+    width: 120px;
+    height: 120px;
+}
+
 .login-bg { 
     height: 100%;
     background-image: url(../img/login.jpg);

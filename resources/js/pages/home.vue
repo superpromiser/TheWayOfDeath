@@ -356,7 +356,7 @@ export default {
   },
 
   data: () => ({
-    baseUrl: window.base_url,
+    baseUrl: window.Laravel.base_url,
 
   })
 }
