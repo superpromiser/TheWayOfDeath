@@ -10,7 +10,7 @@ function getSchool(payload){
     return axios.get('/api/v1/school', payload);
 }
 function deleteSchool(payload){
-    return axios.delete('/api/v1/school', payload);
+    return axios.delete('/api/v1/school', {data : payload});
 }
 
 export{

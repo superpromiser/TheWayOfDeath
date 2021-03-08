@@ -159,7 +159,7 @@
                   <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">OK</v-btn>
                   <v-spacer></v-spacer>
                   </v-card-actions>
                 </v-card>
@@ -297,6 +297,7 @@ export default {
     baseUrl:window.Laravel.base_url,
     isCreatingSchool : false,
     isLoadingSchoolData : false,
+    isDeleteSchool : false,
     schoolIntroduceData : '',
   }),
 
@@ -382,8 +383,21 @@ export default {
         this.dialogDelete = true
       },
 
-      deleteItemConfirm () {
-        this.schoolData.splice(this.editedIndex, 1)
+      async deleteItemConfirm () {
+        let payload = {
+          id : this.editedItem.id
+        }
+        this.isDeleteSchool = true;
+        await deleteSchool(payload)
+        .then((res) => {
+          if(res.data.msg == 1){
+            this.schoolData.splice(this.editedIndex, 1)
+          }
+          this.isDeleteSchool = false;
+        }).catch((err) => {
+          console.log(err)
+          this.isDeleteSchool = false;
+        });
         this.closeDelete()
       },
 

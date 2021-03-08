@@ -69,7 +69,10 @@ class SchoolController extends Controller
         $this->validate($request,[
             'id'=>'required'
         ]);
-        return School::where('id',$request->id)->delete();
+        School::where('id',$request->id)->delete();
+        return response()->json([
+            'msg' => 1
+        ], 200);
     }
 
     
