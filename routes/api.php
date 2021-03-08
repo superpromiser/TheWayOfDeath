@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     
     //userRole API
     Route::get('userRole', 'UserRoleController@getUserRole');
-    Route::post('userRole', 'UserRoleController@createUseRole');
+    Route::post('userRole', 'UserRoleController@createUserRole');
     Route::put('userRole', 'UserRoleController@updateUserRole');
     Route::delete('userRole', 'UserRoleController@deleteUserRole');
 });

@@ -24,7 +24,7 @@
                             scrollable
                             >
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on" @click="addRole">
+                                    <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
                                     添加
                                     </v-btn>
                                 </template>
@@ -112,9 +112,10 @@
 </template>
 
 <script>
-  import {getUserRole,updateUserRole,deleteUserRole} from '~/api/userRole';
-
+  import {getUserRole,createUserRole,updateUserRole,deleteUserRole} from '~/api/userRole';
+  import { mapGetters } from 'vuex';
   export default {
+    middleware: 'auth',
     data: () => ({
       dialog: false,
       dialogDelete: false,
@@ -181,6 +182,9 @@
       formTitle () {
         return this.editedIndex === -1 ? '新增角色' : '编辑角色'
       },
+      ...mapGetters({
+        authenticated: 'auth/check'
+      })
     },
 
     watch: {
@@ -193,22 +197,19 @@
     },
 
     created () {
+      console.log("|!!!!!!");
       this.initialize()
     },
 
     methods: {
       initialize () {
         getUserRole().then(res=>{
-          console.log(res.data)
           this.userRoleList = res.data
           this.userRoleList.map(item=>{
             item.created_at = this.TimeView(item.created_at)
           })
           
         })
-      },
-      addRole(item){
-        console.log('------',item)
       },
       editItem (item) {
         this.editedIndex = this.userRoleList.indexOf(item)
@@ -248,16 +249,23 @@
       },
 
      async save () {
-        console.log(this.editedItem)
-        await updateUserRole(this.editedItem).then(res=>{
-          if (this.editedIndex > -1) {
+       console.log("this.editedIndex",this.editedIndex);
+        if(this.editedIndex > -1){
+          await updateUserRole(this.editedItem).then(res=>{
             Object.assign(this.userRoleList[this.editedIndex], this.editedItem)
-          } else {
+          }).catch(err=>{
+            console.log(err)
+          })
+        }
+        else {
+          console.log(this.editedItem)
+          await createUserRole(this.editedItem).then(res=>{
+            console.log('--------',res)
             this.userRoleList.push(this.editedItem)
-          }
-        }).catch(err=>{
-          console.log(err)
-        })
+          }).catch(err=>{
+            console.log(err)
+          })
+        }
         this.close()
       },
     },
