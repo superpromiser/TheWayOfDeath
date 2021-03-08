@@ -14,7 +14,8 @@ class UserRoleController extends Controller
     }
 
     public function createUserRole(Request $request){
-
+        $roleName = $request->roleName;
+        return UserRole::create(['roleName'=>$roleName]);
     }
 
     public function updateUserRole(Request $request){
