@@ -159,8 +159,32 @@
                   <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">OK</v-btn>
                   <v-spacer></v-spacer>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+              <v-dialog
+                v-model="indroduceDialog"
+                max-width="500px"
+              >
+                <v-card>
+                  <v-card-title class="title">
+                    School Introduce
+                  </v-card-title>
+                  <v-card-text
+                  >
+                    {{ schoolIntroduceData }}
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      text
+                      color="primary"
+                      @click="indroduceDialog = false"
+                    >
+                      Ok
+                    </v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -168,6 +192,16 @@
           </template>
           <template v-slot:[`item.imgUrl`]="{ item }">
             <img :src="`${baseUrl}${item.imgUrl}`" alt="Logo" class="school-table-img">
+          </template>
+          <template v-slot:[`item.introduce`]="{ item }">
+            <v-btn
+              outlined
+              small
+              color="indigo"
+              @click="showSchoolIntroduce(item.introduce)"
+            >
+              View school data
+            </v-btn>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
               <v-icon
@@ -207,6 +241,7 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    indroduceDialog : false,
     headers: [
       { text: '号码', value: 'id', align: 'start'},
       { text: '图标图像', value: 'imgUrl', sortable: false },
@@ -262,7 +297,8 @@ export default {
     baseUrl:window.Laravel.base_url,
     isCreatingSchool : false,
     isLoadingSchoolData : false,
-
+    isDeleteSchool : false,
+    schoolIntroduceData : '',
   }),
 
   computed: {
@@ -337,6 +373,7 @@ export default {
       editItem (item) {
         this.editedIndex = this.schoolData.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.editedItem.address = JSON.parse(this.schoolListRaw[this.editedIndex].address)
         this.dialog = true
       },
 
@@ -346,8 +383,21 @@ export default {
         this.dialogDelete = true
       },
 
-      deleteItemConfirm () {
-        this.schoolData.splice(this.editedIndex, 1)
+      async deleteItemConfirm () {
+        let payload = {
+          id : this.editedItem.id
+        }
+        this.isDeleteSchool = true;
+        await deleteSchool(payload)
+        .then((res) => {
+          if(res.data.msg == 1){
+            this.schoolData.splice(this.editedIndex, 1)
+          }
+          this.isDeleteSchool = false;
+        }).catch((err) => {
+          console.log(err)
+          this.isDeleteSchool = false;
+        });
         this.closeDelete()
       },
 
@@ -368,15 +418,30 @@ export default {
       },
 
       async save () {
+        //update schoolData
         if (this.editedIndex > -1) {
-          Object.assign(this.schoolData[this.editedIndex], this.editedItem)
-        } else {
+          this.isCreatingSchool = true;
+          await updateSchool(this.editedItem)
+          .then((res) => {
+            this.isCreatingSchool = false;
+            if(res.data.msg == 1){
+              this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
+              Object.assign(this.schoolData[this.editedIndex], this.editedItem)
+            }
+          }).catch((err) => {
+            this.isCreatingSchool = false;
+            console.log(err)            
+          });
+        } 
+        //save schoolData
+        else {
           this.isCreatingSchool = true;
           await createSchool(this.editedItem)
           .then((res) => {
             console.log(res.data);
             this.isCreatingSchool = false;
             this.editedItem.id = res.data.id;
+            this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
             this.schoolData.push(this.editedItem);
           }).catch((err) => {
             console.log(err)
@@ -438,6 +503,13 @@ export default {
         }
         return province + ' ' + city + ' ' + region + ' ' + address.detail;
       },
+
+      showSchoolIntroduce (introduce){
+        this.schoolIntroduceData = introduce;
+        this.indroduceDialog = true;
+      },
+
+
     },
   }
 </script>
