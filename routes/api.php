@@ -49,6 +49,13 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('grade','GradeController@updateGrade')->name('updateGrade');
     Route::delete('grade','GradeController@deleteGrade')->name('deleteGrade');
     Route::get('schoolName','GradeController@getSchoolName')->name('getSchoolName');
+
+    //class
+    Route::get('class','LessonController@getLesson')->name('getLesson');
+    Route::post('class','LessonController@createLesson')->name('createLesson');
+    Route::put('class','LessonController@updateLesson')->name('updateLesson');
+    Route::delete('class','LessonController@deleteLesson')->name('deleteLesson');
+    Route::get('gradeName','LessonController@getGradeName')->name('getGradeName');
     
 });
 
