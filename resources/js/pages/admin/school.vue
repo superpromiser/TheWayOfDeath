@@ -435,6 +435,9 @@ export default {
           .then((res) => {
             this.isCreatingSchool = false;
             if(res.data.msg == 1){
+              let clonedVal = JSON.parse(JSON.stringify(this.editedItem));
+              clonedVal.address = JSON.stringify(clonedVal.address);
+              this.schoolListRaw.push(clonedVal);
               this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
               Object.assign(this.schoolData[this.editedIndex], this.editedItem)
             }
@@ -448,9 +451,13 @@ export default {
           this.isCreatingSchool = true;
           await createSchool(this.editedItem)
           .then((res) => {
-            console.log(res.data);
             this.isCreatingSchool = false;
             this.editedItem.id = res.data.id;
+            //push data to schoolDataLaw
+            let clonedItem = JSON.parse(JSON.stringify(this.editedItem))
+            clonedItem.address = JSON.stringify(clonedItem.address)
+            this.schoolListRaw.push(clonedItem);
+            //push data to used schoolData
             this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
             this.schoolData.push(this.editedItem);
           }).catch((err) => {

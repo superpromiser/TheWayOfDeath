@@ -5,6 +5,8 @@
                 <v-data-table
                     :headers="headers"
                     :items="userRoleList"
+                    :loading="isLoadingRoleData"
+                    loading-text="loading user role... 等一下"
                     class="elevation-1"
                 >
                     <template v-slot:top>
@@ -132,6 +134,7 @@
       defaultItem: {
         roleName: '',
       },
+      isLoadingRoleData : false,
       categoryItems: [
         {
           id: 5,
@@ -202,12 +205,13 @@
 
     methods: {
       initialize () {
+        this.isLoadingRoleData = true;
         getUserRole().then(res=>{
+          this.isLoadingRoleData = false;
           this.userRoleList = res.data
           this.userRoleList.map(item=>{
             item.created_at = this.TimeView(item.created_at)
           })
-          
         })
       },
       editItem (item) {
