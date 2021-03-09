@@ -99,7 +99,6 @@ class SchoolController extends Controller
         $managerUserData['nation'] = $managerData['nation'];
         $managerUserData['cardNum'] = $managerData['cardNum'];
         $managerUserData['roleId'] = 2;
-        $managerUserData['isActived'] = 1;
         $managerUserData['familyAddress'] = json_encode($managerData['familyAddress']);
         $managerUserData['residenceAddress'] = json_encode($managerData['residenceAddress']);
 

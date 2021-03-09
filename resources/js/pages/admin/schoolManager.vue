@@ -302,7 +302,7 @@ export default {
             region : null,
             detail : '',
         },
-        imgUrl : null,
+        imgUrl : '',
     },
       
     defaultItem: {
@@ -324,7 +324,7 @@ export default {
             region : null,
             detail : '',
         },
-        imgUrl : null,
+        imgUrl : '',
     },
     provinceListJsonArr:[],
     madeJsonFromString : [],
@@ -392,7 +392,7 @@ export default {
       }
       getSchoolManager(payload)
       .then((res) => {
-        this.schoolManagerData = res.data;
+        this.schoolManagerData = res.data.managerList;
         for(let i = 0 ; i < this.schoolManagerData.length ; i++){
           let clonedVal = JSON.parse(JSON.stringify(this.schoolManagerData[i]));
           this.schoolManagerListRaw.push(clonedVal); 
