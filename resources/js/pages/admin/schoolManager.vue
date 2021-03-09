@@ -96,7 +96,45 @@
                             <img v-else-if="editedItem.imgUrl !== ''" :src="editedItem.imgUrl" alt="" style="width:127px; height: 127px;">
                         </v-col>
                         <v-col cols="12" md="8" sm="6">
-                          <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传学校图片" />
+                            <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传学校图片" />
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col cols="12" sm="6" md="4" >
+                            <v-select
+                                :items="madeJsonFromString"
+                                item-text="label"
+                                v-model="editedItem.residenceAddress.province"
+                                @change="selectedProvinceOfResidenceAddress(editedItem.residenceAddress.province)"
+                                label="--省--"
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4" >
+                            <v-select
+                                :items="willBeCityDataOfResidenceAddress"
+                                item-text="label"
+                                v-model="editedItem.residenceAddress.city"
+                                :disabled="willBeCityDataOfResidenceAddress.length === 0"
+                                label="--市--"
+                                @change="selectedCityOfResidenceAddress(editedItem.residenceAddress.city)"
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4" >
+                            <v-select
+                                :items="willBeRegionDataOfResidenceAddress"
+                                item-text="label"
+                                v-model="editedItem.residenceAddress.region"
+                                :disabled="willBeRegionDataOfResidenceAddress.length === 0" 
+                                @change="selectedRegionOfResidenceAddress(editedItem.residenceAddress.region)"
+                                label="--区--"
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4" >
+                            <v-text-field
+                                v-model="editedItem.residenceAddress.detail"
+                                :disabled="willBeRegionDataOfResidenceAddress.length === 0"
+                                label="详細地址"
+                            ></v-text-field>
                         </v-col>
                       </v-row>
                       <v-row>
@@ -105,76 +143,39 @@
                             :items="madeJsonFromString"
                             item-text="label"
                             v-model="editedItem.familyAddress.province"
-                            @change="selectedProvinceOfResidenceAddress(editedItem.familyAddress.province)"
+                            @change="selectedProvinceOfFamilyAddress(editedItem.familyAddress.province)"
                             label="--省--"
                           ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                           <v-select
-                            :items="willBeCityDataOfResidenceAddress"
+                            :items="willBeCityDataOfFamilyAddress"
                             item-text="label"
                             v-model="editedItem.familyAddress.city"
-                            :disabled="willBeCityDataOfResidenceAddress.length === 0"
+                            :disabled="willBeCityDataOfFamilyAddress.length === 0"
                             label="--市--"
-                            @change="selectedCityOfResidenceAddress(editedItem.familyAddress.city)"
+                            @change="selectedCityOfFamilyAddress(editedItem.familyAddress.city)"
                           ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                           <v-select
-                            :items="willBeRegionDataOfResidenceAddress"
+                            :items="willBeRegionDataOfFamilyAddress"
                             item-text="label"
                             v-model="editedItem.familyAddress.region"
-                            :disabled="willBeRegionDataOfResidenceAddress.length === 0" 
-                            @change="selectedRegionOfResidenceAddress(editedItem.familyAddress.region)"
+                            :disabled="willBeRegionDataOfFamilyAddress.length === 0" 
+                            @change="selectedRegionOfFamilyAddress(editedItem.familyAddress.region)"
                             label="--区--"
                           ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                           <v-text-field
                           v-model="editedItem.familyAddress.detail"
-                          :disabled="willBeRegionDataOfResidenceAddress.length === 0"
+                          :disabled="willBeRegionDataOfFamilyAddress.length === 0"
                           label="详細地址"
                           ></v-text-field>
                         </v-col>
                       </v-row>
-                      <v-row>
-                        <v-col cols="12" sm="6" md="4" >
-                          <v-select
-                            :items="madeJsonFromString"
-                            item-text="label"
-                            v-model="editedItem.residenceAddress.province"
-                            @change="selectedProvinceOfResidenceAddress(editedItem.residenceAddress.province)"
-                            label="--省--"
-                          ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4" >
-                          <v-select
-                            :items="willBeCityDataOfResidenceAddress"
-                            item-text="label"
-                            v-model="editedItem.residenceAddress.city"
-                            :disabled="willBeCityDataOfResidenceAddress.length === 0"
-                            label="--市--"
-                            @change="selectedCityOfResidenceAddress(editedItem.residenceAddress.city)"
-                          ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4" >
-                          <v-select
-                            :items="willBeRegionDataOfResidenceAddress"
-                            item-text="label"
-                            v-model="editedItem.residenceAddress.region"
-                            :disabled="willBeRegionDataOfResidenceAddress.length === 0" 
-                            @change="selectedRegionOfResidenceAddress(editedItem.residenceAddress.region)"
-                            label="--区--"
-                          ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4" >
-                          <v-text-field
-                          v-model="editedItem.residenceAddress.detail"
-                          :disabled="willBeRegionDataOfResidenceAddress.length === 0"
-                          label="详細地址"
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
+                      
                     </v-container>
                   </v-card-text>
 
@@ -355,6 +356,8 @@ export default {
     madeJsonFromString : [],
     willBeCityDataOfResidenceAddress : [],
     willBeRegionDataOfResidenceAddress : [],
+    willBeCityDataOfFamilyAddress : [],
+    willBeRegionDataOfFamilyAddress : [],
     baseUrl:window.Laravel.base_url,
     isCreatingSchool : false,
     isLoadingSchoolData : false,
@@ -491,33 +494,38 @@ export default {
       async save () {
         //update schoolManagerData
         if (this.editedIndex > -1) {
-          this.isCreatingSchool = true;
-          await updateSchool(this.editedItem)
-          .then((res) => {
-            this.isCreatingSchool = false;
-            if(res.data.msg == 1){
-              this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
-              Object.assign(this.schoolManagerData[this.editedIndex], this.editedItem)
-            }
-          }).catch((err) => {
-            this.isCreatingSchool = false;
-            console.log(err)            
-          });
+        //   this.isCreatingSchool = true;
+        //   await updateSchool(this.editedItem)
+        //   .then((res) => {
+        //     this.isCreatingSchool = false;
+        //     if(res.data.msg == 1){
+        //       this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
+        //       Object.assign(this.schoolManagerData[this.editedIndex], this.editedItem)
+        //     }
+        //   }).catch((err) => {
+        //     this.isCreatingSchool = false;
+        //     console.log(err)            
+        //   });
         } 
         //save schoolManagerData
         else {
-          this.isCreatingSchool = true;
-          await createSchool(this.editedItem)
-          .then((res) => {
-            console.log(res.data);
-            this.isCreatingSchool = false;
-            this.editedItem.id = res.data.id;
-            this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
-            this.schoolManagerData.push(this.editedItem);
-          }).catch((err) => {
-            console.log(err)
-            this.isCreatingSchool = false;
-          });
+            console.log("this.editedItem", this.editedItem);
+            this.isCreatingSchool = true;
+            let payload = {
+                managerData : this.editedItem,
+                schoolId : this.schoolId
+            }
+            await createSchoolManager(payload)
+            .then((res) => {
+                console.log(res.data);
+                this.isCreatingSchool = false;
+                this.editedItem.id = res.data.id;
+                this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
+                this.schoolManagerData.push(this.editedItem);
+            }).catch((err) => {
+                console.log(err)
+                this.isCreatingSchool = false;
+            });
         }
         this.close()
       },
@@ -527,8 +535,8 @@ export default {
           if( val == this.madeJsonFromString[i].value ){
             this.willBeCityDataOfResidenceAddress = this.madeJsonFromString[i].city;
             this.willBeRegionDataOfResidenceAddress = [];
-            this.editedItem.address.city = null;
-            this.editedItem.address.region = null;
+            this.editedItem.residenceAddress.city = null;
+            this.editedItem.residenceAddress.region = null;
           }
         }
       },
@@ -543,6 +551,30 @@ export default {
       },
       selectedRegionOfResidenceAddress(val){
       },
+
+        selectedProvinceOfFamilyAddress(val){
+            for( let i = 0 ; i < this.madeJsonFromString.length ; i++){
+                if( val == this.madeJsonFromString[i].value ){
+                    this.willBeCityDataOfFamilyAddress = this.madeJsonFromString[i].city;
+                    this.editedItem.familyAddress.city = null;
+                    this.willBeRegionDataOfFamilyAddress = [];
+                    this.editedItem.familyAddress.region = null;
+                }
+            }
+            
+        },
+        selectedCityOfFamilyAddress(val){
+            if (val != undefined){
+                for( let i = 0 ; i < this.willBeCityDataOfFamilyAddress.length ; i++){
+                    if( val == this.willBeCityDataOfFamilyAddress[i].value){
+                        this.willBeRegionDataOfFamilyAddress = this.willBeCityDataOfFamilyAddress[i].region;
+                    }
+                }
+            }
+        },
+        selectedRegionOfFamilyAddress(val){
+
+        },
 
       upImgUrl(value) {
         this.editedItem.imgUrl = value;
