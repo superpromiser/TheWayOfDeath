@@ -93,7 +93,7 @@ class SchoolController extends Controller
         $managerUserData['name'] = $managerData['name'];
         $managerUserData['phoneNumber'] = $managerData['phoneNumber'];
         $managerUserData['password'] = bcrypt($managerData['password']);
-        $managerUserData['userAvatar'] = $managerData['imgUrl'];
+        $managerUserData['avatar'] = $managerData['imgUrl'];
         $managerUserData['schoolId'] = $schoolId;
         $managerUserData['gender'] = $managerData['gender'];
         $managerUserData['nation'] = $managerData['nation'];
@@ -113,7 +113,7 @@ class SchoolController extends Controller
             'name'=>$request->name,
             'phoneNumber'=>$request->phoneNumber,
             'password'=>bcrypt($request->password),
-            'userAvatar'=>$request->imgUrl,
+            'avatar'=>$request->imgUrl,
             'gender'=>$request->gender,
             'nation'=>$request->nation,
             'cardNum'=>$request->cardNum,

@@ -45,46 +45,55 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" md="4" >
-                          <v-text-field
-                          v-model="editedItem.name"
-                          label="机构名称"
-                          ></v-text-field>
+                            <v-text-field
+                            v-model="editedItem.name"
+                            label="机构名称"
+                            ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                          <v-text-field
-                          v-model="editedItem.phoneNumber"
-                          label="组织机构代码"
-                          ></v-text-field>
+                            <v-text-field
+                            v-model="editedItem.phoneNumber"
+                            label="组织机构代码"
+                            ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                          <v-text-field
-                          v-model="editedItem.password"
-                          label="固定电话"
-                          ></v-text-field>
+                            <v-text-field
+                                v-model="editedItem.password"
+                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="show1 ? 'text' : 'password'"
+                                label="固定电话"
+                                @click:append="show1 = !show1"
+                            ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                          <v-text-field
-                          v-model="editedItem.gender"
-                          label="邮编"
-                          ></v-text-field>
+                            <v-select
+                            :items="genderItems"
+                            item-text="label"
+                            item-value="value"
+                            v-model="editedItem.gender"
+                            label="邮编"
+                            ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                          <v-text-field
-                          v-model="editedItem.nation"
-                          label="学校负责人"
-                          ></v-text-field>
+                            <v-text-field
+                            v-model="editedItem.nation"
+                            label="学校负责人"
+                            ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                          <v-text-field
-                          v-model="editedItem.cardNum"
-                          label="学校负责人"
-                          ></v-text-field>
+                            <v-text-field
+                            v-model="editedItem.cardNum"
+                            label="学校负责人"
+                            ></v-text-field>
                         </v-col>
                       </v-row>
                       <v-row class=" align-center">
                         <v-col cols="12" md="4" sm="6" class="d-flex justify-center">
-                          <img v-if="editedItem.imgUrl == ''" :src="`${baseUrl}/asset/img/icon/anonymous_avatar.png`" alt="SchoolIcon" style="width:127px; height: 127px;">
-                          <img v-else-if="editedItem.imgUrl !== ''" :src="editedItem.imgUrl" alt="" style="width:127px; height: 127px;">
+                            <v-avatar v-if="editedItem.name !== '' && editedItem.imgUrl == ''" color="primary" size="127" tile>
+                                <span class="white--text headline">{{editedItem.name[0]}}</span>
+                            </v-avatar>
+                            <img v-else-if="editedItem.name == '' && editedItem.imgUrl == ''" :src="`${baseUrl}/asset/img/icon/anonymous_avatar.png`" alt="UserAvatar" style="width:127px; height: 127px;">
+                            <img v-else-if="editedItem.imgUrl !== ''" :src="editedItem.imgUrl" alt="" style="width:127px; height: 127px;">
                         </v-col>
                         <v-col cols="12" md="8" sm="6">
                           <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传学校图片" />
@@ -268,6 +277,11 @@ export default {
     dialog: false,
     dialogDelete: false,
     indroduceDialog : false,
+    show1: false,
+    rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 8 || 'Min 8 characters',
+    },
     headers: [
       { text: '号码', value: 'id', align: 'start', },
       { text: '人员姓名', value: 'name', sortable: false },
@@ -279,6 +293,17 @@ export default {
       { text: '学校地址', value: 'familyAddress', sortable: false },
       { text: '学校地址', value: 'residenceAddress', sortable: false },
       { text: '行动', value: 'actions', sortable: false },
+    ],
+    genderItems:[
+        { 
+            label : "男", 
+            value : "M" 
+        },
+        { 
+            label : "女", 
+            value : "F" 
+        },
+        
     ],
     schoolManagerData: [],
     schoolManagerListRaw : [],
