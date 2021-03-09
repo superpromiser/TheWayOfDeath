@@ -25,16 +25,24 @@
               v-model="dialog"
               max-width="500px"
               >
-                <template v-slot:activator="{ on, attrs }">
+                <template v-slot:activator="{ on, attrs }" class="align-center">
                   <v-btn
                   color="primary"
                   dark
-                  class="mb-2"
+                  class="ml-2"
                   v-bind="attrs"
                   v-on="on"
                   >
                   添加
                   </v-btn>
+                  <router-link :to="{path:`/admin/school`}">
+                    <v-btn
+                      color="indigo"
+                      dark
+                    >
+                      Go back to school list
+                    </v-btn>
+                  </router-link>
                 </template>
                 <v-card>
                   <v-card-title>
