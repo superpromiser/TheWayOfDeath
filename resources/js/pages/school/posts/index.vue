@@ -1,9 +1,26 @@
 <template>
     <v-container>
-        <PostItem/>
-        <transition name="fade" mode="out-in">
+        <v-row v-for="(itemGroup, i) in contentItemList" :key="i">
+            <v-col cols="12">
+                <v-chip
+                    class="ma-2"
+                    color="indigo accent-4"
+                    large
+                    outlined
+                >
+                    <v-icon left>
+                        mdi-wrench
+                    </v-icon>
+                    {{itemGroup.title}}}
+                </v-chip>
+            </v-col>
+            <v-col v-for="(item, j) in itemGroup.items" :key="j" cols="12" sm="6" md="4" lg="3">
+                <PostItem :item="item"/>
+            </v-col>
+        </v-row>
+        <!-- <transition name="fade" mode="out-in">
             <router-view></router-view>
-        </transition>
+        </transition> -->
     </v-container>
 </template>
 
@@ -12,7 +29,86 @@ import PostItem from '~/components/postItem'
 export default {
     components:{
         PostItem,
-    }
+    },
+    data: () => ({
+        contentItemList : [
+            {
+                title : "基础沟通",
+                items : [
+                    {
+                        color : "lime darken-4",
+                        title : "问卷",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/问卷 拷贝.png"
+                    },
+                    {
+                        color : "lime darken-4",
+                        title : "投票",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/投票.png"
+                    },
+                    {
+                        color : "lime darken-4",
+                        title : "短信",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/短信 拷贝.png"
+                    },
+                    {
+                        color : "indigo accent-2",
+                        title : "校园动态",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/动态 拷贝.png"
+                    },
+                    {
+                        color : "lime darken-4",
+                        title : "公告",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/公告 拷贝.png"
+                    },
+                ],
+            },
+            {
+                title : "校园文化",
+                items : [
+                    {
+                        color : "indigo accent-2",
+                        title : "布告栏",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/布告栏 拷贝.png"
+                    },
+                    {
+                        color : "red accent-3",
+                        title : "考勤",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/考勤.png"
+                    },
+                ],
+            },
+            {
+                title : "家校互动",
+                items : [
+                    {
+                        color : "teal darken-4",
+                        title : "作业",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/作业 拷贝.png"
+                    },
+                    {
+                        color : "lime darken-4",
+                        title : "习题",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/习题.png"
+                    },
+                    {
+                        color : "teal darken-4",
+                        title : "家访",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/家访 拷贝.png"
+                    },
+                ],
+            },
+        ]
+    }),
 }
 </script>
 

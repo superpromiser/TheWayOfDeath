@@ -47,3 +47,9 @@ a{
 .bg-white{
     background: white;
 }
+
+.post-item-card-avatar{
+    height: auto!important;
+    width: 100%!important;
+    max-width: 125px!important;
+}
