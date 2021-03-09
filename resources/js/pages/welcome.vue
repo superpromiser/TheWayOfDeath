@@ -36,7 +36,7 @@
                 <v-tab-item value='phone-login' >
                   <v-card flat>
                     <v-card-text ref="form">
-                      <v-form v-model="isFormValid" @submit="login">
+                      <v-form v-model="isFormValid" @submit.prevent="login">
                         <v-text-field
                           v-model="phoneNumber"
                           label="帐号"
@@ -77,7 +77,7 @@
                             </div>
                           </template>
                         </v-checkbox>
-                        <v-btn color="primary" block @click="login" :loading="isLogging" :disabled="!isFormValid">
+                        <v-btn color="primary" block @click="login" type="submit" :loading="isLogging" :disabled="!isFormValid">
                           <v-icon left>
                             mdi-login
                           </v-icon> 
@@ -160,6 +160,15 @@
         </v-row>
       </v-col>
     </v-row>
+    <v-snackbar
+      timeout="3000"
+      v-model="loginFailed"
+      color="error"
+      absolute
+      top
+    >
+      Login Failed
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -191,6 +200,7 @@ export default {
     isFormValid : false,
     terms : false,
     conditions : false,
+    loginFailed : false,
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
   }),
 
@@ -224,9 +234,9 @@ export default {
           this.$router.push({ name: 'home' })
         })
         .catch(err=>{
-          console.log(err)
-          alert('login failed')
+          console.log(err);
           this.isLogging = false;
+          this.loginFailed = true;
         })
     }
   },
