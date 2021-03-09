@@ -435,7 +435,7 @@ export default {
           .then((res) => {
             this.isCreatingSchool = false;
             if(res.data.msg == 1){
-              let clonedVal = JSON.parse(JSON.stringify(this.editedItem));
+              let clonedVal = Object.assign({}, this.editedItem);
               clonedVal.address = JSON.stringify(clonedVal.address);
               this.schoolListRaw.push(clonedVal);
               this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))

@@ -93,7 +93,7 @@ class SchoolController extends Controller
         $managerUserData['name'] = $managerData['name'];
         $managerUserData['phoneNumber'] = $managerData['phoneNumber'];
         $managerUserData['password'] = bcrypt($managerData['password']);
-        $managerUserData['avatar'] = $managerData['imgUrl'];
+        $managerUserData['avatar'] = $managerData['avatar'];
         $managerUserData['schoolId'] = $schoolId;
         $managerUserData['gender'] = $managerData['gender'];
         $managerUserData['nation'] = $managerData['nation'];
@@ -104,7 +104,8 @@ class SchoolController extends Controller
 
         $manager = User::create($managerUserData); 
         return response()->json([
-            'msg' => 1
+            'msg' => 1,
+            'id' => $manager->id
         ], 201);
     }
 
@@ -113,7 +114,7 @@ class SchoolController extends Controller
             'name'=>$request->name,
             'phoneNumber'=>$request->phoneNumber,
             'password'=>bcrypt($request->password),
-            'avatar'=>$request->imgUrl,
+            'avatar'=>$request->avatar,
             'gender'=>$request->gender,
             'nation'=>$request->nation,
             'cardNum'=>$request->cardNum,
@@ -128,7 +129,8 @@ class SchoolController extends Controller
 
     public function getManager(Request $request){
         $schoolId = $request->id;
-        $managerList = User::where([['schoolId', '=', $request->id]])->where([['roleId', '=', 2]])->get();
+        $managerList = User::select('avatar', 'cardNum', 'familyAddress', 'gender', 'id', 'name', 'nation', 'phoneNumber', 'residenceAddress', 'roleId', 'schoolId', 'status')
+            ->where([['schoolId', '=', $request->id]])->where([['roleId', '=', 2]])->get();
         return response()->json([
             'managerList' => $managerList
         ], 200);

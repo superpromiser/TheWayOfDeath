@@ -16,6 +16,12 @@ a{
     height: 120px;
 }
 
+.school-manager-img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
 .login-bg { 
     height: 100%;
     background-image: url(../img/login.jpg);

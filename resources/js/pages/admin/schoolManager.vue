@@ -89,11 +89,11 @@
                       </v-row>
                       <v-row class=" align-center">
                         <v-col cols="12" md="4" sm="6" class="d-flex justify-center">
-                            <v-avatar v-if="editedItem.name !== '' && editedItem.imgUrl == ''" color="primary" size="127" tile>
+                            <v-avatar v-if="editedItem.name !== '' && editedItem.avatar == '/'" color="primary" size="127" tile>
                                 <span class="white--text headline">{{editedItem.name[0]}}</span>
                             </v-avatar>
-                            <img v-else-if="editedItem.name == '' && editedItem.imgUrl == ''" :src="`${baseUrl}/asset/img/icon/anonymous_avatar.png`" alt="UserAvatar" style="width:127px; height: 127px;">
-                            <img v-else-if="editedItem.imgUrl !== ''" :src="editedItem.imgUrl" alt="" style="width:127px; height: 127px;">
+                            <img v-else-if="editedItem.name == '' && editedItem.avatar == '/'" :src="`${baseUrl}/asset/img/icon/anonymous_avatar.png`" alt="UserAvatar" style="width:127px; height: 127px;">
+                            <img v-else-if="editedItem.avatar !== '/'" :src="editedItem.avatar" alt="" style="width:127px; height: 127px;">
                         </v-col>
                         <v-col cols="12" md="8" sm="6">
                             <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传学校图片" />
@@ -236,8 +236,15 @@
               </v-dialog>
             </v-toolbar>
           </template>
-          <template v-slot:[`item.imgUrl`]="{ item }">
-            <img :src="`${baseUrl}${item.imgUrl}`" alt="Logo" class="school-table-img">
+          <template v-slot:[`item.avatar`]="{ item }">
+            <img v-if="item.avatar !== '/'" :src="`${baseUrl}${item.avatar}`" alt="ManagerAvatar" class="school-manager-img">
+            <v-avatar v-else size="120" color="primary" > 
+              <span> {{item.name[0]}} </span>
+            </v-avatar>
+          </template>
+          <template v-slot:[`item.gender`]="{ item }">
+            <span v-if="item.gender == 'M'"> 男 </span>
+            <span v-else> 女 </span>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
               <v-icon
@@ -286,11 +293,11 @@ export default {
     headers: [
       { text: '号码', value: 'id', align: 'start', },
       { text: '人员姓名', value: 'name', sortable: false },
-      { text: '用户头像', value: 'imgUrl', sortable: false },
+      { text: '用户头像', value: 'avatar', sortable: false },
       { text: '电话号码', value: 'phoneNumber' },
-      { text: '性別', value: 'gender' },
-      { text: '民族', value: 'nation' },
-      { text: '身份证号', value: 'cardNum', sortable: false },
+      { text: '性別', value: 'gender', sortable: false },
+      { text: '民族', value: 'nation', sortable: false },
+      { text: '身份证号', value: 'cardNum'},
       { text: '学校地址', value: 'familyAddress', sortable: false },
       { text: '学校地址', value: 'residenceAddress', sortable: false },
       { text: '行动', value: 'actions', sortable: false },
@@ -328,7 +335,7 @@ export default {
             region : null,
             detail : '',
         },
-        imgUrl : '',
+        avatar : '/',
     },
       
     defaultItem: {
@@ -350,7 +357,7 @@ export default {
             region : null,
             detail : '',
         },
-        imgUrl : '',
+        avatar : '/',
     },
     provinceListJsonArr:[],
     madeJsonFromString : [],
@@ -422,9 +429,10 @@ export default {
       .then((res) => {
         this.schoolManagerData = res.data.managerList;
         for(let i = 0 ; i < this.schoolManagerData.length ; i++){
-          let clonedVal = JSON.parse(JSON.stringify(this.schoolManagerData[i]));
+          let clonedVal = Object.assign({}, this.schoolManagerData[i])
           this.schoolManagerListRaw.push(clonedVal); 
-          this.schoolManagerData[i].address = this.convertAddress(this.schoolManagerData[i].address);
+          this.schoolManagerData[i].familyAddress = this.convertAddress(this.schoolManagerData[i].familyAddress);
+          this.schoolManagerData[i].residenceAddress = this.convertAddress(this.schoolManagerData[i].residenceAddress);
         }
         this.isLoadingSchoolData = false;
       }).catch((err) => {
@@ -447,7 +455,8 @@ export default {
       editItem (item) {
         this.editedIndex = this.schoolManagerData.indexOf(item)
         this.editedItem = Object.assign({}, item)
-        this.editedItem.address = JSON.parse(this.schoolManagerListRaw[this.editedIndex].address)
+        this.editedItem.familyAddress = JSON.parse(this.schoolManagerListRaw[this.editedIndex].familyAddress)
+        this.editedItem.residenceAddress = JSON.parse(this.schoolManagerListRaw[this.editedIndex].residenceAddress)
         this.dialog = true
       },
 
@@ -494,18 +503,24 @@ export default {
       async save () {
         //update schoolManagerData
         if (this.editedIndex > -1) {
-        //   this.isCreatingSchool = true;
-        //   await updateSchool(this.editedItem)
-        //   .then((res) => {
-        //     this.isCreatingSchool = false;
-        //     if(res.data.msg == 1){
-        //       this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
-        //       Object.assign(this.schoolManagerData[this.editedIndex], this.editedItem)
-        //     }
-        //   }).catch((err) => {
-        //     this.isCreatingSchool = false;
-        //     console.log(err)            
-        //   });
+          this.isCreatingSchool = true;
+          await updateSchoolManager(this.editedItem)
+          .then((res) => {
+            this.isCreatingSchool = false;
+            if(res.data.msg == 1){
+              let clonedVal = Object.assign({}, this.editedItem);
+              clonedVal.familyAddress = JSON.stringify(clonedVal.familyAddress);
+              clonedVal.residenceAddress = JSON.stringify(clonedVal.residenceAddress);
+              this.schoolManagerListRaw.push(clonedVal);
+
+              this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
+              this.editedItem.residenceAddress = this.convertAddress(JSON.stringify(this.editedItem.residenceAddress))
+              Object.assign(this.schoolManagerData[this.editedIndex], this.editedItem)
+            }
+          }).catch((err) => {
+            this.isCreatingSchool = false;
+            console.log(err)            
+          });
         } 
         //save schoolManagerData
         else {
@@ -518,9 +533,19 @@ export default {
             await createSchoolManager(payload)
             .then((res) => {
                 console.log(res.data);
+                console.log("this.schoolManagerListRaw", this.schoolManagerListRaw)
                 this.isCreatingSchool = false;
                 this.editedItem.id = res.data.id;
-                this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
+
+                //push data to schoolManagerDataLaw
+                let clonedItem = Object.assign({}, this.editedItem);
+                clonedItem.familyAddress = JSON.stringify(clonedItem.familyAddress)
+                clonedItem.residenceAddress = JSON.stringify(clonedItem.residenceAddress)
+                this.schoolManagerListRaw.push(clonedItem);
+
+                //push data to used schoolManagerData
+                this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
+                this.editedItem.residenceAddress = this.convertAddress(JSON.stringify(this.editedItem.residenceAddress))
                 this.schoolManagerData.push(this.editedItem);
             }).catch((err) => {
                 console.log(err)
@@ -577,12 +602,12 @@ export default {
         },
 
       upImgUrl(value) {
-        this.editedItem.imgUrl = value;
-        console.log(this.editedItem.imgUrl);
+        this.editedItem.avatar = value;
+        console.log(this.editedItem.avatar);
       },
       clearedImg(){
-        this.editedItem.imgUrl = ''
-        console.log(this.editedItem.imgUrl);
+        this.editedItem.avatar = ''
+        console.log(this.editedItem.avatar);
       },
       convertAddress(address){
         address = JSON.parse(address);
