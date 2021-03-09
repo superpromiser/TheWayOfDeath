@@ -471,7 +471,7 @@ export default {
           id : this.editedItem.id
         }
         this.isDeleteSchool = true;
-        await deleteSchool(payload)
+        await deleteSchoolManager(payload)
         .then((res) => {
           if(res.data.msg == 1){
             this.schoolManagerData.splice(this.editedIndex, 1)
