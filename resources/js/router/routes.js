@@ -20,6 +20,7 @@ export default [
   { path: '/admin/grade', name: 'admin.grade', component: page('admin/grade.vue') },
   { path: '/admin/imei', name: 'admin.imei', component: page('admin/imei.vue') },
   { path: '/admin/school', name: 'admin.school', component: page('admin/school.vue') },
+  { path: '/admin/school/:id/manager', name: 'admin.manager', component: page('admin/schoolManager.vue'), props:true },
   { path: '/admin/stream', name: 'admin.stream', component: page('admin/stream.vue') },
   { path: '/admin/userlist', name: 'admin.userlist', component: page('admin/userList.vue') },
 

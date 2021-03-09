@@ -2,6 +2,11 @@
 html{
     overflow-y: auto!important;
 }
+
+a{
+    text-decoration: none!important;
+}
+
 .logo-img {
     width: 150px;
 }

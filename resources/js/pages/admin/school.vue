@@ -202,6 +202,16 @@
             >
               View school data
             </v-btn>
+            <router-link :to="{path:`/admin/school/${item.id}/manager`}">
+              <v-btn
+                outlined
+                small
+                class="mt-3"
+                color="indigo"
+              >
+                View manager data
+              </v-btn>
+            </router-link>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
               <v-icon
@@ -509,7 +519,9 @@ export default {
         this.indroduceDialog = true;
       },
 
-
+      // navigateToManagerData(id){
+        
+      // }
     },
   }
 </script>
