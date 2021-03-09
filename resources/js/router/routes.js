@@ -23,6 +23,25 @@ export default [
   { path: '/admin/school/:id/manager', name: 'admin.manager', component: page('admin/schoolManager.vue'), props:true },
   { path: '/admin/stream', name: 'admin.stream', component: page('admin/stream.vue') },
   { path: '/admin/userlist', name: 'admin.userlist', component: page('admin/userList.vue') },
+  
+  
+  //schoolspace
+  {
+    path:'/schoolspace/:id',
+    component: page('school/schoolSpace.vue'),
+    children:[
+      {path:'',redirect:{name: 'schoolSpace.news'}},
+      {path:'news', name:'schoolSpace.news',component:page('school/news.vue')},
+      {path:'application', name:'schoolSpace.application',component:page('school/application.vue')},
+      {path:'member', name:'schoolSpace.member',component:page('school/member.vue')},
+    ]
+  },
+  
+  {path:'/schoolspace/:id/post', name:'schoolSpace.post', component:page('school/posts/index.vue'),
+    children:[
+      {path:'questionnaire', name:'posts.questionnaire', component:page('school/posts/newQuestionniare.vue')},
+    ]
+  },
 
   { path: '/settings',
     component: page('settings/index.vue'),
