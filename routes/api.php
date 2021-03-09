@@ -43,6 +43,20 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('school/manager','SchoolController@updateManager')->name('updateManager');
     Route::delete('school/manager','SchoolController@removeManager')->name('removeManager');
 
+    //grade
+    Route::get('grade','GradeController@getGrade')->name('getGrade');
+    Route::post('grade','GradeController@createGrade')->name('createGrade');
+    Route::put('grade','GradeController@updateGrade')->name('updateGrade');
+    Route::delete('grade','GradeController@deleteGrade')->name('deleteGrade');
+    Route::get('schoolName','GradeController@getSchoolName')->name('getSchoolName');
+
+    //class
+    Route::get('class','LessonController@getLesson')->name('getLesson');
+    Route::post('class','LessonController@createLesson')->name('createLesson');
+    Route::put('class','LessonController@updateLesson')->name('updateLesson');
+    Route::delete('class','LessonController@deleteLesson')->name('deleteLesson');
+    Route::get('gradeName','LessonController@getGradeName')->name('getGradeName');
+    
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

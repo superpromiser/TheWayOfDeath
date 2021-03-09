@@ -197,7 +197,6 @@
     },
 
     created () {
-      console.log("|!!!!!!");
       this.initialize()
     },
 
@@ -261,6 +260,8 @@
           console.log(this.editedItem)
           await createUserRole(this.editedItem).then(res=>{
             console.log('--------',res)
+            res.data.created_at = this.TimeView(res.data.created_at)
+            this.editedItem = res.data
             this.userRoleList.push(this.editedItem)
           }).catch(err=>{
             console.log(err)
