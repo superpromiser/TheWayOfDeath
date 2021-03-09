@@ -508,11 +508,12 @@ export default {
           .then((res) => {
             this.isCreatingSchool = false;
             if(res.data.msg == 1){
+              //update schoolManagerData LAW
               let clonedVal = Object.assign({}, this.editedItem);
               clonedVal.familyAddress = JSON.stringify(clonedVal.familyAddress);
               clonedVal.residenceAddress = JSON.stringify(clonedVal.residenceAddress);
               this.schoolManagerListRaw.push(clonedVal);
-
+              //update schoolManagerData
               this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
               this.editedItem.residenceAddress = this.convertAddress(JSON.stringify(this.editedItem.residenceAddress))
               Object.assign(this.schoolManagerData[this.editedIndex], this.editedItem)
