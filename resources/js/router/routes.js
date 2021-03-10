@@ -37,12 +37,13 @@ export default [
     ]
   },
   
-  {path:'/schoolspace/:id/post', component:page('school/posts/index.vue'),
+  {path:'/schoolspace/:id/post', name:'schoolSpace.post', component:page('school/posts/index.vue'),
     children:[
-      {path:'questionnaire', name:'posts.questionnaire', component:page('school/posts/newQuestionnaire.vue')},
     ]
   },
 
+  {path:'/schoolspace/:id/post/questionnaire', name:'posts.questionnaire', component:page('school/posts/newQuestionnaire.vue')},
+  
   { path: '/settings',
     component: page('settings/index.vue'),
     children: [
