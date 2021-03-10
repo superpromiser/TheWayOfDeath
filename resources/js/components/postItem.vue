@@ -13,14 +13,16 @@
                 <v-card-subtitle v-text="item.detail"></v-card-subtitle>
 
                 <v-card-actions>
-                    <v-btn
-                    class="ml-2 mt-5"
-                    outlined
-                    rounded
-                    small
-                    >
-                    START RADIO
-                    </v-btn>
+                    <router-link :to="{path:`/schoolspace/${currentId}/post/${item.path}`}">
+                        <v-btn
+                            class="ml-2 mt-5"
+                            outlined
+                            rounded
+                            small
+                        >
+                            发布
+                        </v-btn>
+                    </router-link>
                 </v-card-actions>
             </div>
 
@@ -37,8 +39,14 @@
 <script>
 export default {
     props: {
-        item : Object,
-        required : true
+        item : {
+            type : Object,
+            required : true
+        },
+        currentId : {
+            type : Number,
+            required : true
+        }
     },
     
     data: () => ({
@@ -46,8 +54,11 @@ export default {
     }),
 
     created() {
-        console.log(`${this.baseUrl}${this.item.imgUrl}`)
+    },
+
+    methods : {
     }
+
 }
 </script>
 

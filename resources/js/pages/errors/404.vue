@@ -1,19 +1,29 @@
 <template>
-  <card class="text-center">
-    <h3 class="mb-4">
-      {{ $t('page_not_found') }}
+  <v-container class="text-center">
+    <h3 class="my-4 primary--text">
+      Page Not Found 🤷‍♂️
     </h3>
+    <img :src="`${baseUrl}/asset/img/404Gif.gif`" alt="404" class="">
 
     <div class="links">
       <router-link :to="{ name: 'welcome' }">
-        {{ $t('go_home') }}
+        <v-btn
+          class="ma-2"
+          color="light-green darken-1"
+          dark
+        >
+          Go Home
+        </v-btn>
       </router-link>
     </div>
-  </card>
+  </v-container >
 </template>
 
 <script>
 export default {
-  name: 'NotFound'
+  name: 'NotFound',
+  data: () => ({
+    baseUrl:window.Laravel.base_url,
+  }),
 }
 </script>

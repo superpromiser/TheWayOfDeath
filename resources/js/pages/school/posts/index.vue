@@ -15,7 +15,7 @@
                 </v-chip>
             </v-col>
             <v-col v-for="(item, j) in itemGroup.items" :key="j" cols="12" sm="6" md="4" lg="3">
-                <PostItem :item="item"/>
+                <PostItem :item="item" :currentId="currentSchoolId"/>
             </v-col>
         </v-row>
         <!-- <transition name="fade" mode="out-in">
@@ -25,12 +25,26 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PostItem from '~/components/postItem'
 export default {
     components:{
         PostItem,
     },
+
+    computed: {
+        ...mapGetters({
+            
+        }),
+        currentPath(){
+            return this.$route
+        },
+    },
+    created(){
+        this.currentSchoolId = parseInt(this.currentPath.params.id)
+    },
     data: () => ({
+        currentSchoolId : -1,
         contentItemList : [
             {
                 title : "基础沟通",
@@ -39,31 +53,36 @@ export default {
                         color : "lime darken-4",
                         title : "问卷",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/问卷 拷贝.png"
+                        imgUrl : "/asset/img/icon/问卷 拷贝.png",
+                        path : "questionnaire"
                     },
                     {
                         color : "lime darken-4",
                         title : "投票",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/投票.png"
+                        imgUrl : "/asset/img/icon/投票.png",
+                        path : "something"
                     },
                     {
                         color : "lime darken-4",
                         title : "短信",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/短信 拷贝.png"
+                        imgUrl : "/asset/img/icon/短信 拷贝.png",
+                        path : "something"
                     },
                     {
                         color : "indigo accent-2",
                         title : "校园动态",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/动态 拷贝.png"
+                        imgUrl : "/asset/img/icon/动态 拷贝.png",
+                        path : "something"
                     },
                     {
                         color : "lime darken-4",
                         title : "公告",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/公告 拷贝.png"
+                        imgUrl : "/asset/img/icon/公告 拷贝.png",
+                        path : "something"
                     },
                 ],
             },
@@ -74,13 +93,15 @@ export default {
                         color : "indigo accent-2",
                         title : "布告栏",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/布告栏 拷贝.png"
+                        imgUrl : "/asset/img/icon/布告栏 拷贝.png",
+                        path : "something"
                     },
                     {
                         color : "red accent-3",
                         title : "考勤",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/考勤.png"
+                        imgUrl : "/asset/img/icon/考勤.png",
+                        path : "something"
                     },
                 ],
             },
@@ -91,19 +112,22 @@ export default {
                         color : "teal darken-4",
                         title : "作业",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/作业 拷贝.png"
+                        imgUrl : "/asset/img/icon/作业 拷贝.png",
+                        path : "something"
                     },
                     {
                         color : "lime darken-4",
                         title : "习题",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/习题.png"
+                        imgUrl : "/asset/img/icon/习题.png",
+                        path : "something"
                     },
                     {
                         color : "teal darken-4",
                         title : "家访",
                         detail : "detail",
-                        imgUrl : "/asset/img/icon/家访 拷贝.png"
+                        imgUrl : "/asset/img/icon/家访 拷贝.png",
+                        path : "something"
                     },
                 ],
             },

@@ -3,7 +3,7 @@
     <v-row>
       <v-col v-for="(schoolItem, i) in schoolData" :key="i" cols="12" md="4" sm="6">
         <v-card>
-          <v-img :src="`${baseUrl}${schoolItem.imgUrl}`" alt="school" ></v-img>
+          <v-img :src="`${baseUrl}${schoolItem.imgUrl}`" alt="school" class="school-card-img"></v-img>
           <v-card-title>{{schoolItem.schoolName}}</v-card-title>
           <v-card-text>
             <v-row
