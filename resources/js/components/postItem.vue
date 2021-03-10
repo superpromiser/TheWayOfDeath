@@ -18,7 +18,7 @@
                             class="ml-2 mt-5"
                             outlined
                             rounded
-                            small
+                            large
                         >
                             发布
                         </v-btn>
