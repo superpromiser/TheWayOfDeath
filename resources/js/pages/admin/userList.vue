@@ -2,23 +2,23 @@
     <v-container>
         <v-row>
             <v-col cols="4">
-                <router-link to="#">
+                <router-link to="/admin/userlist/teacher">
                     <v-btn block>
-                        something
+                        teacher
                     </v-btn>
                 </router-link>
             </v-col>
             <v-col cols="4">
-                <router-link to="#">
+                <router-link to="/admin/userlist/parent">
                     <v-btn block>
-                        something
+                        parent
                     </v-btn>
                 </router-link>
             </v-col>
             <v-col cols="4">
-                <router-link to="#">
+                <router-link to="/admin/userlist/student">
                     <v-btn block>
-                        something
+                        student
                     </v-btn>
                 </router-link>
             </v-col>
