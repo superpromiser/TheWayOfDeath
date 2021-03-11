@@ -14,7 +14,7 @@
             <v-toolbar
                 flat
             >
-              <v-toolbar-title><strong>家长名单</strong></v-toolbar-title>
+              <v-toolbar-title><strong>学生名单</strong></v-toolbar-title>
               <v-divider
               class="mx-4"
               inset
