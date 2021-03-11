@@ -25,7 +25,6 @@ class UserController extends Controller
         $staffData['nation'] = $request->nation;
         $staffData['cardNum'] = $request->cardNum;
         $staffData['roleId'] = $request->roleId;
-        $staffData['isActived'] = 0;
         $staffData['familyAddress'] = json_encode($request->familyAddress);
         $staffData['residenceAddress'] = json_encode($request->residenceAddress);
         $manager = User::create($staffData);
@@ -74,7 +73,6 @@ class UserController extends Controller
         $studentData['introduce'] = $request->introduce;
         $studentData['birthday'] = new DateTime($request->birthday);
         $studentData['roleId'] = 5;
-        $studentData['isActived'] = 0;
         $studentData['familyAddress'] = json_encode($request->familyAddress);
         $student = User::create($studentData);
 

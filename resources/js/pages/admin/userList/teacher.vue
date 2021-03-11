@@ -442,20 +442,18 @@ export default {
 
       }
       this.isLoadingSchoolData = true;
-      this.schoolId = this.currentPath.params.id;
-      let payload = {
-        params : {
-            id:this.schoolId
-        }   
-      }
-      getSchoolManager(payload)
+      getStaff()
       .then((res) => {
-        this.schoolManagerData = res.data.managerList;
+        res.data.map( x => {
+            if(x.roleId == 3){
+                this.schoolManagerData.push(x);
+            }
+        })
         for(let i = 0 ; i < this.schoolManagerData.length ; i++){
-          let clonedVal = Object.assign({}, this.schoolManagerData[i])
-          this.schoolManagerListRaw.push(clonedVal); 
-          this.schoolManagerData[i].familyAddress = this.convertAddress(this.schoolManagerData[i].familyAddress);
-          this.schoolManagerData[i].residenceAddress = this.convertAddress(this.schoolManagerData[i].residenceAddress);
+            let clonedVal = Object.assign({}, this.schoolManagerData[i])
+            this.schoolManagerListRaw.push(clonedVal); 
+            this.schoolManagerData[i].familyAddress = this.convertAddress(this.schoolManagerData[i].familyAddress);
+            this.schoolManagerData[i].residenceAddress = this.convertAddress(this.schoolManagerData[i].residenceAddress);
         }
         this.isLoadingSchoolData = false;
       }).catch((err) => {
@@ -657,7 +655,7 @@ export default {
         console.log(this.editedItem.avatar);
       },
       clearedImg(){
-        this.editedItem.avatar = ''
+        this.editedItem.avatar = '/'
         console.log(this.editedItem.avatar);
       },
       convertAddress(address){

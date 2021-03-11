@@ -170,7 +170,6 @@ export default {
   },
   
   mounted() {
-    console.log("userrole", this.user);
   },
 
   data: () => ({
