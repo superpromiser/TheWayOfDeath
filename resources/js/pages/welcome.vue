@@ -219,16 +219,16 @@ export default {
       };
       await loginApi(payload)
         .then(res=>{
-          console.log(res)
+         
           this.isLogging = false;
           // Save the token.
           this.$store.dispatch('auth/saveToken', {
             token: res.data.token,
             remember: this.remember
           })
-
+          console.log("!!!",res.data.user)
           // Fetch the user.
-          this.$store.dispatch('auth/fetchUser')
+          this.$store.dispatch('auth/saveUserState', res.data.user)
           
           // Redirect home.
           this.$router.push({ name: 'home' })

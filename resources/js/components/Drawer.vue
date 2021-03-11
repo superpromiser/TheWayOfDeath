@@ -162,6 +162,10 @@ export default {
     // ...mapActions(['toggledrawer/turnDrawer'])
   },
   
+  mounted() {
+    console.log("userrole", this.user);
+  },
+
   data: () => ({
     admins: [
         ['Management', 'mdi-account-multiple-outline'],
