@@ -91,7 +91,8 @@
                                 :items="classSelectionItem"
                                 item-text="lessonName"
                                 item-value="lessonId"
-                                label="--省--"
+                                @change="selectedLesson"
+                                label="班级"
                             ></v-select>
                         </v-col>
                       </v-row>
@@ -370,6 +371,9 @@ export default {
             detail : '',
         },
         avatar : '/',
+        roleId : null,
+        lessonId : null,
+        gradeId : null,
     },
     provinceListJsonArr:[],
     madeJsonFromString : [],
@@ -471,7 +475,6 @@ export default {
                 }
                 this.classSelectionItem.push(gradeObj)
                 grade.lessons.map( lesson => {
-                    console.log("@@@", lesson.id);
                     let lessonObj = {
                         lessonId : lesson.id,
                         gradeId : grade.id,
@@ -484,8 +487,6 @@ export default {
                 }
                 this.classSelectionItem.push(dividerObj)
             })
-                        
-            console.log(this.classSelectionItem);
       }).catch((err) => {
           console.log(err)
       });
@@ -688,9 +689,14 @@ export default {
         this.indroduceDialog = true;
       },
 
-      // navigateToManagerData(id){
-        
-      // }
+        selectedLesson(val){
+            this.editedItem.lessonId = val;
+            this.classSelectionItem.map( x => {
+                if( val == x.lessonId){
+                    this.editedItem.gradeId = x.gradeId;
+                }
+            } )
+        }
     },
   }
 </script>
