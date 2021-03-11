@@ -14,7 +14,7 @@
             <v-toolbar
                 flat
             >
-              <v-toolbar-title><strong>经理名单</strong></v-toolbar-title>
+              <v-toolbar-title><strong>老师名单</strong></v-toolbar-title>
               <v-divider
               class="mx-4"
               inset
@@ -35,14 +35,6 @@
                   >
                   添加
                   </v-btn>
-                  <router-link :to="{path:`/admin/school`}">
-                    <v-btn
-                      color="indigo"
-                      dark
-                    >
-                      Go back to school list
-                    </v-btn>
-                  </router-link>
                 </template>
                 <v-card>
                   <v-card-title>
