@@ -14,7 +14,7 @@
             <v-toolbar
                 flat
             >
-              <v-toolbar-title><strong>老师名单</strong></v-toolbar-title>
+              <v-toolbar-title><strong>家长名单</strong></v-toolbar-title>
               <v-divider
               class="mx-4"
               inset
@@ -462,7 +462,6 @@ export default {
       });
       getSchoolTree()
       .then((res) => {
-            console.log("###",res.data);
             res.data.map( x => { 
                 if( x.id == this.user.schoolId){
                     this.managerSchoolData = x;
