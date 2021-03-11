@@ -23,14 +23,14 @@ class LessonController extends Controller
 
     public function createLesson(Request $request){
         $this->validate($request,[
-            'className'=>'required',
+            'lessonName'=>'required',
             'imgUrl'=>'required',
             'schoolId'=>'required',
             'gradeId'=>'required'
             ]);
 
         $lesson = Lesson::create([
-            'lessonName'=>$request->className,
+            'lessonName'=>$request->lessonName,
             'imgUrl'=>$request->imgUrl,
             'schoolId'=>$request->schoolId,
             'gradeId'=>$request->gradeId
@@ -45,13 +45,13 @@ class LessonController extends Controller
     public function updateLesson(Request $request){
         $this->validate($request,[
             'id'=>'required',
-            'className'=>'required',
+            'lessonName'=>'required',
             'imgUrl'=>'required',
             'schoolId'=>'required',
             'gradeId'=>'required'
             ]);
         Lesson::where('id',$request->id)->update([
-            'clasName'=>$request->className,
+            'clasName'=>$request->lessonName,
             'imgUrl'=>$request->imgUrl,
             'schoolId'=>$request->schoolId,
             'gradeId'=>$request->gradeId

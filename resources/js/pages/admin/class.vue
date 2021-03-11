@@ -61,7 +61,7 @@
                           </v-col>
                           <v-col cols="12" sm="6" md="4" >
                             <v-text-field
-                            v-model="editedItem.className"
+                            v-model="editedItem.lessonName"
                             label="机构名称"
                             ></v-text-field>
                           </v-col>
@@ -176,7 +176,7 @@
         schoolName:'',
         gradeId:'',
         gradeName:'',
-        className:'',
+        lessonName:'',
       },
       defaultItem: {
         id:0,
@@ -185,7 +185,7 @@
         schoolName:'',
         gradeId:'',
         gradeName:'',
-        className:'',
+        lessonName:'',
       },
     }),
 
@@ -225,19 +225,20 @@
       },
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.classData.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        console.log(this.editedItem)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.classData.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.classData.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
