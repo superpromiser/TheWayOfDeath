@@ -462,7 +462,6 @@ export default {
       });
       getSchoolTree()
       .then((res) => {
-            console.log("###",res.data);
             res.data.map( x => { 
                 if( x.id == this.user.schoolId){
                     this.managerSchoolData = x;
