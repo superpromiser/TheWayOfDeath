@@ -53,6 +53,9 @@ export default [
   //Questionnaire
   {path:'/schoolspace/:id/post/questionnaire', name:'posts.questionnaire', component:page('school/posts/questionnaire/newQuestionnaire.vue')},
   
+  //Voting
+  {path:'/schoolspace/:id/post/voting', name:'posts.voting', component:page('school/posts/voting/new.vue')},
+  
   //setting
   { path: '/settings',
     component: page('settings/index.vue'),

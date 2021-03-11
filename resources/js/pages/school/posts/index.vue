@@ -61,7 +61,7 @@ export default {
                         title : "投票",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/投票.png",
-                        path : "something"
+                        path : "voting"
                     },
                     {
                         color : "lime darken-4",
