@@ -15,13 +15,23 @@ class UserRoleController extends Controller
 
     public function createUserRole(Request $request){
         $roleName = $request->roleName;
-        return UserRole::create(['roleName'=>$roleName]);
+        return UserRole::create(
+            [
+                'roleName'=>$roleName,
+                'permission'=>$request->permission
+            ]
+        );
     }
 
     public function updateUserRole(Request $request){
         $id = $request->id;
         $roleName = $request->roleName;
-        return UserRole::where('id',$id)->update(['roleName'=>$roleName]);
+        return UserRole::where('id',$id)->update(
+            [
+                'roleName'=>$roleName,
+                'permission'=>$request->permission
+            ]
+        );
     }
 
     public function deleteUserRole(Request $request){
