@@ -47,13 +47,13 @@
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.name"
-                            label="机构名称"
+                            label="人员姓名"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.phoneNumber"
-                            label="组织机构代码"
+                            label="电话号码"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
@@ -61,7 +61,7 @@
                                 v-model="editedItem.password"
                                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                                 :type="show1 ? 'text' : 'password'"
-                                label="固定电话"
+                                label="使用密码"
                                 @click:append="show1 = !show1"
                             ></v-text-field>
                         </v-col>
@@ -71,20 +71,28 @@
                             item-text="label"
                             item-value="value"
                             v-model="editedItem.gender"
-                            label="邮编"
+                            label="性別"
                             ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.nation"
-                            label="学校负责人"
+                            label="民族"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.cardNum"
-                            label="学校负责人"
+                            label="身份证号"
                             ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4" >
+                            <v-select
+                                :items="classSelectionItem"
+                                item-text="lessonName"
+                                item-value="lessonId"
+                                label="--省--"
+                            ></v-select>
                         </v-col>
                       </v-row>
                       <v-row class=" align-center">
@@ -272,9 +280,10 @@
 
 <script>
 
+import { mapGetters } from 'vuex'
 import cityListJson from '!!raw-loader!../cityLaw.txt';
 import UploadImage from '~/components/UploadImage';
-import { createSchoolManager, updateSchoolManager, getSchoolManager, deleteSchoolManager } from '~/api/school'
+import { createSchoolManager, updateSchoolManager, getSchoolManager, deleteSchoolManager, getSchoolTree } from '~/api/school'
 export default {
   components:{
     UploadImage,
@@ -336,6 +345,9 @@ export default {
             detail : '',
         },
         avatar : '/',
+        roleId : null,
+        lessonId : null,
+        gradeId : null,
     },
       
     defaultItem: {
@@ -371,6 +383,8 @@ export default {
     isDeleteSchool : false,
     schoolIntroduceData : '',
     schoolId : null,
+    managerSchoolData : {},
+    classSelectionItem : []
   }),
 
   computed: {
@@ -380,6 +394,9 @@ export default {
     currentPath(){
         return this.$route
     },
+    ...mapGetters({
+        user : 'auth/user'
+    }),
   },
 
     async created(){
@@ -438,6 +455,39 @@ export default {
       }).catch((err) => {
         console.log(err);
         this.isLoadingSchoolData = false;
+      });
+      getSchoolTree()
+      .then((res) => {
+            console.log("###",res.data);
+            res.data.map( x => { 
+                if( x.id == this.user.schoolId){
+                    this.managerSchoolData = x;
+                }
+            })
+            // classSelectionItem
+            this.managerSchoolData.grades.map( grade => {
+                let gradeObj = {
+                    header : grade.gradeName,
+                }
+                this.classSelectionItem.push(gradeObj)
+                grade.lessons.map( lesson => {
+                    console.log("@@@", lesson.id);
+                    let lessonObj = {
+                        lessonId : lesson.id,
+                        gradeId : grade.id,
+                        lessonName : lesson.lessonName,
+                    }
+                    this.classSelectionItem.push(lessonObj)
+                } )
+                let dividerObj = {
+                    divider : true
+                }
+                this.classSelectionItem.push(dividerObj)
+            })
+                        
+            console.log(this.classSelectionItem);
+      }).catch((err) => {
+          console.log(err)
       });
     },
 

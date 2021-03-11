@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::get('school/manager','SchoolController@getManager')->name('getManager');
     Route::put('school/manager','SchoolController@updateManager')->name('updateManager');
     Route::delete('school/manager','SchoolController@removeManager')->name('removeManager');
+    Route::get('school/tree','SchoolController@getSchoolTree')->name('getSchoolTree');
+
 
     //grade
     Route::get('grade','GradeController@getGrade')->name('getGrade');
