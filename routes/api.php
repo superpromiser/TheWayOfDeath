@@ -22,14 +22,17 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     //actions with UserController
     Route::post('users','UserController@createUser')->name('createUser');
     Route::post('addUsers','UserController@addUser')->name('addUser');
-    Route::post('addStaff','UserController@addStaff')->name('addStaff');
-    Route::put('addStaff','UserController@editStaff')->name('editStaff');
-    Route::post('addStudent','UserController@addStudent')->name('addStudent');
-    Route::put('addStudent','UserController@editStudent')->name('editStudent');
-    Route::get('studentBylessonId','UserController@getstudentBylessonId')->name('getstudentBylessonId');
-    Route::get('users','UserController@readUser')->name('readUser');
-    Route::get('student','UserController@readstudent')->name('readstudent');
+
     Route::get('staff','UserController@readstaff')->name('readstaff');
+    Route::post('staff','UserController@createStaff')->name('createStaff');
+    Route::put('staff','UserController@updateStaff')->name('updateStaff');
+
+    Route::get('student','UserController@readstudent')->name('readstudent');
+    Route::post('student','UserController@createStudent')->name('createStudent');
+    Route::put('student','UserController@updateStudent')->name('updateStudent');
+    Route::get('studentBylessonId','UserController@getstudentBylessonId')->name('getstudentBylessonId');
+    
+    Route::get('users','UserController@readUser')->name('readUser');
     Route::get('users/status','UserController@getStatus')->name('getStatus');
     Route::put('users','UserController@updateUser')->name('updateUser');
     Route::delete('users','UserController@deleteUser')->name('deleteUser');
