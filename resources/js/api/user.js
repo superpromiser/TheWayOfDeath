@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-//school API
+//staff API
 function createStaff(payload){
     return axios.post('/api/v1/staff', payload);
 }
@@ -10,6 +10,17 @@ function updateStaff(payload){
 }
 function getStaff(payload){
     return axios.get('/api/v1/staff', payload);
+}
+
+//student API
+function createStudent(payload){
+    return axios.post('/api/v1/student', payload);
+}
+function updateStudent(payload){
+    return axios.put('/api/v1/student', payload);
+}
+function getStudent(payload){
+    return axios.get('/api/v1/student', payload);
 }
 
 
@@ -23,6 +34,9 @@ export{
     createStaff,
     updateStaff,
     getStaff,
+    createStudent,
+    updateStudent,
+    getStudent,
     deleteUser,
     
 }

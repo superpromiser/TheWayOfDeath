@@ -95,6 +95,59 @@
                                 label="班级"
                             ></v-select>
                         </v-col>
+                        <v-col cols="12" sm="6" md="4" >
+                            <v-text-field
+                            v-model="editedItem.imei"
+                            label="IMEI"
+                            ></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4" >
+                            <v-menu
+                                v-model="menu2"
+                                transition="scale-transition"
+                                min-width="auto"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        v-model="editItem.birthday"
+                                        label="生日"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                v-model="editItem.birthday"
+                                @input="menu2 = false"
+                                @change="selectedBirthday"
+                                locale="zh-cn"
+                                ></v-date-picker>
+                            </v-menu>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                    v-model="editedItem.fatherName"
+                                    label="家长姓名"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                    v-model="editedItem.fatherPhone"
+                                    label="家长电话"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-select
+                                :items="fatherJobItem"
+                                item-text="label"
+                                item-value="value"
+                                v-model="editedItem.fatherJob"
+                                label="家长身份"
+                                ></v-select>
+                            </v-col>
                       </v-row>
                       <v-row class=" align-center">
                         <v-col cols="12" md="4" sm="6" class="d-flex justify-center">
@@ -143,6 +196,12 @@
                           v-model="editedItem.familyAddress.detail"
                           :disabled="willBeRegionDataOfFamilyAddress.length === 0"
                           label="详細地址"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-text-field
+                          v-model="editedItem.introduce"
+                          label="个人介绍"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -286,6 +345,23 @@ export default {
         },
         
     ],
+    fatherJobItem:[
+        { 
+            label : "农民", 
+            value : "farmer" 
+        },
+        { 
+            label : "工人", 
+            value : "worker" 
+        },
+        { 
+            label : "开发商", 
+            value : "developer" 
+        },
+        
+    ],
+    date: new Date().toISOString().substr(0, 10),
+    menu2 : false,
     schoolManagerData: [],
     schoolManagerListRaw : [],
     editedIndex: -1,
@@ -529,27 +605,26 @@ export default {
         //save schoolManagerData
         else {
             console.log("this.editedItem", this.editedItem);
-            this.editedItem.roleId = 4;
-            this.isCreatingSchool = true;
-            await createStaff(this.editedItem)
-            .then((res) => {
-                console.log(res.data);
-                console.log("this.schoolManagerListRaw", this.schoolManagerListRaw)
-                this.isCreatingSchool = false;
-                this.editedItem.id = res.data.id;
+            // this.isCreatingSchool = true;
+            // await createStaff(this.editedItem)
+            // .then((res) => {
+            //     console.log(res.data);
+            //     console.log("this.schoolManagerListRaw", this.schoolManagerListRaw)
+            //     this.isCreatingSchool = false;
+            //     this.editedItem.id = res.data.id;
 
-                //push data to schoolManagerDataLaw
-                let clonedItem = Object.assign({}, this.editedItem);
-                clonedItem.familyAddress = JSON.stringify(clonedItem.familyAddress)
-                this.schoolManagerListRaw.push(clonedItem);
+            //     //push data to schoolManagerDataLaw
+            //     let clonedItem = Object.assign({}, this.editedItem);
+            //     clonedItem.familyAddress = JSON.stringify(clonedItem.familyAddress)
+            //     this.schoolManagerListRaw.push(clonedItem);
 
-                //push data to used schoolManagerData
-                this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
-                this.schoolManagerData.push(this.editedItem);
-            }).catch((err) => {
-                console.log(err)
-                this.isCreatingSchool = false;
-            });
+            //     //push data to used schoolManagerData
+            //     this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
+            //     this.schoolManagerData.push(this.editedItem);
+            // }).catch((err) => {
+            //     console.log(err)
+            //     this.isCreatingSchool = false;
+            // });
         }
         this.close()
       },
@@ -621,6 +696,10 @@ export default {
                     this.editedItem.gradeId = x.gradeId;
                 }
             } )
+        },
+
+        selectedBirthday(val){
+            this.editedItem.birthday = val;
         }
     },
   }
