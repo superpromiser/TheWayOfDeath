@@ -56,6 +56,22 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('class','LessonController@updateLesson')->name('updateLesson');
     Route::delete('class','LessonController@deleteLesson')->name('deleteLesson');
     Route::get('gradeName','LessonController@getGradeName')->name('getGradeName');
+
+    //actions with member table
+    Route::get('grade','MemberController@getGrade')->name('getGrade');
+
+    Route::get('gradeClass','MemberController@getGradeClass')->name('getGradeClass');
+
+    Route::get('getGrade','MemberController@getGrade')->name('getGrade');
+    Route::get('getLesson','MemberController@getLesson')->name('getLesson');
+    Route::get('surveySchool','MemberController@getSurveySchool');
+    Route::get('surveyGrade','MemberController@getSurveyGrade');
+    Route::get('surveyLesson','MemberController@getSurveyLesson');
+    Route::get('lessonMember','MemberController@getLessonMember');
+    Route::post('member','MemberController@addMember');
+    Route::delete('member','MemberController@removeMember');
+    Route::get('classMember','MemberController@getContacts');
+
     
 });
 
