@@ -19,7 +19,7 @@ class UserController extends Controller
         $staffData['name'] = $request->name;
         $staffData['phoneNumber'] = $request->phoneNumber;
         $staffData['password'] = bcrypt($request->password);
-        $staffData['userAvatar'] = $request->imgUrl;
+        $staffData['avatar'] = $request->avatar;
         $staffData['schoolId'] = $schoolId;
         $staffData['gender'] = $request->gender;
         $staffData['nation'] = $request->nation;
@@ -45,7 +45,7 @@ class UserController extends Controller
             'name'=>$request->name,
             'phoneNumber'=>$request->phoneNumber,
             'password'=>bcrypt($request->password),
-            'userAvatar'=>$request->userAvatar,
+            'avatar'=>$request->avatar,
             'gender'=>$request->gender,
             'cardNum'=>$request->cardNum,
             'nation'=>$request->nation,
@@ -63,7 +63,7 @@ class UserController extends Controller
         $studentData['name'] = $request->name;
         $studentData['phoneNumber'] = $request->phoneNumber;
         $studentData['password'] = bcrypt($request->password);
-        $studentData['userAvatar'] = $request->imgUrl;
+        $studentData['avatar'] = $request->avatar;
         $studentData['schoolId'] = $schoolId;
         $studentData['gender'] = $request->gender;
         $studentData['cardNum'] = $request->cardNum;
@@ -93,7 +93,7 @@ class UserController extends Controller
             'name'=>$request->name,
             'phoneNumber'=>$request->phoneNumber,
             'password'=>bcrypt($request->password),
-            'userAvatar'=>$request->userAvatar,
+            'avatar'=>$request->avatar,
             'gender'=>$request->gender,
             'cardNum'=>$request->cardNum,
             'imei'=>$request->imei,
@@ -230,9 +230,9 @@ class UserController extends Controller
             return response()->json([
                 'msg'=> 1,
             ]);
-        }else if($request->userAvatar){
-            $userAvatar = $request->userAvatar;
-            $data = User::where('id',$userId)->update(['userAvatar'=>$userAvatar]);
+        }else if($request->avatar){
+            $avatar = $request->avatar;
+            $data = User::where('id',$userId)->update(['avatar'=>$avatar]);
         }else if($request->faceImg){
             $faceImg = $request->faceImg;
             $data = User::where('id',$userId)->update(['faceImg'=>$faceImg]);
