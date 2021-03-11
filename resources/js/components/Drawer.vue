@@ -46,6 +46,7 @@
           <v-list-item
             link
             to="/admin/userlist"
+            v-if="user.role.roleName == 'manager'"
             >
             <v-list-item-title>名单</v-list-item-title>
             <v-list-item-icon>
@@ -55,6 +56,7 @@
           <v-list-item
             link
             to="/admin/assignRole"
+            v-if="user.role.roleName == 'admin'"
             >
             <v-list-item-title>角色</v-list-item-title>
             <v-list-item-icon>
@@ -64,6 +66,7 @@
           <v-list-item
             link
             to="/admin/school"
+            v-if="user.role.roleName == 'admin'"
             >
             <v-list-item-title>学校</v-list-item-title>
             <v-list-item-icon>
@@ -73,6 +76,7 @@
           <v-list-item
             link
             to="/admin/grade"
+            v-if="user.role.roleName == 'admin'"
             >
             <v-list-item-title>创建年级</v-list-item-title>
             <v-list-item-icon>
@@ -82,6 +86,7 @@
           <v-list-item
             link
             to="/admin/class"
+            v-if="user.role.roleName == 'admin'"
             >
             <v-list-item-title>班级</v-list-item-title>
             <v-list-item-icon>
@@ -91,6 +96,7 @@
           <v-list-item
             link
             to="/admin/stream"
+            v-if="user.role.roleName == 'manager'"
             >
             <v-list-item-title>stream</v-list-item-title>
             <v-list-item-icon>
@@ -100,6 +106,7 @@
           <v-list-item
             link
             to="/admin/imei"
+            v-if="user.role.roleName == 'manager'"
             >
             <v-list-item-title>IMEI管理</v-list-item-title>
             <v-list-item-icon>
