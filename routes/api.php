@@ -62,7 +62,6 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     Route::get('gradeClass','MemberController@getGradeClass')->name('getGradeClass');
 
-    Route::get('getGrade','MemberController@getGrade')->name('getGrade');
     Route::get('getLesson','MemberController@getLesson')->name('getLesson');
     Route::get('surveySchool','MemberController@getSurveySchool');
     Route::get('surveyGrade','MemberController@getSurveyGrade');
