@@ -24,6 +24,7 @@ export default [
   { path: '/admin/stream', name: 'admin.stream', component: page('admin/stream.vue') },
   { path: '/admin/userlist', name: 'admin.userlist', component: page('admin/userList.vue'),
     children : [
+      {path:'',redirect:{name: 'userlist.teacher'}},
       {path:'teacher', name:'userlist.teacher',component:page('admin/userList/teacher.vue')},
       {path:'parent', name:'userlist.parent',component:page('admin/userList/parent.vue')},
       {path:'student', name:'userlist.student',component:page('admin/userList/student.vue')},
