@@ -284,7 +284,7 @@
 import { mapGetters } from 'vuex'
 import cityListJson from '!!raw-loader!../cityLaw.txt';
 import UploadImage from '~/components/UploadImage';
-import { createSchoolManager, updateSchoolManager, getSchoolManager, deleteSchoolManager, getSchoolTree } from '~/api/school'
+import { getSchoolTree } from '~/api/school'
 import { createStaff, updateStaff, getStaff, deleteUser } from '~/api/user'
 
 export default {
@@ -522,7 +522,7 @@ export default {
           id : this.editedItem.id
         }
         this.isDeleteSchool = true;
-        await deleteSchoolManager(payload)
+        await deleteUser(payload)
         .then((res) => {
           if(res.data.msg == 1){
             this.schoolManagerData.splice(this.editedIndex, 1)
@@ -555,7 +555,7 @@ export default {
         //update schoolManagerData
         if (this.editedIndex > -1) {
           this.isCreatingSchool = true;
-          await updateSchoolManager(this.editedItem)
+          await updateStaff(this.editedItem)
           .then((res) => {
             this.isCreatingSchool = false;
             if(res.data.msg == 1){

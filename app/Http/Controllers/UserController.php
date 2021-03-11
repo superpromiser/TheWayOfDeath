@@ -36,7 +36,10 @@ class UserController extends Controller
         $memberData['userRoleId'] = $request->roleId;
         $member = Member::create($memberData);
 
-        return $manager;
+        return response()->json([
+            'msg' => 1,
+            'id' => $manager->id
+        ], 201);
     }
 
     public function updateStaff(Request $request){
@@ -157,8 +160,10 @@ class UserController extends Controller
         $this->validate($request,[
             'id' => 'required'
         ]);
-        return User::where('id',$request->id)->delete();
-
+        User::where('id',$request->id)->delete();
+        return response()->json([
+            'msg' => 1
+        ], 200);
     }
 
     public function readContact(Request $request){

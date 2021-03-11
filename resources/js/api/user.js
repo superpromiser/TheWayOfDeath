@@ -14,7 +14,7 @@ function getStaff(payload){
 
 
 function deleteUser(payload){
-    return axios.delete('/api/v1/staff', {data : payload});
+    return axios.delete('/api/v1/users', {data : payload});
 }
 
 
