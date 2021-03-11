@@ -86,7 +86,10 @@ class UserController extends Controller
         $memberData['userRoleId'] = 5;
         $member = Member::create($memberData);
 
-        return $student;
+        return response()->json([
+            'msg' => 1,
+            'id' => $student->id
+        ], 201);
     }
 
     public function updateStudent(Request $request){

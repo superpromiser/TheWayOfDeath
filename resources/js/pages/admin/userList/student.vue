@@ -276,6 +276,11 @@
             <span v-if="item.gender == 'M'"> 男 </span>
             <span v-else> 女 </span>
           </template>
+          <template v-slot:[`item.fatherJob`]="{ item }">
+            <span v-if="item.fatherJob == 'farmer'"> 农民 </span>
+            <span v-else-if="item.fatherJob == 'worker'"> 工人 </span>
+            <span v-else-if="item.fatherJob == 'developer'"> 开发商 </span>
+          </template>
           <template v-slot:[`item.actions`]="{ item }">
               <v-icon
                   small
@@ -306,7 +311,7 @@ import { mapGetters } from 'vuex'
 import cityListJson from '!!raw-loader!../cityLaw.txt';
 import UploadImage from '~/components/UploadImage';
 import { getSchoolTree } from '~/api/school'
-import { createStaff, updateStaff, getStaff, deleteUser } from '~/api/user'
+import { createStudent, updateStudent, getStudent, deleteUser } from '~/api/user'
 
 export default {
   components:{
@@ -329,8 +334,11 @@ export default {
       { text: '用户头像', value: 'avatar', sortable: false },
       { text: '电话号码', value: 'phoneNumber' },
       { text: '性別', value: 'gender', sortable: false },
-      { text: '民族', value: 'nation', sortable: false },
+      { text: '民族', value: 'imei', sortable: false },
       { text: '身份证号', value: 'cardNum'},
+      { text: '家长姓名', value: 'fatherName', sortable: false },
+      { text: '家长电话', value: 'fatherPhone', sortable: false },
+      { text: '家长身份', value: 'fatherJob', sortable: false },
       { text: '学校地址', value: 'familyAddress', sortable: false },
       { text: '行动', value: 'actions', sortable: false },
     ],
@@ -370,7 +378,6 @@ export default {
         phoneNumber:'',
         password:'',
         gender:null,
-        nation : '',
         cardNum : '',
         familyAddress : {
             province : null,
@@ -394,7 +401,6 @@ export default {
         phoneNumber:'',
         password:'',
         gender:null,
-        nation : '',
         cardNum : '',
         familyAddress : {
             province : null,
@@ -475,13 +481,9 @@ export default {
 
       }
       this.isLoadingSchoolData = true;
-      getStaff()
+      getStudent()
       .then((res) => {
-        res.data.map( x => {
-            if(x.roleId == 4){
-                this.schoolManagerData.push(x);
-            }
-        })
+        this.schoolManagerData = res.data;
         for(let i = 0 ; i < this.schoolManagerData.length ; i++){
             let clonedVal = Object.assign({}, this.schoolManagerData[i])
             this.schoolManagerListRaw.push(clonedVal); 
@@ -585,7 +587,7 @@ export default {
         //update schoolManagerData
         if (this.editedIndex > -1) {
           this.isCreatingSchool = true;
-          await updateStaff(this.editedItem)
+          await updateStudent(this.editedItem)
           .then((res) => {
             this.isCreatingSchool = false;
             if(res.data.msg == 1){
@@ -605,26 +607,26 @@ export default {
         //save schoolManagerData
         else {
             console.log("this.editedItem", this.editedItem);
-            // this.isCreatingSchool = true;
-            // await createStaff(this.editedItem)
-            // .then((res) => {
-            //     console.log(res.data);
-            //     console.log("this.schoolManagerListRaw", this.schoolManagerListRaw)
-            //     this.isCreatingSchool = false;
-            //     this.editedItem.id = res.data.id;
+            this.isCreatingSchool = true;
+            await createStudent(this.editedItem)
+            .then((res) => {
+                console.log(res.data);
+                console.log("this.schoolManagerListRaw", this.schoolManagerListRaw)
+                this.isCreatingSchool = false;
+                this.editedItem.id = res.data.id;
 
-            //     //push data to schoolManagerDataLaw
-            //     let clonedItem = Object.assign({}, this.editedItem);
-            //     clonedItem.familyAddress = JSON.stringify(clonedItem.familyAddress)
-            //     this.schoolManagerListRaw.push(clonedItem);
+                //push data to schoolManagerDataLaw
+                let clonedItem = Object.assign({}, this.editedItem);
+                clonedItem.familyAddress = JSON.stringify(clonedItem.familyAddress)
+                this.schoolManagerListRaw.push(clonedItem);
 
-            //     //push data to used schoolManagerData
-            //     this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
-            //     this.schoolManagerData.push(this.editedItem);
-            // }).catch((err) => {
-            //     console.log(err)
-            //     this.isCreatingSchool = false;
-            // });
+                //push data to used schoolManagerData
+                this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
+                this.schoolManagerData.push(this.editedItem);
+            }).catch((err) => {
+                console.log(err)
+                this.isCreatingSchool = false;
+            });
         }
         this.close()
       },
