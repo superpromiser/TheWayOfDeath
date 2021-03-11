@@ -577,32 +577,33 @@ export default {
         //save schoolManagerData
         else {
             console.log("this.editedItem", this.editedItem);
-            this.isCreatingSchool = true;
-            let payload = {
-                managerData : this.editedItem,
-                schoolId : this.schoolId
-            }
-            await createSchoolManager(payload)
-            .then((res) => {
-                console.log(res.data);
-                console.log("this.schoolManagerListRaw", this.schoolManagerListRaw)
-                this.isCreatingSchool = false;
-                this.editedItem.id = res.data.id;
+            this.editedItem.roleId = 3;
+            // this.isCreatingSchool = true;
+            // let payload = {
+            //     managerData : this.editedItem,
+            //     schoolId : this.schoolId
+            // }
+            // await createSchoolManager(payload)
+            // .then((res) => {
+            //     console.log(res.data);
+            //     console.log("this.schoolManagerListRaw", this.schoolManagerListRaw)
+            //     this.isCreatingSchool = false;
+            //     this.editedItem.id = res.data.id;
 
-                //push data to schoolManagerDataLaw
-                let clonedItem = Object.assign({}, this.editedItem);
-                clonedItem.familyAddress = JSON.stringify(clonedItem.familyAddress)
-                clonedItem.residenceAddress = JSON.stringify(clonedItem.residenceAddress)
-                this.schoolManagerListRaw.push(clonedItem);
+            //     //push data to schoolManagerDataLaw
+            //     let clonedItem = Object.assign({}, this.editedItem);
+            //     clonedItem.familyAddress = JSON.stringify(clonedItem.familyAddress)
+            //     clonedItem.residenceAddress = JSON.stringify(clonedItem.residenceAddress)
+            //     this.schoolManagerListRaw.push(clonedItem);
 
-                //push data to used schoolManagerData
-                this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
-                this.editedItem.residenceAddress = this.convertAddress(JSON.stringify(this.editedItem.residenceAddress))
-                this.schoolManagerData.push(this.editedItem);
-            }).catch((err) => {
-                console.log(err)
-                this.isCreatingSchool = false;
-            });
+            //     //push data to used schoolManagerData
+            //     this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
+            //     this.editedItem.residenceAddress = this.convertAddress(JSON.stringify(this.editedItem.residenceAddress))
+            //     this.schoolManagerData.push(this.editedItem);
+            // }).catch((err) => {
+            //     console.log(err)
+            //     this.isCreatingSchool = false;
+            // });
         }
         this.close()
       },

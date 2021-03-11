@@ -16,8 +16,30 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('/logout', 'Auth\LoginController@logout');
 
+    //get current logged user
     Route::get('/user', 'Auth\UserController@current');
 
+    //actions with UserController
+    Route::post('users','UserController@createUser')->name('createUser');
+    Route::post('addUsers','UserController@addUser')->name('addUser');
+    Route::post('addStaff','UserController@addStaff')->name('addStaff');
+    Route::put('addStaff','UserController@editStaff')->name('editStaff');
+    Route::post('addStudent','UserController@addStudent')->name('addStudent');
+    Route::put('addStudent','UserController@editStudent')->name('editStudent');
+    Route::get('studentBylessonId','UserController@getstudentBylessonId')->name('getstudentBylessonId');
+    Route::get('users','UserController@readUser')->name('readUser');
+    Route::get('student','UserController@readstudent')->name('readstudent');
+    Route::get('staff','UserController@readstaff')->name('readstaff');
+    Route::get('users/status','UserController@getStatus')->name('getStatus');
+    Route::put('users','UserController@updateUser')->name('updateUser');
+    Route::delete('users','UserController@deleteUser')->name('deleteUser');
+    Route::post('/users/newVideoCount','UserController@newVideoCount')->name('newVideoCount');
+    Route::post('/users/newLiveCount','UserController@newLiveCount')->name('newLiveCount');
+
+    Route::post('search', 'UserController@search')->name('search');
+
+
+    //setting
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
     
