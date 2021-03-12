@@ -15,10 +15,11 @@ class UserRoleController extends Controller
 
     public function createUserRole(Request $request){
         $roleName = $request->roleName;
+        $permission = json_encode($request->permission);
         return UserRole::create(
             [
                 'roleName'=>$roleName,
-                'permission'=>$request->permission
+                'permission'=>$permission
             ]
         );
     }

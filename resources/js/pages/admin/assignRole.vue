@@ -67,6 +67,7 @@
                                         color="blue darken-1"
                                         text
                                         @click="save"
+                                        :loading="isCreating"
                                     >
                                         {{lang.save}}
                                     </v-btn>
@@ -164,6 +165,7 @@
       ],
       schoolSpaceMenu,
       lang,
+      isCreating : false,
     }),
 
     computed: {
@@ -240,6 +242,7 @@
       },
 
      async save () {
+       this.isCreating = true;
        console.log("this.editedIndex",this.editedIndex);
        console.log(this.editedItem)
         if(this.editedIndex > -1){
@@ -255,11 +258,13 @@
             console.log('--------',res)
             res.data.created_at = this.TimeView(res.data.created_at)
             this.editedItem = res.data
+            this.editedItem.permission = JSON.parse(this.editedItem.permission);
             this.userRoleList.push(this.editedItem)
           }).catch(err=>{
             console.log(err)
           })
         }
+        this.isCreating = false;
         this.close()
       },
     },

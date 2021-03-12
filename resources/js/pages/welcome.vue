@@ -203,6 +203,7 @@ export default {
     loginFailed : false,
     schoolData : {},
     schoolTree : [],
+    chooseableSchoolTree : [],
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
 
   }),
@@ -229,7 +230,7 @@ export default {
             token: res.data.token,
             remember: this.remember
           })
-          console.log("!!!",res.data.user)
+          console.log("!!!!!",res.data)
           // Fetch the user.
           this.$store.dispatch('auth/saveUserState', res.data.user)
 
@@ -240,7 +241,6 @@ export default {
                 this.schoolData = x;
               }
             } )
-
             this.schoolData.grades.map ( grade => {
               let gradeObj = {
                   header : grade.gradeName,
@@ -261,6 +261,25 @@ export default {
             })
 
             this.$store.dispatch('auth/storeSchoolTree', this.schoolTree)
+
+            //make chooseable schoolTree
+            console.log("this.schoolData.grades",this.schoolData.grades)
+            this.schoolData.grades.map( grade => {
+              let gradeObj = {
+                id : grade.id,
+                name : grade.gradeName,
+                children : []
+              }
+              grade.lessons.map( lesson => {
+                let lessonObj = {
+                  id : lesson.id,
+                  name : lesson.lessonName
+                }
+                gradeObj.children.push(lessonObj);
+              } )
+              this.chooseableSchoolTree.push(gradeObj);
+            } )
+            console.log("this.chooseableSchoolTree", this.chooseableSchoolTree);
           }
           
           // Redirect home.
