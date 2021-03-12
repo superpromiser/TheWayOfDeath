@@ -16,8 +16,33 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('/logout', 'Auth\LoginController@logout');
 
+    //get current logged user
     Route::get('/user', 'Auth\UserController@current');
 
+    //actions with UserController
+    Route::post('users','UserController@createUser')->name('createUser');
+    Route::post('addUsers','UserController@addUser')->name('addUser');
+
+    Route::get('staff','UserController@readstaff')->name('readstaff');
+    Route::post('staff','UserController@createStaff')->name('createStaff');
+    Route::put('staff','UserController@updateStaff')->name('updateStaff');
+
+    Route::get('student','UserController@readstudent')->name('readstudent');
+    Route::post('student','UserController@createStudent')->name('createStudent');
+    Route::put('student','UserController@updateStudent')->name('updateStudent');
+    Route::get('studentBylessonId','UserController@getstudentBylessonId')->name('getstudentBylessonId');
+    
+    Route::get('users','UserController@readUser')->name('readUser');
+    Route::get('users/status','UserController@getStatus')->name('getStatus');
+    Route::put('users','UserController@updateUser')->name('updateUser');
+    Route::delete('users','UserController@deleteUser')->name('deleteUser');
+    Route::post('/users/newVideoCount','UserController@newVideoCount')->name('newVideoCount');
+    Route::post('/users/newLiveCount','UserController@newLiveCount')->name('newLiveCount');
+
+    Route::post('search', 'UserController@search')->name('search');
+
+
+    //setting
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
     
@@ -42,6 +67,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::get('school/manager','SchoolController@getManager')->name('getManager');
     Route::put('school/manager','SchoolController@updateManager')->name('updateManager');
     Route::delete('school/manager','SchoolController@removeManager')->name('removeManager');
+    Route::get('school/tree','SchoolController@getSchoolTree')->name('getSchoolTree');
+
 
     //grade
     Route::get('grade','GradeController@getGrade')->name('getGrade');
@@ -56,6 +83,21 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('class','LessonController@updateLesson')->name('updateLesson');
     Route::delete('class','LessonController@deleteLesson')->name('deleteLesson');
     Route::get('gradeName','LessonController@getGradeName')->name('getGradeName');
+
+    //actions with member table
+    Route::get('grade','MemberController@getGrade')->name('getGrade');
+
+    Route::get('gradeClass','MemberController@getGradeClass')->name('getGradeClass');
+
+    Route::get('getLesson','MemberController@getLesson')->name('getLesson');
+    Route::get('surveySchool','MemberController@getSurveySchool');
+    Route::get('surveyGrade','MemberController@getSurveyGrade');
+    Route::get('surveyLesson','MemberController@getSurveyLesson');
+    Route::get('lessonMember','MemberController@getLessonMember');
+    Route::post('member','MemberController@addMember');
+    Route::delete('member','MemberController@removeMember');
+    Route::get('classMember','MemberController@getContacts');
+
     
 });
 

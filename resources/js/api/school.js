@@ -29,6 +29,11 @@ function deleteSchoolManager(payload){
     return axios.delete('/api/v1/school/manager', {data : payload});
 }
 
+function getSchoolTree(){
+    return axios.get('/api/v1/school/tree');
+}
+
+
 export{
     createSchool,
     updateSchool,
@@ -38,4 +43,6 @@ export{
     updateSchoolManager,
     getSchoolManager,
     deleteSchoolManager,
+    getSchoolTree,
+    
 }
