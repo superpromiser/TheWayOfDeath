@@ -10,5 +10,9 @@ export const UPDATE_USER = 'UPDATE_USER'
 export const TOGGLE_MINI_DRAWER = 'TOGGLE_MINI_DRAWER'
 export const TURN_DRAWER = 'TURN_DRAWER'
 
+//schooltree.js
+export const STORE_SCHOOL_TREE = 'STORE_SCHOOL_TREE'
+
+
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'

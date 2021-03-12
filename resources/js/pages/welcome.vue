@@ -201,7 +201,10 @@ export default {
     terms : false,
     conditions : false,
     loginFailed : false,
+    schoolData : {},
+    schoolTree : [],
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
+
   }),
 
   computed: {
@@ -229,6 +232,36 @@ export default {
           console.log("!!!",res.data.user)
           // Fetch the user.
           this.$store.dispatch('auth/saveUserState', res.data.user)
+
+          //save schoolTree
+          if(res.data.user.schoolId !== null){
+            res.data.schoolTree.map( x => {
+              if (x.id == res.data.user.schoolId){
+                this.schoolData = x;
+              }
+            } )
+
+            this.schoolData.grades.map ( grade => {
+              let gradeObj = {
+                  header : grade.gradeName,
+                }
+                this.schoolTree.push(gradeObj)
+                grade.lessons.map( lesson => {
+                  let lessonObj = {
+                    lessonId : lesson.id,
+                    gradeId : grade.id,
+                    lessonName : lesson.lessonName,
+                  }
+                  this.schoolTree.push(lessonObj)
+                } )
+                let dividerObj = {
+                  divider : true
+                }
+                this.schoolTree.push(dividerObj)
+            })
+
+            this.$store.dispatch('auth/storeSchoolTree', this.schoolTree)
+          }
           
           // Redirect home.
           this.$router.push({ name: 'home' })

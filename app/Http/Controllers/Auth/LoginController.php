@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Exceptions\VerifyEmailException;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\School;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -61,12 +62,14 @@ class LoginController extends Controller
 
         $token = (string) $this->guard()->getToken();
         $expiration = $this->guard()->getPayload()->get('exp');
-
+        
+        $schoolTree = School::with('grades.lessons')->get();
         return response()->json([
             'token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $expiration - time(),
-            'user' => auth()->user()->load('role')
+            'user' => auth()->user()->load('role'),
+            'schoolTree' => $schoolTree
         ]);
     }
 
