@@ -26,10 +26,13 @@
         </v-row>
         <v-row>
             <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                    v-model="newVoteData.something"
-                    label="标题"
-                ></v-text-field>
+                <v-select
+                :items="typeItem"
+                item-text="label"
+                item-value="value"
+                v-model="newVoteData.type"
+                label="调查范围"
+                ></v-select>
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-text-field
@@ -48,9 +51,36 @@
 export default {
     data: () => ({
         baseUrl: window.Laravel.base_url,
+        typeItem : [
+            { 
+                label : "投票后可见", 
+                value : "投票后可见" 
+            },
+            { 
+                label : "投票前后均可见", 
+                value : "投票前后均可见" 
+            },
+            { 
+                label : "投票前后均不可见", 
+                value : "投票前后均不可见" 
+            },
+            
+        ],
         newVoteData : {
-            something : ''
-        }
+            type : ''
+        },
+        votingResult:{
+            vResult:'投票后可见',
+            viewList:[],
+            postShow:[],
+            vScope:'',
+            maxVote:1,
+            deadline:'',
+            anonyVote:true,
+            content:{
+                votingDataArr:[],
+            },
+        },
     })
 }
 </script>
