@@ -113,29 +113,59 @@
         </v-row>
         <v-row>
             <v-banner>
-                <span @click="firstContent">单选题</span> 
+                <span @click="firstContent">
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>单选题
+                </span> 
             </v-banner>
         </v-row>
         <v-row>
             <v-banner>
-                <span @click="secondContent">多选题</span> 
+                <span @click="secondContent">
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>
+                    多选题
+                </span> 
             </v-banner>
         </v-row>
         <v-row>
             <v-banner>
-               <span @click="thirdContent">问答题</span> 
+                <span @click="secondContent">
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>
+                    问答题
+                </span> 
             </v-banner>
         </v-row>
         <v-row>
             <v-banner>
-               <span @click="forthContent">统计题</span> 
+                <span @click="secondContent">
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>
+                    统计题
+                </span> 
             </v-banner>
         </v-row>
         <v-row>
             <v-banner>
-               <span @click="fifthContent">评分题</span> 
+                <span @click="secondContent">
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>
+                    评分题
+                </span> 
             </v-banner>
         </v-row>
+        <v-dialog
+        v-model="dialog"
+        max-width="290"
+        >
+            <span>test</span>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -162,12 +192,14 @@ export default {
                 scoringQuestoinsDataArr:[],
             },
         },
+        dialog:false,
         date: new Date().toISOString().substr(0, 10),
         menu: false,
     }),
     methods:{
         firstContent(){
             console.log('firstContent')
+            this.dialog = true
         },
 
         secondContent(){
