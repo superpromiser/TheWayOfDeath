@@ -12,6 +12,7 @@ export const TURN_DRAWER = 'TURN_DRAWER'
 
 //schooltree.js
 export const STORE_SCHOOL_TREE = 'STORE_SCHOOL_TREE'
+export const STORE_CHOOSEABLE_SCHOOL_TREE = 'STORE_CHOOSEABLE_SCHOOL_TREE'
 
 
 // lang.js

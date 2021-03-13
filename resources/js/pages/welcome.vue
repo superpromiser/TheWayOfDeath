@@ -260,10 +260,9 @@ export default {
                 this.schoolTree.push(dividerObj)
             })
 
-            this.$store.dispatch('auth/storeSchoolTree', this.schoolTree)
+            this.$store.dispatch('schooltree/storeSchoolTree', this.schoolTree);
 
             //make chooseable schoolTree
-            console.log("this.schoolData.grades",this.schoolData.grades)
             this.schoolData.grades.map( grade => {
               let gradeObj = {
                 id : grade.id,
@@ -279,7 +278,7 @@ export default {
               } )
               this.chooseableSchoolTree.push(gradeObj);
             } )
-            console.log("this.chooseableSchoolTree", this.chooseableSchoolTree);
+            this.$store.dispatch('schooltree/storeChooseableSchoolTree', this.chooseableSchoolTree);
           }
           
           // Redirect home.
