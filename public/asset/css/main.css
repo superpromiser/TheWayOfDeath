@@ -1,59 +1,62 @@
-
-html{
-    overflow-y: auto!important;
+html {
+    overflow-y: auto !important;
 }
 
-a{
-    text-decoration: none!important;
+a {
+    text-decoration: none !important;
 }
 
 .logo-img {
     width: 150px;
 }
 
-.school-table-img{
+.school-table-img {
     width: 120px;
     height: 120px;
 }
 
-.school-card-img{
+.school-card-img {
     height: 270px;
 }
 
-.school-manager-img{
+.school-manager-img {
     width: 120px;
     height: 120px;
     border-radius: 50%;
 }
 
-.login-bg { 
+.login-bg {
     height: 100%;
     background-image: url(../img/login.jpg);
     background-size: cover;
     background-position: center center;
 }
-.main-bg-pattern { 
+.main-bg-pattern {
     background-image: url(../img/pattern_main_250.jpg);
     background-repeat: repeat;
 }
 
-.h-out-navbar{
+.h-out-navbar {
     height: calc(100vh - 74px);
     overflow: auto;
 }
 
-@media (min-width: 1904px){
+@media (min-width: 1904px) {
     .h-out-navbar.container {
-        max-width: 1400px!important;
+        max-width: 1400px !important;
     }
 }
 
-.bg-white{
+.bg-white {
     background: white;
 }
 
-.post-item-card-avatar{
-    height: auto!important;
-    width: 100%!important;
-    max-width: 125px!important;
+.post-item-card-avatar {
+    height: auto !important;
+    width: 100% !important;
+    max-width: 125px !important;
+}
+
+.pl-0-banner .v-banner__wrapper {
+    padding-left: 0 !important;
 }
