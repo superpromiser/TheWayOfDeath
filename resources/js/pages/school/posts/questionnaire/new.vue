@@ -20,6 +20,12 @@
                     >
                         可用模板 0， 草稿 0
                     </v-btn>
+                    <v-btn
+                        dark
+                        color="green lighten-1"
+                    >
+                        提交
+                    </v-btn>
                     </template>
                 </v-banner>
             </v-col>
@@ -27,12 +33,14 @@
         <v-row>
             <v-col cols="12" sm="6" md="4">
                 <v-text-field
+                    outlined
                     v-model="newQuestionnaireData.title"
                     label="标题"
                 ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-text-field
+                    outlined
                     v-model="newQuestionnaireData.description"
                     label="说明（选填）"
                 ></v-text-field>
@@ -53,6 +61,7 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                     <v-text-field
+                        outlined
                         v-model="newQuestionnaireData.deadline"
                         prepend-icon="mdi-calendar"
                         readonly
@@ -83,83 +92,89 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
-        </v-row>
-        <v-row>
-            <v-col>
-                <v-banner>
-                    调查范围
-                </v-banner>
-            </v-col>
-        </v-row>
-        <v-row>
             <v-col cols="12" sm="6" md="4">
-                <v-banner>
-                    匿名问卷
-                    <v-switch></v-switch>
-                </v-banner>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-                <v-banner>
-                    答卷人可见结果
-                    <v-switch></v-switch>
-                </v-banner>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-                <v-banner>
-                    外部人员可作答
-                    <v-switch></v-switch>
-                </v-banner>
+                <v-select
+                    outlined
+                    multiple
+                    chips
+                    :items="schoolTree"
+                    item-text="lessonName"
+                    item-value="lessonId"
+                    @change="selectedLesson"
+                    label="班级"
+                ></v-select>
             </v-col>
         </v-row>
         <v-row>
-            <v-banner>
-                <span @click="firstContent">
+            <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-between">
+                <span>匿名问卷</span>
+                <v-switch
+                    v-model="newQuestionnaireData.questionnaireFlag"
+                    color="primary"
+                    value="primary"
+                    hide-details
+                    class="pt-0 mt-0"
+                ></v-switch>
+            </v-col>
+            <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-between">
+                <span>答卷人可见结果</span>
+                <v-switch
+                    v-model="newQuestionnaireData.resultFlag"
+                    color="primary"
+                    value="primary"
+                    hide-details
+                    class="pt-0 mt-0"
+                ></v-switch>
+            </v-col>
+            <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-between">
+                <span>外部人员可作答</span>
+                <v-switch
+                    v-model="newQuestionnaireData.answerFlag"
+                    color="primary"
+                    value="primary"
+                    hide-details
+                    class="pt-0 mt-0"
+                ></v-switch>
+            </v-col>
+        </v-row>
+        <v-row class="d-flex">
+            <v-col cols="12" sm="6" md="4">
+                <v-btn block dark color="blue accent-3">
                     <v-icon>
                         mdi-plus
                     </v-icon>单选题
-                </span> 
-            </v-banner>
-        </v-row>
-        <v-row>
-            <v-banner>
-                <span @click="secondContent">
+                </v-btn>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-btn block dark color="blue accent-3">
                     <v-icon>
                         mdi-plus
-                    </v-icon>
-                    多选题
-                </span> 
-            </v-banner>
-        </v-row>
-        <v-row>
-            <v-banner>
-                <span @click="secondContent">
+                    </v-icon>多选题
+                </v-btn>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-btn block dark color="blue accent-3">
                     <v-icon>
                         mdi-plus
-                    </v-icon>
-                    问答题
-                </span> 
-            </v-banner>
-        </v-row>
-        <v-row>
-            <v-banner>
-                <span @click="secondContent">
+                    </v-icon>问答题
+                </v-btn>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-btn block dark color="blue accent-3">
                     <v-icon>
                         mdi-plus
-                    </v-icon>
-                    统计题
-                </span> 
-            </v-banner>
-        </v-row>
-        <v-row>
-            <v-banner>
-                <span @click="secondContent">
+                    </v-icon>统计题
+                </v-btn>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-btn block dark color="blue accent-3">
                     <v-icon>
                         mdi-plus
-                    </v-icon>
-                    评分题
-                </span> 
-            </v-banner>
+                    </v-icon>评分题
+                </v-btn>
+            </v-col>
         </v-row>
+        <QuestionItem Label="something"/>
         <v-dialog
         v-model="dialog"
         max-width="290"
@@ -170,7 +185,10 @@
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
+import QuestionItem from '~/components/questionItem'
 export default {
     data: () => ({
         lang,
@@ -196,27 +214,27 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         menu: false,
     }),
+
+    components: {
+        QuestionItem,
+    },
+
+    computed: {
+        ...mapGetters({
+            // chooseableSchoolTree : 'schooltree/chooseableSchoolTree'
+            schoolTree : 'schooltree/schoolTree'
+        })
+    },
+
+
     methods:{
-        firstContent(){
-            console.log('firstContent')
-            this.dialog = true
+        updateImageFile(imageFile){
+            console.log(imageFile)
         },
-
-        secondContent(){
-            console.log('secondContent')
-        },
-
-        thirdContent(){
-            console.log('thirdContent')
-        },
-
-        forthContent(){
-            console.log('forthContent')
-        },
-
-        fifthContent(){
-            console.log('fifthContent')
+        selectedLesson(val){
+            console.log(val)
         }
+        
     }
 }
 </script>
