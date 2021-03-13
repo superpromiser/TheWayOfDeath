@@ -77,7 +77,7 @@
                             </div>
                           </template>
                         </v-checkbox>
-                        <v-btn color="primary" block @click="login" type="submit" :loading="isLogging" :disabled="!isFormValid">
+                        <v-btn color="primary" block type="submit" :loading="isLogging" :disabled="!isFormValid">
                           <v-icon left>
                             mdi-login
                           </v-icon> 
