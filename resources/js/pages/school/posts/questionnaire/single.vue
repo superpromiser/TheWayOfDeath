@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <div v-for="index in initialCnt" :key="index" class="mt-3">
-            <QuestionItem :Label="lang.contentPlace" :index="index" :ref="'child' + index" @contentData="loadContentData"/>
+            <QuestionItem :Label="lang.contentPlace" :index="index" :ref="index" @contentData="loadContentData"/>
             <v-divider></v-divider>
         </div>
         <div class="mt-3" @click="addContent">
@@ -37,8 +37,7 @@ export default {
         Fragment,
     },
     data: () =>({
-        signleContentDataArr:[
-        ],
+        signleContentDataArr:[],
         initialCnt:4,
         lang,
         requiredText:false
@@ -48,18 +47,19 @@ export default {
             this.initialCnt ++;
         },
         addSingleContent(){
-            console.log(this.initialCnt)
             for(let index = 1;  index <= this.initialCnt; index++){
-                let ref = `child${index}`
-                this.$refs[ref][0].emitData()
+                this.$refs[index][0].emitData()
+            }
+            if(this.signleContentDataArr.length<4){
+                return
             }
             this.$store.dispatch('content/storeSingleData',this.signleContentDataArr)
             this.$router.push({name:'questionnaire.new'});
         },
         loadContentData(data){
-            console.log(data)
-            if(data.text == ''){
-                this.requiredText = true;
+            if(data.text === ''){
+                this.requiredText = true
+                this.signleContentDataArr = []
                 return;
             }
             this.signleContentDataArr.push(data);

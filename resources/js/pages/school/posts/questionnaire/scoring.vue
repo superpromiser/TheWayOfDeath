@@ -1,6 +1,6 @@
 <template>
   <div>
-    <QuestionItem :Label="lang.contentPlace" />
+    <QuestionItem :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
     <div class="divider"></div>
     <v-row>
       <v-col cols=6>
@@ -9,16 +9,25 @@
       <v-col cols=6>
         <v-select
           :items="items"
-          label="Standard"
-          v-model="maxMin"
+          label="2"
+          v-model="scoringDataArr[0].maxMin"
         ></v-select>
       </v-col>
     </v-row>
     <v-row>
-          <v-col>
-              <v-btn color="primary" @click="addScoringContent">{{lang.submit}}</v-btn>
-          </v-col>
-      </v-row>
+        <v-col>
+            <v-btn color="primary" @click="addScoringContent">{{lang.submit}}</v-btn>
+        </v-col>
+    </v-row>
+    <v-snackbar
+        timeout="3000"
+        v-model="requiredText"
+        color="error"
+        absolute
+        top
+        >
+        {{lang.requiredText}}
+    </v-snackbar>
   </div>
 </template>
 
@@ -35,19 +44,31 @@ export default {
     scoringDataArr:[
       {
         contentData:[],
-        maxMin:''
+        maxMin:2
       }
     ],
     items:[
       '2','3','4','5','6','7','8','9','10'
-    ]
-
+    ],
+    requiredText:false,
   }),
 
   methods:{
     addScoringContent(){
+      this.$refs.child.emitData();
+      if(this.scoringDataArr[0].contentData.length == 0){
+        this.requiredText = true;
+        return
+      }
       this.$store.dispatch('content/storeScoringData',this.scoringDataArr);
       this.$router.push({name:'questionnaire.new'})
+    },
+    loadContentData(data){
+      if(data.text === ''){
+        this.scoringDataArr[0].contentData = []
+        return;
+      }
+      this.scoringDataArr[0].contentData.push(data)
     }
   }
 }

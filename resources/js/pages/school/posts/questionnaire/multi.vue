@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="index in initialCnt" :key="index" class="mt-3">
-            <QuestionItem :Label="lang.contentPlace" :index="index"/>
+            <QuestionItem :Label="lang.contentPlace" :index="index" :ref="index" @contentData="loadContentData"/>
             <div class="divider"></div>
         </div>
         <div class="mt-3" @click="addContent">
@@ -15,6 +15,15 @@
                 <v-btn color="primary" @click="addMultiContent">{{lang.submit}}</v-btn>
             </v-col>
         </v-row>
+        <v-snackbar
+            timeout="3000"
+            v-model="requiredText"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
     </div>
 </template>
 
@@ -28,16 +37,10 @@ export default {
         Fragment,
     },
     data: () =>({
-        multiContentDataArr:[
-            {
-                text:'test1',
-                imgUrl:['test1.jpg','test2.jpg'],
-                otherUrl:['test1.pdf','test2.pdf'],
-                videoUrl:['test1.mp4','test2.mp4']
-            }
-        ],
+        multiContentDataArr:[],
         initialCnt:4,
         lang,
+        requiredText:false,
     }),
     
     methods:{
@@ -45,9 +48,24 @@ export default {
             this.initialCnt ++;
         },
         addMultiContent(){
+            for(let index = 1;  index <= this.initialCnt; index++){
+                this.$refs[index][0].emitData()
+            }
+            if(this.multiContentDataArr.length<4){
+                return
+            }
             this.$store.dispatch('content/storeMultiData',this.multiContentDataArr)
             this.$router.push({name:'questionnaire.new'});
+        },
+        loadContentData(data){
+            if(data.text === ''){
+                this.requiredText = true;
+                this.multiContentDataArr = [];
+                return;
+            }
+            this.multiContentDataArr.push(data)
         }
+
     }
 }
 </script>

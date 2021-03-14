@@ -229,11 +229,12 @@ export default {
     },
 
     mounted(){
-        console.log(this.singleData)
-        console.log(this.multiData)
-        console.log(this.qaData)
-        console.log(this.statData)
-        console.log(this.scoringData)
+        this.newQuestionnaireData.content.singleContentDataArr.push(this.singleData)
+        this.newQuestionnaireData.content.multiContentDataArr.push(this.multiData)
+        this.newQuestionnaireData.content.questionAnswerDataArr.push(this.qaData)
+        this.newQuestionnaireData.content.statisticsDataArr.push(this.statData)
+        this.newQuestionnaireData.content.scoringQuestoinsDataArr.push(this.scoringData)
+        console.log(this.newQuestionnaireData.content)
     },
 
     methods:{

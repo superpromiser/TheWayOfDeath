@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-3">
-        <QuestionItem :Label="lang.contentPlace"/>
+        <QuestionItem :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
         <div class="divider"></div>
     </div>
     <v-row>
@@ -9,6 +9,15 @@
           <v-btn color="primary" @click="addQaContent">{{lang.submit}}</v-btn>
       </v-col>
     </v-row>
+    <v-snackbar
+        timeout="3000"
+        v-model="requiredText"
+        color="error"
+        absolute
+        top
+        >
+        {{lang.requiredText}}
+    </v-snackbar>
   </div>
 </template>
 
@@ -21,22 +30,28 @@ export default {
   },
 
   data: () => ({
-    qaContentDataArr:[
-      {
-        text:'test1',
-        imgUrl:['test1.jpg','test2.jpg'],
-        otherUrl:['test1.pdf','test2.pdf'],
-        videoUrl:['test1.mp4','test2.mp4']
-      }
-    ],
+    qaContentDataArr:[],
     lang,
+    requiredText:false,
   }),
 
   methods:{
     addQaContent(){
-          this.$store.dispatch('content/storeQaData',this.qaContentDataArr)
-          this.$router.push({name:'questionnaire.new'});
-        }
+      this.$refs.child.emitData()
+      if(this.qaContentDataArr.length == 0){
+        return
+      }
+      this.$store.dispatch('content/storeQaData',this.qaContentDataArr)
+      this.$router.push({name:'questionnaire.new'});
+    },
+    loadContentData(data){
+      if(data.text === ''){
+        this.requiredText = true;
+        this.qaContentDataArr = [];
+        return;
+      }
+      this.qaContentDataArr.push(data)
+    }
   },
 }
 </script>
