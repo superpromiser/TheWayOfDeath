@@ -55,6 +55,7 @@ export default [
     children:[
       {path:'', redirect:{name:"questionnaire.new"}},
       {path:'new',name:'questionnaire.new', component:page('school/posts/questionnaire/new.vue')},
+      {path:'test',name:'questionnaire.test', component:page('school/posts/questionnaire/test.vue')},
       {path:'single', name:"questionnaire.single", component:page('school/posts/questionnaire/single.vue')},
       {path:'multi', name:"questionnaire.multi", component:page('school/posts/questionnaire/multi.vue')},
       {path:'questionAnswer', name:"questionnaire.questionAnswer", component:page('school/posts/questionnaire/questionAnswer.vue')},
