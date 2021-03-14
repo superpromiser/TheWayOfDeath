@@ -63,11 +63,13 @@ class UploadController extends Controller
 
     public function deleteFile(Request $request){
         $fileName = $request->fileName;
+        $fileName = $request->fileName;
         $this->deleteFileFromServer($fileName);
         return 'done';
     }
 
     public function deleteFileFromServer($fileName){
+        $filePath = public_path().$fileName;
         $filePath = public_path().$fileName;
         if(file_exists($filePath)){
             @unlink($filePath);

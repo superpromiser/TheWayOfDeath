@@ -6,6 +6,14 @@ a {
     text-decoration: none !important;
 }
 
+.position-relative{
+    position: relative!important;
+}
+
+.position-absolute{
+    position: absolute!important;
+}
+
 .logo-img {
     width: 150px;
 }
@@ -61,8 +69,25 @@ a {
     padding-left: 0 !important;
 }
 
+<<<<<<< HEAD
 .divider{
     width:100%;
     height:10px;
     background-color: #f3f3f3;
 }
+=======
+.uploaded-image{
+    height: 150px;
+}
+
+.remove-uploaded-item-icon{
+    z-index: 1;
+    top: 10px;
+    right: 10px;
+}
+
+.uploaded-video-icon{
+    width: 45px;
+    height: 45px;
+}
+>>>>>>> 173f9b3a4382ce40f7336c91c849cc491ec9f0a1
