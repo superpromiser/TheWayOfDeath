@@ -7,7 +7,7 @@
         <child />
       </v-container> -->
       <v-sheet
-          class="h-out-navbar container"
+          class="h-out-navbar container pa-0"
           color="white"
           elevation="8"
         >

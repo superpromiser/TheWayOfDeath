@@ -8,6 +8,7 @@
                 :label="Label"
                 value=""
                 v-model="contentData.text"
+                hide-details
             ></v-textarea>
         </v-row>
         <v-row>
@@ -69,6 +70,67 @@
                 @change="onFileFileChanged"
             >
         </v-row>
+        <!--  IMAGE VIEWER  -->
+        <v-row>
+            <v-col v-for="imgUrl in contentData.imgUrl" :key="imgUrl" cols="6" sm="4" md="3" lg="2" class="position-relative">
+                <v-btn
+                    icon
+                    color="pink"
+                    class="position-absolute remove-uploaded-item-icon"
+                    >
+                    <v-icon size="25">mdi-trash-can-outline</v-icon>
+                </v-btn>
+                <v-img :src="`${baseUrl}${imgUrl}`" alt="upload image" class="uploaded-image" ></v-img>
+            </v-col>
+        </v-row>
+        <!--  VIDEO VIEWER  -->
+        <v-row>
+            <v-col v-for="videoUrl in contentData.videoUrl" :key="videoUrl" cols="6" sm="4" md="3" class="position-relative">
+                <v-card
+                    class="d-flex align-center "
+                    color="grey lighten-2"
+                    flat
+                    tile
+                >
+                    <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                    <div class="">
+                        <div>something</div>
+                        <div>something</div>
+                    </div>
+                    <v-btn
+                        icon
+                        color="pink"
+                        class="ml-auto"
+                        >
+                        <v-icon size="25">mdi-trash-can-outline</v-icon>
+                    </v-btn>
+                </v-card>
+            </v-col>
+        </v-row>
+        <!--  FILE VIEWER  -->
+        <v-row>
+            <v-col v-for="otherUrl in contentData.otherUrl" :key="otherUrl" cols="6" sm="4" md="3" class="position-relative">
+                <v-card
+                    class="d-flex align-center "
+                    color="grey lighten-2"
+                    flat
+                    tile
+                >
+                    <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                    <div class="">
+                        <div>something</div>
+                        <div>something</div>
+                    </div>
+                    <v-btn
+                        icon
+                        color="pink"
+                        class="ml-auto"
+                        >
+                        <v-icon size="25">mdi-trash-can-outline</v-icon>
+                    </v-btn>
+                </v-card>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -82,6 +144,7 @@ export default {
         }
     },
     data: () =>({
+        baseUrl:window.Laravel.base_url,
         contentData:{
             text:'',
             imgUrl:[],
