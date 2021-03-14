@@ -1,24 +1,53 @@
 <template>
     <div>
-        <Fragment v-for="index in initialCnt" :key="index">
-            <QuestionItem Label="something"/>
-            <v-divider></v-divider>
-        </Fragment>
+        <div v-for="index in initialCnt" :key="index" class="mt-3">
+            <QuestionItem Label="something" :index="index"/>
+            <div class="divider"></div>
+        </div>
+        <div class="mt-3" @click="addContent">
+            <v-icon>
+                mdi-plus
+            </v-icon>
+            <span >{{lang.addOption}}</span>
+        </div>
+        <v-row>
+            <v-col>
+                <v-btn color="primary" @click="addSingleContent">{{lang.submit}}</v-btn>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
 <script>
 import QuestionItem from '~/components/questionItem';
-import { Fragment } from 'vue-fragment'
+import { Fragment } from 'vue-fragment';
+import lang from '~/helper/lang.json';
 export default {
     components:{
         QuestionItem,
         Fragment,
     },
     data: () =>({
-        signleContentDataArr:[],
+        signleContentDataArr:[
+            {
+                text:'test1',
+                imgUrl:['test1.jpg','test2.jpg'],
+                otherUrl:['test1.pdf','test2.pdf'],
+                videoUrl:['test1.mp4','test2.mp4']
+            }
+        ],
         initialCnt:4,
+        lang,
     }),
+    methods:{
+        addContent(){
+            this.initialCnt ++;
+        },
+        addSingleContent(){
+            this.$store.dispatch('content/storeSingleData',this.signleContentDataArr)
+            this.$router.push({name:'questionnaire.new'});
+        }
+    }
 }
 </script>
 

@@ -1,6 +1,7 @@
 <template>
     <v-container>
         <v-row>
+            <!-- {{index}} -->
             <v-textarea
                 clearable
                 solo
@@ -76,6 +77,10 @@ export default {
         Label : {
             type: String,
             required: true
+        },
+        index :{
+            type:Number,
+            required: false
         }
     },
     data: () =>({

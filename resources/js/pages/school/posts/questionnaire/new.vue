@@ -216,10 +216,22 @@ export default {
 
     computed: {
         ...mapGetters({
-            schoolTree : 'schooltree/schoolTree'
+            schoolTree : 'schooltree/schoolTree',
+            singleData: 'content/singleData',
+            multiData: 'content/multiData',
+            qaData: 'content/qaData',
+            statData: 'content/statData',
+            scoringData: 'content/scoringData',
         })
     },
 
+    mounted(){
+        console.log('singleData',this.singleData)
+        console.log('multiData',this.multiData)
+        console.log('qaData',this.qaData)
+        console.log('statData',this.statData)
+        console.log('scoringData',this.scoringData)
+        },
 
     methods:{
         updateImageFile(imageFile){
@@ -250,7 +262,7 @@ export default {
             }
         },
         submit(){
-            
+
         }
     }
 }

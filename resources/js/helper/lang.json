@@ -2,5 +2,7 @@
     "save":"保存",
     "cancel":"取消",
     "ok":"确认",
-    "confirmSentence":"你确定要删除这个项目吗？"
+    "confirmSentence":"你确定要删除这个项目吗？",
+    "submit":"提交",
+    "addOption":"添加选项"
 }
