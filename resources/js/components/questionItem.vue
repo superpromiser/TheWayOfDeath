@@ -72,7 +72,7 @@
         </v-row>
         <!--  IMAGE VIEWER  -->
         <v-row>
-            <v-col v-for="imgUrl in contentData.imgUrl" :key="imgUrl" cols="6" sm="4" md="3" lg="2" class="position-relative">
+            <v-col v-for="(imgUrl, index) in contentData.imgUrl" :key="index" cols="6" sm="4" md="3" lg="2" class="position-relative">
                 <v-btn
                     icon
                     color="pink"
@@ -85,7 +85,7 @@
         </v-row>
         <!--  VIDEO VIEWER  -->
         <v-row>
-            <v-col v-for="videoUrl in contentData.videoUrl" :key="videoUrl" cols="6" sm="4" md="3" class="position-relative">
+            <v-col v-for="(video, index) in contentData.videoUrl" :key="index" cols="6" sm="4" md="4" lg="3" class="position-relative">
                 <v-card
                     class="d-flex align-center "
                     color="grey lighten-2"
@@ -94,8 +94,8 @@
                 >
                     <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
                     <div class="">
-                        <div>something</div>
-                        <div>something</div>
+                        <div><span><strong>{{video.fileOriName}}</strong></span></div>
+                        <div>{{video.fileSize}}</div>
                     </div>
                     <v-btn
                         icon
@@ -109,7 +109,7 @@
         </v-row>
         <!--  FILE VIEWER  -->
         <v-row>
-            <v-col v-for="otherUrl in contentData.otherUrl" :key="otherUrl" cols="6" sm="4" md="3" class="position-relative">
+            <v-col v-for="(other, index) in contentData.otherUrl" :key="index" cols="6" sm="4" md="4" lg="3" class="position-relative">
                 <v-card
                     class="d-flex align-center "
                     color="grey lighten-2"
@@ -118,8 +118,8 @@
                 >
                     <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
                     <div class="">
-                        <div>something</div>
-                        <div>something</div>
+                        <div><span><strong>{{other.fileOriName}}</strong></span></div>
+                        <div>{{other.fileSize}}</div>
                     </div>
                     <v-btn
                         icon
@@ -205,7 +205,7 @@ export default {
                     this.selectedVideoFile = null;
                     let url = `/uploads/video/${res.fileName}`
                     this.$set(res,'imgUrl',url)
-                    this.contentData.videoUrl.push(res);
+                    this.contentData.videoUrl.push(res.data);
                     this.isVideoSelecting = false
                 }).catch((err) => {
                     console.log(err);
@@ -221,6 +221,7 @@ export default {
             this.$refs.fileUploader.click()
         },
         async onFileFileChanged(e) {
+            console.log("123");
             this.selectedFile = e.target.files[0];
             if(this.selectedFile !== undefined && this.selectedFile !== null) {
                 this.isFileSelecting = true;
@@ -232,7 +233,7 @@ export default {
                     this.selectedFile = null;
                     let url = `/uploads/other/${res.fileName}`;
                     this.$set(res,'imgUrl',url)
-                    this.contentData.otherUrl.push(res);
+                    this.contentData.otherUrl.push(res.data);
                     this.isFileSelecting = false
                 }).catch((err) => {
                     console.log(err);
