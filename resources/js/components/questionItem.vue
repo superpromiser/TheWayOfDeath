@@ -299,6 +299,10 @@ export default {
                 this.deleteItem.isDeleting = false;
             });
 
+        },
+
+        emitData(){
+            this.$emit('contentData',this.contentData);
         }
     }
 }
