@@ -167,6 +167,11 @@ export default {
         isFileSelecting: false,
         deleteItem : null,
     }),
+
+    mounted(){
+        console.log(this.index)
+    },
+
     methods:{
         clickUploadImageBtn() {
             this.isImageSelecting = true
@@ -302,6 +307,9 @@ export default {
         },
 
         emitData(){
+            if (this.contentData.text == ''){
+                
+            }
             this.$emit('contentData',this.contentData);
         }
     }

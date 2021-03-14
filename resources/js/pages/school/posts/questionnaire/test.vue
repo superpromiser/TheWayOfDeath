@@ -179,7 +179,7 @@
                     </v-btn>
                 </v-col>
             </v-row>
-            <QuestionItem class="mt-10" Label="something" ref="child" @contentData="loadContentData" />
+            <QuestionItem class="mt-10" Label="something" :ref="index" @contentData="loadContentData" />
             <v-btn text @click="handleChild()">something</v-btn>
         </v-container>
         <v-dialog
@@ -220,10 +220,15 @@ export default {
         dialog:false,
         date: new Date().toISOString().substr(0, 10),
         menu: false,
+        index:1
     }),
 
     components: {
         QuestionItem,
+    },
+
+    mounted(){
+        console.log("123123123", this.$refs)
     },
 
     computed: {
@@ -243,7 +248,7 @@ export default {
         },
 
         handleChild(){
-            this.$refs.child.emitData();
+            this.$refs[1].emitData();
         },
         loadContentData(data){
             console.log(data)

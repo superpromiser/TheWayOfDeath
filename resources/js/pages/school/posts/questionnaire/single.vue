@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <v-container>
         <div v-for="index in initialCnt" :key="index" class="mt-3">
-            <QuestionItem :Label="lang.contentPlace" :index="index"/>
-            <div class="divider"></div>
+            <QuestionItem :Label="lang.contentPlace" :index="index" :ref="'child' + index" @contentData="loadContentData"/>
+            <v-divider></v-divider>
         </div>
         <div class="mt-3" @click="addContent">
             <v-icon>
@@ -15,7 +15,16 @@
                 <v-btn color="primary" @click="addSingleContent">{{lang.submit}}</v-btn>
             </v-col>
         </v-row>
-    </div>
+        <v-snackbar
+            timeout="3000"
+            v-model="requiredText"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
+    </v-container>
 </template>
 
 <script>
@@ -29,23 +38,31 @@ export default {
     },
     data: () =>({
         signleContentDataArr:[
-            {
-                text:'test1',
-                imgUrl:['test1.jpg','test2.jpg'],
-                otherUrl:['test1.pdf','test2.pdf'],
-                videoUrl:['test1.mp4','test2.mp4']
-            }
         ],
         initialCnt:4,
         lang,
+        requiredText:false
     }),
     methods:{
         addContent(){
             this.initialCnt ++;
         },
         addSingleContent(){
+            console.log(this.initialCnt)
+            for(let index = 1;  index <= this.initialCnt; index++){
+                let ref = `child${index}`
+                this.$refs[ref][0].emitData()
+            }
             this.$store.dispatch('content/storeSingleData',this.signleContentDataArr)
             this.$router.push({name:'questionnaire.new'});
+        },
+        loadContentData(data){
+            console.log(data)
+            if(data.text == ''){
+                this.requiredText = true;
+                return;
+            }
+            this.signleContentDataArr.push(data);
         }
     }
 }
