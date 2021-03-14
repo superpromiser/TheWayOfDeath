@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-3">
-        <QuestionItem Label="something"/>
+        <QuestionItem :Label="lang.contentPlace"/>
         <div class="divider"></div>
     </div>
     <v-row>

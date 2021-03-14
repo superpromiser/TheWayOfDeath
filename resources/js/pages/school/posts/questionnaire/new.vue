@@ -143,49 +143,42 @@
             </v-row>
             <v-row class="d-flex">
                 <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('single')">
                         <v-icon>
                             mdi-plus
                         </v-icon>单选题
                     </v-btn>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('multi')">
                         <v-icon>
                             mdi-plus
                         </v-icon>多选题
                     </v-btn>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('question')">
                         <v-icon>
                             mdi-plus
                         </v-icon>问答题
                     </v-btn>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('stat')">
                         <v-icon>
                             mdi-plus
                         </v-icon>统计题
                     </v-btn>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('scoring')">
                         <v-icon>
                             mdi-plus
                         </v-icon>评分题
                     </v-btn>
                 </v-col>
             </v-row>
-            <QuestionItem class="mt-10" Label="something"/>
         </v-container>
-        <v-dialog
-        v-model="dialog"
-        max-width="290"
-        >
-            <span>test</span>
-        </v-dialog>
     </v-container>
 </template>
 
@@ -226,11 +219,22 @@ export default {
 
     computed: {
         ...mapGetters({
-            // chooseableSchoolTree : 'schooltree/chooseableSchoolTree'
-            schoolTree : 'schooltree/schoolTree'
+            schoolTree : 'schooltree/schoolTree',
+            singleData:'content/singleData',
+            multiData:'content/multiData',
+            qaData:'content/qaData',
+            statData:'content/statData',
+            scoringData:'content/scoringData'
         })
     },
 
+    mounted(){
+        console.log(this.singleData)
+        console.log(this.multiData)
+        console.log(this.qaData)
+        console.log(this.statData)
+        console.log(this.scoringData)
+    },
 
     methods:{
         updateImageFile(imageFile){
@@ -238,6 +242,27 @@ export default {
         },
         selectedLesson(val){
             console.log(val)
+        },
+        selContent(type){
+            switch(type){
+                case 'single':
+                    this.$router.push({name:"questionnaire.single"});
+                    break;
+                case 'multi':
+                    this.$router.push({name:"questionnaire.multi"});
+                    break;
+                case 'question':
+                    this.$router.push({name:"questionnaire.questionAnswer"});
+                    break;
+                case 'stat':
+                    this.$router.push({name:"questionnaire.statistics"});
+                    break;
+                case 'scoring':
+                    this.$router.push({name:"questionnaire.scoring"});
+                    break;
+                default:
+                    break;
+            }
         }
         
     }

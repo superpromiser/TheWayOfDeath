@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="index in initialCnt" :key="index" class="mt-3">
-            <QuestionItem Label="something" :index="index"/>
+            <QuestionItem :Label="lang.contentPlace" :index="index"/>
             <div class="divider"></div>
         </div>
         <div class="mt-3" @click="addContent">

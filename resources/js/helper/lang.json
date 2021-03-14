@@ -4,5 +4,12 @@
     "ok":"确认",
     "confirmSentence":"你确定要删除这个项目吗？",
     "submit":"提交",
-    "addOption":"添加选项"
+    "addOption":"添加选项",
+    "numberRange":"数字范围",
+    "startingValue":"起始值",
+    "to":"至",
+    "endValue":"结束值",
+    "unit":"单位",
+    "contentPlace":"输入内容",
+    "maxMinutes":"最高分"
 }
