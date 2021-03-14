@@ -193,8 +193,12 @@ export default {
                 }).catch((err) => {
                     console.log(err);
                     this.isImageSelecting = false
-                });
+                }); 
             }
+
+            //reset image file input
+            this.$refs.imageUploader.value = ''
+            
         },
         clickUploadVideoBtn() {
             this.isVideoSelecting = true
@@ -222,6 +226,8 @@ export default {
                     this.isVideoSelecting = false
                 });
             }
+            //reset video file input
+            this.$refs.videoUploader.value = ''
         },
         clickUploadFileBtn() {
             this.isFileSelecting = true
@@ -250,6 +256,8 @@ export default {
                     this.isFileSelecting = false
                 });
             }
+            //reset file input
+            this.$refs.fileUploader.value = ''
         },
 
         async removeUploadItem(type, index){
