@@ -69,7 +69,5 @@ export default {
         this.isLoadingSchoolData = false;
       });
   },
-
-  
 }
 </script>

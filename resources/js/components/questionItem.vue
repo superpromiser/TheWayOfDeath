@@ -11,9 +11,6 @@
             ></v-textarea>
         </v-row>
         <v-row>
-
-        </v-row>
-        <v-row>
             <v-btn
                 color="blue accent-3"
                 fab

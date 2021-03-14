@@ -23,6 +23,7 @@
                     <v-btn
                         dark
                         color="green lighten-1"
+                        @click="submit"
                     >
                         提交
                     </v-btn>
@@ -146,50 +147,41 @@
         </v-row>
         <v-row class="d-flex">
             <v-col cols="12" sm="6" md="4">
-                <v-btn block dark large color="blue accent-3">
+                <v-btn block dark large color="blue accent-3" @click="selContent('single')">
                     <v-icon>
                         mdi-plus
                     </v-icon>单选题
                 </v-btn>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-                <v-btn block dark large color="blue accent-3">
+                <v-btn block dark large color="blue accent-3" @click="selContent('multi')">
                     <v-icon>
                         mdi-plus
                     </v-icon>多选题
                 </v-btn>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-                <v-btn block dark large color="blue accent-3">
+                <v-btn block dark large color="blue accent-3" @click="selContent('questionAnswer')">
                     <v-icon>
                         mdi-plus
                     </v-icon>问答题
                 </v-btn>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-                <v-btn block dark large color="blue accent-3">
+                <v-btn block dark large color="blue accent-3" @click="selContent('statistics')">
                     <v-icon>
                         mdi-plus
                     </v-icon>统计题
                 </v-btn>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-                <v-btn block dark large color="blue accent-3">
+                <v-btn block dark large color="blue accent-3" @click="selContent('scoring')">
                     <v-icon>
                         mdi-plus
                     </v-icon>评分题
                 </v-btn>
             </v-col>
         </v-row>
-        <v-row>
-            <QuestionItem Label="something"/>
-        </v-row>
-        <v-dialog
-        v-model="dialog"
-        max-width="290"
-        >
-            <span>test</span>
-        </v-dialog>
     </v-container>
 </template>
 
@@ -197,7 +189,6 @@
 
 import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
-import QuestionItem from '~/components/questionItem'
 export default {
     data: () => ({
         lang,
@@ -219,18 +210,12 @@ export default {
                 scoringQuestoinsDataArr:[],
             },
         },
-        dialog:false,
         date: new Date().toISOString().substr(0, 10),
         menu: false,
     }),
 
-    components: {
-        QuestionItem,
-    },
-
     computed: {
         ...mapGetters({
-            // chooseableSchoolTree : 'schooltree/chooseableSchoolTree'
             schoolTree : 'schooltree/schoolTree'
         })
     },
@@ -242,8 +227,31 @@ export default {
         },
         selectedLesson(val){
             console.log(val)
+        },
+        selContent(type){
+            switch(type){
+                case "single":
+                    this.$router.push({name:'questionnaire.single'});
+                    break;
+                case "multi":
+                    this.$router.push({name:'questionnaire.multi'});
+                    break;
+                case "questionAnswer":
+                    this.$router.push({name:'questionnaire.questionAnswer'});
+                    break;
+                case "statistics":
+                    this.$router.push({name:'questionnaire.statistics'});
+                    break;
+                case "scoring":
+                    this.$router.push({name:'questionnaire.scoring'})        ;
+                    break;
+                default :
+                    break;
+            }
+        },
+        submit(){
+            
         }
-        
     }
 }
 </script>

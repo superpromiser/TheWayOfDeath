@@ -28,7 +28,20 @@ export default {
     data: () => ({
         selectedFile: null,
         isSelecting: false
-    })
+    }),
+    methods: {
+        onButtonClick() {
+            this.isSelecting = true
+            window.addEventListener('focus', () => {
+                this.isSelecting = false
+            }, { once: true })
+            this.$refs.uploader.click()
+        },
+        onFileChanged(e) {
+            this.selectedFile = e.target.files[0]
+            // do something
+        }
+    }
 }
 </script>
 

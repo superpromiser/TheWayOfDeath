@@ -51,7 +51,17 @@ export default [
   },
 
   //Questionnaire
-  {path:'/schoolspace/:id/post/questionnaire', name:'posts.questionnaire', component:page('school/posts/questionnaire/new.vue')},
+  {path:'/schoolspace/:id/post/questionnaire', name:'posts.questionnaire', component:page('school/posts/questionnaire/index.vue'),
+    children:[
+      {path:'', redirect:{name:"questionnaire.new"}},
+      {path:'new',name:'questionnaire.new', component:page('school/posts/questionnaire/new.vue')},
+      {path:'single', name:"questionnaire.single", component:page('school/posts/questionnaire/single.vue')},
+      {path:'multi', name:"questionnaire.multi", component:page('school/posts/questionnaire/multi.vue')},
+      {path:'questionAnswer', name:"questionnaire.questionAnswer", component:page('school/posts/questionnaire/questionAnswer.vue')},
+      {path:'statistics', name:"questionnaire.statistics", component:page('school/posts/questionnaire/statistics.vue')},
+      {path:'scoring', name:"questionnaire.scoring", component:page('school/posts/questionnaire/scoring.vue')},
+    ]
+  },
   
   //Voting
   {path:'/schoolspace/:id/post/voting', name:'posts.voting', component:page('school/posts/voting/new.vue')},

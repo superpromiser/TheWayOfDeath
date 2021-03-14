@@ -2,7 +2,7 @@ import * as types from '../mutation-types'
 import Cookies from 'js-cookie'
 // state
 export const state = {
-    schoolTree:  JSON.parse(Cookies.get('schoolTree')),
+    schoolTree:  Cookies.get('schoolTree') ? JSON.parse(Cookies.get('schoolTree')) : null,
     chooseableSchoolTree: null,
 }
 
