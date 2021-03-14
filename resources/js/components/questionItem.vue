@@ -77,10 +77,12 @@
                     icon
                     color="pink"
                     class="position-absolute remove-uploaded-item-icon"
+                    @click="removeUploadItem('image', index)"
+                    :loading="imgUrl.isDeleting"
                     >
                     <v-icon size="25">mdi-trash-can-outline</v-icon>
                 </v-btn>
-                <v-img :src="`${baseUrl}${imgUrl}`" alt="upload image" class="uploaded-image" ></v-img>
+                <v-img :src="`${baseUrl}${imgUrl.path}`" alt="upload image" class="uploaded-image" ></v-img>
             </v-col>
         </v-row>
         <!--  VIDEO VIEWER  -->
@@ -101,6 +103,8 @@
                         icon
                         color="pink"
                         class="ml-auto"
+                        @click="removeUploadItem('video', index)"
+                        :loading="video.isDeleting"
                         >
                         <v-icon size="25">mdi-trash-can-outline</v-icon>
                     </v-btn>
@@ -125,6 +129,8 @@
                         icon
                         color="pink"
                         class="ml-auto"
+                        @click="removeUploadItem('other', index)"
+                        :loading="other.isDeleting"
                         >
                         <v-icon size="25">mdi-trash-can-outline</v-icon>
                     </v-btn>
@@ -135,7 +141,7 @@
 </template>
 
 <script>
-import {uploadImage, uploadVideo, uploadOther} from '~/api/upload'
+import {uploadImage, uploadVideo, uploadOther, deleteFile} from '~/api/upload'
 export default {
     props: {
         Label : {
@@ -156,7 +162,8 @@ export default {
         selectedFile: null,
         isImageSelecting: false,
         isVideoSelecting: false,
-        isFileSelecting: false
+        isFileSelecting: false,
+        deleteItem : null,
     }),
     methods:{
         clickUploadImageBtn() {
@@ -174,9 +181,11 @@ export default {
                 fileData.append('file', this.selectedImageFile);
                 await uploadImage(fileData)
                 .then((res) => {
-                    console.log(res);
-                    res = `/uploads/image/${res.data}`
-                    this.contentData.imgUrl.push(res);
+                    let imgObj = {
+                        path : `/uploads/image/${res.data}`,
+                        isDeleting : false,
+                    }
+                    this.contentData.imgUrl.push(imgObj);
                     this.isImageSelecting = false
                     this.selectedImageFile = null
                 }).catch((err) => {
@@ -184,7 +193,6 @@ export default {
                     this.isImageSelecting = false
                 });
             }
-            console.log("^^^^^^^^^^^^^^^^", this.contentData.imgUrl);
         },
         clickUploadVideoBtn() {
             this.isVideoSelecting = true
@@ -201,10 +209,10 @@ export default {
                 fileData.append('file', this.selectedVideoFile);
                 await uploadVideo(fileData)
                 .then((res) => {
-                    console.log("video", res);
                     this.selectedVideoFile = null;
-                    let url = `/uploads/video/${res.fileName}`
-                    this.$set(res,'imgUrl',url)
+                    let url = `/uploads/video/${res.data.fileName}`
+                    this.$set(res.data,'imgUrl',url)
+                    this.$set(res.data,'isDeleting',false)
                     this.contentData.videoUrl.push(res.data);
                     this.isVideoSelecting = false
                 }).catch((err) => {
@@ -229,10 +237,10 @@ export default {
                 fileData.append('file', this.selectedFile);
                 await uploadOther(fileData)
                 .then((res) => {
-                    console.log("file", res);
                     this.selectedFile = null;
-                    let url = `/uploads/other/${res.fileName}`;
-                    this.$set(res,'imgUrl',url)
+                    let url = `/uploads/other/${res.data.fileName}`;
+                    this.$set(res.data,'imgUrl',url)
+                    this.$set(res.data,'isDeleting',false)
                     this.contentData.otherUrl.push(res.data);
                     this.isFileSelecting = false
                 }).catch((err) => {
@@ -240,6 +248,47 @@ export default {
                     this.isFileSelecting = false
                 });
             }
+        },
+
+        async removeUploadItem(type, index){
+            switch (type) {
+                case "image":
+                    this.deleteItem = this.contentData.imgUrl[index];
+                    await this.deleteFileFromServer('image');
+                    this.contentData.imgUrl.splice(index, 1)
+                    break;
+                case "video":
+                    this.deleteItem = this.contentData.videoUrl[index];
+                    await this.deleteFileFromServer('video');
+                    this.contentData.videoUrl.splice(index, 1)
+                    break;
+                case "other":
+                    this.deleteItem = this.contentData.otherUrl[index];
+                    await this.deleteFileFromServer('other');
+                    this.contentData.otherUrl.splice(index, 1)
+                    break;
+            }
+            // this.deleteItem = null;
+        },
+
+        async deleteFileFromServer(type){
+            this.deleteItem.isDeleting = true;
+            let filePath = '';
+            if (type == 'image'){
+                filePath = this.deleteItem.path;
+            }
+            else{
+                filePath = this.deleteItem.imgUrl
+            }
+            await deleteFile(filePath)
+            .then((res) => {
+                console.log(res)
+                this.deleteItem.isDeleting = false;
+            }).catch((err) => {
+                console.log(err);
+                this.deleteItem.isDeleting = false;
+            });
+
         }
     }
 }
