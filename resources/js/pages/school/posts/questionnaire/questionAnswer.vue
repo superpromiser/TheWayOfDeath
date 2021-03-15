@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <v-container>
     <div class="mt-3">
         <QuestionItem :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
-        <div class="divider"></div>
+        <v-divider></v-divider>
     </div>
     <v-row>
       <v-col>
@@ -18,7 +18,7 @@
         >
         {{lang.requiredText}}
     </v-snackbar>
-  </div>
+  </v-container>
 </template>
 
 <script>
