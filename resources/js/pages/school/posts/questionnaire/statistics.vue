@@ -1,6 +1,6 @@
 <template>
   <div>
-      <QuestionItem :Label="lang.contentPlace"/>
+      <QuestionItem :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
       <div class="divider"></div>
       <v-row>
         <v-col>
@@ -9,12 +9,12 @@
         <v-col>
           <v-text-field
             :label="lang.startingValue"
-            v-model="statDataArr.sValue"
+            v-model="statDataArr[0].sValue"
           ></v-text-field>
           {{lang.to}}
           <v-text-field
             :label="lang.endValue"
-            v-model="statDataArr.eValue"
+            v-model="statDataArr[0].eValue"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -25,7 +25,7 @@
         <v-col>
           <v-text-field
             :label="lang.endValue"
-            v-model="statDataArr.unit"
+            v-model="statDataArr[0].unit"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -34,6 +34,15 @@
               <v-btn color="primary" @click="addStatContent">{{lang.submit}}</v-btn>
           </v-col>
       </v-row>
+      <v-snackbar
+        timeout="3000"
+        v-model="requiredText"
+        color="error"
+        absolute
+        top
+        >
+        {{lang.requiredText}}
+      </v-snackbar>
   </div>
 </template>
 
@@ -47,26 +56,38 @@ export default {
   },
 
   data: () => ({
-    statDataArr:{
-        QuestionItemData:[
-          {
-            text:"test",
-            imgUrl:['test1.jpg','test2.jpg'],
-            otherUrl:['test1.pdf','test2.pdf'],
-            videoUrl:['test1.mp4','test2.mp4']
-          },
+    statDataArr:[
+      {
+        contentData:[
         ],
-        sValue:0,
-        eValue:0,
+        sValue:'',
+        eValue:'',
         unit:''
-      },
+      }
+    ],
     lang,
+    requiredText:false,
   }),
 
   methods:{
     addStatContent(){
+      this.$refs.child.emitData()
+      console.log(this.statDataArr[0])
+      if(this.statDataArr[0].contentData.length == 0 || this.statDataArr[0].sValue == '' || this.statDataArr[0].eValue == '' || this.statDataArr[0].unit == ''){
+        this.requiredText = true;
+        this.statDataArr[0].contentData = [];
+        return;
+      }
       this.$store.dispatch('content/storeStatData',this.statDataArr);
       this.$router.push({name:"questionnaire.new"});
+    },
+    loadContentData(data){
+      console.log(data)
+      if(data.text === ''){
+        this.statDataArr[0].contentData = []
+        return;
+      }
+      this.statDataArr[0].contentData.push(data);
     }
   }
 
