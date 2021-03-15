@@ -57,6 +57,7 @@
                         transition="scale-transition"
                         offset-y
                         min-width="auto"
+                        :value="newQuestionnaireData.deadline"
                     >
                         <template v-slot:activator="{ on, attrs }">
                         <v-text-field

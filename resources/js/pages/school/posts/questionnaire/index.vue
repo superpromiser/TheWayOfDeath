@@ -105,6 +105,7 @@
                         @change="selectedLesson"
                         label="班级"
                         hide-details
+                        v-model="newQuestionnaireData.viewList"
                     ></v-select>
                 </v-col>
             </v-row>
@@ -114,7 +115,6 @@
                     <v-switch
                         v-model="newQuestionnaireData.questionnaireFlag"
                         color="primary"
-                        value="primary"
                         hide-details
                         inset
                         class="pt-0 mt-0"
@@ -125,7 +125,6 @@
                     <v-switch
                         v-model="newQuestionnaireData.resultFlag"
                         color="primary"
-                        value="primary"
                         hide-details
                         inset
                         class="pt-0 mt-0"
@@ -136,7 +135,6 @@
                     <v-switch
                         v-model="newQuestionnaireData.answerFlag"
                         color="primary"
-                        value="primary"
                         hide-details
                         inset
                         class="pt-0 mt-0"
@@ -269,26 +267,26 @@ export default {
       this.postNew = true;
       switch(this.selType){
         case 'single':
-          this.questionAnswerDataArr.content.singleContentDataArr.push(data)
+          this.newQuestionnaireData.content.singleContentDataArr.push(data)
           break;
         case 'multi':
-          this.questionAnswerDataArr.content.multiContentDataArr.push(data)
+          this.newQuestionnaireData.content.multiContentDataArr.push(data)
           break;
         case 'question':
-          this.questionAnswerDataArr.content.questionAnswerDataArr.push(data)
+          this.newQuestionnaireData.content.questionAnswerDataArr.push(data)
           break;
         case 'stat':
-          this.questionAnswerDataArr.content.statisticsDataArr.push(data)
+          this.newQuestionnaireData.content.statisticsDataArr.push(data)
           break;
         case 'scoring':
-          this.questionAnswerDataArr.content.scoringQuestoinsDataArr.push(data)
+          this.newQuestionnaireData.content.scoringQuestoinsDataArr.push(data)
           break;
         default:
           break;
       }
     },
     submit(){
-      console.log(this.questionAnswerDataArr)
+      console.log(this.newQuestionnaireData)
     }
   }
 }
