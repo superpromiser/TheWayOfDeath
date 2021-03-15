@@ -11,6 +11,7 @@
     "endValue":"结束值",
     "unit":"单位",
     "contentPlace":"输入内容",
+    "contentPlaceFirst":"投票内容",
     "maxMinutes":"最高分",
     "requiredText":"标题不能为空"
 }

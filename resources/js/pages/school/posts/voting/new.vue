@@ -21,6 +21,7 @@
             <v-btn
                 dark
                 color="green lighten-1"
+                @click="publishVotingData"
             >
                 提交
             </v-btn>
@@ -34,7 +35,7 @@
                         :items="typeItem"
                         item-text="label"
                         item-value="value"
-                        v-model="newVoteData.type"
+                        v-model="votingResult.vResult"
                         label="投票人是否可见结果"
                         hide-details
                     ></v-select>
@@ -116,15 +117,32 @@
                     <v-switch
                         v-model="votingResult.anonyVote"
                         color="primary"
-                        value="primary"
                         hide-details
                         inset
                         class="pt-0 mt-0"
                     ></v-switch>
                 </v-col>
             </v-row>
+            <div v-for="index in initialCnt" :key="index" class="mt-3">
+                <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="'child' + index" @contentData="loadContentData"/>
+                <v-divider></v-divider>
+            </div>
+            <v-btn color="primary" text @click="addContent" class="mt-10">
+                <v-icon>
+                    mdi-plus
+                </v-icon>
+                {{lang.addOption}}
+            </v-btn>
         </v-container>
-        
+        <v-snackbar
+            timeout="3000"
+            v-model="requiredText"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -133,9 +151,14 @@ import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 export default {
+    components: {
+        QuestionItem,
+    },
+
     data: () => ({
         lang,
         menu: false,
+        requiredText:false,
         baseUrl: window.Laravel.base_url,
         typeItem : [
             { 
@@ -195,11 +218,9 @@ export default {
             },
             
         ],
-        newVoteData : {
-            type : ''
-        },
+        initialCnt:4,
         votingResult:{
-            vResult:'投票后可见',
+            vResult: '',
             viewList:[],
             postShow:[],
             vScope:'',
@@ -222,6 +243,28 @@ export default {
         selectedLesson(val){
             console.log(val)
         },  
+        loadContentData(data){
+            if(data.text === ''){
+                this.requiredText = true
+                this.votingResult.content.votingDataArr = []
+                return;
+            }
+            this.votingResult.content.votingDataArr.push(data);
+        },
+        addContent(){
+            this.initialCnt ++;
+        },
+
+        publishVotingData(){
+            console.log(this.$refs);
+            // for(let index = 1;  index <= this.initialCnt; index++){
+            //     this.$refs[index][0].emitData()
+            // }
+            // if(this.votingResult.content.votingDataArr.length < 4){
+            //     return
+            // }
+            // console.log("votingData", this.votingResult);
+        },
     }
 }
 </script>

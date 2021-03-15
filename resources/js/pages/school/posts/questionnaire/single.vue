@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <div v-for="index in initialCnt" :key="index" class="mt-3">
-            <QuestionItem class="mt-10" :Label="lang.contentPlace" :index="index" :ref="'child' + index" @contentData="loadContentData"/>
+            <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="'child' + index" @contentData="loadContentData"/>
             <v-divider></v-divider>
         </div>
         <div class="mt-3" @click="addContent">
