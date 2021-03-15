@@ -48,7 +48,6 @@ export default {
             this.initialCnt ++;
         },
         addSingleContent(){
-            console.log(this.$refs)
             for(let index = 1;  index <= this.initialCnt; index++){
                 this.$refs[index][0].emitData()
             }

@@ -141,7 +141,7 @@
                     ></v-switch>
                 </v-col>
             </v-row>
-            <v-row class="d-flex">
+            <v-row>
                 <v-col cols="12" sm="6" md="4">
                     <v-btn block dark large color="blue accent-3" @click="selContent('single')">
                         <v-icon>
@@ -177,6 +177,14 @@
                         </v-icon>评分题
                     </v-btn>
                 </v-col>
+            </v-row>
+            <!--  View Datas  -->
+            <v-row class="mt-10">
+              <!--  View Divider  -->
+              <v-col>
+                <v-divider></v-divider>
+              </v-col>
+              <!--  View Datas  -->
             </v-row>
         </v-container>
       </div>
