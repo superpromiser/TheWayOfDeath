@@ -7,6 +7,7 @@ export const state = {
     qaData: null,
     statData: null,
     scoringData: null,
+    postNew:false,
 }
 
 // getters
@@ -16,6 +17,7 @@ export const getters = {
     qaData: state => state.qaData,
     statData: state => state.statData,
     scoringData: state => state.scoringData,
+    postNew: state => state.postNew,
 }
 
 // mutations
@@ -35,6 +37,9 @@ export const mutations = {
     [types.STORE_SCORING_DATA] (state,  contentData ) {
         state.scoringData = contentData
     },
+    [types.STORE_POST_NEW] (state, payload){
+        state.postNew = payload
+    }
     
 }
 
@@ -55,4 +60,7 @@ export const actions = {
     storeScoringData ({ commit }, payload) {
         commit(types.STORE_SCORING_DATA, payload)
     },
+    storePostNew({commit},payload) {
+        commit(types.STORE_POST_NEW, payload)
+    }
 }
