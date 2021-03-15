@@ -4,17 +4,18 @@
             <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="index" @contentData="loadContentData"/>
             <v-divider></v-divider>
         </div>
-        <div class="mt-3" @click="addContent">
-            <v-icon>
-                mdi-plus
-            </v-icon>
-            <span >{{lang.addOption}}</span>
-        </div>
-        <v-row>
-            <v-col>
-                <v-btn color="primary" @click="addSingleContent">{{lang.submit}}</v-btn>
-            </v-col>
-        </v-row>
+        <v-container>
+            <v-row class="my-10 d-flex align-center">
+                <v-btn color="primary" text @click="addContent" class="mr-5" >
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>
+                    {{lang.addOption}}
+                </v-btn>
+                
+                <v-btn large rounded dark color="green lighten-1" @click="addSingleContent">{{lang.submit}}</v-btn>
+            </v-row>
+        </v-container>
         <v-snackbar
             timeout="3000"
             v-model="requiredText"
