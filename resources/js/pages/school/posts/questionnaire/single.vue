@@ -38,7 +38,10 @@ export default {
         Fragment,
     },
     data: () =>({
-        signleContentDataArr:[],
+        singleData : {
+            type : 'single',
+            singleContentDataArr:[],
+        },
         initialCnt:4,
         lang,
         requiredText:false
@@ -51,20 +54,20 @@ export default {
             for(let index = 1;  index <= this.initialCnt; index++){
                 this.$refs[index][0].emitData()
             }
-            if(this.signleContentDataArr.length<4){
+            if(this.singleData.singleContentDataArr.length<4){
                 return
             }
-            // this.$store.dispatch('content/storeSingleData',this.signleContentDataArr)
-            this.$emit('contentData',this.signleContentDataArr);
+            // this.$store.dispatch('content/storeSingleData',this.singleContentDataArr)
+            this.$emit('contentData',this.singleData);
             this.$router.push({name:'posts.questionnaire'});
         },
         loadContentData(data){
             if(data.text === ''){
                 this.requiredText = true
-                this.signleContentDataArr = []
+                this.singleData.singleContentDataArr = []
                 return;
             }
-            this.signleContentDataArr.push(data);
+            this.singleData.singleContentDataArr.push(data);
         }
     }
 }

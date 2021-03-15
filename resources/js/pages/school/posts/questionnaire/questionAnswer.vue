@@ -30,7 +30,10 @@ export default {
   },
 
   data: () => ({
-    qaContentDataArr:[],
+    qaData : {
+      type : 'qa',
+      qaContentDataArr:[],
+    },
     lang,
     requiredText:false,
   }),
@@ -38,21 +41,21 @@ export default {
   methods:{
     addQaContent(){
       this.$refs.child.emitData()
-      if(this.qaContentDataArr.length == 0){
+      if(this.qaData.qaContentDataArr.length == 0){
         return
       }
       // this.$store.dispatch('content/storeQaData',this.qaContentDataArr)
       // this.$router.push({name:'questionnaire.new'});
-      this.$emit('contentData',this.qaContentDataArr);
+      this.$emit('contentData',this.qaData);
       this.$router.push({name:'posts.questionnaire'});
     },
     loadContentData(data){
       if(data.text === ''){
         this.requiredText = true;
-        this.qaContentDataArr = [];
+        this.qaData.qaContentDataArr = [];
         return;
       }
-      this.qaContentDataArr.push(data)
+      this.qaData.qaContentDataArr.push(data)
     }
   },
 }

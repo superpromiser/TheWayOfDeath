@@ -181,10 +181,53 @@
             <!--  View Datas  -->
             <v-row class="mt-10">
               <!--  View Divider  -->
-              <v-col>
+              <v-col cols="12">
                 <v-divider></v-divider>
               </v-col>
               <!--  View Datas  -->
+              <v-col cols="12" v-for="(data, index) in newQuestionnaireData.content" :key="index">
+                <v-row v-if="data.type == 'single'">
+                  <v-col cols="12">
+                    <p class="mb-0"> 
+                      {{index + 1}}.  
+                      <v-chip
+                          class="ma-2"
+                          color="success"
+                          outlined
+                        >
+                        <strong>单选题 ▪ 必答</strong>
+                      </v-chip>
+                      <v-btn
+                        fab
+                        dark
+                        x-small
+                        color="primary"
+                      >
+                        <v-icon dark>
+                          mdi-pencil
+                        </v-icon>
+                      </v-btn>
+                    </p>
+                    <p class="text-wrap pl-3 mb-0">{{ data.singleContentDataArr[0].text }}</p>
+                  </v-col>
+                  <v-col v-if="checkIfAttachExist(data.singleContentDataArr[0])">
+                    <AttachItemViewer :items="data.singleContentDataArr[0]" />
+                  </v-col>
+                  <v-col class="pl-6" cols="12" v-for="(singleData, singleDataIndex) in data.singleContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
+                    <div class="d-flex"> 
+                      <v-chip
+                          class="ma-2"
+                          color="success"
+                          outlined
+                        >
+                        <strong>{{alphabet[singleDataIndex-1]}}</strong>
+                      </v-chip>
+                      <p class="mb-0 text-wrap"> {{singleData.text}}</p>
+                    </div>
+                    <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
+                  </v-col>
+                </v-row>
+              </v-col>
             </v-row>
         </v-container>
       </div>
@@ -198,6 +241,7 @@
 import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
+import AttachItemViewer from '~/components/attachItemViewer'
 export default {
   data: () => ({
       lang,
@@ -211,23 +255,20 @@ export default {
           resultFlag:true,
           answerFlag:false,
           type:0,
-          content:{
-              singleContentDataArr:[],
-              multiContentDataArr:[],
-              questionAnswerDataArr:[],
-              statisticsDataArr:[],
-              scoringQuestoinsDataArr:[],
-          },
+          content:[],
       },
       postNew:true,
       selType:'',
       dialog:false,
       date: new Date().toISOString().substr(0, 10),
       menu: false,
+      alphabet:['A','B','C','D','E','F','G','H','J','K','L','M','N',
+                'O','P','Q','R','S','T','U','V','W','X','Y','Z' ],
   }),
 
   components: {
       QuestionItem,
+      AttachItemViewer
   },
 
   computed: {
@@ -275,19 +316,19 @@ export default {
       this.postNew = true;
       switch(this.selType){
         case 'single':
-          this.newQuestionnaireData.content.singleContentDataArr.push(data)
+          this.newQuestionnaireData.content.push(data)
           break;
         case 'multi':
-          this.newQuestionnaireData.content.multiContentDataArr.push(data)
+          this.newQuestionnaireData.content.push(data)
           break;
         case 'question':
-          this.newQuestionnaireData.content.questionAnswerDataArr.push(data)
+          this.newQuestionnaireData.content.push(data)
           break;
         case 'stat':
-          this.newQuestionnaireData.content.statisticsDataArr.push(data)
+          this.newQuestionnaireData.content.push(data)
           break;
         case 'scoring':
-          this.newQuestionnaireData.content.scoringQuestoinsDataArr.push(data)
+          this.newQuestionnaireData.content.push(data)
           break;
         default:
           break;
@@ -295,6 +336,17 @@ export default {
     },
     submit(){
       console.log(this.newQuestionnaireData)
+    },
+
+    checkIfAttachExist(data){
+      let count = 0;
+      count = count + data.imgUrl.length + data.videoUrl.length + data.otherUrl.length;
+      if( count == 0 ) {
+        return false;
+      }
+      else{
+        return true;
+      }
     }
   }
 }

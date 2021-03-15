@@ -37,7 +37,10 @@ export default {
         Fragment,
     },
     data: () =>({
-        multiContentDataArr:[],
+        multiData : {
+            type : 'multi',
+            multiContentDataArr:[],
+        },
         initialCnt:4,
         lang,
         requiredText:false,
@@ -51,21 +54,20 @@ export default {
             for(let index = 1;  index <= this.initialCnt; index++){
                 this.$refs[index][0].emitData()
             }
-            if(this.multiContentDataArr.length<4){
+            if(this.multiData.multiContentDataArr.length<4){
                 return
             }
-            // this.$store.dispatch('content/storeMultiData',this.multiContentDataArr)
-            // this.$router.push({name:'questionnaire.new'});
-            this.$emit('contentData',this.multiContentDataArr);
+            
+            this.$emit('contentData',this.multiData);
             this.$router.push({name:'posts.questionnaire'});
         },
         loadContentData(data){
             if(data.text === ''){
                 this.requiredText = true;
-                this.multiContentDataArr = [];
+                this.multiData.multiContentDataArr = [];
                 return;
             }
-            this.multiContentDataArr.push(data)
+            this.multiData.multiContentDataArr.push(data)
         }
 
     }

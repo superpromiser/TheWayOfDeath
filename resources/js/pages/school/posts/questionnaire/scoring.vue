@@ -10,7 +10,7 @@
         <v-select
           :items="items"
           label="2"
-          v-model="scoringDataArr[0].maxMin"
+          v-model="scoreData.scoringDataArr[0].maxMin"
         ></v-select>
       </v-col>
     </v-row>
@@ -41,12 +41,15 @@ export default {
 
   data:() => ({
     lang,
-    scoringDataArr:[
-      {
-        contentData:[],
-        maxMin:2
-      }
-    ],
+    scoreData : {
+      scoringDataArr:[
+        {
+          contentData:[],
+          maxMin:2
+        }
+      ],
+      type : "score"
+    },
     items:[
       '2','3','4','5','6','7','8','9','10'
     ],
@@ -56,21 +59,20 @@ export default {
   methods:{
     addScoringContent(){
       this.$refs.child.emitData();
-      if(this.scoringDataArr[0].contentData.length == 0){
+      if(this.scoreData.scoringDataArr[0].contentData.length == 0){
         this.requiredText = true;
         return
       }
-      // this.$store.dispatch('content/storeScoringData',this.scoringDataArr);
-      // this.$router.push({name:'questionnaire.new'})
-      this.$emit('contentData',this.scoringDataArr);
+      
+      this.$emit('contentData',this.scoreData);
       this.$router.push({name:'posts.questionnaire'});
     },
     loadContentData(data){
       if(data.text === ''){
-        this.scoringDataArr[0].contentData = []
+        this.scoreData.scoringDataArr[0].contentData = []
         return;
       }
-      this.scoringDataArr[0].contentData.push(data)
+      this.scoreData.scoringDataArr[0].contentData.push(data)
     }
   }
 }

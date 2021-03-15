@@ -9,12 +9,12 @@
         <v-col>
           <v-text-field
             :label="lang.startingValue"
-            v-model="statDataArr[0].sValue"
+            v-model="statData.statDataArr[0].sValue"
           ></v-text-field>
           {{lang.to}}
           <v-text-field
             :label="lang.endValue"
-            v-model="statDataArr[0].eValue"
+            v-model="statData.statDataArr[0].eValue"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -25,7 +25,7 @@
         <v-col>
           <v-text-field
             :label="lang.endValue"
-            v-model="statDataArr[0].unit"
+            v-model="statData.statDataArr[0].unit"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -56,15 +56,18 @@ export default {
   },
 
   data: () => ({
-    statDataArr:[
-      {
-        contentData:[
-        ],
-        sValue:'',
-        eValue:'',
-        unit:''
-      }
-    ],
+    statData : {
+      statDataArr:[
+        {
+          contentData:[
+          ],
+          sValue:'',
+          eValue:'',
+          unit:''
+        }
+      ],
+      type : 'stat'
+    },
     lang,
     requiredText:false,
   }),
@@ -72,24 +75,23 @@ export default {
   methods:{
     addStatContent(){
       this.$refs.child.emitData()
-      console.log(this.statDataArr[0])
-      if(this.statDataArr[0].contentData.length == 0 || this.statDataArr[0].sValue == '' || this.statDataArr[0].eValue == '' || this.statDataArr[0].unit == ''){
+      console.log(this.statData.statDataArr[0])
+      if(this.statData.statDataArr[0].contentData.length == 0 || this.statData.statDataArr[0].sValue == '' || this.statData.statDataArr[0].eValue == '' || this.statData.statDataArr[0].unit == ''){
         this.requiredText = true;
-        this.statDataArr[0].contentData = [];
+        this.statData.statDataArr[0].contentData = [];
         return;
       }
-      // this.$store.dispatch('content/storeStatData',this.statDataArr);
-      // this.$router.push({name:"questionnaire.new"});
-      this.$emit('contentData',this.statDataArr);
+      
+      this.$emit('contentData',this.statData);
       this.$router.push({name:'posts.questionnaire'});
     },
     loadContentData(data){
       console.log(data)
       if(data.text === ''){
-        this.statDataArr[0].contentData = []
+        this.statData.statDataArr[0].contentData = []
         return;
       }
-      this.statDataArr[0].contentData.push(data);
+      this.statData.statDataArr[0].contentData.push(data);
     }
   }
 
