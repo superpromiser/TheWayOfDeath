@@ -1,39 +1,46 @@
 <template>
-  <div>
-      <QuestionItem :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
-      <div class="divider"></div>
+  <v-container>
+      <div class="mt-3 mb-10">
+          <QuestionItem class="mt-10" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+          <v-divider></v-divider>
+      </div>
       <v-row>
-        <v-col>
-          {{lang.numberRange}}
+        <v-col cols="12" md="6">
+          <v-row>
+            <v-col cols="12">{{lang.numberRange}}</v-col>
+            <v-col cols="12" class="d-flex align-end justify-content-around">
+              <v-text-field
+                :label="lang.startingValue"
+                v-model="statData.statDataArr[0].sValue"
+                hide-details
+              ></v-text-field>
+              <p class="mb-0 mx-5">{{lang.to}}</p>
+              <v-text-field
+                :label="lang.endValue"
+                v-model="statData.statDataArr[0].eValue"
+                hide-details
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-col>
-        <v-col>
-          <v-text-field
-            :label="lang.startingValue"
-            v-model="statData.statDataArr[0].sValue"
-          ></v-text-field>
-          {{lang.to}}
-          <v-text-field
-            :label="lang.endValue"
-            v-model="statData.statDataArr[0].eValue"
-          ></v-text-field>
+        <v-col class="12" md="6">
+          <v-row>
+            <v-col cols="12">{{lang.unit}}</v-col>
+            <v-col cols="12">
+              <v-text-field
+                :label="lang.endValue"
+                v-model="statData.statDataArr[0].unit"
+                hide-details
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col>
-          {{lang.unit}}
-        </v-col>
-        <v-col>
-          <v-text-field
-            :label="lang.endValue"
-            v-model="statData.statDataArr[0].unit"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-          <v-col>
-              <v-btn color="primary" @click="addStatContent">{{lang.submit}}</v-btn>
-          </v-col>
-      </v-row>
+      <v-container>
+        <v-row class="my-10 d-flex align-center">
+            <v-btn large rounded dark color="green lighten-1" @click="addStatContent">{{lang.submit}}</v-btn>
+        </v-row>
+      </v-container>
       <v-snackbar
         timeout="3000"
         v-model="requiredText"
@@ -43,7 +50,7 @@
         >
         {{lang.requiredText}}
       </v-snackbar>
-  </div>
+  </v-container>
 </template>
 
 <script>
