@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
         <schoolTabBar></schoolTabBar>
         <transition name="fade" mode="out-in">
             <router-view></router-view>

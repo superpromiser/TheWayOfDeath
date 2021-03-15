@@ -88,3 +88,8 @@ a {
     width: 45px;
     height: 45px;
 }
+
+.school-space-tab-bar-outter{
+    height: calc(100% - 72px);
+    overflow: auto;
+}
