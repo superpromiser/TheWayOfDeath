@@ -1,13 +1,15 @@
 <template>
   <v-container>
     <div class="mt-3">
-        <QuestionItem :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+        <QuestionItem class="mt-10" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
         <v-divider></v-divider>
     </div>
     <v-row>
-      <v-col>
-          <v-btn color="primary" @click="addQaContent">{{lang.submit}}</v-btn>
-      </v-col>
+    <v-container>
+          <v-row class="my-10 d-flex align-center">
+              <v-btn large rounded dark color="green lighten-1" @click="addQaContent">{{lang.submit}}</v-btn>
+          </v-row>
+      </v-container>
     </v-row>
     <v-snackbar
         timeout="3000"
@@ -44,8 +46,6 @@ export default {
       if(this.qaData.qaContentDataArr.length == 0){
         return
       }
-      // this.$store.dispatch('content/storeQaData',this.qaContentDataArr)
-      // this.$router.push({name:'questionnaire.new'});
       this.$emit('contentData',this.qaData);
       this.$router.push({name:'posts.questionnaire'});
     },
