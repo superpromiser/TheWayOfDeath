@@ -194,18 +194,18 @@
                       <v-chip class="ma-2" color="success" outlined >
                         <strong>单选题</strong>
                       </v-chip>
-                     <v-btn icon color="green" class="ml-2" >
+                     <v-btn icon color="green" class="ml-2" @click="pushUp(index)" :disabled="index == 0"  >
                         <v-icon>mdi-arrow-up-bold</v-icon>
                       </v-btn>
-                      <v-btn icon color="green" class="mr-2" >
+                      <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)" >
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" >
+                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)" >
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="error" class="mx-2" >
+                      <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)" >
                         <v-icon dark>
                           mdi-trash-can-outline
                         </v-icon>
@@ -238,18 +238,18 @@
                       <v-chip class="ma-2" color="success" outlined >
                         <strong>多选题</strong>
                       </v-chip>
-                      <v-btn icon color="green" class="mx-2" >
+                      <v-btn icon color="green" class="ml-2" @click="pushUp(index)" :disabled="index == 0">
                         <v-icon>mdi-arrow-up-bold</v-icon>
                       </v-btn>
-                      <v-btn icon color="green" class="mx-2" >
+                      <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)">
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" >
+                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)" >
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="error" class="mx-2" >
+                      <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)" >
                         <v-icon dark>
                           mdi-trash-can-outline
                         </v-icon>
@@ -282,18 +282,18 @@
                       <v-chip class="ma-2" color="success" outlined >
                         <strong>问答题</strong>
                       </v-chip>
-                     <v-btn icon color="green" class="ml-2" >
+                     <v-btn icon color="green" class="ml-2" @click="pushUp(index)" :disabled="index == 0">
                         <v-icon>mdi-arrow-up-bold</v-icon>
                       </v-btn>
-                      <v-btn icon color="green" class="mr-2" >
+                      <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)">
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" >
+                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="error" class="mx-2" >
+                      <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)">
                         <v-icon dark>
                           mdi-trash-can-outline
                         </v-icon>
@@ -313,18 +313,18 @@
                       <v-chip class="ma-2" color="success" outlined >
                         <strong>统计题</strong>
                       </v-chip>
-                     <v-btn icon color="green" class="ml-2" >
+                     <v-btn icon color="green" class="ml-2" @click="pushUp(index)" :disabled="index == 0">
                         <v-icon>mdi-arrow-up-bold</v-icon>
                       </v-btn>
-                      <v-btn icon color="green" class="mr-2" >
+                      <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)" >
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" >
+                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="error" class="mx-2" >
+                      <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)">
                         <v-icon dark>
                           mdi-trash-can-outline
                         </v-icon>
@@ -334,6 +334,37 @@
                   </v-col>
                   <v-col v-if="checkIfAttachExist(data.statDataArr[0].contentData[0])">
                     <AttachItemViewer :items="data.statDataArr[0].contentData[0]" />
+                  </v-col>
+                </v-row>
+                <!--  score Datas  -->
+                <v-row v-if="data.type == 'score'">
+                  <v-col cols="12">
+                    <p class="mb-0 d-flex align-center"> 
+                      {{index + 1}}.  
+                      <v-chip class="ma-2" color="success" outlined >
+                        <strong>评分题</strong>
+                      </v-chip>
+                     <v-btn icon color="green" class="ml-2" @click="pushUp(index)" :disabled="index == 0">
+                        <v-icon>mdi-arrow-up-bold</v-icon>
+                      </v-btn>
+                      <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)">
+                        <v-icon>mdi-arrow-down-bold</v-icon>
+                      </v-btn>
+                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
+                        <v-icon dark>
+                          mdi-pencil
+                        </v-icon>
+                      </v-btn>
+                      <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)">
+                        <v-icon dark>
+                          mdi-trash-can-outline
+                        </v-icon>
+                      </v-btn>
+                    </p>
+                    <p class="text-wrap pl-3 mb-0">{{ data.scoringDataArr[0].contentData[0].text }}</p>
+                  </v-col>
+                  <v-col v-if="checkIfAttachExist(data.scoringDataArr[0].contentData[0])">
+                    <AttachItemViewer :items="data.scoringDataArr[0].contentData[0]" />
                   </v-col>
                 </v-row>
               </v-col>
@@ -470,7 +501,29 @@ export default {
       else{
         return true;
       }
-    }
+    },
+
+    pushUp(index){
+      let temp = Object.assign({}, this.newQuestionnaireData.content[index-1]);
+      Object.assign(this.newQuestionnaireData.content[index-1], this.newQuestionnaireData.content[index] ) ;
+      Object.assign(this.newQuestionnaireData.content[index], temp);
+    },
+
+    pushDown(index){
+      let temp = Object.assign({}, this.newQuestionnaireData.content[index+1]);
+      Object.assign(this.newQuestionnaireData.content[index+1], this.newQuestionnaireData.content[index] ) ;
+      Object.assign(this.newQuestionnaireData.content[index], temp);
+    },
+
+    editContent(data, index){
+      console.log(data, index);
+    },
+
+    deleteContent(index){
+      this.newQuestionnaireData.content.splice(index, 1)
+    },
+
+
   }
 }
 </script>
