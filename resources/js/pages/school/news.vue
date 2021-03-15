@@ -1,6 +1,8 @@
 <template>
-  <v-container>
-      news
+  <v-container class="school-space-tab-bar-outter">
+    <v-row>
+      <v-col cols="12">somethihng</v-col>
+    </v-row>
   </v-container>
 </template>
 
