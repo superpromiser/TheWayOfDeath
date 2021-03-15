@@ -41,8 +41,10 @@ export default {
       if(this.qaContentDataArr.length == 0){
         return
       }
-      this.$store.dispatch('content/storeQaData',this.qaContentDataArr)
-      this.$router.push({name:'questionnaire.new'});
+      // this.$store.dispatch('content/storeQaData',this.qaContentDataArr)
+      // this.$router.push({name:'questionnaire.new'});
+      this.$emit('contentData',this.qaContentDataArr);
+      this.$router.push({name:'posts.questionnaire'});
     },
     loadContentData(data){
       if(data.text === ''){

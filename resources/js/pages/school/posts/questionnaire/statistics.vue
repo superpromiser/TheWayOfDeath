@@ -78,8 +78,10 @@ export default {
         this.statDataArr[0].contentData = [];
         return;
       }
-      this.$store.dispatch('content/storeStatData',this.statDataArr);
-      this.$router.push({name:"questionnaire.new"});
+      // this.$store.dispatch('content/storeStatData',this.statDataArr);
+      // this.$router.push({name:"questionnaire.new"});
+      this.$emit('contentData',this.statDataArr);
+      this.$router.push({name:'posts.questionnaire'});
     },
     loadContentData(data){
       console.log(data)

@@ -60,8 +60,10 @@ export default {
         this.requiredText = true;
         return
       }
-      this.$store.dispatch('content/storeScoringData',this.scoringDataArr);
-      this.$router.push({name:'questionnaire.new'})
+      // this.$store.dispatch('content/storeScoringData',this.scoringDataArr);
+      // this.$router.push({name:'questionnaire.new'})
+      this.$emit('contentData',this.scoringDataArr);
+      this.$router.push({name:'posts.questionnaire'});
     },
     loadContentData(data){
       if(data.text === ''){

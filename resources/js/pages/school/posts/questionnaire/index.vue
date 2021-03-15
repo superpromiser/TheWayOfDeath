@@ -1,12 +1,296 @@
 <template>
   <v-container class="pa-0">
-      <router-view></router-view>
+      <div v-if="postNew == true">
+        <v-banner class=" mb-10" color="white" sticky elevation="20">
+            <div class="d-flex align-center">
+                <v-avatar
+                    class="ma-3 ml-0"
+                    size="50"
+                    tile
+                >
+                    <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
+                </v-avatar>
+                <h2>问卷</h2>
+            </div>
+            <template v-slot:actions>
+            <v-btn
+                text
+                color="primary"
+            >
+                可用模板 0， 草稿 0
+            </v-btn>
+            <v-btn
+                dark
+                color="green lighten-1"
+                @click="submit"
+            >
+                {{lang.submit}}
+            </v-btn>
+            </template>
+        </v-banner>
+        <v-container class="pa-10">
+            <v-row>
+                <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                        solo
+                        v-model="newQuestionnaireData.title"
+                        label="标题"
+                        hide-details
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                        solo
+                        v-model="newQuestionnaireData.description"
+                        label="说明（选填）"
+                        hide-details
+                    ></v-text-field>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                    >
+                    <v-menu
+                        ref="menu"
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        :return-value.sync="newQuestionnaireData.deadline"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            solo
+                            v-model="newQuestionnaireData.deadline"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            hide-details
+                        ></v-text-field>
+                        </template>
+                        <v-date-picker
+                        v-model="newQuestionnaireData.deadline"
+                        no-title
+                        scrollable
+                        >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            text
+                            color="primary"
+                            @click="menu = false"
+                        >
+                            {{lang.cancel}}
+                        </v-btn>
+                        <v-btn
+                            text
+                            color="primary"
+                            @click="$refs.menu.save(date)"
+                        >
+                            {{lang.ok}}
+                        </v-btn>
+                        </v-date-picker>
+                    </v-menu>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        solo
+                        multiple
+                        chips
+                        :items="schoolTree"
+                        item-text="lessonName"
+                        item-value="lessonId"
+                        @change="selectedLesson"
+                        label="班级"
+                        hide-details
+                    ></v-select>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
+                    <span>匿名问卷</span>
+                    <v-switch
+                        v-model="newQuestionnaireData.questionnaireFlag"
+                        color="primary"
+                        value="primary"
+                        hide-details
+                        inset
+                        class="pt-0 mt-0"
+                    ></v-switch>
+                </v-col>
+                <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
+                    <span>答卷人可见结果</span>
+                    <v-switch
+                        v-model="newQuestionnaireData.resultFlag"
+                        color="primary"
+                        value="primary"
+                        hide-details
+                        inset
+                        class="pt-0 mt-0"
+                    ></v-switch>
+                </v-col>
+                <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
+                    <span>外部人员可作答</span>
+                    <v-switch
+                        v-model="newQuestionnaireData.answerFlag"
+                        color="primary"
+                        value="primary"
+                        hide-details
+                        inset
+                        class="pt-0 mt-0"
+                    ></v-switch>
+                </v-col>
+            </v-row>
+            <v-row class="d-flex">
+                <v-col cols="12" sm="6" md="4">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('single')">
+                        <v-icon>
+                            mdi-plus
+                        </v-icon>单选题
+                    </v-btn>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('multi')">
+                        <v-icon>
+                            mdi-plus
+                        </v-icon>多选题
+                    </v-btn>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('question')">
+                        <v-icon>
+                            mdi-plus
+                        </v-icon>问答题
+                    </v-btn>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('stat')">
+                        <v-icon>
+                            mdi-plus
+                        </v-icon>统计题
+                    </v-btn>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-btn block dark large color="blue accent-3" @click="selContent('scoring')">
+                        <v-icon>
+                            mdi-plus
+                        </v-icon>评分题
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+      </div>
+      <div v-else>
+        <router-view @contentData="saveContent"></router-view>
+      </div>
   </v-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import lang from '~/helper/lang.json'
+import QuestionItem from '~/components/questionItem'
 export default {
+  data: () => ({
+      lang,
+      baseUrl: window.Laravel.base_url,
+      newQuestionnaireData : {
+          title:'',
+          description:'',
+          viewList:[],
+          deadline:'',
+          questionnaireFlag:true,
+          resultFlag:true,
+          answerFlag:false,
+          type:0,
+          content:{
+              singleContentDataArr:[],
+              multiContentDataArr:[],
+              questionAnswerDataArr:[],
+              statisticsDataArr:[],
+              scoringQuestoinsDataArr:[],
+          },
+      },
+      postNew:true,
+      selType:'',
+      dialog:false,
+      date: new Date().toISOString().substr(0, 10),
+      menu: false,
+  }),
 
+  components: {
+      QuestionItem,
+  },
+
+  computed: {
+      ...mapGetters({
+          schoolTree : 'schooltree/schoolTree',
+          singleData:'content/singleData',
+          multiData:'content/multiData',
+          qaData:'content/qaData',
+          statData:'content/statData',
+          scoringData:'content/scoringData'
+      })
+  },
+
+  methods:{
+    updateImageFile(imageFile){
+        console.log(imageFile)
+    },
+    selectedLesson(val){
+        console.log(val)
+    },
+    selContent(type){
+        this.postNew = false;
+        this.selType = type;
+        switch(type){
+            case 'single':
+                this.$router.push({name:"questionnaire.single"});
+                break;
+            case 'multi':
+                this.$router.push({name:"questionnaire.multi"});
+                break;
+            case 'question':
+                this.$router.push({name:"questionnaire.questionAnswer"});
+                break;
+            case 'stat':
+                this.$router.push({name:"questionnaire.statistics"});
+                break;
+            case 'scoring':
+                this.$router.push({name:"questionnaire.scoring"});
+                break;
+            default:
+                break;
+        }
+    },
+    saveContent(data){
+      this.postNew = true;
+      switch(this.selType){
+        case 'single':
+          this.questionAnswerDataArr.content.singleContentDataArr.push(data)
+          break;
+        case 'multi':
+          this.questionAnswerDataArr.content.multiContentDataArr.push(data)
+          break;
+        case 'question':
+          this.questionAnswerDataArr.content.questionAnswerDataArr.push(data)
+          break;
+        case 'stat':
+          this.questionAnswerDataArr.content.statisticsDataArr.push(data)
+          break;
+        case 'scoring':
+          this.questionAnswerDataArr.content.scoringQuestoinsDataArr.push(data)
+          break;
+        default:
+          break;
+      }
+    },
+    submit(){
+      console.log(this.questionAnswerDataArr)
+    }
+  }
 }
 </script>
 

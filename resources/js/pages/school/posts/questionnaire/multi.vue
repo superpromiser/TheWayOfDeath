@@ -54,8 +54,10 @@ export default {
             if(this.multiContentDataArr.length<4){
                 return
             }
-            this.$store.dispatch('content/storeMultiData',this.multiContentDataArr)
-            this.$router.push({name:'questionnaire.new'});
+            // this.$store.dispatch('content/storeMultiData',this.multiContentDataArr)
+            // this.$router.push({name:'questionnaire.new'});
+            this.$emit('contentData',this.multiContentDataArr);
+            this.$router.push({name:'posts.questionnaire'});
         },
         loadContentData(data){
             if(data.text === ''){

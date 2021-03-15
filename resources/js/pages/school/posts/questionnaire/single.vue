@@ -53,8 +53,9 @@ export default {
             if(this.signleContentDataArr.length<4){
                 return
             }
-            this.$store.dispatch('content/storeSingleData',this.signleContentDataArr)
-            this.$router.push({name:'questionnaire.new'});
+            // this.$store.dispatch('content/storeSingleData',this.signleContentDataArr)
+            this.$emit('contentData',this.signleContentDataArr);
+            this.$router.push({name:'posts.questionnaire'});
         },
         loadContentData(data){
             if(data.text === ''){
