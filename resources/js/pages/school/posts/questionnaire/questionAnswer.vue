@@ -4,13 +4,11 @@
         <QuestionItem class="mt-10" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
         <v-divider></v-divider>
     </div>
-    <v-row>
     <v-container>
-          <v-row class="my-10 d-flex align-center">
-              <v-btn large rounded dark color="green lighten-1" @click="addQaContent">{{lang.submit}}</v-btn>
-          </v-row>
-      </v-container>
-    </v-row>
+      <v-row class="my-10 d-flex align-center">
+          <v-btn large rounded dark color="green lighten-1" @click="addQaContent">{{lang.submit}}</v-btn>
+      </v-row>
+    </v-container>
     <v-snackbar
         timeout="3000"
         v-model="requiredText"
