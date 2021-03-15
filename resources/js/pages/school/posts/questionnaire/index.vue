@@ -4,7 +4,7 @@
         <v-banner class=" mb-10" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <v-avatar
-                    class="ma-3 ml-0"
+                    class="ma-3 ml-3"
                     size="50"
                     tile
                 >
@@ -22,6 +22,7 @@
             <v-btn
                 dark
                 color="green lighten-1"
+                class="mr-8"
                 @click="submit"
             >
                 {{lang.submit}}
