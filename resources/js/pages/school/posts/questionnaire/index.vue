@@ -195,7 +195,7 @@
                           color="success"
                           outlined
                         >
-                        <strong>单选题 ▪ 必答</strong>
+                        <strong>单选题</strong>
                       </v-chip>
                       <v-btn
                         fab
@@ -207,6 +207,17 @@
                           mdi-pencil
                         </v-icon>
                       </v-btn>
+                      <v-btn
+                        fab
+                        dark
+                        x-small
+                        color="error"
+                        class="ml-2"
+                      >
+                        <v-icon dark>
+                          mdi-trash-can-outline
+                        </v-icon>
+                      </v-btn>
                     </p>
                     <p class="text-wrap pl-3 mb-0">{{ data.singleContentDataArr[0].text }}</p>
                   </v-col>
@@ -214,17 +225,69 @@
                     <AttachItemViewer :items="data.singleContentDataArr[0]" />
                   </v-col>
                   <v-col class="pl-6" cols="12" v-for="(singleData, singleDataIndex) in data.singleContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
-                    <div class="d-flex"> 
+                    <div> 
                       <v-chip
-                          class="ma-2"
-                          color="success"
-                          outlined
-                        >
+                        class="mr-2"
+                        color="success"
+                        outlined
+                      >
                         <strong>{{alphabet[singleDataIndex-1]}}</strong>
                       </v-chip>
                       <p class="mb-0 text-wrap"> {{singleData.text}}</p>
                     </div>
                     <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
+                  </v-col>
+                </v-row>
+                <v-row v-if="data.type == 'multi'">
+                  <v-col cols="12">
+                    <p class="mb-0"> 
+                      {{index + 1}}.  
+                      <v-chip
+                          class="ma-2"
+                          color="success"
+                          outlined
+                        >
+                        <strong>多选题</strong>
+                      </v-chip>
+                      <v-btn
+                        fab
+                        dark
+                        x-small
+                        color="primary"
+                      >
+                        <v-icon dark>
+                          mdi-pencil
+                        </v-icon>
+                      </v-btn>
+                      <v-btn
+                        fab
+                        dark
+                        x-small
+                        color="error"
+                        class="ml-2"
+                      >
+                        <v-icon dark>
+                          mdi-trash-can-outline
+                        </v-icon>
+                      </v-btn>
+                    </p>
+                    <p class="text-wrap pl-3 mb-0">{{ data.multiContentDataArr[0].text }}</p>
+                  </v-col>
+                  <v-col v-if="checkIfAttachExist(data.multiContentDataArr[0])">
+                    <AttachItemViewer :items="data.multiContentDataArr[0]" />
+                  </v-col>
+                  <v-col class="pl-6" cols="12" v-for="(multiData, singleDataIndex) in data.multiContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
+                    <div> 
+                      <v-chip
+                        class="mr-2"
+                        color="success"
+                        outlined
+                      >
+                        <strong>{{alphabet[singleDataIndex-1]}}</strong>
+                      </v-chip>
+                      <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                    </div>
+                    <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                   </v-col>
                 </v-row>
               </v-col>
