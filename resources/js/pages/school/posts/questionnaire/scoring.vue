@@ -1,24 +1,36 @@
 <template>
-  <div>
-    <QuestionItem :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
-    <div class="divider"></div>
+  <v-container>
+    <div class="mt-3 mb-10">
+      <QuestionItem class="mt-10" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+      <v-divider></v-divider>
+    </div>
     <v-row>
-      <v-col cols=6>
-        {{lang.maxMinutes}}
-      </v-col>
-      <v-col cols=6>
+      <v-col cols="12" md="6" class="d-flex align-end">
+        <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
         <v-select
           :items="items"
-          label="2"
+          :label="lang.maxMinutes"
           v-model="scoreData.scoringDataArr[0].maxMin"
+          hide-details
         ></v-select>
+        <!-- <v-row>
+          <v-col cols="12">{{lang.maxMinutes}}</v-col>
+          <v-col cols="12">
+            <v-select
+              :items="items"
+              label="2"
+              v-model="scoreData.scoringDataArr[0].maxMin"
+              hide-details
+            ></v-select>
+          </v-col>
+        </v-row> -->
       </v-col>
     </v-row>
-    <v-row>
-        <v-col>
-            <v-btn color="primary" @click="addScoringContent">{{lang.submit}}</v-btn>
-        </v-col>
-    </v-row>
+    <v-container>
+      <v-row class="my-10 d-flex align-center">
+        <v-btn large rounded dark color="green lighten-1" @click="addScoringContent">{{lang.submit}}</v-btn>
+      </v-row>
+    </v-container>
     <v-snackbar
         timeout="3000"
         v-model="requiredText"
@@ -28,7 +40,7 @@
         >
         {{lang.requiredText}}
     </v-snackbar>
-  </div>
+  </v-container>
 </template>
 
 <script>
