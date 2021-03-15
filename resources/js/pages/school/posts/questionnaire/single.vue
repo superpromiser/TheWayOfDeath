@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <div v-for="index in initialCnt" :key="index" class="mt-3">
-            <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="index" @contentData="loadContentData"/>
+            <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
             <v-divider></v-divider>
         </div>
         <v-container>
