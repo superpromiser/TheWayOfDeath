@@ -287,6 +287,7 @@ import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import AttachItemViewer from '~/components/attachItemViewer'
+import {getQuestionnaire,createQuestionnaire,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire'
 export default {
   data: () => ({
       lang,
@@ -299,7 +300,6 @@ export default {
           questionnaireFlag:true,
           resultFlag:true,
           answerFlag:false,
-          type:0,
           content:[],
       },
       postNew:true,
@@ -319,12 +319,21 @@ export default {
   computed: {
       ...mapGetters({
           schoolTree : 'schooltree/schoolTree',
-          singleData:'content/singleData',
-          multiData:'content/multiData',
-          qaData:'content/qaData',
-          statData:'content/statData',
-          scoringData:'content/scoringData'
-      })
+      }),
+      currentPath(){
+        return this.$route;
+      }
+  },
+
+  watch:{
+    currentPath:{
+      handler(val){
+          if(val.name == 'posts.questionnaire'){
+            this.postNew = true
+          }
+      },
+      deep:true
+    }
   },
 
   methods:{
@@ -381,6 +390,11 @@ export default {
     },
     submit(){
       console.log(this.newQuestionnaireData)
+      createQuestionnaire(this.newQuestionnaireData).then(res => {
+        console.log(res)
+      }).catch(err=>{
+        console.log(err)
+      })
     },
 
     checkIfAttachExist(data){
