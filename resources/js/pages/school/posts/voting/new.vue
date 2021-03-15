@@ -124,7 +124,7 @@
                 </v-col>
             </v-row>
             <div v-for="index in initialCnt" :key="index" class="mt-3">
-                <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="'child' + index" @contentData="loadContentData"/>
+                <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="index" @contentData="loadContentData"/>
                 <v-divider></v-divider>
             </div>
             <v-btn color="primary" text @click="addContent" class="mt-10">
@@ -256,14 +256,13 @@ export default {
         },
 
         publishVotingData(){
-            console.log(this.$refs);
-            // for(let index = 1;  index <= this.initialCnt; index++){
-            //     this.$refs[index][0].emitData()
-            // }
-            // if(this.votingResult.content.votingDataArr.length < 4){
-            //     return
-            // }
-            // console.log("votingData", this.votingResult);
+            for(let index = 1;  index <= this.initialCnt; index++){
+                this.$refs[index][0].emitData()
+            }
+            if(this.votingResult.content.votingDataArr.length < 4){
+                return
+            }
+            console.log("votingData", this.votingResult);
         },
     }
 }
