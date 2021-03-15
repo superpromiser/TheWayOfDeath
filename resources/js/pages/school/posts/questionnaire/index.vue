@@ -186,6 +186,7 @@
               </v-col>
               <!--  View Datas  -->
               <v-col cols="12" v-for="(data, index) in newQuestionnaireData.content" :key="index">
+                <!--  single Datas  -->
                 <v-row v-if="data.type == 'single'">
                   <v-col cols="12">
                     <p class="mb-0 d-flex align-center"> 
@@ -229,6 +230,7 @@
                     <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
                   </v-col>
                 </v-row>
+                <!--  multi Datas  -->
                 <v-row v-if="data.type == 'multi'">
                   <v-col cols="12">
                     <p class="mb-0 d-flex align-center"> 
@@ -270,6 +272,37 @@
                       <p class="mb-0 text-wrap"> {{multiData.text}}</p>
                     </div>
                     <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
+                  </v-col>
+                </v-row>
+                <!--  qa Datas  -->
+                <v-row v-if="data.type == 'qa'">
+                  <v-col cols="12">
+                    <p class="mb-0 d-flex align-center"> 
+                      {{index + 1}}.  
+                      <v-chip class="ma-2" color="success" outlined >
+                        <strong>问答题</strong>
+                      </v-chip>
+                     <v-btn icon color="green" class="ml-2" >
+                        <v-icon>mdi-arrow-up-bold</v-icon>
+                      </v-btn>
+                      <v-btn icon color="green" class="mr-2" >
+                        <v-icon>mdi-arrow-down-bold</v-icon>
+                      </v-btn>
+                      <v-btn fab dark x-small color="primary" class="mx-2" >
+                        <v-icon dark>
+                          mdi-pencil
+                        </v-icon>
+                      </v-btn>
+                      <v-btn fab dark x-small color="error" class="mx-2" >
+                        <v-icon dark>
+                          mdi-trash-can-outline
+                        </v-icon>
+                      </v-btn>
+                    </p>
+                    <p class="text-wrap pl-3 mb-0">{{ data.qaContentDataArr[0].text }}</p>
+                  </v-col>
+                  <v-col v-if="checkIfAttachExist(data.qaContentDataArr[0])">
+                    <AttachItemViewer :items="data.qaContentDataArr[0]" />
                   </v-col>
                 </v-row>
               </v-col>
