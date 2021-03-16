@@ -99,7 +99,10 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::get('classMember','MemberController@getContacts');
 
     //questionnaire
-    // Route::get('questionnaire','')
+    Route::get('questionnaire','QuestionnaireController@getQuestionnaire');
+    Route::post('questionnaire','QuestionnaireController@createQuestionnaire');
+    Route::put('questionnaire','QuestionnaireController@updateQuestionnaire');
+    Route::delete('questionnaire','QuestionnaireController@deleteQuestionnaire');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

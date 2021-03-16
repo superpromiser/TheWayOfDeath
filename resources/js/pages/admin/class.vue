@@ -91,6 +91,7 @@
                           color="blue darken-1"
                           text
                           @click="save"
+                          :loading="isCreatingClassData"
                       >
                           Save
                       </v-btn>

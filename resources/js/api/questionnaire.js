@@ -1,15 +1,15 @@
 import axios from 'axios'
 
 function getQuestionnaire(){
-    return axios.get('api/v1/questionnaire');
+    return axios.get('/api/v1/questionnaire');
 }
 
 function createQuestionnaire(payload){
-    return axios.post('api/v1/questionnaire',payload)
+    return axios.post('/api/v1/questionnaire',payload)
 }
 
 function updateQuestionnaire(payload){
-    return axios.put('api/v1/questionnaire',payload);
+    return axios.put('/api/v1/questionnaire',payload);
 }
 
 function deleteQuestionnaire(payload){
