@@ -65,6 +65,11 @@ a {
     max-width: 125px !important;
 }
 
+.school-card-avatar{
+    height: 70px!important;
+    width: 70px!important;
+}
+
 .pl-0-banner .v-banner__wrapper {
     padding-left: 0 !important;
 }
@@ -103,4 +108,13 @@ a {
     top: 0;
     background: white;
     box-shadow: 1px 1px 5px grey;
+}
+
+.fs-15{
+    font-size: 1.5rem;
+}
+
+.v-skeleton-loader__list-item-avatar-two-line .v-skeleton-loader__avatar{
+    width: 70px!important;
+    height: 70px!important;
 }
