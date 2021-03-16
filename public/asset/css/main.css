@@ -119,3 +119,7 @@ a {
     width: 70px!important;
     height: 70px!important;
 }
+
+.min-w-fit-content{
+    min-width: fit-content;
+}
