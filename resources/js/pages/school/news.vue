@@ -103,7 +103,7 @@
                 <v-icon left>
                   mdi-hand
                 </v-icon>
-                查看详情
+                查看详情查看详情
               </v-btn>
             </div>
           </v-col>
