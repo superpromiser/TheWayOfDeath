@@ -9,19 +9,10 @@
 
 <script>
 import schoolTabBar from '~/components/schoolTabBar';
-import {getAllPost,} from '~/api/post';
 export default {
     components:{
         schoolTabBar,
     },
-    created(){
-        getAllPost().then(res=>{
-            console.log('success',res)
-        }).catch(err=>{
-            console.log('failed',err.response)
-        })
-    }
-
 }
 </script>
 

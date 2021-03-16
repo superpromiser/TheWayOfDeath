@@ -108,6 +108,7 @@ a {
     top: 0;
     background: white;
     box-shadow: 1px 1px 5px grey;
+    z-index: 1;
 }
 
 .fs-15{
@@ -117,4 +118,8 @@ a {
 .v-skeleton-loader__list-item-avatar-two-line .v-skeleton-loader__avatar{
     width: 70px!important;
     height: 70px!important;
+}
+
+.min-w-fit-content{
+    min-width: fit-content;
 }
