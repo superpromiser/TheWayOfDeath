@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Questionnaire;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionnaireController extends Controller
 {
@@ -32,7 +33,11 @@ class QuestionnaireController extends Controller
         $resultFlag = $request->resultFlag;
         $answerFlag = $request->answerFlag;
         $content = json_encode($request->content);
-        $postId = Post::create(['contentId'=>1])->id;
+        $userId = Auth::user()->id;
+        $postId = Post::create([
+            'contentId'=>1,
+            'userId'=>$userId,    
+        ])->id;
         $data = Questionnaire::create([
             'title'=>$title,
             'desc'=>$desc,
