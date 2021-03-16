@@ -12,7 +12,7 @@ class PostController extends Controller
     public function getAllPost(){
         return Post::with([
             'questionnaires',
-            'users'])
+            'users:id,name'])
         ->paginate(5);
     }
 }
