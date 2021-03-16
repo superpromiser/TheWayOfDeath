@@ -4,6 +4,7 @@
         :label="uploadLabel"
         @change="getImgUrl"
         :loading="isUploading"
+        :solo="solo"
     ></v-file-input>
 </template>
 
@@ -14,6 +15,10 @@ export default {
         uploadLabel:{
             type: String,
             required: true,
+        },
+        solo:{
+            type: Boolean,
+            required: false,
         },
     },
 

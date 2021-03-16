@@ -97,3 +97,10 @@ a {
 .text-wrap{
     overflow-wrap: break-word;
 }
+
+.school-tab-bar{
+    position: sticky;
+    top: 0;
+    background: white;
+    box-shadow: 1px 1px 5px grey;
+}
