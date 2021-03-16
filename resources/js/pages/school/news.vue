@@ -8,6 +8,34 @@
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
+      <v-col cols="12">
+        <v-skeleton-loader
+          v-bind="attrs"
+          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          :loading="isLoadingContents"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="12">
+        <v-skeleton-loader
+          v-bind="attrs"
+          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          :loading="isLoadingContents"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="12">
+        <v-skeleton-loader
+          v-bind="attrs"
+          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          :loading="isLoadingContents"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="12">
+        <v-skeleton-loader
+          v-bind="attrs"
+          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          :loading="isLoadingContents"
+        ></v-skeleton-loader>
+      </v-col>
     </v-row>
     <v-row v-else class="pa-3">
       <v-col cols="12" class="d-flex align-center">
