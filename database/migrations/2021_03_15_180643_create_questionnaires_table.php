@@ -15,6 +15,16 @@ class CreateQuestionnairesTable extends Migration
     {
         Schema::create('questionnaires', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('desc');
+            $table->json('viewList');
+            $table->dateTime('deadline');
+            $table->boolean('questionnaireFlag');
+            $table->boolean('resultFlag');
+            $table->boolean('answerFlag');
+            $table->json('content');
+            $table->unsignedBigInteger('postId');
+            $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
     }
