@@ -11,7 +11,7 @@
         >
           <template v-slot:top>
             <v-toolbar flat>
-              <v-toolbar-title>My CRUD</v-toolbar-title>
+              <v-toolbar-title>{{lang.class}}</v-toolbar-title>
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
                 <v-dialog
@@ -26,7 +26,7 @@
                     v-bind="attrs"
                     v-on="on"
                     >
-                    New Item
+                    {{lang.add}}
                     </v-btn>
                   </template>
                   <v-card>
@@ -142,6 +142,7 @@
   import {getClass, createClass, updateClass, deleteClass, getGradeInfo} from '~/api/class';
   import {getSchoolInfo} from '~/api/grade';
   import UploadImage from '~/components/UploadImage';
+  import lang from '~/helper/lang.json'
   export default {
     components:{
       UploadImage,
@@ -188,11 +189,12 @@
         gradeName:'',
         lessonName:'',
       },
+      lang,
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? lang.add : lang.edit
       },
     },
 
