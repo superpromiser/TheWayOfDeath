@@ -4,35 +4,42 @@
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, heading, list-item, list-item,  heading, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
+          :loading="isLoadingContents"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="12">
+        <v-skeleton-loader
+          v-bind="attrs"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
