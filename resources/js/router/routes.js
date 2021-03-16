@@ -61,6 +61,7 @@ export default [
       {path:'questionAnswer', name:"questionnaire.questionAnswer", component:page('school/posts/questionnaire/questionAnswer.vue')},
       {path:'statistics', name:"questionnaire.statistics", component:page('school/posts/questionnaire/statistics.vue')},
       {path:'scoring', name:"questionnaire.scoring", component:page('school/posts/questionnaire/scoring.vue')},
+      {path:'template', name:"questionnaire.template", component:page('school/posts/questionnaire/newTemplate.vue')},
     ]
   },
   
