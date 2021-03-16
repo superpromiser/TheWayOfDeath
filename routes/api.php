@@ -85,7 +85,7 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::get('gradeName','LessonController@getGradeName')->name('getGradeName');
 
     //actions with member table
-    Route::get('grade','MemberController@getGrade')->name('getGrade');
+    // Route::get('grade','MemberController@getGrade')->name('getGrade');
 
     Route::get('gradeClass','MemberController@getGradeClass')->name('getGradeClass');
 
@@ -97,6 +97,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('member','MemberController@addMember');
     Route::delete('member','MemberController@removeMember');
     Route::get('classMember','MemberController@getContacts');
+
+    //post
+    Route::get('allPost','PostController@getAllPost');
 
     //questionnaire
     Route::get('questionnaire','QuestionnaireController@getQuestionnaire');

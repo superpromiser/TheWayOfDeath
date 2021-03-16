@@ -8,4 +8,13 @@ class Post extends Model
 {
     //
     protected $guarded = [];
+
+    public function questionnaires(){
+        return $this->hasOne(Questionnaire::class,'postId');
+    }
+
+    public function votings(){
+        return $this->hasOne(Voting::class,'postId');
+    }
+
 }

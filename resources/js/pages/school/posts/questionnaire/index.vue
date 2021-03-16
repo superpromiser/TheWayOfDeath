@@ -23,6 +23,7 @@
                 dark
                 color="green lighten-1"
                 class="mr-8"
+                :loading="isSubmit"
                 @click="submit"
             >
                 {{lang.submit}}
@@ -405,6 +406,7 @@ export default {
       menu: false,
       alphabet:['A','B','C','D','E','F','G','H','J','K','L','M','N',
                 'O','P','Q','R','S','T','U','V','W','X','Y','Z' ],
+      isSubmit:false,
   }),
 
   components: {
@@ -484,9 +486,10 @@ export default {
           break;
       }
     },
-    submit(){
+    async submit(){
       console.log(this.newQuestionnaireData)
-      createQuestionnaire(this.newQuestionnaireData).then(res => {
+      this.isSubmit = true
+      await createQuestionnaire(this.newQuestionnaireData).then(res => {
         console.log(res)
       }).catch(err=>{
         console.log(err.response)
@@ -496,6 +499,7 @@ export default {
             }
         }
       })
+      this.isSubmit = false
     },
 
     checkIfAttachExist(data){
