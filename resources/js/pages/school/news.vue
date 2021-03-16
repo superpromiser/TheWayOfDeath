@@ -4,35 +4,42 @@
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
       <v-col cols="12">
         <v-skeleton-loader
           v-bind="attrs"
-          type=" list-item-avatar-two-line, list-item-three-line, actions"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
+          :loading="isLoadingContents"
+        ></v-skeleton-loader>
+      </v-col>
+      <v-col cols="12">
+        <v-skeleton-loader
+          v-bind="attrs"
+          type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
@@ -74,28 +81,22 @@
               </v-menu>
             </div>
           </v-col>
-          <v-col cols="12" class="pl-10">
+          <v-col cols="12" class="pl-10 pt-0">
             <div class="d-flex align-center">
-              <v-chip class="ma-1 min-w-fit-content" color="success" outlined >
-                <strong>问卷标题:</strong>
-              </v-chip>
               <p class="text-wrap mb-0">
+                <strong>问卷标题:</strong>
                 {{content.questionnaires.title}}
               </p>
             </div>
             <div class="d-flex align-center">
-              <v-chip class="ma-1 min-w-fit-content" color="success" outlined >
-                <strong>问卷说明:</strong>
-              </v-chip>
               <p class="text-wrap mb-0">
+                <strong>问卷说明:</strong>
                 {{content.questionnaires.desc}}
               </p>
             </div>
             <div class="d-flex align-center">
-              <v-chip class="ma-1 min-w-fit-content" color="success" outlined >
-                <strong>截止时间:</strong>
-              </v-chip>
               <p class="text-wrap mb-0">
+                <strong>截止时间:</strong>
                 {{content.questionnaires.deadline}}
               </p>
             </div>
@@ -105,12 +106,11 @@
                 color="success"
                 outlined
                 class="ma-1"
-                small
               >
                 <v-icon left>
                   mdi-hand
                 </v-icon>
-                查看详情
+                查看详情查看详情
               </v-btn>
             </div>
           </v-col>
