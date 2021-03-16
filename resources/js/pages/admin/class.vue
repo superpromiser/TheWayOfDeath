@@ -85,7 +85,7 @@
                           text
                           @click="close"
                       >
-                          Cancel
+                          {{lang.cancel}}
                       </v-btn>
                       <v-btn
                           color="blue darken-1"
@@ -93,7 +93,7 @@
                           @click="save"
                           :loading="isCreatingClassData"
                       >
-                          Save
+                          {{lang.save}}
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -161,7 +161,7 @@
         { text: '图标', value: 'imgUrl' },
         { text: '学校', value: 'schoolName' },
         { text: '年级', value: 'gradeName' },
-        { text: 'className', value: 'lessonName' },
+        { text: '班级', value: 'lessonName' },
         { text: '操作', value: 'actions', sortable: false },
       ],
       classData: [],

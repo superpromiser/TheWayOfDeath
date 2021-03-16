@@ -15,6 +15,14 @@ class CreateVotingsTable extends Migration
     {
         Schema::create('votings', function (Blueprint $table) {
             $table->id();
+            $table->char('votingType');
+            $table->json('viewList');
+            $table->dateTime('deadline');
+            $table->tinyInteger('maxVote');
+            $table->boolean('anonyVote');
+            $table->json('content');
+            $table->unsignedBigInteger('postId');
+            $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
     }

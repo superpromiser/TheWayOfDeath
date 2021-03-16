@@ -136,7 +136,7 @@
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-title>Home</v-list-item-title>
+        <v-list-item-title>{{lang.home}}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -144,6 +144,7 @@
 
 <script>
 import { mapGetters, } from 'vuex'
+import lang from '~/helper/lang.json'
 export default {
   name: 'DefaultDrawer',
 
@@ -184,6 +185,7 @@ export default {
       ['Delete', 'mdi-delete'],
     ],
     baseUrl: window.Laravel.base_url,
+    lang,
   }),
 
   methods:{

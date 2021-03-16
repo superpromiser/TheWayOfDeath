@@ -6,7 +6,7 @@
                     :headers="headers"
                     :items="userRoleList"
                     :loading="isLoadingRoleData"
-                    loading-text="loading user role... 等一下"
+                    loading-text="等一下..."
                     class="elevation-1"
                 >
                     <template v-slot:top>

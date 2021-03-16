@@ -15,7 +15,11 @@
     "contentPlaceFirst":"题目内容",
     "maxMinutes":"最高分",
     "requiredText":"标题不能为空",
-    "class":"班",
     "add":"添加",
-    "edit":"编辑"
+    "edit":"编辑",
+    "saveDraft":"存草稿",
+    "home":"主页",
+    "school":"学校",
+    "grade":"年级",
+    "class":"班级"
 }

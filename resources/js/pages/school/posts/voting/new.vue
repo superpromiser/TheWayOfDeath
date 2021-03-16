@@ -35,7 +35,7 @@
                         :items="typeItem"
                         item-text="label"
                         item-value="value"
-                        v-model="votingResult.vResult"
+                        v-model="votingData.votingType"
                         label="投票人是否可见结果"
                         hide-details
                     ></v-select>
@@ -51,6 +51,7 @@
                         @change="selectedLesson"
                         label="班级"
                         hide-details
+                        v-model="votingData.viewList"
                     ></v-select>
                 </v-col>
                 <v-col
@@ -62,7 +63,7 @@
                         ref="menu"
                         v-model="menu"
                         :close-on-content-click="false"
-                        :return-value.sync="votingResult.deadline"
+                        :return-value.sync="votingData.deadline"
                         transition="scale-transition"
                         offset-y
                         min-width="auto"
@@ -70,7 +71,7 @@
                         <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                             solo
-                            v-model="votingResult.deadline"
+                            v-model="votingData.deadline"
                             prepend-icon="mdi-calendar"
                             readonly
                             v-bind="attrs"
@@ -79,7 +80,7 @@
                         ></v-text-field>
                         </template>
                         <v-date-picker
-                        v-model="votingResult.deadline"
+                        v-model="votingData.deadline"
                         no-title
                         scrollable
                         >
@@ -94,7 +95,7 @@
                         <v-btn
                             text
                             color="primary"
-                            @click="$refs.menu.save(date)"
+                            @click="$refs.menu.save(votingData.deadline)"
                         >
                             {{lang.ok}}
                         </v-btn>
@@ -107,7 +108,7 @@
                         :items="maxVoteItem"
                         item-text="label"
                         item-value="value"
-                        v-model="votingResult.maxVote"
+                        v-model="votingData.maxVote"
                         label="调查范围"
                         hide-details
                     ></v-select>
@@ -115,7 +116,7 @@
                 <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-around">
                     <span> 匿名投票 </span>
                     <v-switch
-                        v-model="votingResult.anonyVote"
+                        v-model="votingData.anonyVote"
                         color="primary"
                         hide-details
                         inset
@@ -150,6 +151,7 @@
 import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
+import {createVoting} from '~/api/voting'
 export default {
     components: {
         QuestionItem,
@@ -219,17 +221,13 @@ export default {
             
         ],
         initialCnt:4,
-        votingResult:{
-            vResult: '',
+        votingData:{
+            votingType: '',
             viewList:[],
-            postShow:[],
-            vScope:'',
-            maxVote: null,
             deadline:'',
+            maxVote: null,
             anonyVote:true,
-            content:{
-                votingDataArr:[],
-            },
+            content:[]
         },
     }),
 
@@ -246,23 +244,28 @@ export default {
         loadContentData(data){
             if(data.text === ''){
                 this.requiredText = true
-                this.votingResult.content.votingDataArr = []
+                this.votingData.content = []
                 return;
             }
-            this.votingResult.content.votingDataArr.push(data);
+            this.votingData.content.push(data);
         },
         addContent(){
             this.initialCnt ++;
         },
 
-        publishVotingData(){
+        async publishVotingData(){
             for(let index = 1;  index <= this.initialCnt; index++){
                 this.$refs[index][0].emitData()
             }
-            if(this.votingResult.content.votingDataArr.length < 4){
+            if(this.votingData.content.length < 4){
                 return
             }
-            console.log("votingData", this.votingResult);
+            console.log("votingData", this.votingData);
+            await createVoting(this.votingData).then(res=>{
+                console.log(res)
+            }).catch(err=>{
+                console.log(err.response);
+            })
         },
     }
 }

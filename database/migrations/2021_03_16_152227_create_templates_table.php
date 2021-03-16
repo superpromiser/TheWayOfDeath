@@ -16,9 +16,11 @@ class CreateTemplatesTable extends Migration
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('contentId');
-            $table->foreign('contentId')->references('id')->on('contents')->onDelete('cascade');
             $table->json('tempData');
             $table->tinyInteger('tempType');
+            $table->unsignedBigInteger('userId');
+            $table->foreign('contentId')->references('id')->on('contents')->onDelete('cascade');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

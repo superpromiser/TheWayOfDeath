@@ -29,6 +29,15 @@
             >
                 {{lang.submit}}
             </v-btn>
+            <v-btn
+                dark
+                color="lighten-1"
+                class="mr-8"
+                :loading="isDraft"
+                @click="saveDraft"
+            >
+                {{lang.saveDraft}}
+            </v-btn>
             </template>
         </v-banner>
         <v-container class="pa-10">
@@ -381,11 +390,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import lang from '~/helper/lang.json'
-import QuestionItem from '~/components/questionItem'
-import AttachItemViewer from '~/components/attachItemViewer'
-import {getQuestionnaire,createQuestionnaire,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire'
+import { mapGetters } from 'vuex';
+import lang from '~/helper/lang.json';
+import QuestionItem from '~/components/questionItem';
+import AttachItemViewer from '~/components/attachItemViewer';
+import {getQuestionnaire,createQuestionnaire,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire';
+import {getTemplate,createTemplate,updateTemplate,deleteTemplate} from '~/api/template';
 export default {
   data: () => ({
       lang,
@@ -408,6 +418,7 @@ export default {
       alphabet:['A','B','C','D','E','F','G','H','J','K','L','M','N',
                 'O','P','Q','R','S','T','U','V','W','X','Y','Z' ],
       isSubmit:false,
+      isDraft:false,
   }),
 
   components: {
@@ -433,6 +444,14 @@ export default {
       },
       deep:true
     }
+  },
+
+  created(){
+    getTemplate({contentId:1}).then(res=>{
+      console.log(res)
+    }).catch(err=>{
+      console.log(err.response)
+    })
   },
 
   methods:{
@@ -537,6 +556,17 @@ export default {
       this.newQuestionnaireData.content.splice(index, 1)
     },
 
+
+    saveDraft(){
+      console.log(this.newQuestionnaireData)
+      this.isDraft = true;
+      createTemplate({tempData:this.newQuestionnaireData,tempType:1,contentId:1}).then(res=>{
+        console.log(res)
+      }).catch(err=>{
+        console.log(err.response)
+      })
+      this.isDraft = false;
+    }
 
   }
 }
