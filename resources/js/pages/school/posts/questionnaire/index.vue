@@ -489,7 +489,12 @@ export default {
       createQuestionnaire(this.newQuestionnaireData).then(res => {
         console.log(res)
       }).catch(err=>{
-        console.log(err)
+        console.log(err.response)
+         if(err.response.status === 422){
+            for(let i in err.response.data.errors){
+                console.log(err.response.data.errors[i][0])
+            }
+        }
       })
     },
 

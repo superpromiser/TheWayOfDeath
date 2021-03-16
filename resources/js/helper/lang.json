@@ -14,5 +14,8 @@
     "contentOptionPlace":"选项",
     "contentPlaceFirst":"题目内容",
     "maxMinutes":"最高分",
-    "requiredText":"标题不能为空"
+    "requiredText":"标题不能为空",
+    "class":"班",
+    "add":"添加",
+    "edit":"编辑"
 }
