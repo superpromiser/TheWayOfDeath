@@ -239,6 +239,7 @@ export default {
   methods:{
     showDetail(content){
       console.log(content)
+      this.$router.push({name:'posts.detail'});
     }
   }
 }
