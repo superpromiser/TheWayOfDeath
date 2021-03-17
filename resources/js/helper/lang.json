@@ -33,7 +33,8 @@
     "exercise":"习题",
     "homeVist":"家访",
     "successText":"操作成功",
-    "Totop":"置顶",
+    "toTop":"置顶",
     "remove":"删除",
-    "viewDetail":"查看详情"
+    "viewDetail":"查看详情",
+    "noData":"数据不存在"
 }

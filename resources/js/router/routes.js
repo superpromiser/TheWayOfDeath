@@ -74,6 +74,9 @@ export default [
   //postDetail
   {path:'/schoolspace/:id/postDetail', name:'posts.detail', component:page('school/posts/detail.vue')},
   
+  //addComment
+  {path:'/schoolspace/:id/post/addComment', name:'posts.comment', component:page('school/posts/addComment.vue')},
+   
   //setting
   { path: '/settings',
     component: page('settings/index.vue'),
