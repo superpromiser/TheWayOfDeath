@@ -9,9 +9,9 @@
                     outlined
                 >
                     <v-icon left>
-                        mdi-wrench
+                        {{itemGroup.icon}}
                     </v-icon>
-                    {{itemGroup.title}}}
+                    {{itemGroup.title}}
                 </v-chip>
             </v-col>
             <v-col v-for="(item, j) in itemGroup.items" :key="j" cols="12" sm="6" md="4" lg="3">
@@ -48,6 +48,7 @@ export default {
         contentItemList : [
             {
                 title : "基础沟通",
+                icon : "mdi-message-text",
                 items : [
                     {
                         color : "lime darken-4",
@@ -88,6 +89,7 @@ export default {
             },
             {
                 title : "校园文化",
+                icon : "mdi-lifebuoy",
                 items : [
                     {
                         color : "indigo accent-2",
@@ -107,6 +109,7 @@ export default {
             },
             {
                 title : "家校互动",
+                icon : "mdi-nfc-tap",
                 items : [
                     {
                         color : "teal darken-4",

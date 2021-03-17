@@ -242,7 +242,7 @@ export default {
       // console.log(content)
       console.log("EventBus")
       EventBus.$emit("clicked-event", content);  
-      this.$router.push({name:'posts.detail'});
+      // this.$router.push({name:'posts.detail'});
     }
   }
 }

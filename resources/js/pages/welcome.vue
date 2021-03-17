@@ -261,6 +261,7 @@ export default {
             })
 
             this.$store.dispatch('schooltree/storeSchoolTree', this.schoolTree);
+            this.$store.dispatch('schooltree/storeSchoolData', this.schoolData);
 
             //make chooseable schoolTree
             this.schoolData.grades.map( grade => {

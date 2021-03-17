@@ -40,7 +40,7 @@
                                                 <v-col cols="12" >
                                                     <v-text-field
                                                     v-model="editedItem.roleName"
-                                                    label="Dessert name"
+                                                    label="角色名字"
                                                     ></v-text-field>
                                                 </v-col>
                                                 <v-treeview

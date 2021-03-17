@@ -27,7 +27,8 @@
           color="blue accent-3"
           size="40"
           >
-          <span class="white--text headline"> {{user? user.name[0] : ''}}</span>
+          <img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user? user.name[0] : ''" />
+          <span v-else class="white--text headline"> {{user? user.name[0] : ''}}</span>
         </v-avatar>
       </v-list-item-avatar>
       <v-list-item-title>{{user? user.name : ''}}</v-list-item-title>
@@ -38,10 +39,11 @@
     <v-list>
       <v-list-group
         :value="true"
-        prepend-icon="mdi-account-circle"
+        prepend-icon="mdi-cog-outline"
       >
         <template v-slot:activator>
-          <v-list-item-title>系统设置</v-list-item-title>
+          <v-list-item-title v-if="user.roleId == 2">学校管理</v-list-item-title>
+          <v-list-item-title v-else-if="user.roleId == 1">系统设置</v-list-item-title>
         </template>
           <v-list-item
             link
@@ -98,7 +100,7 @@
             to="/admin/stream"
             v-if="user.role.roleName == 'manager'"
             >
-            <v-list-item-title>stream</v-list-item-title>
+            <v-list-item-title>流媒体设置</v-list-item-title>
             <v-list-item-icon>
               <v-icon>mdi-view-stream</v-icon>
             </v-list-item-icon>
@@ -116,18 +118,18 @@
       </v-list-group>
       <v-list-group
         :value="true"
-        prepend-icon="mdi-account-circle"
+        prepend-icon="mdi-school"
       >
         <template v-slot:activator>
-          <v-list-item-title>系统设置</v-list-item-title>
+          <v-list-item-title>{{schoolData.schoolName}}</v-list-item-title>
         </template>
           <v-list-item
             link
             to="/schoolspace/1"
             >
-            <v-list-item-title>名单</v-list-item-title>
+            <v-list-item-title>学校空间</v-list-item-title>
             <v-list-item-icon>
-              <v-icon>mdi-account-group</v-icon>
+              <v-icon>mdi-cast-education</v-icon>
             </v-list-item-icon>
           </v-list-item>
       </v-list-group>
@@ -154,7 +156,8 @@ export default {
   computed: {
     ...mapGetters({
       mini : 'toggledrawer/mini',
-      user : 'auth/user'
+      user : 'auth/user',
+      schoolData : 'schooltree/schoolData'
       // drawer : 'toggledrawer/drawer'
     }),
     drawer: {
@@ -171,6 +174,7 @@ export default {
   },
   
   mounted() {
+    console.log(this.schoolData);
   },
 
   data: () => ({
