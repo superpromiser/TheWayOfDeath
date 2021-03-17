@@ -214,6 +214,7 @@
 
 <script>
 import {getAllPost,} from '~/api/post';
+import {EventBus} from '~/helper/event-bus.js'
 export default {
   data: () => ({
     isLoadingContents:false,
@@ -238,7 +239,9 @@ export default {
 
   methods:{
     showDetail(content){
-      console.log(content)
+      // console.log(content)
+      console.log("EventBus")
+      EventBus.$emit("clicked-event", content);  
       this.$router.push({name:'posts.detail'});
     }
   }
