@@ -19,6 +19,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "axios": "^0.18.1",
     "bootstrap": "^4.3.1",
+    "emoji-mart-vue": "^2.6.6",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.0",
     "popper.js": "^1.15.0",

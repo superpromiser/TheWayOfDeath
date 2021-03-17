@@ -20,7 +20,7 @@ class CreateVotingsTable extends Migration
             $table->dateTime('deadline');
             $table->tinyInteger('maxVote');
             $table->boolean('anonyVote');
-            $table->json('content');
+            $table->LONGTEXT('content');
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();

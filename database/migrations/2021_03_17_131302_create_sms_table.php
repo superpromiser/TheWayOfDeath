@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionnairesTable extends Migration
+class CreateSmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class CreateQuestionnairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('questionnaires', function (Blueprint $table) {
+        Schema::create('sms', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('desc');
-            $table->json('viewList');
-            $table->dateTime('deadline');
-            $table->boolean('questionnaireFlag');
-            $table->boolean('resultFlag');
-            $table->boolean('answerFlag');
+            // $table->json('userList');
             $table->LONGTEXT('content');
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
@@ -36,6 +30,6 @@ class CreateQuestionnairesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questionnaires');
+        Schema::dropIfExists('sms');
     }
 }

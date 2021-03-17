@@ -13,7 +13,9 @@ class PostController extends Controller
         return Post::with([
             'questionnaires',
             'votings',
+            'sms',
             'users:id,name'])
+        ->orderBy('created_at','desc')
         ->paginate(5);
     }
 }

@@ -258,12 +258,16 @@ export default {
             this.editedItem.schoolName = res.data.schoolName
             Object.assign(this.gradeData[this.editedIndex], this.editedItem)
           }).catch(err=>{
-            console.log(err)
+            console.log(err.response)
+            this.isCreatingGrade = false
           })
         } else {
           await createGrade(this.editedItem).then(res=>{
             this.editedItem = res.data
             this.gradeData.push(this.editedItem)
+          }).catch(err=>{
+            console.log(err.response)
+            this.isCreatingGrade = false
           })
         }
         this.isCreatingGrade = false

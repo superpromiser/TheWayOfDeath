@@ -52,7 +52,7 @@
               <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
             </v-avatar>
             <div>
-              <p class="font-weight-black fs-15 mb-3"> 问卷  </p>
+              <p class="font-weight-black fs-15 mb-3"> {{lang.questionnaire}}  </p>
               <div class="d-flex align-center">
                 <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
                 <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
@@ -69,10 +69,10 @@
                 </template>
                 <v-list>
                   <v-list-item link >
-                    <v-list-item-title >置顶</v-list-item-title>
+                    <v-list-item-title >{{lang.toTop}}</v-list-item-title>
                   </v-list-item>
                   <v-list-item link >
-                    <v-list-item-title >删除</v-list-item-title>
+                    <v-list-item-title >{{lang.remove}}</v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -108,7 +108,7 @@
                 <v-icon left>
                   mdi-hand
                 </v-icon>
-                查看详情查看详情
+                {{lang.viewDetail}}
               </v-btn>
             </div>
           </v-col>
@@ -132,7 +132,7 @@
               <v-img :src="`${baseUrl}/asset/img/icon/投票.png`" alt="postItem" ></v-img>
             </v-avatar>
             <div>
-              <p class="font-weight-black fs-15 mb-3"> 投票  </p>
+              <p class="font-weight-black fs-15 mb-3"> {{lang.voting}}  </p>
               <div class="d-flex align-center">
                 <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
                 <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
@@ -149,10 +149,10 @@
                 </template>
                 <v-list>
                   <v-list-item link >
-                    <v-list-item-title >置顶</v-list-item-title>
+                    <v-list-item-title >{{lang.toTop}}</v-list-item-title>
                   </v-list-item>
                   <v-list-item link >
-                    <v-list-item-title >删除</v-list-item-title>
+                    <v-list-item-title >{{lang.remove}}</v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -188,7 +188,87 @@
                 <v-icon left>
                   mdi-hand
                 </v-icon>
-                查看详情查看详情
+                {{lang.viewDetail}}
+              </v-btn>
+            </div>
+          </v-col>
+          <v-col cols="12" class="pt-2">
+            <div class="d-flex align-center justify-end">
+              <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
+              <p class="mb-0 mr-8">12人</p>
+              <v-btn icon color="red accent-3" >
+                <v-icon size="30">mdi-heart </v-icon>
+              </v-btn>
+              <v-btn icon color="success" >
+                <v-icon size="30">mdi-message-outline  </v-icon>
+              </v-btn>
+            </div>
+          </v-col>
+          <div class="divider"></div>
+        </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 3">
+           <v-col cols="12" class="d-flex align-center">
+            <v-avatar class="ma-3 school-card-avatar" tile >
+              <v-img :src="`${baseUrl}/asset/img/icon/投票.png`" alt="postItem" ></v-img>
+            </v-avatar>
+            <div>
+              <p class="font-weight-black fs-15 mb-3"> {{lang.sms}}  </p>
+              <div class="d-flex align-center">
+                <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
+                <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                <p class="mb-0">{{content.users.name}}</p>
+              </div>
+            </div>
+            <div class="ml-auto">
+              <v-menu offset-y >
+                <template v-slot:activator="{ attrs, on }">
+                  <v-btn icon color="primary" v-bind="attrs" v-on="on" >
+                    <v-icon size="30">mdi-chevron-down </v-icon>
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item link >
+                    <v-list-item-title >{{lang.toTop}}</v-list-item-title>
+                  </v-list-item>
+                  <v-list-item link >
+                    <v-list-item-title >{{lang.remove}}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+          </v-col>
+          <v-col cols="12" class="pl-10 pt-0">
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>投票类型:</strong>
+                <!-- {{content.votings.votingType}} -->
+              </p>
+            </div>
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>调查范围:</strong>
+                <!-- {{content.votings.maxVote}} -->
+              </p>
+            </div>
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>截止时间:</strong>
+                <!-- {{content.votings.deadline}} -->
+              </p>
+            </div>
+            <div>
+              <v-btn
+                rounded
+                color="success"
+                outlined
+                class="ma-1"
+                @click="showDetail(content)"
+              >
+                <v-icon left>
+                  mdi-hand
+                </v-icon>
+                {{lang.viewDetail}}
               </v-btn>
             </div>
           </v-col>
@@ -215,6 +295,7 @@
 <script>
 import {getAllPost,} from '~/api/post';
 import {EventBus} from '~/helper/event-bus.js'
+import lang from '~/helper/lang.json'
 export default {
   data: () => ({
     isLoadingContents:false,
@@ -223,6 +304,7 @@ export default {
       class: 'mb-6',
     },
     contentList: [],
+    lang,
   }),
 
   async created(){

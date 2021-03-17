@@ -22,6 +22,7 @@
                 dark
                 color="green lighten-1"
                 @click="publishVotingData"
+                :loading="isCreating"
             >
                 提交
             </v-btn>
@@ -144,6 +145,15 @@
             >
             {{lang.requiredText}}
         </v-snackbar>
+        <v-snackbar
+        timeout="3000"
+        v-model="isSuccessed"
+        color="success"
+        absolute
+        top
+        >
+        {{lang.successText}}
+    </v-snackbar>
     </v-container>
 </template>
 
@@ -229,6 +239,8 @@ export default {
             anonyVote:true,
             content:[]
         },
+        isCreating:false,
+        isSuccessed:false
     }),
 
     computed: {
@@ -260,11 +272,16 @@ export default {
             if(this.votingData.content.length < 4){
                 return
             }
+            this.isCreating = true
             console.log("votingData", this.votingData);
             await createVoting(this.votingData).then(res=>{
                 console.log(res)
+                this.isCreating = false
+                this.isSuccessed = true
+                this.$router.push({name:'schoolSpace.news'})
             }).catch(err=>{
                 console.log(err.response);
+                this.isCreating = false
             })
         },
     }

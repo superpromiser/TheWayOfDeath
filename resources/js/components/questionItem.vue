@@ -67,6 +67,30 @@
                 accept="file/*"
                 @change="onFileFileChanged"
             >
+            <v-btn
+                color="blue accent-3"
+                v-if="contact"
+                fab
+                small
+                dark
+                class="ma-2"
+                :loading="isUserSeleciting"
+                @click="selectUser"
+            >
+                <v-icon>mdi-id-card</v-icon>
+            </v-btn>
+            <v-btn
+                v-if="emoji"
+                color="blue accent-3"
+                fab
+                small
+                dark
+                class="ma-2"
+                @click="toggleEmo"
+            >
+                <v-icon>mdi-emoticon-excited-outline</v-icon>
+            </v-btn>
+            <Picker v-if="emoStatus" set="emojione" @select="onInput" title="选择你的表情符号..." />
         </v-row>
         <!--  IMAGE VIEWER  -->
         <v-row>
@@ -140,6 +164,7 @@
 
 <script>
 import {uploadImage, uploadVideo, uploadOther, deleteFile} from '~/api/upload'
+import { Picker } from 'emoji-mart-vue'
 export default {
     props: {
         Label : {
@@ -150,10 +175,17 @@ export default {
             type:Number,
             required: false
         },
-        btnType:{
-            type:Object,
+        emoji : {
+            type:Boolean,
+            required:false,
+        },
+        contact : {
+            type:Boolean,
             required:false,
         }
+    },
+    components: {
+        Picker,
     },
     data: () =>({
         baseUrl:window.Laravel.base_url,
@@ -170,10 +202,12 @@ export default {
         isVideoSelecting: false,
         isFileSelecting: false,
         deleteItem : null,
+        isUserSeleciting:false,
+        emoStatus:false,
     }),
 
     mounted(){
-        console.log(this.btnType)
+
     },
 
     methods:{
@@ -184,6 +218,22 @@ export default {
             }, { once: true })
             this.$refs.imageUploader.click()
         },
+
+        onInput(e){
+            if(!e){
+                return false;
+            }
+            if(!this.contentData.text){
+                this.contentData.text = e.native
+            }else{
+                this.contentData.text = this.contentData.text + e.native
+            }
+        },
+
+        toggleEmo(){
+            this.emoStatus = ! this.emoStatus
+        },
+
         async onImageFileChanged(e) {
             this.selectedImageFile = e.target.files[0];
             if(this.selectedImageFile !== undefined && this.selectedImageFile !== null) {
@@ -315,6 +365,9 @@ export default {
                 
             }
             this.$emit('contentData',this.contentData);
+        },
+        selectUser(){
+            // this.isUserSeleciting = true
         }
     }
 }

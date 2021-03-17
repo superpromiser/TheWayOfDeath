@@ -21,4 +21,8 @@ class Post extends Model
         return $this->hasOne(Voting::class,'postId');
     }
 
+    public function sms(){
+        return $this->hasOne(Sms::class,'postId');
+    }
+
 }
