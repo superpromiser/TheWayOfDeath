@@ -56,7 +56,10 @@ export default {
         baseUrl: window.Laravel.base_url,
         isSubmit:false,
         isDraft:false,
-        btnType:['sms','emoji'],
+        btnType:{
+            emoji:'emoji',
+            sms:"sms"
+        },
     }),
 
     methods:{

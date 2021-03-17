@@ -151,7 +151,7 @@ export default {
             required: false
         },
         btnType:{
-            type:Array,
+            type:Object,
             required:false,
         }
     },
