@@ -68,6 +68,9 @@ export default [
   //Voting
   {path:'/schoolspace/:id/post/voting', name:'posts.voting', component:page('school/posts/voting/new.vue')},
 
+  //SMS
+  {path:'/schoolspace/:id/post/sms', name:'posts.sms', component:page('school/posts/sms/new.vue')},
+
   //postDetail
   {path:'/schoolspace/:id/postDetail', name:'posts.detail', component:page('school/posts/detail.vue')},
   

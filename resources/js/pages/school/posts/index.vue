@@ -68,7 +68,7 @@ export default {
                         title : "短信",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/短信 拷贝.png",
-                        path : "something"
+                        path : "sms"
                     },
                     {
                         color : "indigo accent-2",

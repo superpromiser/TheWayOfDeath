@@ -9,7 +9,7 @@
                 >
                     <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
                 </v-avatar>
-                <h2>投票</h2>
+                <h2>{{lang.voting}}</h2>
             </div>
             <template v-slot:actions>
             <v-btn
