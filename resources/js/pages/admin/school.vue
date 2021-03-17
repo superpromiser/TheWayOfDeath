@@ -200,7 +200,7 @@
               color="indigo"
               @click="showSchoolIntroduce(item.introduce)"
             >
-              View school data
+              查看学校介绍
             </v-btn>
             <router-link :to="{path:`/admin/school/${item.id}/manager`}">
               <v-btn
@@ -209,7 +209,7 @@
                 class="mt-3"
                 color="indigo"
               >
-                View manager data
+                查看经理数据
               </v-btn>
             </router-link>
           </template>
