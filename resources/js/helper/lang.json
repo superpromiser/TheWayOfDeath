@@ -21,5 +21,15 @@
     "home":"主页",
     "school":"学校",
     "grade":"年级",
-    "class":"班级"
+    "class":"班级",
+    "questionnaire":"问卷",
+    "voting":"投票",
+    "sms":"短信",
+    "campus":"校园动态",
+    "announcement":"公告",
+    "bulletin":"布告栏",
+    "attendence":"考勤",
+    "assignment":"作业",
+    "exercise":"习题",
+    "homeVist":"家访"
 }

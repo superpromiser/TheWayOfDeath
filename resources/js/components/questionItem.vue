@@ -149,6 +149,10 @@ export default {
         index :{
             type:Number,
             required: false
+        },
+        btnType:{
+            type:Object,
+            required:false,
         }
     },
     data: () =>({
@@ -169,7 +173,7 @@ export default {
     }),
 
     mounted(){
-
+        console.log(this.btnType)
     },
 
     methods:{
