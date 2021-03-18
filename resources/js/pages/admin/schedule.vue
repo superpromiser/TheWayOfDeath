@@ -191,7 +191,7 @@
                     </v-icon>
                     无法修改
                 </v-btn>
-                <router-link :to="{ name : 'admin.schedule.setting'}">
+                <router-link :to="{ name : 'admin.scheduleSetting'}">
                     <v-btn
                         color="light-blue accent-4"
                         dark
