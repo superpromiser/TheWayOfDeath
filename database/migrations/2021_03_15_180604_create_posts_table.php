@@ -16,6 +16,9 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('contentId');
+            $table->Integer('viewCnt')->default(0);
+            $table->Integer('likeCnt')->default(0);
+            $table->boolean('isLiked')->default(false);
             $table->foreign('contentId')->references('id')->on('contents')->onDelete('cascade');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');

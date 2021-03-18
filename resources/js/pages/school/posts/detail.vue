@@ -1,29 +1,28 @@
 <template>
   <v-container>
-
+      {{contentData}}
   </v-container>
 </template>
 
 <script>
-import {EventBus} from '~/helper/event-bus.js';
+import EventBus from '~/helper/event-bus';
+import {mapGetters} from 'vuex';
 export default {
     data:()=>({
-        contentData:null
+        // contentData:null
     }),
 
     computed:{
         currentpath(){
             return this.$route;
-        }
+        },
+        ...mapGetters({
+            contentData:'content/postDetail'
+        })
     },
 
     mounted(){
-        // console.log(this.currentpath)
-        // this.contentData = JSON.parse(this.currentpath.query.content);
-        // console.log(this.contentData)
-        EventBus.$on("clicked-event", Count=> {  
-            console.log(`Oh, that's great. It's gotten ${Count} clicks! :)`);  
-        });  
+        console.log(this.contentData)
     }
 }
 </script>

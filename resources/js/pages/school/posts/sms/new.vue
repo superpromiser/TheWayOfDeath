@@ -39,13 +39,32 @@
                 </v-btn>
             </template>
         </v-banner>
-        <QuestionItem :Label="lang.contentPlaceFirst" :btnType="btnType"></QuestionItem>
-    </v-container>
+        <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+        <v-snackbar
+            timeout="3000"
+            v-model="requiredText"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
+        <v-snackbar
+        timeout="3000"
+            v-model="isSuccessed"
+            color="success"
+            absolute
+            top
+            >
+            {{lang.successText}}
+        </v-snackbar>
+  </v-container>
 </template>
 
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
+import {createSms} from '~/api/sms'
 export default {
     components:{
         QuestionItem,
@@ -56,10 +75,9 @@ export default {
         baseUrl: window.Laravel.base_url,
         isSubmit:false,
         isDraft:false,
-        btnType:{
-            emoji:'emoji',
-            sms:"sms"
-        },
+        requiredText:false,
+        smsData:[],
+        isSuccessed:false,
     }),
 
     methods:{
@@ -67,8 +85,31 @@ export default {
 
         },
 
-        submit(){
+        async submit(){
+            this.$refs.child.emitData()
+            if(this.smsData.length == 0){
+                return
+            }
+            console.log(this.smsData)
+            this.isSubmit = true
+            await createSms({smsData:this.smsData}).then(res=>{
+                console.log(res)
+                this.isSubmit = false
+                this.isSuccessed = true;
+                this.$router.push({name:'schoolSpace.news'})
+            }).catch(err=>{
+                console.log(err.response)
+                this.isSubmit = false
+            })
+        },
 
+        loadContentData(data){
+            if(data.text === ''){
+                this.requiredText = true;
+                this.smsData = [];
+                return;
+            }
+            this.smsData.push(data)
         }
     }
 }

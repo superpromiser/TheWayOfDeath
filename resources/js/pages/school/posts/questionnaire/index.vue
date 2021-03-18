@@ -386,6 +386,15 @@
       <div v-else>
         <router-view @contentData="saveContent"></router-view>
       </div>
+      <v-snackbar
+        timeout="3000"
+        v-model="isSuccessed"
+        color="success"
+        absolute
+        top
+        >
+        {{lang.successText}}
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -419,6 +428,7 @@ export default {
                 'O','P','Q','R','S','T','U','V','W','X','Y','Z' ],
       isSubmit:false,
       isDraft:false,
+      isSuccessed:false,
   }),
 
   components: {
@@ -514,6 +524,9 @@ export default {
       this.isSubmit = true
       await createQuestionnaire(this.newQuestionnaireData).then(res => {
         console.log(res)
+        this.isSuccessed = true;
+        // this.newQuestionnaireData = null
+        this.$router.push({name:'schoolSpace.news'})
       }).catch(err=>{
         console.log(err.response)
          if(err.response.status === 422){

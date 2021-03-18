@@ -31,5 +31,10 @@
     "attendence":"考勤",
     "assignment":"作业",
     "exercise":"习题",
-    "homeVist":"家访"
+    "homeVist":"家访",
+    "successText":"操作成功",
+    "toTop":"置顶",
+    "remove":"删除",
+    "viewDetail":"查看详情",
+    "noData":"数据不存在"
 }

@@ -106,7 +106,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     //post
     Route::get('allPost','PostController@getAllPost');
-
+    Route::post('likeAction','PostController@likeAction');
+    
     //template
     Route::get('template','TemplateController@getTemplate');
     Route::post('template','TemplateController@createTemplate');
@@ -125,7 +126,11 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('voting','VotingController@updateVotingData');
     Route::delete('voting','VotingController@deleteVotingData');
 
-
+    //sms
+    ROute::get('sms','SmsController@getSms');
+    ROute::post('sms','SmsController@createSms');
+    ROute::put('sms','SmsController@updateSms');
+    ROute::delete('sms','SmsController@deleteSms');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

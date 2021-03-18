@@ -23,6 +23,7 @@ export default [
   { path: '/admin/school/:id/manager', name: 'admin.manager', component: page('admin/schoolManager.vue'), props:true },
   { path: '/admin/stream', name: 'admin.stream', component: page('admin/stream.vue') },
   { path: '/admin/schedule', name: 'admin.schedule', component: page('admin/schedule.vue') },
+  { path: '/admin/schedule/setting', name: 'admin.schedule.setting', component: page('admin/scheduleSetting.vue') },
   { path: '/admin/userlist', name: 'admin.userlist', component: page('admin/userList.vue'),
     children : [
       {path:'',redirect:{name: 'userlist.teacher'}},
@@ -78,6 +79,9 @@ export default [
   //postDetail
   {path:'/schoolspace/:id/postDetail', name:'posts.detail', component:page('school/posts/detail.vue')},
   
+  //addComment
+  {path:'/schoolspace/:id/post/addComment', name:'posts.comment', component:page('school/posts/addComment.vue')},
+   
   //setting
   { path: '/settings',
     component: page('settings/index.vue'),

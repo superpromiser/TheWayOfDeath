@@ -1,12 +1,15 @@
 <template>
   <v-container>
-      member
+      {{lang.noData}}
   </v-container>
 </template>
 
 <script>
+import lang from '~/helper/lang.json'
 export default {
-
+  data:() => ({
+    lang,
+  })
 }
 </script>
 
