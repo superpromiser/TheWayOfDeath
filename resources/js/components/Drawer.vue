@@ -128,7 +128,7 @@
           </v-list-item>
           <v-list-item
             link
-            to="/admin/"
+            to="/admin/schedule/class"
             v-if="user.role.roleName == 'teacher'"
             >
             <v-list-item-title>课程表管理</v-list-item-title>
