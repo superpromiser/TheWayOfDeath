@@ -100,7 +100,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     //post
     Route::get('allPost','PostController@getAllPost');
-    Route::post('likeAction','PostController@likeAction');
+    Route::post('like','LikeController@addLike');
+    Route::delete('like','LikeController@removeLike');
     
     //template
     Route::get('template','TemplateController@getTemplate');

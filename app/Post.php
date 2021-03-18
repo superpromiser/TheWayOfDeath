@@ -13,6 +13,18 @@ class Post extends Model
         return $this->belongsTo(User::class,'userId');
     }
 
+    public function likes(){
+        return $this->hasMany(Like::class,'postId');
+    }
+
+    public function views(){
+        return $this->hasMany(View::class,'postId');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class,'postId');
+    }
+
     public function questionnaires(){
         return $this->hasOne(Questionnaire::class,'postId');
     }
@@ -24,5 +36,7 @@ class Post extends Model
     public function sms(){
         return $this->hasOne(Sms::class,'postId');
     }
+
+
 
 }
