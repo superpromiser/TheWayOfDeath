@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+    <v-container class="pa-0">
         <v-banner class=" mb-10" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <v-avatar
@@ -39,8 +39,8 @@
                 </v-btn>
             </template>
         </v-banner>
-      <QuestionItem :Label="lang.contentPlaceFirst" :btnType="btnType"></QuestionItem>
-  </v-container>
+        <QuestionItem :Label="lang.contentPlaceFirst" :btnType="btnType"></QuestionItem>
+    </v-container>
 </template>
 
 <script>

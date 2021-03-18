@@ -22,6 +22,7 @@ export default [
   { path: '/admin/school', name: 'admin.school', component: page('admin/school.vue') },
   { path: '/admin/school/:id/manager', name: 'admin.manager', component: page('admin/schoolManager.vue'), props:true },
   { path: '/admin/stream', name: 'admin.stream', component: page('admin/stream.vue') },
+  { path: '/admin/schedule', name: 'admin.schedule', component: page('admin/schedule.vue') },
   { path: '/admin/userlist', name: 'admin.userlist', component: page('admin/userList.vue'),
     children : [
       {path:'',redirect:{name: 'userlist.teacher'}},
@@ -70,6 +71,9 @@ export default [
 
   //SMS
   {path:'/schoolspace/:id/post/sms', name:'posts.sms', component:page('school/posts/sms/new.vue')},
+
+  //Campus
+  {path:'/schoolspace/:id/post/campus', name:'posts.campus', component:page('school/posts/campus/new.vue')},
 
   //postDetail
   {path:'/schoolspace/:id/postDetail', name:'posts.detail', component:page('school/posts/detail.vue')},

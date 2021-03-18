@@ -76,7 +76,7 @@ export default {
                         title : "校园动态",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/动态 拷贝.png",
-                        path : "something"
+                        path : "campus"
                     },
                     {
                         color : "lime darken-4",
