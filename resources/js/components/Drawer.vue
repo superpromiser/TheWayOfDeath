@@ -44,6 +44,7 @@
         <template v-slot:activator>
           <v-list-item-title v-if="user.roleId == 2">学校管理</v-list-item-title>
           <v-list-item-title v-else-if="user.roleId == 1">系统设置</v-list-item-title>
+          <v-list-item-title v-else-if="user.roleId == 3">教授管理</v-list-item-title>
         </template>
           <v-list-item
             link
@@ -125,6 +126,17 @@
               <v-icon>mdi-sd</v-icon>
             </v-list-item-icon>
           </v-list-item>
+          <v-list-item
+            link
+            to="/admin/"
+            v-if="user.role.roleName == 'teacher'"
+            >
+            <v-list-item-title>课程表管理</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-calendar-month</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+
       </v-list-group>
       <v-list-group
         :value="true"
