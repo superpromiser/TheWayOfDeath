@@ -14,9 +14,15 @@ function removeLike(payload){
 function addViewUsers(payload){
     return axios.post('/api/v1/viewUser', payload);
 }
+
+function addComment(payload){
+    return axios.post('/api/v1/comment',payload)
+}
+
 export{
     getAllPost,
     addLike,
     removeLike,
     addViewUsers,
+    addComment
 }
