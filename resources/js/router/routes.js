@@ -24,7 +24,7 @@ export default [
   { path: '/admin/stream', name: 'admin.stream', component: page('admin/stream.vue') },
   { path: '/admin/schedule', name: 'admin.schedule', component: page('admin/schedule.vue') },
   { path: '/admin/schedule/setting', name: 'admin.scheduleSetting', component: page('admin/scheduleSetting.vue')  },
-  { path: '/admin/schedule/class', name: 'admin.scheduleSetting', component: page('admin/scheduleClass.vue')  },
+  { path: '/admin/schedule/class', name: 'admin.scheduleClass', component: page('admin/scheduleClass.vue')  },
   { path: '/admin/userlist', name: 'admin.userlist', component: page('admin/userList.vue'),
     children : [
       {path:'',redirect:{name: 'userlist.teacher'}},
@@ -76,6 +76,10 @@ export default [
 
   //Campus
   {path:'/schoolspace/:id/post/campus', name:'posts.campus', component:page('school/posts/campus/new.vue')},
+
+  //vacation
+  {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
+  {path:'/schoolspace/:id/post/vacation/teacher', name:'posts.vacationTeacher', component:page('school/posts/vacation/teacher/new.vue')},
 
   //postDetail
   {path:'/schoolspace/:id/postDetail', name:'posts.detail', component:page('school/posts/detail.vue')},

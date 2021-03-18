@@ -3,8 +3,8 @@
         <v-row v-for="(itemGroup, i) in contentItemList" :key="i">
             <v-col cols="12">
                 <v-chip
-                    class="ma-2"
-                    color="indigo accent-4"
+                    class="ma-2 px-5"
+                    color="primary"
                     outlined
                 >
                     <v-icon left>

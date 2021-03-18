@@ -123,3 +123,7 @@ a {
 .min-w-fit-content{
     min-width: fit-content;
 }
+
+.hover-cursor-point:hover{
+    cursor: pointer;
+}
