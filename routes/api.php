@@ -128,10 +128,15 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::delete('voting','VotingController@deleteVotingData');
 
     //sms
-    ROute::get('sms','SmsController@getSms');
-    ROute::post('sms','SmsController@createSms');
-    ROute::put('sms','SmsController@updateSms');
-    ROute::delete('sms','SmsController@deleteSms');
+    Route::get('sms','SmsController@getSms');
+    Route::post('sms','SmsController@createSms');
+    Route::put('sms','SmsController@updateSms');
+    Route::delete('sms','SmsController@deleteSms');
+
+    //comment
+    Route::post('comment','CommentController@createComment');
+    Route::get('comment','CommentController@getComment');
+    Route::delete('comment','CommentController@deleteComment');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

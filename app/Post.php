@@ -22,7 +22,7 @@ class Post extends Model
     }
 
     public function comments(){
-        return $this->hasMany(Comment::class,'postId');
+        return $this->hasMany(Comment::class,'postId')->orderBy('created_at','desc');
     }
 
     public function questionnaires(){
