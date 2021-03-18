@@ -1,262 +1,225 @@
 <template>
-    <v-container class="pa-0">
-        <v-banner class=" mb-10" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
-                <v-avatar
-                    class="ma-3 ml-0"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>问卷</h2>
-            </div>
-            <template v-slot:actions>
-            <v-btn
-                text
-                color="primary"
-
-            >
-                可用模板 0， 草稿 0
-            </v-btn>
-            <v-btn
-                dark
-                color="green lighten-1"
-            >
-                提交
-            </v-btn>
-            </template>
-        </v-banner>
-        <v-container class="pa-10">
-            <v-row>
-                <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                        solo
-                        v-model="newQuestionnaireData.title"
-                        label="标题"
-                        hide-details
-                    ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                        solo
-                        v-model="newQuestionnaireData.description"
-                        label="说明（选填）"
-                        hide-details
-                    ></v-text-field>
-                </v-col>
-                <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                    >
-                    <v-menu
-                        ref="menu"
-                        v-model="menu"
-                        :close-on-content-click="false"
-                        :return-value.sync="newQuestionnaireData.deadline"
-                        transition="scale-transition"
-                        offset-y
-                        min-width="auto"
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                            solo
-                            v-model="newQuestionnaireData.deadline"
-                            prepend-icon="mdi-calendar"
-                            readonly
-                            v-bind="attrs"
-                            v-on="on"
-                            hide-details
-                        ></v-text-field>
-                        </template>
-                        <v-date-picker
-                        v-model="newQuestionnaireData.deadline"
-                        no-title
-                        scrollable
-                        >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            text
-                            color="primary"
-                            @click="menu = false"
-                        >
-                            {{lang.cancel}}
-                        </v-btn>
-                        <v-btn
-                            text
-                            color="primary"
-                            @click="$refs.menu.save(date)"
-                        >
-                            {{lang.ok}}
-                        </v-btn>
-                        </v-date-picker>
-                    </v-menu>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-select
-                        solo
-                        multiple
-                        chips
-                        :items="schoolTree"
-                        item-text="lessonName"
-                        item-value="lessonId"
-                        @change="selectedLesson"
-                        label="班级"
-                        hide-details
-                    ></v-select>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
-                    <span>匿名问卷</span>
-                    <v-switch
-                        v-model="newQuestionnaireData.questionnaireFlag"
-                        color="primary"
-                        value="primary"
-                        hide-details
-                        inset
-                        class="pt-0 mt-0"
-                    ></v-switch>
-                </v-col>
-                <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
-                    <span>答卷人可见结果</span>
-                    <v-switch
-                        v-model="newQuestionnaireData.resultFlag"
-                        color="primary"
-                        value="primary"
-                        hide-details
-                        inset
-                        class="pt-0 mt-0"
-                    ></v-switch>
-                </v-col>
-                <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
-                    <span>外部人员可作答</span>
-                    <v-switch
-                        v-model="newQuestionnaireData.answerFlag"
-                        color="primary"
-                        value="primary"
-                        hide-details
-                        inset
-                        class="pt-0 mt-0"
-                    ></v-switch>
-                </v-col>
-            </v-row>
-            <v-row class="d-flex">
-                <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>单选题
-                    </v-btn>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>多选题
-                    </v-btn>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>问答题
-                    </v-btn>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>统计题
-                    </v-btn>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3">
-                        <v-icon>
-                            mdi-plus
-                        </v-icon>评分题
-                    </v-btn>
-                </v-col>
-            </v-row>
-            <QuestionItem class="mt-10" Label="something" :ref="index" @contentData="loadContentData" />
-            <v-btn text @click="handleChild()">something</v-btn>
-        </v-container>
-        <v-dialog
-        v-model="dialog"
-        max-width="290"
+  <v-navigation-drawer
+    v-model="drawer"
+    dark
+    width="260"
+    @input="changedStatusToggle"
+    app
+    :permanent="!$vuetify.breakpoint.smAndDown"
+  > 
+    <template v-slot:prepend>
+      <v-toolbar
+        color="blue"
+        height="74"
         >
-            <span>test</span>
-        </v-dialog>
-    </v-container>
+        <v-toolbar-title class="d-flex align-center pl-4">
+          <img :src="`${baseUrl}/asset/img/logo.png`" alt="Logo" class="logo-img">
+        </v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+      </v-toolbar>
+    </template>
+    <!-------------User Info--------------->
+    <v-list-item class="pa-2" color="blue accent-2">
+      <v-list-item-avatar>
+        <v-avatar
+          color="blue accent-3"
+          size="40"
+          >
+          <img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user? user.name[0] : ''" />
+          <span v-else class="white--text headline"> {{user? user.name[0] : ''}}</span>
+        </v-avatar>
+      </v-list-item-avatar>
+      <v-list-item-title>{{user? user.name : ''}}</v-list-item-title>
+    </v-list-item>
+    <!-------------User Info--------------->
+    <v-divider></v-divider>
+    <!----------------Menu------------------>
+    <v-list>
+      <v-list-group
+        :value="true"
+        prepend-icon="mdi-cog-outline"
+      >
+        <template v-slot:activator>
+          <v-list-item-title v-if="user.roleId == 2">å­¦æ ¡ç®¡ç†</v-list-item-title>
+          <v-list-item-title v-else-if="user.roleId == 1">ç³»ç»Ÿè®¾ç½®</v-list-item-title>
+        </template>
+          <v-list-item
+            link
+            to="/admin/userlist"
+            v-if="user.role.roleName == 'manager'"
+            >
+            <v-list-item-title>åå•</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-account-group</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            to="/admin/assignRole"
+            v-if="user.role.roleName == 'admin'"
+            >
+            <v-list-item-title>è§’è‰²</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-account-box-multiple</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            to="/admin/school"
+            v-if="user.role.roleName == 'admin'"
+            >
+            <v-list-item-title>å­¦æ ¡</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-school</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            to="/admin/grade"
+            v-if="user.role.roleName == 'admin'"
+            >
+            <v-list-item-title>åˆ›å»ºå¹´çº§</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-medal</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            to="/admin/class"
+            v-if="user.role.roleName == 'admin'"
+            >
+            <v-list-item-title>ç­çº§</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-google-classroom</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            to="/admin/stream"
+            v-if="user.role.roleName == 'manager'"
+            >
+            <v-list-item-title>æµåª’ä½“è®¾ç½®</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-view-stream</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
+            to="/admin/imei"
+            v-if="user.role.roleName == 'manager'"
+            >
+            <v-list-item-title>IMEIç®¡ç†</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-sd</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+      </v-list-group>
+      <v-list-group
+        :value="true"
+        prepend-icon="mdi-school"
+      >
+        <template v-slot:activator>
+          <v-list-item-title>{{schoolData.schoolName}}</v-list-item-title>
+        </template>
+          <v-list-item
+            link
+            to="/schoolspace/1"
+            >
+            <v-list-item-title>å­¦æ ¡ç©ºé—´</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-cast-education</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+      </v-list-group>
+      <v-list-item>
+        <v-list-item-icon>
+          <v-icon>mdi-home</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-title>{{lang.home}}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script>
-
-import { mapGetters } from 'vuex'
+import { mapGetters, } from 'vuex'
 import lang from '~/helper/lang.json'
-import QuestionItem from '~/components/questionItem'
 export default {
-    data: () => ({
-        lang,
-        baseUrl: window.Laravel.base_url,
-        newQuestionnaireData : {
-            title:'',
-            description:'',
-            viewList:[],
-            deadline:'',
-            questionnaireFlag:true,
-            resultFlag:true,
-            answerFlag:false,
-            type:0,
-            content:{
-                singleContentDataArr:[],
-                multiContentDataArr:[],
-                questionAnswerDataArr:[],
-                statisticsDataArr:[],
-                scoringQuestoinsDataArr:[],
-            },
-        },
-        dialog:false,
-        date: new Date().toISOString().substr(0, 10),
-        menu: false,
-        index:1
+  name: 'DefaultDrawer',
+
+  components: {
+    
+  },
+  computed: {
+    ...mapGetters({
+      mini : 'toggledrawer/mini',
+      user : 'auth/user',
+      schoolData : 'schooltree/schoolData'
+      // drawer : 'toggledrawer/drawer'
     }),
-
-    components: {
-        QuestionItem,
-    },
-
-    mounted(){
-        console.log("123123123", this.$refs)
-    },
-
-    computed: {
-        ...mapGetters({
-            // chooseableSchoolTree : 'schooltree/chooseableSchoolTree'
-            schoolTree : 'schooltree/schoolTree'
+    drawer: {
+      get() {
+        return this.$store.state.toggledrawer.drawer;
+      },
+      set(value) {
+        this.$store.dispatch('toggledrawer/turnDrawer', {
+          drawer: value,
         })
-    },
-
-
-    methods:{
-        updateImageFile(imageFile){
-            console.log(imageFile)
-        },
-        selectedLesson(val){
-            console.log(val)
-        },
-
-        handleChild(){
-            this.$refs[1].emitData();
-        },
-        loadContentData(data){
-            console.log(data)
-        }
+      }
     }
+    // ...mapActions(['toggledrawer/turnDrawer'])
+  },
+  
+  mounted() {
+    console.log(this.schoolData);
+  },
+
+  data: () => ({
+    admins: [
+        ['Management', 'mdi-account-multiple-outline'],
+        ['Settings', 'mdi-cog-outline'],
+      ],
+    cruds: [
+      ['Create', 'mdi-plus-outline'],
+      ['Read', 'mdi-file-outline'],
+      ['Update', 'mdi-update'],
+      ['Delete', 'mdi-delete'],
+    ],
+    baseUrl: window.Laravel.base_url,
+    lang,
+  }),
+
+  methods:{
+    changedStatusToggle(val){
+      if(val == false){
+        this.$store.dispatch('toggledrawer/turnDrawer', {
+          drawer: val,
+        })
+      }
+    }
+  }
 }
 </script>
 
-<style>
+<style lang="sass">
+#default-drawer
+  .v-list-item
+    margin-bottom: 8px
 
+  .v-list-item::before,
+  .v-list-item::after
+    display: none
+
+  .v-list-group__header__prepend-icon,
+  .v-list-item__icon
+    margin-top: 12px
+    margin-bottom: 12px
+    margin-left: 4px
+
+  &.v-navigation-drawer--mini-variant
+    .v-list-item
+      justify-content: flex-start !important
 </style>

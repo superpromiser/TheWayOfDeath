@@ -1,0 +1,459 @@
+<template>
+  <v-container>
+    <v-row>
+      <v-col cols="12">
+        <v-data-table
+          :headers="headers"
+          :items="scheduleData"
+          :loading="isLoadingSchoolData"
+          loading-text="等一下..."
+          sort-by="calories"
+          class="elevation-1"
+        >
+          <template v-slot:top>
+            <v-toolbar
+                flat
+            >
+                <v-toolbar-title><strong>课时维护</strong></v-toolbar-title>
+                <v-divider
+                class="mx-4"
+                inset
+                vertical
+                ></v-divider>
+                <v-spacer></v-spacer>
+
+                <v-dialog
+                v-model="dialog"
+                max-width="500px"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                    color="primary"
+                    dark
+                    tile
+                    class="mb-2"
+                    v-bind="attrs"
+                    v-on="on"
+                    :disabled="!isEditable"
+                    >
+                    添加
+                    </v-btn>
+                    </template>
+                    <v-card>
+                    <v-card-title>
+                        <span class="headline">{{ formTitle }}</span>
+                    </v-card-title>
+
+                    <v-card-text>
+                        <v-container>
+                        <v-row>
+                            <v-col cols="12" sm="6" >
+                                <v-text-field
+                                    solo
+                                    v-model="editedItem.subjectName"
+                                    label="机构名称"
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" >
+                                <v-select
+                                    solo
+                                    :items="subjectTypeItem"
+                                    :menu-props="{ top: false, offsetY: true }"
+                                    item-text="label"
+                                    v-model="editedItem.subjectType"
+                                    label="课时类型"
+                                    hide-details
+                                ></v-select>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-menu
+                                    ref="startTimeMenu"
+                                    v-model="startTimeMenu"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    :return-value.sync="time"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="290px"
+                                >
+                                    <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        solo
+                                        v-model="editedItem.startTime"
+                                        label="start Time"
+                                        prepend-icon="mdi-clock-time-four-outline"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        hide-details
+                                    ></v-text-field>
+                                    </template>
+                                    <v-time-picker
+                                        v-if="startTimeMenu"
+                                        v-model="editedItem.startTime"
+                                        full-width
+                                        @click:minute="$refs.startTimeMenu.save(time)"
+                                    ></v-time-picker>
+                                </v-menu>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-menu
+                                    ref="endTimeMenu"
+                                    v-model="endTimeMenu"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    :return-value.sync="time"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="290px"
+                                >
+                                    <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        solo
+                                        v-model="editedItem.endTime"
+                                        label="start Time"
+                                        prepend-icon="mdi-clock-time-four-outline"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        hide-details
+                                    ></v-text-field>
+                                    </template>
+                                    <v-time-picker
+                                        v-if="endTimeMenu"
+                                        v-model="editedItem.endTime"
+                                        full-width
+                                        @click:minute="$refs.endTimeMenu.save(time)"
+                                    ></v-time-picker>
+                                </v-menu>
+                            </v-col>
+                        </v-row>
+                        </v-container>
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="close"
+                        >
+                        取消
+                        </v-btn>
+                        <v-btn
+                        color="blue darken-1"
+                        text
+                        :loading="isCreatingSchool"
+                        @click="save"
+                        >
+                        保存
+                        </v-btn>
+                    </v-card-actions>
+                    </v-card>
+                </v-dialog>
+                <v-dialog v-model="dialogDelete" max-width="500px">
+                    <v-card>
+                    <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+                    <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
+                    <v-spacer></v-spacer>
+                    </v-card-actions>
+                    </v-card>
+                </v-dialog>
+
+                <v-btn
+                    color="green accent-4"
+                    dark
+                    class="mb-2 ml-2"
+                    tile
+                    v-if="isEditable == false"
+                    @click="isEditable = !isEditable"
+                    >
+                    <v-icon left>
+                        mdi-check
+                    </v-icon>
+                    修改
+                </v-btn>
+                <v-btn
+                    color="orange accent-4"
+                    dark
+                    class="mb-2 ml-2"
+                    tile
+                    v-if="isEditable == true"
+                    @click="isEditable = !isEditable"
+                    >
+                    <v-icon left>
+                        mdi-alert-circle-outline
+                    </v-icon>
+                    无法修改
+                </v-btn>
+                <router-link :to="{ name : 'admin.schedule' }">
+                    <v-btn
+                        color="light-blue accent-4"
+                        dark
+                        class="mb-2 ml-2"
+                        tile
+                        >
+                        课时维护
+                        <v-icon right> 
+                            mdi-arrow-right-thick 
+                        </v-icon>
+                    </v-btn>
+                </router-link>
+            </v-toolbar>
+          </template>
+          
+          <template v-slot:[`item.actions`]="{ item }">
+                <v-icon
+                    small
+                    color="success"
+                    class="mr-2"
+                    :disabled="!isEditable"
+                    @click="editItem(item)"
+                >
+                    mdi-pencil
+                </v-icon>
+                <v-icon
+                    small
+                    color="error"
+                    :disabled="!isEditable"
+                    @click="deleteItem(item)"
+                >
+                    mdi-delete
+                </v-icon>
+          </template>
+          <template v-slot:no-data>
+            <p>没有学习资料</p>
+          </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<script>
+import { createSchool, updateSchool, getSchool, deleteSchool } from '~/api/school'
+import { createSubject, updateSubject, getSubject, deleteSubject } from '~/api/managersubject'
+import lang from '~/helper/lang.json'
+export default {
+    components:{
+    },
+
+    data: () => ({
+        lang,
+        dialog: false,
+        dialogDelete: false,
+        time: null,
+        startTimeMenu: false,
+        endTimeMenu: false,
+        isEditable : false,
+        subjectTypeItem : [
+            { 
+                label : "outsidePlay", 
+                value : "outsidePlay" 
+            },
+            { 
+                label : "insidePlay", 
+                value : "insidePlay" 
+            },
+        ],
+        headers: [
+            { text: 'subjectName', value: 'subjectName', align: 'start'},
+            { text: 'subjectType', value: 'subjectType', sortable: false },
+            { text: 'startTime', value: 'startTime', sortable: false },
+            { text: 'endTime', value: 'endTime', sortable: false },
+            { text: '行动', value: 'actions', sortable: false },
+        ],
+        scheduleData: [
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+            {
+                subjectName: 'math',
+                subjectType: 'outsidePlay',
+                startTime: '00:00',
+                endTime: '00:01',
+            },
+        ],
+        schoolListRaw : [],
+        editedIndex: -1,
+        editedItem: {
+            subjectName: '',
+            subjectType: '',
+            startTime: null,
+            endTime: null,
+        },
+        defaultItem: {
+            subjectName: '',
+            subjectType: '',
+            startTime: null,
+            endTime: null,
+        },
+        
+        baseUrl:window.Laravel.base_url,
+        isCreatingSchool : false,
+        isLoadingSchoolData : false,
+        isDeleteSchool : false,
+        schoolIntroduceData : '',
+    }),
+
+    computed: {
+        formTitle () {
+            return this.editedIndex === -1 ? '新增课' : '编辑课'
+        },
+    },
+
+    async created(){
+        this.isLoadingSchoolData = true;
+        getSchool()
+        .then((res) => {
+            
+        }).catch((err) => {
+            
+        });
+        this.isLoadingSchoolData = false;
+    },
+
+    watch: {
+        dialog (val) {
+            val || this.close()
+        },
+        dialogDelete (val) {
+            val || this.closeDelete()
+        },
+    },
+
+    methods: {
+
+      editItem (item) {
+            this.editedIndex = this.scheduleData.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialog = true
+      },
+
+      deleteItem (item) {
+            this.editedIndex = this.scheduleData.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialogDelete = true
+      },
+
+        async deleteItemConfirm () {
+            this.scheduleData.splice(this.editedIndex, 1)
+            // let payload = {
+            //     id : this.editedItem.id
+            // }
+            // this.isDeleteSchool = true;
+            // await deleteSchool(payload)
+            // .then((res) => {
+            //     if(res.data.msg == 1){
+                    
+            //     }
+            //     this.isDeleteSchool = false;
+            // }).catch((err) => {
+            //     console.log(err)
+            //     this.isDeleteSchool = false;
+            // });
+            this.closeDelete()
+        },
+
+        close () {
+            this.dialog = false
+            this.$nextTick(() => {
+            this.editedItem = Object.assign({}, this.defaultItem)
+            this.editedIndex = -1
+            })
+        },
+
+        closeDelete () {
+            this.dialogDelete = false
+            this.$nextTick(() => {
+            this.editedItem = Object.assign({}, this.defaultItem)
+            this.editedIndex = -1
+            })
+        },
+
+        async save () {
+            //update scheduleData
+            if (this.editedIndex > -1) {
+                Object.assign(this.scheduleData[this.editedIndex], this.editedItem)
+            } 
+            //save scheduleData
+            else {
+
+                this.scheduleData.push(this.editedItem)
+            }
+            this.close()
+        },
+    },
+}
+</script>
+<style>
+
+</style>

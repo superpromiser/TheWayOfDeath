@@ -97,6 +97,16 @@
           </v-list-item>
           <v-list-item
             link
+            to="/admin/schedule"
+            v-if="user.role.roleName == 'manager'"
+            >
+            <v-list-item-title>课程维护</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-calendar-month</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            link
             to="/admin/stream"
             v-if="user.role.roleName == 'manager'"
             >

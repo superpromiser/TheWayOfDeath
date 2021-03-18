@@ -58,6 +58,12 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('file/video','UploadController@videoUpload');
     Route::delete('file','UploadController@deleteFile');
 
+    //subject of manager
+    Route::get('manager/subject','SubjectController@getSubject')->name('getSubject');
+    Route::post('manager/subject','SubjectController@storeSubject')->name('storeSubject');
+    Route::put('manager/subject','SubjectController@updateSubject')->name('updateSubject');
+    Route::delete('manager/subject','SubjectController@removeSubject')->name('removeSubject');
+
     //school
     Route::get('school','SchoolController@getSchool')->name('getSchool');
     Route::post('school','SchoolController@storeSchool')->name('storeSchool');
