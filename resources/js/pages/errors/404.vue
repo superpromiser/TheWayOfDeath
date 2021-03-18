@@ -1,8 +1,8 @@
 <template>
   <v-container class="text-center">
-    <h3 class="my-4 primary--text">
+    <h1 class="my-4 primary--text">
       Page Not Found 🤷‍♂️
-    </h3>
+    </h1>
     <img :src="`${baseUrl}/asset/img/404Gif.gif`" alt="404" class="">
 
     <div class="links">

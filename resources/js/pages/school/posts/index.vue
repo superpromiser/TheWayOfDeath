@@ -5,7 +5,6 @@
                 <v-chip
                     class="ma-2"
                     color="indigo accent-4"
-                    large
                     outlined
                 >
                     <v-icon left>
@@ -130,6 +129,26 @@ export default {
                         title : "家访",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/家访 拷贝.png",
+                        path : "something"
+                    },
+                ],
+            },
+            {
+                title : "智能考勤",
+                icon : "mdi-calendar-month-outline",
+                items : [
+                    {
+                        color : "teal darken-4",
+                        title : "请假",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/请假.png",
+                        path : "vacation"
+                    },
+                    {
+                        color : "teal darken-4",
+                        title : "考勤",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/组 25.png",
                         path : "something"
                     },
                 ],

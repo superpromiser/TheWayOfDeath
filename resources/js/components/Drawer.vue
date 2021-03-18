@@ -40,6 +40,7 @@
       <v-list-group
         :value="true"
         prepend-icon="mdi-cog-outline"
+        v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3"
       >
         <template v-slot:activator>
           <v-list-item-title v-if="user.roleId == 2">学校管理</v-list-item-title>
