@@ -95,7 +95,7 @@ export default {
                         title : "布告栏",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/布告栏 拷贝.png",
-                        path : "something"
+                        path : "bulletinboard"
                     },
                     {
                         color : "red accent-3",

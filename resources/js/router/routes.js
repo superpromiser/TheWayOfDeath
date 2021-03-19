@@ -79,6 +79,9 @@ export default [
   
   //announcement
   {path:'/schoolspace/:id/post/announcement', name:'posts.announcement', component:page('school/posts/announcement/new.vue')},
+  
+  //bulletinboard
+  {path:'/schoolspace/:id/post/bulletinboard', name:'posts.bulletinboard', component:page('school/posts/bulletinboard/new.vue')},
 
   //vacation
   {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},

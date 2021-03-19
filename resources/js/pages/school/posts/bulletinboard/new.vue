@@ -7,7 +7,7 @@
                     size="50"
                     tile
                 >
-                    <v-img :src="`${baseUrl}/asset/img/icon/动态 拷贝.png`" alt="postItem" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/icon/布告栏 拷贝.png`" alt="postItem" ></v-img>
                 </v-avatar>
                 <h2>{{lang.campus}}</h2>
             </div>
@@ -37,24 +37,13 @@
                         :items="typeItem"
                         :menu-props="{ top: false, offsetY: true }"
                         item-text="label"
-                        v-model="campusData.camposeCategory"
+                        v-model="bulletinboardData.type"
                         label="栏目"
                         hide-details
                     ></v-select>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                        solo
-                        v-model="campusData.title"
-                        label="标题"
-                        hide-details
-                    ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" :solo="true" uploadLabel="模板封面" />
-                </v-col>
-                <v-col cols="12">
-                    <vue-editor v-model="campusData.content" placeholder="公告内容"></vue-editor>
+                <v-col cols="12" >
+                    <QuestionItem class="mt-10" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
                 </v-col>
             </v-row>
             
@@ -79,6 +68,7 @@ import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
 
 
+
 import {createVoting} from '~/api/voting'
 
 export default {
@@ -95,40 +85,39 @@ export default {
         baseUrl: window.Laravel.base_url,
         typeItem : [
             { 
-                label : "校园新闻", 
-                value : "校园新闻" 
+                label : "互问互答", 
+                value : "互问互答" 
             },
             { 
-                label : "日读一刻", 
-                value : "日读一刻" 
+                label : "拼团报名", 
+                value : "拼团报名" 
             },
             { 
-                label : "体育健儿", 
-                value : "体育健儿" 
+                label : "公共区域", 
+                value : "公共区域" 
             },
             { 
-                label : "办学理念", 
-                value : "办学理念" 
+                label : "旧物漂流", 
+                value : "旧物漂流" 
             },
             { 
-                label : "校园文化", 
-                value : "校园文化" 
+                label : "诚意推荐", 
+                value : "诚意推荐" 
             },
             { 
-                label : "学校荣誉", 
-                value : "学校荣誉" 
+                label : "寻物启事", 
+                value : "寻物启事" 
             },
             { 
-                label : "校园运动会", 
-                value : "校园运动会" 
+                label : "失物招领", 
+                value : "失物招领" 
             },
-            
         ],
-        campusData:{
-            camposeCategory: '',
+
+        bulletinboardData:{
             title:'',
-            imgUrl:'',
-            content:''
+            type:'',
+            content:null,
         },
 
     }),
@@ -144,29 +133,24 @@ export default {
         selectedLesson(val){
             console.log(val)
         },  
-        loadContentData(data){
-            if(data.text === ''){
-                this.requiredText = true
-                this.campusData.content = []
-                return;
-            }
-            this.campusData.content.push(data);
-        },
-
-        upImgUrl(value) {
-            this.campusData.imgUrl = value;
-            console.log(this.campusData.imgUrl);
-        },
         clearedImg(){
-            this.campusData.imgUrl = ''
-            console.log(this.campusData.imgUrl);
+            this.bulletinboardData.imgUrl = ''
+            console.log(this.bulletinboardData.imgUrl);
         },
 
         async publishcampusData(){
-            
-            console.log("campusData", this.campusData);
-            
+            this.$refs.child.emitData()
+            console.log("bulletinboardData", this.bulletinboardData);
         },
+
+        loadContentData(data){
+            if(data.text === ''){
+                this.requiredText = true;
+                this.bulletinboardData.content = null;
+                return;
+            }
+            this.bulletinboardData.content = data
+        }
     }
 }
 </script>
