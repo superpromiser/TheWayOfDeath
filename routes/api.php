@@ -137,6 +137,18 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('comment','CommentController@createComment');
     Route::get('comment','CommentController@getComment');
     Route::delete('comment','CommentController@deleteComment');
+
+    //subject
+    Route::get('manager/subject','SubjectController@getSubject');
+    Route::post('manager/subject','SubjectController@createSubject');
+    Route::put('manager/subject','SubjectController@updateSubject');
+    Route::delete('manager/subject','SubjectController@deleteSubject');
+
+    //schedule
+    Route::get('manager/schedule','ScheduleSettingController@getBaseData');
+    Route::post('manager/schedule','ScheduleSettingController@createSchedule');
+    Route::put('manager/schedule','ScheduleSettingController@updateSchedule');
+    Route::delete('manager/schedule','ScheduleSettingController@deleteSchedule');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {
