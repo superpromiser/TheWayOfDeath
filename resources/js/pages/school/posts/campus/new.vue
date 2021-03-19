@@ -53,6 +53,7 @@
                     <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" :solo="true" uploadLabel="模板封面" />
                 </v-col>
                 <v-col cols="12">
+                    <vue-editor v-model="campusData.content" placeholder="公告内容"></vue-editor>
                 </v-col>
             </v-row>
             
@@ -74,11 +75,14 @@ import { mapGetters } from 'vuex'
 import QuestionItem from '~/components/questionItem'
 import UploadImage from '~/components/UploadImage'
 import lang from '~/helper/lang.json'
+import { VueEditor } from "vue2-editor";
+
 
 import {createVoting} from '~/api/voting'
 
 export default {
     components: {
+        VueEditor,
         QuestionItem,
         UploadImage,
     },

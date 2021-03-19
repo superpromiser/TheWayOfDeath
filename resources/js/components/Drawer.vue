@@ -147,7 +147,60 @@
               <v-icon>mdi-check-decagram </v-icon>
             </v-list-item-icon>
           </v-list-item>
-
+          <v-list class="py-0">
+            <v-list-group 
+              :value="true"
+            >
+            <template v-slot:activator>
+              <v-list-item-title>考勤</v-list-item-title>
+            </template>
+              <v-list-item
+                link
+                to="/admin/attendance/index"
+                >
+                <v-list-item-title class="ml-5">进离校</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-account-clock </v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-list-item
+                link
+                to="/admin/attendance/lesson"
+                >
+                <v-list-item-title class="ml-5">课堂考勤</v-list-item-title>
+                <v-list-item-icon>
+                 <v-icon>mdi-badge-account  </v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-list-item
+                link
+                to="/admin/attendance/check"
+                >
+                <v-list-item-title class="ml-5">晨午检</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-account-search </v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-list-item
+                link
+                to="/admin/attendance/vacation"
+                >
+                <v-list-item-title class="ml-5">请假</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-check-decagram-outline </v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-list-item
+                link
+                to="/admin/attendance/statistics"
+                >
+                <v-list-item-title class="ml-5">统计</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-hexagon-slice-4  </v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+          </v-list>
       </v-list-group>
       <v-list-group
         :value="true"
