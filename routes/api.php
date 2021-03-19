@@ -145,10 +145,17 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::delete('manager/subject','SubjectController@deleteSubject');
 
     //schedule
-    Route::get('manager/schedule','ScheduleSettingController@getBaseData');
+    Route::get('manager/schedule/baseData','ScheduleSettingController@getBaseData');
+    Route::get('manager/schedule','ScheduleSettingController@getSchedule');
     Route::post('manager/schedule','ScheduleSettingController@createSchedule');
     Route::put('manager/schedule','ScheduleSettingController@updateSchedule');
     Route::delete('manager/schedule','ScheduleSettingController@deleteSchedule');
+
+    //campus
+    Route::get('campus','CampusController@getCampus');
+    Route::post('campus','CampusController@createCampus');
+    Route::put('campus','CampusController@updateCampus');
+    Route::delete('campus','CampusController@deleteCampus');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

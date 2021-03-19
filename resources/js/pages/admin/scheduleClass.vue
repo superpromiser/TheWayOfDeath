@@ -213,7 +213,7 @@
                                     mdi-delete
                                 </v-icon>
                             </div>
-                            <v-edit-dialog
+                            <!-- <v-edit-dialog
                                 v-else
                                 :return-value.sync="item[header.value]"
                                 @save="save"
@@ -238,7 +238,16 @@
                                         :disabled="!isEditable"
                                     ></v-select>
                                 </template>
-                            </v-edit-dialog>
+                            </v-edit-dialog> -->
+                            <v-select v-else
+                                :items="subjectItem"
+                                :menu-props="{ top: false, offsetY: true }"
+                                item-text="label"
+                                v-model="item[header.value]"
+                                hide-details
+                            >
+
+                            </v-select>
                         </td>
                     </tr>
                 </tbody>

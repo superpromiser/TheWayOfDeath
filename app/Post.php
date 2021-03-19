@@ -37,6 +37,10 @@ class Post extends Model
         return $this->hasOne(Sms::class,'postId');
     }
 
+    public function campus(){
+        return $this->hasOne(Campus::class,'postId');
+    }
+
 
 
 }

@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 class ScheduleSettingController extends Controller
 {
     //
-    public function getBaseData(){
+    public function getBaseData(Request $request){
+        
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         $baseData['subjectArr'] = Subject::select('id','subjectName')->where([
@@ -24,15 +25,25 @@ class ScheduleSettingController extends Controller
         ])->get();
         $baseData['gradeArr'] = Grade::select('id','gradeName')->with('lessons:id,lessonName,gradeId')->where('schoolId',$schoolId)->get();
 
-        $baseData['scheduleArr'] = ScheduleSetting::select('id','subjectName','teacherName','lessonName')->where(['schoolId'=>$schoolId,'userId'=>$userId])->get();
+        
         return response()->json([
             'data'=>$baseData,
             'status'=>200
         ]);
     }
 
+    public function getSchedule(Request $request){
+        $this->validate($request,[
+            'gradeId'=>'required'
+        ]);
+        $userId = Auth::user()->id;
+        $schoolId = Auth::user()->schoolId;
+        return ScheduleSetting::where(['schoolId'=>$schoolId,'userId'=>$userId,'gradeId'=>$request->gradeId])->get();
+    }
+
     public function createSchedule(Request $request){
         $this->validate($request,[
+            'gradeId'=>'required',
             'lesson'=>'required',
             'subject'=>'required',
             'teacher'=>'required'
@@ -43,6 +54,7 @@ class ScheduleSettingController extends Controller
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         return ScheduleSetting::create([
+            'gradeId'=>$request->gradeId,
             'subjectName'=>$request->subject['subjectName'],
             'subjectId'=>$request->subject['id'],
             'teacherName'=>$request->teacher['teacherName'],
@@ -52,5 +64,16 @@ class ScheduleSettingController extends Controller
             'schoolId'=>$schoolId,
             'userId'=>$userId
         ]);
+    }
+
+    public function updateSchedule(Request $request){
+
+    }
+
+    public function deleteSchedule(Request $request){
+        $this->validate($request,[
+            'id'=>'required'
+        ]);
+        return ScheduleSetting::where('id',$request->id)->delete();
     }
 }

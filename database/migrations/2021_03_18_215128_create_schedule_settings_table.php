@@ -15,6 +15,7 @@ class CreateScheduleSettingsTable extends Migration
     {
         Schema::create('schedule_settings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('gradeId');
             $table->char('subjectName');
             $table->unsignedBigInteger('subjectId');
             $table->char('teacherName');
@@ -25,6 +26,7 @@ class CreateScheduleSettingsTable extends Migration
             $table->unsignedBigInteger('userId');
             $table->timestamps();
 
+            $table->foreign('gradeId')->references('id')->on('grades')->onDelete('cascade');
             $table->foreign('subjectId')->references('id')->on('subjects')->onDelete('cascade');
             $table->foreign('teacherId')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('lessonId')->references('id')->on('lessons')->onDelete('cascade');

@@ -1,7 +1,11 @@
 import axios from 'axios'
 
 function getBaseData(){
-    return axios.get('/api/v1/manager/schedule');
+    return axios.get('/api/v1/manager/schedule/baseData');
+}
+
+function getSchedule(payload){
+    return axios.get('/api/v1/manager/schedule',{params:payload})
 }
 
 function createSchedule(payload){
@@ -17,6 +21,7 @@ function deleteSchedule(payload){
 }
 export{
     getBaseData,
+    getSchedule,
     createSchedule,
     updateSchedule,
     deleteSchedule

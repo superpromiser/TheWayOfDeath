@@ -21,6 +21,7 @@
             <v-btn
                 dark
                 color="green lighten-1"
+                :loading="isCreating"
                 @click="publishcampusData"
                 tile
                 class="mr-md-8"
@@ -79,7 +80,7 @@ import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
 
 
-import {createVoting} from '~/api/voting'
+import {createCampus} from '~/api/campus'
 
 export default {
     components: {
@@ -130,7 +131,7 @@ export default {
             imgUrl:'',
             content:''
         },
-
+        isCreating:false
     }),
 
     computed: {
@@ -163,9 +164,16 @@ export default {
         },
 
         async publishcampusData(){
-            
+            this.isCreating = true
             console.log("campusData", this.campusData);
-            
+            await createCampus(this.campusData).then(res=>{
+                console.log(res)
+                this.isCreating = false
+                this.$router.push({name:'schoolSpace.news'})
+            }).catch(err=>{
+                this.isCreating = false
+                console.log(err.response)
+            })
         },
     }
 }
