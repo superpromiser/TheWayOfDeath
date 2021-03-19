@@ -145,7 +145,7 @@
                         <v-btn
                         color="blue darken-1"
                         text
-                        :loading="isCreatingSchool"
+                        :loading="isCreating"
                         @click="save"
                         >
                         保存
@@ -159,7 +159,7 @@
                     <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-                    <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
+                    <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
                     <v-spacer></v-spacer>
                     </v-card-actions>
                     </v-card>
@@ -269,78 +269,12 @@ export default {
             { text: '行动', value: 'actions', sortable: false },
         ],
         scheduleData: [
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
-            {
-                subjectName: 'math',
-                subjectType: 'outsidePlay',
-                startTime: '00:00',
-                endTime: '00:01',
-            },
+            // {
+            //     subjectName: 'math',
+            //     subjectType: 'outsidePlay',
+            //     startTime: '00:00',
+            //     endTime: '00:01',
+            // },
         ],
         schoolListRaw : [],
         editedIndex: -1,
@@ -358,9 +292,9 @@ export default {
         },
         
         baseUrl:window.Laravel.base_url,
-        isCreatingSchool : false,
+        isCreating : false,
         isLoadingSchoolData : false,
-        isDeleteSchool : false,
+        isDeleting : false,
         schoolIntroduceData : '',
     }),
 
@@ -372,9 +306,10 @@ export default {
 
     async created(){
         this.isLoadingSchoolData = true;
-        getSchool()
+        await getSubject()
         .then((res) => {
-            
+            console.log(res.data)
+            this.scheduleData = res.data
         }).catch((err) => {
             
         });
@@ -405,21 +340,15 @@ export default {
       },
 
         async deleteItemConfirm () {
+            this.isDeleting = true
+            await deleteSubject({id:this.editedItem.id}).then(res=>{
+                console.log(res.data)
+            }).catch(err=>{
+                this.isDeleting = false
+                console.log(err.response)
+            })
+            this.isDeleting = false
             this.scheduleData.splice(this.editedIndex, 1)
-            // let payload = {
-            //     id : this.editedItem.id
-            // }
-            // this.isDeleteSchool = true;
-            // await deleteSchool(payload)
-            // .then((res) => {
-            //     if(res.data.msg == 1){
-                    
-            //     }
-            //     this.isDeleteSchool = false;
-            // }).catch((err) => {
-            //     console.log(err)
-            //     this.isDeleteSchool = false;
-            // });
             this.closeDelete()
         },
 
@@ -441,14 +370,29 @@ export default {
 
         async save () {
             //update scheduleData
+            this.isCreating = true
             if (this.editedIndex > -1) {
-                Object.assign(this.scheduleData[this.editedIndex], this.editedItem)
+                console.log(this.editedItem)
+                await updateSubject(this.editedItem).then(res=>{
+                    console.log(res.data)
+                    Object.assign(this.scheduleData[this.editedIndex], this.editedItem)
+                }).catch(err=>{
+                    this.isCreating = false
+                    console.log(err.response)
+                })
             } 
             //save scheduleData
             else {
+                await createSubject(this.editedItem).then(res=>{
+                    console.log(res.data)
+                    this.scheduleData.push(res.data)
 
-                this.scheduleData.push(this.editedItem)
+                }).catch(err=>{
+                    this.isCreating = false
+                    consloe.log(err.response);
+                })
             }
+            this.isCreating = false
             this.close()
         },
     },

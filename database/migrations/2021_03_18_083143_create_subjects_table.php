@@ -21,8 +21,8 @@ class CreateSubjectsTable extends Migration
             $table->foreign('schoolId')->references('id')->on('schools')->onDelete('cascade');
             $table->string('subjectName');
             $table->string('subjectType');
-            $table->dateTime('startTime');
-            $table->dateTime('endTime');
+            $table->char('startTime');
+            $table->char('endTime');
             $table->timestamps();
         });
     }

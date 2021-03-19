@@ -25,7 +25,7 @@
                 <v-toolbar
                     flat
                 >
-                    <v-toolbar-title><strong>{{currentSelectedGrade.gradeName}} 课程安排</strong></v-toolbar-title>
+                    <v-toolbar-title><strong>{{currentSelectedGrade ? currentSelectedGrade.gradeName : ''}} 课程安排</strong></v-toolbar-title>
                     <v-divider
                     class="mx-4"
                     inset
@@ -61,10 +61,10 @@
                                 <v-col cols="12">
                                     <v-select
                                         solo
-                                        :items="teacherNameItem"
+                                        :items="subjectNameItem"
                                         :menu-props="{ top: false, offsetY: true }"
                                         item-text="label"
-                                        v-model="editedItem.subjectName"
+                                        v-model="editedItem.subject"
                                         label="课时类型"
                                         hide-details
                                     ></v-select>
@@ -72,10 +72,10 @@
                                 <v-col cols="12">
                                     <v-select
                                         solo
-                                        :items="subjectNameItem"
+                                        :items="teacherNameItem"
                                         :menu-props="{ top: false, offsetY: true }"
                                         item-text="label"
-                                        v-model="editedItem.teacherName"
+                                        v-model="editedItem.teacher"
                                         label="课时类型"
                                         hide-details
                                     ></v-select>
@@ -86,7 +86,7 @@
                                         :items="classItem"
                                         :menu-props="{ top: false, offsetY: true }"
                                         item-text="label"
-                                        v-model="editedItem.class"
+                                        v-model="editedItem.lesson"
                                         label="课时类型"
                                         hide-details
                                     ></v-select>
@@ -107,7 +107,7 @@
                             <v-btn
                             color="blue darken-1"
                             text
-                            :loading="isCreatingSchool"
+                            :loading="isCreating"
                             @click="save"
                             >
                             保存
@@ -198,8 +198,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { createSchool, updateSchool, getSchool, deleteSchool } from '~/api/school'
-import { createSubject, updateSubject, getSubject, deleteSubject } from '~/api/managersubject'
+import { getBaseData,createSchedule,editSchedule,deleteSchedule} from '~/api/managerSchedule'
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -215,112 +214,55 @@ export default {
         isEditable : false,
         currentSelectedGrade : null,
         teacherNameItem : [
-            { 
-                label : "outsidePlay", 
-                value : "outsidePlay" 
-            },
-            { 
-                label : "insidePlay", 
-                value : "insidePlay" 
-            },
+            
         ],
         subjectNameItem : [
-            { 
-                label : "outsidePlay", 
-                value : "outsidePlay" 
-            },
-            { 
-                label : "insidePlay", 
-                value : "insidePlay" 
-            },
+        
         ],
         classItem : [
-            { 
-                label : "outsidePlay", 
-                value : "outsidePlay" 
-            },
-            { 
-                label : "insidePlay", 
-                value : "insidePlay" 
-            },
+    
         ],
         headers: [
             { text: '课程名称', value: 'subjectName', align: 'start'},
             { text: '任课教师', value: 'teacherName', sortable: false },
-            { text: '任课班级', value: 'class', sortable: false },
+            { text: '任课班级', value: 'lessonName', sortable: false },
             { text: '行动', value: 'actions', sortable: false },
         ],
         scheduleSettingData: [
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
-            {
-                subjectName: 'math',
-                teacherName: 'outsidePlay',
-                class: '00:00',
-            },
+            
         ],
         editedIndex: -1,
         editedItem: {
-            subjectName: '',
-            teacherName: '',
-            class: null,
+            subject:{
+                label:'',
+                value:'',
+            },
+            teacher:{
+                label:'',
+                value:'',
+            },
+            lesson:{
+                label:'',
+                value:'',
+            },
         },
         defaultItem: {
-            subjectName: '',
-            teacherName: '',
-            class: null,
+            subject:{
+                label:'',
+                value:'',
+            },
+            teacher:{
+                label:'',
+                value:'',
+            },
+            lesson:{
+                label:'',
+                value:'',
+            },
         },
         
         baseUrl:window.Laravel.base_url,
-        isCreatingSchool : false,
+        isCreating : false,
         isLoadingSchoolData : false,
         isDeleteSchool : false,
         schoolIntroduceData : '',
@@ -336,15 +278,15 @@ export default {
     },
     async created(){
         this.isLoadingSchoolData = true;
-        getSchool()
+        await getBaseData()
         .then((res) => {
-            
+            this.initialized(res.data.data)
         }).catch((err) => {
             
         });
-        this.isLoadingSchoolData = false;
-        console.log("this.schoolData", this.schoolData);
         this.currentSelectedGrade = this.schoolData.grades[0];
+        this.triggerLesson()
+        this.isLoadingSchoolData = false;
     },
     
     watch: {
@@ -357,6 +299,21 @@ export default {
     },
 
     methods: {
+        initialized(data){
+            data.subjectArr.map(sub=>{
+                let element = {}
+                element.label = sub.subjectName
+                element.value = sub
+                this.subjectNameItem.push(element)
+            })
+            data.teacherArr.map(user=>{
+                let element = {}
+                element.label = user.name;
+                element.value = {id:user.id,teacherName:user.name};
+                this.teacherNameItem.push(element);
+            })
+            this.scheduleSettingData = data.scheduleArr;
+        },
       editItem (item) {
             this.editedIndex = this.scheduleSettingData.indexOf(item)
             this.editedItem = Object.assign({}, item)
@@ -371,20 +328,6 @@ export default {
 
         async deleteItemConfirm () {
             this.scheduleSettingData.splice(this.editedIndex, 1)
-            // let payload = {
-            //     id : this.editedItem.id
-            // }
-            // this.isDeleteSchool = true;
-            // await deleteSchool(payload)
-            // .then((res) => {
-            //     if(res.data.msg == 1){
-                    
-            //     }
-            //     this.isDeleteSchool = false;
-            // }).catch((err) => {
-            //     console.log(err)
-            //     this.isDeleteSchool = false;
-            // });
             this.closeDelete()
         },
 
@@ -406,18 +349,51 @@ export default {
 
         async save () {
             //update scheduleSettingData
+            this.isCreating = true
+            console.log(this.editedItem)
+            console.log(this.editedIndex)
             if (this.editedIndex > -1) {
                 Object.assign(this.scheduleSettingData[this.editedIndex], this.editedItem)
             } 
             //save scheduleSettingData
             else {
-
-                this.scheduleSettingData.push(this.editedItem)
+                await createSchedule(this.editedItem).then(res=>{
+                    console.log(res.data)
+                    this.scheduleSettingData.push(this.editedItem)
+                }).catch(err=>{
+                    this.isCreating = false;
+                    console.log(err.response);
+                })
             }
             this.close()
         },
         triggerGrade(gradeData){
             this.currentSelectedGrade = gradeData;
+            this.triggerLesson()
+        },
+        triggerLesson(){
+            this.classItem = []
+            this.currentSelectedGrade.lessons.map(lesson=>{
+                let element = {
+                    label:'',
+                    value:''
+                }
+                element.label = lesson.lessonName
+                element.value = {id:lesson.id,lessonName:lesson.lessonName}
+                this.classItem.push(element)
+            })
+        },
+        triggerSubject(data){
+            this.subjectNameItem = []
+            data.map(sub=>{
+                let element = {
+                    label:'',
+                    value:''
+                }
+                element.label = sub.subjectName
+                element.value = sub.id
+                this.subjectNameItem.push(element)
+            })
         }
     },
 }
