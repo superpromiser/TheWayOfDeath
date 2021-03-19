@@ -77,8 +77,8 @@ export default [
   //Campus
   {path:'/schoolspace/:id/post/campus', name:'posts.campus', component:page('school/posts/campus/new.vue')},
   
-  //Campus
-  // {path:'/schoolspace/:id/post/campus', name:'posts.campus', component:page('school/posts/campus/new.vue')},
+  //announcement
+  {path:'/schoolspace/:id/post/announcement', name:'posts.announcement', component:page('school/posts/announcement/new.vue')},
 
   //vacation
   {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},

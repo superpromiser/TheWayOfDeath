@@ -7,9 +7,9 @@
                     size="50"
                     tile
                 >
-                    <v-img :src="`${baseUrl}/asset/img/icon/动态 拷贝.png`" alt="postItem" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" ></v-img>
                 </v-avatar>
-                <h2>{{lang.campus}}</h2>
+                <h2>{{lang.announcement}}</h2>
             </div>
             <template v-slot:actions>
             <v-btn
@@ -23,6 +23,7 @@
                 color="green lighten-1"
                 @click="publishcampusData"
                 tile
+                class="mr-md-8"
             >
                 提交
             </v-btn>
@@ -31,29 +32,103 @@
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" md="4">
-                    <v-select
-                        solo
-                        :items="typeItem"
-                        :menu-props="{ top: false, offsetY: true }"
-                        item-text="label"
-                        v-model="campusData.camposeCategory"
-                        label="栏目"
-                        hide-details
-                    ></v-select>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
                     <v-text-field
                         solo
-                        v-model="campusData.title"
-                        label="标题"
+                        v-model="announcementData.title"
+                        label="公告标题"
                         hide-details
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" :solo="true" uploadLabel="模板封面" />
+                    <v-dialog
+                        v-model="chooseSignNameDialog"
+                        max-width="500px"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                solo
+                                v-model="announcementData.signName"
+                                label="公告标题"
+                                hide-details
+                                readonly
+                                v-bind="attrs"
+                                v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-card >
+                            <v-card-title>公告标题</v-card-title>
+                            <v-list>
+                                <v-list-item-group
+                                    v-model="indexOfSignName"
+                                    mandatory
+                                    color="indigo"
+                                >
+                                    <v-list-item >
+                                        <v-list-item-icon>
+                                            <v-icon > mdi-account</v-icon>
+                                        </v-list-item-icon>
+
+                                        <v-list-item-content>
+                                            <v-list-item-title> {{user.name}}</v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                    <v-divider></v-divider>
+                                    <v-list-item v-for="(item, i) in signNameItems" :key="i">
+                                        <v-list-item-icon>
+                                            <v-icon v-text="item.icon"></v-icon>
+                                        </v-list-item-icon>
+
+                                        <v-list-item-content>
+                                            <v-list-item-title v-text="item.text"></v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </v-list-item-group>
+                            </v-list>
+                            <v-card-actions>
+                                <v-btn
+                                    color="deep-purple lighten-2"
+                                    text
+                                    @click="chooseSignName"
+                                >
+                                    {{lang.ok}}
+                                </v-btn>
+
+                                <v-btn
+                                    color="deep-purple lighten-2"
+                                    text
+                                    @click="closeChooseSignNameDialog"
+                                >
+                                    {{lang.cancel}}
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        solo
+                        multiple
+                        chips
+                        :items="schoolTree"
+                        item-text="lessonName"
+                        item-value="lessonId"
+                        @change="selectedLesson"
+                        label="展示范围"
+                        hide-details
+                    ></v-select>
+                </v-col>
+                <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
+                    <span>签名反馈</span>
+                    <v-switch
+                        v-model="announcementData.scopeFlag"
+                        color="primary"
+                        hide-details
+                        inset
+                        class="pt-0 mt-0"
+                    ></v-switch>
                 </v-col>
                 <v-col cols="12">
-                    <vue-editor v-model="campusData.content" placeholder="公告内容"></vue-editor>
+                    <vue-editor v-model="announcementData.content" placeholder="公告内容"></vue-editor>
                 </v-col>
             </v-row>
             
@@ -87,53 +162,51 @@ export default {
         UploadImage,
     },
 
+    watch: {
+      chooseSignNameDialog (val) {
+        val || this.closeChooseSignNameDialog()
+      },
+    },
+
     data: () => ({
         lang,
         menu: false,
         requiredText:false,
+        chooseSignNameDialog: false,
         baseUrl: window.Laravel.base_url,
-        typeItem : [
-            { 
-                label : "校园新闻", 
-                value : "校园新闻" 
+        indexOfSignName: 0,
+        signNameItems : [
+            {
+                icon: 'mdi-account-group-outline',
+                text: 'pummy',
             },
-            { 
-                label : "日读一刻", 
-                value : "日读一刻" 
+            {
+                icon: 'mdi-account-group-outline',
+                text: 'tommy',
             },
-            { 
-                label : "体育健儿", 
-                value : "体育健儿" 
+            {
+                icon: 'mdi-account-group-outline',
+                text: 'hommey',
             },
-            { 
-                label : "办学理念", 
-                value : "办学理念" 
+            {
+                icon: 'mdi-account-group-outline',
+                text: 'bammy',
             },
-            { 
-                label : "校园文化", 
-                value : "校园文化" 
-            },
-            { 
-                label : "学校荣誉", 
-                value : "学校荣誉" 
-            },
-            { 
-                label : "校园运动会", 
-                value : "校园运动会" 
-            },
-            
         ],
-        campusData:{
-            camposeCategory: '',
+        announcementData:{
             title:'',
-            imgUrl:'',
+            signName:'',
+            viewList:[],
+            scopeFlag:false,
             content:''
         },
-
     }),
 
     computed: {
-       
+       ...mapGetters({
+           user: 'auth/user',
+           schoolTree : 'schooltree/schoolTree',
+       })
     },
 
     created() {
@@ -146,25 +219,41 @@ export default {
         loadContentData(data){
             if(data.text === ''){
                 this.requiredText = true
-                this.campusData.content = []
+                this.announcementData.content = []
                 return;
             }
-            this.campusData.content.push(data);
+            this.announcementData.content.push(data);
         },
 
         upImgUrl(value) {
-            this.campusData.imgUrl = value;
-            console.log(this.campusData.imgUrl);
+            this.announcementData.imgUrl = value;
+            console.log(this.announcementData.imgUrl);
         },
         clearedImg(){
-            this.campusData.imgUrl = ''
-            console.log(this.campusData.imgUrl);
+            this.announcementData.imgUrl = ''
+            console.log(this.announcementData.imgUrl);
         },
 
         async publishcampusData(){
             
-            console.log("campusData", this.campusData);
+            console.log("announcementData", this.announcementData);
             
+        },
+        closeChooseSignNameDialog () {
+            this.chooseSignNameDialog = false
+        },
+
+        chooseSignName(){
+            if(this.indexOfSignName == 0){
+                this.announcementData.signName = this.user.name;
+            }
+            else{
+                this.announcementData.signName = this.signNameItems[this.indexOfSignName - 1].text;
+            }
+            this.chooseSignNameDialog = false
+        },
+        selectedLesson(val){
+            this.announcementData.viewList = val;
         },
     }
 }

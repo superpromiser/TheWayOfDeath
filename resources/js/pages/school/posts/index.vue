@@ -82,7 +82,7 @@ export default {
                         title : "公告",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/公告 拷贝.png",
-                        path : "something"
+                        path : "announcement"
                     },
                 ],
             },
