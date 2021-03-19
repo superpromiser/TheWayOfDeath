@@ -121,7 +121,7 @@
                         <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-                        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
+                        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
                         <v-spacer></v-spacer>
                         </v-card-actions>
                         </v-card>
@@ -198,7 +198,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getBaseData,createSchedule,editSchedule,deleteSchedule} from '~/api/managerSchedule'
+import { getBaseData,getSchedule,createSchedule,updateSchedule,deleteSchedule} from '~/api/managerSchedule'
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -264,7 +264,7 @@ export default {
         baseUrl:window.Laravel.base_url,
         isCreating : false,
         isLoadingSchoolData : false,
-        isDeleteSchool : false,
+        isDeleting : false,
         schoolIntroduceData : '',
     }),
 
@@ -282,9 +282,16 @@ export default {
         .then((res) => {
             this.initialized(res.data.data)
         }).catch((err) => {
-            
+            console.log(err.response)
         });
         this.currentSelectedGrade = this.schoolData.grades[0];
+        console.log(this.currentSelectedGrade)
+        await getSchedule({gradeId:this.currentSelectedGrade.id}).then(res=>{
+            this.scheduleSettingData = res.data
+            console.log(this.scheduleSettingData)
+        }).catch(err=>{
+            console.log(err.response);
+        })
         this.triggerLesson()
         this.isLoadingSchoolData = false;
     },
@@ -312,11 +319,19 @@ export default {
                 element.value = {id:user.id,teacherName:user.name};
                 this.teacherNameItem.push(element);
             })
-            this.scheduleSettingData = data.scheduleArr;
+            // this.scheduleSettingData = data.scheduleArr;
         },
       editItem (item) {
+          console.log('------',item)
             this.editedIndex = this.scheduleSettingData.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+
+            this.editedItem.subject.label = item.subjectName
+            this.editedItem.subject.value = item.subjectId
+            this.editedItem.teacher.label = item.teacherName
+            this.editedItem.teacher.value = item.teacherId
+            this.editedItem.lesson.label = item.lessonName
+            this.editedItem.lesson.value = item.lessonId
+            console.log('+++++',this.editedItem)
             this.dialog = true
       },
 
@@ -327,7 +342,15 @@ export default {
       },
 
         async deleteItemConfirm () {
-            this.scheduleSettingData.splice(this.editedIndex, 1)
+            this.isDeleting = true
+            await deleteSchedule({id:this.editedIndex}).then(res=>{
+                this.scheduleSettingData.splice(this.editedIndex, 1)
+                console.log(res)
+                this.isDeleting = false
+            }).catch(err=>{
+                this.isDeleting = false
+                console.log(err.response)
+            })
             this.closeDelete()
         },
 
@@ -351,27 +374,42 @@ export default {
             //update scheduleSettingData
             this.isCreating = true
             console.log(this.editedItem)
+            this.$set(this.editedItem,'gradeId',this.currentSelectedGrade.id)
             console.log(this.editedIndex)
             if (this.editedIndex > -1) {
-                Object.assign(this.scheduleSettingData[this.editedIndex], this.editedItem)
+                await updateSchedule(this.editedItem).then(res=>{
+
+                    Object.assign(this.scheduleSettingData[this.editedIndex], this.editedItem)
+                }).catch(err=>{
+                    this.isCreating = false;
+                    console.log(err.response)
+                })
             } 
             //save scheduleSettingData
             else {
                 await createSchedule(this.editedItem).then(res=>{
                     console.log(res.data)
-                    this.scheduleSettingData.push(this.editedItem)
+                    this.scheduleSettingData.push(res.data)
                 }).catch(err=>{
                     this.isCreating = false;
                     console.log(err.response);
                 })
             }
+            this.isCreating = false;
             this.close()
         },
         triggerGrade(gradeData){
             this.currentSelectedGrade = gradeData;
             this.triggerLesson()
         },
-        triggerLesson(){
+        async triggerLesson(){
+            this.isLoadingSchoolData = true;
+            await getSchedule({gradeId:this.currentSelectedGrade.id}).then(res=>{
+                this.scheduleSettingData = res.data
+            }).catch(err=>{
+                console.log(err.response);
+            })
+            this.isLoadingSchoolData = false;
             this.classItem = []
             this.currentSelectedGrade.lessons.map(lesson=>{
                 let element = {
