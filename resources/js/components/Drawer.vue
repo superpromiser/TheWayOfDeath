@@ -137,6 +137,16 @@
               <v-icon>mdi-calendar-month</v-icon>
             </v-list-item-icon>
           </v-list-item>
+          <v-list-item
+            link
+            to="/admin/vacation/teacher"
+            v-if="user.role.roleName == 'teacher'"
+            >
+            <v-list-item-title>请假审批</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-check-decagram </v-icon>
+            </v-list-item-icon>
+          </v-list-item>
 
       </v-list-group>
       <v-list-group

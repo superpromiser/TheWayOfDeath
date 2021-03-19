@@ -25,7 +25,7 @@
                             发布
                         </v-btn>
                     </router-link>
-                    <router-link v-if="user.roleId == 4" :to="{path:`/schoolspace/${currentId}/post/${item.path}/teacher`}">
+                    <router-link v-if="user.roleId == 3 " :to="{path:`/admin/vacation/teacher`}">
                         <v-btn
                             class="ml-2 mt-5"
                             outlined
