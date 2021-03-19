@@ -3,9 +3,8 @@
         <v-row v-for="(itemGroup, i) in contentItemList" :key="i">
             <v-col cols="12">
                 <v-chip
-                    class="ma-2"
-                    color="indigo accent-4"
-                    large
+                    class="ma-2 px-5"
+                    color="primary"
                     outlined
                 >
                     <v-icon left>
@@ -130,6 +129,26 @@ export default {
                         title : "家访",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/家访 拷贝.png",
+                        path : "something"
+                    },
+                ],
+            },
+            {
+                title : "智能考勤",
+                icon : "mdi-calendar-month-outline",
+                items : [
+                    {
+                        color : "teal darken-4",
+                        title : "请假",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/请假.png",
+                        path : "vacation"
+                    },
+                    {
+                        color : "teal darken-4",
+                        title : "考勤",
+                        detail : "detail",
+                        imgUrl : "/asset/img/icon/组 25.png",
                         path : "something"
                     },
                 ],

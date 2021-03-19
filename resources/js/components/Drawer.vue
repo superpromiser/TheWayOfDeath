@@ -40,6 +40,7 @@
       <v-list-group
         :value="true"
         prepend-icon="mdi-cog-outline"
+        v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3"
       >
         <template v-slot:activator>
           <v-list-item-title v-if="user.roleId == 2">学校管理</v-list-item-title>
@@ -128,7 +129,7 @@
           </v-list-item>
           <v-list-item
             link
-            to="/admin/"
+            to="/admin/schedule/class"
             v-if="user.role.roleName == 'teacher'"
             >
             <v-list-item-title>课程表管理</v-list-item-title>

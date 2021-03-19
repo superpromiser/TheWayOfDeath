@@ -2,6 +2,7 @@
     <v-card
         :color="item.color"
         dark
+        tile
     >
         <div class="d-flex flex-no-wrap justify-space-between">
             <div>
@@ -12,7 +13,30 @@
 
                 <v-card-subtitle v-text="item.detail"></v-card-subtitle>
 
-                <v-card-actions>
+                <v-card-actions v-if="item.title == '请假'">
+                    <router-link v-if="user.roleId == 5" :to="{path:`/schoolspace/${currentId}/post/${item.path}/student`}">
+                        <v-btn
+                             v-if="user.roleId == 5"
+                            class="ml-2 mt-5"
+                            outlined
+                            rounded
+                            large
+                        >
+                            发布
+                        </v-btn>
+                    </router-link>
+                    <router-link v-if="user.roleId == 4" :to="{path:`/schoolspace/${currentId}/post/${item.path}/teacher`}">
+                        <v-btn
+                            class="ml-2 mt-5"
+                            outlined
+                            rounded
+                            large
+                        >
+                            例子
+                        </v-btn>
+                    </router-link>
+                </v-card-actions>
+                <v-card-actions v-else>
                     <router-link :to="{path:`/schoolspace/${currentId}/post/${item.path}`}">
                         <v-btn
                             class="ml-2 mt-5"
@@ -24,6 +48,7 @@
                         </v-btn>
                     </router-link>
                 </v-card-actions>
+
             </div>
 
             <v-avatar
@@ -37,6 +62,8 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
     props: {
         item : {
@@ -49,7 +76,14 @@ export default {
         }
     },
     
+    computed: {
+        ...mapGetters({
+            user: 'auth/user'
+        }),
+    },
+
     data: () => ({
+
         baseUrl:window.Laravel.base_url,
     }),
 
