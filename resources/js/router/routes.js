@@ -83,6 +83,9 @@ export default [
   //bulletinboard
   {path:'/schoolspace/:id/post/bulletinboard', name:'posts.bulletinboard', component:page('school/posts/bulletinboard/new.vue')},
 
+  //homevisit
+  {path:'/schoolspace/:id/post/homevisit', name:'posts.homevisit', component:page('school/posts/homevisit/new.vue')},
+
   //vacation
   {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
   {path:'/admin/vacation/teacher', name:'posts.vacationTeacher', component:page('school/posts/vacation/teacher/new.vue')},

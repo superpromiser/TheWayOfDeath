@@ -129,7 +129,7 @@ export default {
                         title : "家访",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/家访 拷贝.png",
-                        path : "something"
+                        path : "homevisit"
                     },
                 ],
             },
