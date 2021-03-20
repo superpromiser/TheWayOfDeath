@@ -35,32 +35,53 @@
                 <v-col cols="12" sm="6" md="4">
                     <v-select
                         solo
+                        multiple
+                        chips
                         :items="userInfoItem"
-                        :menu-props="{ top: false, offsetY: true }"
                         item-text="label"
                         item-value="value"
-                        v-model="visitData.camposeCategory"
-                        label="栏目"
+                        @change="selectedLesson"
+                        label="班级"
                         hide-details
+                        v-model="visitData.userInfo"
                     ></v-select>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                        solo
-                        v-model="visitData.title"
-                        label="标题"
-                        hide-details
-                    ></v-text-field>
+                <v-col cols="12" sm="6" md="4" class="d-flex justify-space-between align-center">
+                    <v-datetime-picker 
+                        label="开始时间" 
+                        v-model="visitData.deadline"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    > </v-datetime-picker>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" :solo="true" uploadLabel="模板封面" />
+                    <v-btn block large color="transparent" @click="openDetailDialog" style="height:48px!important;">
+                        <v-icon>
+                            mdi-eye
+                        </v-icon>家访内容
+                    </v-btn>
                 </v-col>
                 <v-col cols="12">
-                    <vue-editor v-model="visitData.content" placeholder="公告内容"></vue-editor>
+                    <QuestionItem :Label="lang.contentPlace" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
                 </v-col>
             </v-row>
             
         </v-container>
+        <v-dialog v-model="detailDialog" max-width="900px" style="background:white!important">
+            <v-container class="pa-0">
+                <v-card>
+                    <v-card-title class="headline grey lighten-2">
+                        something
+                    </v-card-title>
+                
+                    <v-row v-for="(item, i) in visitData.description" :key="i">
+                        <v-col class="px-5 pr-0" cols="12" v-for="(data, j) in item[0]" :key="j">
+                            {{data}}
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-container>            
+        </v-dialog>
         <v-snackbar
             timeout="3000"
             v-model="requiredText"
@@ -79,6 +100,7 @@ import QuestionItem from '~/components/questionItem'
 import UploadImage from '~/components/UploadImage'
 import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
+import Fragment from 'vue-fragment';
 
 
 import {createCampus} from '~/api/campus'
@@ -88,6 +110,7 @@ export default {
         VueEditor,
         QuestionItem,
         UploadImage,
+        Fragment
     },
 
     data: () => ({
@@ -95,6 +118,7 @@ export default {
         menu: false,
         requiredText:false,
         baseUrl: window.Laravel.base_url,
+        detailDialog: false,
         userInfoItem : [
             { 
                 label : "sammie", 
@@ -243,12 +267,7 @@ export default {
             ]
             
             ],
-            content:{
-                text:'',
-                imgUrl:[],
-                otherUrl:[],
-                videoUrl:[]
-            },
+            content: null,
             viewList:[],
             postShow:[], 
         },
@@ -268,11 +287,11 @@ export default {
         },  
         loadContentData(data){
             if(data.text === ''){
-                this.requiredText = true
-                this.visitData.content = []
+                this.requiredText = true;
+                this.visitData.content = null;
                 return;
             }
-            this.visitData.content.push(data);
+            this.visitData.content = data;
         },
 
         upImgUrl(value) {
@@ -285,17 +304,16 @@ export default {
         },
 
         async publishcampusData(){
-            this.isCreating = true
-            console.log("visitData", this.visitData);
-            await createCampus(this.visitData).then(res=>{
-                console.log(res)
-                this.isCreating = false
-                this.$router.push({name:'schoolSpace.news'})
-            }).catch(err=>{
-                this.isCreating = false
-                console.log(err.response)
-            })
+            this.$refs.child.emitData()
+            // this.isCreating = true
+            console.log("this.visitData", this.visitData);
+
         },
+
+        openDetailDialog(){
+            this.detailDialog = true;
+            console.log("something");
+        }
     }
 }
 </script>
