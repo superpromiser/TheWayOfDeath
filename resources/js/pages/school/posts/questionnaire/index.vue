@@ -384,7 +384,7 @@
         </v-container>
       </div>
       <div v-else>
-        <router-view @contentData="saveContent"></router-view>
+        <router-view @contentData="saveContent" :type="'post'"></router-view>
       </div>
       <v-snackbar
         timeout="3000"
@@ -404,7 +404,7 @@ import lang from '~/helper/lang.json';
 import QuestionItem from '~/components/questionItem';
 import AttachItemViewer from '~/components/attachItemViewer';
 import {getQuestionnaire,createQuestionnaire,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire';
-import {getTemplate,createTemplate,updateTemplate,deleteTemplate} from '~/api/template';
+// import {getTemplate,createTemplate,updateTemplate,deleteTemplate} from '~/api/template';
 export default {
   data: () => ({
       lang,
@@ -445,23 +445,17 @@ export default {
       }
   },
 
-  watch:{
-    currentPath:{
-      handler(val){
-          if(val.name == 'posts.questionnaire'){
-            this.postNew = true
-          }
-      },
-      deep:true
-    }
-  },
-
   created(){
-    getTemplate({contentId:1}).then(res=>{
-      console.log(res)
-    }).catch(err=>{
-      console.log(err.response)
-    })
+    console.log(this.currentPath)
+    if(this.currentPath.query.tempData){
+      this.newQuestionnaireData.content = JSON.parse(this.currentPath.query.tempData)
+      console.log(this.newQuestionnaireData.content[0])
+    }
+    // getTemplate({contentId:1}).then(res=>{
+    //   console.log(res)
+    // }).catch(err=>{
+    //   console.log(err.response)
+    // })
   },
 
   methods:{
@@ -491,7 +485,7 @@ export default {
                 this.$router.push({name:"questionnaire.scoring"});
                 break;
             case 'template':
-                this.$router.push({name:"questionnaire.template"});
+                this.$router.push({name:"questionnaire.templateList"});
                 break;
             default:
                 break;

@@ -45,6 +45,8 @@ class Post extends Model
         return $this->hasOne(Announcement::class,'postId');
     }
 
-
+    public function bulletinBoards(){
+        return $this->hasOne(BulletinBoard::class,'postId');
+    }
 
 }

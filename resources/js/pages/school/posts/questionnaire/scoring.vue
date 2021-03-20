@@ -51,6 +51,20 @@ export default {
     QuestionItem,
   },
 
+  props:{
+      type:{
+          type:String,
+          requireed:false
+      }
+  },
+
+  created(){
+      console.log(this.type)
+      if(this.type == undefined){
+          this.$router.push({name:'posts.questionnaire'})
+      }
+  },
+  
   data:() => ({
     lang,
     scoreData : {
@@ -68,6 +82,12 @@ export default {
     requiredText:false,
   }),
 
+  computed:{
+      currentPath(){
+          return this.$route
+      }
+  },
+    
   methods:{
     addScoringContent(){
       this.$refs.child.emitData();
@@ -77,7 +97,11 @@ export default {
       }
       
       this.$emit('contentData',this.scoreData);
-      this.$router.push({name:'posts.questionnaire'});
+      if(this.type == 'post'){
+          this.$router.push({name:'posts.questionnaire'});
+      }else{
+          this.$router.push({name:'questionnaire.templateNew'})
+      }
     },
     loadContentData(data){
       if(data.text === ''){

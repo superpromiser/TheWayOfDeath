@@ -62,6 +62,22 @@ export default {
     QuestionItem,
   },
 
+  
+  props:{
+      type:{
+          type:String,
+          requireed:false
+      }
+  },
+
+  created(){
+      console.log(this.type)
+      if(this.type == undefined){
+          this.$router.push({name:'posts.questionnaire'})
+      }
+  },
+  
+
   data: () => ({
     statData : {
       statDataArr:[
@@ -79,6 +95,12 @@ export default {
     requiredText:false,
   }),
 
+  computed:{
+      currentPath(){
+          return this.$route
+      }
+  },
+    
   methods:{
     addStatContent(){
       this.$refs.child.emitData()
@@ -90,7 +112,11 @@ export default {
       }
       
       this.$emit('contentData',this.statData);
-      this.$router.push({name:'posts.questionnaire'});
+      if(this.type == 'post'){
+          this.$router.push({name:'posts.questionnaire'});
+      }else{
+          this.$router.push({name:'questionnaire.templateNew'})
+      }
     },
     loadContentData(data){
       console.log(data)

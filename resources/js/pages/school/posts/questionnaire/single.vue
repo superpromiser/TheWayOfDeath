@@ -37,6 +37,13 @@ export default {
         QuestionItem,
         Fragment,
     },
+    props:{
+        type:{
+            type:String,
+            requireed:false
+        }
+    },
+    
     data: () =>({
         singleData : {
             type : 'single',
@@ -46,6 +53,19 @@ export default {
         lang,
         requiredText:false
     }),
+
+    computed:{
+        currentPath(){
+            this.$route.path;
+        }
+    },
+    created(){
+        console.log(this.type)
+        if(this.type == undefined){
+            this.$router.push({name:'posts.questionnaire'})
+        }
+    },
+    
     methods:{
         addContent(){
             this.initialCnt ++;
@@ -59,7 +79,13 @@ export default {
             }
             // this.$store.dispatch('content/storeSingleData',this.singleContentDataArr)
             this.$emit('contentData',this.singleData);
-            this.$router.push({name:'posts.questionnaire'});
+            // console.log(this.currentPath)
+            if(this.type == 'post'){
+                this.$router.push({name:'posts.questionnaire'});
+            }else{
+                this.$router.push({name:'questionnaire.templateNew'})
+            }
+            // this.$router.push({name:this.currentPath.matched[0].name})
         },
         loadContentData(data){
             if(data.text === ''){

@@ -121,6 +121,11 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('questionnaire','QuestionnaireController@updateQuestionnaire');
     Route::delete('questionnaire','QuestionnaireController@deleteQuestionnaire');
 
+    Route::get('questionnaireTemp','QuestionnaireTempController@getQuestionnaireTemp');
+    Route::post('questionnaireTemp','QuestionnaireTempController@createQuestionnaireTemp');
+    Route::put('questionnaireTemp','QuestionnaireTempController@updateQuestionnaireTemp');
+    Route::delete('questionnaireTemp','QuestionnaireTempController@deleteQuestionnaireTemp');
+
     //voting
     Route::get('voting','VotingController@getVotingData');
     Route::post('voting','VotingController@createVotingData');
@@ -162,6 +167,12 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('anouncement','AnouncementController@createAnouncement');
     Route::put('anouncement','AnouncementController@updateAnouncement');
     Route::delete('anouncement','AnouncementController@deleteAnouncement');
+
+    //bulletinBoard
+    Route::get('bulletinBoard','BulletinBoardController@getBulletinBoard');
+    Route::post('bulletinBoard','BulletinBoardController@createBulletinBoard');
+    Route::put('bulletinBoard','BulletinBoardController@updateBulletinBoard');
+    Route::delete('bulletinBoard','BulletinBoardController@deleteBulletinBoard');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

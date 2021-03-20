@@ -37,6 +37,20 @@ export default {
         QuestionItem,
         Fragment,
     },
+    props:{
+        type:{
+            type:String,
+            requireed:false
+        }
+    },
+
+    created(){
+        console.log('----------------------',this.type)
+        if(this.type == undefined){
+            this.$router.push({name:'posts.questionnaire'})
+        }
+    },
+
     data: () =>({
         multiData : {
             type : 'multi',
@@ -46,6 +60,12 @@ export default {
         lang,
         requiredText:false,
     }),
+    
+    computed:{
+        currentPath(){
+            return this.$route
+        }
+    },
     
     methods:{
         addContent(){
@@ -60,7 +80,11 @@ export default {
             }
             
             this.$emit('contentData',this.multiData);
-            this.$router.push({name:'posts.questionnaire'});
+            if(this.type == 'post'){
+                this.$router.push({name:'posts.questionnaire'});
+            }else{
+                this.$router.push({name:'questionnaire.templateNew'})
+            }
         },
         loadContentData(data){
             if(data.text === ''){

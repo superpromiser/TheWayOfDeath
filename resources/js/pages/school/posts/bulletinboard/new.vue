@@ -22,7 +22,7 @@
                 dark
                 color="green lighten-1"
                 @click="publishcampusData"
-                tile
+                :loading="isCreating"
                 class="mr-md-8"
             >
                 提交
@@ -69,7 +69,7 @@ import { VueEditor } from "vue2-editor";
 
 
 
-import {createVoting} from '~/api/voting'
+import {createBulletinBoard} from '~/api/bulletinBoard'
 
 export default {
     components: {
@@ -115,11 +115,11 @@ export default {
         ],
 
         bulletinboardData:{
-            title:'',
+            // title:'',
             type:'',
             content:null,
         },
-
+        isCreating:false,
     }),
 
     computed: {
@@ -140,7 +140,17 @@ export default {
 
         async publishcampusData(){
             this.$refs.child.emitData()
+            if(this.bulletinboardData.content == null){
+                return
+            }
+            this.isCreating = true
             console.log("bulletinboardData", this.bulletinboardData);
+            await createBulletinBoard(this.bulletinboardData).then(res=>{
+                console.log(res.data)
+                this.$router.push({name:'schoolSpace.news'})
+            }).catch(err=>{
+                console.log(err.response)
+            })
         },
 
         loadContentData(data){

@@ -64,7 +64,19 @@ export default [
       {path:'questionAnswer', name:"questionnaire.questionAnswer", component:page('school/posts/questionnaire/questionAnswer.vue')},
       {path:'statistics', name:"questionnaire.statistics", component:page('school/posts/questionnaire/statistics.vue')},
       {path:'scoring', name:"questionnaire.scoring", component:page('school/posts/questionnaire/scoring.vue')},
-      {path:'template', name:"questionnaire.template", component:page('school/posts/questionnaire/newTemplate.vue')},
+      // {path:'template', name:"questionnaire.template", component:page('school/posts/questionnaire/newTemplate.vue')},
+    ]
+  },
+
+  {path:'/schoolspace/:id/post/questionnaire/tmeplateList', name:"questionnaire.templateList", component:page('school/posts/questionnaire/templateList.vue')},
+  {
+    path:'/schoolspace/:id/post/questionnaire/newTemplate', name:"questionnaire.templateNew", component:page('school/posts/questionnaire/newTemplate.vue'),
+    children:[
+      {path:'single',name:'questionnaireTemplate.single',component:page('school/posts/questionnaire/single.vue')},
+      {path:'multi',name:'questionnaireTemplate.multi',component:page('school/posts/questionnaire/multi.vue')},
+      {path:'questionAnswer',name:'questionnaireTemplate.questionAnswer',component:page('school/posts/questionnaire/questionAnswer.vue')},
+      {path:'statistics',name:'questionnaireTemplate.statistics',component:page('school/posts/questionnaire/statistics.vue')},
+      {path:'scoring',name:'questionnaireTemplate.scoring',component:page('school/posts/questionnaire/scoring.vue')}
     ]
   },
   

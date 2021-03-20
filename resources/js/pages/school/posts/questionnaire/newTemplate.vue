@@ -1,6 +1,45 @@
 <template>
   <v-container class="pa-0">
-      <div v-if="postNew == true">
+      <div v-if="templateNew == true">
+        <v-banner class=" mb-10" color="white" sticky elevation="20">
+          <div class="d-flex align-center">
+              <v-avatar
+                  class="ma-3 ml-3"
+                  size="50"
+                  tile
+              >
+                  <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
+              </v-avatar>
+              <h2>{{lang.questionnaire}}</h2>
+          </div>
+          <template v-slot:actions>
+            <!-- <v-btn
+                text
+                color="primary"
+                @click="selContent('template')"
+            >
+                可用模板 0， 草稿 0
+            </v-btn> -->
+            <v-btn
+                dark
+                color="green lighten-1"
+                class="mr-8"
+                :loading="isSubmit"
+                @click="submit"
+            >
+                {{lang.submit}}
+            </v-btn>
+            <!-- <v-btn
+                dark
+                color="lighten-1"
+                class="mr-8"
+                :loading="isDraft"
+                @click="saveDraft"
+            >
+                {{lang.saveDraft}}
+            </v-btn> -->
+          </template>
+        </v-banner>
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" md="4">
@@ -262,7 +301,7 @@
         </v-container>
       </div>
       <div v-else>
-        <router-view @contentData="saveContent"></router-view>
+        <router-view @contentData="saveContent" :type="'temp'"></router-view>
       </div>
   </v-container>
 </template>
@@ -273,7 +312,7 @@ import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import AttachItemViewer from '~/components/attachItemViewer'
 import UploadImage from '~/components/UploadImage';
-import {getQuestionnaire,createQuestionnaire,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire'
+import {createQuestionnaireTemp,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire'
 export default {
   data: () => ({
       lang,
@@ -283,17 +322,17 @@ export default {
           imgUrl : '',
           title:'',
           description:'',
-          viewList:[],
-          
+          // viewList:[],
           content:[],
       },
-      postNew:true,
+      templateNew:true,
       selType:'',
       dialog:false,
       date: new Date().toISOString().substr(0, 10),
       menu: false,
       alphabet:['A','B','C','D','E','F','G','H','J','K','L','M','N',
                 'O','P','Q','R','S','T','U','V','W','X','Y','Z' ],
+      isSubmit:false,
   }),
 
   components: {
@@ -314,8 +353,8 @@ export default {
   watch:{
     currentPath:{
       handler(val){
-          if(val.name == 'posts.questionnaire'){
-            this.postNew = true
+          if(val.name == 'questionnaire.templateNew'){
+            this.templateNew = true
           }
       },
       deep:true
@@ -330,30 +369,30 @@ export default {
         console.log(val)
     },
     selContent(type){
-        this.postNew = false;
+        this.templateNew = false;
         this.selType = type;
         switch(type){
             case 'single':
-                this.$router.push({name:"questionnaire.single"});
+                this.$router.push({name:"questionnaireTemplate.single"});
                 break;
             case 'multi':
-                this.$router.push({name:"questionnaire.multi"});
+                this.$router.push({name:"questionnaireTemplate.multi"});
                 break;
             case 'question':
-                this.$router.push({name:"questionnaire.questionAnswer"});
+                this.$router.push({name:"questionnaireTemplate.questionAnswer"});
                 break;
             case 'stat':
-                this.$router.push({name:"questionnaire.statistics"});
+                this.$router.push({name:"questionnaireTemplate.statistics"});
                 break;
             case 'scoring':
-                this.$router.push({name:"questionnaire.scoring"});
+                this.$router.push({name:"questionnaireTemplate.scoring"});
                 break;
             default:
                 break;
         }
     },
     saveContent(data){
-      this.postNew = true;
+      this.templateNew = true;
       switch(this.selType){
         case 'single':
           this.newQuestionnaireTemplateData.content.push(data)
@@ -374,9 +413,18 @@ export default {
           break;
       }
     },
-    submit(){
+    async submit(){
       console.log(this.newQuestionnaireTemplateData)
-      
+      this.isSubmit = true
+      await createQuestionnaireTemp(this.newQuestionnaireTemplateData).then(res=>{
+        this.isSubmit = false
+        this.$router.push({name:'questionnaire.templateList'})
+        console.log(res.data)
+      }).catch(err=>{
+        this.isSubmit = false
+        console.log(err.response)
+      })
+
     },
 
     checkIfAttachExist(data){
