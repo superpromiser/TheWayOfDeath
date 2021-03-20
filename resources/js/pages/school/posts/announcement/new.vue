@@ -24,6 +24,7 @@
                 @click="publishcampusData"
                 tile
                 class="mr-md-8"
+                :loading="isCreating"
             >
                 提交
             </v-btn>
@@ -81,6 +82,30 @@
                                         <v-list-item-content>
                                             <v-list-item-title v-text="item.text"></v-list-item-title>
                                         </v-list-item-content>
+                                    </v-list-item>
+                                    <v-list-item @click="newSignFlag = !newSignFlag">
+                                        <v-list-item-icon>
+                                            <v-icon>
+                                                mdi-plus
+                                            </v-icon>
+                                        </v-list-item-icon>
+                                        <v-list-item-content>
+                                            <v-list-item-title v-text="lang.addOption"></v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                    <v-list-item v-if="newSignFlag">
+                                        <v-text-field
+                                            v-model="newSignName"
+                                            solo
+                                            label="公告标题"
+                                        ></v-text-field>
+                                         <v-btn
+                                            color="deep-purple lighten-2"
+                                            text
+                                            @click="addNewName"
+                                        >
+                                            {{lang.ok}}
+                                        </v-btn>
                                     </v-list-item>
                                 </v-list-item-group>
                             </v-list>
@@ -153,7 +178,7 @@ import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
 
 
-import {createVoting} from '~/api/voting'
+import {createAnouncement} from '~/api/anouncement'
 
 export default {
     components: {
@@ -176,22 +201,6 @@ export default {
         baseUrl: window.Laravel.base_url,
         indexOfSignName: 0,
         signNameItems : [
-            {
-                icon: 'mdi-account-group-outline',
-                text: 'pummy',
-            },
-            {
-                icon: 'mdi-account-group-outline',
-                text: 'tommy',
-            },
-            {
-                icon: 'mdi-account-group-outline',
-                text: 'hommey',
-            },
-            {
-                icon: 'mdi-account-group-outline',
-                text: 'bammy',
-            },
         ],
         announcementData:{
             title:'',
@@ -200,6 +209,9 @@ export default {
             scopeFlag:false,
             content:''
         },
+        newSignFlag:false,
+        newSignName:'',
+        isCreating:false,
     }),
 
     computed: {
@@ -235,8 +247,15 @@ export default {
         },
 
         async publishcampusData(){
-            
+            this.isCreating = true
             console.log("announcementData", this.announcementData);
+            await createAnouncement(this.announcementData).then(res=>{
+                console.log(res)
+                this.$router.push({name:'schoolSpace.news'})
+            }).catch(err=>{
+                this.isCreating = false
+                console.log(err.response)
+            })
             
         },
         closeChooseSignNameDialog () {
@@ -248,13 +267,21 @@ export default {
                 this.announcementData.signName = this.user.name;
             }
             else{
-                this.announcementData.signName = this.signNameItems[this.indexOfSignName - 1].text;
+                this.announcementData.signName = this.signNameItems[this.indexOfSignName - 2].text;
             }
             this.chooseSignNameDialog = false
         },
         selectedLesson(val){
             this.announcementData.viewList = val;
         },
+        addNewName(){
+            this.newSignFlag = false;
+            this.signNameItems.push({
+                icon: 'mdi-account-group-outline',
+                text:this.newSignName
+            })
+            console.log(this.signNameItems)
+        }
     }
 }
 </script>

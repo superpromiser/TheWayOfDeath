@@ -156,6 +156,12 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('campus','CampusController@createCampus');
     Route::put('campus','CampusController@updateCampus');
     Route::delete('campus','CampusController@deleteCampus');
+
+    //anouncement
+    Route::get('anouncement','AnouncementController@getAnouncement');
+    Route::post('anouncement','AnouncementController@createAnouncement');
+    Route::put('anouncement','AnouncementController@updateAnouncement');
+    Route::delete('anouncement','AnouncementController@deleteAnouncement');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

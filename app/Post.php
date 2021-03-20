@@ -41,6 +41,10 @@ class Post extends Model
         return $this->hasOne(Campus::class,'postId');
     }
 
+    public function anouncements(){
+        return $this->hasOne(Announcement::class,'postId');
+    }
+
 
 
 }
