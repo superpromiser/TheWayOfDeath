@@ -42,11 +42,14 @@ class Post extends Model
     }
 
     public function anouncements(){
-        return $this->hasOne(Announcement::class,'postId');
+        return $this->hasOne(Anouncement::class,'postId');
     }
 
     public function bulletinBoards(){
         return $this->hasOne(BulletinBoard::class,'postId');
     }
 
+    public function homeVisit(){
+        return $this->hasOne(HomeVisit::class,'postId');
+    }
 }

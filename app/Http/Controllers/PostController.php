@@ -20,6 +20,10 @@ class PostController extends Controller
             'questionnaires',
             'votings',
             'sms',
+            'campus',
+            'anouncements',
+            'bulletinBoards',
+            'homeVisit',
             'users:id,name'])
         ->orderBy('created_at','desc')
         ->paginate(5);

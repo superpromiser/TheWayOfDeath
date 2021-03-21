@@ -159,6 +159,7 @@ export default [
   {path:'/schoolspace/:id/postDetail/4', name:'details.campus', component:page('school/details/campus/index.vue')},
   {path:'/schoolspace/:id/postDetail/5', name:'details.bulletinBoard', component:page('school/details/bulletinBoard/index.vue')},
   {path:'/schoolspace/:id/postDetail/6', name:'details.anouncement', component:page('school/details/anouncement/index.vue')},
+  {path:'/schoolspace/:id/postDetail/10', name:'details.homeVisit', component:page('school/details/homeVisit/index.vue')},
   
   //addComment
   {path:'/schoolspace/:id/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
