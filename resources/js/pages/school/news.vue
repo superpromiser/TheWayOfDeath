@@ -69,6 +69,10 @@
           <AnouncementPost :content="content"></AnouncementPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 6">
+          <BulletinBoardPost :content='content'></BulletinBoardPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
       </v-container>
       
     </v-row>
@@ -85,6 +89,7 @@ import VotingPost from '~/components/contents/votingPost';
 import SmsPost from '~/components/contents/smsPost';
 import CampusPost from '~/components/contents/CampusPost'
 import AnouncementPost from '~/components/contents/anouncementPost'
+import BulletinBoardPost from '~/components/contents/bulletinBoardPost'
 export default {
   components :{
     QusetionnairePost,
@@ -93,6 +98,7 @@ export default {
     FooterPost,
     CampusPost,
     AnouncementPost,
+    BulletinBoardPost,
   },
 
   data: () => ({

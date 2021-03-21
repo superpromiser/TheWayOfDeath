@@ -82,7 +82,19 @@ export default [
       {path:'questionAnswer', name:"questionnaire.questionAnswer", component:page('school/posts/questionnaire/questionAnswer.vue')},
       {path:'statistics', name:"questionnaire.statistics", component:page('school/posts/questionnaire/statistics.vue')},
       {path:'scoring', name:"questionnaire.scoring", component:page('school/posts/questionnaire/scoring.vue')},
-      {path:'template', name:"questionnaire.template", component:page('school/posts/questionnaire/newTemplate.vue')},
+      // {path:'template', name:"questionnaire.template", component:page('school/posts/questionnaire/newTemplate.vue')},
+    ]
+  },
+
+  {path:'/schoolspace/:id/post/questionnaire/tmeplateList', name:"questionnaire.templateList", component:page('school/posts/questionnaire/templateList.vue')},
+  {
+    path:'/schoolspace/:id/post/questionnaire/newTemplate', name:"questionnaire.templateNew", component:page('school/posts/questionnaire/newTemplate.vue'),
+    children:[
+      {path:'single',name:'questionnaireTemplate.single',component:page('school/posts/questionnaire/single.vue')},
+      {path:'multi',name:'questionnaireTemplate.multi',component:page('school/posts/questionnaire/multi.vue')},
+      {path:'questionAnswer',name:'questionnaireTemplate.questionAnswer',component:page('school/posts/questionnaire/questionAnswer.vue')},
+      {path:'statistics',name:'questionnaireTemplate.statistics',component:page('school/posts/questionnaire/statistics.vue')},
+      {path:'scoring',name:'questionnaireTemplate.scoring',component:page('school/posts/questionnaire/scoring.vue')}
     ]
   },
 
@@ -138,11 +150,17 @@ export default [
   {path:'/admin/attendance/statistics', name:'posts.attendance.statistics', component:page('admin/attendance/statistics.vue')},
 
   //postDetail
-  {path:'/schoolspace/:id/postDetail', name:'posts.detail', component:page('school/posts/detail.vue')},
+  {path:'/schoolspace/:id/postDetail/1', name:'details.quesionnaire', component:page('school/details/questionnaire/index.vue')},
+  {path:'/schoolspace/:id/postDetail/2', name:'details.voting', component:page('school/details/voting/index.vue')},
+  {path:'/schoolspace/:id/postDetail/3', name:'details.sms', component:page('school/details/sms/index.vue')},
+  {path:'/schoolspace/:id/postDetail/4', name:'details.campus', component:page('school/details/campus/index.vue')},
+  {path:'/schoolspace/:id/postDetail/5', name:'details.bulletinBoard', component:page('school/details/bulletinBoard/index.vue')},
+  {path:'/schoolspace/:id/postDetail/6', name:'details.anouncement', component:page('school/details/anouncement/index.vue')},
   
   //addComment
   {path:'/schoolspace/:id/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
    
+
   //setting
   { path: '/settings',
     component: page('settings/index.vue'),
