@@ -218,8 +218,38 @@
               <v-icon>mdi-cast-education</v-icon>
             </v-list-item-icon>
           </v-list-item>
+          <v-list-item
+            v-if="user.roleId == 3 || user.roleId == 4 || user.roleId == 5"
+            link
+            to="/schoolspace/1/class/1"
+            >
+            <v-list-item-title class="ml-5">{{classData.lessonName}}</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-google-classroom</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list v-else class="py-0">
+            <v-list-group
+              :value="true"
+              v-for="(grade, indexOfGrade) in schoolData.grades" :key="indexOfGrade"
+            >
+              <template v-slot:activator>
+                <v-list-item-title class="ml-5">{{grade.gradeName}}</v-list-item-title>
+              </template>
+              <v-list-item
+                v-for="(lesson, index) in grade.lessons" :key="index"
+                link
+                :to="`/schoolspace/1/class/${grade.id}/${lesson.id}`"
+                >
+                <v-list-item-title class="ml-10">{{lesson.lessonName}}</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-google-classroom</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+          </v-list>
       </v-list-group>
-      <v-list-item>
+      <v-list-item link to="/home">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
@@ -239,11 +269,24 @@ export default {
   components: {
     
   },
+  
+  data: () => ({
+    admins: [
+      ['Management', 'mdi-account-multiple-outline'],
+      ['Settings', 'mdi-cog-outline'],
+    ],
+    baseUrl: window.Laravel.base_url,
+    lang,
+    classData : null,
+    classItemList : [],
+  }),
+
   computed: {
     ...mapGetters({
       mini : 'toggledrawer/mini',
       user : 'auth/user',
-      schoolData : 'schooltree/schoolData'
+      schoolData : 'schooltree/schoolData',
+      memberData : 'schooltree/memberData'
       // drawer : 'toggledrawer/drawer'
     }),
     drawer: {
@@ -260,23 +303,29 @@ export default {
   },
   
   mounted() {
-    console.log(this.schoolData);
+    console.log("this.schoolData", this.schoolData);
+    console.log("this.memberData", this.memberData);
+    if( this.user.roleId == 3 || this.user.roleId == 4 || this.user.roleId == 5 ){
+      this.schoolData.grades.map( grade => {
+        if(this.memberData.gradeId == grade.id){
+          grade.lessons.map( lesson => {
+            if(this.memberData.lessonId == lesson.id){
+              this.classData = lesson;
+            }
+          })
+        }
+      })
+    }
+    else{
+      this.schoolData.grades.map( grade => {
+        grade.lessons.map( lesson=> {
+          this.classItemList.push(lesson);
+        })
+      })
+    }
+    console.log("this.classItemList",this.classItemList);
   },
 
-  data: () => ({
-    admins: [
-        ['Management', 'mdi-account-multiple-outline'],
-        ['Settings', 'mdi-cog-outline'],
-      ],
-    cruds: [
-      ['Create', 'mdi-plus-outline'],
-      ['Read', 'mdi-file-outline'],
-      ['Update', 'mdi-update'],
-      ['Delete', 'mdi-delete'],
-    ],
-    baseUrl: window.Laravel.base_url,
-    lang,
-  }),
 
   methods:{
     changedStatusToggle(val){

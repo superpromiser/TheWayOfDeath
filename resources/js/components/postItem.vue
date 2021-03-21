@@ -5,7 +5,7 @@
         tile
     >
         <div class="d-flex flex-no-wrap justify-space-between">
-            <div>
+            <div v-if="currentClassId == undefined && currentClassId == null">
                 <v-card-title
                     class="headline"
                     v-text="item.title"
@@ -14,7 +14,7 @@
                 <v-card-subtitle v-text="item.detail"></v-card-subtitle>
 
                 <v-card-actions v-if="item.title == '请假'">
-                    <router-link v-if="user.roleId == 5" :to="{path:`/schoolspace/${currentId}/post/${item.path}/student`}">
+                    <router-link v-if="user.roleId == 5" :to="{path:`/schoolspace/${currentSchoolId}/post/${item.path}/student`}">
                         <v-btn
                              v-if="user.roleId == 5"
                             class="ml-2 mt-5"
@@ -37,7 +37,7 @@
                     </router-link>
                 </v-card-actions>
                 <v-card-actions v-else>
-                    <router-link :to="{path:`/schoolspace/${currentId}/post/${item.path}`}">
+                    <router-link :to="{path:`/schoolspace/${currentSchoolId}/post/${item.path}`}">
                         <v-btn
                             class="ml-2 mt-5"
                             outlined
@@ -51,6 +51,51 @@
 
             </div>
 
+            <div v-else>
+                <v-card-title
+                    class="headline"
+                    v-text="item.title"
+                ></v-card-title>
+
+                <v-card-subtitle v-text="item.detail"></v-card-subtitle>
+
+                <v-card-actions v-if="item.title == '请假'">
+                    <router-link v-if="user.roleId == 5" :to="{path:`/schoolspace/${currentSchoolId}/class/${currentGradeId}/${currentClassId}/${item.path}/student`}">
+                        <v-btn
+                             v-if="user.roleId == 5"
+                            class="ml-2 mt-5"
+                            outlined
+                            rounded
+                            large
+                        >
+                            发布
+                        </v-btn>
+                    </router-link>
+                    <router-link v-if="user.roleId == 3 " :to="{path:`/admin/vacation/teacher`}">
+                        <v-btn
+                            class="ml-2 mt-5"
+                            outlined
+                            rounded
+                            large
+                        >
+                            例子
+                        </v-btn>
+                    </router-link>
+                </v-card-actions>
+                <v-card-actions v-else>
+                    <router-link :to="{path:`/schoolspace/${currentSchoolId}/class/${currentGradeId}/${currentClassId}/post/${item.path}`}">
+                        <v-btn
+                            class="ml-2 mt-5"
+                            outlined
+                            rounded
+                            large
+                        >
+                            发布
+                        </v-btn>
+                    </router-link>
+                </v-card-actions>
+
+            </div>
             <v-avatar
                 class="ma-3 post-item-card-avatar"
                 tile
@@ -70,10 +115,18 @@ export default {
             type : Object,
             required : true
         },
-        currentId : {
+        currentSchoolId : {
             type : Number,
-            required : true
-        }
+            required : false
+        },
+        currentGradeId : {
+            type : Number,
+            required : false
+        },
+        currentClassId : {
+            type : Number,
+            required : false
+        },
     },
     
     computed: {

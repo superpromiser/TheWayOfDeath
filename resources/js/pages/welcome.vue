@@ -281,6 +281,11 @@ export default {
             } )
             this.$store.dispatch('schooltree/storeChooseableSchoolTree', this.chooseableSchoolTree);
           }
+
+          //save MemberData
+          if( res.data.memberData !== null && (res.data.user.roleId == 3 || res.data.user.roleId == 4 || res.data.user.roleId == 5) ) {
+            this.$store.dispatch('schooltree/storeMemberData', res.data.memberData);
+          }
           
           // Redirect home.
           this.$router.push({ name: 'home' })

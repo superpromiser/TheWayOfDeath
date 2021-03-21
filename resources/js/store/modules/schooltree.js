@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 export const state = {
     schoolTree:  Cookies.get('schoolTree') ? JSON.parse(Cookies.get('schoolTree')) : null,
     schoolData:  Cookies.get('schoolData') ? JSON.parse(Cookies.get('schoolData')) : null,
+    memberData:  Cookies.get('memberData') ? JSON.parse(Cookies.get('memberData')) : null,
     chooseableSchoolTree: null,
 }
 
@@ -11,6 +12,7 @@ export const state = {
 export const getters = {
     schoolTree: state => state.schoolTree,
     schoolData: state => state.schoolData,
+    memberData: state => state.memberData,
     chooseableSchoolTree: state => state.chooseableSchoolTree,
 }
 
@@ -24,6 +26,10 @@ export const mutations = {
         state.schoolData = schoolData
         Cookies.set('schoolData', schoolData, { expires:  365 })
     },
+    [types.STORE_MEMBER_DATA] (state,  memberData ) {
+        state.memberData = memberData
+        Cookies.set('memberData', memberData, { expires:  365 })
+    },
     [types.STORE_CHOOSEABLE_SCHOOL_TREE] (state,  chooseableSchoolTree ) {
         state.chooseableSchoolTree = chooseableSchoolTree
     },
@@ -36,6 +42,9 @@ export const actions = {
     },
     storeSchoolData ({ commit }, payload) {
         commit(types.STORE_SCHOOL_DATA, payload)
+    },
+    storeMemberData ({ commit }, payload) {
+        commit(types.STORE_MEMBER_DATA, payload)
     },
     storeChooseableSchoolTree ({ commit }, payload) {
         commit(types.STORE_CHOOSEABLE_SCHOOL_TREE, payload)

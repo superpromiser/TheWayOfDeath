@@ -46,14 +46,32 @@ export default [
       {path:'member', name:'schoolSpace.member',component:page('school/member.vue')},
     ]
   },
-  
-  //index of Posts
+
+  //index of schoolPosts
   {path:'/schoolspace/:id/post', name:'schoolSpace.post', component:page('school/posts/index.vue'),
     children:[
     ]
   },
 
-  //Questionnaire
+  //classSpace
+  {
+    path:'/schoolspace/:id/class/:gradeId/:classId',
+    component: page('class/classSpace.vue'),
+    children:[
+      {path:'',redirect:{name: 'classSpace.news'}},
+      {path:'news', name:'classSpace.news',component:page('class/news.vue')},
+      {path:'application', name:'classSpace.application',component:page('class/application.vue')},
+      {path:'member', name:'classSpace.member',component:page('class/member.vue')},
+    ]
+  },
+  
+  //index of classPosts
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post', name:'classSpace.post', component:page('class/posts/index.vue'),
+    children:[
+    ]
+  },
+
+  //Questionnaire of School
   {path:'/schoolspace/:id/post/questionnaire', name:'posts.questionnaire', component:page('school/posts/questionnaire/index.vue'),
     children:[
       // {path:'', redirect:{name:"questionnaire.new"}},
@@ -67,9 +85,27 @@ export default [
       {path:'template', name:"questionnaire.template", component:page('school/posts/questionnaire/newTemplate.vue')},
     ]
   },
+
+  //Questionnaire of class
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post/questionnaire', name:'classposts.questionnaire', component:page('class/posts/questionnaire/index.vue'),
+    children:[
+      // {path:'', redirect:{name:"questionnaire.new"}},
+      // {path:'new',name:'questionnaire.new', component:page('school/posts/questionnaire/new.vue')},
+      // {path:'test',name:'questionnaire.test', component:page('school/posts/questionnaire/test.vue')},
+      {path:'single', name:"classQuestionnaire.single", component:page('class/posts/questionnaire/single.vue')},
+      {path:'multi', name:"classQuestionnaire.multi", component:page('class/posts/questionnaire/multi.vue')},
+      {path:'questionAnswer', name:"classQuestionnaire.questionAnswer", component:page('class/posts/questionnaire/questionAnswer.vue')},
+      {path:'statistics', name:"classQuestionnaire.statistics", component:page('class/posts/questionnaire/statistics.vue')},
+      {path:'scoring', name:"classQuestionnaire.scoring", component:page('class/posts/questionnaire/scoring.vue')},
+      {path:'template', name:"classQuestionnaire.template", component:page('class/posts/questionnaire/newTemplate.vue')},
+    ]
+  },
   
-  //Voting
+  //Voting of School
   {path:'/schoolspace/:id/post/voting', name:'posts.voting', component:page('school/posts/voting/new.vue')},
+  
+  //Voting of class
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post/voting', name:'classposts.voting', component:page('class/posts/voting/new.vue')},
 
   //SMS
   {path:'/schoolspace/:id/post/sms', name:'posts.sms', component:page('school/posts/sms/new.vue')},
@@ -83,8 +119,11 @@ export default [
   //bulletinboard
   {path:'/schoolspace/:id/post/bulletinboard', name:'posts.bulletinboard', component:page('school/posts/bulletinboard/new.vue')},
 
-  //homevisit
+  //homevisit of school
   {path:'/schoolspace/:id/post/homevisit', name:'posts.homevisit', component:page('school/posts/homevisit/new.vue')},
+
+  //homevisit of class
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post/homevisit', name:'classposts.homevisit', component:page('class/posts/homevisit/new.vue')},
 
   //vacation
   {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
