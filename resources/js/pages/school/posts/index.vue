@@ -14,7 +14,7 @@
                 </v-chip>
             </v-col>
             <v-col v-for="(item, j) in itemGroup.items" :key="j" cols="12" sm="6" md="4" lg="3">
-                <PostItem :item="item" :currentId="currentSchoolId"/>
+                <PostItem :item="item" :currentSchoolId="currentSchoolId"/>
             </v-col>
         </v-row>
         <!-- <transition name="fade" mode="out-in">
