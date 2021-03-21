@@ -211,7 +211,7 @@
         </template>
           <v-list-item
             link
-            to="/schoolspace/1"
+            :to="`/schoolspace/${user.schoolId}`"
             >
             <v-list-item-title>学校空间</v-list-item-title>
             <v-list-item-icon>
@@ -221,7 +221,7 @@
           <v-list-item
             v-if="user.roleId == 3 || user.roleId == 4 || user.roleId == 5"
             link
-            to="/schoolspace/1/class/1"
+            :to="`/schoolspace/${user.schoolId}/class/${classData.id}`"
             >
             <v-list-item-title class="ml-5">{{classData.lessonName}}</v-list-item-title>
             <v-list-item-icon>
@@ -239,7 +239,7 @@
               <v-list-item
                 v-for="(lesson, index) in grade.lessons" :key="index"
                 link
-                :to="`/schoolspace/1/class/${grade.id}/${lesson.id}`"
+                :to="`/schoolspace/${user.schoolId}/class/${grade.id}/${lesson.id}`"
                 >
                 <v-list-item-title class="ml-10">{{lesson.lessonName}}</v-list-item-title>
                 <v-list-item-icon>
