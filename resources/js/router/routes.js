@@ -137,6 +137,9 @@ export default [
   //homevisit of class
   {path:'/schoolspace/:id/class/:gradeId/:classId/post/homevisit', name:'classposts.homevisit', component:page('class/posts/homevisit/new.vue')},
 
+  //notification of class
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post/notification', name:'classposts.notification', component:page('class/posts/notification/new.vue')},
+
   //vacation
   {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
   {path:'/admin/vacation/teacher', name:'posts.vacationTeacher', component:page('school/posts/vacation/teacher/new.vue')},

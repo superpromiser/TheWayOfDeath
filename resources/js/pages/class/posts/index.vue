@@ -108,7 +108,7 @@ export default {
                         title : "通知",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/通知 拷贝.png",
-                        path : "something"
+                        path : "notification"
                     },
                 ],
             },
