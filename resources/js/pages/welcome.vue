@@ -223,7 +223,6 @@ export default {
       };
       await loginApi(payload)
         .then(res=>{
-         
           this.isLogging = false;
           // Save the token.
           this.$store.dispatch('auth/saveToken', {
@@ -235,7 +234,8 @@ export default {
           this.$store.dispatch('auth/saveUserState', res.data.user)
 
           //save schoolTree
-          if(res.data.user.schoolId !== null){
+          console.lo
+          if(res.data.user.schoolId !== 0){
             res.data.schoolTree.map( x => {
               if (x.id == res.data.user.schoolId){
                 this.schoolData = x;
@@ -280,6 +280,10 @@ export default {
               this.chooseableSchoolTree.push(gradeObj);
             } )
             this.$store.dispatch('schooltree/storeChooseableSchoolTree', this.chooseableSchoolTree);
+          }
+          else{
+            console.log("123123123", res.data.schoolTree);
+            this.$store.dispatch('schooltree/storeSchoolData', res.data.schoolTree);
           }
 
           //save MemberData

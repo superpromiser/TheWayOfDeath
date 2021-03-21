@@ -198,6 +198,7 @@
               outlined
               small
               color="indigo"
+              class="ma-2"
               @click="showSchoolIntroduce(item.introduce)"
             >
               查看学校介绍
@@ -206,8 +207,8 @@
               <v-btn
                 outlined
                 small
-                class="mt-3"
                 color="indigo"
+                class="ma-2"
               >
                 查看经理数据
               </v-btn>

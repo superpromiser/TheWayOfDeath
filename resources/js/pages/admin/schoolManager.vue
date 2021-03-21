@@ -40,7 +40,7 @@
                       color="indigo"
                       dark
                     >
-                      Go back to school list
+                      返回学校清单
                     </v-btn>
                   </router-link>
                 </template>

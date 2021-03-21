@@ -202,9 +202,11 @@
             </v-list-group>
           </v-list>
       </v-list-group>
+      
       <v-list-group
         :value="true"
         prepend-icon="mdi-school"
+        v-if="user.roleId !== 1"
       >
         <template v-slot:activator>
           <v-list-item-title>{{schoolData.schoolName}}</v-list-item-title>
@@ -221,7 +223,7 @@
           <v-list-item
             v-if="user.roleId == 3 || user.roleId == 4 || user.roleId == 5"
             link
-            :to="`/schoolspace/${user.schoolId}/class/${classData.id}`"
+            :to="`/schoolspace/${user.schoolId}/class/${classData.gradeId}/${classData.id}`"
             >
             <v-list-item-title class="ml-5">{{classData.lessonName}}</v-list-item-title>
             <v-list-item-icon>
@@ -240,6 +242,40 @@
                 v-for="(lesson, index) in grade.lessons" :key="index"
                 link
                 :to="`/schoolspace/${user.schoolId}/class/${grade.id}/${lesson.id}`"
+                >
+                <v-list-item-title class="ml-10">{{lesson.lessonName}}</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-google-classroom</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+          </v-list>
+      </v-list-group>
+      <v-list-group v-else :value="true" prepend-icon="mdi-school" v-for="(school, indexOfSchool) in schoolData" :key="indexOfSchool">
+        <template v-slot:activator>
+          <v-list-item-title>{{school.schoolName}}</v-list-item-title>
+        </template>
+        <v-list-item
+          link
+          :to="`/schoolspace/${school.id}`"
+          >
+          <v-list-item-title>学校空间</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-cast-education</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list class="py-0">
+            <v-list-group
+              :value="true"
+              v-for="(grade, indexOfGrade) in school.grades" :key="indexOfGrade"
+            >
+              <template v-slot:activator>
+                <v-list-item-title class="ml-5">{{grade.gradeName}}</v-list-item-title>
+              </template>
+              <v-list-item
+                v-for="(lesson, index) in grade.lessons" :key="index"
+                link
+                :to="`/schoolspace/${school.id}/class/${grade.id}/${lesson.id}`"
                 >
                 <v-list-item-title class="ml-10">{{lesson.lessonName}}</v-list-item-title>
                 <v-list-item-icon>
@@ -311,6 +347,7 @@ export default {
           grade.lessons.map( lesson => {
             if(this.memberData.lessonId == lesson.id){
               this.classData = lesson;
+              console.log(this.classData);
             }
           })
         }
