@@ -85,7 +85,7 @@ export default {
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'posts.detail'});
+        this.$router.push({name:'details.voting'});
       },
     }
 }
