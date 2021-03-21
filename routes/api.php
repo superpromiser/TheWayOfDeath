@@ -173,6 +173,12 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('bulletinBoard','BulletinBoardController@createBulletinBoard');
     Route::put('bulletinBoard','BulletinBoardController@updateBulletinBoard');
     Route::delete('bulletinBoard','BulletinBoardController@deleteBulletinBoard');
+
+    //homeVisit
+    Route::get('homeVisit','HomeVisitController@getHomeVisit');
+    Route::post('homeVisit','HomeVisitController@createHomeVisit');
+    Route::put('homeVisit','HomeVisitController@updateHomeVisit');
+    Route::delete('homeVisit','HomeVisitController@deleteHomeVisit');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

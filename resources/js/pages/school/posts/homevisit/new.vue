@@ -103,7 +103,7 @@ import { VueEditor } from "vue2-editor";
 import Fragment from 'vue-fragment';
 
 
-import {createCampus} from '~/api/campus'
+import {createHomeVisit} from '~/api/homeVisit'
 
 export default {
     components: {
@@ -268,8 +268,8 @@ export default {
             
             ],
             content: null,
-            viewList:[],
-            postShow:[], 
+            // viewList:[],
+            // postShow:[], 
         },
         isCreating:false
     }),
@@ -305,8 +305,19 @@ export default {
 
         async publishcampusData(){
             this.$refs.child.emitData()
-            // this.isCreating = true
+            if(this.visitData.content == null){
+                return
+            }
+            this.isCreating = true
             console.log("this.visitData", this.visitData);
+            await createHomeVisit(this.visitData).then(res=>{
+                this.$router.push({name:'schoolSpace.news'})
+                this.isCreating = false;
+            }).catch(err=>{
+                console.log(err.response)
+                this.isCreating = false;
+            })
+
 
         },
 
