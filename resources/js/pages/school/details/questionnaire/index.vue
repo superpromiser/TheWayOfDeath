@@ -1,16 +1,15 @@
 <template>
     <v-container>
-        <!-- <v-row>
+        <v-row>
             <v-col>
                 已答
             </v-col>
             <v-col>
                 <v-icon>
-                    mdi-ChevronRight
+                    mdi-chevron-right
                 </v-icon>
             </v-col>
-        </v-row> -->
-        test
+        </v-row>
     </v-container>
 </template>
 
@@ -31,7 +30,7 @@ export default {
     },
 
     mounted(){
-        console.log(this.currentpath)
+        console.log("this.currentpath",this.currentpath)
     }
 }
 </script>
