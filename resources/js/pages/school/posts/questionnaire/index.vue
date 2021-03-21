@@ -446,7 +446,7 @@ export default {
   },
 
   created(){
-    console.log(this.currentPath)
+    console.log("this.schoolTree",this.schoolTree)
     if(this.currentPath.query.tempData){
       this.newQuestionnaireData.content = JSON.parse(this.currentPath.query.tempData)
       console.log(this.newQuestionnaireData.content[0])
