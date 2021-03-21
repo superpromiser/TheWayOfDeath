@@ -206,7 +206,7 @@
                       <v-chip class="ma-2" color="success" outlined >
                         <strong>单选题</strong>
                       </v-chip>
-                     <v-btn icon color="green" class="ml-2" @click="pushUp(index)" :disabled="index == 0"  >
+                      <v-btn icon color="green" class="ml-2" @click="pushUp(index)" :disabled="index == 0"  >
                         <v-icon>mdi-arrow-up-bold</v-icon>
                       </v-btn>
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)" >
