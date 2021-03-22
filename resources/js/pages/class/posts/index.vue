@@ -121,7 +121,7 @@ export default {
                         title : "评价",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/评价.png",
-                        path : "something"
+                        path : "evaluation"
                     },
                     {
                         color : "lime darken-4",
