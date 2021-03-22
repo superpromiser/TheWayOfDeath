@@ -121,7 +121,7 @@ export default {
                         title : "评价",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/评价.png",
-                        path : "something"
+                        path : "evaluation"
                     },
                     {
                         color : "lime darken-4",
@@ -148,14 +148,14 @@ export default {
                         title : "相册",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/相册.png",
-                        path : "something"
+                        path : "album"
                     },
                     {
                         color : "indigo accent-2",
                         title : "文件",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/文件.png",
-                        path : "something"
+                        path : "file"
                     },
                 ],
             },

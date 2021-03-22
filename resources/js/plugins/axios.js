@@ -28,22 +28,22 @@ axios.interceptors.response.use(response => response, error => {
   if (status >= 500) {
     Swal.fire({
       type: 'error',
-      title: i18n.t('error_alert_title'),
-      text: i18n.t('error_alert_text'),
+      title: "哎呀",
+      text: "出了些问题",
       reverseButtons: true,
-      confirmButtonText: i18n.t('ok'),
-      cancelButtonText: i18n.t('cancel')
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
     })
   }
 
   if (status === 401 && store.getters['auth/check']) {
     Swal.fire({
       type: 'warning',
-      title: i18n.t('token_expired_alert_title'),
-      text: i18n.t('token_expired_alert_text'),
+      title: "会话已过期！",
+      text: "请再次登录以继续",
       reverseButtons: true,
-      confirmButtonText: i18n.t('ok'),
-      cancelButtonText: i18n.t('cancel')
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
     }).then(() => {
       store.commit('auth/LOGOUT')
 

@@ -1,42 +1,42 @@
 <template>
   <v-container class="school-space-tab-bar-outter px-lg-10">
     <v-row v-if="isLoadingContents" class="pa-3">
-      <v-col cols="12">
+      <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
           type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
           type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
           type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
           type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
           type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
           type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"

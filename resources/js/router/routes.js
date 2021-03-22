@@ -153,8 +153,17 @@ export default [
   //notification of class
   {path:'/schoolspace/:id/class/:gradeId/:classId/post/notification', name:'classposts.notification', component:page('class/posts/notification/new.vue')},
   
-  //notification of class
+  //recognition of class
   {path:'/schoolspace/:id/class/:gradeId/:classId/post/recognition', name:'classposts.recognition', component:page('class/posts/recognition/new.vue')},
+
+  //evaluation of class
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post/evaluation', name:'classposts.evaluation', component:page('class/posts/evaluation/new.vue')},
+
+  //album of class
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post/album', name:'classposts.album', component:page('class/posts/album/index.vue')},
+
+  //file of class
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post/file', name:'classposts.file', component:page('class/posts/file/index.vue')},
 
   //vacation
   {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
