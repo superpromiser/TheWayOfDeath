@@ -8,6 +8,7 @@
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
+      <v-divider></v-divider>
       <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
@@ -15,6 +16,7 @@
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
+      <v-divider></v-divider>
       <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
@@ -22,6 +24,7 @@
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
+      <v-divider></v-divider>
       <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
@@ -29,6 +32,7 @@
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
+      <v-divider></v-divider>
       <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
@@ -36,6 +40,7 @@
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
+      <v-divider></v-divider>
       <v-col cols="12" class="pt-10">
         <v-skeleton-loader
           v-bind="attrs"
@@ -43,6 +48,7 @@
           :loading="isLoadingContents"
         ></v-skeleton-loader>
       </v-col>
+      <v-divider></v-divider>
     </v-row>
     <v-row v-else class="pa-3">
       <v-col v-if="contentList.length == 0">

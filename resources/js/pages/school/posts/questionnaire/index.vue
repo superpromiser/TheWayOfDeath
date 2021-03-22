@@ -1,7 +1,7 @@
 <template>
   <v-container class="pa-0">
       <div v-if="postNew == true">
-        <v-banner class=" mb-10" color="white" sticky elevation="20">
+        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <v-avatar
                     class="ma-3 ml-3"
@@ -21,17 +21,19 @@
                 可用模板 0， 草稿 0
             </v-btn>
             <v-btn
+                tile
                 dark
                 color="green lighten-1"
-                class="mr-8"
+                class="mx-2"
                 :loading="isSubmit"
                 @click="submit"
             >
                 {{lang.submit}}
             </v-btn>
             <v-btn
+                tile
                 dark
-                color="lighten-1"
+                color="purple accent-4"
                 class="mr-8"
                 :loading="isDraft"
                 @click="saveDraft"

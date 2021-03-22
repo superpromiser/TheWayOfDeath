@@ -22,10 +22,10 @@
                 </template>
                 <v-list>
                   <v-list-item link >
-                    <v-list-item-title >{{lang.toTop}}</v-list-item-title>
+                    <v-list-item-title class="px-2">{{lang.toTop}}</v-list-item-title>
                   </v-list-item>
                   <v-list-item link >
-                    <v-list-item-title >{{lang.remove}}</v-list-item-title>
+                    <v-list-item-title class="px-2">{{lang.remove}}</v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -52,10 +52,10 @@
             </div>
             <div>
               <v-btn
-                rounded
+                tile
                 color="success"
                 outlined
-                class="ma-1"
+                class="ma-1 ml-0"
                 @click="showDetail(content)"
               >
                 <v-icon left>
