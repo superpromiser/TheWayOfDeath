@@ -6,12 +6,12 @@ a {
     text-decoration: none !important;
 }
 
-.position-relative{
-    position: relative!important;
+.position-relative {
+    position: relative !important;
 }
 
-.position-absolute{
-    position: absolute!important;
+.position-absolute {
+    position: absolute !important;
 }
 
 .logo-img {
@@ -65,45 +65,45 @@ a {
     max-width: 125px !important;
 }
 
-.school-card-avatar{
-    height: 70px!important;
-    width: 70px!important;
+.school-card-avatar {
+    height: 70px !important;
+    width: 70px !important;
 }
 
 .pl-0-banner .v-banner__wrapper {
     padding-left: 0 !important;
 }
 
-.divider{
-    width:100%;
-    height:10px;
+.divider {
+    width: 100%;
+    height: 10px;
     background-color: #f3f3f3;
 }
-.uploaded-image{
+.uploaded-image {
     height: 150px;
 }
 
-.remove-uploaded-item-icon{
+.remove-uploaded-item-icon {
     z-index: 1;
     top: 10px;
     right: 10px;
 }
 
-.uploaded-video-icon{
+.uploaded-video-icon {
     width: 45px;
     height: 45px;
 }
 
-.school-space-tab-bar-outter{
+.school-space-tab-bar-outter {
     height: calc(100% - 72px);
     overflow: auto;
 }
 
-.text-wrap{
+.text-wrap {
     overflow-wrap: break-word;
 }
 
-.school-tab-bar{
+.school-tab-bar {
     position: sticky;
     top: 0;
     background: white;
@@ -111,19 +111,37 @@ a {
     z-index: 1;
 }
 
-.fs-15{
+.fs-15 {
     font-size: 1.5rem;
 }
 
-.v-skeleton-loader__list-item-avatar-two-line .v-skeleton-loader__avatar{
-    width: 70px!important;
-    height: 70px!important;
+.v-skeleton-loader__list-item-avatar-two-line .v-skeleton-loader__avatar {
+    width: 70px !important;
+    height: 70px !important;
 }
 
-.min-w-fit-content{
+.min-w-fit-content {
     min-width: fit-content;
 }
 
-.hover-cursor-point:hover{
+.hover-cursor-point:hover {
     cursor: pointer;
+}
+
+.op-score {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border: 1px solid #f3f3f3;
+    text-align: center;
+    line-height: 50px;
+    display: inline-block;
+    cursor: pointer;
+    margin: 8px 0;
+    margin-right: 8px;
+}
+
+.selMinute {
+    background-color: #2d8cf0;
+    color: #fff;
 }

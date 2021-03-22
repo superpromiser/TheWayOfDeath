@@ -179,6 +179,10 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('homeVisit','HomeVisitController@createHomeVisit');
     Route::put('homeVisit','HomeVisitController@updateHomeVisit');
     Route::delete('homeVisit','HomeVisitController@deleteHomeVisit');
+
+    //answerQuestionnaire
+    Route::post('answerQuestionnaire','AnswerQuestionnaireController@createAnswerQuestionnaire');
+    Route::get('answerQuestionnaire','AnswerQuestionnaireController@getAnswerQuestionnaire');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {
