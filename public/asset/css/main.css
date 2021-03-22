@@ -128,6 +128,7 @@ a {
     cursor: pointer;
 }
 
+<<<<<<< HEAD
 .op-score {
     width: 50px;
     height: 50px;
@@ -145,3 +146,9 @@ a {
     background-color: #2d8cf0;
     color: #fff;
 }
+=======
+.recognition-img-check-icon{
+    top: 5px;
+    right: 5px;
+}
+>>>>>>> 2a07b6a0adcf931f4e4f2a00680113077005bec3

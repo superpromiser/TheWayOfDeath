@@ -139,6 +139,9 @@ export default [
 
   //notification of class
   {path:'/schoolspace/:id/class/:gradeId/:classId/post/notification', name:'classposts.notification', component:page('class/posts/notification/new.vue')},
+  
+  //notification of class
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post/recognition', name:'classposts.recognition', component:page('class/posts/recognition/new.vue')},
 
   //vacation
   {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
