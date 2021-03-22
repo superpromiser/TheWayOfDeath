@@ -149,6 +149,9 @@ export default [
   //album of class
   {path:'/schoolspace/:id/class/:gradeId/:classId/post/album', name:'classposts.album', component:page('class/posts/album/index.vue')},
 
+  //file of class
+  {path:'/schoolspace/:id/class/:gradeId/:classId/post/file', name:'classposts.file', component:page('class/posts/file/index.vue')},
+
   //vacation
   {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
   {path:'/admin/vacation/teacher', name:'posts.vacationTeacher', component:page('school/posts/vacation/teacher/new.vue')},

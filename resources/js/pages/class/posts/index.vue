@@ -155,7 +155,7 @@ export default {
                         title : "文件",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/文件.png",
-                        path : "something"
+                        path : "file"
                     },
                 ],
             },

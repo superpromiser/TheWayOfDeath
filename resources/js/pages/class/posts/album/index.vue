@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-0"> 
+    <v-container class="pa-0 "> 
         <v-row class="d-flex justify-center pt-10  ma-0">
             <v-col cols="12 d-flex justify-center position-relative">
                 <h2 class="red--text text--lighten-1 position-absolute" style="top:0; font-size: 3rem;">相册</h2>
