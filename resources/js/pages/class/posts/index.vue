@@ -148,7 +148,7 @@ export default {
                         title : "相册",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/相册.png",
-                        path : "something"
+                        path : "album"
                     },
                     {
                         color : "indigo accent-2",

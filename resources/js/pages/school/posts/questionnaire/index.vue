@@ -444,6 +444,14 @@ export default {
         return this.$route;
       }
   },
+  // watch:{
+  //   currentPath(){
+  //     handler(val){
+
+  //     },
+  //     deep:true
+  //   }
+  // }
 
   created(){
     console.log("this.schoolTree",this.schoolTree)

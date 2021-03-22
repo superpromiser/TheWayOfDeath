@@ -17,7 +17,7 @@
                     color="green lighten-1"
                     class="mr-8"
                     tile
-                    @click="saveDraft"
+                    @click="answerUsers"
                 >
                     已答
                     <v-icon right>
@@ -53,7 +53,7 @@
                     <AttachItemViewer :items="content.singleContentDataArr[0]" />
                   </v-col>
                   <v-col class="pl-6" cols="12" v-for="(singleData, singleDataIndex) in content.singleContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
-                    <div class="d-flex align-center"> 
+                    <div class="d-flex align-center cursor-pointer" @click="singleAnswer(singleData,singleDataIndex)" :class="{active: singleDataIndex == answerData.singleAnswer}"> 
                       <v-chip
                         class="mr-2"
                         color="success"
@@ -80,14 +80,14 @@
                   <v-col v-if="checkIfAttachExist(content.multiContentDataArr[0])">
                     <AttachItemViewer :items="content.multiContentDataArr[0]" />
                   </v-col>
-                  <v-col class="pl-6" cols="12" v-for="(multiData, singleDataIndex) in content.multiContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
-                    <div class="d-flex align-center"> 
+                  <v-col class="pl-6" cols="12" v-for="(multiData, multiDataIndex) in content.multiContentDataArr" :key="multiDataIndex" v-if="multiDataIndex !== 0">
+                    <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiData,multiDataIndex)" :class="{active: answerData.multiAnswer.indexOf(multiDataIndex) > -1}"> 
                       <v-chip
                         class="mr-2"
                         color="success"
                         outlined
                       >
-                        <strong>{{alphabet[singleDataIndex-1]}}</strong>
+                        <strong>{{alphabet[multiDataIndex-1]}}</strong>
                       </v-chip>
                       <p class="mb-0 text-wrap"> {{multiData.text}}</p>
                     </div>
@@ -108,6 +108,17 @@
                   <v-col v-if="checkIfAttachExist(content.qaContentDataArr[0])">
                     <AttachItemViewer :items="content.qaContentDataArr[0]" />
                   </v-col>
+                  <v-col cols="12">
+                    <v-textarea
+                      clearable
+                      solo
+                      clear-icon="mdi-close-circle"
+                      label=""
+                      value=""
+                      v-model="answerData.questionAnswer"
+                      hide-details
+                    ></v-textarea>
+                  </v-col>
                 </v-row>
                 <!--  statistics Datas  -->
                 <v-row v-if="content.type == 'stat'">
@@ -122,6 +133,17 @@
                   </v-col>
                   <v-col v-if="checkIfAttachExist(content.statDataArr[0].contentData[0])">
                     <AttachItemViewer :items="content.statDataArr[0].contentData[0]" />
+                  </v-col>
+                  <v-col cols="12">
+                    <v-textarea
+                      clearable
+                      solo
+                      clear-icon="mdi-close-circle"
+                      :label="`${content.statDataArr[0].sValue}~${content.statDataArr[0].eValue}`"
+                      value=""
+                      v-model.number="answerData.statAnswer"
+                      hide-details
+                    ></v-textarea>
                   </v-col>
                 </v-row>
                 <!--  score Datas  -->
@@ -138,8 +160,25 @@
                   <v-col v-if="checkIfAttachExist(content.scoringDataArr[0].contentData[0])">
                     <AttachItemViewer :items="content.scoringDataArr[0].contentData[0]" />
                   </v-col>
+                  <v-col cols="12">
+                    <div v-for="(minute,i) in parseInt(content.scoringDataArr[0].maxMin)" :key="i" class="op-score" :class="{selMinute: minute == answerData.scoringAnswer}" @click="selScoring(minute)">
+                        {{minute}}
+                    </div>
+                  </v-col>
                 </v-row>
             </v-col>
+        </v-row>
+        <v-row>
+           <v-btn
+                dark
+                color="green lighten-1"
+                class="mr-8"
+                tile
+                :loading="isSubmit"
+                @click="submit"
+            >
+                {{lang.submit}}
+            </v-btn>
         </v-row>
     </v-container>
 </template>
@@ -148,6 +187,8 @@
 import {mapGetters} from 'vuex';
 import lang from '~/helper/lang.json';
 import AttachItemViewer from '~/components/attachItemViewer';
+import {answerQuestionnaire} from '~/api/postAnswer';
+
 export default {
     components:{
         AttachItemViewer,
@@ -158,6 +199,15 @@ export default {
         lang,
         alphabet:['A','B','C','D','E','F','G','H','J','K','L','M','N',
                 'O','P','Q','R','S','T','U','V','W','X','Y','Z' ],
+        answerData:{
+          singleAnswer:null,
+          multiAnswer:[],
+          questionAnswer:'',
+          statAnswer:'',
+          scoringAnswer:null,
+          postId:null
+        },
+        isSubmit:false,
     }),
 
     computed:{
@@ -169,10 +219,14 @@ export default {
         })
     },
 
-    mounted(){
+    created(){
         console.log("this.currentpath",this.currentpath)
         console.log("this.contentData",this.contentData)
+        if(this.contentData == null){
+          this.$router.push({name:'schoolSpace.news'})
+        }
         this.contentData.questionnaires.content = JSON.parse(this.contentData.questionnaires.content);
+        this.answerData.postId = this.contentData.id
     },
 
     methods:{
@@ -186,10 +240,50 @@ export default {
                 return true;
             }
         },
+        answerUsers(){
+          console.log('answerUsers')
+        },
+        singleAnswer(data,index){
+          console.log(data,index)
+          this.answerData.singleAnswer = index
+        },
+        multiAnswer(data,selIndex){
+          console.log(data,selIndex)
+          let index = this.answerData.multiAnswer.indexOf(selIndex)
+          if(index > -1){
+            this.answerData.multiAnswer.splice(index,1);
+          }else{
+            this.answerData.multiAnswer.push(selIndex)
+          }
+        },
+        selScoring(minute){
+          this.answerData.scoringAnswer = minute
+        },
+        async submit(){
+          console.log(this.answerData)
+          if(this.answerData.singleAnswer == null || this.answerData.multiAnswer.length == 0 || this.answerData.questionAnswer == '' || this.answerData.statAnswer == '' || this.answerData.scoringAnswer == null){
+            alert('请回答所有问题');
+            return
+          }
+          this.isSubmit = true;
+          await answerQuestionnaire(this.answerData).then(res=>{
+            console.log(res)
+            this.$router.push({name:'schoolSpace.news'})
+            this.isSubmit = false;
+          }).catch(err=>{
+            this.isSubmit = false;
+            console.log(err.response)
+          })
+
+        }
     }
 }
 </script>
 
 <style>
-
+  .active{
+    background-color:#2d8cf0;
+    cursor: pointer;
+    color:white
+  }
 </style>
