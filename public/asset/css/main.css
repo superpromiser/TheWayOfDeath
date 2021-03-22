@@ -127,3 +127,8 @@ a {
 .hover-cursor-point:hover{
     cursor: pointer;
 }
+
+.recognition-img-check-icon{
+    top: 5px;
+    right: 5px;
+}

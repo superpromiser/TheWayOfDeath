@@ -128,7 +128,7 @@ export default {
                         title : "表彰",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/表彰.png",
-                        path : "something"
+                        path : "recognition"
                     },
                 ],
             },
