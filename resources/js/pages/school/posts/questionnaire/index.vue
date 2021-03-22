@@ -525,7 +525,7 @@ export default {
         console.log(res)
         this.isSuccessed = true;
         // this.newQuestionnaireData = null
-        this.$router.push({name:'classSpace.news'})
+        this.$router.push({name:'schoolSpace.news'})
       }).catch(err=>{
         console.log(err.response)
          if(err.response.status === 422){

@@ -237,6 +237,7 @@ export default {
             deadline:'',
             maxVote: null,
             anonyVote:true,
+            classId:null,
             content:[]
         },
         isCreating:false,
@@ -246,9 +247,14 @@ export default {
     computed: {
         ...mapGetters({
             schoolTree : 'schooltree/schoolTree',
-        })
+        }),
+        currentPath(){
+            return this.$route
+        }
     },
-
+    created(){
+        this.votingData.classId = this.currentPath.params.classId
+    },
     methods: {
         selectedLesson(val){
             console.log(val)
@@ -278,7 +284,7 @@ export default {
                 console.log(res)
                 this.isCreating = false
                 this.isSuccessed = true
-                this.$router.push({name:'schoolSpace.news'})
+                this.$router.push({name:'classSpace.news'})
             }).catch(err=>{
                 console.log(err.response);
                 this.isCreating = false

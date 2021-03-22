@@ -43,7 +43,8 @@ class QuestionnaireController extends Controller
         }
         $postId = Post::create([
             'contentId'=>$contentId,
-            'userId'=>$userId,    
+            'userId'=>$userId,
+            'classId'=>$classId,    
         ])->id;
         $data = Questionnaire::create([
             'title'=>$title,

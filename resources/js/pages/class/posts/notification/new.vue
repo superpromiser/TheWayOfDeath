@@ -171,6 +171,7 @@ export default {
             title:'',
             signName: '',
             description:null,
+            classId:null
             // viewList:[],
             // postShow:[],
         },
@@ -183,11 +184,15 @@ export default {
        ...mapGetters({
            user: 'auth/user',
            schoolTree : 'schooltree/schoolTree',
-       })
+       }),
+       currentPath(){
+           return this.$route
+       }
     },
 
     created() {
         this.notificationData.signName = this.user.name;
+        this.notificationData.classId = this.currentPath.params.classId;
     },
 
     methods: {

@@ -22,11 +22,12 @@ class HomeVisitController extends Controller
             'description'=>'required',
             'content'=>'required'
         ]);
-
+        $classId = $request->classId;
         $userId = Auth::user()->id;
         $postId = Post::create([
             'contentId'=>10,
-            'userId'=>$userId
+            'userId'=>$userId,
+            'classId'=>$classId
         ])->id;
         return HomeVisit::create([
             'userInfo'=>json_encode($request->userInfo),

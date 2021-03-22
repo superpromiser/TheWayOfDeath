@@ -268,17 +268,21 @@ export default {
             
             ],
             content: null,
-            viewList:[],
-            postShow:[], 
+            classId:null
         },
         isCreating:false
     }),
 
     computed: {
-       
+       currentPath(){
+           return $this.$route
+       }
     },
 
     created() {
+        if(this.currentPath.params.classId){
+            this.visitData.classId = this.currentPath.params.classId
+        }
     },
 
     methods: {

@@ -297,7 +297,11 @@ export default {
           this.isSubmit = true;
           await createAnswerQuestionnaire(this.answerData).then(res=>{
             console.log(res)
-            this.$router.push({name:'schoolSpace.news'})
+            if(this.currentpath.params.classId){
+              this.$router.push({name:'classSpace.news'})
+            }else{
+              this.$router.push({name:'schoolSpace.news'})
+            }
             this.isSubmit = false;
           }).catch(err=>{
             this.isSubmit = false;
