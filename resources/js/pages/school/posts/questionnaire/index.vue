@@ -21,17 +21,19 @@
                 可用模板 0， 草稿 0
             </v-btn>
             <v-btn
+                tile
                 dark
                 color="green lighten-1"
-                class="mr-8"
+                class="mx-2"
                 :loading="isSubmit"
                 @click="submit"
             >
                 {{lang.submit}}
             </v-btn>
             <v-btn
+                tile
                 dark
-                color="lighten-1"
+                color="purple accent-4"
                 class="mr-8"
                 :loading="isDraft"
                 @click="saveDraft"

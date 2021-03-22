@@ -20,9 +20,11 @@
             </v-btn>
             <v-btn
                 dark
+                tile
                 color="green lighten-1"
                 @click="publishVotingData"
                 :loading="isCreating"
+                class="mr-8"
             >
                 提交
             </v-btn>

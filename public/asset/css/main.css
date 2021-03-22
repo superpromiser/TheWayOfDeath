@@ -287,3 +287,10 @@ a {
 .z-index-2{
     z-index: 2!important;
 }
+
+/* .image {
+    width: calc(20% - 10px);
+    cursor: pointer;
+    margin: 5px;
+    display: inline-block;
+} */

@@ -7,7 +7,7 @@
                     size="50"
                     tile
                 >
-                    <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/icon/短信 拷贝.png`" alt="postItem" ></v-img>
                 </v-avatar>
                 <h2>{{lang.sms}}</h2>
             </div>
@@ -21,8 +21,9 @@
                 </v-btn>
                 <v-btn
                     dark
+                    tile
                     color="green lighten-1"
-                    class="mr-8"
+                    class="mx-2"
                     :loading="isSubmit"
                     @click="submit"
                 >
@@ -30,7 +31,8 @@
                 </v-btn>
                 <v-btn
                     dark
-                    color="lighten-1"
+                    tile
+                    color="purple accent-4"
                     class="mr-8"
                     :loading="isDraft"
                     @click="saveDraft"
@@ -39,7 +41,9 @@
                 </v-btn>
             </template>
         </v-banner>
-        <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+        <v-container class="pa-10">
+            <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+        </v-container>
         <v-snackbar
             timeout="3000"
             v-model="requiredText"
