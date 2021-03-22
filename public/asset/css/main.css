@@ -128,7 +128,6 @@ a {
     cursor: pointer;
 }
 
-<<<<<<< HEAD
 .op-score {
     width: 50px;
     height: 50px;
@@ -146,12 +145,11 @@ a {
     background-color: #2d8cf0;
     color: #fff;
 }
-=======
 .recognition-img-check-icon{
     top: 5px;
     right: 5px;
 }
-<<<<<<< HEAD
+
 
 .fixed-height-out-contact{
     height: calc(100vh - 250px);
@@ -256,6 +254,33 @@ a {
 .bg-light-yellow{
     background-color: rgb(255, 249, 220)!important;
 }
-=======
->>>>>>> 2a07b6a0adcf931f4e4f2a00680113077005bec3
->>>>>>> 737be8759b3d27655764b0b3b137ee7f15568d61
+
+.class-ribbon-img{
+    width: 100%;
+    max-width: 600px;
+}
+
+.class-img {
+    width: 100%;
+    max-width: 1000px;
+    border: 165px solid transparent;
+    border-image-source: url(../img/icon/albumFrame.png);
+    border-image-slice: 490;
+    border-image-repeat: round;
+}
+
+@media (max-width: 600px) {
+    .class-img {
+        border: 75px solid transparent;
+        border-image-source: url(../img/icon/albumFrame.png);
+        border-image-slice: 490;
+        border-image-repeat: round;
+    }
+    
+}
+
+.frame-background{
+    background-image: url(../img/icon/albumFrame.png);
+    background-size: cover;
+    background-position: center center;
+}
