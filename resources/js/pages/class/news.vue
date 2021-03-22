@@ -69,6 +69,10 @@
           <AnouncementPost :content="content"></AnouncementPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 17">
+          <NotificationPost :content="content"></NotificationPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
       </v-container>
       
     </v-row>
@@ -77,7 +81,7 @@
 </template>
 
 <script>
-import {getAllPost,} from '~/api/post';
+import {getClassPost,} from '~/api/post';
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
 import QusetionnairePost from '~/components/contents/questionnairePost'
@@ -85,6 +89,7 @@ import VotingPost from '~/components/contents/votingPost';
 import SmsPost from '~/components/contents/smsPost';
 import CampusPost from '~/components/contents/CampusPost'
 import AnouncementPost from '~/components/contents/anouncementPost'
+import NotificationPost from '~/components/contents/notificationPost'
 export default {
   components :{
     QusetionnairePost,
@@ -93,6 +98,7 @@ export default {
     FooterPost,
     CampusPost,
     AnouncementPost,
+    NotificationPost,
   },
 
   data: () => ({
@@ -107,7 +113,7 @@ export default {
 
   async created(){
     this.isLoadingContents = true;
-    await getAllPost().then(res=>{
+    await getClassPost().then(res=>{
       console.log('success',res)
       this.contentList = res.data.data;
     }).catch(err=>{

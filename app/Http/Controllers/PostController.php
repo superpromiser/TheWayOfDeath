@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     //
-    public function getAllPost(){
+    public function getSchoolPost(){
         $userId = Auth::user()->id;
         // $isLiked = Like::where('userId',$userId)->count();
-        return $posts = Post::with([
+        return $posts = Post::whereIn('contentId',[1,2,3,4,5,6,10])
+        ->with([
             'likes',
             'views',
             'comments',
@@ -27,5 +28,23 @@ class PostController extends Controller
             'users:id,name'])
         ->orderBy('created_at','desc')
         ->paginate(5);
+    }
+
+    public function getClassPost(){
+        $userId = Auth::user()->id;
+        $posts = Post::whereIn('contentId',[12,13,14,15,16,17,18,19,20,21,22])
+        ->with([
+            'likes',
+            'views',
+            'comments',
+            'questionnaires',
+            'votings',
+            'homeVisit',
+            'notifications',
+            'users:id,name'
+        ])
+        ->orderBy('created_at','desc')
+        ->paginate(5);
+        return $posts;
     }
 }

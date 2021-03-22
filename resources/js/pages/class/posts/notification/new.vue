@@ -145,7 +145,7 @@ import { mapGetters } from 'vuex'
 import QuestionItem from '~/components/questionItem'
 import lang from '~/helper/lang.json'
 
-import {createAnouncement} from '~/api/anouncement'
+import {createNotification} from '~/api/notification'
 
 export default {
     components: {
@@ -171,8 +171,8 @@ export default {
             title:'',
             signName: '',
             description:null,
-            viewList:[],
-            postShow:[],
+            // viewList:[],
+            // postShow:[],
         },
         newSignFlag:false,
         newSignName:'',
@@ -213,9 +213,21 @@ export default {
         },
 
         async publishcampusData(){
-            // this.isCreating = true;
             this.$refs.child.emitData();
+            if(this.notificationData.description == null){
+                return
+            }
+            this.isCreating = true;
             console.log("notificationData", this.notificationData);
+            await createNotification(this.notificationData).then(res=>{
+                console.log(res.data)
+                this.isCreating = false;
+                this.$router.push({name:"classSpace.news"})
+            }).catch(err=>{
+                console.log(err.response)
+                this.isCreating = false
+            })
+
             
         },
         closeChooseSignNameDialog () {

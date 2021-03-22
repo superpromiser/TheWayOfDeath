@@ -105,7 +105,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::get('classMember','MemberController@getContacts');
 
     //post
-    Route::get('allPost','PostController@getAllPost');
+    Route::get('schoolPost','PostController@getSchoolPost');
+    Route::get('classPost','PostController@getClassPost');
     Route::post('like','LikeController@addLike');
     Route::delete('like','LikeController@removeLike');
     
@@ -187,6 +188,12 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     //answerVoting
     Route::post('answerVoting','AnswerVotingController@createAnswerVoting');
     Route::get('answerVoting','AnswerVotingController@getAnswerVoting');
+
+    //class notification
+    Route::get('class/notification', 'NotificationController@getNotification');
+    Route::post('class/notification', 'NotificationController@createNotification');
+    Route::put('class/notification', 'NotificationController@updateNotification');
+    Route::delete('class/notification', 'NotificationController@deleteNotification');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

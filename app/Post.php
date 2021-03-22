@@ -52,4 +52,8 @@ class Post extends Model
     public function homeVisit(){
         return $this->hasOne(HomeVisit::class,'postId');
     }
+
+    public function notifications(){
+        return $this->hasOne(Notification::class,'postId');
+    }
 }

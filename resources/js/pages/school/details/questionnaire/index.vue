@@ -168,7 +168,7 @@
                 </v-row>
             </v-col>
         </v-row>
-        <v-row>
+        <v-row class="float-right m-3">
            <v-btn
                 dark
                 color="green lighten-1"
@@ -258,10 +258,18 @@ export default {
           console.log('answerUsers')
         },
         singleAnswer(data,index){
+          if(this.alreadyAnswer == true){
+            alert('您已经回答了该帖子');
+            return;
+          }
           console.log(data,index)
           this.answerData.singleAnswer = index
         },
         multiAnswer(data,selIndex){
+          if(this.alreadyAnswer == true){
+            alert('您已经回答了该帖子');
+            return;
+          }
           console.log(data,selIndex)
           let index = this.answerData.multiAnswer.indexOf(selIndex)
           if(index > -1){
@@ -271,6 +279,10 @@ export default {
           }
         },
         selScoring(minute){
+          if(this.alreadyAnswer == true){
+            alert('您已经回答了该帖子');
+            return;
+          }
           this.answerData.scoringAnswer = minute
         },
         async submit(){

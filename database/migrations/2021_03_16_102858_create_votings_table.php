@@ -21,6 +21,7 @@ class CreateVotingsTable extends Migration
             $table->tinyInteger('maxVote');
             $table->boolean('anonyVote');
             $table->LONGTEXT('content');
+            $table->tinyInteger('classId')->nullable();
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();

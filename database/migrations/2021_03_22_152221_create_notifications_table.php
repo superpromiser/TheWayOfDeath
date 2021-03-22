@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHomeVisitsTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateHomeVisitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('home_visits', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->LONGTEXT('userInfo');
-            $table->string('deadline');
+            $table->char('title');
+            $table->string('signName');
             $table->LONGTEXT('description');
-            $table->char('type');
-            $table->LONGTEXT('content');
             $table->unsignedBigInteger('postId');
-            $table->tinyInteger('classId')->nullable();
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
@@ -34,6 +31,6 @@ class CreateHomeVisitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('home_visits');
+        Schema::dropIfExists('notifications');
     }
 }

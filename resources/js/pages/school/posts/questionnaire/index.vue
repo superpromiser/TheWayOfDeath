@@ -444,14 +444,16 @@ export default {
         return this.$route;
       }
   },
-  // watch:{
-  //   currentPath(){
-  //     handler(val){
-
-  //     },
-  //     deep:true
-  //   }
-  // }
+  watch:{
+    currentPath:{
+      handler(val){
+          if(val.name == 'posts.questionnaire'){
+            this.postNew = true
+          }
+      },
+      deep:true
+    }
+  },
 
   created(){
     console.log("this.schoolTree",this.schoolTree)
@@ -459,11 +461,6 @@ export default {
       this.newQuestionnaireData.content = JSON.parse(this.currentPath.query.tempData)
       console.log(this.newQuestionnaireData.content[0])
     }
-    // getTemplate({contentId:1}).then(res=>{
-    //   console.log(res)
-    // }).catch(err=>{
-    //   console.log(err.response)
-    // })
   },
 
   methods:{
@@ -528,7 +525,7 @@ export default {
         console.log(res)
         this.isSuccessed = true;
         // this.newQuestionnaireData = null
-        this.$router.push({name:'schoolSpace.news'})
+        this.$router.push({name:'classSpace.news'})
       }).catch(err=>{
         console.log(err.response)
          if(err.response.status === 422){
