@@ -1,20 +1,20 @@
 <template>
     <v-col cols="12" class="pt-2">
-        <div class="d-flex align-center justify-end">
+        <div class="d-flex align-center justify-end mb-5">
             <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
                 <p class="mb-0 mr-8" v-if="footerInfo.views.length > 0">{{footerInfo.views.length}}人</p>
-            <v-btn icon color="red accent-3" >
-                <v-icon size="30" v-if="footerInfo.isLiked" @click="removeLike">mdi-heart </v-icon>
-                <v-icon size="30" v-else @click="addLike">mdi-heart-outline </v-icon>
-                {{footerInfo.likes.length > 0 ? footerInfo.likes.length : ''}}
-                
+                <p class="mb-0 mr-8" v-else>0人</p>
+            <v-btn icon color="red accent-3" :loading="isLiking">
+                <v-icon size="25" v-if="footerInfo.isLiked" @click="removeLike">mdi-heart </v-icon>
+                <v-icon size="25" v-else @click="addLike">mdi-heart-outline </v-icon>
             </v-btn>
+            <span class="mr-8">{{footerInfo.likes.length > 0 ? footerInfo.likes.length : 0}}</span>
             <v-btn icon color="success" >
-                <v-icon size="30" @click="addComment">mdi-comment-outline</v-icon>
-                {{footerInfo.comments.length > 0 ? footerInfo.comments.length : ''}}
+                <v-icon size="25" @click="addComment">mdi-comment-outline</v-icon>
             </v-btn>
+            <span>{{footerInfo.comments.length > 0 ? footerInfo.comments.length : 0}}</span>
         </div>
-        <div class="divider"></div>
+        <v-divider></v-divider>
     </v-col>
 </template>
 
@@ -33,6 +33,10 @@ export default {
             user:'auth/user'
         })
     },
+    data: ()=> ({
+        isLiking : false,
+        isDisLiking : false,
+    }),
     mounted(){
         console.log('+++++',this.footerInfo.likes)
         let index = this.footerInfo.likes.map(x=>{
@@ -43,17 +47,20 @@ export default {
         }
     },
     methods :{
-        addLike(){
-            addLike({postId:this.footerInfo.id}).then(res=>{
+        async addLike(){
+            this.isLiking = true;
+            await addLike({postId:this.footerInfo.id}).then(res=>{
                 this.footerInfo.likes.push(res)
                 this.$set(this.footerInfo,'isLiked',true)
                 console.log(this.footerInfo.likes)
             }).catch(err=>{
                 console.log(err.response)
             })
+            this.isLiking = false;
         },
-        removeLike(){
-            removeLike({postId:this.footerInfo.id}).then(res=>{
+        async removeLike(){
+            this.isLiking = true;
+            await removeLike({postId:this.footerInfo.id}).then(res=>{
                 let index = this.footerInfo.likes.map(x=>{
                     return x.userId
                 }).indexOf(this.user.id)
@@ -63,6 +70,7 @@ export default {
             }).catch(err=>{
                 console.log(err.response)
             })
+            this.isLiking = false;
         },
         
         addComment(){

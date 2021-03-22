@@ -52,10 +52,10 @@
             </div>
             <div>
               <v-btn
-                rounded
+                tile
                 color="success"
                 outlined
-                class="ma-1"
+                class="ma-1 ml-0"
                 @click="showDetail(content)"
               >
                 <v-icon left>
