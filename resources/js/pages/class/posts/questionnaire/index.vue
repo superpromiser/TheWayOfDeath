@@ -417,6 +417,7 @@ export default {
           questionnaireFlag:true,
           resultFlag:true,
           answerFlag:false,
+          classId:null,
           content:[],
       },
       postNew:true,
@@ -448,7 +449,7 @@ export default {
   watch:{
     currentPath:{
       handler(val){
-          if(val.name == 'posts.questionnaire'){
+          if(val.name == 'classposts.questionnaire'){
             this.postNew = true
           }
       },
@@ -457,11 +458,17 @@ export default {
   },
 
   created(){
-    getTemplate({contentId:1}).then(res=>{
-      console.log(res)
-    }).catch(err=>{
-      console.log(err.response)
-    })
+    // getTemplate({contentId:1}).then(res=>{
+    //   console.log(res)
+    // }).catch(err=>{
+    //   console.log(err.response)
+    // })
+    console.log(this.currentPath)
+    this.newQuestionnaireData.classId = this.currentPath.params.classId
+    if(this.currentPath.query.tempData){
+      this.newQuestionnaireData.content = JSON.parse(this.currentPath.query.tempData)
+      console.log(this.newQuestionnaireData.content[0])
+    }
   },
 
   methods:{
@@ -491,7 +498,7 @@ export default {
                 this.$router.push({name:"classQuestionnaire.scoring"});
                 break;
             case 'template':
-                this.$router.push({name:"classQuestionnaire.template"});
+                this.$router.push({name:"classQuestionnaire.templateList"});
                 break;
             default:
                 break;

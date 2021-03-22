@@ -22,6 +22,10 @@ class CreateAnswerQuestionnairesTable extends Migration
             $table->char('scoringAnswer');
             $table->unsignedBigInteger('answerId');
             $table->foreign('answerId')->references('id')->on('answers')->onDelete('cascade');
+            $table->unsignedBigInteger('postId');
+            $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
+            $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

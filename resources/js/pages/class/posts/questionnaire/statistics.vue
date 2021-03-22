@@ -90,7 +90,11 @@ export default {
       }
       
       this.$emit('contentData',this.statData);
-      this.$router.push({name:'posts.questionnaire'});
+      if(this.type == 'post'){
+          this.$router.push({name:'classposts.questionnaire'});
+      }else{
+          this.$router.push({name:'classQuestionnaire.templateNew'})
+      }
     },
     loadContentData(data){
       console.log(data)

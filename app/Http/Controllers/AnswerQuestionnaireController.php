@@ -10,8 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class AnswerQuestionnaireController extends Controller
 {
     //
-    public function getAnswerQuestionnaire(){
-
+    public function getAnswerQuestionnaire(Request $request){
+        $this->validate($request,[
+            'postId'=>'required'
+        ]);
+        return AnswerQuestionnaire::where('postId',$request->postId)->get();
     }
 
     public function createAnswerQuestionnaire(Request $request){
@@ -34,7 +37,9 @@ class AnswerQuestionnaireController extends Controller
             'questionAnswer'=>$request->questionAnswer,
             'statAnswer'=>$request->statAnswer,
             'scoringAnswer'=>$request->scoringAnswer,
-            'answerId'=>$answerId
+            'answerId'=>$answerId,
+            'postId'=>$request->postId,
+            'userId'=>$userId
         ]);
 
     }

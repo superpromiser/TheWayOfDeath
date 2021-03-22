@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-function getAllPost(){
-    return axios.get('/api/v1/allPost');
+function getSchoolPost(){
+    return axios.get('/api/v1/schoolPost');
+}
+
+function getClassPost(){
+    return axios.get('/api/v1/classPost');
 }
 
 function addLike(payload){
@@ -20,7 +24,8 @@ function addComment(payload){
 }
 
 export{
-    getAllPost,
+    getSchoolPost,
+    getClassPost,
     addLike,
     removeLike,
     addViewUsers,

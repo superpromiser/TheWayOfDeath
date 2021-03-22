@@ -34,8 +34,15 @@ class QuestionnaireController extends Controller
         $answerFlag = $request->answerFlag;
         $content = json_encode($request->content);
         $userId = Auth::user()->id;
+        if($request->classId){
+            $classId = $request->classId;
+            $contentId = 12;
+        }else{
+            $classId = NULL;
+            $contentId =1;
+        }
         $postId = Post::create([
-            'contentId'=>1,
+            'contentId'=>$contentId,
             'userId'=>$userId,    
         ])->id;
         $data = Questionnaire::create([
@@ -47,6 +54,7 @@ class QuestionnaireController extends Controller
             'resultFlag'=>$resultFlag,
             'answerFlag'=>$answerFlag,
             'content'=>$content,
+            'classId'=>$classId,
             'postId'=>$postId
         ]);
         return response()->json([

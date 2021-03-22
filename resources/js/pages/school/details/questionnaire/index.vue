@@ -168,7 +168,7 @@
                 </v-row>
             </v-col>
         </v-row>
-        <v-row>
+        <v-row class="float-right m-3">
            <v-btn
                 dark
                 color="green lighten-1"
@@ -187,7 +187,7 @@
 import {mapGetters} from 'vuex';
 import lang from '~/helper/lang.json';
 import AttachItemViewer from '~/components/attachItemViewer';
-import {answerQuestionnaire} from '~/api/postAnswer';
+import {createAnswerQuestionnaire,getAnswerQuestionnaire} from '~/api/postAnswer';
 
 export default {
     components:{
@@ -207,7 +207,9 @@ export default {
           scoringAnswer:null,
           postId:null
         },
+        answerDataList:[],
         isSubmit:false,
+        alreadyAnswer:false,
     }),
 
     computed:{
@@ -215,18 +217,30 @@ export default {
             return this.$route;
         },
         ...mapGetters({
-            contentData:'content/postDetail'
+            contentData:'content/postDetail',
+            user:'auth/user'
         })
     },
 
-    created(){
-        console.log("this.currentpath",this.currentpath)
-        console.log("this.contentData",this.contentData)
+    async created(){
+        console.log('------------',this.user)
         if(this.contentData == null){
           this.$router.push({name:'schoolSpace.news'})
         }
         this.contentData.questionnaires.content = JSON.parse(this.contentData.questionnaires.content);
         this.answerData.postId = this.contentData.id
+        await getAnswerQuestionnaire({postId:this.answerData.postId}).then(res=>{
+          console.log('getAnswerQuestionnaire',res.data)
+          this.answerDataList = res.data;
+          this.answerDataList.map(answerData=>{
+            if(answerData.userId == this.user.id){
+              this.answerData = answerData
+              this.alreadyAnswer = true
+            }
+          })
+        }).catch(err=>{
+          console.log(err.response)
+        })
     },
 
     methods:{
@@ -244,10 +258,18 @@ export default {
           console.log('answerUsers')
         },
         singleAnswer(data,index){
+          if(this.alreadyAnswer == true){
+            alert('您已经回答了该帖子');
+            return;
+          }
           console.log(data,index)
           this.answerData.singleAnswer = index
         },
         multiAnswer(data,selIndex){
+          if(this.alreadyAnswer == true){
+            alert('您已经回答了该帖子');
+            return;
+          }
           console.log(data,selIndex)
           let index = this.answerData.multiAnswer.indexOf(selIndex)
           if(index > -1){
@@ -257,16 +279,23 @@ export default {
           }
         },
         selScoring(minute){
+          if(this.alreadyAnswer == true){
+            alert('您已经回答了该帖子');
+            return;
+          }
           this.answerData.scoringAnswer = minute
         },
         async submit(){
-          console.log(this.answerData)
+          if(this.alreadyAnswer == true){
+            alert('您已经回答了该帖子');
+            return;
+          }
           if(this.answerData.singleAnswer == null || this.answerData.multiAnswer.length == 0 || this.answerData.questionAnswer == '' || this.answerData.statAnswer == '' || this.answerData.scoringAnswer == null){
             alert('请回答所有问题');
             return
           }
           this.isSubmit = true;
-          await answerQuestionnaire(this.answerData).then(res=>{
+          await createAnswerQuestionnaire(this.answerData).then(res=>{
             console.log(res)
             this.$router.push({name:'schoolSpace.news'})
             this.isSubmit = false;

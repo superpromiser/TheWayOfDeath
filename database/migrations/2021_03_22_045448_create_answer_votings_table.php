@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHomeVisitsTable extends Migration
+class CreateAnswerVotingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateHomeVisitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('home_visits', function (Blueprint $table) {
+        Schema::create('answer_votings', function (Blueprint $table) {
             $table->id();
-            $table->LONGTEXT('userInfo');
-            $table->string('deadline');
-            $table->LONGTEXT('description');
-            $table->char('type');
-            $table->LONGTEXT('content');
+            $table->String('multiAnswer');
+            $table->unsignedBigInteger('answerId');
             $table->unsignedBigInteger('postId');
-            $table->tinyInteger('classId')->nullable();
+            $table->unsignedBigInteger('userId');
+            $table->foreign('answerId')->references('id')->on('answers')->onDelete('cascade');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ class CreateHomeVisitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('home_visits');
+        Schema::dropIfExists('answer_votings');
     }
 }

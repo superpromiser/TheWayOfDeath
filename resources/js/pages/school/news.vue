@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import {getAllPost,} from '~/api/post';
+import {getSchoolPost} from '~/api/post';
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
 import QusetionnairePost from '~/components/contents/questionnairePost'
@@ -128,7 +128,7 @@ export default {
 
   async created(){
     this.isLoadingContents = true;
-    await getAllPost().then(res=>{
+    await getSchoolPost().then(res=>{
       console.log('success',res)
       this.contentList = res.data.data;
     }).catch(err=>{

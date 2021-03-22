@@ -24,8 +24,7 @@ export default {
     },
 
     mounted(){
-        // console.log(this.contentData)
-        console.log('detail index')
+        console.log(this.contentData)
     }
 }
 </script>

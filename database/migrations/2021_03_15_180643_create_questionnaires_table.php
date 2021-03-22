@@ -23,6 +23,7 @@ class CreateQuestionnairesTable extends Migration
             $table->boolean('resultFlag');
             $table->boolean('answerFlag');
             $table->LONGTEXT('content');
+            $table->tinyInteger('classId')->nullable();
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
