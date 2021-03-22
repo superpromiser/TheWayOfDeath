@@ -183,6 +183,10 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     //answerQuestionnaire
     Route::post('answerQuestionnaire','AnswerQuestionnaireController@createAnswerQuestionnaire');
     Route::get('answerQuestionnaire','AnswerQuestionnaireController@getAnswerQuestionnaire');
+    
+    //answerVoting
+    Route::post('answerVoting','AnswerVotingController@createAnswerVoting');
+    Route::get('answerVoting','AnswerVotingController@getAnswerVoting');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

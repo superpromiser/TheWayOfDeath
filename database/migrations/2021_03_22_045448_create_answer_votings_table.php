@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnswerQuestionnairesTable extends Migration
+class CreateAnswerVotingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,16 @@ class CreateAnswerQuestionnairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('answer_questionnaires', function (Blueprint $table) {
+        Schema::create('answer_votings', function (Blueprint $table) {
             $table->id();
-            $table->char('singleAnswer');
-            $table->char('multiAnswer');
-            $table->String('questionAnswer');
-            $table->char('statAnswer');
-            $table->char('scoringAnswer');
+            $table->String('multiAnswer');
             $table->unsignedBigInteger('answerId');
-            $table->foreign('answerId')->references('id')->on('answers')->onDelete('cascade');
             $table->unsignedBigInteger('postId');
-            $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->unsignedBigInteger('userId');
+            $table->foreign('answerId')->references('id')->on('answers')->onDelete('cascade');
+            $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
@@ -37,6 +34,6 @@ class CreateAnswerQuestionnairesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answer_questionnaires');
+        Schema::dropIfExists('answer_votings');
     }
 }
