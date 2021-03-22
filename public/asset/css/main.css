@@ -145,17 +145,10 @@ a {
     background-color: #2d8cf0;
     color: #fff;
 }
-<<<<<<< HEAD
 .recognition-img-check-icon {
     top: 5px;
     right: 5px;
 }
-=======
-.recognition-img-check-icon{
-    top: 5px;
-    right: 5px;
-}
-
 
 .fixed-height-out-contact{
     height: calc(100vh - 250px);
@@ -290,4 +283,3 @@ a {
     background-size: cover;
     background-position: center center;
 }
->>>>>>> a76450eba5adecb916536f6041b549eaba661b2f
