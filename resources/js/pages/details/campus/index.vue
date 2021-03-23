@@ -1,7 +1,8 @@
 <template>
   <v-container>
       <v-container>
-
+          campus
+          {{contentData}}
       </v-container>
   </v-container>
 </template>
@@ -22,7 +23,11 @@ export default {
             contentData:'content/postDetail'
         })
     },
-
+    created(){
+        if(this.contentData == null){
+            this.$router.push({name:"schoolSpace.news"})
+        }
+    },
     mounted(){
         console.log(this.contentData)
     }

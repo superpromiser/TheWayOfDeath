@@ -421,7 +421,7 @@ export default {
           answerFlag:false,
           content:[],
       },
-      postNew:true,
+      postNew:false,
       selType:'',
       dialog:false,
       date: new Date().toISOString().substr(0, 10),
@@ -449,20 +449,21 @@ export default {
   watch:{
     currentPath:{
       handler(val){
-        console.log('posts.questionnaire')
-          if(val.name == 'posts.questionnaire'){
-            this.postNew = true
-          }
+        console.log('posts.questionnaire',val)
+        if(val.name == 'posts.questionnaire'){
+          this.postNew = true
+        }
+        if(val.query.tempData){
+          this.newQuestionnaireData.content = JSON.parse(val.query.tempData)
+        }
       },
       deep:true
     }
   },
 
   created(){
-    console.log("this.schoolTree",this.schoolTree)
-    if(this.currentPath.query.tempData){
-      this.newQuestionnaireData.content = JSON.parse(this.currentPath.query.tempData)
-      console.log(this.newQuestionnaireData.content[0])
+    if(this.currentPath.name == 'posts.questionnaire'){
+      this.postNew = true
     }
   },
 

@@ -1,13 +1,15 @@
 <template>
-  <v-container>
-      <v-container>
-
-      </v-container>
-  </v-container>
+    <v-container>
+        <v-container>
+            text-sm-center
+        </v-container>
+        <transition name="fade" mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </v-container>
 </template>
 
 <script>
-import EventBus from '~/helper/event-bus';
 import {mapGetters} from 'vuex';
 export default {
     data:()=>({
