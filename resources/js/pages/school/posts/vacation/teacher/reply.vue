@@ -15,7 +15,7 @@
             <v-btn
                 dark
                 color="green lighten-1"
-                class="mr-2"
+                class="mr-md-8"
                 tile
                 @click="allowVacation"
             >

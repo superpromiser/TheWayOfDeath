@@ -322,7 +322,8 @@ export default {
       mini : 'toggledrawer/mini',
       user : 'auth/user',
       schoolData : 'schooltree/schoolData',
-      memberData : 'schooltree/memberData'
+      memberData : 'schooltree/memberData',
+      schoolTree : 'schooltree/schoolTree'
       // drawer : 'toggledrawer/drawer'
     }),
     drawer: {
@@ -341,6 +342,7 @@ export default {
   mounted() {
     console.log("this.schoolData", this.schoolData);
     console.log("this.memberData", this.memberData);
+    console.log("this.schoolTree", this.schoolTree);
     if( this.user.roleId == 3 || this.user.roleId == 4 || this.user.roleId == 5 ){
       this.schoolData.grades.map( grade => {
         if(this.memberData.gradeId == grade.id){

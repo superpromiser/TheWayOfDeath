@@ -32,7 +32,7 @@
             <v-btn
                 dark
                 color="lighten-1"
-                class="mr-8"
+                class="mr-md-8"
                 :loading="isDraft"
                 @click="saveDraft"
             >

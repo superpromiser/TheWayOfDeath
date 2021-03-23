@@ -85,13 +85,13 @@
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.nation"
-                            label="学校负责人"
+                            label="民族"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.cardNum"
-                            label="学校负责人"
+                            label="身份证号"
                             ></v-text-field>
                         </v-col>
                       </v-row>

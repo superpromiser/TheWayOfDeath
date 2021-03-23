@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-col cols="12" class="d-flex align-center" @click="showDetail(content)">
+        <v-col cols="12" class="d-flex align-center" >
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/布告栏 拷贝.png`" alt="postItem" ></v-img>
             </v-avatar>
@@ -31,12 +31,26 @@
               </v-menu>
             </div>
         </v-col>
+        <v-col cols="12" class="pl-10 pt-0">
+          <v-row>
+            <v-col cols="12">
+              <p class="text-wrap"><read-more more-str="全文" :text="bulletinBoardData.content.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+            </v-col>
+            <v-col cols="12" v-if="checkIfAttachExist(bulletinBoardData.content)" >
+              <AttachItemViewer :items="bulletinBoardData.content" />
+            </v-col>
+          </v-row>
+        </v-col>
     </v-container>
 </template>
 
 <script>
 import lang from '~/helper/lang.json'
+import AttachItemViewer from '~/components/attachItemViewer'
 export default {
+    components:{
+      AttachItemViewer,
+    },
     props:{
         content:{
             type:Object,
@@ -46,12 +60,28 @@ export default {
     data:()=>({
         lang,
         baseUrl:window.Laravel.base_url,
+        bulletinBoardData: null,
     }),
+    mounted(){
+      this.bulletinBoardData = this.content.bulletin_boards;
+      this.bulletinBoardData.content = JSON.parse(this.bulletinBoardData.content);
+      console.log("this.content", this.content);
+    },
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
         this.$router.push({name:'details.bulletinBoard'});
-      }
+      },
+      checkIfAttachExist(data){
+        let count = 0;
+        count = count + data.imgUrl.length + data.videoUrl.length + data.otherUrl.length;
+        if( count == 0 ) {
+          return false;
+        }
+        else{
+          return true;
+        }
+      },
     }
 }
 </script>

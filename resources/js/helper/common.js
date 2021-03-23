@@ -19,5 +19,12 @@ export default{
             // date = date.getTime()
             // return date
         },
+        TimeViewYMD(str){
+            let date = new Date(str);
+            let mnth = ("0" + (date.getMonth() + 1)).slice(-2);
+            let day = ("0" + date.getDate()).slice(-2);
+            let time = date.getFullYear() + '年' + mnth + '月' + day + '日' ;
+            return time
+        },
     }
 }
