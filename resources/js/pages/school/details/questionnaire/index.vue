@@ -168,15 +168,14 @@
                 </v-row>
             </v-col>
         </v-row>
-        <v-row class="float-right m-3">
+        <v-row class="d-flex justify-end px-md-13 px-5 mx-0 my-10">
            <v-btn
                 dark
-                color="green lighten-1"
-                class="mr-8"
+                color="deep-purple accent-3"
                 tile
                 :loading="isSubmit"
                 @click="submit"
-            >
+            > 
                 {{lang.submit}}
             </v-btn>
         </v-row>
