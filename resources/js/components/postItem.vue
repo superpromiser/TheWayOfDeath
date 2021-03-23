@@ -14,25 +14,14 @@
                 <v-card-subtitle v-text="item.detail"></v-card-subtitle>
 
                 <v-card-actions v-if="item.title == '请假'">
-                    <router-link v-if="user.roleId == 5" :to="{path:`/schoolspace/${currentSchoolId}/post/${item.path}/student`}">
-                        <v-btn
-                             v-if="user.roleId == 5"
-                            class="ml-2 mt-5"
-                            outlined
-                            rounded
-                            large
-                        >
-                            发布
-                        </v-btn>
-                    </router-link>
-                    <router-link v-if="user.roleId == 3 " :to="{path:`/admin/vacation/teacher`}">
+                    <router-link v-if="user.roleId == 2 " :to="{path:`/admin/schedule`}">
                         <v-btn
                             class="ml-2 mt-5"
                             outlined
                             rounded
                             large
                         >
-                            例子
+                            课程维护
                         </v-btn>
                     </router-link>
                 </v-card-actions>
@@ -62,7 +51,6 @@
                 <v-card-actions v-if="item.title == '请假'">
                     <router-link v-if="user.roleId == 5" :to="{path:`/schoolspace/${currentSchoolId}/class/${currentGradeId}/${currentClassId}/${item.path}/student`}">
                         <v-btn
-                             v-if="user.roleId == 5"
                             class="ml-2 mt-5"
                             outlined
                             rounded
@@ -71,7 +59,7 @@
                             发布
                         </v-btn>
                     </router-link>
-                    <router-link v-if="user.roleId == 3 " :to="{path:`/admin/vacation/teacher`}">
+                    <router-link v-else-if="user.roleId == 3 " :to="{path:`/admin/vacation/teacher`}">
                         <v-btn
                             class="ml-2 mt-5"
                             outlined
@@ -81,6 +69,7 @@
                             例子
                         </v-btn>
                     </router-link>
+                    
                 </v-card-actions>
                 <v-card-actions v-else>
                     <router-link :to="{path:`/schoolspace/${currentSchoolId}/class/${currentGradeId}/${currentClassId}/post/${item.path}`}">
@@ -136,7 +125,6 @@ export default {
     },
 
     data: () => ({
-
         baseUrl:window.Laravel.base_url,
     }),
 

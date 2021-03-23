@@ -26,5 +26,15 @@ export default{
             let time = date.getFullYear() + '年' + mnth + '月' + day + '日' ;
             return time
         },
+        checkIfAttachExist(data){
+            let count = 0;
+            count = count + data.imgUrl.length + data.videoUrl.length + data.otherUrl.length;
+            if( count == 0 ) {
+                return false;
+            }
+            else{
+                return true;
+            }
+        },
     }
 }

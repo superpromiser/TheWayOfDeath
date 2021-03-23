@@ -31,12 +31,40 @@
               </v-menu>
             </div>
         </v-col>
+        <v-col cols="12" class="pl-10 pt-0">
+          <div class="d-flex align-center">
+            <p class="text-wrap mb-0">
+              <strong>截止日期:</strong>
+              {{TimeView(homeVisitData.deadline)}}
+            </p>
+          </div>
+          <div class="d-flex align-center">
+            <p class="text-wrap mb-0">
+              <strong>家访内容:</strong>
+              {{homeVisitData.type}}
+            </p>
+          </div>
+        </v-col>
+        <v-col cols="12" class="pl-10 pt-0">
+          <v-row>
+            <v-col cols="12">
+              <p class="text-wrap"><read-more more-str="全文" :text="homeVisitData.content.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+            </v-col>
+            <v-col cols="12" v-if="checkIfAttachExist(homeVisitData.content)">
+              <AttachItemViewer :items="homeVisitData.content" />
+            </v-col>
+          </v-row>
+        </v-col>
     </v-container>
 </template>
 
 <script>
+import AttachItemViewer from '~/components/attachItemViewer';
 import lang from '~/helper/lang.json'
 export default {
+    components:{
+        AttachItemViewer,
+    },
     props:{
         content:{
             type:Object,
@@ -46,7 +74,14 @@ export default {
     data:()=>({
         lang,
         baseUrl:window.Laravel.base_url,
+        homeVisitData: null,
     }),
+    created(){
+      this.homeVisitData = this.content.home_visit;
+      this.homeVisitData.content = JSON.parse(this.homeVisitData.content); 
+      this.homeVisitData.description = JSON.parse(this.homeVisitData.description); 
+      console.log("www",this.homeVisitData);
+    },
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)

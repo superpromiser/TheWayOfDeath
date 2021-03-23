@@ -5,7 +5,7 @@
               <v-img :src="`${baseUrl}/asset/img/icon/布告栏 拷贝.png`" alt="postItem" ></v-img>
             </v-avatar>
             <div>
-              <p class="font-weight-black fs-15 mb-3"> {{lang.bulletin}}  </p>
+              <p class="font-weight-black fs-15 mb-3"> {{lang.bulletin}} ▪ {{bulletinBoardData.type}}  </p>
               <div class="d-flex align-center">
                 <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
                 <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
@@ -62,25 +62,14 @@ export default {
         baseUrl:window.Laravel.base_url,
         bulletinBoardData: null,
     }),
-    mounted(){
+    created(){
       this.bulletinBoardData = this.content.bulletin_boards;
       this.bulletinBoardData.content = JSON.parse(this.bulletinBoardData.content);
-      console.log("this.content", this.content);
     },
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
         this.$router.push({name:'details.bulletinBoard'});
-      },
-      checkIfAttachExist(data){
-        let count = 0;
-        count = count + data.imgUrl.length + data.videoUrl.length + data.otherUrl.length;
-        if( count == 0 ) {
-          return false;
-        }
-        else{
-          return true;
-        }
       },
     }
 }
