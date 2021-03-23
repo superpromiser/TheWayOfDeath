@@ -4,8 +4,8 @@ function getSchoolPost(page){
     return axios.get(`/api/v1/schoolPost?page=${page}`);
 }
 
-function getClassPost(classId){
-    return axios.get('/api/v1/classPost',{params:{classId:classId}});
+function getClassPost(classId, page){
+    return axios.get('/api/v1/classPost',{params:{classId:classId, page: page}});
 }
 
 function addLike(payload){
