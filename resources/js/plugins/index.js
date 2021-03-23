@@ -5,5 +5,6 @@ import './datetimepicker'
 import './readmore'
 import './imageviewer'
 import './videoview'
+import './infinite'
 
 import 'bootstrap'

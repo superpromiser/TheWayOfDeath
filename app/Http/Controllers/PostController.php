@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     //
-    public function getSchoolPost(){
+    public function getSchoolPost(Request $request){
         $userId = Auth::user()->id;
         // $isLiked = Like::where('userId',$userId)->count();
-        return $posts = Post::whereIn('contentId',[1,2,3,4,5,6,10])
+        return Post::whereIn('contentId',[1,2,3,4,5,6,10])
         ->with([
             'likes',
             'views',

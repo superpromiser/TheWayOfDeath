@@ -74,16 +74,6 @@ export default {
         this.$router.push({name:'details.sms'});
       },
       
-      checkIfAttachExist(data){
-        let count = 0;
-        count = count + data.imgUrl.length + data.videoUrl.length + data.otherUrl.length;
-        if( count == 0 ) {
-          return false;
-        }
-        else{
-          return true;
-        }
-      },
     }
 
 }

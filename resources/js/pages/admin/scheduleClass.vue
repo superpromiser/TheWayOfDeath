@@ -245,6 +245,7 @@
                                 item-text="label"
                                 v-model="item[header.value]"
                                 hide-details
+                                :disabled="!isEditable"
                             >
 
                             </v-select>
