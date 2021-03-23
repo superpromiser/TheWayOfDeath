@@ -480,3 +480,7 @@ a {
   .vjs-custom-skin > .video-js .vjs-control-bar .vjs-fullscreen-control {
     order: 6;
   }
+
+  .w-100{
+      width: 100%;
+  }

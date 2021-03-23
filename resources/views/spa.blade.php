@@ -16,6 +16,7 @@ $config = [
   <title>{{ config('app.name') }}</title>
   <link rel="stylesheet" href="{{ mix('dist/css/all.css')}}">
   <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
+  <script src="{{ asset('asset/js/jquery-3.5.1.min.js') }}"></script>
   <script>
     (function(){
       window.Laravel = {

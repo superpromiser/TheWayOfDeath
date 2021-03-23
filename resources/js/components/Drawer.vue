@@ -339,7 +339,7 @@ export default {
     // ...mapActions(['toggledrawer/turnDrawer'])
   },
   
-  mounted() {
+  created() {
     console.log("this.schoolData", this.schoolData);
     console.log("this.memberData", this.memberData);
     console.log("this.schoolTree", this.schoolTree);
