@@ -157,7 +157,10 @@ export default {
     computed: {
         ...mapGetters({
             schoolTree : 'schooltree/schoolTree',
-        })
+        }),
+        currentPath(){
+            return this.$route;
+        }
     },
 
     methods: {
@@ -180,6 +183,7 @@ export default {
             let answerData = {
                 userList:[],
                 selMedalList:[],
+                classId:null
                 // viewList:[],
                 // postShow:[],
             }
@@ -188,12 +192,13 @@ export default {
             }
             answerData.userList = this.contactInfo;
             answerData.selMedalList = this.selMedalList;
+            answerData.classId = this.currentPath.params.id;
             this.isCreating = true;
             console.log(answerData);
             await createEvaluation(answerData).then(res=>{
                 console.log(res.data)
                 this.isCreating = false
-                this.$router.push({name:'classSpace.post'})
+                this.$router.push({name:'classSpace.news'})
             }).catch(err=>{
                 console.log(err.response)
                 this.isCreating = false

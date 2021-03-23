@@ -56,4 +56,8 @@ class Post extends Model
     public function notifications(){
         return $this->hasOne(Notification::class,'postId');
     }
+
+    public function evaluations(){
+        return $this->hasOne(Evaluation::class, 'postId');
+    }
 }

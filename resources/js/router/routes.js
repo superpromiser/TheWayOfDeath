@@ -187,8 +187,10 @@ export default [
   {path:'/schoolspace/:id/postDetail/10', name:'details.homeVisit', component:page('school/details/homeVisit/index.vue')},
 
   //classPostDetail
-  {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/1', name:'details.classQuesionnaire', component:page('school/details/questionnaire/index.vue')},
-  {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/2', name:'details.classVoting', component:page('school/details/voting/index.vue')},
+  {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/12', name:'details.classQuesionnaire', component:page('school/details/questionnaire/index.vue')},
+  {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/13', name:'details.classVoting', component:page('school/details/voting/index.vue')},
+  {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/18', name:'details.classEvaluation', component:page('school/details/evaluation/index.vue')},
+
   //addComment
   {path:'/schoolspace/:id/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
    

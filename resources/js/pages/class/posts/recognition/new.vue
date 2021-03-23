@@ -17,6 +17,8 @@
                 color="green lighten-1"
                 class="mr-8"
                 tile
+                :loading="isCreating"
+                @click="submit"
             >
                 提交
             </v-btn>
@@ -142,14 +144,24 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-snackbar
+            timeout="3000"
+            v-model="isRequired"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
     </v-container>
 </template>
 
 <script>
 
-import { mapGetters } from 'vuex'
-import lang from '~/helper/lang.json'
-import QuestionItem from '~/components/questionItem'
+import { mapGetters } from 'vuex';
+import lang from '~/helper/lang.json';
+import QuestionItem from '~/components/questionItem';
+import {createRecognition} from '~/api/recognition';
 export default {
     data: () => ({
         lang,
@@ -162,14 +174,13 @@ export default {
             awardTitle:'',
             publishDate:'',
             description:'',
-            imgStyle:{
-                recImg:'',
-                imgUrl:''
-            },
-            className:'',
-            viewList:[],
-            postShow:[],
+            imgUrl:'',
+            classId:null,
+            // viewList:[],
+            // postShow:[],
         },
+        isRequired:false,
+        isCreating:false,
         typeItem : [
             { 
                 label : "投票后可见", 
@@ -238,11 +249,15 @@ export default {
     computed: {
         ...mapGetters({
             schoolTree : 'schooltree/schoolTree',
-        })
+        }),
+        currentPath(){
+            return this.$route;
+        }
     },
 
-    mounted(){
+    created(){
         console.log(this.recognitionData.content)
+        this.recognitionData.classId = this.currentPath.params.classId
     },
 
     methods:{
@@ -258,7 +273,26 @@ export default {
                 item.selected = false;
             })
             this.imgUrlItem[index].selected = true;
-            this.recognitionData.imgStyle.imgUrl = this.imgUrlItem[index].path;
+            this.recognitionData.imgUrl = this.imgUrlItem[index].path;
+        },
+        async submit(){
+            console.log(this.recognitionData)
+            if(this.recognitionData.type == '' || this.recognitionData.students.length == 0 || this.recognitionData.awardTitle == '' || this.recognitionData.publishDate == '' || this.recognitionData.description == '' || this.recognitionData.imgUrl == ''){
+                // alert('x')
+                console.log('isRequred')
+                this.isRequired = true
+                return
+            }
+            this.isCreating = true
+            await createRecognition(this.recognitionData).then(res=>{
+                console.log(res)
+                this.isCreating = false
+                this.$router.push({name:'classSpace.new'})
+            }).catch(err=>{
+                this.isCreating = false
+                console.log(err.response)
+            })
+
         }
     }
 }

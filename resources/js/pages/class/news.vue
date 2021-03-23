@@ -57,20 +57,24 @@
           <VotingPost :content='content'></VotingPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 3">
-          <SmsPost :content='content'></SmsPost>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 14">
+          <!-- <SmsPost :content='content'></SmsPost> -->
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 4">
-          <CampusPost :content='content'></CampusPost>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 15">
+          <!-- <CampusPost :content='content'></CampusPost> -->
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 5">
-          <AnouncementPost :content="content"></AnouncementPost>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 16">
+          <HomeVisitPost :content="content"></HomeVisitPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 17">
           <NotificationPost :content="content"></NotificationPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 18">
+          <EvaluationPost :content="content"></EvaluationPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
       </v-container>
@@ -86,19 +90,17 @@ import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
 import QusetionnairePost from '~/components/contents/questionnairePost'
 import VotingPost from '~/components/contents/votingPost';
-import SmsPost from '~/components/contents/smsPost';
-import CampusPost from '~/components/contents/CampusPost'
-import AnouncementPost from '~/components/contents/anouncementPost'
 import NotificationPost from '~/components/contents/notificationPost'
+import HomeVisitPost from '~/components/contents/homeVisitPost'
+import EvaluationPost from '~/components/contents/evaluationPost'
 export default {
   components :{
     QusetionnairePost,
     VotingPost,
-    SmsPost,
     FooterPost,
-    CampusPost,
-    AnouncementPost,
     NotificationPost,
+    HomeVisitPost,
+    EvaluationPost,
   },
 
   data: () => ({

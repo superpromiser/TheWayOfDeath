@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Evaluation extends Model
+class Recognition extends Model
 {
     //
-    protected $guarded = [];
 }

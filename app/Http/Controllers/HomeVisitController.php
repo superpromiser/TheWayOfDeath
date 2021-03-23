@@ -23,9 +23,14 @@ class HomeVisitController extends Controller
             'content'=>'required'
         ]);
         $classId = $request->classId;
+        if($classId){
+            $contentId = 16;
+        }else{
+            $contentId = 10;
+        }
         $userId = Auth::user()->id;
         $postId = Post::create([
-            'contentId'=>10,
+            'contentId'=>$contentId,
             'userId'=>$userId,
             'classId'=>$classId
         ])->id;

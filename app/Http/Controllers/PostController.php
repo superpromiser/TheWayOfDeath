@@ -50,6 +50,7 @@ class PostController extends Controller
             },
             'homeVisit',
             'notifications',
+            'evaluations',
             'users:id,name'
         ])
         ->orderBy('created_at','desc')

@@ -27,7 +27,8 @@ class NotificationController extends Controller
         $description = $request->description;
         $postId = Post::create([
             'contentId'=>17,
-            'userId'=>$userId
+            'userId'=>$userId,
+            'classId'=>$request->classId
         ])->id;
         return Notification::create([
             'title'=>$title,

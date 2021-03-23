@@ -455,13 +455,6 @@ export default {
       },
       deep:true
     },
-    $route(to, from) {
-      // react to route changes...
-      console.log(from)
-      this.$router.go()
-      console.log('routerChanged')
-      console.log(to)
-    }
   },
 
   created(){
