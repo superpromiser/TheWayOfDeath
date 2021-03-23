@@ -449,6 +449,7 @@ export default {
   watch:{
     currentPath:{
       handler(val){
+        console.log('posts.questionnaire')
           if(val.name == 'posts.questionnaire'){
             this.postNew = true
           }

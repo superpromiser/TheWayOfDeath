@@ -202,62 +202,13 @@
             </v-list-group>
           </v-list>
       </v-list-group>
-      
-      <v-list-group
-        :value="true"
-        prepend-icon="mdi-school"
-        v-if="user.roleId !== 1"
-      >
-        <template v-slot:activator>
-          <v-list-item-title>{{schoolData.schoolName}}</v-list-item-title>
-        </template>
-          <v-list-item
-            link
-            :to="`/schoolspace/${user.schoolId}`"
-            >
-            <v-list-item-title>学校空间</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-cast-education</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            v-if="user.roleId == 3 || user.roleId == 4 || user.roleId == 5"
-            link
-            :to="`/schoolspace/${user.schoolId}/class/${classData.gradeId}/${classData.id}`"
-            >
-            <v-list-item-title class="ml-5">{{classData.lessonName}}</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-google-classroom</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list v-else class="py-0">
-            <v-list-group
-              :value="true"
-              v-for="(grade, indexOfGrade) in schoolData.grades" :key="indexOfGrade"
-            >
-              <template v-slot:activator>
-                <v-list-item-title class="ml-5">{{grade.gradeName}}</v-list-item-title>
-              </template>
-              <v-list-item
-                v-for="(lesson, index) in grade.lessons" :key="index"
-                link
-                :to="`/schoolspace/${user.schoolId}/class/${grade.id}/${lesson.id}`"
-                >
-                <v-list-item-title class="ml-10">{{lesson.lessonName}}</v-list-item-title>
-                <v-list-item-icon>
-                  <v-icon>mdi-google-classroom</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-            </v-list-group>
-          </v-list>
-      </v-list-group>
-      <v-list-group v-else :value="true" prepend-icon="mdi-school" v-for="(school, indexOfSchool) in schoolData" :key="indexOfSchool">
+      <v-list-group :value="true" prepend-icon="mdi-school" v-for="(school, indexOfSchool) in mySchoolList" :key="indexOfSchool">
         <template v-slot:activator>
           <v-list-item-title>{{school.schoolName}}</v-list-item-title>
         </template>
         <v-list-item
           link
-          :to="`/schoolspace/${school.id}`"
+          :to="{name:'schoolSpace',params:{schoolId:school.id}}"
           >
           <v-list-item-title>学校空间</v-list-item-title>
           <v-list-item-icon>
@@ -275,7 +226,7 @@
               <v-list-item
                 v-for="(lesson, index) in grade.lessons" :key="index"
                 link
-                :to="`/schoolspace/${school.id}/class/${grade.id}/${lesson.id}`"
+                :to="{path:'/classSpace',params:{schoolId:school.id,gradeId:grade.id,lessonId:lesson.id}}"
                 >
                 <v-list-item-title class="ml-10">{{lesson.lessonName}}</v-list-item-title>
                 <v-list-item-icon>
@@ -315,6 +266,7 @@ export default {
     lang,
     classData : null,
     classItemList : [],
+    mySchoolList:[],
   }),
 
   computed: {
@@ -335,36 +287,28 @@ export default {
           drawer: value,
         })
       }
+    },
+    currentPath(){
+      return this.$route
     }
     // ...mapActions(['toggledrawer/turnDrawer'])
   },
   
   created() {
+    console.log("this.currentPath",this.currentPath)
     console.log("this.schoolData", this.schoolData);
     console.log("this.memberData", this.memberData);
-    console.log("this.schoolTree", this.schoolTree);
-    if( this.user.roleId == 3 || this.user.roleId == 4 || this.user.roleId == 5 ){
-      this.schoolData.grades.map( grade => {
-        if(this.memberData.gradeId == grade.id){
-          grade.lessons.map( lesson => {
-            if(this.memberData.lessonId == lesson.id){
-              this.classData = lesson;
-              console.log(this.classData);
-            }
-          })
+    console.log("this.user", this.user);
+    if(this.user.roleId !== 1){
+      this.schoolData.map(schoolItem=>{
+        if(this.user.schoolId == schoolItem.id){
+          this.mySchoolList.push(schoolItem)
         }
       })
+    }else{
+      this.mySchoolList = this.schoolData
     }
-    else{
-      this.schoolData.grades.map( grade => {
-        grade.lessons.map( lesson=> {
-          this.classItemList.push(lesson);
-        })
-      })
-    }
-    console.log("this.classItemList",this.classItemList);
   },
-
 
   methods:{
     changedStatusToggle(val){

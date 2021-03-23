@@ -21,6 +21,8 @@ class UserController extends Controller
         $staffData['password'] = bcrypt($request->password);
         $staffData['avatar'] = $request->avatar;
         $staffData['schoolId'] = $schoolId;
+        $staffData['gradeId'] = $request->gradeId;
+        $staffData['lessonId'] = $request->lessonId;
         $staffData['gender'] = $request->gender;
         $staffData['nation'] = $request->nation;
         $staffData['cardNum'] = $request->cardNum;
@@ -51,10 +53,13 @@ class UserController extends Controller
             'gender'=>$request->gender,
             'cardNum'=>$request->cardNum,
             'nation'=>$request->nation,
+            'gradeId' => $request->gradeId,
+            'lessonId' => $request->lessonId,
             'roleId'=>$request->roleId,
             'familyAddress'=>json_encode($request->familyAddress),
             'residenceAddress'=>json_encode($request->residenceAddress),
         ]);
+        // Member
         return response()->json([
             'msg' => 1
         ], 200);

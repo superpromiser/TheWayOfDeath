@@ -14,7 +14,9 @@ class AddFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('schoolId')->nullable();
+            $table->unsignedBigInteger('schoolId')->default(0);
+            $table->unsignedBigInteger('gradeId')->default(0);
+            $table->unsignedBigInteger('lessonId')->default(0);
             $table->string('gender')->nullable();
             $table->string('nation')->nullable();
             $table->unsignedBigInteger('cardNum')->nullable()->unique();

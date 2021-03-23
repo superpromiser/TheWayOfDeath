@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row v-for="(itemGroup, i) in contentItemList" :key="i">
+        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" v-if="isPostItem == true">
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"
@@ -14,12 +14,12 @@
                 </v-chip>
             </v-col>
             <v-col v-for="(item, j) in itemGroup.items" :key="j" cols="12" sm="6" md="4" lg="3">
-                <PostItem :item="item" :currentSchoolId="currentSchoolId"/>
+                <PostItem :item="item" @selected="selectedPost"/>
             </v-col>
         </v-row>
-        <!-- <transition name="fade" mode="out-in">
+        <transition name="fade" mode="out-in">
             <router-view></router-view>
-        </transition> -->
+        </transition>
     </v-container>
 </template>
 
@@ -39,11 +39,25 @@ export default {
             return this.$route
         },
     },
+    watch:{
+        currentPath:{
+            handler(val){
+                console.log('&&&&&&&&&',val)
+                if(val.name == 'schoolSpace.post'){
+                    this.isPostItem = true
+                }
+            },
+            deep:true
+        }
+    },
     created(){
-        this.currentSchoolId = parseInt(this.currentPath.params.id)
+        if(this.currentPath.name == 'schoolSpace.post'){
+            this.isPostItem = true
+        }
     },
     data: () => ({
         currentSchoolId : -1,
+        isPostItem:false,
         contentItemList : [
             {
                 title : "基础沟通",
@@ -52,37 +66,32 @@ export default {
                     {
                         color : "lime darken-4",
                         title : "问卷",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/问卷 拷贝.png",
-                        path : "questionnaire"
+                        path : "posts.questionnaire"
                     },
                     {
                         color : "lime darken-4",
                         title : "投票",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/投票.png",
-                        path : "voting"
+                        path : "posts.voting"
                     },
                     {
                         color : "lime darken-4",
                         title : "短信",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/短信 拷贝.png",
-                        path : "sms"
+                        path : "posts.sms"
                     },
                     {
                         color : "indigo accent-2",
                         title : "校园动态",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/动态 拷贝.png",
-                        path : "campus"
+                        path : "posts.campus"
                     },
                     {
                         color : "lime darken-4",
                         title : "公告",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/公告 拷贝.png",
-                        path : "announcement"
+                        path : "posts.announcement"
                     },
                 ],
             },
@@ -93,14 +102,12 @@ export default {
                     {
                         color : "indigo accent-2",
                         title : "布告栏",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/布告栏 拷贝.png",
-                        path : "bulletinboard"
+                        path : "posts.bulletinboard"
                     },
                     {
                         color : "red accent-3",
                         title : "考勤",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/考勤.png",
                         path : "something"
                     },
@@ -113,23 +120,20 @@ export default {
                     {
                         color : "teal darken-4",
                         title : "作业",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/作业 拷贝.png",
                         path : "something"
                     },
                     {
                         color : "lime darken-4",
                         title : "习题",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/习题.png",
                         path : "something"
                     },
                     {
                         color : "teal darken-4",
                         title : "家访",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/家访 拷贝.png",
-                        path : "homevisit"
+                        path : "posts.homevisit"
                     },
                 ],
             },
@@ -140,14 +144,12 @@ export default {
                     {
                         color : "teal darken-4",
                         title : "请假",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/请假.png",
                         path : "vacation"
                     },
                     {
                         color : "teal darken-4",
                         title : "考勤",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/组 25.png",
                         path : "something"
                     },
@@ -155,6 +157,13 @@ export default {
             },
         ]
     }),
+
+    methods:{
+        selectedPost(val){
+            console.log('-----post index',val)
+            this.isPostItem = val
+        }
+    }
 }
 </script>
 
