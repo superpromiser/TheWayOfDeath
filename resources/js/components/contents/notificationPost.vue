@@ -31,7 +31,7 @@
               </v-menu>
             </div>
         </v-col>
-    </v-container>
+      </v-container>
 </template>
 
 <script>
@@ -47,6 +47,10 @@ export default {
         lang,
         baseUrl:window.Laravel.base_url,
     }),
+
+    mounted(){
+      // console.log("this.content", this.content);
+    },
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)

@@ -9,7 +9,7 @@
                 >
                     <v-img :src="`${baseUrl}/asset/img/icon/家访 拷贝.png`" alt="postItem" ></v-img>
                 </v-avatar>
-                <h2>{{lang.homeVist}}</h2>
+                <h2>{{lang.homeVisit}}</h2>
             </div>
             <template v-slot:actions>
             <v-btn

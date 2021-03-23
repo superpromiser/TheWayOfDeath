@@ -23,6 +23,7 @@
                 color="green lighten-1"
                 @click="publishVotingData"
                 :loading="isCreating"
+                class="mr-md-8"
             >
                 提交
             </v-btn>

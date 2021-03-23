@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-col cols="12" class="d-flex align-center" @click="showDetail(content)">
+        <v-col cols="12" class="d-flex align-center">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" ></v-img>
             </v-avatar>
@@ -29,6 +29,40 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
+            </div>
+        </v-col>
+        <v-col cols="12" class="pl-10 pt-0">
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>标题:</strong>
+                {{content.anouncements.title}}
+              </p>
+            </div>
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>落款:</strong>
+                {{content.anouncements.signName}}
+              </p>
+            </div>
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>日期:</strong>
+                {{TimeViewYMD(content.anouncements.created_at)}}
+              </p>
+            </div>
+            <div>
+              <v-btn
+                tile
+                color="success"
+                outlined
+                class="ma-1 ml-0"
+                @click="showDetail(content)"
+              >
+                <v-icon left>
+                  mdi-eye
+                </v-icon>
+                {{lang.viewDetail}}
+              </v-btn>
             </div>
         </v-col>
     </v-container>

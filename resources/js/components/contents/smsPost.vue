@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-col cols="12" class="d-flex align-center" @click="showDetail(content)">
+    <v-col cols="12" class="d-flex align-center">
       <v-avatar class="ma-3 school-card-avatar" tile >
         <v-img :src="`${baseUrl}/asset/img/icon/短信 拷贝.png`" alt="postItem" ></v-img>
       </v-avatar>
@@ -34,9 +34,9 @@
     <v-col cols="12" class="pl-10 pt-0">
       <v-row>
         <v-col cols="12">
-          <p><read-more more-str="全文" :text="smsData[0].text" link="#" less-str="收起" :max-chars="150"></read-more></p>
+          <p class="text-wrap"><read-more more-str="全文" :text="smsData[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
         </v-col>
-        <v-col cols="12">
+        <v-col cols="12" v-if="checkIfAttachExist(smsData[0])">
           <AttachItemViewer :items="smsData[0]" />
         </v-col>
       </v-row>
@@ -72,7 +72,18 @@ export default {
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
         this.$router.push({name:'details.sms'});
-      }
+      },
+      
+      checkIfAttachExist(data){
+        let count = 0;
+        count = count + data.imgUrl.length + data.videoUrl.length + data.otherUrl.length;
+        if( count == 0 ) {
+          return false;
+        }
+        else{
+          return true;
+        }
+      },
     }
 
 }

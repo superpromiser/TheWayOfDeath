@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-col cols="12" class="d-flex align-center" @click="showDetail(content)">
+        <v-col cols="12" class="d-flex align-center">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/动态 拷贝.png`" alt="postItem" ></v-img>
             </v-avatar>
@@ -31,7 +31,18 @@
               </v-menu>
             </div>
         </v-col>
-    </v-container>
+        <v-col cols="12">
+           <v-card
+              tile
+              class="mx-auto"
+              max-width="800"
+              @click="showDetail(content)"
+            >
+              <v-img height="450" :src="`${baseUrl}${content.campus.imgUrl}`" ></v-img>
+              <v-card-title>{{content.campus.title}}</v-card-title>
+            </v-card>
+        </v-col>
+      </v-container>
 </template>
 
 <script>
@@ -47,6 +58,8 @@ export default {
         lang,
         baseUrl:window.Laravel.base_url,
     }),
+    mounted(){
+    },
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
