@@ -59,7 +59,10 @@ class UserController extends Controller
             'familyAddress'=>json_encode($request->familyAddress),
             'residenceAddress'=>json_encode($request->residenceAddress),
         ]);
-        // Member
+        Member::where('userId',$request->id)->update([
+            'gradeId' => $request->gradeId,
+            'lessonId' => $request->lessonId,
+        ]);
         return response()->json([
             'msg' => 1
         ], 200);
@@ -72,6 +75,8 @@ class UserController extends Controller
         $studentData['password'] = bcrypt($request->password);
         $studentData['avatar'] = $request->avatar;
         $studentData['schoolId'] = $schoolId;
+        $studentData['gradeId'] = $request->gradeId;
+        $studentData['lessonId'] = $request->lessonId;
         $studentData['gender'] = $request->gender;
         $studentData['cardNum'] = $request->cardNum;
         $studentData['imei'] = $request->imei;
@@ -106,12 +111,18 @@ class UserController extends Controller
             'gender'=>$request->gender,
             'cardNum'=>$request->cardNum,
             'imei'=>$request->imei,
+            'gradeId'=>$request->gradeId,
+            'lessonId'=>$request->lessonId,
             'fatherName'=>$request->fatherName,
             'fatherPhone'=>$request->fatherPhone,
             'fatherJob'=>$request->fatherJob,
             'introduce'=>$request->introduce,
             'birthday'=>new DateTime($request->birthday),
             'familyAddress'=>json_encode($request->familyAddress),
+        ]);
+        Member::where('userId',$request->id)->update([
+            'gradeId' => $request->gradeId,
+            'lessonId' => $request->lessonId,
         ]);
         return response()->json([
             'msg' => 1
