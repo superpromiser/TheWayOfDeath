@@ -454,6 +454,13 @@ export default {
           }
       },
       deep:true
+    },
+    $route(to, from) {
+      // react to route changes...
+      console.log(from)
+      this.$router.go()
+      console.log('routerChanged')
+      console.log(to)
     }
   },
 
@@ -533,7 +540,7 @@ export default {
         console.log(res)
         this.isSuccessed = true;
         // this.newQuestionnaireData = null
-        this.$router.push({name:'schoolSpace.news'})
+        this.$router.push({name:'classSpace.news'})
       }).catch(err=>{
         console.log(err.response)
          if(err.response.status === 422){

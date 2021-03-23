@@ -31,9 +31,16 @@ class VotingController extends Controller
         $anonyVote = $request->anonyVote;
         $content = json_encode($request->content);
         $userId = Auth::user()->id;
+        $classId = $request->classId;
+        if($classId){
+            $contentId = 13;
+        }else{
+            $contentId = 2;
+        }
         $postId = Post::create([
-            'contentId'=>2,
-            'userId'=>$userId
+            'contentId'=>$contentId,
+            'userId'=>$userId,
+            'classId'=>$classId,
         ])->id;
         $data = Voting::create([
             'votingType'=>$votingType,
@@ -42,6 +49,7 @@ class VotingController extends Controller
             'maxVote'=>$maxVote,
             'anonyVote'=>$anonyVote,
             'content'=>$content,
+            'classId'=>$classId,
             'postId'=>$postId
         ]);
         return response()->json([

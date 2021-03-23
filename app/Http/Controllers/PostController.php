@@ -30,15 +30,24 @@ class PostController extends Controller
         ->paginate(5);
     }
 
-    public function getClassPost(){
+    public function getClassPost(Request $request){
+        $this->validate($request,[
+            'classId'=>'required'
+        ]);
         $userId = Auth::user()->id;
+        $classId = $request->classId;
         $posts = Post::whereIn('contentId',[12,13,14,15,16,17,18,19,20,21,22])
+        ->where('classId',$classId)
         ->with([
             'likes',
             'views',
             'comments',
-            'questionnaires',
-            'votings',
+            'questionnaires' => function($q) use($classId){
+                $q->where('classId','=', $classId);
+            },
+            'votings' => function($q) use($classId){
+                $q->where('classId','=', $classId);
+            },
             'homeVisit',
             'notifications',
             'users:id,name'

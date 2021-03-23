@@ -49,11 +49,11 @@
         {{lang.noData}}
       </v-col>
       <v-container class="pa-0" v-for="content in contentList" :key="content.id" v-else>
-        <v-row class="pa-0 mt-1" v-if="content.contentId == 1">
+        <v-row class="pa-0 mt-1" v-if="content.contentId == 12">
           <QusetionnairePost :content="content"></QusetionnairePost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 2">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 13">
           <VotingPost :content='content'></VotingPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
@@ -110,10 +110,26 @@ export default {
     contentList: [],
     lang,
   }),
+  
+  computed:{
+    currentPath(){
+      return this.$route;
+    }
+  },
+
+  watch:{
+    $route(to, from) {
+      // react to route changes...
+      console.log(from)
+      this.$router.go()
+      console.log('routerChanged')
+      console.log(to)
+    }
+  },
 
   async created(){
     this.isLoadingContents = true;
-    await getClassPost().then(res=>{
+    await getClassPost(this.currentPath.params.classId).then(res=>{
       console.log('success',res)
       this.contentList = res.data.data;
     }).catch(err=>{

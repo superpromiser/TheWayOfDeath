@@ -194,6 +194,12 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('class/notification', 'NotificationController@createNotification');
     Route::put('class/notification', 'NotificationController@updateNotification');
     Route::delete('class/notification', 'NotificationController@deleteNotification');
+
+    //class evaluation
+    Route::get('/class/evaluation', 'EvaluationController@getEvaluation');
+    Route::post('/class/evaluation', 'EvaluationController@createEvaluation');
+    Route::put('/class/evaluation', 'EvaluationController@updateEvaluation');
+    Route::delete('/class/evaluation', 'EvaluationController@deleteEvaluation');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

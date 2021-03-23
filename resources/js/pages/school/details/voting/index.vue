@@ -163,10 +163,18 @@ export default {
                 alert('请回答所有问题');
                 return
             }
+            if(this.alreadyAnswer == true){
+                alert('您已经回答了该帖子');
+                return;
+            }
             this.isSubmit = true
             await createAnswerVoting(this.answerData).then(res=>{
                 this.isSubmit = false
-                this.$router.push({name:'schoolSpace.news'})
+                if(this.currentpath.params.classId){
+                    this.$router.push({name:'classSpace.news'})
+                }else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
             }).catch(err=>{
                 this.isSubmit = false
                 console.log(err.response)

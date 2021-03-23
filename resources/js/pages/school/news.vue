@@ -126,6 +126,16 @@ export default {
     lang,
   }),
 
+  watch:{
+    $route(to, from) {
+      // react to route changes...
+      console.log(from)
+      this.$router.go()
+      console.log('routerChanged')
+      console.log(to)
+    }
+  },
+
   async created(){
     this.isLoadingContents = true;
     await getSchoolPost().then(res=>{

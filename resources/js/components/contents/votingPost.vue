@@ -82,10 +82,20 @@ export default {
         baseUrl:window.Laravel.base_url,
     }),
 
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
+
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.voting'});
+        if(this.currentPath.params.classId){
+          this.$router.push({name:'details.classVoting'});
+        }else{
+          this.$router.push({name:'details.voting'});
+        }
       },
     }
 }

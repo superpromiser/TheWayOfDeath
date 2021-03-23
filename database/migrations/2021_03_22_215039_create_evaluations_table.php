@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNotificationsTable extends Migration
+class CreateEvaluationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
-            $table->char('title');
-            $table->string('signName');
-            $table->LONGTEXT('description');
+            $table->LongText('userList');
+            $table->LongText('selMedalList');
             $table->unsignedBigInteger('classId');
             $table->unsignedBigInteger('postId');
             $table->foreign('classId')->references('id')->on('lessons')->onDelete('cascade');
@@ -33,6 +32,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('evaluations');
     }
 }

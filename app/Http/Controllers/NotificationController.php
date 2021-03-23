@@ -18,7 +18,8 @@ class NotificationController extends Controller
         $this->validate($request,[
             'title'=>'required',
             'signName'=>'required',
-            'description'=>'required'
+            'description'=>'required',
+            'classId'=>'required'
         ]);
         $userId = Auth::user()->id;
         $title = $request->title;
@@ -32,6 +33,7 @@ class NotificationController extends Controller
             'title'=>$title,
             'signName'=>$signName,
             'description'=>json_encode($description),
+            'classId'=>$request->classId,
             'postId'=>$postId
         ]);
     }

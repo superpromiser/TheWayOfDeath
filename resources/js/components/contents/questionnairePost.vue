@@ -82,11 +82,21 @@ export default {
         lang,
         baseUrl:window.Laravel.base_url,
     }),
+    
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
 
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.quesionnaire'});
+        if(this.currentPath.params.classId){
+          this.$router.push({name:'details.classQuesionnaire'})
+        }else{
+          this.$router.push({name:'details.quesionnaire'});
+        }
         // this.$router.push({path:'/schoolspace',params:{id:'1',viewType:'postDetail',postType:'1'}})
       },
     }

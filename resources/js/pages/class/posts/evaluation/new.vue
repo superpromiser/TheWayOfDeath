@@ -9,7 +9,7 @@
                 >
                     <v-img :src="`${baseUrl}/asset/img/icon/评价.png`" alt="postItem" ></v-img>
                 </v-avatar>
-                <h2>评价</h2>
+                <h2>{{lang.evaluation}}</h2>
             </div>
             <template v-slot:actions>
                 <v-btn
@@ -20,7 +20,7 @@
                     tile
                     class="mr-6"
                 >
-                    提交
+                    {{lang.submit}}
                 </v-btn>
             </template>
         </v-banner>
@@ -126,7 +126,7 @@
 import { mapGetters } from 'vuex';
 import lang from '~/helper/lang.json';
 import QuestionItem from '~/components/questionItem';
-import {createVoting} from '~/api/voting';
+import {createEvaluation} from '~/api/evaluation';
 import medalData from '~/helper/medal.json';
 
 export default {
@@ -180,12 +180,25 @@ export default {
             let answerData = {
                 userList:[],
                 selMedalList:[],
-                viewList:[],
-                postShow:[],
+                // viewList:[],
+                // postShow:[],
+            }
+            if(this.contactInfo.length == 0 || this.selMedalList.length == 0){
+                return;
             }
             answerData.userList = this.contactInfo;
             answerData.selMedalList = this.selMedalList;
+            this.isCreating = true;
             console.log(answerData);
+            await createEvaluation(answerData).then(res=>{
+                console.log(res.data)
+                this.isCreating = false
+                this.$router.push({name:'classSpace.post'})
+            }).catch(err=>{
+                console.log(err.response)
+                this.isCreating = false
+            })
+            
             // this.isCreating = true
             
         },
