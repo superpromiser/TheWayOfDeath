@@ -124,7 +124,7 @@ import lang from '~/helper/lang.json'
 import QusetionnairePost from '~/components/contents/questionnairePost'
 import VotingPost from '~/components/contents/votingPost';
 import SmsPost from '~/components/contents/smsPost';
-import CampusPost from '~/components/contents/CampusPost'
+import CampusPost from '~/components/contents/campusPost'
 import AnouncementPost from '~/components/contents/anouncementPost'
 import BulletinBoardPost from '~/components/contents/bulletinBoardPost'
 import HomeVisitPost from '~/components/contents/homeVisitPost'
