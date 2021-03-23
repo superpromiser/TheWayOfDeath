@@ -60,4 +60,8 @@ class Post extends Model
     public function evaluations(){
         return $this->hasOne(Evaluation::class, 'postId');
     }
+
+    public function recognitions(){
+        return $this->hasOne(Evaluation::class,'postId');
+    }
 }

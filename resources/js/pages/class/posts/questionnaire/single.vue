@@ -37,6 +37,12 @@ export default {
         QuestionItem,
         Fragment,
     },
+    props:{
+        type:{
+            type:String,
+            requireed:false
+        }
+    },
     data: () =>({
         singleData : {
             type : 'single',
@@ -59,7 +65,7 @@ export default {
             }
             // this.$store.dispatch('content/storeSingleData',this.singleContentDataArr)
             this.$emit('contentData',this.singleData);
-             if(this.type == 'post'){
+            if(this.type == 'post'){
                 this.$router.push({name:'classposts.questionnaire'});
             }else{
                 this.$router.push({name:'classQuestionnaire.templateNew'})

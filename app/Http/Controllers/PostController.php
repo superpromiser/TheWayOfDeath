@@ -34,7 +34,30 @@ class PostController extends Controller
         $this->validate($request,[
             'classId'=>'required'
         ]);
-        $userId = Auth::user()->id;
+        // $userId = Auth::user()->id;
+        $classId = $request->classId;
+        return Post::whereIn('contentId',[12,13,14,15,16,17,18,19,20,21,22])
+        ->where('classId',$classId)
+        ->with([
+            'likes',
+            'views',
+            'comments',
+            'questionnaires',
+            'votings',
+            'homeVisit',
+            'notifications',
+            'evaluations',
+            'recognitions',
+            'users:id,name'
+        ])
+        ->orderBy('created_at','desc')
+        ->paginate(5);
+    }
+
+    public function getClassPhoto(Request $request){
+        $this->validate($request,[
+            'classId'=>'required'
+        ]);
         $classId = $request->classId;
         $posts = Post::whereIn('contentId',[12,13,14,15,16,17,18,19,20,21,22])
         ->where('classId',$classId)
@@ -42,19 +65,17 @@ class PostController extends Controller
             'likes',
             'views',
             'comments',
-            'questionnaires' => function($q) use($classId){
-                $q->where('classId','=', $classId);
-            },
-            'votings' => function($q) use($classId){
-                $q->where('classId','=', $classId);
-            },
+            'questionnaires',
+            'votings',
             'homeVisit',
             'notifications',
             'evaluations',
+            'recognitions',
             'users:id,name'
         ])
         ->orderBy('created_at','desc')
-        ->paginate(5);
+        ->get();
+        file_put_contents('post.txt',$posts);
         return $posts;
     }
 }

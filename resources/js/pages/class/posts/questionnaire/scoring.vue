@@ -50,7 +50,12 @@ export default {
   components:{
     QuestionItem,
   },
-
+  props:{
+    type:{
+        type:String,
+        requireed:false
+    }
+  },
   data:() => ({
     lang,
     scoreData : {

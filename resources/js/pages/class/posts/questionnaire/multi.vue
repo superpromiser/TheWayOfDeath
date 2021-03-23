@@ -37,6 +37,12 @@ export default {
         QuestionItem,
         Fragment,
     },
+    props:{
+        type:{
+            type:String,
+            requireed:false
+        }
+    },
     data: () =>({
         multiData : {
             type : 'multi',

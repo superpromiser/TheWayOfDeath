@@ -287,7 +287,7 @@ export default {
             await createRecognition(this.recognitionData).then(res=>{
                 console.log(res)
                 this.isCreating = false
-                this.$router.push({name:'classSpace.new'})
+                this.$router.push({name:'classSpace.news'})
             }).catch(err=>{
                 this.isCreating = false
                 console.log(err.response)

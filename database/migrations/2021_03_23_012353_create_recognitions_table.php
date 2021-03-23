@@ -21,7 +21,7 @@ class CreateRecognitionsTable extends Migration
             $table->char('publishDate');
             $table->string('description');
             $table->char('imgUrl');
-            $table->TinyInteger('classId');
+            // $table->TinyInteger('classId');
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();

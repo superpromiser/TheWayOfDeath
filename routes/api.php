@@ -200,6 +200,15 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('/class/evaluation', 'EvaluationController@createEvaluation');
     Route::put('/class/evaluation', 'EvaluationController@updateEvaluation');
     Route::delete('/class/evaluation', 'EvaluationController@deleteEvaluation');
+
+    //class recognition
+    Route::get('/class/recognition','RecognitionController@getRecognition');
+    Route::post('/class/recognition','RecognitionController@createRecognition');
+    Route::put('/class/recognition','RecognitionController@updateRecognition');
+    Route::delete('/class/recognition','RecognitionController@deleteRecognition');
+
+    //class albums
+    Route::get('/class/photos','PostController@getClassPhoto');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

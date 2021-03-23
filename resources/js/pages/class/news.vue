@@ -77,6 +77,10 @@
           <EvaluationPost :content="content"></EvaluationPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 19">
+          <RecognitionPost :content="content"></RecognitionPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
       </v-container>
       
     </v-row>
@@ -93,6 +97,7 @@ import VotingPost from '~/components/contents/votingPost';
 import NotificationPost from '~/components/contents/notificationPost'
 import HomeVisitPost from '~/components/contents/homeVisitPost'
 import EvaluationPost from '~/components/contents/evaluationPost'
+import RecognitionPost from '~/components/contents/recognitionPost'
 export default {
   components :{
     QusetionnairePost,
@@ -101,6 +106,7 @@ export default {
     NotificationPost,
     HomeVisitPost,
     EvaluationPost,
+    RecognitionPost,
   },
 
   data: () => ({

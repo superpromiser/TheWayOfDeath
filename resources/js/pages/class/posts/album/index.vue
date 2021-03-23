@@ -21,10 +21,30 @@
 </template>
 
 <script>
+import {getClassPhoto} from '~/api/photo'
 export default {
     data: ()=> ({
         baseUrl: window.Laravel.base_url,
-    })
+    }),
+
+    computed:{
+        currentPath(){
+            return this.$route
+        }
+    },
+
+    created(){
+        getClassPhoto(this.currentPath.params.classId).then(res=>{
+            console.log('getphoto',res.data)
+        }).catch(err=>{
+            console.log(err.response)
+        })
+    },
+
+    methods:{
+
+    }
+
 }
 </script>
 

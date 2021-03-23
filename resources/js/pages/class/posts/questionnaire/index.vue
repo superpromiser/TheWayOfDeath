@@ -384,7 +384,7 @@
         </v-container>
       </div>
       <div v-else>
-        <router-view @contentData="saveContent"></router-view>
+        <router-view @contentData="saveContent"  :type="'post'"></router-view>
       </div>
       <v-snackbar
         timeout="3000"
