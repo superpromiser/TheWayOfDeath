@@ -420,7 +420,7 @@ export default {
           classId:null,
           content:[],
       },
-      postNew:true,
+      postNew:false,
       selType:'',
       dialog:false,
       date: new Date().toISOString().substr(0, 10),
@@ -446,8 +446,11 @@ export default {
   watch:{
     currentPath:{
       handler(val){
-          if(val.name == 'classposts.questionnaire'){
+          if(val.name == 'posts.Cquestionnaire'){
             this.postNew = true
+          }
+          if(val.query.tempData){
+            this.newQuestionnaireData.content = JSON.parse(val.query.tempData)
           }
       },
       deep:true
@@ -455,17 +458,11 @@ export default {
   },
 
   created(){
-    // getTemplate({contentId:1}).then(res=>{
-    //   console.log(res)
-    // }).catch(err=>{
-    //   console.log(err.response)
-    // })
-    console.log(this.currentPath)
-    this.newQuestionnaireData.classId = this.currentPath.params.classId
-    if(this.currentPath.query.tempData){
-      this.newQuestionnaireData.content = JSON.parse(this.currentPath.query.tempData)
-      console.log(this.newQuestionnaireData.content[0])
+    if(this.currentPath.name == 'posts.Cquestionnaire'){
+      this.postNew = true
     }
+    console.log(this.currentPath)
+    this.newQuestionnaireData.classId = this.currentPath.params.lessonId
   },
 
   methods:{
@@ -480,22 +477,22 @@ export default {
         this.selType = type;
         switch(type){
             case 'single':
-                this.$router.push({name:"classQuestionnaire.single"});
+                this.$router.push({name:"Cquestionnaire.single"});
                 break;
             case 'multi':
-                this.$router.push({name:"classQuestionnaire.multi"});
+                this.$router.push({name:"Cquestionnaire.multi"});
                 break;
             case 'question':
-                this.$router.push({name:"classQuestionnaire.questionAnswer"});
+                this.$router.push({name:"Cquestionnaire.questionAnswer"});
                 break;
             case 'stat':
-                this.$router.push({name:"classQuestionnaire.statistics"});
+                this.$router.push({name:"Cquestionnaire.statistics"});
                 break;
             case 'scoring':
-                this.$router.push({name:"classQuestionnaire.scoring"});
+                this.$router.push({name:"Cquestionnaire.scoring"});
                 break;
             case 'template':
-                this.$router.push({name:"classQuestionnaire.templateList"});
+                this.$router.push({name:"Cquestionnaire.templateList"});
                 break;
             default:
                 break;

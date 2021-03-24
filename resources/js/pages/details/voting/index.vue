@@ -170,7 +170,7 @@ export default {
             this.isSubmit = true
             await createAnswerVoting(this.answerData).then(res=>{
                 this.isSubmit = false
-                if(this.currentpath.params.classId){
+                if(this.currentpath.params.lessonId){
                     this.$router.push({name:'classSpace.news'})
                 }else{
                     this.$router.push({name:'schoolSpace.news'})

@@ -92,7 +92,7 @@ export default {
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        if(this.currentPath.params.classId){
+        if(this.currentPath.params.lessonId){
           this.$router.push({name:'details.classQuesionnaire'})
         }else{
           this.$router.push({name:'details.quesionnaire'});
