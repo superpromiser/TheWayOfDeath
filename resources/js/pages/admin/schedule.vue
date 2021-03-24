@@ -262,11 +262,11 @@ export default {
             },
         ],
         headers: [
-            { text: 'subjectName', value: 'subjectName', align: 'start'},
-            { text: 'subjectType', value: 'subjectType', sortable: false },
-            { text: 'startTime', value: 'startTime', sortable: false },
-            { text: 'endTime', value: 'endTime', sortable: false },
-            { text: '行动', value: 'actions', sortable: false },
+            { text: '课的名称', value: 'subjectName', align: 'start'},
+            { text: '课的类型', value: 'subjectType', sortable: false },
+            { text: '开始时间', value: 'startTime', sortable: false },
+            { text: '结束时间', value: 'endTime', sortable: false },
+            { text: '操作', value: 'actions', sortable: false },
         ],
         scheduleData: [
             // {
