@@ -80,10 +80,20 @@ export default {
         isSubmit:false,
         isDraft:false,
         requiredText:false,
-        smsData:[],
+        smsData:{
+            schoolId:null,
+            content:[]
+        },
         isSuccessed:false,
     }),
-
+    computed:{
+        currentPath(){
+            return this.$route
+        }
+    },
+    created(){
+        this.smsData.schoolId = this.currentPath.params.schoolId
+    },
     methods:{
         saveDraft(){
 
@@ -91,12 +101,12 @@ export default {
 
         async submit(){
             this.$refs.child.emitData()
-            if(this.smsData.length == 0){
+            if(this.smsData.content.length == 0){
                 return
             }
             console.log(this.smsData)
             this.isSubmit = true
-            await createSms({smsData:this.smsData}).then(res=>{
+            await createSms(this.smsData).then(res=>{
                 console.log(res)
                 this.isSubmit = false
                 this.isSuccessed = true;
@@ -110,10 +120,10 @@ export default {
         loadContentData(data){
             if(data.text === ''){
                 this.requiredText = true;
-                this.smsData = [];
+                this.smsData.content = [];
                 return;
             }
-            this.smsData.push(data)
+            this.smsData.content.push(data)
         }
     }
 }

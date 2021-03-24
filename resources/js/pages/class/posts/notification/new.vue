@@ -171,6 +171,7 @@ export default {
             title:'',
             signName: '',
             description:null,
+            schoolId:null,
             classId:null
             // viewList:[],
             // postShow:[],
@@ -191,6 +192,7 @@ export default {
 
     created() {
         this.notificationData.signName = this.user.name;
+        this.notificationData.schoolId = this.currentPath.params.schoolId;
         this.notificationData.classId = this.currentPath.params.lessonId;
     },
 

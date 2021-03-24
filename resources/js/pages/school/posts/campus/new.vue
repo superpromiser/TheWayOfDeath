@@ -129,16 +129,20 @@ export default {
             camposeCategory: '',
             title:'',
             imgUrl:'',
-            content:''
+            content:'',
+            schoolId:null,
         },
         isCreating:false
     }),
 
     computed: {
-       
+       currentPath(){
+           return this.$route
+       }
     },
 
     created() {
+        this.campusData.schoolId = this.currentPath.params.schoolId
     },
 
     methods: {

@@ -16,17 +16,19 @@ class SmsController extends Controller
 
     public function createSms(Request $request){
         $this->validate($request,[
-            'smsData'=>'required'
+            'content'=>'required'
+
         ]);
-        $smsData = json_encode($request->smsData);
+        $smsData = json_encode($request->content);
         $userId = Auth::user()->id;
         $postId = Post::create([
             'contentId'=>3,
-            'userId'=>$userId
+            'userId'=>$userId,
+            'schoolId'=>$request->schoolId
         ])->id;
         return Sms::create([
             'content'=>$smsData,
-            'postId'=>$postId
+            'postId'=>$postId,
         ]);
 
     }

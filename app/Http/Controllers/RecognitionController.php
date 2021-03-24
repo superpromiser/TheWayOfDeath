@@ -28,7 +28,8 @@ class RecognitionController extends Controller
         $postId = Post::create([
             'userId'=>$userId,
             'contentId'=>19,
-            'classId'=>$request->classId
+            'classId'=>$request->classId,
+            'schoolId'=>$request->schoolId
         ])->id;
         return Recognition::create([
             'type'=>$request->type,

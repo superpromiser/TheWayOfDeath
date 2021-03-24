@@ -23,7 +23,8 @@ class CampusController extends Controller
         $userId = Auth::user()->id;
         $postId = Post::create([
             'contentId'=>4,
-            'userId'=>$userId
+            'userId'=>$userId,
+            'schoolId'=>$request->schoolId
         ])->id;
         return Campus::create([
             'category'=>$request->camposeCategory,

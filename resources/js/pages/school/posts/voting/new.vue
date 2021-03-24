@@ -239,7 +239,8 @@ export default {
             deadline:'',
             maxVote: null,
             anonyVote:true,
-            content:[]
+            content:[],
+            schoolId:null,
         },
         isCreating:false,
         isSuccessed:false
@@ -252,7 +253,9 @@ export default {
            return this.$route
         }
     },
-
+    created(){
+        this.votingData.schoolId = this.currentPath.params.schoolId
+    },
     methods: {
         selectedLesson(val){
             console.log(val)

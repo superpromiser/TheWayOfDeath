@@ -22,7 +22,8 @@ class BulletinBoardController extends Controller
         $userId = Auth::user()->id;
         $postId = Post::create([
             'contentId'=>6,
-            'userId'=>$userId
+            'userId'=>$userId,
+            'schoolId'=>$request->schoolId
         ])->id;
         return BulletinBoard::create([
             'type'=>$request->type,

@@ -32,7 +32,8 @@ class HomeVisitController extends Controller
         $postId = Post::create([
             'contentId'=>$contentId,
             'userId'=>$userId,
-            'classId'=>$classId
+            'classId'=>$classId,
+            'schoolId'=>$request->schoolId
         ])->id;
         return HomeVisit::create([
             'userInfo'=>json_encode($request->userInfo),

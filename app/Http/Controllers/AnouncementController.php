@@ -25,7 +25,8 @@ class AnouncementController extends Controller
         $userId = Auth::user()->id;
         $postId = Post::create([
             'contentId'=>5,
-            'userId'=>$userId
+            'userId'=>$userId,
+            'schoolId'=>$request->schoolId
         ])->id;
         return Anouncement::create([
             'title'=>$request->title,
@@ -33,7 +34,8 @@ class AnouncementController extends Controller
             'viewList'=>json_encode($request->viewList),
             'scopeFlag'=>$request->scopeFlag,
             'content'=>json_encode($request->content),
-            'postId'=>$postId
+            'postId'=>$postId,
+
         ]);
 
     }

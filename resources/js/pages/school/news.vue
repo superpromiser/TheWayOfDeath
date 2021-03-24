@@ -198,8 +198,8 @@ export default {
               return;
           }
           vm.lastpageOfContent = res.data.last_page;
-
           $.each(res.data.data, function(key, value){
+            console.log('-----',value)
               vm.contentList.push(value); 
           });
           if (vm.pageOfContent - 1 === vm.lastpageOfContent) {
