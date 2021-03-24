@@ -132,7 +132,7 @@ export default {
             { text: '结束时间', value: 'endTime', sortable: false },
             { text: '休假表格', value: 'reasonFlag', sortable: false },
             { text: '请假原因', value: 'reason', sortable: false },
-            { text: '行动', value: 'actions', sortable: false },
+            { text: '操作', value: 'actions', sortable: false },
         ],
         vacationData: [
             {

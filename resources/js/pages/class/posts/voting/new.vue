@@ -85,6 +85,7 @@
                         v-model="votingData.deadline"
                         no-title
                         scrollable
+                        locale="zh-cn"
                         >
                         <v-spacer></v-spacer>
                         <v-btn

@@ -22,6 +22,9 @@ function updateStudent(payload){
 function getStudent(payload){
     return axios.get('/api/v1/student', payload);
 }
+function getStudentBylessonId(payload){
+    return axios.get('/api/v1/studentBylessonId', {params: payload});
+}
 
 
 function deleteUser(payload){
@@ -38,5 +41,6 @@ export{
     updateStudent,
     getStudent,
     deleteUser,
+    getStudentBylessonId,
     
 }

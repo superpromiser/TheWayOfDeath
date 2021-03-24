@@ -147,7 +147,7 @@
               <v-icon>mdi-check-decagram </v-icon>
             </v-list-item-icon>
           </v-list-item>
-          <v-list class="py-0" v-if="user.role.roleName == 'manager'">
+          <v-list class="py-0" v-if="user.role.roleName == 'manager' || user.role.roleName == 'teacher'">
             <v-list-group 
               :value="true"
             >

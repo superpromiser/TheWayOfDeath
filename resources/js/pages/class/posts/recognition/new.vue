@@ -91,6 +91,7 @@
                         v-model="recognitionData.publishDate"
                         no-title
                         scrollable
+                        locale="zh-cn"
                         >
                         <v-spacer></v-spacer>
                         <v-btn

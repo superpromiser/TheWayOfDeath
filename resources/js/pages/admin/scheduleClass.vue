@@ -296,7 +296,7 @@ export default {
             { text: "星期五", value: "fri", sortable: false, },
             { text: "星期六", value: "sat", sortable: false, },
             { text: "星期日", value: "sun", sortable: false, },
-            { text: '行动', value: 'actions', sortable: false },
+            { text: '操作', value: 'actions', sortable: false },
         ],
         scheduleData: [
             {
