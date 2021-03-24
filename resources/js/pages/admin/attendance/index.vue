@@ -82,6 +82,17 @@
                 </v-btn>
             </v-toolbar>
           </template>
+          <template v-slot:[`item.other`]="{ item }">
+            <div v-if="item.other == null"> - </div>
+            <div v-else> 
+                <v-btn v-if="item.other.type == 1" color="primary" text>
+                    病假
+                </v-btn>    
+                <v-btn v-else-if="item.other.type == 2" color="primary" text>
+                    事假
+                </v-btn>    
+            </div>
+          </template>
           <template v-slot:no-data>
             <p>没有学习资料</p>
           </template>
@@ -101,12 +112,13 @@ export default {
 
     data: () => ({
         lang,
+        menu:false,
         attendanceDate : '',
         headers: [
             { text: '姓名', value: 'studentName', align: 'start'},
             { text: '进校', value: 'inTime', sortable: false },
             { text: '离校', value: 'outTime', sortable: false },
-            { text: '请假', value: 'other', sortable: false },
+            { text: '请假', value: 'other', sortable: false, align: 'center' },
         ],
         attendanceData: [
             {
@@ -126,6 +138,22 @@ export default {
                 inTime: '00:00',
                 outTime: '00:01',
                 other: null,
+            },
+            {
+                studentName: 'gommey',
+                inTime: '00:00',
+                outTime: '00:01',
+                other: {
+                    type : 1
+                },
+            },
+            {
+                studentName: 'Jemmey',
+                inTime: '00:00',
+                outTime: '00:01',
+                other: {
+                    type : 2
+                },
             },
         ],
         
