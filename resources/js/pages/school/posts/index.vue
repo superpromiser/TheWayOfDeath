@@ -1,6 +1,6 @@
 <template>
-    <v-container>
-        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" v-if="isPostItem == true">
+    <v-container class="pa-0">
+        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" v-if="isPostItem == true" class="ma-0">
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"

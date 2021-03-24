@@ -113,7 +113,7 @@
                         solo
                         multiple
                         chips
-                        :items="schoolTree"
+                        :items="returnSchoolTree(currentPath.params.schoolId)"
                         item-text="lessonName"
                         item-value="lessonId"
                         @change="selectedLesson"
@@ -439,9 +439,6 @@ export default {
   },
 
   computed: {
-      ...mapGetters({
-          schoolTree : 'schooltree/schoolTree',
-      }),
       currentPath(){
         return this.$route;
       }
@@ -462,6 +459,7 @@ export default {
   },
 
   created(){
+    console.log("123123123123123123123123123", this.currentPath);
     if(this.currentPath.name == 'posts.questionnaire'){
       this.postNew = true
     }

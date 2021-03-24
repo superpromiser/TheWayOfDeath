@@ -1,10 +1,15 @@
 
-
+import { mapGetters } from 'vuex'
 export default{
     data(){
         return{
 
         }
+    },
+    computed:{
+        ...mapGetters({
+            schoolData : 'schooltree/schoolData'
+        })
     },
     methods:{
         TimeView(str){
@@ -36,5 +41,34 @@ export default{
                 return true;
             }
         },
+        returnSchoolTree(schoolId){
+            let mySchoolData = {};
+            let returnVal = [];
+            this.schoolData.map(x=>{
+                if(x.id == schoolId){
+                    mySchoolData = x;
+                }
+            })
+            mySchoolData.grades.map( grade =>{
+                let gradeObj = {
+                    header : grade.gradeName,
+                }
+                returnVal.push(gradeObj);
+                grade.lessons.map( lesson =>{
+                    let lessonObj = {
+                        lessonId : lesson.id,
+                        gradeId : grade.id,
+                        lessonName : lesson.lessonName,
+                    }
+                    returnVal.push(lessonObj);
+                } )
+                let dividerObj = {
+                    divider : true
+                }
+                returnVal.push(dividerObj);
+            } )
+
+            return returnVal;
+        }
     }
 }

@@ -134,7 +134,7 @@
                         solo
                         multiple
                         chips
-                        :items="schoolTree"
+                        :items="returnSchoolTree(currentPath.params.schoolId)"
                         item-text="lessonName"
                         item-value="lessonId"
                         @change="selectedLesson"
@@ -215,10 +215,12 @@ export default {
     }),
 
     computed: {
-       ...mapGetters({
-           user: 'auth/user',
-           schoolTree : 'schooltree/schoolTree',
-       })
+        ...mapGetters({
+            user: 'auth/user',
+        }),
+        currentPath(){
+            return this.$route
+        }
     },
 
     created() {

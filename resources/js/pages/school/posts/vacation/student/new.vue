@@ -142,9 +142,11 @@ export default {
 
     computed: {
         ...mapGetters({
-            schoolTree : 'schooltree/schoolTree',
             user : 'auth/user'
-        })
+        }),
+        currentPath(){
+            return this.$route
+        }
     },
 
     created(){

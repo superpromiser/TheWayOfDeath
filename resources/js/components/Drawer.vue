@@ -275,7 +275,6 @@ export default {
       user : 'auth/user',
       schoolData : 'schooltree/schoolData',
       memberData : 'schooltree/memberData',
-      schoolTree : 'schooltree/schoolTree'
       // drawer : 'toggledrawer/drawer'
     }),
     drawer: {
@@ -299,6 +298,7 @@ export default {
     console.log("this.schoolData", this.schoolData);
     console.log("this.memberData", this.memberData);
     console.log("this.user", this.user);
+    
     if(this.user.roleId !== 1){
       this.schoolData.map(schoolItem=>{
         if(this.user.schoolId == schoolItem.id){
@@ -317,7 +317,8 @@ export default {
           drawer: val,
         })
       }
-    }
+    },
+    
   }
 }
 </script>

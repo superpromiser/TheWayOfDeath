@@ -155,9 +155,7 @@ export default {
     }),
 
     computed: {
-        ...mapGetters({
-            schoolTree : 'schooltree/schoolTree',
-        }),
+        
         currentPath(){
             return this.$route;
         }
