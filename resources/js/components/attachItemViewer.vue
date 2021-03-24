@@ -76,7 +76,6 @@
                         <div>{{other.fileSize}}</div>
                     </div>
                     <div class="ml-auto mr-2">
-                        <span>下载 0</span>
                         <a class="file-box" :href="other.imgUrl" :download="other.fileOriName">
                             <v-btn icon color="blue darken-1" >
                                 <v-icon size="30" >mdi-download-circle-outline </v-icon>
