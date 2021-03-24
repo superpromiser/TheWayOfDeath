@@ -11,9 +11,13 @@ class PostController extends Controller
 {
     //
     public function getSchoolPost(Request $request){
+        $this->validate($request,[
+            'schoolId'=>'required'
+        ]);
         $userId = Auth::user()->id;
         // $isLiked = Like::where('userId',$userId)->count();
         return Post::whereIn('contentId',[1,2,3,4,5,6,10])
+        ->where('schoolId',$request->schoolId)
         ->with([
             'likes',
             'views',
