@@ -181,6 +181,7 @@ export default {
             let answerData = {
                 userList:[],
                 selMedalList:[],
+                schoolId:null,
                 classId:null
                 // viewList:[],
                 // postShow:[],
@@ -190,6 +191,7 @@ export default {
             }
             answerData.userList = this.contactInfo;
             answerData.selMedalList = this.selMedalList;
+            answerData.schoolId = this.currentPath.params.schoolId;
             answerData.classId = this.currentPath.params.lessonId;
             this.isCreating = true;
             console.log(answerData);

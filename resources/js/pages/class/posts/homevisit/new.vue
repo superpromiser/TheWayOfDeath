@@ -268,6 +268,7 @@ export default {
             
             ],
             content: null,
+            schoolId:null,
             classId:null
         },
         isCreating:false
@@ -281,7 +282,9 @@ export default {
 
     created() {
         if(this.currentPath.params.lessonId){
+            this.visitData.schoolId = this.currentPath.params.schoolId
             this.visitData.classId = this.currentPath.params.lessonId
+
         }
     },
 

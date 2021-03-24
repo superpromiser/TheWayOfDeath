@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getSchoolPost(page){
-    return axios.get(`/api/v1/schoolPost?page=${page}`);
+function getSchoolPost(payload){
+    return axios.get('/api/v1/schoolPost',{params:payload});
 }
 
 function getClassPost(classId, page){

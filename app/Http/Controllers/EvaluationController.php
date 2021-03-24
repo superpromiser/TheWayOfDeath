@@ -23,7 +23,8 @@ class EvaluationController extends Controller
         $postId = Post::create([
             'contentId'=>18,
             'userId'=>$userId,
-            'classId'=>$request->classId
+            'classId'=>$request->classId,
+            'schoolId'=>$request->schoolId
         ])->id;
         return Evaluation::create([
             'userList'=>json_encode($request->userList),

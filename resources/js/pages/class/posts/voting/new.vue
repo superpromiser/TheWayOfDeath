@@ -239,6 +239,7 @@ export default {
             deadline:'',
             maxVote: null,
             anonyVote:true,
+            schoolId:null,
             classId:null,
             content:[]
         },
@@ -252,6 +253,7 @@ export default {
         }
     },
     created(){
+        this.votingData.schoolId = this.currentPath.params.schoolId
         this.votingData.classId = this.currentPath.params.lessonId
     },
     methods: {

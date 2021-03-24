@@ -421,6 +421,7 @@ export default {
           resultFlag:true,
           answerFlag:false,
           content:[],
+          schoolId:null,
       },
       postNew:false,
       selType:'',
@@ -460,7 +461,7 @@ export default {
   },
 
   created(){
-    console.log("123123123123123123123123123", this.currentPath);
+    this.newQuestionnaireData.schoolId = this.currentPath.params.schoolId;
     if(this.currentPath.name == 'posts.questionnaire'){
       this.postNew = true
     }

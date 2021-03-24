@@ -176,7 +176,11 @@ export default {
     // })
     // this.isLoadingContents = false;
   },
-
+  computed:{
+    currentPath(){
+      return this.$route
+    }
+  },
   methods:{
     updateFooterInfo(data){
       let index = this.contentList.findIndex(content=>content.id === data.id)
@@ -191,15 +195,15 @@ export default {
           timeOut = 1000;
       }
       let vm = this;
-      await getSchoolPost(this.pageOfContent)
+      await getSchoolPost({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId})
       .then(res=>{
           if(vm.pageOfContent == 1 && res.data.data.length == 0){
               $state.complete();
               return;
           }
           vm.lastpageOfContent = res.data.last_page;
-
           $.each(res.data.data, function(key, value){
+            console.log('-----',value)
               vm.contentList.push(value); 
           });
           if (vm.pageOfContent - 1 === vm.lastpageOfContent) {

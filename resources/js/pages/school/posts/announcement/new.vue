@@ -207,7 +207,8 @@ export default {
             signName:'',
             viewList:[],
             scopeFlag:false,
-            content:''
+            content:'',
+            schoolId:null,
         },
         newSignFlag:false,
         newSignName:'',
@@ -224,6 +225,7 @@ export default {
     },
 
     created() {
+        this.announcementData.schoolId = this.currentPath.params.schoolId
     },
 
     methods: {

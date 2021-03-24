@@ -176,6 +176,7 @@ export default {
             publishDate:'',
             description:'',
             imgUrl:'',
+            schoolId:null,
             classId:null,
             // viewList:[],
             // postShow:[],
@@ -255,6 +256,7 @@ export default {
 
     created(){
         console.log(this.recognitionData.content)
+        this.recognitionData.schoolId = this.currentPath.params.schoolId
         this.recognitionData.classId = this.currentPath.params.lessonId
     },
 

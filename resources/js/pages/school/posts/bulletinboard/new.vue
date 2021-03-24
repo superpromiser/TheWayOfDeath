@@ -119,15 +119,19 @@ export default {
             // title:'',
             type:'',
             content:null,
+            schoolId:null
         },
         isCreating:false,
     }),
 
     computed: {
-       
+       currentPath(){
+           return this.$route
+       }
     },
 
     created() {
+        this.bulletinboardData.schoolId = this.currentPath.params.schoolId
     },
 
     methods: {

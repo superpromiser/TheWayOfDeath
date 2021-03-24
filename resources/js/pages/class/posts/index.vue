@@ -69,14 +69,12 @@ export default {
                     {
                         color : "lime darken-4",
                         title : "问卷",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/问卷 拷贝.png",
                         path : "posts.Cquestionnaire"
                     },
                     {
                         color : "lime darken-4",
                         title : "投票",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/投票.png",
                         path : "posts.Cvoting"
                     },
@@ -89,21 +87,18 @@ export default {
                     {
                         color : "teal darken-4",
                         title : "作业",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/作业 拷贝.png",
                         path : "something"
                     },
                     {
                         color : "lime darken-4",
                         title : "习题",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/习题.png",
                         path : "something"
                     },
                     {
                         color : "teal darken-4",
                         title : "家访",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/家访 拷贝.png",
                         path : "posts.Chomevisit"
                     },
@@ -116,7 +111,6 @@ export default {
                     {
                         color : "red accent-3",
                         title : "通知",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/通知 拷贝.png",
                         path : "posts.Cnotification"
                     },
@@ -129,14 +123,12 @@ export default {
                     {
                         color : "lime darken-4",
                         title : "评价",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/评价.png",
                         path : "posts.Cevaluation"
                     },
                     {
                         color : "lime darken-4",
                         title : "表彰",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/表彰.png",
                         path : "posts.Crecognition"
                     },
@@ -149,21 +141,18 @@ export default {
                     {
                         color : "indigo accent-2",
                         title : "课表",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/组 29.png",
                         path : "something"
                     },
                     {
                         color : "indigo accent-2",
                         title : "相册",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/相册.png",
-                        path : "album"
+                        path : "posts.Calbum"
                     },
                     {
                         color : "indigo accent-2",
                         title : "文件",
-                        detail : "detail",
                         imgUrl : "/asset/img/icon/文件.png",
                         path : "file"
                     },

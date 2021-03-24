@@ -418,6 +418,7 @@ export default {
           questionnaireFlag:true,
           resultFlag:true,
           answerFlag:false,
+          schoolId:null,
           classId:null,
           content:[],
       },
@@ -463,6 +464,7 @@ export default {
       this.postNew = true
     }
     console.log(this.currentPath)
+    this.newQuestionnaireData.schoolId = this.currentPath.params.schoolId
     this.newQuestionnaireData.classId = this.currentPath.params.lessonId
   },
 

@@ -268,6 +268,7 @@ export default {
             
             ],
             content: null,
+            schoolId:null,
             // viewList:[],
             // postShow:[], 
         },
@@ -275,10 +276,13 @@ export default {
     }),
 
     computed: {
-       
+       currentPath(){
+           return this.$route
+       }
     },
 
     created() {
+        this.visitData.schoolId = this.currentPath.params.schoolId
     },
 
     methods: {

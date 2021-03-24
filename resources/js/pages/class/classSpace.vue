@@ -19,7 +19,7 @@
             </v-btn>
         </v-container>
         <transition name="fade" mode="out-in">
-            <router-view></router-view>
+            <router-view :key="$route.path"></router-view>
         </transition>
     </v-container>
 </template>

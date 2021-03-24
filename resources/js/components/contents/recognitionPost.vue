@@ -25,7 +25,7 @@
                     <v-list-item-title class="px-2">{{lang.toTop}}</v-list-item-title>
                   </v-list-item>
                   <v-list-item link >
-                    <v-list-item-title class="px-2">{{lang.remove}}</v-list-item-title>
+                    <v-list-item-title class="px-2" @click="postRemove(content)">{{lang.remove}}</v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
