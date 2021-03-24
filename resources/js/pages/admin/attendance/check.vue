@@ -14,25 +14,75 @@
             <v-toolbar
                 flat
             >
-              <v-toolbar-title><strong>学校</strong></v-toolbar-title>
+              <v-toolbar-title><strong>晨午检</strong></v-toolbar-title>
               <v-divider
               class="mx-4"
               inset
               vertical
               ></v-divider>
               <v-spacer></v-spacer>
+              <div class="d-flex align-center">
+                
+                <v-menu
+                    ref="checkAttendanceDateMenu"
+                    v-model="checkAttendanceDateMenu"
+                    :close-on-content-click="false"
+                    :return-value.sync="checkAttendanceDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                          solo
+                          v-model="checkAttendanceDate"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          hide-details
+                          class="mr-4"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="checkAttendanceDate"
+                      no-title
+                      scrollable
+                      @change="onSelectCheckAttendanceDate"
+                      locale="zh-cn"
+                    >
+                    </v-date-picker>
+                </v-menu>
+                <v-select
+                  solo
+                  v-model="checkAttendanceType"
+                  :items="checkAttendanceTypeItem"
+                  item-text="label"
+                  item-value="value"
+                  @change="selectedCheckAttendanceTypeItem"
+                  :menu-props="{ top: false, offsetY: true }"
+                  label="姓名"
+                  hide-details
+                  :disabled="checkAttendanceDate == ''"
+                  class="mr-4"
+                ></v-select>
+              </div>
               <v-dialog
               v-model="dialog"
-              max-width="500px"
+              max-width="800px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                   color="primary"
                   dark
-                  class="mb-2"
+                  tile
+                  class="mb-2 mr-4"
                   v-bind="attrs"
                   v-on="on"
                   >
+                    <v-icon left>
+                      mdi-plus
+                    </v-icon>
                   添加
                   </v-btn>
                 </template>
@@ -44,7 +94,73 @@
                   <v-card-text>
                     <v-container>
                       <v-row>
-                        <v-col cols="12" sm="6" md="4" >
+                        <v-col cols="12" sm="6">
+                          <v-select
+                            solo
+                            v-model="editedItem.checkType"
+                            :items="checkTypeItem"
+                            item-text="label"
+                            item-value="value"
+                            @change="selectedCheckType"
+                            :menu-props="{ top: false, offsetY: true }"
+                            label="项目"
+                            hide-details
+                        ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                          <v-select
+                            solo
+                            v-model="editedItem.studentId"
+                            :items="studentList"
+                            item-text="name"
+                            item-value="id"
+                            @change="selectedStudent"
+                            :menu-props="{ top: false, offsetY: true }"
+                            label="姓名"
+                            hide-details
+                        ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                          <v-select
+                            solo
+                            v-model="editedItem.signal"
+                            :items="signalItem"
+                            item-text="label"
+                            item-value="value"
+                            @change="selectedSignal"
+                            :menu-props="{ top: false, offsetY: true }"
+                            label="主要症状"
+                            hide-details
+                        ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                          <v-datetime-picker 
+                              label="发病时间" 
+                              v-model="editedItem.startTime"
+                              :okText='lang.ok'
+                              :clearText='lang.cancel'
+                          > </v-datetime-picker>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                          <v-select
+                            solo
+                            v-model="editedItem.reason"
+                            :items="reasonItem"
+                            item-text="label"
+                            item-value="value"
+                            @change="selectedReason"
+                            :menu-props="{ top: false, offsetY: true }"
+                            label="诊断"
+                            hide-details
+                        ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                          <v-text-field
+                            v-model="editedItem.hospital"
+                            label="诊断医院"
+                            hide-details
+                            solo
+                          ></v-text-field>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -81,6 +197,14 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+              <v-btn
+                color="success"
+                dark
+                tile
+                class="mb-2"
+                >
+                发布
+              </v-btn>
             </v-toolbar>
           </template>
           <template v-slot:[`item.imgUrl`]="{ item }">
@@ -132,16 +256,31 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
+import { getStudentBylessonId } from '~/api/user'
 import cityListJson from '!!raw-loader!../cityLaw.txt';
 import lang from '~/helper/lang.json'
 export default {
+
 
   data: () => ({
     lang,
     dialog: false,
     dialogDelete: false,
     indroduceDialog : false,
+    checkAttendanceDateMenu: false,
+    checkAttendanceDate: '',
+    checkAttendanceType: '晨检',
+    checkAttendanceTypeItem: [
+      {
+        label: "晨检",
+        value: "晨检"
+      },
+      {
+        label: "午检",
+        value: "午检"
+      },
+    ],
     headers: [
       { text: '项目', value: 'checkType', align: 'start'},
       { text: '姓名', value: 'name', sortable: false },
@@ -150,10 +289,152 @@ export default {
       { text: '家庭住址', value: 'familyAddress', sortable: false },
       { text: '主要症状', value: 'signal', sortable: false },
       { text: '发病时间', value: 'startTime', sortable: false },
-      { text: '诊断', value: 'solution', sortable: false },
-      { text: '诊断医院', value: 'solutionHospital', sortable: false },
+      { text: '诊断', value: 'reason', sortable: false },
+      { text: '诊断医院', value: 'hospital', sortable: false },
       { text: '联系电话', value: 'phoneNumber', sortable: false },
       { text: '操作', value: 'actions', sortable: false },
+    ],
+    checkTypeItem: [
+      {
+        label: "因病缺席",
+        value: "因病缺席"
+      },
+      {
+        label: "体征异常",
+        value: "体征异常"
+      },
+    ],
+    signalItem: [
+      {
+        label: "发热",
+        value: "发热"
+      },
+      {
+        label: "咽痛",
+        value: "咽痛"
+      },
+      {
+        label: "咳嗽",
+        value: "咳嗽"
+      },
+      {
+        label: "皮疹",
+        value: "皮疹"
+      },
+      {
+        label: "腹泻",
+        value: "腹泻"
+      },
+      {
+        label: "呕吐",
+        value: "呕吐"
+      },
+      {
+        label: "黄疸",
+        value: "黄疸"
+      },
+      {
+        label: "腮腺肿大",
+        value: "腮腺肿大"
+      },
+      {
+        label: "结膜红肿",
+        value: "结膜红肿"
+      },
+      {
+        label: "伤害",
+        value: "伤害"
+      },
+      {
+        label: "输入症状",
+        value: "输入症状"
+      },
+    ],
+    reasonItem: [
+      {
+        label: "未就诊",
+        value: "未就诊"
+      },
+      {
+        label: "心脏病",
+        value: "心脏病"
+      },
+      {
+        label: "急性出血性结膜炎(红眼病)",
+        value: "急性出血性结膜炎(红眼病)"
+      },
+      {
+        label: "结核",
+        value: "结核"
+      },
+      {
+        label: "上呼吸道感染",
+        value: "上呼吸道感染"
+      },
+      {
+        label: "流感样病例",
+        value: "流感样病例"
+      },
+      {
+        label: "手足口病",
+        value: "手足口病"
+      },
+      {
+        label: "流行性腮腺炎",
+        value: "流行性腮腺炎"
+      },
+      {
+        label: "耳鼻喉疾病",
+        value: "耳鼻喉疾病"
+      },
+      {
+        label: "神经衰弱",
+        value: "神经衰弱"
+      },
+      {
+        label: "气管炎/肺炎",
+        value: "气管炎/肺炎"
+      },
+      {
+        label: "胃肠道疾病",
+        value: "胃肠道疾病"
+      },
+      {
+        label: "泌尿系疾病",
+        value: "泌尿系疾病"
+      },
+      {
+        label: "伤害",
+        value: "伤害"
+      },
+      {
+        label: "水痘",
+        value: "水痘"
+      },
+      {
+        label: "风疹",
+        value: "风疹"
+      },
+      {
+        label: "麻疹",
+        value: "麻疹"
+      },
+      {
+        label: "牙病",
+        value: "牙病"
+      },
+      {
+        label: "眼病",
+        value: "眼病"
+      },
+      {
+        label: "肝炎",
+        value: "肝炎"
+      },
+      {
+        label: "其它传染病",
+        value: "其它传染病"
+      },
     ],
     checkData: [],
     checkDataRaw : [],
@@ -163,8 +444,8 @@ export default {
       studentId: 0,
       signal: '',
       startTime: null,
-      solution: '',
-      solutionHospital: '',
+      reason: '',
+      hospital: '',
     },
       
     defaultItem: {
@@ -172,8 +453,8 @@ export default {
       studentId: 0,
       signal: '',
       startTime: null,
-      solution: '',
-      solutionHospital: '',
+      reason: '',
+      hospital: '',
     },
     provinceListJsonArr:[],
     madeJsonFromString : [],
@@ -181,12 +462,15 @@ export default {
     isCreatingSchool : false,
     isLoadingSchoolData : false,
     isDeleteSchool : false,
-    schoolIntroduceData : '',
+    studentList : [],
   }),
 
   computed: {
+    ...mapGetters({
+      user : 'auth/user',
+    }),
     formTitle () {
-      return this.editedIndex === -1 ? '新增学校' : '编辑学校'
+      return this.editedIndex === -1 ? '新增' : '编辑'
     },
   },
 
@@ -228,6 +512,23 @@ export default {
       }
       // this.isLoadingSchoolData = true;
       // this.isLoadingSchoolData = false;
+      if(this.user.lessonId == 0 || this.user.gradeId == 0){
+        return ;
+      }
+      let payload = {
+        lessonId: this.user.lessonId,
+        gradeId: this.user.gradeId,
+      }
+      await getStudentBylessonId(payload)
+      .then((res) => {
+        this.studentList = res.data;
+        this.studentList.map( x => {
+          x.familyAddress = this.convertAddress(x.familyAddress);
+        })
+        console.log(")))))", this.studentList)
+      }).catch((err) => {
+        console.log(err)
+      });
     },
 
     watch: {
@@ -257,24 +558,36 @@ export default {
         let payload = {
           id : this.editedItem.id
         }
+        this.checkData.splice(this.editedIndex, 1)
+        this.closeDelete()
         // this.isDeleteSchool = true;
         // this.isDeleteSchool = false;
       },
 
       close () {
         this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
+        this.editedItem.checkType = '';
+        this.editedItem.signal = '';
+        this.editedItem.startTime = '';
+        this.editedItem.reason = '';
+        this.editedItem.hospital = '';
+        this.editedItem.studentId = 0;
+        this.editedIndex = -1
+        // this.$nextTick(() => {
+        //   this.editedItem =  JSON.parse(JSON.stringify(this.defaultItem))
+        // })
+        console.log("************", this.editedItem, this.defaultItem)
       },
 
       closeDelete () {
         this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
+        this.editedItem.checkType = '';
+        this.editedItem.signal = '';
+        this.editedItem.startTime = '';
+        this.editedItem.reason = '';
+        this.editedItem.hospital = '';
+        this.editedItem.studentId = 0;
+        this.editedIndex = -1
       },
 
       async save () {
@@ -283,14 +596,45 @@ export default {
           // this.isCreatingSchool = true;
           // this.isCreatingSchool = false;
           console.log("Updatethis.editedItem", this.editedItem);
-          Object.assign(this.checkData[this.editedIndex], this.editedItem)
+          let clonedEditedItem = Object.assign({}, this.editedItem);
+          let selectedStudentData = {};
+          this.studentList.map( x =>{
+            if(x.id == this.editedItem.studentId){
+              selectedStudentData = x;
+            }
+          })
+          clonedEditedItem["name"] = selectedStudentData.name;
+          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
+          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
+          clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
+          clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+          Object.assign(this.checkData[this.editedIndex], clonedEditedItem)
         } 
         //save checkData
         else {
           console.log("Savethis.editedItem", this.editedItem);
-          this.checkData.push(this.editedItem);
-          this.isCreatingSchool = true;
-          this.isCreatingSchool = false;
+          let clonedEditedItem = Object.assign({}, this.editedItem);
+          let selectedStudentData = {};
+          this.studentList.map( x =>{
+            if(x.id == this.editedItem.studentId){
+              selectedStudentData = x;
+            }
+          })
+          clonedEditedItem["name"] = selectedStudentData.name;
+          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
+          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
+          clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
+          clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+          this.checkData.push(clonedEditedItem);
+          // this.isCreatingSchool = true;
+          // creatxxx()
+          // .then((res) => {
+          //   if(res.data.mag == 1)
+          //   this.checkData.push(clonedEditedItem);
+          // }).catch((err) => {
+          //   console.log(err)
+          // });
+          // this.isCreatingSchool = false;
         }
         this.close()
       },
@@ -317,6 +661,47 @@ export default {
         }
         return province + ' ' + city + ' ' + region + ' ' + address.detail;
       },
+
+      selectedCheckType( val ){
+        this.editedItem.checkType = val;
+      },
+
+      selectedStudent( val ){
+        this.editedItem.studentId = val;
+      },
+
+      selectedReason( val ){
+        this.editedItem.reason = val;
+      },
+
+      selectedSignal( val ){
+        this.editedItem.signal = val;
+      },
+
+      convertGender( val ){
+        if(val == 'F'){
+          return "女";
+        }
+        else if(val == 'M') {
+          return "男";
+        }
+      },
+
+      calcAge(val){
+        var diff_ms = Date.now() - val.getTime();
+        var age_dt = new Date(diff_ms); 
+      
+        return Math.abs(age_dt.getUTCFullYear() - 1970);
+      },
+
+      onSelectCheckAttendanceDate(val){          
+        this.$refs.checkAttendanceDateMenu.save(val);
+        this.checkAttendanceDate = val;
+      },
+
+      selectedCheckAttendanceTypeItem(val){
+        this.checkAttendanceType = val;
+      }
 
     },
   }
