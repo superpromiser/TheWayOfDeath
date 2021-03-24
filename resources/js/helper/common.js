@@ -1,5 +1,6 @@
 
 import { mapGetters } from 'vuex'
+import axios from 'axios';
 export default{
     data(){
         return{
@@ -69,6 +70,15 @@ export default{
             } )
 
             return returnVal;
+        },
+        postRemove(data){
+            console.log(data)
+            axios.delete('/api/v1/post',{data:{postId:data.id}}).then(res=>{
+                console.log(res.data)
+                alert('删除成功')
+            }).catch(err=>{
+                console.log(err.response)
+            });
         }
     }
 }

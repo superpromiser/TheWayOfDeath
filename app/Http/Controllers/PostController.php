@@ -78,4 +78,11 @@ class PostController extends Controller
         file_put_contents('post.txt',$posts);
         return $posts;
     }
+
+    public function deletePost(Request $request){
+        $this->validate($request,[
+            'postId'=>'required'
+        ]);
+        return Post::where('id',$request->postId)->delete();
+    }
 }

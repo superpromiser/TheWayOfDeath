@@ -167,6 +167,7 @@ export default {
       console.log(from)
       // this.$router.go()
       console.log('routerChanged')
+      this.infiniteHandler($state)
       console.log(to)
     }
   },
