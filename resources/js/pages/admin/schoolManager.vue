@@ -310,7 +310,7 @@ export default {
       { text: '身份证号', value: 'cardNum'},
       { text: '学校地址', value: 'familyAddress', sortable: false },
       { text: '学校地址', value: 'residenceAddress', sortable: false },
-      { text: '行动', value: 'actions', sortable: false },
+      { text: '操作', value: 'actions', sortable: false },
     ],
     genderItems:[
         { 

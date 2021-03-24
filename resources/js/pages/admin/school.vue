@@ -170,7 +170,7 @@
               >
                 <v-card>
                   <v-card-title class="title">
-                    School Introduce
+                    学校介绍
                   </v-card-title>
                   <v-card-text
                   >
@@ -265,7 +265,7 @@ export default {
       { text: '学校负责人', value: 'head', sortable: false },
       { text: '学校地址', value: 'address', sortable: false },
       { text: '学校简介', value: 'introduce', sortable: false },
-      { text: '行动', value: 'actions', sortable: false },
+      { text: '操作', value: 'actions', sortable: false },
     ],
     schoolData: [],
     schoolListRaw : [],

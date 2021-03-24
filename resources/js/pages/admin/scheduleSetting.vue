@@ -235,7 +235,7 @@ export default {
             { text: '课程名称', value: 'subjectName', align: 'start'},
             { text: '任课教师', value: 'teacherName', sortable: false },
             { text: '任课班级', value: 'lessonName', sortable: false },
-            { text: '行动', value: 'actions', sortable: false },
+            { text: '操作', value: 'actions', sortable: false },
         ],
         scheduleSettingData: [
             

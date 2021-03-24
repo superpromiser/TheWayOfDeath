@@ -346,7 +346,7 @@ export default {
       { text: '家长电话', value: 'fatherPhone', sortable: false },
       { text: '家长身份', value: 'fatherJob', sortable: false },
       { text: '学校地址', value: 'familyAddress', sortable: false },
-      { text: '行动', value: 'actions', sortable: false },
+      { text: '操作', value: 'actions', sortable: false },
     ],
     genderItems:[
         { 
