@@ -164,6 +164,86 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+                <v-dialog
+                  v-model="viewDialog"
+                  max-width="800px"
+                >
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">查看考勤</span>
+                    </v-card-title>
+
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12" sm="6" >
+                          <h3>{{editedItem.attendanceDay}}</h3>
+                        </v-col>
+                        <v-col cols="12" sm="6" >
+                          <v-select
+                            solo
+                            v-model="editedItem.attendanceTime"
+                            :items="lessonTimeItem"
+                            item-text="lessonTimeName"
+                            item-value="lessonTimeValue"
+                            label="考勤时间"
+                            hide-details
+                            readonly
+                        ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-data-table
+                            :headers="dialogHeaders"
+                            :items="editedItem.resultArr"
+                            sort-by="calories"
+                            class="elevation-1"
+                          >
+                            <template v-slot:[`item.attendanceResult`]="{ item }">
+                              <v-select 
+                                :items="attendanceResultItem"
+                                :menu-props="{ top: false, offsetY: true }"
+                                item-text="resultType"
+                                item-value="resultValue"
+                                v-model="item.attendanceResult"
+                                hide-details
+                                readonly
+                              >
+                              </v-select>
+                            </template>
+                            <template v-slot:[`item.other`]="{ item }">
+                              <v-text-field
+                                v-model="item.other"
+                                label="人员姓名"
+                                hide-details
+                                readonly
+                              ></v-text-field>
+                            </template>
+                          </v-data-table>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <!-- <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="close"
+                    >
+                      {{lang.cancel}}
+                    </v-btn>
+                    <v-btn
+                      color="blue darken-1"
+                      text
+                      :loading="isCreatingSchool"
+                      @click="save"
+                    >
+                      {{lang.save}}
+                    </v-btn> -->
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
               <v-dialog v-model="dialogDelete" max-width="500px">
                 <v-card>
                   <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
@@ -268,6 +348,7 @@ export default {
         lang,
         menu: false,
         dialog: false,
+        viewDialog: false,
         dialogDelete: false,
         attendanceDate : '',
         headers: [
@@ -1071,7 +1152,12 @@ export default {
           this.$refs.menu.save(val);
           this.attendanceDate = val;
           this.editedItem.attendanceDay = val;
-        } 
+        },
+
+        viewItem(item){
+          this.editedItem = item;
+          this.viewDialog = true
+        }
     },
 }
 </script>
