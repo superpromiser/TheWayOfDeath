@@ -7,7 +7,7 @@
                 grow
                 class="my-7"
             >
-                <v-tab v-for="(gradeData) in schoolData.grades" :key="gradeData.id" @click="triggerGrade(gradeData)">
+                <v-tab v-for="(gradeData) in mySchoolData.grades" :key="gradeData.id" @click="triggerGrade(gradeData)">
                     <v-icon class="mr-2">mdi-bookmark</v-icon>{{gradeData.gradeName}}
                 </v-tab>
             </v-tabs>
@@ -266,11 +266,13 @@ export default {
         isLoadingSchoolData : false,
         isDeleting : false,
         schoolIntroduceData : '',
+        mySchoolData: {}
     }),
 
     computed:{
         ...mapGetters({
-            schoolData : 'schooltree/schoolData'
+            schoolData : 'schooltree/schoolData',
+            user : 'auth/user'
         }),
         formTitle () {
             return this.editedIndex === -1 ? '新增课程安排' : '编辑课程安排'
@@ -284,7 +286,12 @@ export default {
         }).catch((err) => {
             console.log(err.response)
         });
-        this.currentSelectedGrade = this.schoolData.grades[0];
+        this.schoolData.map(x=>{
+            if(this.user.schoolId == x.id){
+                this.mySchoolData = x;
+            }
+        })
+        this.currentSelectedGrade = this.mySchoolData.grades[0];
         console.log(this.currentSelectedGrade)
         await getSchedule({gradeId:this.currentSelectedGrade.id}).then(res=>{
             this.scheduleSettingData = res.data
