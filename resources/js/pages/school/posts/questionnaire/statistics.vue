@@ -71,7 +71,7 @@ export default {
   },
 
   created(){
-      console.log(this.type)
+      //console.log(this.type)
       if(this.type == undefined){
           this.$router.push({name:'posts.questionnaire'})
       }
@@ -104,7 +104,7 @@ export default {
   methods:{
     addStatContent(){
       this.$refs.child.emitData()
-      console.log(this.statData.statDataArr[0])
+      //console.log(this.statData.statDataArr[0])
       if(this.statData.statDataArr[0].contentData.length == 0 || this.statData.statDataArr[0].sValue == '' || this.statData.statDataArr[0].eValue == '' || this.statData.statDataArr[0].unit == ''){
         this.requiredText = true;
         this.statData.statDataArr[0].contentData = [];
@@ -119,7 +119,7 @@ export default {
       }
     },
     loadContentData(data){
-      console.log(data)
+      //console.log(data)
       if(data.text === ''){
         this.statData.statDataArr[0].contentData = []
         return;

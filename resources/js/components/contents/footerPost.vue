@@ -38,7 +38,6 @@ export default {
         isDisLiking : false,
     }),
     mounted(){
-        console.log('+++++',this.footerInfo.likes)
         let index = this.footerInfo.likes.map(x=>{
             return x.userId
         }).indexOf(this.user.id)
@@ -52,9 +51,8 @@ export default {
             await addLike({postId:this.footerInfo.id}).then(res=>{
                 this.footerInfo.likes.push(res)
                 this.$set(this.footerInfo,'isLiked',true)
-                console.log(this.footerInfo.likes)
             }).catch(err=>{
-                console.log(err.response)
+                //console.log(err.response)
             })
             this.isLiking = false;
         },
@@ -66,9 +64,8 @@ export default {
                 }).indexOf(this.user.id)
                 this.footerInfo.likes.splice(index,1)
                 delete this.footerInfo['isLiked'];
-                console.log(this.footerInfo.likes)
             }).catch(err=>{
-                console.log(err.response)
+                //console.log(err.response)
             })
             this.isLiking = false;
         },

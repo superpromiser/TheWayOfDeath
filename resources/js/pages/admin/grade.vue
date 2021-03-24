@@ -197,16 +197,16 @@ export default {
       async initialize () {
         getSchoolInfo().then(res=>{
           this.schoolInfo = res.data
-          console.log(this.schoolInfo)
+          //console.log(this.schoolInfo)
         }).catch(err=>{
-          console.log(err)
+          //console.log(err)
         });
         this.isLoadingGradeData = true;
         await getGrade().then(res=>{
-          console.log(res.data)
+          //console.log(res.data)
           this.gradeData = res.data;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
         this.isLoadingGradeData = false;
       },
@@ -224,12 +224,12 @@ export default {
       },
 
       async deleteItemConfirm () {
-        console.log(this.editedIndex)
+        //console.log(this.editedIndex)
         await deleteGrade({id:this.editedIndex}).then(res=>{
-          console.log(res)
+          //console.log(res)
           this.gradeData.splice(this.editedIndex, 1)
         }).catch(err=>{
-          console.log(err)
+          //console.log(err)
         })
         this.closeDelete()
       },
@@ -252,13 +252,13 @@ export default {
 
       async save () {
         this.isCreatingGrade = true;
-        console.log(this.editedItem)
+        //console.log(this.editedItem)
         if (this.editedIndex > -1) {
           await updateGrade(this.editedItem).then(res=>{
             this.editedItem.schoolName = res.data.schoolName
             Object.assign(this.gradeData[this.editedIndex], this.editedItem)
           }).catch(err=>{
-            console.log(err.response)
+            //console.log(err.response)
             this.isCreatingGrade = false
           })
         } else {
@@ -266,7 +266,7 @@ export default {
             this.editedItem = res.data
             this.gradeData.push(this.editedItem)
           }).catch(err=>{
-            console.log(err.response)
+            //console.log(err.response)
             this.isCreatingGrade = false
           })
         }
@@ -275,15 +275,15 @@ export default {
       },
       upImgUrl(value) {
         this.editedItem.imgUrl = value;
-        console.log(this.editedItem.imgUrl);
+        //console.log(this.editedItem.imgUrl);
       },
       clearedImg(){
         this.editedItem.imgUrl = ''
-        console.log(this.editedItem.imgUrl);
+        //console.log(this.editedItem.imgUrl);
       },
       selectSchool(id){
-        console.log(id)
-        console.log("this.editedItem",this.editedItem)
+        //console.log(id)
+        //console.log("this.editedItem",this.editedItem)
       }
     },
   }

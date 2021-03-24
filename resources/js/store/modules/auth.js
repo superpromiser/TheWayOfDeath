@@ -59,7 +59,7 @@ export const actions = {
   },
 
   saveUserState ({ commit }, payload) {
-    console.log('++++++++',payload)
+    //console.log('++++++++',payload)
     commit(types.FETCH_USER_SUCCESS, { user: payload } )
   },
 

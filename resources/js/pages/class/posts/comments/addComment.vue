@@ -41,7 +41,7 @@ export default {
         })
     },
     mounted(){
-        console.log('CommentData',this.contentData)
+        //console.log('CommentData',this.contentData)
     }
 }
 </script>

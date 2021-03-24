@@ -36,7 +36,6 @@ export default {
     },
 
     mounted(){
-        console.log("this.path", this.path);
     }
 }
 </script>

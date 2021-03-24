@@ -5,7 +5,7 @@ function getNotification(){
 }
 
 function createNotification(payload){
-    console.log('+++++++++',payload)
+    //console.log('+++++++++',payload)
     return axios.post('/api/v1/class/notification',payload);
 }
 

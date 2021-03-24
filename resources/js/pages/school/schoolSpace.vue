@@ -19,7 +19,9 @@
             </v-btn>
         </v-container>
         <transition name="fade" mode="out-in">
-            <router-view :key="$route.path"></router-view>
+            <keep-alive>
+                <router-view :key="$route.path"></router-view>
+            </keep-alive>
         </transition>
     </v-container>
 </template>
@@ -38,16 +40,24 @@ export default {
     watch:{
         currentPath:{
             handler(val){
-                console.log('*********',val)
+                //console.log('*********',val)
                 if(val.name=="schoolSpace" || val.name=="schoolSpace.news" || val.name == "schoolSpace.member" || val.name == "schoolSpace.application"){
                     this.isPost = true
                 }
             },
             deep:true
+        },
+        $route(to, from) {
+            // react to route changes...
+            //console.log(from)
+            // this.$router.go()
+            //console.log('routerChanged')
+            //console.log(to)
         }
     },
+     
     created(){
-        console.log(this.currentPath)
+        //console.log(this.currentPath)
         if(this.currentPath.name=="schoolSpace" || this.currentPath.name=="schoolSpace.news" || this.currentPath.name == "schoolSpace.member" || this.currentPath.name == "schoolSpace.application"){
             this.isPost = true
         }

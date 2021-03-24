@@ -42,7 +42,7 @@ export default {
     watch:{
         currentPath:{
             handler(val){
-                console.log('&&&&&&&&&',val)
+                //console.log('&&&&&&&&&',val)
                 if(val.name == 'schoolSpace.post'){
                     this.isPostItem = true
                 }

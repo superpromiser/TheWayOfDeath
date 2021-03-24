@@ -386,7 +386,7 @@ export default {
     },
 
     async created(){
-        console.log("user", this.user);
+        //console.log("user", this.user);
         this.isLoadingSchoolData = true;
         getSchool()
         .then((res) => {
@@ -405,7 +405,7 @@ export default {
 
     methods: {
         save() {
-            console.log(this.classScheduleData)
+            //console.log(this.classScheduleData)
         },
         cancel() {},
         open() {},

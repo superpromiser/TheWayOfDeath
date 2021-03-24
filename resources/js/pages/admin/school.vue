@@ -367,7 +367,7 @@ export default {
         }
         this.isLoadingSchoolData = false;
       }).catch((err) => {
-        console.log(err);
+        //console.log(err);
         this.isLoadingSchoolData = false;
       });
     },
@@ -408,7 +408,7 @@ export default {
           }
           this.isDeleteSchool = false;
         }).catch((err) => {
-          console.log(err)
+          //console.log(err)
           this.isDeleteSchool = false;
         });
         this.closeDelete()
@@ -446,7 +446,7 @@ export default {
             }
           }).catch((err) => {
             this.isCreatingSchool = false;
-            console.log(err)            
+            //console.log(err)            
           });
         } 
         //save schoolData
@@ -464,7 +464,7 @@ export default {
             this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
             this.schoolData.push(this.editedItem);
           }).catch((err) => {
-            console.log(err)
+            //console.log(err)
             this.isCreatingSchool = false;
           });
         }
@@ -495,11 +495,11 @@ export default {
 
       upImgUrl(value) {
         this.editedItem.imgUrl = value;
-        console.log(this.editedItem.imgUrl);
+        //console.log(this.editedItem.imgUrl);
       },
       clearedImg(){
         this.editedItem.imgUrl = ''
-        console.log(this.editedItem.imgUrl);
+        //console.log(this.editedItem.imgUrl);
       },
       convertAddress(address){
         address = JSON.parse(address);

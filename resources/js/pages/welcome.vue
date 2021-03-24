@@ -229,7 +229,6 @@ export default {
             token: res.data.token,
             remember: this.remember
           })
-          console.log("!!!!!",res.data)
           // Fetch the user.
           this.$store.dispatch('auth/saveUserState', res.data.user)
           this.$store.dispatch('schooltree/storeSchoolData', res.data.schoolTree);
@@ -243,7 +242,7 @@ export default {
           this.$router.push({ name: 'home' })
         })
         .catch(err=>{
-          console.log(err);
+          //console.log(err);
           this.isLogging = false;
           this.loginFailed = true;
         })

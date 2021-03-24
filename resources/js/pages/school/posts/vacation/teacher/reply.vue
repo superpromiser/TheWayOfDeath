@@ -174,7 +174,7 @@ export default {
 
     methods:{
         postVacationData(){
-            console.log(this.newVacationData);
+            //console.log(this.newVacationData);
         },
 
         allowVacation(){

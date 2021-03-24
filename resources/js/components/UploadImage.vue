@@ -35,12 +35,11 @@ export default {
                 fileData.append('file', file);
                 uploadImage(fileData)
                 .then((res) => {
-                    console.log(res);
                     res = `/uploads/image/${res.data}`
                     this.$emit('upImgUrl',res)
                     this.isUploading = false
                 }).catch((err) => {
-                    console.log(err.response.data);
+                    //console.log(err.response.data);
                     this.isUploading = false
                 });
             }

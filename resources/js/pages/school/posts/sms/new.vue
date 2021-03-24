@@ -104,15 +104,15 @@ export default {
             if(this.smsData.content.length == 0){
                 return
             }
-            console.log(this.smsData)
+            //console.log(this.smsData)
             this.isSubmit = true
             await createSms(this.smsData).then(res=>{
-                console.log(res)
+                //console.log(res)
                 this.isSubmit = false
                 this.isSuccessed = true;
                 this.$router.push({name:'schoolSpace.news'})
             }).catch(err=>{
-                console.log(err.response)
+                //console.log(err.response)
                 this.isSubmit = false
             })
         },

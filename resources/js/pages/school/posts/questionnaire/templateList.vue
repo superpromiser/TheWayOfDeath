@@ -45,12 +45,12 @@ export default {
             this.istemplateNew = true
         }
         await getQuestionnaireTemp().then(res=>{
-            console.log(res.data)
+            //console.log(res.data)
             this.isLoading = false
             this.templateList = res.data
         }).catch(err=>{
             this.isLoading = false
-            console.log(err.response)
+            //console.log(err.response)
         })
     },
 
@@ -70,7 +70,7 @@ export default {
             this.$router.push({name:'questionnaire.templateNew'})
         },
         selTemp(content){
-            // console.log(content)
+            // //console.log(content)
             this.$router.push({name:'posts.questionnaire',query:{'tempData':content}})
         }
     }

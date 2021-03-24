@@ -386,7 +386,9 @@
         </v-container>
       </div>
       <div v-else>
-        <router-view @contentData="saveContent" :type="'post'"></router-view>
+        <keep-alive>
+          <router-view @contentData="saveContent" :type="'post'"></router-view>
+        </keep-alive>
       </div>
       <v-snackbar
         timeout="3000"
@@ -447,7 +449,7 @@ export default {
   watch:{
     currentPath:{
       handler(val){
-        console.log('posts.questionnaire',val)
+        //console.log('posts.questionnaire',val)
         if(val.name == 'posts.questionnaire'){
           this.postNew = true
         }
@@ -468,10 +470,10 @@ export default {
 
   methods:{
     updateImageFile(imageFile){
-        console.log(imageFile)
+        //console.log(imageFile)
     },
     selectedLesson(val){
-        console.log(val)
+        //console.log(val)
     },
     selContent(type){
         this.postNew = false;
@@ -500,40 +502,24 @@ export default {
         }
     },
     saveContent(data){
+      console.log('----------',data)
       this.postNew = true;
-      switch(this.selType){
-        case 'single':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        case 'multi':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        case 'question':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        case 'stat':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        case 'scoring':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        default:
-          break;
-      }
+      this.newQuestionnaireData.content.push(data)
+      console.log('++++++++++',this.newQuestionnaireData)
     },
     async submit(){
-      console.log(this.newQuestionnaireData)
+      //console.log(this.newQuestionnaireData)
       this.isSubmit = true
       await createQuestionnaire(this.newQuestionnaireData).then(res => {
-        console.log(res)
+        //console.log(res)
         this.isSuccessed = true;
         // this.newQuestionnaireData = null
         this.$router.push({name:'schoolSpace.news'})
       }).catch(err=>{
-        console.log(err.response)
+        //console.log(err.response)
          if(err.response.status === 422){
             for(let i in err.response.data.errors){
-                console.log(err.response.data.errors[i][0])
+                //console.log(err.response.data.errors[i][0])
             }
         }
       })
@@ -564,7 +550,7 @@ export default {
     },
 
     editContent(data, index){
-      console.log(data, index);
+      //console.log(data, index);
     },
 
     deleteContent(index){
@@ -573,12 +559,12 @@ export default {
 
 
     saveDraft(){
-      console.log(this.newQuestionnaireData)
+      //console.log(this.newQuestionnaireData)
       this.isDraft = true;
       createTemplate({tempData:this.newQuestionnaireData,tempType:1,contentId:1}).then(res=>{
-        console.log(res)
+        //console.log(res)
       }).catch(err=>{
-        console.log(err.response)
+        //console.log(err.response)
       })
       this.isDraft = false;
     }

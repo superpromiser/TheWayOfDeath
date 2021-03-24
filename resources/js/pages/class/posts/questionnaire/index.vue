@@ -462,17 +462,17 @@ export default {
     if(this.currentPath.name == 'posts.Cquestionnaire'){
       this.postNew = true
     }
-    console.log(this.currentPath)
+    //console.log(this.currentPath)
     this.newQuestionnaireData.schoolId = this.currentPath.params.schoolId
     this.newQuestionnaireData.classId = this.currentPath.params.lessonId
   },
 
   methods:{
     updateImageFile(imageFile){
-        console.log(imageFile)
+        //console.log(imageFile)
     },
     selectedLesson(val){
-        console.log(val)
+        //console.log(val)
     },
     selContent(type){
         this.postNew = false;
@@ -523,18 +523,18 @@ export default {
       }
     },
     async submit(){
-      console.log(this.newQuestionnaireData)
+      //console.log(this.newQuestionnaireData)
       this.isSubmit = true
       await createQuestionnaire(this.newQuestionnaireData).then(res => {
-        console.log(res)
+        //console.log(res)
         this.isSuccessed = true;
         // this.newQuestionnaireData = null
         this.$router.push({name:'classSpace.news'})
       }).catch(err=>{
-        console.log(err.response)
+        //console.log(err.response)
          if(err.response.status === 422){
             for(let i in err.response.data.errors){
-                console.log(err.response.data.errors[i][0])
+                //console.log(err.response.data.errors[i][0])
             }
         }
       })
@@ -565,7 +565,7 @@ export default {
     },
 
     editContent(data, index){
-      console.log(data, index);
+      //console.log(data, index);
     },
 
     deleteContent(index){
@@ -574,12 +574,12 @@ export default {
 
 
     saveDraft(){
-      console.log(this.newQuestionnaireData)
+      //console.log(this.newQuestionnaireData)
       this.isDraft = true;
       createTemplate({tempData:this.newQuestionnaireData,tempType:1,contentId:1}).then(res=>{
-        console.log(res)
+        //console.log(res)
       }).catch(err=>{
-        console.log(err.response)
+        //console.log(err.response)
       })
       this.isDraft = false;
     }

@@ -222,14 +222,14 @@ export default {
     },
 
     async created(){
-        console.log('------------',this.user)
+        //console.log('------------',this.user)
         if(this.contentData == null){
           this.$router.push({name:'schoolSpace.news'})
         }
         this.contentData.questionnaires.content = JSON.parse(this.contentData.questionnaires.content);
         this.answerData.postId = this.contentData.id
         await getAnswerQuestionnaire({postId:this.answerData.postId}).then(res=>{
-          console.log('getAnswerQuestionnaire',res.data)
+          //console.log('getAnswerQuestionnaire',res.data)
           this.answerDataList = res.data;
           this.answerDataList.map(answerData=>{
             if(answerData.userId == this.user.id){
@@ -238,7 +238,7 @@ export default {
             }
           })
         }).catch(err=>{
-          console.log(err.response)
+          //console.log(err.response)
         })
     },
 
@@ -254,14 +254,14 @@ export default {
             }
         },
         answerUsers(){
-          console.log('answerUsers')
+          //console.log('answerUsers')
         },
         singleAnswer(data,index){
           if(this.alreadyAnswer == true){
             alert('您已经回答了该帖子');
             return;
           }
-          console.log(data,index)
+          //console.log(data,index)
           this.answerData.singleAnswer = index
         },
         multiAnswer(data,selIndex){
@@ -269,7 +269,7 @@ export default {
             alert('您已经回答了该帖子');
             return;
           }
-          console.log(data,selIndex)
+          //console.log(data,selIndex)
           let index = this.answerData.multiAnswer.indexOf(selIndex)
           if(index > -1){
             this.answerData.multiAnswer.splice(index,1);
@@ -295,7 +295,7 @@ export default {
           }
           this.isSubmit = true;
           await createAnswerQuestionnaire(this.answerData).then(res=>{
-            console.log(res)
+            //console.log(res)
             if(this.currentpath.params.lessonId){
               this.$router.push({name:'classSpace.news'})
             }else{
@@ -304,7 +304,7 @@ export default {
             this.isSubmit = false;
           }).catch(err=>{
             this.isSubmit = false;
-            console.log(err.response)
+            //console.log(err.response)
           })
 
         }

@@ -66,21 +66,44 @@ class PostController extends Controller
         $posts = Post::whereIn('contentId',[12,13,14,15,16,17,18,19,20,21,22])
         ->where('classId',$classId)
         ->with([
-            'likes',
-            'views',
-            'comments',
-            'questionnaires',
-            'votings',
-            'homeVisit',
-            'notifications',
-            'evaluations',
-            'recognitions',
+            'questionnaires:postId,content',
+            'votings:postId,content',
+            'homeVisit:postId,content',
+            'notifications:postId,description',
+            'evaluations:postId,selMedalList',
+            'recognitions:postId,imgUrl',
             'users:id,name'
         ])
         ->orderBy('created_at','desc')
         ->get();
-        file_put_contents('post.txt',$posts);
-        return $posts;
+        // file_put_contents('post.txt',$posts);
+        $tempData = [];
+        foreach($posts as $post){
+            switch($post->contentId){
+                case 19:
+                    array_push($tempData,$post->recognitions->imgUrl);
+                    break;
+                case 18:
+                    array_push($tempData,$post->evaluations->selMedalList);
+                    break;
+                case 17:
+                    array_push($tempData,$post->notifications->description);
+                    break;
+                case 16:
+                    array_push($tempData,$post->homeVisit->content);
+                    break;
+                case 13:
+                    array_push($tempData,$post->votings->content);
+                    break;
+                case 12:
+                    array_push($tempData,$post->questionnaires->content);
+                    break;
+                default:
+                    break;
+            }
+        }
+        // file_put_content('post.txt',$tempData);
+        return $tempData;
     }
 
     public function deletePost(Request $request){

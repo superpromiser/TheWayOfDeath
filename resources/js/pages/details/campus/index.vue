@@ -29,7 +29,7 @@ export default {
         }
     },
     mounted(){
-        console.log(this.contentData)
+        //console.log(this.contentData)
     }
 }
 </script>

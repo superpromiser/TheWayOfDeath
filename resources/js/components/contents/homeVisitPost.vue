@@ -80,7 +80,6 @@ export default {
       this.homeVisitData = this.content.home_visit;
       this.homeVisitData.content = JSON.parse(this.homeVisitData.content); 
       this.homeVisitData.description = JSON.parse(this.homeVisitData.description); 
-      console.log("www",this.homeVisitData);
     },
     methods:{
       showDetail(content){

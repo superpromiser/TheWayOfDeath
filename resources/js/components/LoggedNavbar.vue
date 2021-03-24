@@ -63,7 +63,6 @@ export default {
       this.$router.push({ name: 'login' })
     },
     toggleDrawer(){
-      console.log("123", this.drawer);
       this.$store.dispatch('toggledrawer/turnDrawer', {
         drawer: !this.drawer,
       })

@@ -257,7 +257,7 @@ export default {
     },
     methods: {
         selectedLesson(val){
-            console.log(val)
+            //console.log(val)
         },  
         loadContentData(data){
             if(data.text === ''){
@@ -279,14 +279,14 @@ export default {
                 return
             }
             this.isCreating = true
-            console.log("votingData", this.votingData);
+            //console.log("votingData", this.votingData);
             await createVoting(this.votingData).then(res=>{
-                console.log(res)
+                //console.log(res)
                 this.isCreating = false
                 this.isSuccessed = true
                 this.$router.push({name:'classSpace.news'})
             }).catch(err=>{
-                console.log(err.response);
+                //console.log(err.response);
                 this.isCreating = false
             })
         },

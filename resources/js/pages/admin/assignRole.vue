@@ -204,7 +204,6 @@
         })
       },
       editItem (item) {
-        console.log(item)
         this.editedIndex = this.userRoleList.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
@@ -237,31 +236,28 @@
             this.editedIndex = -1
           })
         }).catch(err=>{
-          console.log(err)
+          //console.log(err)
         })
       },
 
      async save () {
        this.isCreating = true;
-       console.log("this.editedIndex",this.editedIndex);
-       console.log(this.editedItem)
         if(this.editedIndex > -1){
           await updateUserRole(this.editedItem).then(res=>{
             Object.assign(this.userRoleList[this.editedIndex], this.editedItem)
           }).catch(err=>{
-            console.log(err)
+            //console.log(err)
           })
         }
         else {
-          console.log(this.editedItem)
+          //console.log(this.editedItem)
           await createUserRole(this.editedItem).then(res=>{
-            console.log('--------',res)
             res.data.created_at = this.TimeView(res.data.created_at)
             this.editedItem = res.data
             this.editedItem.permission = JSON.parse(this.editedItem.permission);
             this.userRoleList.push(this.editedItem)
           }).catch(err=>{
-            console.log(err)
+            //console.log(err)
           })
         }
         this.isCreating = false;

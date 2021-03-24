@@ -294,10 +294,7 @@ export default {
   },
   
   created() {
-    console.log("this.currentPath",this.currentPath)
-    console.log("this.schoolData", this.schoolData);
-    console.log("this.memberData", this.memberData);
-    console.log("this.user", this.user);
+    
     
     if(this.user.roleId !== 1){
       this.schoolData.map(schoolItem=>{

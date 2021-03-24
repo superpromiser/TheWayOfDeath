@@ -360,10 +360,10 @@ export default {
 
   methods:{
     updateImageFile(imageFile){
-        console.log(imageFile)
+        //console.log(imageFile)
     },
     selectedLesson(val){
-        console.log(val)
+        //console.log(val)
     },
     selContent(type){
         this.templateNew = false;
@@ -411,15 +411,15 @@ export default {
       }
     },
     async submit(){
-      console.log(this.newQuestionnaireTemplateData)
+      //console.log(this.newQuestionnaireTemplateData)
       this.isSubmit = true
       await createQuestionnaireTemp(this.newQuestionnaireTemplateData).then(res=>{
         this.isSubmit = false
         this.$router.push({name:'Cquestionnaire.templateList'})
-        console.log(res.data)
+        //console.log(res.data)
       }).catch(err=>{
         this.isSubmit = false
-        console.log(err.response)
+        //console.log(err.response)
       })
 
     },
@@ -448,7 +448,7 @@ export default {
     },
 
     editContent(data, index){
-      console.log(data, index);
+      //console.log(data, index);
     },
 
     deleteContent(index){

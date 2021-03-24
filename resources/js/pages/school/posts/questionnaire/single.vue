@@ -60,7 +60,7 @@ export default {
         }
     },
     created(){
-        console.log(this.type)
+        //console.log(this.type)
         if(this.type == undefined){
             this.$router.push({name:'posts.questionnaire'})
         }
@@ -78,8 +78,9 @@ export default {
                 return
             }
             // this.$store.dispatch('content/storeSingleData',this.singleContentDataArr)
+            //console.log("this.singleData",this.singleData)
             this.$emit('contentData',this.singleData);
-            // console.log(this.currentPath)
+            // //console.log(this.currentPath)
             if(this.type == 'post'){
                 this.$router.push({name:'posts.questionnaire'});
             }else{

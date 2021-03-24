@@ -357,7 +357,7 @@ export default {
         this.isLoadingSchoolData = true;
         await getSubject()
         .then((res) => {
-            console.log(res.data)
+            //console.log(res.data)
             this.scheduleData = res.data
         }).catch((err) => {
             
@@ -391,10 +391,10 @@ export default {
         async deleteItemConfirm () {
             this.isDeleting = true
             await deleteSubject({id:this.editedItem.id}).then(res=>{
-                console.log(res.data)
+                //console.log(res.data)
             }).catch(err=>{
                 this.isDeleting = false
-                console.log(err.response)
+                //console.log(err.response)
             })
             this.isDeleting = false
             this.scheduleData.splice(this.editedIndex, 1)
@@ -421,24 +421,24 @@ export default {
             //update scheduleData
             this.isCreating = true
             if (this.editedIndex > -1) {
-                console.log(this.editedItem)
+                //console.log(this.editedItem)
                 await updateSubject(this.editedItem).then(res=>{
-                    console.log(res.data)
+                    //console.log(res.data)
                     Object.assign(this.scheduleData[this.editedIndex], this.editedItem)
                 }).catch(err=>{
                     this.isCreating = false
-                    console.log(err.response)
+                    //console.log(err.response)
                 })
             } 
             //save scheduleData
             else {
                 await createSubject(this.editedItem).then(res=>{
-                    console.log(res.data)
+                    //console.log(res.data)
                     this.scheduleData.push(res.data)
 
                 }).catch(err=>{
                     this.isCreating = false
-                    console.log(err.response);
+                    //console.log(err.response);
                 })
             }
             this.isCreating = false

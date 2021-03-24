@@ -42,18 +42,18 @@ export default {
     },
 
     async created(){
-        console.log('=========',this.currentPath.name)
+        //console.log('=========',this.currentPath.name)
         if(this.currentPath.name == 'Cquestionnaire.templateList'){
             this.istemplateNew = true
         }
         this.isLoading = true;
         await getQuestionnaireTemp().then(res=>{
-            console.log(res.data)
+            //console.log(res.data)
             this.isLoading = false
             this.templateList = res.data
         }).catch(err=>{
             this.isLoading = false
-            console.log(err.response)
+            //console.log(err.response)
         })
     },
 
@@ -74,7 +74,7 @@ export default {
             this.$router.push({name:'Cquestionnaire.templateNew'})
         },
         selTemp(content){
-            // console.log(content)
+            // //console.log(content)
             this.$router.push({name:'posts.Cquestionnaire',query:{'tempData':content}})
         }
     }

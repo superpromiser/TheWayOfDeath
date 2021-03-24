@@ -457,7 +457,7 @@ export default {
         }
         this.isLoadingSchoolData = false;
       }).catch((err) => {
-        console.log(err);
+        //console.log(err);
         this.isLoadingSchoolData = false;
       });
       getSchoolTree()
@@ -487,7 +487,7 @@ export default {
                 this.classSelectionItem.push(dividerObj)
             })
       }).catch((err) => {
-          console.log(err)
+          //console.log(err)
       });
     },
 
@@ -528,7 +528,7 @@ export default {
           }
           this.isDeleteSchool = false;
         }).catch((err) => {
-          console.log(err)
+          //console.log(err)
           this.isDeleteSchool = false;
         });
         this.closeDelete()
@@ -570,18 +570,18 @@ export default {
             }
           }).catch((err) => {
             this.isCreatingSchool = false;
-            console.log(err)            
+            //console.log(err)            
           });
         } 
         //save schoolManagerData
         else {
-            console.log("this.editedItem", this.editedItem);
+            //console.log("this.editedItem", this.editedItem);
             this.editedItem.roleId = 4;
             this.isCreatingSchool = true;
             await createStaff(this.editedItem)
             .then((res) => {
-                console.log(res.data);
-                console.log("this.schoolManagerListRaw", this.schoolManagerListRaw)
+                //console.log(res.data);
+                //console.log("this.schoolManagerListRaw", this.schoolManagerListRaw)
                 this.isCreatingSchool = false;
                 this.editedItem.id = res.data.id;
 
@@ -596,7 +596,7 @@ export default {
                 this.editedItem.residenceAddress = this.convertAddress(JSON.stringify(this.editedItem.residenceAddress))
                 this.schoolManagerData.push(this.editedItem);
             }).catch((err) => {
-                console.log(err)
+                //console.log(err)
                 this.isCreatingSchool = false;
             });
         }
@@ -651,11 +651,11 @@ export default {
 
       upImgUrl(value) {
         this.editedItem.avatar = value;
-        console.log(this.editedItem.avatar);
+        //console.log(this.editedItem.avatar);
       },
       clearedImg(){
         this.editedItem.avatar = '/'
-        console.log(this.editedItem.avatar);
+        //console.log(this.editedItem.avatar);
       },
       convertAddress(address){
         address = JSON.parse(address);

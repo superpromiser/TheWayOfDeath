@@ -155,24 +155,14 @@ export default {
     lastPageOfContent: 0,
   }),
 
-  watch:{
-    $route(to, from) {
-      // react to route changes...
-      console.log(from)
-      this.$router.go()
-      console.log('routerChanged')
-      console.log(to)
-    }
-  },
-
   async created(){
     // this.isLoadingContents = true;
     // await getSchoolPost().then(res=>{
-    //   console.log('success',res)
+    //   //console.log('success',res)
     //   this.contentList = res.data.data;
     // }).catch(err=>{
       
-    //   console.log('failed',err.response)
+    //   //console.log('failed',err.response)
     // })
     // this.isLoadingContents = false;
   },
@@ -203,7 +193,7 @@ export default {
           }
           vm.lastpageOfContent = res.data.last_page;
           $.each(res.data.data, function(key, value){
-            console.log('-----',value)
+            //console.log('-----',value)
               vm.contentList.push(value); 
           });
           if (vm.pageOfContent - 1 === vm.lastpageOfContent) {

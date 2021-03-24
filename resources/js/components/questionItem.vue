@@ -250,7 +250,7 @@ export default {
                     this.isImageSelecting = false
                     this.selectedImageFile = null
                 }).catch((err) => {
-                    console.log(err);
+                    //console.log(err);
                     this.isImageSelecting = false
                 }); 
             }
@@ -281,7 +281,7 @@ export default {
                     this.contentData.videoUrl.push(res.data);
                     this.isVideoSelecting = false
                 }).catch((err) => {
-                    console.log(err);
+                    //console.log(err);
                     this.isVideoSelecting = false
                 });
             }
@@ -296,7 +296,6 @@ export default {
             this.$refs.fileUploader.click()
         },
         async onFileFileChanged(e) {
-            console.log("123");
             this.selectedFile = e.target.files[0];
             if(this.selectedFile !== undefined && this.selectedFile !== null) {
                 this.isFileSelecting = true;
@@ -311,7 +310,7 @@ export default {
                     this.contentData.otherUrl.push(res.data);
                     this.isFileSelecting = false
                 }).catch((err) => {
-                    console.log(err);
+                    //console.log(err);
                     this.isFileSelecting = false
                 });
             }
@@ -351,10 +350,9 @@ export default {
             }
             await deleteFile(filePath)
             .then((res) => {
-                console.log(res)
                 this.deleteItem.isDeleting = false;
             }).catch((err) => {
-                console.log(err);
+                //console.log(err);
                 this.deleteItem.isDeleting = false;
             });
 

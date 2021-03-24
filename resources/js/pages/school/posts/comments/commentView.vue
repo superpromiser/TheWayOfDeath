@@ -47,7 +47,7 @@ export default {
     })
   },
   mounted(){
-    console.log(this.content)
+    //console.log(this.content)
   },
   data:() => ({
     lang,
@@ -76,10 +76,10 @@ export default {
         return;
       }
       addComment({text:this.commentText,postId:this.content.id}).then(res=>{
-        console.log(res)
+        //console.log(res)
         this.content.comments.unshift(res.data)
       }).catch(err=>{
-        console.log(err.response)
+        //console.log(err.response)
       })
       this.commentText = ''
     }

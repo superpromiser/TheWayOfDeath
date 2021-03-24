@@ -237,15 +237,15 @@ export default {
         this.newQuestionnaireData.content.questionAnswerDataArr.push(this.qaData)
         this.newQuestionnaireData.content.statisticsDataArr.push(this.statData)
         this.newQuestionnaireData.content.scoringQuestoinsDataArr.push(this.scoringData)
-        console.log(this.newQuestionnaireData.content)
+        //console.log(this.newQuestionnaireData.content)
     },
 
     methods:{
         updateImageFile(imageFile){
-            console.log(imageFile)
+            //console.log(imageFile)
         },
         selectedLesson(val){
-            console.log(val)
+            //console.log(val)
         },
         selContent(type){
             switch(type){

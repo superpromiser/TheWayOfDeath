@@ -287,7 +287,7 @@ export default {
 
     methods: {
         selectedLesson(val){
-            console.log(val)
+            //console.log(val)
         },  
         loadContentData(data){
             if(data.text === ''){
@@ -300,11 +300,11 @@ export default {
 
         upImgUrl(value) {
             this.visitData.imgUrl = value;
-            console.log(this.visitData.imgUrl);
+            //console.log(this.visitData.imgUrl);
         },
         clearedImg(){
             this.visitData.imgUrl = ''
-            console.log(this.visitData.imgUrl);
+            //console.log(this.visitData.imgUrl);
         },
 
         async publishcampusData(){
@@ -313,12 +313,12 @@ export default {
                 return
             }
             this.isCreating = true
-            console.log("this.visitData", this.visitData);
+            //console.log("this.visitData", this.visitData);
             await createHomeVisit(this.visitData).then(res=>{
                 this.$router.push({name:'schoolSpace.news'})
                 this.isCreating = false;
             }).catch(err=>{
-                console.log(err.response)
+                //console.log(err.response)
                 this.isCreating = false;
             })
 
@@ -327,7 +327,7 @@ export default {
 
         openDetailDialog(){
             this.detailDialog = true;
-            console.log("something");
+            //console.log("something");
         }
     }
 }

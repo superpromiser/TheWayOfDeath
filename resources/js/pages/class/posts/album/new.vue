@@ -25,6 +25,7 @@ import {getClassPhoto} from '~/api/photo'
 export default {
     data: ()=> ({
         baseUrl: window.Laravel.base_url,
+        imgUrl:[],
     }),
 
     computed:{
@@ -36,8 +37,34 @@ export default {
     created(){
         getClassPhoto(this.currentPath.params.lessonId).then(res=>{
             console.log('getphoto',res.data)
+            let tempData = [];
+            // res.data.map(post=>{
+            //     switch(post.contentId){
+            //         case 19:
+            //             tempData.push(post.recognitions.imgUrl);
+            //             break;
+            //         case 18:
+            //             tempData.push(post.evaluations.selMedalList);
+            //             break;
+            //         case 17:
+            //             tempData.push(JSON.parse(post.notifications.description));
+            //             break;
+            //         case 16:
+            //             tempData.push(JSON.parse(post.home_visit.content))
+            //             break;
+            //         case 13:
+            //             tempData.push(JSON.parse(post.votings.content))
+            //             break;
+            //         case 12:
+            //             tempData.push(JSON.parse(post.questionnaires.content))
+            //             break;
+            //         default:
+            //             break
+            //     }
+            // })
+            // //console.log('tempData',tempData)
         }).catch(err=>{
-            console.log(err.response)
+            //console.log(err.response)
         })
     },
 

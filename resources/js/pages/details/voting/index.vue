@@ -117,10 +117,10 @@ export default {
         if(this.contentData == null){
           this.$router.push({name:'schoolSpace.news'})
         }
-        console.log(this.contentData)
+        //console.log(this.contentData)
         this.answerData.postId = this.contentData.id
         this.content = JSON.parse(this.contentData.votings.content)
-        // console.log('detail index')
+        // //console.log('detail index')
         await getAnswerVoting({postId:this.answerData.postId}).then(res=>{
             this.answerDataList = res.data
             this.answerDataList.map(answerData=>{
@@ -130,7 +130,7 @@ export default {
                 }
             })
         }).catch(err=>{
-            console.log(err.console)
+            //console.log(err.console)
         })
     },
     methods:{
@@ -158,7 +158,7 @@ export default {
         },
 
         async submit(){
-            console.log(this.answerData)
+            //console.log(this.answerData)
             if(this.answerData.multiAnswer.length == 0){
                 alert('请回答所有问题');
                 return
@@ -177,12 +177,12 @@ export default {
                 }
             }).catch(err=>{
                 this.isSubmit = false
-                console.log(err.response)
+                //console.log(err.response)
             })
         },
 
         answerUsers(){
-            console.log('answerUsers')
+            //console.log('answerUsers')
         }
     }
 }

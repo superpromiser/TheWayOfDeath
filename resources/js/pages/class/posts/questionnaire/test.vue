@@ -174,7 +174,7 @@ export default {
   },
   
   mounted() {
-    console.log(this.schoolData);
+    //console.log(this.schoolData);
   },
 
   data: () => ({

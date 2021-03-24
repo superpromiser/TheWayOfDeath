@@ -230,7 +230,7 @@ export default {
 
     methods: {
         selectedLesson(val){
-            console.log(val)
+            //console.log(val)
         },  
         loadContentData(data){
             if(data.text === ''){
@@ -243,22 +243,22 @@ export default {
 
         upImgUrl(value) {
             this.announcementData.imgUrl = value;
-            console.log(this.announcementData.imgUrl);
+            //console.log(this.announcementData.imgUrl);
         },
         clearedImg(){
             this.announcementData.imgUrl = ''
-            console.log(this.announcementData.imgUrl);
+            //console.log(this.announcementData.imgUrl);
         },
 
         async publishcampusData(){
             this.isCreating = true
-            console.log("announcementData", this.announcementData);
+            //console.log("announcementData", this.announcementData);
             await createAnouncement(this.announcementData).then(res=>{
-                console.log(res)
+                //console.log(res)
                 this.$router.push({name:'schoolSpace.news'})
             }).catch(err=>{
                 this.isCreating = false
-                console.log(err.response)
+                //console.log(err.response)
             })
             
         },
@@ -284,7 +284,7 @@ export default {
                 icon: 'mdi-account-group-outline',
                 text:this.newSignName
             })
-            console.log(this.signNameItems)
+            //console.log(this.signNameItems)
         }
     }
 }

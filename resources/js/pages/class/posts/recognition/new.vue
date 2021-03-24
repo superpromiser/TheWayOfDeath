@@ -254,17 +254,17 @@ export default {
     },
 
     created(){
-        console.log(this.recognitionData.content)
+        //console.log(this.recognitionData.content)
         this.recognitionData.schoolId = this.currentPath.params.schoolId
         this.recognitionData.classId = this.currentPath.params.lessonId
     },
 
     methods:{
         updateImageFile(imageFile){
-            console.log(imageFile)
+            //console.log(imageFile)
         },
         selectedUser(val){
-            console.log(val)
+            //console.log(val)
             this.recognitionData.students = val;
         },
         chooseImageTemplate(index){
@@ -275,21 +275,21 @@ export default {
             this.recognitionData.imgUrl = this.imgUrlItem[index].path;
         },
         async submit(){
-            console.log(this.recognitionData)
+            //console.log(this.recognitionData)
             if(this.recognitionData.type == '' || this.recognitionData.students.length == 0 || this.recognitionData.awardTitle == '' || this.recognitionData.publishDate == '' || this.recognitionData.description == '' || this.recognitionData.imgUrl == ''){
                 // alert('x')
-                console.log('isRequred')
+                //console.log('isRequred')
                 this.isRequired = true
                 return
             }
             this.isCreating = true
             await createRecognition(this.recognitionData).then(res=>{
-                console.log(res)
+                //console.log(res)
                 this.isCreating = false
                 this.$router.push({name:'classSpace.news'})
             }).catch(err=>{
                 this.isCreating = false
-                console.log(err.response)
+                //console.log(err.response)
             })
 
         }

@@ -294,7 +294,7 @@ export default {
         .then((res) => {
             this.initialized(res.data.data)
         }).catch((err) => {
-            console.log(err.response)
+            //console.log(err.response)
         });
         this.isGettingBaseData = false
         this.schoolData.map(x=>{
@@ -303,12 +303,12 @@ export default {
             }
         })
         this.currentSelectedGrade = this.mySchoolData.grades[0];
-        console.log(this.currentSelectedGrade)
+        //console.log(this.currentSelectedGrade)
         await getSchedule({gradeId:this.currentSelectedGrade.id}).then(res=>{
             this.scheduleSettingData = res.data
-            console.log(this.scheduleSettingData)
+            //console.log(this.scheduleSettingData)
         }).catch(err=>{
-            console.log(err.response);
+            //console.log(err.response);
         })
         this.triggerLesson()
         this.isLoadingSchoolData = false;
@@ -340,7 +340,7 @@ export default {
             // this.scheduleSettingData = data.scheduleArr;
         },
       editItem (item) {
-          console.log('------',item)
+          //console.log('------',item)
             this.editedIndex = this.scheduleSettingData.indexOf(item)
 
             this.editedItem.subject.label = item.subjectName
@@ -349,7 +349,7 @@ export default {
             this.editedItem.teacher.value = item.teacherId
             this.editedItem.lesson.label = item.lessonName
             this.editedItem.lesson.value = item.lessonId
-            console.log('+++++',this.editedItem)
+            //console.log('+++++',this.editedItem)
             this.dialog = true
       },
 
@@ -363,11 +363,11 @@ export default {
             this.isDeleting = true
             await deleteSchedule({id:this.editedIndex}).then(res=>{
                 this.scheduleSettingData.splice(this.editedIndex, 1)
-                console.log(res)
+                //console.log(res)
                 this.isDeleting = false
             }).catch(err=>{
                 this.isDeleting = false
-                console.log(err.response)
+                //console.log(err.response)
             })
             this.closeDelete()
         },
@@ -391,26 +391,26 @@ export default {
         async save () {
             //update scheduleSettingData
             this.isCreating = true
-            console.log(this.editedItem)
+            //console.log(this.editedItem)
             this.$set(this.editedItem,'gradeId',this.currentSelectedGrade.id)
-            console.log(this.editedIndex)
+            //console.log(this.editedIndex)
             if (this.editedIndex > -1) {
                 await updateSchedule(this.editedItem).then(res=>{
 
                     Object.assign(this.scheduleSettingData[this.editedIndex], this.editedItem)
                 }).catch(err=>{
                     this.isCreating = false;
-                    console.log(err.response)
+                    //console.log(err.response)
                 })
             } 
             //save scheduleSettingData
             else {
                 await createSchedule(this.editedItem).then(res=>{
-                    console.log(res.data)
+                    //console.log(res.data)
                     this.scheduleSettingData.push(res.data)
                 }).catch(err=>{
                     this.isCreating = false;
-                    console.log(err.response);
+                    //console.log(err.response);
                 })
             }
             this.isCreating = false;
@@ -425,7 +425,7 @@ export default {
             await getSchedule({gradeId:this.currentSelectedGrade.id}).then(res=>{
                 this.scheduleSettingData = res.data
             }).catch(err=>{
-                console.log(err.response);
+                //console.log(err.response);
             })
             this.isLoadingSchoolData = false;
             this.classItem = []

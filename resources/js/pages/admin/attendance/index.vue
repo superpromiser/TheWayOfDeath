@@ -169,7 +169,7 @@ export default {
             //     }
             //     this.isDeleteSchool = false;
             // }).catch((err) => {
-            //     console.log(err)
+            //     //console.log(err)
             //     this.isDeleteSchool = false;
             // });
             this.closeDelete()

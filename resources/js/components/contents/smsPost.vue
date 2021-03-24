@@ -65,7 +65,6 @@ export default {
     }),
     created(){
       this.smsData = JSON.parse(this.content.sms.content);
-      console.log("this.smsData",this.smsData);
     },
     methods:{
 

@@ -481,7 +481,7 @@ export default {
             //     }
             //     this.isDeleteSchool = false;
             // }).catch((err) => {
-            //     console.log(err)
+            //     //console.log(err)
             //     this.isDeleteSchool = false;
             // });
             this.closeDelete()
@@ -518,7 +518,7 @@ export default {
 
         //actions with cells
         save() {
-            console.log(this.classScheduleData)
+            //console.log(this.classScheduleData)
         },
         cancel() {
 

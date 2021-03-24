@@ -164,22 +164,22 @@ export default {
   watch:{
     $route(to, from) {
       // react to route changes...
-      console.log(from)
+      //console.log(from)
       // this.$router.go()
-      console.log('routerChanged')
+      //console.log('routerChanged')
       this.infiniteHandler($state)
-      console.log(to)
+      //console.log(to)
     }
   },
 
   async created(){
     // this.isLoadingContents = true;
     // await getClassPost(this.currentPath.params.classId).then(res=>{
-    //   console.log('success',res)
+    //   //console.log('success',res)
     //   this.contentList = res.data.data;
     // }).catch(err=>{
       
-    //   console.log('failed',err.response)
+    //   //console.log('failed',err.response)
     // })
     // this.isLoadingContents = false;
   },

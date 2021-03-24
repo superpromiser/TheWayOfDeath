@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 function getTemplate(payload){
-    console.log('getTemplate',payload)
+    //console.log('getTemplate',payload)
     return axios.get('/api/v1/template',{params:payload});
 }
 

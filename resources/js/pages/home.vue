@@ -65,7 +65,7 @@ export default {
         this.schoolData = res.data;
         this.isLoadingSchoolData = false;
       }).catch((err) => {
-        console.log(err);
+        //console.log(err);
         this.isLoadingSchoolData = false;
       });
   },

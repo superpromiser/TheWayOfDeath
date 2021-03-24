@@ -45,7 +45,7 @@ export default {
     },
 
     created(){
-        console.log('----------------------',this.type)
+        //console.log('----------------------',this.type)
         if(this.type == undefined){
             this.$router.push({name:'posts.questionnaire'})
         }

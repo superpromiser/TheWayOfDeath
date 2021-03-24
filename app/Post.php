@@ -62,6 +62,6 @@ class Post extends Model
     }
 
     public function recognitions(){
-        return $this->hasOne(Evaluation::class,'postId');
+        return $this->hasOne(Recognition::class,'postId');
     }
 }

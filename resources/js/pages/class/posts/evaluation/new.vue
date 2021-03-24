@@ -163,7 +163,7 @@ export default {
 
     methods: {
         selectedLesson(val){
-            console.log(val)
+            //console.log(val)
         },  
         loadContentData(data){
             if(data.text === ''){
@@ -194,13 +194,13 @@ export default {
             answerData.schoolId = this.currentPath.params.schoolId;
             answerData.classId = this.currentPath.params.lessonId;
             this.isCreating = true;
-            console.log(answerData);
+            //console.log(answerData);
             await createEvaluation(answerData).then(res=>{
-                console.log(res.data)
+                //console.log(res.data)
                 this.isCreating = false
                 this.$router.push({name:'classSpace.news'})
             }).catch(err=>{
-                console.log(err.response)
+                //console.log(err.response)
                 this.isCreating = false
             })
             

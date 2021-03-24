@@ -217,20 +217,20 @@
         await getClass().then(res=>{
           this.classData = res.data
         }).catch(err=>{
-          console.log(err)
+          //console.log(err)
         })
         this.isLoadingClassData = false;
         getSchoolInfo().then(res=>{
           this.schoolInfo = res.data
         }).catch(err=>{
-          console.log(err)
+          //console.log(err)
         })
       },
 
       editItem (item) {
         this.editedIndex = this.classData.indexOf(item)
         this.editedItem = Object.assign({}, item)
-        console.log(this.editedItem)
+        //console.log(this.editedItem)
         this.dialog = true
       },
 
@@ -268,38 +268,38 @@
             this.editedItem = res.data;
             Object.assign(this.classData[this.editedIndex], this.editedItem);
           }).catch(err=>{
-            console.log(err)
+            //console.log(err)
           })
         } else {
           await createClass(this.editedItem).then(res=>{
             this.editedItem = res.data;
             this.classData.push(this.editedItem);
           }).catch(err=>{
-            console.log(err)
+            //console.log(err)
           })
         }
         this.isCreatingClassData = false;
         this.close()
       },
       async selectSchool(id){
-        console.log(id)
+        //console.log(id)
         await getGradeInfo({id:id}).then(res=>{
-          console.log(res)
+          //console.log(res)
           this.gradeInfo = res.data
         }).catch(err=>{
-          console.log(err)
+          //console.log(err)
         })
       },
       selectGrade(id){
-        console.log(id)
+        //console.log(id)
       },
       upImgUrl(value) {
         this.editedItem.imgUrl = value;
-        console.log(this.editedItem.imgUrl);
+        //console.log(this.editedItem.imgUrl);
       },
       clearedImg(){
         this.editedItem.imgUrl = ''
-        console.log(this.editedItem.imgUrl);
+        //console.log(this.editedItem.imgUrl);
       },
     },
   }

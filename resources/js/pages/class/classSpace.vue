@@ -34,7 +34,6 @@ export default {
     watch:{
         currentPath:{
             handler(val){
-                console.log('*********',val)
                 if(val.name=="classSpace" || val.name=="classSpace.news" || val.name == "classSpace.member" || val.name == "classSpace.application"){
                     this.isPost = true
                 }
@@ -43,7 +42,7 @@ export default {
         }
     },
     created(){
-        console.log(this.currentPath)
+        //console.log(this.currentPath)
         if(this.currentPath.name=="classSpace" || this.currentPath.name=="classSpace.news" || this.currentPath.name == "classSpace.member" || this.currentPath.name == "classSpace.application"){
             this.isPost = true
         }

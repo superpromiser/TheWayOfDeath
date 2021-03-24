@@ -136,11 +136,11 @@ export default {
 
     methods: {
         selectedLesson(val){
-            console.log(val)
+            //console.log(val)
         },  
         clearedImg(){
             this.bulletinboardData.imgUrl = ''
-            console.log(this.bulletinboardData.imgUrl);
+            //console.log(this.bulletinboardData.imgUrl);
         },
 
         async publishcampusData(){
@@ -149,12 +149,12 @@ export default {
                 return
             }
             this.isCreating = true
-            console.log("bulletinboardData", this.bulletinboardData);
+            //console.log("bulletinboardData", this.bulletinboardData);
             await createBulletinBoard(this.bulletinboardData).then(res=>{
-                console.log(res.data)
+                //console.log(res.data)
                 this.$router.push({name:'schoolSpace.news'})
             }).catch(err=>{
-                console.log(err.response)
+                //console.log(err.response)
             })
         },
 

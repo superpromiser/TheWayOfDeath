@@ -147,7 +147,7 @@ export default {
 
     methods: {
         selectedLesson(val){
-            console.log(val)
+            //console.log(val)
         },  
         loadContentData(data){
             if(data.text === ''){
@@ -160,23 +160,23 @@ export default {
 
         upImgUrl(value) {
             this.campusData.imgUrl = value;
-            console.log(this.campusData.imgUrl);
+            //console.log(this.campusData.imgUrl);
         },
         clearedImg(){
             this.campusData.imgUrl = ''
-            console.log(this.campusData.imgUrl);
+            //console.log(this.campusData.imgUrl);
         },
 
         async publishcampusData(){
             this.isCreating = true
-            console.log("campusData", this.campusData);
+            //console.log("campusData", this.campusData);
             await createCampus(this.campusData).then(res=>{
-                console.log(res)
+                //console.log(res)
                 this.isCreating = false
                 this.$router.push({name:'schoolSpace.news'})
             }).catch(err=>{
                 this.isCreating = false
-                console.log(err.response)
+                //console.log(err.response)
             })
         },
     }
