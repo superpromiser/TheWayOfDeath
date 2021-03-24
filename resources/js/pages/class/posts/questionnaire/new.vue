@@ -74,6 +74,7 @@
                         v-model="newQuestionnaireData.deadline"
                         no-title
                         scrollable
+                        locale="zh-cn"
                         >
                         <v-spacer></v-spacer>
                         <v-btn
