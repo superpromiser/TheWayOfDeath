@@ -1,12 +1,20 @@
 <template>
     <v-container>
         <v-row>
+            <v-col v-if="isGettingBaseData" cols="12" class="d-flex justify-center my-7">
+                <v-progress-circular
+                    
+                    color="primary"
+                    indeterminate
+                    ></v-progress-circular>
+            </v-col>
             <v-tabs
                 background-color="transparent"
                 color="primary"
                 grow
                 class="my-7"
-            >
+                v-else
+            >   
                 <v-tab v-for="(gradeData) in mySchoolData.grades" :key="gradeData.id" @click="triggerGrade(gradeData)">
                     <v-icon class="mr-2">mdi-bookmark</v-icon>{{gradeData.gradeName}}
                 </v-tab>
@@ -212,6 +220,7 @@ export default {
         startTimeMenu: false,
         endTimeMenu: false,
         isEditable : false,
+        isGettingBaseData: false,
         currentSelectedGrade : null,
         teacherNameItem : [
             
@@ -280,12 +289,14 @@ export default {
     },
     async created(){
         this.isLoadingSchoolData = true;
+        this.isGettingBaseData = true;
         await getBaseData()
         .then((res) => {
             this.initialized(res.data.data)
         }).catch((err) => {
             console.log(err.response)
         });
+        this.isGettingBaseData = false
         this.schoolData.map(x=>{
             if(this.user.schoolId == x.id){
                 this.mySchoolData = x;

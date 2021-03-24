@@ -47,14 +47,15 @@
                     <v-card-text>
                         <v-container>
                         <v-row>
-                            <v-col cols="12" sm="6" >
+                            <v-col cols="12"  >
                                 <v-text-field
                                     solo
                                     v-model="editedItem.subjectName"
                                     label="机构名称"
+                                    hide-details
                                 ></v-text-field>
                             </v-col>
-                            <v-col cols="12" sm="6" >
+                            <v-col cols="12"  >
                                 <v-select
                                     solo
                                     :items="subjectTypeItem"
@@ -65,7 +66,7 @@
                                     hide-details
                                 ></v-select>
                             </v-col>
-                            <v-col cols="12" sm="6">
+                            <v-col cols="12" >
                                 <v-menu
                                     ref="startTimeMenu"
                                     v-model="startTimeMenu"
@@ -81,7 +82,7 @@
                                     <v-text-field
                                         solo
                                         v-model="editedItem.startTime"
-                                        label="start Time"
+                                        label="上课时间"
                                         prepend-icon="mdi-clock-time-four-outline"
                                         readonly
                                         v-bind="attrs"
@@ -97,7 +98,7 @@
                                     ></v-time-picker>
                                 </v-menu>
                             </v-col>
-                            <v-col cols="12" sm="6">
+                            <v-col cols="12" >
                                 <v-menu
                                     ref="endTimeMenu"
                                     v-model="endTimeMenu"
@@ -113,7 +114,7 @@
                                     <v-text-field
                                         solo
                                         v-model="editedItem.endTime"
-                                        label="start Time"
+                                        label="下课时间"
                                         prepend-icon="mdi-clock-time-four-outline"
                                         readonly
                                         v-bind="attrs"
@@ -129,6 +130,50 @@
                                     ></v-time-picker>
                                 </v-menu>
                             </v-col>
+                            <v-col cols="12" >
+                                <v-menu
+                                    ref="subjectDateMenu"
+                                    v-model="subjectDateMenu"
+                                    :close-on-content-click="false"
+                                    :return-value.sync="editedItem.subjectDate"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                >
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                            v-model="editedItem.subjectDate"
+                                            label="生效时间"
+                                            prepend-icon="mdi-calendar"
+                                            readonly
+                                            v-bind="attrs"
+                                            v-on="on"
+                                            solo
+                                        ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                        v-model="editedItem.subjectDate"
+                                        no-title
+                                        scrollable
+                                    >
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="subjectDateMenu = false"
+                                    >
+                                        {{lang.cancel}}
+                                    </v-btn>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="$refs.subjectDateMenu.save(editedItem.subjectDate)"
+                                    >
+                                        {{lang.ok}}
+                                    </v-btn>
+                                    </v-date-picker>
+                                </v-menu>
+                                </v-col>
                         </v-row>
                         </v-container>
                     </v-card-text>
@@ -250,6 +295,7 @@ export default {
         time: null,
         startTimeMenu: false,
         endTimeMenu: false,
+        subjectDateMenu: false,
         isEditable : false,
         subjectTypeItem : [
             { 
@@ -262,10 +308,11 @@ export default {
             },
         ],
         headers: [
-            { text: '课的名称', value: 'subjectName', align: 'start'},
-            { text: '课的类型', value: 'subjectType', sortable: false },
-            { text: '开始时间', value: 'startTime', sortable: false },
-            { text: '结束时间', value: 'endTime', sortable: false },
+            { text: '课时名称', value: 'subjectName', align: 'start'},
+            { text: '课时类型', value: 'subjectType', sortable: false },
+            { text: '上课时间', value: 'startTime', sortable: false },
+            { text: '下课时间', value: 'endTime', sortable: false },
+            { text: '生效时间', value: 'subjectDate', sortable: false },
             { text: '操作', value: 'actions', sortable: false },
         ],
         scheduleData: [
@@ -283,12 +330,14 @@ export default {
             subjectType: '',
             startTime: null,
             endTime: null,
+            subjectDate: null,
         },
         defaultItem: {
             subjectName: '',
             subjectType: '',
             startTime: null,
             endTime: null,
+            subjectDate: null,
         },
         
         baseUrl:window.Laravel.base_url,
@@ -389,12 +438,16 @@ export default {
 
                 }).catch(err=>{
                     this.isCreating = false
-                    consloe.log(err.response);
+                    console.log(err.response);
                 })
             }
             this.isCreating = false
             this.close()
         },
+        saveSubjectDate(){
+            this.$refs.subjectDateMenu.save(val);
+            // this.editedItem.subjectDate = val;
+        }
     },
 }
 </script>
