@@ -192,7 +192,7 @@ export default {
             }
             answerData.userList = this.contactInfo;
             answerData.selMedalList = this.selMedalList;
-            answerData.classId = this.currentPath.params.id;
+            answerData.classId = this.currentPath.params.lessonId;
             this.isCreating = true;
             console.log(answerData);
             await createEvaluation(answerData).then(res=>{

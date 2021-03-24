@@ -57,7 +57,6 @@ export default {
     watch:{
         currentPath:{
             handler(val){
-                console.log('*********',val)
                 if(val.name=="questionnaire.templateList"){
                     this.istemplateNew = true
                 }

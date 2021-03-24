@@ -373,19 +373,19 @@ export default {
         this.selType = type;
         switch(type){
             case 'single':
-                this.$router.push({name:"classQuestionnaireTemplate.single"});
+                this.$router.push({name:"CquestionnaireTemplate.single"});
                 break;
             case 'multi':
-                this.$router.push({name:"classQuestionnaireTemplate.multi"});
+                this.$router.push({name:"CquestionnaireTemplate.multi"});
                 break;
             case 'question':
-                this.$router.push({name:"classQuestionnaireTemplate.questionAnswer"});
+                this.$router.push({name:"CquestionnaireTemplate.questionAnswer"});
                 break;
             case 'stat':
-                this.$router.push({name:"classQuestionnaireTemplate.statistics"});
+                this.$router.push({name:"CquestionnaireTemplate.statistics"});
                 break;
             case 'scoring':
-                this.$router.push({name:"classQuestionnaireTemplate.scoring"});
+                this.$router.push({name:"CquestionnaireTemplate.scoring"});
                 break;
             default:
                 break;
@@ -418,7 +418,7 @@ export default {
       this.isSubmit = true
       await createQuestionnaireTemp(this.newQuestionnaireTemplateData).then(res=>{
         this.isSubmit = false
-        this.$router.push({name:'classQuestionnaire.templateList'})
+        this.$router.push({name:'Cquestionnaire.templateList'})
         console.log(res.data)
       }).catch(err=>{
         this.isSubmit = false

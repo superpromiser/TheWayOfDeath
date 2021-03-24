@@ -192,7 +192,7 @@ export default {
 
     created() {
         this.notificationData.signName = this.user.name;
-        this.notificationData.classId = this.currentPath.params.classId;
+        this.notificationData.classId = this.currentPath.params.lessonId;
     },
 
     methods: {

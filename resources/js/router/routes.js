@@ -36,10 +36,7 @@ export default [
   
   //schoolspace
   {
-    path:'/schoolSpace/:schoolId',
-    name:'schoolSpace',
-    component: page('school/schoolSpace.vue'),
-    redirect:{name:'schoolSpace.news'},
+    path:'/schoolSpace/:schoolId', name:'schoolSpace', component: page('school/schoolSpace.vue'), redirect:{name:'schoolSpace.news'},
     children:[
       {path:'news', name:'schoolSpace.news',component:page('school/news.vue')},
       {path:'application', name:'schoolSpace.application',component:page('school/application.vue')},
@@ -91,6 +88,47 @@ export default [
     ]
   },
 
+  //classSpace
+  {
+    path:'/classSpace/:schoolId/:gradeId/:lessonId', name:'classSpace', component: page('class/classSpace.vue'), redirect:{name:'classSpace.news'},
+    children:[
+      {path:'news', name:'classSpace.news',component:page('class/news.vue')},
+      {path:'application', name:'classSpace.application',component:page('class/application.vue')},
+      {path:'member', name:'classSpace.member',component:page('class/member.vue')},
+      {path:'post', name:'classSpace.post', component:page('class/posts/index.vue'),
+        children:[
+          {path:'questionnaire',name:'posts.Cquestionnaire', component:page('class/posts/questionnaire/index.vue'),
+            children:[
+              {path:'single', name:"Cquestionnaire.single", component:page('class/posts/questionnaire/single.vue')},
+              {path:'multi', name:"Cquestionnaire.multi", component:page('class/posts/questionnaire/multi.vue')},
+              {path:'questionAnswer', name:"Cquestionnaire.questionAnswer", component:page('class/posts/questionnaire/questionAnswer.vue')},
+              {path:'statistics', name:"Cquestionnaire.statistics", component:page('class/posts/questionnaire/statistics.vue')},
+              {path:'scoring', name:"Cquestionnaire.scoring", component:page('class/posts/questionnaire/scoring.vue')},
+              {path:'tmeplate', name:"Cquestionnaire.templateList", component:page('class/posts/questionnaire/templateList.vue'),
+                children:[
+                  {path:'newTemplate', name:"Cquestionnaire.templateNew", component:page('class/posts/questionnaire/newTemplate.vue'),
+                    children:[
+                      {path:'single',name:'CquestionnaireTemplate.single',component:page('class/posts/questionnaire/single.vue')},
+                      {path:'multi',name:'CquestionnaireTemplate.multi',component:page('class/posts/questionnaire/multi.vue')},
+                      {path:'questionAnswer',name:'CquestionnaireTemplate.questionAnswer',component:page('class/posts/questionnaire/questionAnswer.vue')},
+                      {path:'statistics',name:'CquestionnaireTemplate.statistics',component:page('class/posts/questionnaire/statistics.vue')},
+                      {path:'scoring',name:'CquestionnaireTemplate.scoring',component:page('class/posts/questionnaire/scoring.vue')}
+                    ]
+                  },
+                ]
+              },
+            ],
+          },
+          {path:'voting', name:'posts.Cvoting', component:page('class/posts/voting/new.vue')},
+          {path:'homevisit', name:'posts.Chomevisit', component:page('class/posts/homevisit/new.vue')},
+          {path:'notification', name:'posts.Cnotification', component:page('class/posts/notification/new.vue')},
+          {path:'evaluation', name:'posts.Cevaluation', component:page('class/posts/evaluation/new.vue')},
+          {path:'recognition', name:'posts.Crecognition', component:page('class/posts/recognition/new.vue')},
+          {path:'album', name:'posts.Calbum', component:page('class/posts/album/new.vue')},
+        ]
+      }
+    ]
+  },
   //vacation
   {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
   {path:'/admin/vacation/teacher', name:'posts.vacationTeacher', component:page('school/posts/vacation/teacher/new.vue')},
@@ -110,10 +148,6 @@ export default [
   {path:'/schoolspace/:id/class/:gradeId/:classId/1postDetail/17', name:'details.classNotification', component:page('school/details/notification/index.vue')},
   {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/18', name:'details.classEvaluation', component:page('school/details/evaluation/index.vue')},
   {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/19', name:'details.classRecognition', component:page('school/details/recognition/index.vue')},
-
-  //addComment
-  {path:'/schoolspace/:id/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
-   
 
   //setting
   { path: '/settings',

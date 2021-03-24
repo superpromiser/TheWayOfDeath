@@ -254,7 +254,7 @@ export default {
         }
     },
     created(){
-        this.votingData.classId = this.currentPath.params.classId
+        this.votingData.classId = this.currentPath.params.lessonId
     },
     methods: {
         selectedLesson(val){

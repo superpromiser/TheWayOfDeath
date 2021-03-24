@@ -280,8 +280,8 @@ export default {
     },
 
     created() {
-        if(this.currentPath.params.classId){
-            this.visitData.classId = this.currentPath.params.classId
+        if(this.currentPath.params.lessonId){
+            this.visitData.classId = this.currentPath.params.lessonId
         }
     },
 

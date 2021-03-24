@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             // $table->Integer('viewCnt')->default(0);
             // $table->Integer('likeCnt')->default(0);
             // $table->boolean('isLiked')->default(false);
+            $table->TinyInteger('schoolId')->nullable();
             $table->TinyInteger('classId')->nullable();
             $table->foreign('contentId')->references('id')->on('contents')->onDelete('cascade');
             $table->unsignedBigInteger('userId');

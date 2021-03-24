@@ -34,7 +34,7 @@ export default {
     },
 
     created(){
-        getClassPhoto(this.currentPath.params.classId).then(res=>{
+        getClassPhoto(this.currentPath.params.lessonId).then(res=>{
             console.log('getphoto',res.data)
         }).catch(err=>{
             console.log(err.response)

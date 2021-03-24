@@ -52,9 +52,9 @@ export default {
       }
       this.$emit('contentData',this.qaData);
       if(this.type == 'post'){
-          this.$router.push({name:'classposts.questionnaire'});
+          this.$router.push({name:'posts.Cquestionnaire'});
       }else{
-          this.$router.push({name:'classQuestionnaire.templateNew'})
+          this.$router.push({name:'Cquestionnaire.templateNew'})
       }
     },
     loadContentData(data){

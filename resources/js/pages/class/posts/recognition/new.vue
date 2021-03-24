@@ -257,7 +257,7 @@ export default {
 
     created(){
         console.log(this.recognitionData.content)
-        this.recognitionData.classId = this.currentPath.params.classId
+        this.recognitionData.classId = this.currentPath.params.lessonId
     },
 
     methods:{

@@ -160,7 +160,6 @@ export default {
 
     methods:{
         selectedPost(val){
-            console.log('-----post index',val)
             this.isPostItem = val
         }
     }

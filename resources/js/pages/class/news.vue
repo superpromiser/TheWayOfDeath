@@ -165,7 +165,7 @@ export default {
     $route(to, from) {
       // react to route changes...
       console.log(from)
-      this.$router.go()
+      // this.$router.go()
       console.log('routerChanged')
       console.log(to)
     }
@@ -191,7 +191,7 @@ export default {
           timeOut = 1000;
       }
       let vm = this;
-      await getClassPost(this.currentPath.params.classId, this.pageOfContent)
+      await getClassPost(this.currentPath.params.lessonId, this.pageOfContent)
       .then(res=>{
           if(vm.pageOfContent == 1 && res.data.data.length == 0){
               $state.complete();

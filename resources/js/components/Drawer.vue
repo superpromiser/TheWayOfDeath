@@ -226,7 +226,7 @@
               <v-list-item
                 v-for="(lesson, index) in grade.lessons" :key="index"
                 link
-                :to="{path:'/classSpace',params:{schoolId:school.id,gradeId:grade.id,lessonId:lesson.id}}"
+                :to="{name:'classSpace',params:{schoolId:school.id,gradeId:grade.id,lessonId:lesson.id}}"
                 >
                 <v-list-item-title class="ml-10">{{lesson.lessonName}}</v-list-item-title>
                 <v-list-item-icon>

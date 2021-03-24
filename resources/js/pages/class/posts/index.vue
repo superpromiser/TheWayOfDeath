@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row v-for="(itemGroup, i) in contentItemList" :key="i">
+        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" v-if="isPostItem == true">
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"
@@ -16,15 +16,13 @@
             <v-col v-for="(item, j) in itemGroup.items" :key="j" cols="12" sm="6" md="4" lg="3">
                 <PostItem 
                     :item="item" 
-                    :currentSchoolId="currentSchoolId"
-                    :currentGradeId="currentGradeId"
-                    :currentClassId="currentClassId"
+                     @selected="selectedPost"
                 />
             </v-col>
         </v-row>
-        <!-- <transition name="fade" mode="out-in">
+        <transition name="fade" mode="out-in">
             <router-view></router-view>
-        </transition> -->
+        </transition>
     </v-container>
 </template>
 
@@ -44,13 +42,25 @@ export default {
             return this.$route
         },
     },
+    watch:{
+        currentPath:{
+            handler(val){
+                console.log('&&&&&&&&&',val)
+                if(val.name == 'classSpace.post'){
+                    this.isPostItem = true
+                }
+            },
+            deep:true
+        }
+    },
     created(){
-        this.currentSchoolId = parseInt(this.currentPath.params.id)
-        this.currentGradeId = parseInt(this.currentPath.params.gradeId)
-        this.currentClassId = parseInt(this.currentPath.params.classId)
+       if(this.currentPath.name == 'classSpace.post'){
+            this.isPostItem = true
+        }
     },
     data: () => ({
         currentSchoolId : -1,
+        isPostItem:false,
         contentItemList : [
             {
                 title : "基础沟通",
@@ -61,14 +71,14 @@ export default {
                         title : "问卷",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/问卷 拷贝.png",
-                        path : "questionnaire"
+                        path : "posts.Cquestionnaire"
                     },
                     {
                         color : "lime darken-4",
                         title : "投票",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/投票.png",
-                        path : "voting"
+                        path : "posts.Cvoting"
                     },
                 ],
             },
@@ -95,7 +105,7 @@ export default {
                         title : "家访",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/家访 拷贝.png",
-                        path : "homevisit"
+                        path : "posts.Chomevisit"
                     },
                 ],
             },
@@ -108,7 +118,7 @@ export default {
                         title : "通知",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/通知 拷贝.png",
-                        path : "notification"
+                        path : "posts.Cnotification"
                     },
                 ],
             },
@@ -121,14 +131,14 @@ export default {
                         title : "评价",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/评价.png",
-                        path : "evaluation"
+                        path : "posts.Cevaluation"
                     },
                     {
                         color : "lime darken-4",
                         title : "表彰",
                         detail : "detail",
                         imgUrl : "/asset/img/icon/表彰.png",
-                        path : "recognition"
+                        path : "posts.Crecognition"
                     },
                 ],
             },
@@ -161,6 +171,11 @@ export default {
             },
         ]
     }),
+    methods:{
+        selectedPost(val){
+            this.isPostItem = val
+        }
+    }
 }
 </script>
 
