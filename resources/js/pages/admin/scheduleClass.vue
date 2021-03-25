@@ -53,7 +53,7 @@
                                         solo
                                         :items="subjectItem"
                                         :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
+                                        item-text="subjectName"
                                         v-model="editedItem.mon"
                                         label="星期一"
                                         hide-details
@@ -64,7 +64,7 @@
                                         solo
                                         :items="subjectItem"
                                         :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
+                                        item-text="subjectName"
                                         v-model="editedItem.tue"
                                         label="星期二"
                                         hide-details
@@ -75,7 +75,7 @@
                                         solo
                                         :items="subjectItem"
                                         :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
+                                        item-text="subjectName"
                                         v-model="editedItem.wed"
                                         label="星期三"
                                         hide-details
@@ -86,7 +86,7 @@
                                         solo
                                         :items="subjectItem"
                                         :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
+                                        item-text="subjectName"
                                         v-model="editedItem.thu"
                                         label="星期四"
                                         hide-details
@@ -97,7 +97,7 @@
                                         solo
                                         :items="subjectItem"
                                         :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
+                                        item-text="subjectName"
                                         v-model="editedItem.fri"
                                         label="星期五"
                                         hide-details
@@ -108,7 +108,7 @@
                                         solo
                                         :items="subjectItem"
                                         :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
+                                        item-text="subjectName"
                                         v-model="editedItem.sat"
                                         label="星期六"
                                         hide-details
@@ -119,7 +119,7 @@
                                         solo
                                         :items="subjectItem"
                                         :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
+                                        item-text="subjectName"
                                         v-model="editedItem.sun"
                                         label="星期日"
                                         hide-details
@@ -242,7 +242,7 @@
                             <v-select v-else
                                 :items="subjectItem"
                                 :menu-props="{ top: false, offsetY: true }"
-                                item-text="label"
+                                item-text="subjectName"
                                 v-model="item[header.value]"
                                 hide-details
                                 :disabled="!isEditable"
@@ -263,8 +263,7 @@
 </template>
 
 <script>
-import { createSchool, updateSchool, getSchool, deleteSchool } from '~/api/school'
-import { createSubject, updateSubject, getSubject, deleteSubject } from '~/api/managersubject'
+import {getScheduleClass} from '~/api/teacherSubject'
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -279,14 +278,14 @@ export default {
         endTimeMenu: false,
         isEditable : false,
         subjectItem : [
-            { 
-                label : "outsidePlay", 
-                value : "outsidePlay" 
-            },
-            { 
-                label : "insidePlay", 
-                value : "insidePlay" 
-            },
+            // { 
+            //     label : "outsidePlay", 
+            //     value : "outsidePlay" 
+            // },
+            // { 
+            //     label : "insidePlay", 
+            //     value : "insidePlay" 
+            // },
         ],
         headers: [
             { text: "星期一", value: "mon", sortable: false, align: "left" },
@@ -299,106 +298,16 @@ export default {
             { text: '操作', value: 'actions', sortable: false },
         ],
         scheduleData: [
-            {
-                id: 1,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                id: 2,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                id: 3,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                id: 4,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                id: 5,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                id: 6,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                id: 7,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                id: 8,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                id: 9,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                id: 10,
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            }
+            // {
+            //     id: 1,
+            //     mon: "",
+            //     tue: "",
+            //     wed: "",
+            //     thu: "",
+            //     fri: "",
+            //     sat: "",
+            //     sun: ""
+            // },
         ],
         schoolListRaw : [],
         editedIndex: -1,
@@ -436,12 +345,12 @@ export default {
 
     async created(){
         this.isLoadingSchoolData = true;
-        getSchool()
-        .then((res) => {
-            
-        }).catch((err) => {
-            
-        });
+        await getScheduleClass().then(res=>{
+            console.log("res.data",res.data)
+            this.subjectItem = res.data
+        }).catch(err=>{
+            console.log(err.response)
+        })
         this.isLoadingSchoolData = false;
     },
 

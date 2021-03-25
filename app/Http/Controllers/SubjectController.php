@@ -17,8 +17,10 @@ class SubjectController extends Controller
         $this->validate($request,[
             'subjectName'=>'required',
             'subjectType'=>'required',
-            'startTime'=>'required',
-            'endTime'=>'required',
+            // 'startTime'=>'required',
+            // 'endTime'=>'required',
+            // 'subjectDate'=>'required'
+            'subjectOrder'=>'required'
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
@@ -27,8 +29,10 @@ class SubjectController extends Controller
             'schoolId'=>$schoolId,
             'subjectName'=>$request->subjectName,
             'subjectType'=>$request->subjectType,
-            'startTime'=>$request->startTime,
-            'endTime'=>$request->endTime
+            'subjectOrder'=>$request->subjectOrder,
+            // 'startTime'=>$request->startTime,
+            // 'endTime'=>$request->endTime,
+            // 'subjectDate'=>$request->subjectDate
         ]);
 
     }
@@ -38,17 +42,20 @@ class SubjectController extends Controller
             'id'=>'required',
             'subjectName'=>'required',
             'subjectType'=>'required',
-            'startTime'=>'required',
-            'endTime'=>'required',
+            'subjectOrder'=>'required',
+            // 'startTime'=>'required',
+            // 'endTime'=>'required',
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         return Subject::where(['userId'=>$userId,'schoolId'=>$schoolId,'id'=>$request->id])->update([
             'subjectName'=>$request->subjectName,
             'subjectType'=>$request->subjectType,
-            'startTime'=>$request->startTime,
-            'endTime'=>$request->endTime
+            'subjectOrder'=>$request->subjectOrder,
+            // 'startTime'=>$request->startTime,
+            // 'endTime'=>$request->endTime
         ]);
+        
     }
 
     public function deleteSubject(Request $request){

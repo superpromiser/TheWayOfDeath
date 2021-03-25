@@ -13,5 +13,6 @@ class Subject extends Model
         'subjectType', 
         'startTime', 
         'endTime', 
+        'subjectDate'
     ];
 }

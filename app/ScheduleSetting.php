@@ -20,5 +20,7 @@ class ScheduleSetting extends Model
     public function lesson(){
         return $this->hasOne('App\Lesson','lessonId');
     }
-    
+    public function subjects(){
+        return $this->belongsTo(Subject::class,'subjectId');
+    }
 }

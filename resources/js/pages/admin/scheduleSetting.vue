@@ -406,7 +406,10 @@ export default {
             //save scheduleSettingData
             else {
                 await createSchedule(this.editedItem).then(res=>{
-                    //console.log(res.data)
+                    let index = this.subjectNameItem.findIndex(sbj=> sbj.value === this.editedItem.subject)
+                    if(index > -1){
+                        this.subjectNameItem.splice(index,1)
+                    }
                     this.scheduleSettingData.push(res.data)
                 }).catch(err=>{
                     this.isCreating = false;

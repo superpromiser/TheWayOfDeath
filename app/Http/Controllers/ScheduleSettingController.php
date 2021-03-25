@@ -38,7 +38,7 @@ class ScheduleSettingController extends Controller
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
-        return ScheduleSetting::where(['schoolId'=>$schoolId,'userId'=>$userId,'gradeId'=>$request->gradeId])->get();
+        return ScheduleSetting::where(['schoolId'=>$schoolId,'userId'=>$userId,'gradeId'=>$request->gradeId,'isActived'=>0])->get();
     }
 
     public function createSchedule(Request $request){
@@ -51,6 +51,9 @@ class ScheduleSettingController extends Controller
         $subject = $request->subject;
         $lesson = $request->lesson;
         $teacher = $request->teacher;
+        Subject::where('id',$request->subject['id'])->update([
+            'isActived'=>1
+        ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         return ScheduleSetting::create([

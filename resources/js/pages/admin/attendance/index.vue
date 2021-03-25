@@ -24,7 +24,7 @@
 
                 <div class="d-flex align-center">
                     <p class="mb-0 mr-5">考勤日期</p>
-                    <v-menu
+                    <!-- <v-menu
                         ref="menu"
                         v-model="menu"
                         :close-on-content-click="false"
@@ -49,6 +49,7 @@
                             no-title
                             scrollable
                             locale="zh-cn"
+                            @input="menu = false"
                         >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -61,11 +62,33 @@
                         <v-btn
                             text
                             color="primary"
-                            @click="$refs.menu.save(attendanceDate)"
+                            @click="selDate"
                         >
                             {{lang.ok}}
                         </v-btn>
                         </v-date-picker>
+                    </v-menu> -->
+                    <v-menu
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            v-model="attendanceDate"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                        ></v-text-field>
+                        </template>
+                        <v-date-picker
+                        v-model="attendanceDate"
+                        @input="selDate"
+                        ></v-date-picker>
                     </v-menu>
                 </div>
                 
@@ -113,48 +136,48 @@ export default {
     data: () => ({
         lang,
         menu:false,
-        attendanceDate : '',
+        attendanceDate : new Date().toISOString().substr(0, 10),
         headers: [
-            { text: '姓名', value: 'studentName', align: 'start'},
-            { text: '进校', value: 'inTime', sortable: false },
-            { text: '离校', value: 'outTime', sortable: false },
-            { text: '请假', value: 'other', sortable: false, align: 'center' },
+            { text: '姓名', value: 'users.name', align: 'start'},
+            { text: '进校', value: 'startTime', sortable: false },
+            { text: '离校', value: 'endTime', sortable: false },
+            { text: '请假', value: 'type', sortable: false, align: 'center' },
         ],
         attendanceData: [
-            {
-                studentName: 'sammie',
-                inTime: '00:00',
-                outTime: '00:01',
-                other: null,
-            },
-            {
-                studentName: 'tommy',
-                inTime: '00:00',
-                outTime: '00:01',
-                other: null,
-            },
-            {
-                studentName: 'hommey',
-                inTime: '00:00',
-                outTime: '00:01',
-                other: null,
-            },
-            {
-                studentName: 'gommey',
-                inTime: '00:00',
-                outTime: '00:01',
-                other: {
-                    type : 1
-                },
-            },
-            {
-                studentName: 'Jemmey',
-                inTime: '00:00',
-                outTime: '00:01',
-                other: {
-                    type : 2
-                },
-            },
+            // {
+            //     studentName: 'sammie',
+            //     inTime: '00:00',
+            //     outTime: '00:01',
+            //     other: null,
+            // },
+            // {
+            //     studentName: 'tommy',
+            //     inTime: '00:00',
+            //     outTime: '00:01',
+            //     other: null,
+            // },
+            // {
+            //     studentName: 'hommey',
+            //     inTime: '00:00',
+            //     outTime: '00:01',
+            //     other: null,
+            // },
+            // {
+            //     studentName: 'gommey',
+            //     inTime: '00:00',
+            //     outTime: '00:01',
+            //     other: {
+            //         type : 1
+            //     },
+            // },
+            // {
+            //     studentName: 'Jemmey',
+            //     inTime: '00:00',
+            //     outTime: '00:01',
+            //     other: {
+            //         type : 2
+            //     },
+            // },
         ],
         
         baseUrl:window.Laravel.base_url,
@@ -169,12 +192,14 @@ export default {
 
     async created(){
         this.isLoadingSchoolData = true;
-        getAttendaceData().then(res=>{
+        await getAttendaceData().then(res=>{
             console.log(res.data)
+            this.attendanceData = res.data
+            this.isLoadingSchoolData = false;
         }).catch(err=>{
             console.log(err.response)
+            this.isLoadingSchoolData = false;
         })
-        this.isLoadingSchoolData = false;
     },
 
     watch: {
@@ -214,6 +239,23 @@ export default {
             }
             this.close()
         },
+
+        chooseDate(date){
+            console.log(date)
+        },
+        async selDate(){
+            console.log(this.attendanceDate)
+            this.menu = false
+            this.isLoadingSchoolData = true
+            await getAttendaceData({selDate:this.attendanceDate}).then(res=>{
+                console.log(res.data)
+                this.attendanceData = res.data
+                this.isLoadingSchoolData = false;
+            }).catch(err=>{
+                console.log(err.response)
+                this.isLoadingSchoolData = false;
+            })
+        }
     },
 }
 </script>
