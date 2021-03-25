@@ -104,8 +104,7 @@
 </template>
 
 <script>
-import { createSchool, updateSchool, getSchool, deleteSchool } from '~/api/school'
-import { createSubject, updateSubject, getSubject, deleteSubject } from '~/api/managersubject'
+import {getAttendaceData} from '~/api/attendance'
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -170,12 +169,11 @@ export default {
 
     async created(){
         this.isLoadingSchoolData = true;
-        getSchool()
-        .then((res) => {
-            
-        }).catch((err) => {
-            
-        });
+        getAttendaceData().then(res=>{
+            console.log(res.data)
+        }).catch(err=>{
+            console.log(err.response)
+        })
         this.isLoadingSchoolData = false;
     },
 

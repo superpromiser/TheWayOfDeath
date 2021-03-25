@@ -145,7 +145,7 @@ export default {
                         color : "teal darken-4",
                         title : "请假",
                         imgUrl : "/asset/img/icon/请假.png",
-                        path : "vacation"
+                        path : "posts.vocation"
                     },
                     {
                         color : "teal darken-4",

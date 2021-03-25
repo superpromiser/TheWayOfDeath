@@ -63,6 +63,7 @@ export default {
     methods : {
         selectItem(){
             this.$emit('selected',false)
+            console.log('-----',this.item.path)
             this.$router.push({name:this.item.path,params:{schoolId:this.currentSchoolId,gradeId:this.currentGradeId,lessonId:this.currentLessonId}})
         }
     }

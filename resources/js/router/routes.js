@@ -71,6 +71,7 @@ export default [
           {path:'announcement', name:'posts.announcement', component:page('school/posts/announcement/new.vue')},
           {path:'bulletinboard', name:'posts.bulletinboard', component:page('school/posts/bulletinboard/new.vue')},
           {path:'homevisit', name:'posts.homevisit', component:page('school/posts/homevisit/new.vue')},
+          {path:'vacation', name:'posts.vocation', component:page('school/posts/vacation/student/new.vue')},
           {path:'addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
         ]
       },
@@ -130,7 +131,7 @@ export default [
     ]
   },
   //vacation
-  {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
+  // {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
   {path:'/admin/vacation/teacher', name:'posts.vacationTeacher', component:page('school/posts/vacation/teacher/new.vue')},
   {path:'/admin/vacation/teacher/reply', name:'posts.vacationTeacherReply', component:page('school/posts/vacation/teacher/reply.vue')},
 

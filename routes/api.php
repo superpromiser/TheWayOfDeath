@@ -210,6 +210,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     //class albums
     Route::get('/class/photos','PostController@getClassPhoto');
+
+    //attendance
+    Route::get('attendance','AttendanceController@getAttendanceData');
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {
