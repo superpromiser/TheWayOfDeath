@@ -485,6 +485,22 @@ a {
       width: 100%;
   }
 
+  .h-100{
+      height: 100%;
+  }
+
   .v-list-group__header__prepend-icon, .v-list-item__icon{
     margin-right: 12px!important;
+  }
+
+  .chat-search-user{
+    position: sticky;
+    top: 0px;
+    background: white;
+    box-shadow: 1px 1px 10px #f3f3f3;
+  }
+
+  .chat-contact-list{
+    overflow: auto;
+    height: 93%;
   }

@@ -240,6 +240,13 @@
 
         <v-list-item-title>{{lang.home}}</v-list-item-title>
       </v-list-item>
+      <v-list-item link to="/chat">
+        <v-list-item-icon>
+          <v-icon>mdi-chat-processing-outline</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-title>即时通讯</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>

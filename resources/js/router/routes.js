@@ -14,6 +14,10 @@ export default [
 
   //home
   { path: '/home', name: 'home', component: page('home.vue') },
+  
+  //home
+  { path: '/chat', name: 'chat', component: page('chat/index.vue') },
+
   //Admin
   { path: '/admin/assignRole', name: 'admin.assignRole', component: page('admin/assignRole.vue') },
   { path: '/admin/class', name: 'admin.class', component: page('admin/class.vue') },

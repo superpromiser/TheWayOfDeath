@@ -213,6 +213,31 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     //attendance
     Route::get('attendance','AttendanceController@getAttendanceData');
+
+    //chat
+    Route::get('/chat/userList', 'ChatController@getUserList')->name('getUserList');
+    Route::get('/chat/contactList', 'ChatController@getContactList')->name('getContactList');
+    Route::post('/chat/newMsgCount', 'ChatController@addNewMessageCount')->name('addNewMessageCount');
+    Route::post('/contact', 'ChatController@postContactList')->name('postContactList');
+
+    Route::get('/messages', 'MessageController@index')->name('getMessages');
+    Route::get('/messages/group', 'MessageController@getGroupMessage')->name('getGroupMessage');
+    Route::post('/messages', 'MessageController@store')->name('saveMessages');
+    Route::post('/messages/newgroup', 'ChatRoomController@creatGroup')->name('creatGroup');
+    Route::post('/messages/leavegroup', 'ChatController@leavegroup')->name('leavegroup');
+    Route::delete('/messages/removeGroup', 'ChatController@removeGroup')->name('removeGroup');
+    Route::delete('/messages/removeUser', 'ChatController@removeUser')->name('removeUser');
+        //send image
+    Route::post('/messages/image', 'MessageController@storeChatSendImage')->name('chatSendImageStore');
+        //send video
+    Route::post('/messages/video', 'MessageController@storeChatSendVideo')->name('chatSendVideoStore');
+        //send file
+    Route::post('/messages/file', 'MessageController@storeChatSendFile')->name('chatSendFileStore');
+        //send audio
+    Route::post('/messages/voice', 'MessageController@storeChatSendVoice')->name('chatSendVoiceStore');
+        //send map
+    Route::post('/messages/map', 'MessageController@storeChatSendMap')->name('chatSendMapStore');
+
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {
