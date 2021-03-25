@@ -20,7 +20,8 @@
         </v-container>
         <transition name="fade" mode="out-in">
             <keep-alive>
-                <router-view :key="$route.path"></router-view>
+                <!-- <router-view :key="$route.path"></router-view> -->
+                <router-view></router-view>
             </keep-alive>
         </transition>
     </v-container>
@@ -48,11 +49,7 @@ export default {
             deep:true
         },
         $route(to, from) {
-            // react to route changes...
-            //console.log(from)
-            // this.$router.go()
-            //console.log('routerChanged')
-            //console.log(to)
+            this.$router.go()
         }
     },
      

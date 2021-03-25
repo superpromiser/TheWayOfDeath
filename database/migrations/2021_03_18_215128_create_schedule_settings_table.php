@@ -24,6 +24,7 @@ class CreateScheduleSettingsTable extends Migration
             $table->unsignedBigInteger('lessonId');
             $table->unsignedBigInteger('schoolId');
             $table->unsignedBigInteger('userId');
+            $table->boolean('isActived')->default(false);
             $table->timestamps();
 
             $table->foreign('gradeId')->references('id')->on('grades')->onDelete('cascade');

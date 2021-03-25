@@ -158,6 +158,11 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('manager/schedule','ScheduleSettingController@updateSchedule');
     Route::delete('manager/schedule','ScheduleSettingController@deleteSchedule');
 
+    Route::get('teacher/schedule','scheduleClassController@getScheduleClass');
+    Route::post('teacher/schedule','scheduleClassController@createScheduleClass');
+    Route::put('teacher/schedule','scheduleClassController@updateScheduleClass');
+    Route::delete('teacher/schedule','scheduleClassController@deleteScheduleClass');
+
     //campus
     Route::get('campus','CampusController@getCampus');
     Route::post('campus','CampusController@createCampus');

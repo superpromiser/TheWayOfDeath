@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getAttendaceData(){
-    return axios.get('/api/v1/attendace')
+function getAttendaceData(payload){
+    return axios.get('/api/v1/attendance',{params:payload})
 }
 
 export{

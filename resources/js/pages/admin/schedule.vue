@@ -66,7 +66,18 @@
                                     hide-details
                                 ></v-select>
                             </v-col>
-                            <v-col cols="12" >
+                            <v-col cols="12"  >
+                                <v-select
+                                    solo
+                                    :items="subjectOrderItem"
+                                    :menu-props="{ top: false, offsetY: true }"
+                                    item-text="label"
+                                    v-model="editedItem.subjectOrder"
+                                    label="课时类型"
+                                    hide-details
+                                ></v-select>
+                            </v-col>
+                            <!-- <v-col cols="12" >
                                 <v-menu
                                     ref="startTimeMenu"
                                     v-model="startTimeMenu"
@@ -174,7 +185,7 @@
                                     </v-btn>
                                     </v-date-picker>
                                 </v-menu>
-                                </v-col>
+                            </v-col> -->
                         </v-row>
                         </v-container>
                     </v-card-text>
@@ -308,12 +319,45 @@ export default {
                 value : "insidePlay" 
             },
         ],
+        subjectOrderItem: [
+           {
+            label: "第一节",
+            value: "第一节"
+          },
+          {
+            label: "第二节",
+            value: "第二节"
+          },
+          {
+            label: "第三节",
+            value: "第三节"
+          },
+          {
+            label: "第四节",
+            value: "第四节"
+          },
+          {
+            label: "第五节",
+            value: "第五节"
+          },
+          {
+            label: "第六节",
+            value: "第六节"
+          },
+          {
+            label: "第七节",
+            value: "第七节"
+          },
+        ],
         headers: [
             { text: '课时名称', value: 'subjectName', align: 'start'},
             { text: '课时类型', value: 'subjectType', sortable: false },
-            { text: '上课时间', value: 'startTime', sortable: false },
-            { text: '下课时间', value: 'endTime', sortable: false },
-            { text: '生效时间', value: 'subjectDate', sortable: false },
+            { text: '上课时间', value: 'subjectOrder', sortable: false },
+            
+            // { text: '上课时间', value: 'startTime', sortable: false },
+            // { text: '下课时间', value: 'endTime', sortable: false },
+            // { text: '生效时间', value: 'subjectDate', sortable: false },
+
             { text: '操作', value: 'actions', sortable: false },
         ],
         scheduleData: [
@@ -329,16 +373,18 @@ export default {
         editedItem: {
             subjectName: '',
             subjectType: '',
-            startTime: null,
-            endTime: null,
-            subjectDate: null,
+            subjectOrder:'',
+            // startTime: null,
+            // endTime: null,
+            // subjectDate: null,
         },
         defaultItem: {
             subjectName: '',
             subjectType: '',
-            startTime: null,
-            endTime: null,
-            subjectDate: null,
+            subjectOrder:'',
+            // startTime: null,
+            // endTime: null,
+            // subjectDate: null,
         },
         
         baseUrl:window.Laravel.base_url,
