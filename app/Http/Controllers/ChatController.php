@@ -13,7 +13,7 @@ class ChatController extends Controller
 {
     public function getUserList()
     {
-        $users = User::all();
+        $users = User::all('id', 'name','avatar', 'roleId', 'schoolId', 'gradeId', 'lessonId');
         return response()->json([
             'users' => $users
         ],200);
@@ -26,7 +26,8 @@ class ChatController extends Controller
         $contactUsers = Contact::where([
             [ 'userId', '=', $userId],
             [ 'contactUserId', '<>', null],
-        ])->with('user')->orderBy('created_at','desc')->get();
+        ])->with( array('user' => function($query) { $query->select('id', 'name','avatar'); }) )
+            ->orderBy('created_at','desc')->get(['userId','roomId', 'new_msg_count', 'contactUserId', 'id']);
         $chatGroups = Contact::where([
             [ 'userId', '=', $userId],
             [ 'roomId', '<>', null],
@@ -35,6 +36,11 @@ class ChatController extends Controller
             'contactUsers' => $contactUsers,
             'chatGroups' => $chatGroups,
         ],200);
+        Post::query()
+            ->with(array('user' => function($query) {
+                $query->select('id','username');
+            }))
+            ->get();
     }
     
     public function postContactList(Request $request){
