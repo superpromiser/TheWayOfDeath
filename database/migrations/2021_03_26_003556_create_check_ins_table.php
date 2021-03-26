@@ -20,7 +20,7 @@ class CreateCheckInsTable extends Migration
             $table->char('checkType');
             $table->unsignedBigInteger('studentId');
             $table->char('signal');
-            $table->DateTime('startTime');
+            $table->string('startTime');
             $table->char('reason');
             $table->char('hospital');
             $table->unsignedBigInteger('userId');

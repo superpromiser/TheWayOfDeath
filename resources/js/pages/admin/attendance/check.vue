@@ -268,7 +268,7 @@ export default {
     dialogDelete: false,
     indroduceDialog : false,
     checkAttendanceDateMenu: false,
-    checkAttendanceDate: '',
+    checkAttendanceDate: new Date().toISOString().substr(0, 10),
     checkAttendanceType: '晨检',
     checkAttendanceTypeItem: [
       {
@@ -528,6 +528,27 @@ export default {
       }).catch((err) => {
         console.log(err)
       });
+
+      getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
+        console.log('++++++++',res.data)
+        res.data.map(checkData=>{
+          let clonedEditedItem = Object.assign({}, checkData);
+          let selectedStudentData = {};
+          this.studentList.map( x =>{
+            if(x.id == checkData.studentId){
+              selectedStudentData = x;
+            }
+          })
+          clonedEditedItem["name"] = selectedStudentData.name;
+          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
+          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
+          clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
+          clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+          // console.log("clonedEditedItem",clonedEditedItem)
+          this.checkData.push(clonedEditedItem);
+        })
+        
+      })
     },
 
     watch: {
@@ -705,6 +726,26 @@ export default {
       onSelectCheckAttendanceDate(val){          
         this.$refs.checkAttendanceDateMenu.save(val);
         this.checkAttendanceDate = val;
+        getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
+        console.log('++++++++',res.data)
+        res.data.map(checkData=>{
+          let clonedEditedItem = Object.assign({}, checkData);
+          let selectedStudentData = {};
+          this.studentList.map( x =>{
+            if(x.id == checkData.studentId){
+              selectedStudentData = x;
+            }
+          })
+          clonedEditedItem["name"] = selectedStudentData.name;
+          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
+          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
+          clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
+          clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+          // console.log("clonedEditedItem",clonedEditedItem)
+          this.checkData.push(clonedEditedItem);
+        })
+        
+      })
       },
 
       selectedCheckAttendanceTypeItem(val){

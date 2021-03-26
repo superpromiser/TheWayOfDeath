@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getCheckInData(){
-    return axios.get('/api/v1/checkIn');
+function getCheckInData(payload){
+    return axios.get('/api/v1/checkIn',{params:payload});
 }
 
 function createCheckInData(payload){

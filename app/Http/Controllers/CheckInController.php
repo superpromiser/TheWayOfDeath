@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 class CheckInController extends Controller
 {
     //
-    public function getCheckInData(){
-
+    public function getCheckInData(Request $request){
+        return CheckIn::where('checkInDate',$request->checkInDate)->get();
     }
 
     public function createCheckInData(Request $request){
@@ -26,7 +26,7 @@ class CheckInController extends Controller
         ]);
         $userId = Auth::user()->id;
         return CheckIn::create([
-            'checkInDate'=>$request->checkAttendanceDate,
+            'checkInDate'=>$request->checkInDate,
             'checkAttendanceType'=>$request->checkAttendanceType,
             'checkType'=>$request->checkType,
             'studentId'=>$request->studentId,
@@ -34,7 +34,7 @@ class CheckInController extends Controller
             'startTime'=>$request->startTime,
             'reason'=>$request->reason,
             'hospital'=>$request->hospital,
-            'userId'=>$request->userId
+            'userId'=>$userId
         ]);
 
     }
