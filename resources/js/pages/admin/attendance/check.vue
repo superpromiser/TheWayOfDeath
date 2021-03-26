@@ -726,6 +726,7 @@ export default {
       onSelectCheckAttendanceDate(val){          
         this.$refs.checkAttendanceDateMenu.save(val);
         this.checkAttendanceDate = val;
+        this.checkData = []
         getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
         console.log('++++++++',res.data)
         res.data.map(checkData=>{
