@@ -243,6 +243,20 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
         //send map
     Route::post('/messages/map', 'MessageController@storeChatSendMap')->name('chatSendMapStore');
 
+    //get lesson user list
+    Route::get('/lessonUserList','UserController@getLessonUserList');
+
+    Route::get('/lessonAttendance','LessonAttendanceController@getLessonAttendance');
+    Route::post('/lessonAttendance','LessonAttendanceController@createLessonAttendance');
+    Route::put('/lessonAttendance','LessonAttendanceController@updateLessonAttendance');
+    Route::delete('/lessonAttendance','LessonAttendanceController@deleteLessonAttendance');
+
+    //checkIn
+    Route::get('/checkIn','CheckInController@getCheckInData');
+    Route::post('/checkIn','CheckInController@createCheckInData');
+    Route::put('/checkIn','CheckInController@updateCheckInData');
+    Route::delete('/checkIn','CheckInController@deleteCheckInData');
+
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

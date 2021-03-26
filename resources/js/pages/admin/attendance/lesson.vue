@@ -50,21 +50,6 @@
                             @change="onSelectAttendanceDate"
                             locale="zh-cn"
                         >
-                        <v-spacer></v-spacer>
-                        <!-- <v-btn
-                            text
-                            color="primary"
-                            @click="menu = false"
-                        >
-                            {{lang.cancel}}
-                        </v-btn>
-                        <v-btn
-                            text
-                            color="primary"
-                            @click="$refs.menu.save(attendanceDate)"
-                        >
-                            {{lang.ok}}
-                        </v-btn> -->
                         </v-date-picker>
                     </v-menu>
                 </div>
@@ -337,8 +322,12 @@
 </template>
 
 <script>
-import { createSchool, updateSchool, getSchool, deleteSchool } from '~/api/school'
-import { createSubject, updateSubject, getSubject, deleteSubject } from '~/api/managersubject'
+import {getLessonUserList,} from '~/api/user'
+import {getLessonAttendanceData,
+        createLessonAttendanceData,
+        updateLessonAttendanceData,
+        deleteLessonAttendanceData}
+  from '~/api/attendance';
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -350,7 +339,7 @@ export default {
         dialog: false,
         viewDialog: false,
         dialogDelete: false,
-        attendanceDate : '',
+        attendanceDate : new Date().toISOString().substr(0, 10),
         headers: [
             { text: '考勤日期', value: 'attendanceDay',sortable: false, align: 'start',},
             { text: '考勤时间', value: 'attendanceTime', sortable: false ,},
@@ -434,575 +423,90 @@ export default {
           },
         ],
         attendanceData: [
-            {
-                attendanceDay: '2021年3月15日',
-                attendanceTime: '早自习',
-                resultArr:[
-                  {
-                    studentName: 'sammie',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'tommy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ummy',
-                    attendanceResult: '迟到',
-                    other: 'something',
-                  },
-                  {
-                    studentName: 'ommy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'vammy',
-                    attendanceResult: '病假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'zemmy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '缺勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ammy',
-                    attendanceResult: '其他',
-                    other: '',
-                  },
-                  {
-                    studentName: 'lommy',
-                    attendanceResult: '缺勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'pummy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                ]
-            },
-            {
-                attendanceDay: '2021年3月15日',
-                attendanceTime: '第一节',
-                resultArr:[
-                  {
-                    studentName: 'sammie',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'tommy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ummy',
-                    attendanceResult: '正常出勤',
-                    other: 'something',
-                  },
-                  {
-                    studentName: 'ommy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'vammy',
-                    attendanceResult: '病假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'zemmy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '缺勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ammy',
-                    attendanceResult: '其他',
-                    other: '',
-                  },
-                  {
-                    studentName: 'lommy',
-                    attendanceResult: '缺勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'pummy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                ]
-            },
-            {
-                attendanceDay: '2021年3月15日',
-                attendanceTime: '第二节',
-                resultArr:[
-                  {
-                    studentName: 'sammie',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'tommy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ummy',
-                    attendanceResult: '出勤(带病)',
-                    other: 'something',
-                  },
-                  {
-                    studentName: 'ommy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'vammy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'zemmy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '缺勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ammy',
-                    attendanceResult: '其他',
-                    other: '',
-                  },
-                  {
-                    studentName: 'lommy',
-                    attendanceResult: '缺勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'pummy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                ]
-            },
-            {
-                attendanceDay: '2021年3月15日',
-                attendanceTime: '第三节',
-                resultArr:[
-                  {
-                    studentName: 'sammie',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'tommy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ummy',
-                    attendanceResult: '迟到',
-                    other: 'something',
-                  },
-                  {
-                    studentName: 'ommy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'vammy',
-                    attendanceResult: '病假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'zemmy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ammy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'lommy',
-                    attendanceResult: '缺勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'pummy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                ]
-            },
-            {
-                attendanceDay: '2021年3月15日',
-                attendanceTime: '第四节',
-                resultArr:[
-                  {
-                    studentName: 'sammie',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'tommy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ummy',
-                    attendanceResult: '迟到',
-                    other: 'something',
-                  },
-                  {
-                    studentName: 'ommy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'vammy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'zemmy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '缺勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ammy',
-                    attendanceResult: '其他',
-                    other: '',
-                  },
-                  {
-                    studentName: 'lommy',
-                    attendanceResult: '缺勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'pummy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                ]
-            },
-            {
-                attendanceDay: '2021年3月15日',
-                attendanceTime: '第五节',
-                resultArr:[
-                  {
-                    studentName: 'sammie',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'tommy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '正常出勤',
-                    other: '',
-                  },
-                  {
-                    studentName: 'gammy',
-                    attendanceResult: '出勤(带病)',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ummy',
-                    attendanceResult: '迟到',
-                    other: 'something',
-                  },
-                  {
-                    studentName: 'ommy',
-                    attendanceResult: '迟到',
-                    other: '',
-                  },
-                  {
-                    studentName: 'vammy',
-                    attendanceResult: '病假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'zemmy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'hommy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'ammy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'lommy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                  {
-                    studentName: 'pummy',
-                    attendanceResult: '事假',
-                    other: '',
-                  },
-                ]
-            },
+            // {
+            //     attendanceDay: '2021年3月15日',
+            //     attendanceTime: '早自习',
+            //     resultArr:[
+            //       {
+            //         studentName: 'sammie',
+            //         attendanceResult: '正常出勤',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'tommy',
+            //         attendanceResult: '出勤(带病)',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'hommy',
+            //         attendanceResult: '正常出勤',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'gammy',
+            //         attendanceResult: '正常出勤',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'gammy',
+            //         attendanceResult: '出勤(带病)',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'ummy',
+            //         attendanceResult: '迟到',
+            //         other: 'something',
+            //       },
+            //       {
+            //         studentName: 'ommy',
+            //         attendanceResult: '迟到',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'vammy',
+            //         attendanceResult: '病假',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'zemmy',
+            //         attendanceResult: '事假',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'hommy',
+            //         attendanceResult: '缺勤',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'ammy',
+            //         attendanceResult: '其他',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'lommy',
+            //         attendanceResult: '缺勤',
+            //         other: '',
+            //       },
+            //       {
+            //         studentName: 'pummy',
+            //         attendanceResult: '事假',
+            //         other: '',
+            //       },
+            //     ]
+            // },
         ],
         
         editedIndex: -1,
         editedItem: {
-          attendanceDay: '2021年3月15日',
+          attendanceDay:  new Date().toISOString().substr(0, 10),
           attendanceTime: '第一节',
           resultArr:[
-            {
-              studentName: 'sammie',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'tommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'hommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'gammy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'gammy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'ummy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'ommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'vammy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'zemmy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'hommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'ammy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'lommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'pummy',
-              attendanceResult: '',
-              other: '',
-            },
           ]
         },
         defaultItem: {
-          attendanceDay: '2021年3月15日',
+          attendanceDay: new Date().toISOString().substr(0, 10),
           attendanceTime: '第一节',
           resultArr:[
-            {
-              studentName: 'sammie',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'tommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'hommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'gammy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'gammy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'ummy',
-              attendanceResult: '',
-              other: 'something',
-            },
-            {
-              studentName: 'ommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'vammy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'zemmy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'hommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'ammy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'lommy',
-              attendanceResult: '',
-              other: '',
-            },
-            {
-              studentName: 'pummy',
-              attendanceResult: '',
-              other: '',
-            },
           ]
         },
         baseUrl:window.Laravel.base_url,
@@ -1028,15 +532,32 @@ export default {
 
         //we have to make result array for editedItem from student list
         // this needs very high skill...
+          // this.isLoadingSchoolData = true;
+        getLessonAttendanceData({attDate:this.attendanceDate}).then(res=>{
+          console.log("res.data1",res.data)
+          res.data.map(item=>{
+            item.resultArr = JSON.parse(item.resultArr)
+          })
+          this.attendanceData = res.data
+        }).catch(err=>{
+          console.log(err.response)
+        })
 
-        this.isLoadingSchoolData = true;
-        getSchool()
-        .then((res) => {
-            
-        }).catch((err) => {
-            
-        });
-        this.isLoadingSchoolData = false;
+        getLessonUserList().then(res=>{
+          console.log("res.data2",res.data)
+          res.data.map(data=>{
+            let element = {}
+            element.studentName = data.name
+            element.attendanceResult = '正常出勤'
+            element.other = ''
+            this.editedItem.resultArr.push(element)
+          })
+          this.defaultItem = this.editedItem
+          this.isLoadingSchoolData = false;
+        }).catch(err=>{
+          console.log(err.response)
+          this.isLoadingSchoolData = false;
+        })
     },
 
     watch: {
@@ -1097,14 +618,22 @@ export default {
         },
 
         async save () {
+          console.log("this.editedItem",this.editedItem)
             //update attendanceData
+            this.isCreatingSchool = true;
             if (this.editedIndex > -1) {
-                Object.assign(this.attendanceData[this.editedIndex], this.editedItem)
+              this.isCreatingSchool = false;
+              Object.assign(this.attendanceData[this.editedIndex], this.editedItem)
             } 
             //save attendanceData
             else {
-
-                this.attendanceData.push(this.editedItem)
+                await createLessonAttendanceData(this.editedItem).then(res=>{
+                  this.isCreatingSchool = false;
+                  console.log(res.data)
+                  this.attendanceData.push(this.editedItem)
+                }).catch(err=>{
+                  console.log(err.response)
+                })
             }
             this.close()
         },
@@ -1148,10 +677,22 @@ export default {
           return counter;
         },
 
-        onSelectAttendanceDate(val){          
+        async onSelectAttendanceDate(val){          
           this.$refs.menu.save(val);
           this.attendanceDate = val;
           this.editedItem.attendanceDay = val;
+          this.defaultItem.attendanceDay = val;
+          this.isLoadingSchoolData = true
+
+          await getLessonAttendanceData({attDate:val}).then(res=>{
+            res.data.map(item=>{
+              item.resultArr = JSON.parse(item.resultArr)
+            })
+            this.isLoadingSchoolData = false
+            this.attendanceData = res.data
+          }).catch(err=>{
+            console.log(err.response)
+          })
         },
 
         viewItem(item){

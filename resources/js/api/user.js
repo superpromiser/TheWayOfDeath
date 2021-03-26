@@ -31,6 +31,9 @@ function deleteUser(payload){
     return axios.delete('/api/v1/users', {data : payload});
 }
 
+function getLessonUserList(){
+    return axios.get('/api/v1/lessonUserList');
+}
 
 
 export{
@@ -42,5 +45,5 @@ export{
     getStudent,
     deleteUser,
     getStudentBylessonId,
-    
+    getLessonUserList,
 }

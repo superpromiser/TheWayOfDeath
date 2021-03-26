@@ -260,16 +260,15 @@ import { mapGetters } from 'vuex';
 import { getStudentBylessonId } from '~/api/user'
 import cityListJson from '!!raw-loader!../cityLaw.txt';
 import lang from '~/helper/lang.json'
+import {getCheckInData,createCheckInData,updateCheckInData,deleteCheckInData} from '~/api/checkIn'
 export default {
-
-
   data: () => ({
     lang,
     dialog: false,
     dialogDelete: false,
     indroduceDialog : false,
     checkAttendanceDateMenu: false,
-    checkAttendanceDate: '',
+    checkAttendanceDate: new Date().toISOString().substr(0, 10),
     checkAttendanceType: '晨检',
     checkAttendanceTypeItem: [
       {
@@ -529,6 +528,27 @@ export default {
       }).catch((err) => {
         console.log(err)
       });
+
+      getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
+        console.log('++++++++',res.data)
+        res.data.map(checkData=>{
+          let clonedEditedItem = Object.assign({}, checkData);
+          let selectedStudentData = {};
+          this.studentList.map( x =>{
+            if(x.id == checkData.studentId){
+              selectedStudentData = x;
+            }
+          })
+          clonedEditedItem["name"] = selectedStudentData.name;
+          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
+          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
+          clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
+          clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+          // console.log("clonedEditedItem",clonedEditedItem)
+          this.checkData.push(clonedEditedItem);
+        })
+        
+      })
     },
 
     watch: {
@@ -612,7 +632,15 @@ export default {
         } 
         //save checkData
         else {
-          console.log("Savethis.editedItem", this.editedItem);
+          let payload = Object.assign({},this.editedItem);
+          payload.checkInDate = this.checkAttendanceDate
+          payload.checkAttendanceType = this.checkAttendanceType
+          console.log("payload",payload)
+          await createCheckInData(payload).then(res=>{
+            console.log(res.data)
+          }).catch(err=>{
+            console.log(err.response)
+          })
           let clonedEditedItem = Object.assign({}, this.editedItem);
           let selectedStudentData = {};
           this.studentList.map( x =>{
@@ -625,6 +653,7 @@ export default {
           clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
           clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
           clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+          // console.log("clonedEditedItem",clonedEditedItem)
           this.checkData.push(clonedEditedItem);
           // this.isCreatingSchool = true;
           // creatxxx()
@@ -697,6 +726,27 @@ export default {
       onSelectCheckAttendanceDate(val){          
         this.$refs.checkAttendanceDateMenu.save(val);
         this.checkAttendanceDate = val;
+        this.checkData = []
+        getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
+        console.log('++++++++',res.data)
+        res.data.map(checkData=>{
+          let clonedEditedItem = Object.assign({}, checkData);
+          let selectedStudentData = {};
+          this.studentList.map( x =>{
+            if(x.id == checkData.studentId){
+              selectedStudentData = x;
+            }
+          })
+          clonedEditedItem["name"] = selectedStudentData.name;
+          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
+          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
+          clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
+          clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+          // console.log("clonedEditedItem",clonedEditedItem)
+          this.checkData.push(clonedEditedItem);
+        })
+        
+      })
       },
 
       selectedCheckAttendanceTypeItem(val){
