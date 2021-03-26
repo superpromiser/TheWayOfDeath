@@ -260,9 +260,8 @@ import { mapGetters } from 'vuex';
 import { getStudentBylessonId } from '~/api/user'
 import cityListJson from '!!raw-loader!../cityLaw.txt';
 import lang from '~/helper/lang.json'
+import {getCheckInData,createCheckInData,updateCheckInData,deleteCheckInData} from '~/api/checkIn'
 export default {
-
-
   data: () => ({
     lang,
     dialog: false,
@@ -612,7 +611,15 @@ export default {
         } 
         //save checkData
         else {
-          console.log("Savethis.editedItem", this.editedItem);
+          let payload = Object.assign({},this.editedItem);
+          payload.checkInDate = this.checkAttendanceDate
+          payload.checkAttendanceType = this.checkAttendanceType
+          console.log("payload",payload)
+          await createCheckInData(payload).then(res=>{
+            console.log(res.data)
+          }).catch(err=>{
+            console.log(err.response)
+          })
           let clonedEditedItem = Object.assign({}, this.editedItem);
           let selectedStudentData = {};
           this.studentList.map( x =>{
@@ -625,6 +632,7 @@ export default {
           clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
           clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
           clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+          // console.log("clonedEditedItem",clonedEditedItem)
           this.checkData.push(clonedEditedItem);
           // this.isCreatingSchool = true;
           // creatxxx()

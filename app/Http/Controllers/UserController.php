@@ -369,4 +369,9 @@ class UserController extends Controller
         }
     }
     
+    public function getLessonUserList(){
+        $lessonId = Auth::user()->lessonId;
+        return User::select('name')->where(['lessonId'=>$lessonId,'roleId'=>5])->get();
+
+    }
 }

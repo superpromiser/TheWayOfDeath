@@ -10,191 +10,194 @@
           sort-by="calories"
           class="elevation-1"
         >
-          <template v-slot:top>
-            <v-toolbar
-                flat
-            >
-                <!-- <v-toolbar-title><strong>{{someData.grade.className}}2021学下学期课程表</strong></v-toolbar-title> -->
-                <v-toolbar-title><strong>1-1 : 2021学下学期课程表</strong></v-toolbar-title>
-                <v-divider
-                class="mx-4"
-                inset
-                vertical
-                ></v-divider>
-                <v-spacer></v-spacer>
-
-                <v-dialog
-                v-model="dialog"
-                max-width="500px"
+            <template v-slot:top>
+                <v-toolbar
+                    flat
                 >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                    color="primary"
-                    dark
-                    tile
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                    :disabled="!isEditable"
+                    <!-- <v-toolbar-title><strong>{{someData.grade.className}}2021学下学期课程表</strong></v-toolbar-title> -->
+                    <v-toolbar-title><strong>1-1 : 2021学下学期课程表</strong></v-toolbar-title>
+                    <v-divider
+                    class="mx-4"
+                    inset
+                    vertical
+                    ></v-divider>
+                    <v-spacer></v-spacer>
+
+                    <!-- <v-dialog
+                    v-model="dialog"
+                    max-width="500px"
                     >
-                    添加
-                    </v-btn>
-                    </template>
-                    <v-card>
-                    <v-card-title>
-                        <span class="headline">{{ formTitle }}</span>
-                    </v-card-title>
+                        <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                        color="primary"
+                        dark
+                        tile
+                        class="mb-2"
+                        v-bind="attrs"
+                        v-on="on"
+                        :disabled="!isEditable"
+                        >
+                        添加
+                        </v-btn>
+                        </template>
+                        <v-card>
+                        <v-card-title>
+                            <span class="headline">{{ formTitle }}</span>
+                        </v-card-title>
 
-                    <v-card-text>
-                        <v-container>
-                        <v-row>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="subjectItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="subjectName"
-                                        v-model="editedItem.mon"
-                                        label="星期一"
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="subjectItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="subjectName"
-                                        v-model="editedItem.tue"
-                                        label="星期二"
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="subjectItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="subjectName"
-                                        v-model="editedItem.wed"
-                                        label="星期三"
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="subjectItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="subjectName"
-                                        v-model="editedItem.thu"
-                                        label="星期四"
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="subjectItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="subjectName"
-                                        v-model="editedItem.fri"
-                                        label="星期五"
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="subjectItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="subjectName"
-                                        v-model="editedItem.sat"
-                                        label="星期六"
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="subjectItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="subjectName"
-                                        v-model="editedItem.sun"
-                                        label="星期日"
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                    </v-card-text>
+                        <v-card-text>
+                            <v-container>
+                            <v-row>
+                                    <v-col cols="12">
+                                        <v-select
+                                            solo
+                                            :items="subjectItem[0]"
+                                            :menu-props="{ top: false, offsetY: true }"
+                                            item-text="subjectName"
+                                            v-model="editedItem.mon"
+                                            label="星期一"
+                                            hide-details
+                                        ></v-select>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-select
+                                            solo
+                                            :items="subjectItem[0]"
+                                            :menu-props="{ top: false, offsetY: true }"
+                                            item-text="subjectName"
+                                            v-model="editedItem.tue"
+                                            label="星期二"
+                                            hide-details
+                                        ></v-select>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-select
+                                            solo
+                                            :items="subjectItem[0]"
+                                            :menu-props="{ top: false, offsetY: true }"
+                                            item-text="subjectName"
+                                            v-model="editedItem.wed"
+                                            label="星期三"
+                                            hide-details
+                                        ></v-select>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-select
+                                            solo
+                                            :items="subjectItem[0]"
+                                            :menu-props="{ top: false, offsetY: true }"
+                                            item-text="subjectName"
+                                            v-model="editedItem.thu"
+                                            label="星期四"
+                                            hide-details
+                                        ></v-select>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-select
+                                            solo
+                                            :items="subjectItem[0]"
+                                            :menu-props="{ top: false, offsetY: true }"
+                                            item-text="subjectName"
+                                            v-model="editedItem.fri"
+                                            label="星期五"
+                                            hide-details
+                                        ></v-select>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-select
+                                            solo
+                                            :items="subjectItem[0]"
+                                            :menu-props="{ top: false, offsetY: true }"
+                                            item-text="subjectName"
+                                            v-model="editedItem.sat"
+                                            label="星期六"
+                                            hide-details
+                                        ></v-select>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-select
+                                            solo
+                                            :items="subjectItem[0]"
+                                            :menu-props="{ top: false, offsetY: true }"
+                                            item-text="subjectName"
+                                            v-model="editedItem.sun"
+                                            label="星期日"
+                                            hide-details
+                                        ></v-select>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-card-text>
 
-                    <v-card-actions>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="closeRow"
+                            >
+                            取消
+                            </v-btn>
+                            <v-btn
+                            color="blue darken-1"
+                            text
+                            :loading="isCreatingSchool"
+                            @click="saveRow"
+                            >
+                            保存
+                            </v-btn>
+                        </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-dialog v-model="dialogDelete" max-width="500px">
+                        <v-card>
+                        <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+                        <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="closeRow"
-                        >
-                        取消
-                        </v-btn>
-                        <v-btn
-                        color="blue darken-1"
-                        text
-                        :loading="isCreatingSchool"
-                        @click="saveRow"
-                        >
-                        保存
-                        </v-btn>
-                    </v-card-actions>
-                    </v-card>
-                </v-dialog>
-                <v-dialog v-model="dialogDelete" max-width="500px">
-                    <v-card>
-                    <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
-                    <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-                    <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
-                    <v-spacer></v-spacer>
-                    </v-card-actions>
-                    </v-card>
-                </v-dialog>
+                        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+                        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
+                        <v-spacer></v-spacer>
+                        </v-card-actions>
+                        </v-card>
+                    </v-dialog> -->
 
-                <v-btn
-                    color="green accent-4"
-                    dark
-                    class="mb-2 ml-2"
-                    tile
-                    v-if="isEditable == false"
-                    @click="isEditable = !isEditable"
-                    >
-                    <v-icon left>
-                        mdi-check
-                    </v-icon>
-                    修改
-                </v-btn>
-                <v-btn
-                    color="orange accent-4"
-                    dark
-                    class="mb-2 ml-2"
-                    tile
-                    v-if="isEditable == true"
-                    @click="isEditable = !isEditable"
-                    >
-                    <v-icon left>
-                        mdi-alert-circle-outline
-                    </v-icon>
-                    无法修改
-                </v-btn>
-            </v-toolbar>
-          </template>
+                    <v-btn
+                        color="green accent-4"
+                        dark
+                        class="mb-2 ml-2"
+                        tile
+                        v-if="isEditable == false"
+                        @click="isEditable = !isEditable"
+                        >
+                        <v-icon left>
+                            mdi-check
+                        </v-icon>
+                        修改
+                    </v-btn>
+                    <v-btn
+                        color="orange accent-4"
+                        dark
+                        class="mb-2 ml-2"
+                        tile
+                        v-if="isEditable == true"
+                        @click="isEditable = !isEditable"
+                        >
+                        <v-icon left>
+                            mdi-alert-circle-outline
+                        </v-icon>
+                        无法修改
+                    </v-btn>
+                </v-toolbar>
+            </template>
 
-          <template v-slot:body="{ items, headers }">
+            <template v-slot:body="{ items, headers }">
                 <tbody>
                     <tr v-for="(item,idx) in items" :key="idx">
                         <td v-for="(header,key) in headers" :key="key" >
-                            <div v-if="key == 7">
+                            <div v-if="key == 0">
+                                {{item[idx]}}
+                            </div>
+                            <div v-else-if="key == 8">
                                 <v-icon
                                     small
                                     color="success"
@@ -213,34 +216,8 @@
                                     mdi-delete
                                 </v-icon>
                             </div>
-                            <!-- <v-edit-dialog
-                                v-else
-                                :return-value.sync="item[header.value]"
-                                @save="save"
-                                @cancel="cancel"
-                                @open="open"
-                                @close="close"
-                                large
-                                :cancel-text="lang.cancel"
-                                :save-text="lang.ok"
-                            > {{item[header.value]}}
-                                <template v-slot:input>
-                                    <v-select
-                                        solo
-                                        :items="subjectItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
-                                        v-model="item[header.value]"
-                                        label="课时类型"
-                                        single-line
-                                        hide-details
-                                        class="mt-3"
-                                        :disabled="!isEditable"
-                                    ></v-select>
-                                </template>
-                            </v-edit-dialog> -->
                             <v-select v-else
-                                :items="subjectItem"
+                                :items="subjectItem[idx]"
                                 :menu-props="{ top: false, offsetY: true }"
                                 item-text="subjectName"
                                 v-model="item[header.value]"
@@ -277,17 +254,9 @@ export default {
         startTimeMenu: false,
         endTimeMenu: false,
         isEditable : false,
-        subjectItem : [
-            // { 
-            //     label : "outsidePlay", 
-            //     value : "outsidePlay" 
-            // },
-            // { 
-            //     label : "insidePlay", 
-            //     value : "insidePlay" 
-            // },
-        ],
+        subjectItem : [[],[],[],[],[],[],[]],
         headers: [
+            { text: "演讲顺序", value: "order", sortable: false, align: "left" },
             { text: "星期一", value: "mon", sortable: false, align: "left" },
             { text: "星期二", value: "tue", sortable: false, },
             { text: "星期三", value: "wed", sortable: false, },
@@ -298,20 +267,81 @@ export default {
             { text: '操作', value: 'actions', sortable: false },
         ],
         scheduleData: [
-            // {
-            //     id: 1,
-            //     mon: "",
-            //     tue: "",
-            //     wed: "",
-            //     thu: "",
-            //     fri: "",
-            //     sat: "",
-            //     sun: ""
-            // },
+            {
+                ord: "第一节",
+                mon: "",
+                tue: "",
+                wed: "",
+                thu: "",
+                fri: "",
+                sat: "",
+                sun: ""
+            },
+            {
+                ord: "第二节",
+                mon: "",
+                tue: "",
+                wed: "",
+                thu: "",
+                fri: "",
+                sat: "",
+                sun: ""
+            },
+            {
+                ord: "第三节",
+                mon: "",
+                tue: "",
+                wed: "",
+                thu: "",
+                fri: "",
+                sat: "",
+                sun: ""
+            },
+            {
+                ord: "第四节",
+                mon: "",
+                tue: "",
+                wed: "",
+                thu: "",
+                fri: "",
+                sat: "",
+                sun: ""
+            },
+            {
+                ord: "第五节",
+                mon: "",
+                tue: "",
+                wed: "",
+                thu: "",
+                fri: "",
+                sat: "",
+                sun: ""
+            },
+            {
+                ord: "第六节",
+                mon: "",
+                tue: "",
+                wed: "",
+                thu: "",
+                fri: "",
+                sat: "",
+                sun: ""
+            },
+            {
+                ord: "第七节",
+                mon: "",
+                tue: "",
+                wed: "",
+                thu: "",
+                fri: "",
+                sat: "",
+                sun: ""
+            },
         ],
         schoolListRaw : [],
         editedIndex: -1,
         editedItem: {
+            ord:"",
             mon: "",
             tue: "",
             wed: "",
@@ -321,6 +351,7 @@ export default {
             sun: ""
         },
         defaultItem: {
+            ord:"",
             mon: "",
             tue: "",
             wed: "",
@@ -329,7 +360,15 @@ export default {
             sat: "",
             sun: ""
         },
-        
+        subjectOrderItem: [
+            "第一节",
+            "第二节",
+            "第三节",
+            "第四节",
+            "第五节",
+            "第六节",
+            "第七节",
+        ],
         baseUrl:window.Laravel.base_url,
         isCreatingSchool : false,
         isLoadingSchoolData : false,
@@ -346,8 +385,35 @@ export default {
     async created(){
         this.isLoadingSchoolData = true;
         await getScheduleClass().then(res=>{
-            console.log("res.data",res.data)
-            this.subjectItem = res.data
+            console.log("----res.data",res.data)
+            res.data.map(item=>{
+                switch(item.subjects.subjectOrder){
+                    case "第一节":
+                        this.subjectItem[0].push(item.subjects);
+                        break;
+                    case "第二节":
+                        this.subjectItem[1].push(item.subjects);
+                        break;
+                    case "第三节":
+                        this.subjectItem[2].push(item.subjects);
+                        break;
+                    case "第四节":
+                        this.subjectItem[3].push(item.subjects);
+                        break;
+                    case "第五节":
+                        this.subjectItem[4].push(item.subjects);
+                        break;
+                    case "第六节":
+                        this.subjectItem[5].push(item.subjects);
+                        break;
+                    case "第七节":
+                        this.subjectItem[6].push(item.subjects);
+                        break;
+                    default:
+                        break;
+                }
+            })
+            console.log('---subjectItem',this.subjectItem);
         }).catch(err=>{
             console.log(err.response)
         })
