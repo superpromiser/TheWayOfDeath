@@ -64,7 +64,18 @@ export default {
         selectItem(){
             this.$emit('selected',false)
             console.log('-----',this.item.path)
-            this.$router.push({name:this.item.path,params:{schoolId:this.currentSchoolId,gradeId:this.currentGradeId,lessonId:this.currentLessonId}})
+            if(this.item.path == 'posts.vocation'){
+                if(this.user.roleId == 3){
+                    this.$router.push({name:"posts.vacationTeacher",params:{schoolId:this.currentSchoolId,gradeId:this.currentGradeId,lessonId:this.currentLessonId}})
+                }else if(this.user.roleId == 2){
+                    this.$router.push({name:"posts.attendance.vacation",params:{schoolId:this.currentSchoolId,gradeId:this.currentGradeId,lessonId:this.currentLessonId}})
+                }
+                else{
+                    this.$router.push({name:this.item.path,params:{schoolId:this.currentSchoolId,gradeId:this.currentGradeId,lessonId:this.currentLessonId}})
+                }
+            }else{
+                this.$router.push({name:this.item.path,params:{schoolId:this.currentSchoolId,gradeId:this.currentGradeId,lessonId:this.currentLessonId}})
+            }
         }
     }
 }

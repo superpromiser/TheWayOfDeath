@@ -119,7 +119,7 @@
 
 import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
-
+import {getBanziName} from '~/api/vacation'
 export default {
     data: () => ({
         lang,
@@ -152,7 +152,11 @@ export default {
     created(){
         //you need to get teacher's name from server or vuex...
         // this.newVacationData.teacherName = this.....
-
+        getBanziName().then(res=>{
+            console.log(res.data)
+        }).catch(err=>{
+            console.log(err.response)
+        })
         this.newVacationData.studentName = this.user.name;
     },
 
