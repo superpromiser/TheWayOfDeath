@@ -35,6 +35,14 @@ function getLessonUserList(){
     return axios.get('/api/v1/lessonUserList');
 }
 
+function getUserByRole(payload){
+    return axios.get('/api/v1/userByRole',{params:payload});
+}
+
+function getSelUser(payload){
+    return axios.get('/api/v1/selUser',{params:payload});
+}
+
 
 export{
     createStaff,
@@ -43,7 +51,9 @@ export{
     createStudent,
     updateStudent,
     getStudent,
+    getSelUser,
     deleteUser,
     getStudentBylessonId,
     getLessonUserList,
+    getUserByRole
 }

@@ -374,4 +374,37 @@ class UserController extends Controller
         return User::select('name')->where(['lessonId'=>$lessonId,'roleId'=>5])->get();
 
     }
+
+    public function getUserByRole(Request $request){
+        $this->validate($request,[
+            'schoolId'=>'required',
+        ]);
+        if($request->lessonId){
+            $userList['teachers'] = User::select('id','name','avatar','phoneNumber')->where(['roleId'=>3,'schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId])->get();
+        }else{
+            $userList['teachers'] = User::select('id','name','avatar','phoneNumber')->where(['roleId'=>3,'schoolId'=>$request->schoolId])->get();
+        }
+        if($request->lessonId){
+            $userList['parents'] = User::select('id','name','avatar','phoneNumber')->where(['roleId'=>4,'schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId])->get();
+        }else{
+            $userList['parents'] = User::select('id','name','avatar','phoneNumber')->where(['roleId'=>4,'schoolId'=>$request->schoolId])->get();
+        }
+        if($request->lessonId){
+            $userList['students'] = User::select('id','name','avatar','phoneNumber')->where(['roleId'=>5,'schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId])->get();
+        }else{
+            $userList['students'] = User::select('id','name','avatar','phoneNumber')->where(['roleId'=>5,'schoolId'=>$request->schoolId])->get();
+        }
+        // return response()->json([
+        //     'data'=>$userList,
+        //     'status'=>200
+        // ]);
+        return $userList;
+    }
+
+    public function getSelUser(Request $request){
+        $this->validate($request,[
+            'userId'=>'required'
+        ]);
+        return User::where('id',$request->userId)->first();
+    }
 }

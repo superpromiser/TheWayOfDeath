@@ -90,6 +90,10 @@ export default [
   {path:'/schoolSpace/:schoolId/post/homevisit', name:'posts.homevisit', component:page('school/posts/homevisit/new.vue')},
   {path:'/schoolSpace/:schoolId/post/vacation', name:'posts.vocation', component:page('school/posts/vacation/student/new.vue')},
   {path:'/schoolSpace/:schoolId/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
+  {path:'/schoolSpace/:schoolId/member/add',name:'schoolSpace.addMember',component:page('member/addMember.vue')},
+  {path:'/schoolSpace/:schoolId/member/remove',name:'schoolSpace.removeMember',component:page('member/removeMember.vue')},
+  {path:'/schoolSpace/:schoolId/member/:userId/profile',name:'schoolSpace.memProfile',component:page('member/memProfile.vue')},
+  {path:'/schoolSpace/:schoolId/member/appliMember',name:'schoolSpace.appliMember',component:page('member/application.vue')},
 
   //classSpace
   {
