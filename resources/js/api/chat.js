@@ -24,6 +24,30 @@ function postMessageVoice(formdata){
     })
 }
 
+function postMessageImage(formdata){
+    return axios.post('/api/v1/messages/image', formdata, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
+function postMessageVideo(formdata){
+    return axios.post('/api/v1/messages/video', formdata, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
+function postMessageFile(formdata){
+    return axios.post('/api/v1/messages/file', formdata, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
 function addUserToContact(payload){
     return axios.post('/api/v1/contact', payload)
 }
@@ -42,5 +66,8 @@ export{
     postNewMsgCount,
     getMessage,
     postMessage,
-    postMessageVoice
+    postMessageVoice,
+    postMessageImage,
+    postMessageVideo,
+    postMessageFile,
 }

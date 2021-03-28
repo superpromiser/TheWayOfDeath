@@ -1,5 +1,5 @@
 <template>
-    <v-row class="bg-white h-75 ma-0 pa-0">
+    <v-row class="bg-white ch-area-height ma-0 pa-0">
         <v-col cols="12" class="overflowY-auto h-100" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
             <ChatMessage
                 v-for="(message, index) in messages"
@@ -12,14 +12,42 @@
                 @videoInfoToParent="passVideoDataFromChild"
             />
         </v-col>
+        <v-dialog v-model="videoViewDialog" width="100%" max-width="1000">
+            <v-card>
+                <v-card-text class="px-0">
+                    <video-player  
+                        class="video-player-box vjs-custom-skin w-100"
+                        ref="videoPlayer"
+                        :options="playerOptions"
+                        :playsinline="true"
+                        >
+                    </video-player>
+                </v-card-text>
+                
+                <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    text
+                    color="primary"
+                    @click="videoViewDialog = false"
+                >
+                    {{lang.ok}}
+                </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-row>
 </template>
 
 <script>
-import ChatMessage from './chatmessage'
+
+import { videoPlayer } from 'vue-video-player';
+import ChatMessage from './chatmessage';
+import lang from '~/helper/lang.json';
 export default {
     components:{
         ChatMessage,
+        videoPlayer,
     },  
     props:{
         chatto:{
@@ -41,13 +69,28 @@ export default {
     },
 
     data: ()=> ({
+        lang,
         isReachedTop : false,
+        selectedViedoName: '',
+        videoViewDialog: false,
+        baseUrl:window.Laravel.base_url,
+        playerOptions: {
+            // videojs options
+            height:'650',
+            muted: true,
+            language: 'en',
+            playbackRates: [0.7, 1.0, 1.5, 2.0],
+            sources: [{
+                type: "video/mp4",
+                src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
+            }],
+        },
     }),
 
     computed:{
-        // player() {
-        //     return this.$refs.videoPlayer.player
-        // },
+        player() {
+            return this.$refs.videoPlayer.player
+        },
     },
 
     methods:{
@@ -56,46 +99,7 @@ export default {
             this.marker.lng = lng
             this.marker.lat = lat
         },
-        //video play method
-        // listen event
-        onPlayerPlay(player) {
-            // console.log('player play!', player)
-        },
-        onPlayerPause(player) {
-            // console.log('player pause!', player)
-        },
-        onPlayerEnded(player) {
-            // console.log('player ended!', player)
-        },
-        onPlayerLoadeddata(player) {
-            // console.log('player Loadeddata!', player)
-        },
-        onPlayerWaiting(player) {
-            // console.log('player Waiting!', player)
-        },
-        onPlayerPlaying(player) {
-            // console.log('player Playing!', player)
-        },
-        onPlayerTimeupdate(player) {
-            // console.log('player Timeupdate!', player.currentTime())
-        },
-        onPlayerCanplay(player) {
-            // console.log('player Canplay!', player)
-        },
-        onPlayerCanplaythrough(player) {
-            // console.log('player Canplaythrough!', player)
-        },
-        // or listen state event
-        playerStateChanged(playerCurrentState) {
-            // console.log('player current update state', playerCurrentState)
-        },
-        // player is ready
-        playerReadied(player) {
-            // seek to 10s
-            // console.log('example player 1 readied', player)
-            player.currentTime(10)
-            // console.log('example 01: the player is readied', player)
-        },
+        
 
         closeSendMapModal(){
             this.viewLocationMapMessageModal = false;
@@ -113,11 +117,9 @@ export default {
         },
 
         passVideoDataFromChild(value){
-            console.log("VideoInfoFromChild", value);
-            this.playMsgSentVideoModal = true;
-            // this.playerOptions.sources[0].src = "http://127.0.0.1:8000" + value.video;
-            this.playerOptions.sources[0].src = "http://8.131.231.180" + value.video;
-            this.playerOptions.poster = "/img/coverImage/chatVideoCoverImage.jpg";
+            this.playerOptions.sources[0].src = this.baseUrl + value.video;
+            this.playerOptions.poster = this.baseUrl + "/asset/img/coverImage/chatVideoCoverImage.jpg";
+            this.videoViewDialog = true;
         },
 
         reachedTop(){
