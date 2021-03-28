@@ -24,6 +24,14 @@ function postMessageVoice(formdata){
     })
 }
 
+function postMessageImage(formdata){
+    return axios.post('/api/v1/messages/image', formdata, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
 function addUserToContact(payload){
     return axios.post('/api/v1/contact', payload)
 }
@@ -42,5 +50,6 @@ export{
     postNewMsgCount,
     getMessage,
     postMessage,
-    postMessageVoice
+    postMessageVoice,
+    postMessageImage
 }

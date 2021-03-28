@@ -601,3 +601,7 @@ a {
   top: 0;
   left: 54px;
 }
+
+.ch-area-height{
+  height: calc(100% - 80px);
+}

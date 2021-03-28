@@ -8,47 +8,122 @@
             @updatechatIn="updatechatIn" />
           <v-col cols="12" sm="12" md="9" class="h-100 bg-light-yellow pa-0" >
                 <ChatArea :chatto="ChatWith" :chatin="ChatIn" :messages="messages" :chatfrom="currentUser.id" />             
-                <v-row class="bg-white h-25 ma-0 pa-0">
-                    <v-col cols="12">
-                        
-                            <v-text-field
-                                v-model="text"
-                                :append-icon="marker ? 'mdi-map-marker' : 'mdi-map-marker-off'"
-                                :append-outer-icon="text ? 'mdi-send' : 'mdi-microphone'"
-                                :prepend-icon="icon"
-                                filled
-                                clear-icon="mdi-close-circle"
-                                clearable
-                                label="输入内容"
-                                type="text"
-                                @click:append="toggleMarker"
-                                @click:append-outer="submit"
-                                @click:prepend="changeIcon"
-                                @click:clear="clearMessage"
+                <v-row class="bg-white ma-0 pa-0">
+                    <v-col cols="12" class="d-flex align-center">
+                        <div class="ch-icon-area d-flex align-center position-relative">
+                            <v-speed-dial
+                                v-model="fab"
+                                direction="top"
+                                transition="slide-y-reverse-transition"
+                                >
+                                <template v-slot:activator>
+                                    <v-icon v-model="fab" size="30" v-if="fab" class="hover-cursor-point">
+                                        mdi-close
+                                    </v-icon>
+                                    <v-progress-circular v-else-if="isUploadingFileInChat"></v-progress-circular>
+                                    <v-icon v-model="fab" size="30" v-else class="hover-cursor-point">
+                                        mdi-paperclip
+                                    </v-icon>
+                                </template>
+                                <v-btn
+                                    fab
+                                    dark
+                                    small
+                                    color="green"
+                                    @click="clickUploadImageBtn"
+                                >
+                                    <v-icon>mdi-file-image-outline</v-icon>
+                                </v-btn>
+                                <input
+                                    ref="imageUploader"
+                                    class="d-none"
+                                    type="file"
+                                    accept="image/*"
+                                    @change="onImageFileChanged"
+                                >
+                                <v-btn
+                                    fab
+                                    dark
+                                    small
+                                    color="green"
+                                    @click="clickUploadVideoBtn"
+                                >
+                                    <v-icon>mdi-video</v-icon>
+                                </v-btn>
+                                <input
+                                    ref="videoUploader"
+                                    class="d-none"
+                                    type="file"
+                                    accept="video/*"
+                                    @change="onVideoFileChanged"
+                                >
+                                <v-btn
+                                    fab
+                                    dark
+                                    small
+                                    color="green"
+                                    @click="clickUploadFileBtn"
+                                >
+                                    <v-icon>mdi-file-upload</v-icon>
+                                </v-btn>
+                                <input
+                                    ref="fileUploader"
+                                    class="d-none"
+                                    type="file"
+                                    accept="file/*"
+                                    @change="onFileFileChanged"
+                                >
+                                <v-btn
+                                    fab
+                                    dark
+                                    small
+                                    color="green"
+                                    @click="clickUploadMapBtn"
+                                >
+                                    <v-icon>mdi-map-marker-outline</v-icon>
+                                </v-btn>
+                            </v-speed-dial>
+                            <v-icon @click="toggleEmo" size="30" class="hover-cursor-point mr-4">
+                                mdi-emoticon-happy-outline
+                            </v-icon>
+                            <div class="emoji-area-popup position-absolute" style="bottom: 50px">
+                                <Picker v-if="emoStatus" set="emojione" @select="onInput" title="选择你的表情符号..." v-click-outside="onClickOutsideEmoji" />
+                            </div>
+                        </div>
+                        <v-text-field
+                            v-model="text"
+                            :append-outer-icon="'mdi-send'"
+                            filled
+                            clear-icon="mdi-close-circle"
+                            clearable
+                            label="输入内容"
+                            type="text"
+                            hide-details
+                            @click:append-outer="submit"
+                            @click:clear="clearMessage"
 
-                                @keydown.enter.exact.prevent 
-                                @keyup.enter.exact="newline" 
-                                @keydown.enter.shift.exact="submit" 
-                                @keydown.enter.shift.exact.prevent
-                                @keydown="sendTypingEvent"
-                            ></v-text-field>
-                        
+                            @keydown.enter.exact.prevent 
+                            @keyup.enter.exact="newline" 
+                            @keydown.enter.shift.exact="submit" 
+                            @keydown.enter.shift.exact.prevent
+                            @keydown="sendTypingEvent"
+                        ></v-text-field>
                     </v-col>
                         <!-- <v-col cols="12" class="d-flex align-center ">
                             <v-btn color="blue accent-3" fab small dark class="ma-2"
-                                :loading="isImageSelecting"
+                                :loading="isUploadingFileInChat"
                                 @click="clickUploadImageBtn" > 
                                 <v-icon>mdi-file-image-outline</v-icon>
                             </v-btn>
                             <input ref="imageUploader" class="d-none" type="file" accept="image/*" @change="onImageFileChanged" >
                             <v-btn color="blue accent-3" fab small dark class="ma-2"
-                                :loading="isVideoSelecting"
+                                :loading="isUploadingFileInChat"
                                 @click="clickUploadVideoBtn" > 
                                 <v-icon>mdi-video</v-icon>
                             </v-btn>
                             <input ref="videoUploader" class="d-none" type="file" accept="video/*" @change="onVideoFileChanged" >
                             <v-btn color="blue accent-3" fab small dark class="ma-2"
-                                :loading="isFileSelecting"
+                                :loading="isUploadingFileInChat"
                                 @click="clickUploadFileBtn" >
                                 <v-icon>mdi-file-upload</v-icon>
                             </v-btn>
@@ -69,13 +144,16 @@
 import { mapGetters } from 'vuex';
 import ChatList from './chatlist';
 import ChatArea from './chatarea';
-import { getMessage, postMessage } from '~/api/chat';
+import { Picker } from 'emoji-mart-vue'
+import { getMessage, postMessage, postMessageImage } from '~/api/chat';
 export default {
     components:{
         ChatList,
-        ChatArea
+        ChatArea,
+        Picker
     },
     data: ()=> ({
+        fab: false,
         password: 'Password',
         show: false,
         text:'',
@@ -106,7 +184,11 @@ export default {
 
         warning: false,
         warningMessage: '',
-        isFormValid: false
+        isFormValid: false,
+        isUploadingFileInChat: false,
+        selectedImageFile: null,
+        selectedVideoFile: null,
+        selectedFile: null,
     }),
     computed: {
         icon () {
@@ -114,12 +196,39 @@ export default {
         },
         ...mapGetters({
             currentUser: 'auth/user',
-        })
+        }),
+        activeFab () {
+            switch (this.tabs) {
+                case 'one': return { class: 'purple', icon: 'account_circle' }
+                case 'two': return { class: 'red', icon: 'edit' }
+                case 'three': return { class: 'green', icon: 'keyboard_arrow_up' }
+                default: return {}
+            }
+        },
     },
     mounted(){
         this.listen();
     },
     methods: {
+
+        //emoji
+        toggleEmo(){
+            this.emoStatus = !this.emoStatus;
+        },
+        onInput(e){
+            if(!e){
+                return false;
+            }
+            if(!this.text){
+                this.text = e.native
+            }else{
+                this.text = this.text + e.native
+            }
+        },
+        onClickOutsideEmoji(){
+            this.emoStatus = false;
+        },
+
         toggleMarker () {
             this.marker = !this.marker
         },
@@ -389,6 +498,102 @@ export default {
             this.recording.src = null;
             this.recordingBlobData = null;
         },
+
+        //uploadImage
+        clickUploadImageBtn() {
+            this.isUploadingFileInChat = true
+            window.addEventListener('focus', () => {
+                this.isUploadingFileInChat = false
+            }, { once: true })
+            this.$refs.imageUploader.click()
+        },
+        clickUploadVideoBtn() {
+            this.isUploadingFileInChat = true
+            window.addEventListener('focus', () => {
+                this.isUploadingFileInChat = false
+            }, { once: true })
+            this.$refs.videoUploader.click()
+        },
+        clickUploadFileBtn() {
+            this.isUploadingFileInChat = true
+            window.addEventListener('focus', () => {
+                this.isUploadingFileInChat = false
+            }, { once: true })
+            this.$refs.fileUploader.click()
+        },
+        async onImageFileChanged(e) {
+            this.selectedImageFile = e.target.files[0];
+            if(this.selectedImageFile !== undefined && this.selectedImageFile !== null) {
+                this.isUploadingFileInChat = true;
+                let fileData = new FormData();
+                fileData.append('file', this.selectedImageFile);
+                fileData.append('from',this.currentUser.id)
+                fileData.append('to',this.ChatWith)
+                fileData.append('roomId',this.ChatIn)
+                
+                await postMessageImage(fileData)
+                .then((res) => {
+                    console.log(res)
+                    this.messages.push(res.data.message);
+                    this.isUploadingFileInChat = false
+                    this.selectedImageFile = null
+                }).catch((err) => {
+                    console.log(err)
+                    this.isUploadingFileInChat = false
+                }); 
+            }
+
+            //reset image file input
+            this.$refs.imageUploader.value = ''
+            
+        },
+        async onVideoFileChanged(e) {
+            this.selectedVideoFile = e.target.files[0];
+            if(this.selectedVideoFile !== undefined && this.selectedVideoFile !== null) {
+                this.isUploadingFileInChat = true;
+                let fileData = new FormData();
+                fileData.append('file', this.selectedVideoFile);
+                await uploadVideo(fileData)
+                .then((res) => {
+                    this.selectedVideoFile = null;
+                    let url = `/uploads/video/${res.data.fileName}`
+                    this.$set(res.data,'imgUrl',url)
+                    this.$set(res.data,'isDeleting',false)
+                    console.log(res)
+                    this.isUploadingFileInChat = false
+                }).catch((err) => {
+                    //console.log(err);
+                    this.isUploadingFileInChat = false
+                });
+            }
+            //reset video file input
+            this.$refs.videoUploader.value = ''
+        },
+        async onFileFileChanged(e) {
+            this.selectedFile = e.target.files[0];
+            if(this.selectedFile !== undefined && this.selectedFile !== null) {
+                this.isUploadingFileInChat = true;
+                let fileData = new FormData();
+                fileData.append('file', this.selectedFile);
+                await uploadOther(fileData)
+                .then((res) => {
+                    this.selectedFile = null;
+                    let url = `/uploads/other/${res.data.fileName}`;
+                    this.$set(res.data,'imgUrl',url)
+                    this.$set(res.data,'isDeleting',false)
+                    console.log(res);
+                    this.isUploadingFileInChat = false
+                }).catch((err) => {
+                    //console.log(err);
+                    this.isUploadingFileInChat = false
+                });
+            }
+            //reset file input
+            this.$refs.fileUploader.value = ''
+        },
+        clickUploadMapBtn(){
+            console.log("send map");
+        }
     },
 }
 </script>

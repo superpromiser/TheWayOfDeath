@@ -249,6 +249,7 @@ export default {
                     this.totalNewMessageCount = this.totalNewMessageCount + this.chatGroupList[i].new_msg_count;
                 }
                 this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
+                this.$emit("updatechatwith", this.contactList[0]);
             }).catch((err) => {
                 console.log(err);
             });

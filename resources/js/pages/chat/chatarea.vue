@@ -1,5 +1,5 @@
 <template>
-    <v-row class="bg-white h-75 ma-0 pa-0">
+    <v-row class="bg-white ch-area-height ma-0 pa-0">
         <v-col cols="12" class="overflowY-auto h-100" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
             <ChatMessage
                 v-for="(message, index) in messages"
