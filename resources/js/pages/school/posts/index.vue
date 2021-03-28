@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0">
-        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" v-if="isPostItem == true" class="ma-0">
+        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" class="ma-0">
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"
@@ -17,9 +17,6 @@
                 <PostItem :item="item" @selected="selectedPost"/>
             </v-col>
         </v-row>
-        <transition name="fade" mode="out-in">
-            <router-view></router-view>
-        </transition>
     </v-container>
 </template>
 
@@ -147,12 +144,12 @@ export default {
                         imgUrl : "/asset/img/icon/请假.png",
                         path : "posts.vocation"
                     },
-                    {
-                        color : "teal darken-4",
-                        title : "考勤",
-                        imgUrl : "/asset/img/icon/组 25.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "teal darken-4",
+                    //     title : "考勤",
+                    //     imgUrl : "/asset/img/icon/组 25.png",
+                    //     path : "something"
+                    // },
                 ],
             },
         ]

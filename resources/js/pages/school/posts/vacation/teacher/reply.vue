@@ -95,6 +95,20 @@
                     ></v-textarea>
                 </v-col>
             </v-row>
+            <v-row class="d-flex justify-center">
+                <v-col cols="12" sm="6" class="d-flex justify-space-around">
+                    <span class="hover-cursor-point">病假</span>
+                    <v-switch
+                        v-model="newVacationData.reasonFlag"
+                        color="primary"
+                        readonly
+                        hide-details
+                        inset
+                        class="pt-0 mt-0"
+                    ></v-switch>
+                    <span class="hover-cursor-point">事假</span>
+                </v-col>
+            </v-row>
             <v-row>
                 <v-col cols="12" sm="6" class="d-flex justify-space-around">
                     <span class="mr-10">假期类型</span>
@@ -110,7 +124,7 @@
                     ></v-checkbox>
                 </v-col>
             </v-row>
-            <v-row v-if="newVacationData.reasonFlag == true">
+            <v-row v-if="newVacationData.reasonFlag == false">
                 <v-col cols="12" class="d-flex justify-space-between align-start">
                     <span class="mr-16 mt-3">症状</span>
                     <v-textarea
@@ -130,6 +144,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
+import {getCurrentData,updateVacationData} from '~/api/vacation'
 import lang from '~/helper/lang.json'
 
 export default {
@@ -137,14 +152,14 @@ export default {
         lang,
         baseUrl: window.Laravel.base_url,
         newVacationData : {
-            studentName:'something',
-            teacherName:'something',
-            reasonFlag: false,
-            startTime: '2021-03-08 09:25',
-            endTime: '2021-03-08 10:25',
-            reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            painDesc: 'asdf',
-            isHeat: true
+            // studentName:'something',
+            // teacherName:'something',
+            // reasonFlag: true,
+            // startTime: '2021-03-08 09:25',
+            // endTime: '2021-03-08 10:25',
+            // reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            // painDesc: 'asdf',
+            // isHeat: true
         },
     }),
 
@@ -161,11 +176,21 @@ export default {
         }
     },
 
-    created(){
+    async created(){
         //you need to get teacher's name from server or vuex...
         // this.newVacationData.teacherName = this.....
-
-        this.newVacationData.studentName = this.user.name;
+        // this.isLoading = true
+        await getCurrentData({vId:this.currentPath.params.vId}).then(res=>{
+            console.log(res.data)
+            this.newVacationData = res.data
+            this.newVacationData.startTime = this.TimeView(this.newVacationData.startTime)
+            this.newVacationData.endTime = this.TimeView(this.newVacationData.endTime)
+            this.isLoading = false
+        }).catch(err=>{
+            console.log(err.response)
+        })
+        this.isLoading = false
+        // this.newVacationData.studentName = this.user.name;
     },
 
     mounted(){
@@ -178,11 +203,21 @@ export default {
         },
 
         allowVacation(){
-
+            updateVacationData({status:'allow',vId:this.currentPath.params.vId}).then(res=>{
+                console.log(res.data)
+                this.$router.push({name:'schoolSpace.news'})
+            }).catch(err=>{
+                console.log(err.response)
+            })
         },
 
         denyVacation(){
-
+            updateVacationData({status:'deny',vId:this.currentPath.params.vId}).then(res=>{
+                console.log(res.data)
+                this.$router.push({name:'schoolSpace.news'})
+            }).catch(err=>{
+                console.log(err.response)
+            })
         },
         
     }

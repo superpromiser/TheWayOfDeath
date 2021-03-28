@@ -17,6 +17,7 @@
                 color="green lighten-1"
                 class="mr-md-8"
                 tile
+                :loading="isLoading"
                 @click="postVacationData"
             >
                 提交
@@ -119,21 +120,24 @@
 
 import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
-import {getBanziName} from '~/api/vacation'
+import {getBanziName,createVacationData} from '~/api/vacation'
 export default {
     data: () => ({
         lang,
         baseUrl: window.Laravel.base_url,
         newVacationData : {
             studentName:'',
-            teacherName:'something',
+            teacherName:'',
             reasonFlag: true,
             startTime: '',
             endTime: '',
             reason: '',
             painDesc: '',
-            isHeat: false
+            isHeat: false,
+            teacherId:null,
+            schoolId:null,
         },
+        isLoading:false,
     }),
 
     components: {
@@ -154,10 +158,13 @@ export default {
         // this.newVacationData.teacherName = this.....
         getBanziName().then(res=>{
             console.log(res.data)
+            this.newVacationData.teacherName = res.data.name
+            this.newVacationData.teacherId = res.data.id
         }).catch(err=>{
             console.log(err.response)
         })
         this.newVacationData.studentName = this.user.name;
+        this.newVacationData.schoolId = this.currentPath.params.schoolId;
     },
 
     mounted(){
@@ -165,8 +172,16 @@ export default {
     },
 
     methods:{
-        postVacationData(){
-            //console.log(this.newVacationData);
+        async postVacationData(){
+            console.log(this.newVacationData);
+            this.isLoading = true
+            await createVacationData(this.newVacationData).then(res=>{
+                console.log(res.data)
+                this.isLoading = false
+                this.$router.push({name:'schoolSpace.news'})
+            }).catch(err=>{
+                console.log(err.response)
+            })
         }
         
     }

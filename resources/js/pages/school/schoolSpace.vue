@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0">
-        <v-container class="d-flex align-center pa-0 pt-5 school-tab-bar" v-if="isPost">
+        <v-container class="d-flex align-center pa-0 pt-5 school-tab-bar">
             <v-tabs>
                 <v-tab :to="{name:'schoolSpace.news'}">最新</v-tab>
                 <v-tab :to="{name:'schoolSpace.application'}">应用</v-tab>
@@ -20,8 +20,8 @@
         </v-container>
         <transition name="fade" mode="out-in">
             <keep-alive>
-                <!-- <router-view :key="$route.path"></router-view> -->
-                <router-view></router-view>
+                <router-view :key="$route.path"></router-view>
+                <!-- <router-view></router-view> -->
             </keep-alive>
         </transition>
     </v-container>
