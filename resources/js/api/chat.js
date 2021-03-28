@@ -32,6 +32,22 @@ function postMessageImage(formdata){
     })
 }
 
+function postMessageVideo(formdata){
+    return axios.post('/api/v1/messages/video', formdata, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
+function postMessageFile(formdata){
+    return axios.post('/api/v1/messages/file', formdata, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
 function addUserToContact(payload){
     return axios.post('/api/v1/contact', payload)
 }
@@ -51,5 +67,7 @@ export{
     getMessage,
     postMessage,
     postMessageVoice,
-    postMessageImage
+    postMessageImage,
+    postMessageVideo,
+    postMessageFile,
 }

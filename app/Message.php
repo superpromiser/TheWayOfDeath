@@ -22,7 +22,7 @@ class Message extends Model
         return $this->belongsTo(User::class, 'from')->select(['id', 'name', 'avatar']);
     }
     public function to(){
-        return $this->belongsTo(User::class,'to');
+        return $this->belongsTo(User::class,'to')->select(['id', 'name', 'avatar']);
     }
     public function roomId(){
         return $this->belongsTo(ChatRoom::class,'roomId');

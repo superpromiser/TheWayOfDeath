@@ -90,8 +90,10 @@
             <div v-if="chatfrom === message.from.id" class="d-flex justify-end mb-4 position-relative">
                 <div class="msg-container-send p-1">
                     <div class="msg-video-container-send position-relative">
-                        <img src="/img/coverImage/chatVideoCoverImage.jpg" alt="">
-                        <Icon @click="sendVideoInfoToParent(message)" class="msg-video-play-icon" size="43" color="#2D8CF0"  type="logo-youtube" />
+                        <img :src="`${baseUrl}/asset/img/coverImage/chatVideoCoverImage.jpg`" alt="">
+                        <v-icon @click="sendVideoInfoToParent(message)" class="msg-video-play-icon" size="43" color="#2D8CF0"  type="logo-youtube">
+                            mdi-play-circle 
+                        </v-icon>
                     </div>
                 </div>
                 <div class="ch-time">
@@ -120,8 +122,10 @@
                 </div>
                 <div class="msg-container p-1">
                     <div class="msg-video-container position-relative">
-                        <img src="/img/coverImage/chatVideoCoverImage.jpg" alt="">
-                        <Icon @click="sendVideoInfoToParent(message)" class="msg-video-play-icon" size="65" color="#2D8CF0" type="logo-youtube" />
+                        <img :src="`${baseUrl}/asset/img/coverImage/chatVideoCoverImage.jpg`" alt="">
+                        <v-icon @click="sendVideoInfoToParent(message)" class="msg-video-play-icon" size="43" color="#2D8CF0"  type="logo-youtube">
+                            mdi-play-circle 
+                        </v-icon>
                     </div>
                 </div>
             </div>
@@ -165,12 +169,14 @@
             <div v-if="chatfrom === message.from.id" class="d-flex justify-end mb-4 position-relative">
                 <div class="msg-container-send">
                     <div class="msg-file-container d-flex">
-                        <Icon size="22" type="ios-document-outline" />
-                        <p><strong>{{message.file.name}}</strong></p>
+                        <v-icon size="22" >mdi-file-outline</v-icon>
+                        <p class="mb-0"><strong>{{message.file.name}}</strong></p>
                     </div>
-                    <p>{{message.file.size}} bytes</p>
+                    <p class="mb-0">{{message.file.size}} bytes</p>
                     <a class="msg-file-download-ico-send-a" :href="message.file.path" :download="message.file.name">
-                        <Icon size="25" class="msg-file-download-ico msg-file-download-ico-send" type="md-download" />
+                        <v-icon size="25" class="msg-file-download-ico msg-file-download-ico-send" color="primary">
+                            mdi-download
+                        </v-icon>
                     </a>
                 </div>
                 <div class="ch-time">
@@ -199,12 +205,14 @@
                 </div>
                 <div class="msg-container">
                     <div class="msg-file-container d-flex">
-                        <Icon size="22" color="white" type="ios-document-outline" />
-                        <p><strong>{{message.file.name}}</strong></p>
+                        <v-icon size="22" color="white">mdi-file-outline</v-icon>
+                        <p class="mb-0"><strong>{{message.file.name}}</strong></p>
                     </div>
-                    <p>{{message.file.size}} bytes</p>
+                    <p class="mb-0">{{message.file.size}} bytes</p>
                     <a class="msg-file-download-ico-a" :href="message.file.path" :download="message.file.name">
-                        <Icon size="25" class="msg-file-download-ico" type="md-download" />
+                        <v-icon size="25" class="msg-file-download-ico" color="primary">
+                            mdi-download
+                        </v-icon>
                     </a>
                 </div>
                 
@@ -304,54 +312,6 @@ export default {
     },
 
     methods:{
-
-        //video play method
-        // listen event
-        onPlayerPlay(player) {
-            // console.log('player play!', player)
-        },
-        onPlayerPause(player) {
-            // console.log('player pause!', player)
-        },
-        onPlayerEnded(player) {
-            // console.log('player ended!', player)
-        },
-        onPlayerLoadeddata(player) {
-            // console.log('player Loadeddata!', player)
-        },
-        onPlayerWaiting(player) {
-            // console.log('player Waiting!', player)
-        },
-        onPlayerPlaying(player) {
-            // console.log('player Playing!', player)
-        },
-        onPlayerTimeupdate(player) {
-            // console.log('player Timeupdate!', player.currentTime())
-        },
-        onPlayerCanplay(player) {
-            // console.log('player Canplay!', player)
-        },
-        onPlayerCanplaythrough(player) {
-            // console.log('player Canplaythrough!', player)
-        },
-        // or listen state event
-        playerStateChanged(playerCurrentState) {
-            // console.log('player current update state', playerCurrentState)
-        },
-        // player is ready
-        playerReadied(player) {
-            // seek to 10s
-            // console.log('example player 1 readied', player)
-            player.currentTime(10)
-            // console.log('example 01: the player is readied', player)
-        },
-
-        playMsgVideo(message){
-            this.playMsgSentVideoModal = true;
-            this.playerOptions.sources[0].src = "http://8.131.231.180" + message.video;
-            this.playerOptions.poster = "/img/coverImage/chatVideoCoverImage.jpg";
-        },
-
         showSendImage(){
             const viewer = this.$el.querySelector('.msg-image-container-send').$viewer
             viewer.show()
@@ -412,18 +372,7 @@ export default {
     width: 237px!important;
     height: 30px!important;
 }
-.msg-video-container-send img{
-    max-width: 200px;
-}
-.msg-image-container-send img{
-    max-width: 200px;
-}
-.msg-video-container img{
-    max-width: 200px;
-}
-.msg-image-container img{
-    max-width: 200px;
-}
+
 .msg-container-send{
     max-width: 70%;
 }

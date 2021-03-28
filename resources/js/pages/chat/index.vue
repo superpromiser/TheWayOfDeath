@@ -20,7 +20,7 @@
                                     <v-icon v-model="fab" size="30" v-if="fab" class="hover-cursor-point">
                                         mdi-close
                                     </v-icon>
-                                    <v-progress-circular v-else-if="isUploadingFileInChat"></v-progress-circular>
+                                    <v-progress-circular indeterminate color="primary" v-else-if="isUploadingFileInChat"></v-progress-circular>
                                     <v-icon v-model="fab" size="30" v-else class="hover-cursor-point">
                                         mdi-paperclip
                                     </v-icon>
@@ -145,7 +145,7 @@ import { mapGetters } from 'vuex';
 import ChatList from './chatlist';
 import ChatArea from './chatarea';
 import { Picker } from 'emoji-mart-vue'
-import { getMessage, postMessage, postMessageImage } from '~/api/chat';
+import { getMessage, postMessage, postMessageImage, postMessageVideo, postMessageFile } from '~/api/chat';
 export default {
     components:{
         ChatList,
@@ -154,7 +154,6 @@ export default {
     },
     data: ()=> ({
         fab: false,
-        password: 'Password',
         show: false,
         text:'',
         marker: true,
@@ -501,6 +500,7 @@ export default {
 
         //uploadImage
         clickUploadImageBtn() {
+            this.fab = false;
             this.isUploadingFileInChat = true
             window.addEventListener('focus', () => {
                 this.isUploadingFileInChat = false
@@ -508,6 +508,7 @@ export default {
             this.$refs.imageUploader.click()
         },
         clickUploadVideoBtn() {
+            this.fab = false;
             this.isUploadingFileInChat = true
             window.addEventListener('focus', () => {
                 this.isUploadingFileInChat = false
@@ -515,6 +516,7 @@ export default {
             this.$refs.videoUploader.click()
         },
         clickUploadFileBtn() {
+            this.fab = false;
             this.isUploadingFileInChat = true
             window.addEventListener('focus', () => {
                 this.isUploadingFileInChat = false
@@ -533,6 +535,7 @@ export default {
                 
                 await postMessageImage(fileData)
                 .then((res) => {
+                    this.fab = false;
                     console.log(res)
                     this.messages.push(res.data.message);
                     this.isUploadingFileInChat = false
@@ -542,10 +545,6 @@ export default {
                     this.isUploadingFileInChat = false
                 }); 
             }
-
-            //reset image file input
-            this.$refs.imageUploader.value = ''
-            
         },
         async onVideoFileChanged(e) {
             this.selectedVideoFile = e.target.files[0];
@@ -553,12 +552,14 @@ export default {
                 this.isUploadingFileInChat = true;
                 let fileData = new FormData();
                 fileData.append('file', this.selectedVideoFile);
-                await uploadVideo(fileData)
+                fileData.append('from',this.currentUser.id);
+                fileData.append('to',this.ChatWith);
+                fileData.append('roomId',this.ChatIn);
+                await postMessageVideo(fileData)
                 .then((res) => {
+                    this.messages.push(res.data.message);
+                    this.fab = false;
                     this.selectedVideoFile = null;
-                    let url = `/uploads/video/${res.data.fileName}`
-                    this.$set(res.data,'imgUrl',url)
-                    this.$set(res.data,'isDeleting',false)
                     console.log(res)
                     this.isUploadingFileInChat = false
                 }).catch((err) => {
@@ -566,8 +567,6 @@ export default {
                     this.isUploadingFileInChat = false
                 });
             }
-            //reset video file input
-            this.$refs.videoUploader.value = ''
         },
         async onFileFileChanged(e) {
             this.selectedFile = e.target.files[0];
@@ -575,12 +574,15 @@ export default {
                 this.isUploadingFileInChat = true;
                 let fileData = new FormData();
                 fileData.append('file', this.selectedFile);
-                await uploadOther(fileData)
+                fileData.append('from',this.currentUser.id);
+                fileData.append('to',this.ChatWith);
+                fileData.append('roomId',this.ChatIn);
+                await postMessageFile(fileData)
                 .then((res) => {
+                    res.data.message.file = JSON.parse(res.data.message.file);
+                    this.messages.push(res.data.message);
+                    this.fab = false;
                     this.selectedFile = null;
-                    let url = `/uploads/other/${res.data.fileName}`;
-                    this.$set(res.data,'imgUrl',url)
-                    this.$set(res.data,'isDeleting',false)
                     console.log(res);
                     this.isUploadingFileInChat = false
                 }).catch((err) => {
@@ -588,8 +590,6 @@ export default {
                     this.isUploadingFileInChat = false
                 });
             }
-            //reset file input
-            this.$refs.fileUploader.value = ''
         },
         clickUploadMapBtn(){
             console.log("send map");
