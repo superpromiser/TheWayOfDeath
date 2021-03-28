@@ -49,7 +49,7 @@ export default {
             deep:true
         },
         $route(to, from) {
-            this.$router.go()
+            // this.$router.go()
         }
     },
      

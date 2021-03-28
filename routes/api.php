@@ -257,6 +257,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('/checkIn','CheckInController@updateCheckInData');
     Route::delete('/checkIn','CheckInController@deleteCheckInData');
 
+    //vacation
+    Route::get('banziName','VacationController@getBanziName');
+
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {
