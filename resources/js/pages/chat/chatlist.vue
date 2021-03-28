@@ -25,14 +25,38 @@
                     <template>
                         <v-list v-for="user in filteredContacts" :key="user.id" class="py-0">
                             <v-list-item @click="updatechatwith(user)">
-                                <v-avatar class="ma-3" size="50" color="indigo">
-                                    <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
-                                    <span dark v-else class="white--text headline"> {{user.user.name[0]}}</span>
-                                </v-avatar>
+                                <v-badge bordered bottom v-if="checkOnline(user.user.id)"
+                                    color="light-green accent-3" dot
+                                    offset-x="10"
+                                    offset-y="10" class="ma-3"
+                                >
+                                    <v-avatar size="50" color="indigo">
+                                        <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
+                                        <span dark v-else class="white--text headline"> {{user.user.name[0]}}</span>
+                                    </v-avatar>
+                                </v-badge>
+                                <v-badge bordered bottom v-else
+                                    color="blue-grey lighten-2" dot
+                                    offset-x="10"
+                                    offset-y="10" class="ma-3"
+                                >
+                                    <v-avatar size="50" color="indigo">
+                                        <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
+                                        <span dark v-else class="white--text headline"> {{user.user.name[0]}}</span>
+                                    </v-avatar>
+                                </v-badge>
+                                
                                 <v-list-item-content>
                                     <v-list-item-title>{{user.user.name}}</v-list-item-title>
                                     <v-list-item-subtitle>asdf</v-list-item-subtitle>
                                 </v-list-item-content>
+                                <div v-if="user.new_msg_count !== 0" class="mr-4">
+                                    <v-badge
+                                        color="red"
+                                        :content="user.new_msg_count"
+                                        >
+                                    </v-badge>
+                                </div>
                             </v-list-item>
                             <v-divider inset ></v-divider>
                         </v-list>
@@ -180,7 +204,12 @@ export default {
         chatGroupList:[],
         addContactUserList:[],
         totalNewMessageCount:0,
+        activeUserList: [],
     }),
+
+    mounted(){
+        
+    },
 
     computed:{
         ...mapGetters({
@@ -207,6 +236,7 @@ export default {
     },
 
     async created(){
+        this.listen();
         if(this.usersStore !== null){
             this.users = this.usersStore;
         }
@@ -255,6 +285,7 @@ export default {
             });
             this.isGettingContactList = false;
         }
+        
         console.log("this.contactList", this.contactList);
     },
 
@@ -310,6 +341,77 @@ export default {
                 }
             }
             this.$emit("updatechatwith", userInfo);
+        },
+
+        listen(){
+            Echo.private('group')
+                .listen('NewGroup', (e) => {
+                    if(e.group.room_id.invited !== null){
+                        let invitedArr = e.group.room_id.invited;
+                        if(invitedArr.includes(this.currentUser.id)){
+                            this.isNoContactList = false;
+                            this.chatGroupList.unshift(e.group);
+                        }
+                    }
+                    else if(e.group.room_id.invited == null){
+                        let removedGroupId = e.group.roomId;
+                        for (let i = 0; i < this.chatGroupList.length ; i++){
+                            if( this.chatGroupList[i].roomId == removedGroupId){
+                                this.chatGroupList.splice(i, 1);
+                            }
+                        }
+                        if(this.chatGroupList.length == 0 && this.contactList.length == 0){
+                            this.isNoContactList = true;
+                        }
+                    }
+                });
+            Echo.join('chats')
+                .here(user=>{
+                    this.activeUserList = user;
+                })
+                .joining(user=>{
+                    this.activeUserList.push(user);
+                })
+                .leaving(user=>{
+                    this.activeUserList = this.activeUserList.filter(u => u.id != user.id);
+                })
+                .listen('NewMessage', (message) => {
+                    console.log("---listenList", message);
+                    if ( message.message.to == this.currentUser.id ) {
+                        console.log("Badge", message.message.from.id);
+                        for(let i = 0; i < this.contactList.length; i++){
+                            if( message.message.from.id == this.contactList[i].contactUserId ){
+                                this.totalNewMessageCount = this.totalNewMessageCount + 1;
+                                // this.$store.state.totalNewMsgCnt = this.totalNewMessageCount;
+                                this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
+                                this.contactList[i].new_msg_count = this.contactList[i].new_msg_count + 1;
+                                postNewMsgCount({new_msg_count:this.contactList[i]})
+                            }
+                        }
+                    }
+                    else if ( ((message.message.room_id.invited)).includes(this.currentUser.id) || message.message.room_id.userId == this.currentUser.id ) {
+                        console.log("Badge", message.message.from.id);
+                        for(let i = 0; i < this.chatGroupList.length; i++){
+                            if( message.message.roomId == this.chatGroupList[i].roomId ){
+                                this.totalNewMessageCount = this.totalNewMessageCount + 1;
+                                // this.$store.state.totalNewMsgCnt = this.totalNewMessageCount;
+                                this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
+                                this.chatGroupList[i].new_msg_count = this.chatGroupList[i].new_msg_count + 1;
+                                postNewMsgCount({new_msg_count:this.chatGroupList[i]})
+                            }
+                        }
+                    }
+                })
+                
+        },
+
+        checkOnline(userId){
+            for(let i = 0; i < this.activeUserList.length; i++){
+                if(this.activeUserList[i].id == userId){
+                    return true;
+                }
+            }
+            return false;
         },
     }   
 }

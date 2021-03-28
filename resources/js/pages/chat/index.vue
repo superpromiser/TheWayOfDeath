@@ -2,14 +2,15 @@
   <v-container class="h-100 pa-0">
       <v-row class="h-100 ma-0">
           <ChatList
+            id="chat-list"
             :ChatWith="ChatWith"
             :ChatIn="ChatIn"
             @updatechatwith="updatechatwith"
             @updatechatIn="updatechatIn" />
-          <v-col cols="12" sm="12" md="9" class="h-100 bg-light-yellow pa-0" >
-                <ChatArea :chatto="ChatWith" :chatin="ChatIn" :messages="messages" :chatfrom="currentUser.id" />             
+          <v-col cols="12" sm="12" md="9" class="h-100 bg-light-yellow pa-0" id="chat-area">
+                <ChatArea  :chatto="ChatWith" :chatin="ChatIn" :messages="messages" :chatfrom="currentUser.id" />             
                 <v-row class="bg-white ma-0 pa-0">
-                    <v-col cols="12" class="d-flex align-center">
+                    <v-col cols="12" class="d-flex align-center position-relative">
                         <div class="ch-icon-area d-flex align-center position-relative">
                             <v-speed-dial
                                 v-model="fab"
@@ -108,6 +109,11 @@
                             @keydown.enter.shift.exact.prevent
                             @keydown="sendTypingEvent"
                         ></v-text-field>
+                        <v-btn fab dark small color="primary" @click="goToContactList" class="position-absolute hidden-md-and-up" style="right: 30px; top: -50px;">
+                            <v-icon dark>
+                                mdi-backup-restore
+                            </v-icon>
+                        </v-btn>
                     </v-col>
                         <!-- <v-col cols="12" class="d-flex align-center ">
                             <v-btn color="blue accent-3" fab small dark class="ma-2"
@@ -141,6 +147,7 @@
 </template>
 
 <script>
+import * as easings from 'vuetify/es5/services/goto/easing-patterns'
 import { mapGetters } from 'vuex';
 import ChatList from './chatlist';
 import ChatArea from './chatarea';
@@ -188,6 +195,20 @@ export default {
         selectedImageFile: null,
         selectedVideoFile: null,
         selectedFile: null,
+
+        easings: Object.keys(easings),
+        chatAreaOptions: {
+            duration: 500,
+            offset: -400,
+            easing: 'easeInOutCubic',
+            container: '#h-out-navbar'
+        },
+        chatListOptions: {
+            duration: 500,
+            offset: 0,
+            easing: 'easeInOutCubic',
+            container: '#h-out-navbar'
+        }
     }),
     computed: {
         icon () {
@@ -258,6 +279,8 @@ export default {
             this.ChatWith = userInfo.user.id;
             this.contactNow = userInfo.user.name;
             this.ChatIn = null;
+            // console.log(this.$refs('#h-out-navbar'))
+            this.$vuetify.goTo('#chat-area', this.chatAreaOptions);
             this.getMessage();
         },
         
@@ -266,7 +289,12 @@ export default {
             this.ChatIn = group.roomId;
             this.contactNow = group.room_id.roomName;
             this.ChatWith = null;
+            this.$vuetify.goTo('#chat-area', this.chatAreaOptions);
             this.getMessageGroup();
+        },
+
+        goToContactList(){
+            this.$vuetify.goTo('#chat-list', this.chatListOptions);
         },
 
         //chat history
@@ -348,28 +376,28 @@ export default {
                 }
             })
             .listen('NewMessage', (message) => {
-                console.log("@@@@@@@@@message", message)
+                console.log("---listenIndex", message)
+                console.log(this.currentUser.id, this.ChatWith)
                 if (
                 message.message.to == this.currentUser.id &&
                 message.message.from.id == this.ChatWith
                 ) {
-                if(message.message.file){
-                    message.message.file = JSON.parse(message.message.file);
+                    if(message.message.file){
+                        message.message.file = JSON.parse(message.message.file);
+                    }
+                    if(message.message.map){
+                        message.message.map = JSON.parse(message.message.map);
+                    }
+                    this.messages.push(message.message);
                 }
-                if(message.message.map){
-                    message.message.map = JSON.parse(message.message.map);
-                }
-                
-                this.messages.push(message.message);
-                }
-                else if(message.message.roomId == this.ChatIn){
-                if(message.message.file){
-                    message.message.file = JSON.parse(message.message.file);
-                }
-                if(message.message.map){
-                    message.message.map = JSON.parse(message.message.map);
-                }
-                this.messages.push(message.message);
+                else if(message.message.roomId !== null && message.message.roomId == this.ChatIn){
+                    if(message.message.file){
+                        message.message.file = JSON.parse(message.message.file);
+                    }
+                    if(message.message.map){
+                        message.message.map = JSON.parse(message.message.map);
+                    }
+                    this.messages.push(message.message);
                 }
             });
         },

@@ -275,7 +275,6 @@ export default {
     },
 
     created(){
-        console.log("this.message.from", this.message.from);
     },
 
     data(){

@@ -10,6 +10,7 @@
           class="h-out-navbar container pa-0"
           color="white"
           elevation="8"
+          id="h-out-navbar"
         >
         <child />
       </v-sheet>
