@@ -519,3 +519,85 @@ a {
 .h-25{
   height: 25%;
 }
+
+.overflowY-auto{
+  overflow-y: auto;
+}
+
+.msg-container {
+  margin-top: 26px;
+  margin-bottom: auto;
+  margin-left: 10px;
+  border-radius: 25px;
+  border-bottom-left-radius: 0px;
+  background-color: #2D8CF0;
+  padding: 10px;
+  position: relative;
+  overflow-wrap: anywhere;
+}
+
+.msg-container p{
+  color: white;
+}
+
+
+.msg-container-send {
+  margin-top: 26px;
+  margin-bottom: auto;
+  margin-right: 10px;
+  border-radius: 25px;
+  border-top-right-radius: 0px;
+  background-color: #F2F6F9;
+  padding: 10px;
+  position: relative;
+  overflow-wrap: anywhere;
+}
+
+.messagebox_p {
+  margin-bottom: 0!important;
+  font-size: 14px;
+  padding: 0.2rem;
+  max-width: 400px;
+}
+
+.msg-container .messagebox_p a{
+  text-decoration: none;
+  color: white!important;
+}
+
+.msg-container-send .messagebox_p a:hover, .msg-container-send .messagebox_p a:active{
+  color: yellowgreen!important;
+}
+
+.msg-container-send .messagebox_p a{
+  text-decoration: none;
+  color: gray!important;
+}
+
+.msg-container .messagebox_p a:hover, .msg-container .messagebox_p a:active{
+  color: yellowgreen!important;
+}
+
+.ch-time{
+  position: absolute;
+  top: 0;
+  right: 40px;
+}
+
+.ch-user-avatar-sender{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+  
+.ch-user-avatar-sender .v-avatar{
+  width: 30px;
+  height: 30px;
+  margin-top: auto;
+}
+
+.ch-name-and-time{
+  position: absolute;
+  top: 0;
+  left: 54px;
+}

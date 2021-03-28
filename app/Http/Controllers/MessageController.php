@@ -48,7 +48,7 @@ class MessageController extends Controller
             broadcast(new NewMessage($message->load('from')))->toOthers();
     
             return response()->json([
-                'message' => $message->load('from')
+                'msg' => "ok"
             ], 201);
         }
         elseif($request->to == null){

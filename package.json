@@ -30,6 +30,7 @@
     "vee-validate": "^3.4.5",
     "vform": "^1.0.0",
     "vue": "^2.6.10",
+    "vue-chat-scroll": "^1.4.0",
     "vue-editor-js": "^2.0.2",
     "vue-fragment": "^1.5.2",
     "vue-i18n": "^8.11.2",

@@ -9,7 +9,7 @@ class Message extends Model
     protected $fillable = [
         'from',
         'to',
-        'text', 
+        'text',
         'image',
         'video',
         'voice',
@@ -19,7 +19,7 @@ class Message extends Model
     ];
 
     public function from(){
-        return $this->belongsTo(User::class, 'from');
+        return $this->belongsTo(User::class, 'from')->select(['id', 'name', 'avatar']);
     }
     public function to(){
         return $this->belongsTo(User::class,'to');

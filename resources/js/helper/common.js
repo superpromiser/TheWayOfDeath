@@ -32,6 +32,17 @@ export default{
             let time = date.getFullYear() + '年' + mnth + '月' + day + '日' ;
             return time
         },
+        TimeViewHMS(str){
+            // let date =  new Date(str)
+            let date = new Date(str);
+            let hour = ("0" + date.getHours()).slice(-2);
+            let min = ("0" + date.getMinutes()).slice(-2);
+            let sec = ("0" + date.getSeconds()).slice(-2);
+            let time = hour + ':' + min + ':' + sec;
+            return time
+            // date = date.getTime()
+            // return date
+        },
         checkIfAttachExist(data){
             let count = 0;
             count = count + data.imgUrl.length + data.videoUrl.length + data.otherUrl.length;

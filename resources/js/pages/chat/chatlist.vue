@@ -7,12 +7,21 @@
             </v-btn>
         </div>
         <div class="chat-contact-list">
+            <div v-if="isGettingContactList" class="justify-center align-center d-flex pt-3 m-0" >
+                <v-progress-circular
+                indeterminate
+                color="primary"
+                ></v-progress-circular>
+            </div>
+            <div v-else-if="isNoContactList" class="pa-3 text-center ">
+                请添加新朋友
+            </div>
             <v-list three-line class="py-0">
                 <v-list-item-group
                     v-model="model"
                     mandatory
                     color="indigo"
-                >   
+                >
                     <template>
                         <v-list v-for="user in filteredContacts" :key="user.id" class="py-0">
                             <v-list-item @click="updatechatwith(user)">
@@ -136,6 +145,17 @@
 import { mapGetters } from 'vuex';
 import { getUserList, getContactList, addUserToContact, postNewMsgCount } from '~/api/chat'
 export default {
+    props:{
+        ChatWith: {
+            type: Number,
+            required: false,
+        },
+        ChatIn: {
+            type: Number,
+            required: false,
+        },
+    },
+    
     components:{
         
     },
@@ -286,11 +306,6 @@ export default {
                     this.contactList[i].new_msg_count = 0;
 
                     postNewMsgCount({new_msg_count:this.contactList[i]})
-                    .then((res) => {
-                        console.log(res)
-                    }).catch((err) => {
-                        console.log(err)
-                    });
                 }
             }
             this.$emit("updatechatwith", userInfo);

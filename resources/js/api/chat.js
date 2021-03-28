@@ -8,6 +8,22 @@ function getContactList(){
     return axios.get('/api/v1/chat/contactList')
 }
 
+function getMessage(payload){
+    return axios.get('/api/v1/messages', {params:payload})
+}
+
+function postMessage(payload){
+    return axios.post('/api/v1/messages', payload)
+}
+
+function postMessageVoice(formdata){
+    return axios.post('/api/v1/messages/voice', formdata, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
 function addUserToContact(payload){
     return axios.post('/api/v1/contact', payload)
 }
@@ -17,9 +33,14 @@ function postNewMsgCount(payload){
 }
 
 
+
+
 export{
     getUserList,
     getContactList,
     addUserToContact,
-    postNewMsgCount
+    postNewMsgCount,
+    getMessage,
+    postMessage,
+    postMessageVoice
 }

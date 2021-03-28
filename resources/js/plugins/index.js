@@ -6,5 +6,6 @@ import './readmore'
 import './imageviewer'
 import './videoview'
 import './infinite'
+import './vchatscroll'
 
 import 'bootstrap'
