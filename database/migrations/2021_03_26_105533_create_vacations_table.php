@@ -15,6 +15,21 @@ class CreateVacationsTable extends Migration
     {
         Schema::create('vacations', function (Blueprint $table) {
             $table->id();
+            $table->char('studentName');
+            $table->char('teacherName');
+            $table->string('startTime');
+            $table->string('endTime');
+            $table->string('reason');
+            $table->boolean('reasonFlag');
+            $table->boolean('isHeat');
+            $table->string('painDesc')->nullable();
+            $table->char('status')->default('pending');
+            $table->unsignedBigInteger('postId');
+            $table->unsignedBigInteger('studentId');
+            $table->unsignedBigInteger('teacherId');
+            $table->foreign('studentId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('teacherId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
     }

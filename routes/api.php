@@ -259,6 +259,13 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     //vacation
     Route::get('banziName','VacationController@getBanziName');
+    Route::get('vacation','VacationController@getVacation');
+    Route::get('allVacation','VacationController@allVacation');
+    Route::get('currentVacation','VacationController@currentVacation');
+
+    Route::post('vacation','VacationController@createVacation');
+    Route::put('vacation','VacationController@updateVacation');
+    Route::delete('vacation','VacationController@deleteVacation');
 
 });
 

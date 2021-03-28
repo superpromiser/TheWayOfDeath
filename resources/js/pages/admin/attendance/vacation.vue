@@ -102,7 +102,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-icon
                             small
-                            @click="item.status = 'deny'"
+                            @click="denyItem(item)"
                             v-bind="attrs"
                             v-on="on"
                         >
@@ -115,7 +115,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-icon
                             small
-                            @click="item.status = 'allow'"
+                            @click="allowItem(item)"
                             v-bind="attrs"
                             v-on="on"
                         >
@@ -151,8 +151,7 @@
 </template>
 
 <script>
-import { createSchool, updateSchool, getSchool, deleteSchool } from '~/api/school'
-import { createSubject, updateSubject, getSubject, deleteSubject } from '~/api/managersubject'
+import {allVacationData,deleteVacationData} from '~/api/vacation';
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -172,96 +171,7 @@ export default {
             { text: '审批状态', value: 'status', sortable: false, align: 'center' },
             { text: '操作', value: 'actions', sortable: false },
         ],
-        vacationData: [
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: true,
-                status: 'allow',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: false,
-                status: 'allow',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: true,
-                status: 'pending',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: false,
-                status: 'allow',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: false,
-                status: 'pending',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: true,
-                status: 'allow',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: true,
-                status: 'deny',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: false,
-                status: 'allow',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: true,
-                status: 'deny',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: true,
-                status: 'allow',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-            {
-                studentName: 'math',
-                startTime: '00:00',
-                endTime: '00:01',
-                reasonFlag: false,
-                status: 'deny',
-                reason: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            },
-        ],
+        vacationData: [],
         schoolListRaw : [],
         editedIndex: -1,
         editedItem: {
@@ -294,12 +204,11 @@ export default {
 
     async created(){
         this.isLoadingSchoolData = true;
-        getSchool()
-        .then((res) => {
-            
-        }).catch((err) => {
-            
-        });
+        await allVacationData().then(res=>{
+            this.vacationData = res.data
+        }).catch(err=>{
+            console.log(err.response)
+        })
         this.isLoadingSchoolData = false;
     },
 
@@ -321,13 +230,21 @@ export default {
       },
 
       deleteItem (item) {
+            console.log('---',item)
             this.editedIndex = this.vacationData.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
       },
 
         async deleteItemConfirm () {
-            this.vacationData.splice(this.editedIndex, 1)
+            console.log(this.editedItem)
+            this.isDeleteSchool = true
+            await deleteVacationData({postId:this.editedItem.postId}).then(res=>{
+                this.vacationData.splice(this.editedIndex, 1)
+                this.isDeleteSchool = false
+            }).catch(err=>{
+                console.log(err.response)
+            })
             // let payload = {
             //     id : this.editedItem.id
             // }
@@ -382,6 +299,12 @@ export default {
         replyItem(item){
             console.log(item);
             this.$router.push({ name : 'posts.vacationTeacherReply' })
+        },
+        denyItem(item){
+            console.log('deny',item)
+        },
+        allowItem(item){
+            console.log('allow',item)
         }
     },
 }

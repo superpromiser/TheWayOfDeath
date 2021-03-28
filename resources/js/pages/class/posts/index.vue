@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" v-if="isPostItem == true">
+        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" class="ma-0">
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"
@@ -16,12 +16,12 @@
             <v-col v-for="(item, j) in itemGroup.items" :key="j" cols="12" sm="6" md="4" lg="3">
                 <PostItem 
                     :item="item" 
-                     @selected="selectedPost"
+                    @selected="selectedPost"
                 />
             </v-col>
         </v-row>
         <transition name="fade" mode="out-in">
-            <router-view></router-view>
+            <router-view :key="$router.path"></router-view>
         </transition>
     </v-container>
 </template>
