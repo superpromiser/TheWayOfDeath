@@ -55,6 +55,12 @@ a {
     }
 }
 
+@media (min-width: 1904px) {
+    .cus-container.container {
+        max-width: 1400px !important;
+    }
+}
+
 .bg-white {
     background: white;
 }
@@ -498,9 +504,18 @@ a {
     top: 0px;
     background: white;
     box-shadow: 1px 1px 10px #f3f3f3;
+    z-index: 1;
   }
 
-  .chat-contact-list{
+  .chat-contact-list {
+    height: calc(100% - 96px);
     overflow: auto;
-    height: 93%;
-  }
+}
+
+.h-75{
+  height: 75%;
+}
+
+.h-25{
+  height: 25%;
+}
