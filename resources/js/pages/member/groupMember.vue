@@ -94,7 +94,7 @@ export default {
         }
     },
     async created(){
-        await getClub({schoolId:this.currentPath.params.schoolId}).then(res=>{
+        await getClub({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
             console.log(res.data)
             this.groupList = res.data
         }).catch(err=>{

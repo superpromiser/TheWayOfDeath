@@ -132,6 +132,17 @@ export default{
                 enNum += num[i];
             }
             return enNum;
+        },
+        transRole(id){
+            if(id == 3){
+                return '老师'
+            }else if(id == 4){
+                return '家长'
+            }else if(id == 5){
+                return '学生'
+            }else{
+                return ''
+            }
         }
     }
 }
