@@ -30,7 +30,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row >
         <v-col>
           <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('group')">
             <v-card-text>
@@ -56,7 +56,12 @@
         </v-col>
         <v-col></v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="isLoading">
+        <v-col>
+          {{lang.noData}}
+        </v-col>
+      </v-row>
+      <v-row v-else>
         <v-col cols=12>
           老师
           <v-divider></v-divider>
@@ -78,7 +83,7 @@
                   <v-list-item-title v-text="user.name"></v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-content>
-                  <v-list-item-title v-text="user.phoneNumber"></v-list-item-title>
+                  <v-list-item-title v-text="pnEncrypt(user.phoneNumber)"></v-list-item-title>
                 </v-list-item-content>
               </v-list>
             </div>
@@ -106,7 +111,7 @@
                   <v-list-item-title v-text="user.name"></v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-content>
-                  <v-list-item-title v-text="user.phoneNumber"></v-list-item-title>
+                  <v-list-item-title v-text="pnEncrypt(user.phoneNumber)"></v-list-item-title>
                 </v-list-item-content>
               </v-list>
             </div>
@@ -134,7 +139,7 @@
                   <v-list-item-title v-text="user.name"></v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-content>
-                  <v-list-item-title v-text="user.phoneNumber"></v-list-item-title>
+                  <v-list-item-title v-text="pnEncrypt(user.phoneNumber)"></v-list-item-title>
                 </v-list-item-content>
               </v-list>
             </div>

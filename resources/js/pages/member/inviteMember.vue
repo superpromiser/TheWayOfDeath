@@ -1,5 +1,17 @@
 <template>
     <v-container>
+        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
+            <v-btn
+                tile
+                dark
+                color="green lighten-1"
+                class="mx-2 float-right"
+                :loading="isSubmit"
+                @click="submit"
+            >
+                {{lang.submit}}
+            </v-btn>
+        </v-banner>
         <v-banner>
             <v-row>
                 <v-col>
@@ -15,9 +27,8 @@
             <v-row  justify-space-between>
                 <v-col>
                     <v-checkbox
-                        v-model="selected"
+                        v-model="checkAll"
                         label="全选"
-                        value="John"
                         class="member-chk"
                         style="height:20px !important"
                         @click="selectAll"
@@ -29,10 +40,10 @@
             <v-row>
                 <v-col>
                     <v-checkbox
-                        v-model="selected[index]"
+                        v-model="user.checkbox"
                         :label="user.name"
-                        :value="user.id"
                         class="member-chk"
+                        @click="selectMem(user)"
                     ></v-checkbox>
                 </v-col>
                 <v-col>
@@ -48,10 +59,14 @@
 
 <script>
 import {getSchoolMemberList} from '~/api/user'
+import lang from '~/helper/lang.json'
 export default {
     data:() => ({
-        selected:[],
+        checkAll:false,
         userList:[],
+        lang,
+        isSubmit:false,
+        selected:[]
     }),
     computed:{
         currentPath(){
@@ -60,7 +75,9 @@ export default {
     },
     created(){
         getSchoolMemberList({schoolId:this.currentPath.params.schoolId}).then(res=>{
-            console.log(res.data)
+            res.data.map(user=>{
+                this.$set(user,'checkbox',false)
+            })
             this.userList = res.data
         }).catch(err=>{
             console.log(err.response)
@@ -68,13 +85,34 @@ export default {
     },
     methods:{
         selectAll(){
-            if(this.selected.length == 0){
-                for(let i=0; i< this.userList.length;i++){
-                    this.selected.push(this.userList[i].id)
-                }
+            console.log(this.checkAll)
+            if(this.checkAll == false){
+                this.userList.map(user=>{
+                    user.checkbox = false
+                })
             }else{
-                this.selected = []
+                this.userList.map(user=>{
+                    user.checkbox = true
+                    console.log(user.checkbox)
+                })
             }
+        },
+        selectMem(user){
+            console.log(user.checkbox)
+            this.checkAll = true
+            this.userList.map(user=>{
+                if(user.checkbox == false){
+                    console.log(user.checkbox)
+                    this.checkAll = false
+                }
+            })
+        },
+        submit(){
+            this.userList.map(user=>{
+                if(user.checkbox == true){
+                    this.selected.push(user)
+                }
+            })
             console.log(this.selected)
         }
     }
