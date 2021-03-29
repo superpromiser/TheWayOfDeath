@@ -74,7 +74,7 @@ export default {
         }
     },
     created(){
-        getSchoolMemberList({schoolId:this.currentPath.params.schoolId}).then(res=>{
+        getSchoolMemberList({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId,roleId:this.currentPath.query.roleId}).then(res=>{
             res.data.map(user=>{
                 this.$set(user,'checkbox',false)
             })

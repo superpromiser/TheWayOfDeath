@@ -90,6 +90,7 @@ export default [
   {path:'/schoolSpace/:schoolId/post/homevisit', name:'posts.homevisit', component:page('school/posts/homevisit/new.vue')},
   {path:'/schoolSpace/:schoolId/post/vacation', name:'posts.vocation', component:page('school/posts/vacation/student/new.vue')},
   {path:'/schoolSpace/:schoolId/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
+    //school member
   {path:'/schoolSpace/:schoolId/member/add',name:'schoolSpace.addMember',component:page('member/addMember.vue')},
   {path:'/schoolSpace/:schoolId/member/invite',name:'schoolSpace.inviteMember',component:page('member/inviteMember.vue')},
   {path:'/schoolSpace/:schoolId/member/:userId/profile',name:'schoolSpace.memProfile',component:page('member/memProfile.vue')},
@@ -133,6 +134,15 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/evaluation', name:'posts.Cevaluation', component:page('class/posts/evaluation/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/recognition', name:'posts.Crecognition', component:page('class/posts/recognition/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/album', name:'posts.Calbum', component:page('class/posts/album/new.vue')},
+  //class member  
+  {path:'/classSpace/:schoolId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
+  {path:'/classSpace/:schoolId/:lessonId/member/invite',name:'classSpace.inviteMember',component:page('member/inviteMember.vue')},
+  {path:'/classSpace/:schoolId/:lessonId/member/:userId/profile',name:'classSpace.memProfile',component:page('member/memProfile.vue')},
+  {path:'/classSpace/:schoolId/:lessonId/member/appliMember',name:'classSpace.appliMember',component:page('member/application.vue')},
+  {path:'/classSpace/:schoolId/:lessonId/member/groupMember',name:'classSpace.groupMember',component:page('member/groupMember.vue')},
+  {path:'/classSpace/:schoolId/:lessonId/member/seatMember',name:'classSpace.seatMember',component:page('member/seatMember.vue')},
+  {path:'/classSpace/:schoolId/:lessonId/member/studentIdMember',name:'classSpace.studentIdMember',component:page('member/studentIdMember.vue')},
+
   //vacation
   // {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
   {path:'/admin/vacation/teacher', name:'posts.vacationTeacher', component:page('school/posts/vacation/teacher/new.vue')},

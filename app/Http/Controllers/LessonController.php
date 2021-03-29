@@ -51,7 +51,7 @@ class LessonController extends Controller
             'gradeId'=>'required'
             ]);
         Lesson::where('id',$request->id)->update([
-            'clasName'=>$request->lessonName,
+            'lessonName'=>$request->lessonName,
             'imgUrl'=>$request->imgUrl,
             'schoolId'=>$request->schoolId,
             'gradeId'=>$request->gradeId

@@ -412,6 +412,11 @@ class UserController extends Controller
         $this->validate($request,[
             'schoolId'=>'required'
         ]);
-        return User::select('id','name','gender','phoneNumber')->where('schoolId',$request->schoolId)->get();
+        // if($request->lessonId){
+        //     return User::select('id','name','gender','phoneNumber')->where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId])->get();
+        // }else{
+        //     return User::select('id','name','gender','phoneNumber')->where('schoolId',$request->schoolId)->get();
+        // }
+        return User::select('id','name','gender','phoneNumber')->where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId,'roleId'=>$request->roleId])->get();
     }
 }

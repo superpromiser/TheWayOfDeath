@@ -28,7 +28,7 @@
             </v-row>
         </v-banner>
         <v-banner>
-            <v-row space-between @click="inviteMember">
+            <v-row space-between @click="inviteMember" class="hover-cursor-point">
                 <v-col>
                     <span>邀请成员</span> 
                 </v-col>
@@ -75,7 +75,7 @@ export default {
     },
     methods:{
         inviteMember(){
-            this.$router.push({name:'schoolSpace.inviteMember',params:{schoolId:this.currentPath.params.schoolId}})
+            this.$router.push({name:'classSpace.inviteMember',params:{schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId},query:{roleId:this.roleId}})
         }
     }
 }
