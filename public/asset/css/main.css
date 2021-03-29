@@ -634,13 +634,11 @@ a {
     margin-top: auto;
 }
 
-<<<<<<< HEAD
 .ch-name-and-time {
     position: absolute;
     top: 0;
     left: 54px;
 }
-=======
 .ch-name-and-time{
   position: absolute;
   top: 0;
@@ -728,4 +726,3 @@ a {
 .msg-video-play-icon:hover, .msg-video-play-icon:active{
   color: #62acfc;
 }
->>>>>>> 5555928203674d4652f1e603709dd6a4ccdf9f71
