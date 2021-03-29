@@ -68,7 +68,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createSms} from '~/api/sms'
+import {createShare} from '~/api/share'
 export default {
     components:{
         QuestionItem,
@@ -98,7 +98,6 @@ export default {
         saveDraft(){
 
         },
-
         async submit(){
             this.$refs.child.emitData()
             if(this.shareData.content.length == 0){
@@ -106,8 +105,8 @@ export default {
             }
             //console.log(this.shareData)
             this.isSubmit = true
-            await createSms(this.shareData).then(res=>{
-                //console.log(res)
+            await createShare(this.shareData).then(res=>{
+                console.log(res)
                 this.isSubmit = false
                 this.isSuccessed = true;
                 this.$router.push({name:'schoolSpace.news'})
