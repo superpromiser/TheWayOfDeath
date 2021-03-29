@@ -16,8 +16,8 @@ class CreateRegnamesTable extends Migration
         Schema::create('regnames', function (Blueprint $table) {
             $table->id();
             $table->char('title');
-            $table->dateTime('startTime');
-            $table->dateTime('endTime');
+            $table->char('startTime');
+            $table->char('endTime');
             $table->json('viewList');
             $table->json('inputTypeList');
             $table->boolean('checkFlag');
