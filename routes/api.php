@@ -269,6 +269,12 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('vacation','VacationController@updateVacation');
     Route::delete('vacation','VacationController@deleteVacation');
 
+    //group
+    Route::get('group','GroupController@getGroup');
+    Route::post('group','GroupController@createGroup');
+
+    Route::delete('group','GroupController@deleteGroup');
+
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {

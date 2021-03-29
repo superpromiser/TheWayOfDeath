@@ -16,7 +16,10 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->char('groupName');
-            
+            $table->TinyInteger('schoolId');
+            $table->TinyInteger('classId')->default(0);
+            $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

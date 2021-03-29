@@ -56,10 +56,32 @@
                 </v-col>
             </v-row>
         </v-banner>
+        <v-banner v-for="group in groupList" :key="group.id">
+            <v-row>
+                <v-col cols="3">
+                    {{group.groupName}}
+                </v-col>
+                <v-col cols="6">
+
+                </v-col>
+                <v-col cols="3">
+                    <v-btn
+                        tile
+                        dark
+                        color="primary lighten-1"
+                        class="mx-2 float-right"
+                        @click="removeGroup(group.id)"
+                    >
+                        删除群组
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-banner>
     </v-container>
 </template>
 
 <script>
+import {getGroup,createGroup,deleteGroup} from '~/api/group'
 export default {
     data:()=>({
         isSubmit:false,
@@ -71,15 +93,36 @@ export default {
            return this.$route
         }
     },
+    async created(){
+        await getGroup({schoolId:this.currentPath.params.schoolId}).then(res=>{
+            console.log(res.data)
+            this.groupList = res.data
+        }).catch(err=>{
+            console.log(err.response)
+        })
+    },
     methods:{
         async submit(){
             this.isSubmit = true
-            // await addGroup({schoolId:this.currentPath.params.schoolId,name:this.groupName}).then(res=>{
-            //     console.log(res.data)
-            //     this.isSubmit = false
-            // }).catch(err=>{
-            //     console.log(err.response)
-            // })
+            await createGroup({schoolId:this.currentPath.params.schoolId,groupName:this.groupName}).then(res=>{
+                console.log(res.data)
+                this.isSubmit = false
+                this.groupList.push(res.data)
+            }).catch(err=>{
+                console.log(err.response)
+                this.isSubmit = false
+            })
+        },
+        async removeGroup(id){
+            await deleteGroup({id:id}).then(res=>{
+                console.log(res.data)
+                let index = this.groupList.indexOf(id);
+                if(index > -1){
+                    this.groupList.splice(index,1)
+                }
+            }).catch(err=>{
+                console.log(err.response)
+            })
         }
     }
 }
