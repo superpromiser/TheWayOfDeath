@@ -270,9 +270,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::delete('vacation','VacationController@deleteVacation');
 
     //group
-    Route::get('groupMember','GroupController@getGroup');
+    Route::get('groupMember','GroupController@getGroupMember');
     Route::post('groupMember','GroupController@addGroupMember');
-
+    Route::put('groupMember','GroupController@updateGroupMember');
     Route::delete('groupMember','GroupController@deleteGroup');
 
 
