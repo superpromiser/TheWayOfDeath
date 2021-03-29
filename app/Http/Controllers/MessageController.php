@@ -23,8 +23,8 @@ class MessageController extends Controller
         ],200);
     }
 
-    public function getGroupMessage()
-    {
+    public function getGroupMessage(Request $request)
+    {   
         $messages = Message::where(function($query) {
             $query->where('roomId', request('to'));
         })->get();
@@ -57,7 +57,7 @@ class MessageController extends Controller
 
             broadcast(new NewMessage($message->load('from','roomId')))->toOthers();
             return response()->json([
-                'message' => $message->load('from')
+                'msg' => "ok"
             ], 201);
         }
     }

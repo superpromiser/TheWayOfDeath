@@ -56,6 +56,27 @@ function postNewMsgCount(payload){
     return axios.post('/api/v1/chat/newMsgCount', payload)
 }
 
+function postNewGroup(payload){
+    return axios.post('/api/v1/messages/newgroup', payload)
+}
+
+function leaveGroup(payload){
+    return axios.post('/api/v1/messages/leavegroup', payload)
+}
+
+function getGroupChatMessage(payload){
+    return axios.get('/api/v1/messages/group', {params:payload})
+}
+
+function removeContactUser(payload){
+    return axios.delete('/api/v1/messages/removeUser', {data:payload})
+}
+
+function removeGroup(payload){
+    return axios.delete('/api/v1/messages/removeGroup', {data:payload})
+}
+
+
 
 
 
@@ -70,4 +91,10 @@ export{
     postMessageImage,
     postMessageVideo,
     postMessageFile,
+    postNewGroup,
+    getGroupChatMessage,
+    removeContactUser,
+    leaveGroup,
+    removeGroup
+
 }

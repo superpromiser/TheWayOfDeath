@@ -152,7 +152,7 @@ import { mapGetters } from 'vuex';
 import ChatList from './chatlist';
 import ChatArea from './chatarea';
 import { Picker } from 'emoji-mart-vue'
-import { getMessage, postMessage, postMessageImage, postMessageVideo, postMessageFile } from '~/api/chat';
+import { getMessage, postMessage, postMessageImage, postMessageVideo, postMessageFile, getGroupChatMessage } from '~/api/chat';
 export default {
     components:{
         ChatList,
@@ -227,6 +227,9 @@ export default {
         },
     },
     mounted(){
+        
+    },
+    created(){
         this.listen();
     },
     methods: {
@@ -321,14 +324,14 @@ export default {
         },
             //groupchat history
         getMessageGroup() {
-            axios
-                .get(`/api/messages/group`, {
-                params: {
-                    to: this.ChatIn,
-                    from: this.currentUser.id,
-                },
-                })
+            let payload =  {
+                to: this.ChatIn,
+                from: this.currentUser.id,
+            };
+            console.log("payload",payload)
+            getGroupChatMessage(payload)
                 .then((res) => {
+                    console.log("res", res);
                 for(let i = 0; i < res.data.messages.length ; i++){
                     if(res.data.messages[i].file){
                     res.data.messages[i].file = JSON.parse(res.data.messages[i].file);
@@ -390,7 +393,7 @@ export default {
                     }
                     this.messages.push(message.message);
                 }
-                else if(message.message.roomId !== null && message.message.roomId == this.ChatIn){
+                else if(message.message.roomId !== null && message.message.roomId == this.ChatIn && message.message.from.id !== this.currentUser.id){
                     if(message.message.file){
                         message.message.file = JSON.parse(message.message.file);
                     }
@@ -472,6 +475,7 @@ export default {
                 let from = {}
                 this.$set(from,'id',this.currentUser.id)
                 this.$set(from,'name',this.currentUser.name)
+                this.$set(from,'avatar',this.currentUser.avatar)
                 
                 let messageData = {
                     text: this.text,
@@ -483,17 +487,16 @@ export default {
                 this.messages.push(messageData);
                 let messageText = this.text;
                 this.text = "";
-        
-                axios
-                    .post(`/api/messages`, {
+                let payload = {
                     text: messageText,
                     to: this.ChatWith,
                     roomId: this.ChatIn,
                     from: this.currentUser.id,
-                    })
+                }
+                postMessage(payload)
                     .then((res) => {
-                    // this.messages.push(res.data.message);
-                    // this.text = "";
+                    }).catch((err) => {
+                        
                     });
                 }
                 else if(this.recordingBlobData){

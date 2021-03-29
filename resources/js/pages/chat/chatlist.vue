@@ -23,7 +23,40 @@
                     color="indigo"
                 >
                     <template>
-                        <v-list v-for="user in filteredContacts" :key="user.id" class="py-0">
+                        <v-list v-for="(group, i) in chatGroupList" :key="'A'+ i" class="py-0 position-relative">
+                            <v-list-item @click="updatechatIn(group, i)">
+                                <v-avatar size="50" color="indigo" class="ma-3" tile>
+                                    <span dark class="white--text headline"> {{group.room_id.roomName[0]}}</span>
+                                </v-avatar>
+
+                                <v-list-item-content>
+                                    <v-list-item-title>{{group.room_id.roomName}}</v-list-item-title>
+                                    <v-list-item-subtitle>asdf</v-list-item-subtitle>
+                                </v-list-item-content>
+                                <div v-if="group.new_msg_count !== 0" class="mr-8">
+                                    <v-badge
+                                        color="red"
+                                        :content="group.new_msg_count"
+                                        >
+                                    </v-badge>
+                                </div>
+                            </v-list-item>
+                            <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
+                                <template v-slot:activator="{ attrs, on }">
+                                    <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 0px;">
+                                        mdi-dots-horizontal-circle-outline
+                                    </v-icon>
+                                </template>
+
+                                <v-list>
+                                    <v-list-item @click="leaveGroup(group)"><v-list-item-icon> <v-icon>mdi-arrow-right-bold-box-outline</v-icon> </v-list-item-icon> <v-list-item-title > 离开团体</v-list-item-title> </v-list-item>
+                                    <v-list-item v-if="group.room_id.userId == currentUser.id" @click="removeGroup(group)"><v-list-item-icon> <v-icon>mdi-trash-can-outline</v-icon> </v-list-item-icon>  <v-list-item-title > 删除群组</v-list-item-title> </v-list-item>
+                                </v-list>
+                            </v-menu>
+                            
+                            <v-divider inset ></v-divider>
+                        </v-list>
+                        <v-list v-for="user in filteredContacts" :key="user.id" class="py-0 position-relative">
                             <v-list-item @click="updatechatwith(user)">
                                 <v-badge bordered bottom v-if="checkOnline(user.user.id)"
                                     color="light-green accent-3" dot
@@ -50,7 +83,7 @@
                                     <v-list-item-title>{{user.user.name}}</v-list-item-title>
                                     <v-list-item-subtitle>asdf</v-list-item-subtitle>
                                 </v-list-item-content>
-                                <div v-if="user.new_msg_count !== 0" class="mr-4">
+                                <div v-if="user.new_msg_count !== 0" class="mr-8">
                                     <v-badge
                                         color="red"
                                         :content="user.new_msg_count"
@@ -58,6 +91,17 @@
                                     </v-badge>
                                 </div>
                             </v-list-item>
+                            <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
+                                <template v-slot:activator="{ attrs, on }">
+                                    <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 0px;">
+                                        mdi-dots-horizontal-circle-outline
+                                    </v-icon>
+                                </template>
+
+                                <v-list>
+                                    <v-list-item @click="removeUserFromContactList(user.user)"><v-list-item-icon> <v-icon>mdi-trash-can-outline</v-icon> </v-list-item-icon> <v-list-item-title > 删除</v-list-item-title> </v-list-item>
+                                </v-list>
+                            </v-menu>
                             <v-divider inset ></v-divider>
                         </v-list>
                     </template>
@@ -121,7 +165,67 @@
                         </v-col>
                     </v-row>
                     <v-row v-else class="ma-0">
-                        favourite
+                         <v-col cols="12">
+                            <v-row class="ma-0 d-flex align-center px-3">
+                                <v-text-field label="Filled" filled rounded dense hide-details ></v-text-field>
+                                <v-spacer></v-spacer>
+                                <v-btn tile color="success" :disabled="newGroup.length < 2" @click="openGroupNameDialog" :loading="isCreatingNewGroup">
+                                    <v-icon left> mdi-plus </v-icon>
+                                    建立群组
+                                </v-btn>
+                            </v-row>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-row class="ma-0 pb-16">
+                                <v-col cols="6" sm="6" md="4" lg="3" xl="2" v-for="user in contactList" :key="user.user.id" class="hover-cursor-point" @click="pushUserToNewGroup(user.user.id)">
+                                    <v-card color="cyan lighten-2" dark tile>
+                                        <div class="d-flex flex-no-wrap justify-space-between">
+                                            <div>
+                                                <v-card-title > {{user.user.name}}</v-card-title>
+                                                <v-card-actions>
+                                                    <v-icon :color="newGroup.includes(user.user.id) ? 'success' : 'gray'" size="25">
+                                                        mdi-check-circle
+                                                    </v-icon>
+                                                </v-card-actions>
+                                            </div>
+                                            <v-avatar class="ma-3" size="50" color="indigo">
+                                                <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
+                                                <span dark v-else class="white--text headline"> {{user.user.name[0]}}</span>
+                                            </v-avatar>
+                                        </div>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                        <v-dialog v-model="groupNameDialog" transition="dialog-bottom-transition" max-width="500">   
+                            <v-card>
+                                <v-card-text class="pa-5">
+                                    <v-text-field
+                                        v-model="groupName"
+                                        label="请输入群组名称"
+                                        hide-details
+                                    ></v-text-field>
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                    color="blue darken-1"
+                                    text
+                                    @click="close"
+                                    >
+                                    {{lang.cancel}}
+                                    </v-btn>
+                                    <v-btn
+                                    color="blue darken-1"
+                                    text
+                                    :loading="isCreatingNewGroup"
+                                    @click="createNewGroup"
+                                    >
+                                    {{lang.save}}
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
                     </v-row>
                     <v-bottom-navigation
                         :value="value"
@@ -166,8 +270,9 @@
 </template>
 
 <script>
+import lang from '~/helper/lang.json'
 import { mapGetters } from 'vuex';
-import { getUserList, getContactList, addUserToContact, postNewMsgCount } from '~/api/chat'
+import { getUserList, getContactList, addUserToContact, postNewMsgCount, postNewGroup, removeContactUser, leaveGroup, removeGroup } from '~/api/chat'
 export default {
     props:{
         ChatWith: {
@@ -179,11 +284,16 @@ export default {
             required: false,
         },
     },
-    
+    watch: {
+        groupNameDialog (val) {
+            val || this.close()
+        },
+    },
     components:{
         
     },
     data: ()=> ({
+        lang,
         model: -1,
         value: 0,
         addDialog: false,
@@ -205,6 +315,11 @@ export default {
         addContactUserList:[],
         totalNewMessageCount:0,
         activeUserList: [],
+
+        newGroup: [],
+        isCreatingNewGroup: false,
+        groupNameDialog: false,
+        groupName: '',
     }),
 
     mounted(){
@@ -271,7 +386,7 @@ export default {
                 if(this.chatGroupList.length == 0 && this.contactList.length == 0){
                     this.isNoContactList = true;
                 }
-                // console.log("this.contactList", this.contactList);
+                console.log("this.contactList", res.data);
                 for(let i = 0; i < this.contactList.length ; i++){
                     this.totalNewMessageCount = this.totalNewMessageCount + this.contactList[i].new_msg_count;
                 }
@@ -285,7 +400,7 @@ export default {
             });
             this.isGettingContactList = false;
         }
-        
+        this.model = this.chatGroupList.length;
         console.log("this.contactList", this.contactList);
     },
 
@@ -389,7 +504,7 @@ export default {
                             }
                         }
                     }
-                    else if ( ((message.message.room_id.invited)).includes(this.currentUser.id) || message.message.room_id.userId == this.currentUser.id ) {
+                    else if ( (((message.message.room_id.invited)).includes(this.currentUser.id) || message.message.room_id.userId == this.currentUser.id ) && message.message.from.id !== this.currentUser.id  ) {
                         console.log("Badge", message.message.from.id);
                         for(let i = 0; i < this.chatGroupList.length; i++){
                             if( message.message.roomId == this.chatGroupList[i].roomId ){
@@ -412,6 +527,145 @@ export default {
                 }
             }
             return false;
+        },
+
+        pushUserToNewGroup(userId){
+            if(this.newGroup.includes(userId)){
+                for( let i = 0; i < this.newGroup.length; i++){ 
+                    if ( this.newGroup[i] == userId) { 
+                        this.newGroup.splice(i, 1); 
+                    }
+                }
+            }
+            else{
+                this.newGroup.push(userId);
+            }
+        },
+
+        openGroupNameDialog(){
+            this.groupNameDialog = true;
+        },
+
+        close () {
+            this.groupNameDialog = false
+            this.$nextTick(() => {
+                this.groupName = '';
+                this.newGroup = [];
+            })
+        },
+
+        createNewGroup(){
+            if(this.groupName.trim() == ''){
+                return this.close();
+            }
+            let payload = {
+                newgroup: this.newGroup,
+                groupName: this.groupName
+            }
+            console.log("this.newGroup",payload);
+            this.isCreatingNewGroup = true;
+            postNewGroup(payload)
+            .then(res=>{
+                console.log(res.data);
+                this.chatGroupList.unshift(res.data.newGroup);
+                this.isCreatingNewGroup = false;
+                this.close();
+                this.willAddToContactUser.contactId = null;
+                this.value = 0
+                this.addDialog = false;
+                this.isNoContactList = false;
+            })
+            .catch(err=>{
+                this.isCreatingNewGroup = false;
+                console.log(err.response);
+            })
+        },
+
+        updatechatIn(group, index) {
+            this.$emit("updatechatIn", group);
+            for(let i = 0; i < this.chatGroupList.length; i++){
+                if( group.roomId == this.chatGroupList[i].roomId ){
+                    this.totalNewMessageCount = this.totalNewMessageCount - this.chatGroupList[i].new_msg_count;
+                    this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
+                    this.chatGroupList[i].new_msg_count = 0;
+                    postNewMsgCount({new_msg_count:this.chatGroupList[i]})
+                }
+            }
+        },
+
+        removeUserFromContactList(user){
+            let payload = {
+                userId : user.id
+            }
+            console.log(user);
+            console.log(payload);
+            console.log(this.contactList);
+            removeContactUser(payload)
+            .then(res=>{
+                console.log(res);
+                if(res.data.msg == 1){
+                    let removedUserId = user.id;
+                    for (let i = 0; i < this.contactList.length ; i++){
+                        if( this.contactList[i].user.id == removedUserId){
+                            this.contactList.splice(i, 1);
+                        }
+                    }
+                }
+                if(this.chatGroupList.length == 0 && this.contactList.length == 0){
+                    this.isNoContactList = true;
+                }
+            })
+            .catch(err=>{
+                console.log(err.response);
+            })
+        },
+
+        leaveGroup(group){
+            let payload = {
+                roomId : group.roomId
+            }
+            leaveGroup(payload)
+            .then(res=>{
+                console.log(res);
+                if(res.data.msg == 1){
+                    let removedGroupId = res.data.roomId;
+                    for (let i = 0; i < this.chatGroupList.length ; i++){
+                        if( this.chatGroupList[i].roomId == removedGroupId){
+                            this.chatGroupList.splice(i, 1);
+                        }
+                    }
+                }
+                if(this.chatGroupList.length == 0 && this.contactList.length == 0){
+                    this.isNoContactList = true;
+                }
+            })
+            .catch(err=>{
+                console.log(err.response);
+            })
+        },
+
+        removeGroup(group){
+            let payload = {
+                roomId : group.roomId
+            }
+            removeGroup(payload)
+            .then(res=>{
+                console.log(res);
+                if(res.data.msg == 1){
+                    let removedGroupId = group.roomId;
+                    for (let i = 0; i < this.chatGroupList.length ; i++){
+                        if( this.chatGroupList[i].roomId == removedGroupId){
+                            this.chatGroupList.splice(i, 1);
+                        }
+                    }
+                }
+                if(this.chatGroupList.length == 0 && this.contactList.length == 0){
+                    this.isNoContactList = true;
+                }
+            })
+            .catch(err=>{
+                console.log(err.response);
+            })
         },
     }   
 }

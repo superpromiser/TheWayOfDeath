@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\ChatRoom;
+use App\Contact;
+use App\Message;
+use App\User;
+use App\Events\NewGroup;
 
 class ChatRoomController extends Controller
 {
