@@ -64,4 +64,12 @@ class Post extends Model
     public function recognitions(){
         return $this->hasOne(Recognition::class,'postId');
     }
+
+    public function shares(){
+        return $this->hasOne(Share::class,'postId');
+    }
+
+    public function regnames(){
+        return $this->hasOne(Regname::class,'postId');
+    }
 }

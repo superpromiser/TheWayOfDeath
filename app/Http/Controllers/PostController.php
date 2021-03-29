@@ -29,6 +29,8 @@ class PostController extends Controller
             'anouncements',
             'bulletinBoards',
             'homeVisit',
+            'shares',
+            'regnames',
             'users:id,name'])
         ->orderBy('created_at','desc')
         ->paginate(5);

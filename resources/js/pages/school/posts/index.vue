@@ -90,6 +90,12 @@ export default {
                         imgUrl : "/asset/img/icon/公告 拷贝.png",
                         path : "posts.announcement"
                     },
+                    {
+                        color : "lime darken-4",
+                        title : "分享",
+                        imgUrl : "/asset/img/icon/分享.png",
+                        path : "posts.share"
+                    },
                 ],
             },
             {
@@ -132,6 +138,13 @@ export default {
                         imgUrl : "/asset/img/icon/家访 拷贝.png",
                         path : "posts.homevisit"
                     },
+                    {
+                        color : "lime darken-4",
+                        title : "报名",
+                        imgUrl : "/asset/img/icon/报名 拷贝.png",
+                        path : "posts.regname"
+                    },
+                    
                 ],
             },
             {

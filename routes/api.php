@@ -275,6 +275,10 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::put('groupMember','GroupController@updateGroupMember');
     Route::delete('groupMember','GroupController@deleteGroup');
 
+
+    //share
+    Route::post('share','ShareController@createShare');
+
 });
 
 Route::group(['middleware' => 'guest:api','prefix' => 'v1'], function () {
