@@ -47,7 +47,9 @@ function getSchoolMemberList(payload){
     return axios.get('/api/v1/schoolMember',{params:payload});
 }
 
-
+function addGroupMember(payload){
+    return axios.post('/api/v1/lessonGroup',payload);
+}
 export{
     createStaff,
     updateStaff,

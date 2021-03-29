@@ -137,13 +137,13 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/recognition', name:'posts.Crecognition', component:page('class/posts/recognition/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/album', name:'posts.Calbum', component:page('class/posts/album/new.vue')},
   //class member  
-  {path:'/classSpace/:schoolId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
-  {path:'/classSpace/:schoolId/:lessonId/member/invite',name:'classSpace.inviteMember',component:page('member/inviteMember.vue')},
-  {path:'/classSpace/:schoolId/:lessonId/member/:userId/profile',name:'classSpace.memProfile',component:page('member/memProfile.vue')},
-  {path:'/classSpace/:schoolId/:lessonId/member/appliMember',name:'classSpace.appliMember',component:page('member/application.vue')},
-  {path:'/classSpace/:schoolId/:lessonId/member/groupMember',name:'classSpace.groupMember',component:page('member/groupMember.vue')},
-  {path:'/classSpace/:schoolId/:lessonId/member/seatMember',name:'classSpace.seatMember',component:page('member/seatMember.vue')},
-  {path:'/classSpace/:schoolId/:lessonId/member/studentIdMember',name:'classSpace.studentIdMember',component:page('member/studentIdMember.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/invite',name:'classSpace.inviteMember',component:page('member/inviteMember.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/:userId/profile',name:'classSpace.memProfile',component:page('member/memProfile.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/appliMember',name:'classSpace.appliMember',component:page('member/application.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/groupMember',name:'classSpace.groupMember',component:page('member/groupMember.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/seatMember',name:'classSpace.seatMember',component:page('member/seatMember.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/studentIdMember',name:'classSpace.studentIdMember',component:page('member/studentIdMember.vue')},
 
   //vacation
   // {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},

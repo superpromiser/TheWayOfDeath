@@ -9,31 +9,30 @@ use Illuminate\Support\Facades\Auth;
 class GroupController extends Controller
 {
     //
-    public function getGroup(Request $request){
-        $this->validate($request,[
-            'schoolId'=>'required'
-        ]);
-        return Group::where('schoolId',$request->schoolId)->get();
+    public function getGroupMemeber(Request $request){
 
     }
 
-    public function createGroup(Request $request){
-        $userId = Auth::user()->id;
+    public function addGroupMember(Request $request){
         $this->validate($request,[
             'schoolId'=>'required',
-            'groupName'=>'required'
+            'lessonId'=>'required'
         ]);
-        return Group::create([
-            'schoolId'=>$request->schoolId,
-            'groupName'=>$request->groupName,
-            'userId'=>$userId
-        ]);
+        $userId = Auth::user()->id;
+        $members = $request->userList;
+        foreach($members as $member){
+            $memberId = $member['id'];
+            Group::create([
+                'schoolId'=>$request->schoolId,
+                'lessonId'=>$request->lessonId,
+                'memberId'=>$memberId,
+                'userId'=>$userId
+            ]);
+        };
+        return true;
     }
 
-    public function deleteGroup(Request $request){
-        $this->validate($request,[
-            'id'=>'required'
-        ]);
-        return Group::where('id',$request->id)->delete();
+    public function deleteGroupMember(Request $request){
+
     }
 }

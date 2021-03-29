@@ -179,25 +179,25 @@ export default {
     action(type){
       switch(type){
         case 'add':
-          this.$router.push({name:'classSpace.addMember',params:{schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.addMember',params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
           break;
         case 'invite':
-          this.$router.push({name:'classSpace.inviteMember',params:{schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.inviteMember',params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
           break;
         case 'application':
-          this.$router.push({name:'classSpace.appliMember', params:{schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.appliMember', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
           break;
         case 'import':
-          this.$router.push({name:'classSpace.importMember', params:{schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.importMember', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
           break;
         case 'group':
-          this.$router.push({name:'classSpace.groupMember', params:{schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.groupMember', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
           break;
         case 'seat':
-          this.$router.push({name:'classSpace.seatMember', params:{schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.seatMember', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
           break;
         case 'studentId':
-          this.$router.push({name:'classSpace.studentIdMember', params:{schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.studentIdMember', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
           break;
         default:
           break;

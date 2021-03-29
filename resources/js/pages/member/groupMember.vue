@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import {getGroup,createGroup,deleteGroup} from '~/api/group'
+import {getClub,createClub,deleteClub} from '~/api/group'
 export default {
     data:()=>({
         isSubmit:false,
@@ -94,7 +94,7 @@ export default {
         }
     },
     async created(){
-        await getGroup({schoolId:this.currentPath.params.schoolId}).then(res=>{
+        await getClub({schoolId:this.currentPath.params.schoolId}).then(res=>{
             console.log(res.data)
             this.groupList = res.data
         }).catch(err=>{
@@ -104,7 +104,7 @@ export default {
     methods:{
         async submit(){
             this.isSubmit = true
-            await createGroup({schoolId:this.currentPath.params.schoolId,groupName:this.groupName}).then(res=>{
+            await createClub({schoolId:this.currentPath.params.schoolId,groupName:this.groupName}).then(res=>{
                 console.log(res.data)
                 this.isSubmit = false
                 this.groupList.push(res.data)
@@ -113,8 +113,8 @@ export default {
                 this.isSubmit = false
             })
         },
-        async removeGroup(id){
-            await deleteGroup({id:id}).then(res=>{
+        async deleteClub(id){
+            await deleteClub({id:id}).then(res=>{
                 console.log(res.data)
                 let index = this.groupList.indexOf(id);
                 if(index > -1){

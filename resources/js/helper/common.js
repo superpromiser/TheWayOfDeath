@@ -82,6 +82,27 @@ export default{
 
             return returnVal;
         },
+        mySchoolInfo(schoolId){
+            let mySchoolData = {};
+            let returnVal = [];
+            this.schoolData.map(x=>{
+                if(x.id == schoolId){
+                    mySchoolData = x;
+                }
+            })
+            mySchoolData.grades.map( grade =>{
+                grade.lessons.map( lesson =>{
+                    let lessonObj = {
+                        lessonId : lesson.id,
+                        gradeId : grade.id,
+                        lessonName : lesson.lessonName,
+                    }
+                    returnVal.push(lessonObj);
+                } )
+            } )
+
+            return returnVal;
+        },
         postRemove(data){
             axios.delete('/api/v1/post',{data:{postId:data.id}}).then(res=>{
                 alert('删除成功')
