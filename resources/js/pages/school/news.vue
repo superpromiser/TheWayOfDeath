@@ -31,7 +31,7 @@
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
         <v-row class="pa-0 mt-1" v-else>
-          {{contentList}}
+          {{content}}
         </v-row>
       </v-container>
       <InfiniteLoading 
@@ -193,7 +193,7 @@ export default {
           }
           vm.lastpageOfContent = res.data.last_page;
           $.each(res.data.data, function(key, value){
-            //console.log('-----',value)
+            console.log('-----',value)
               vm.contentList.push(value); 
           });
           if (vm.pageOfContent - 1 === vm.lastpageOfContent) {

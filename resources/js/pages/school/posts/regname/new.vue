@@ -276,7 +276,6 @@ export default {
             if(this.regNameData.content.length == 0){
                 return
             }
-            console.log(this.regNameData)
             this.isSubmit = true
             await createRegname(this.regNameData).then(res=>{
                 console.log(res)
