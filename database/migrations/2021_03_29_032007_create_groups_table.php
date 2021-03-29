@@ -15,11 +15,13 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->char('groupName');
             $table->TinyInteger('schoolId');
-            $table->TinyInteger('classId')->default(0);
+            $table->TinyInteger('lessonId')->default(0);
+            $table->unsignedBigInteger('memberId');
+            $table->char('status')->default('pending');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('memberId')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

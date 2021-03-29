@@ -412,11 +412,18 @@ class UserController extends Controller
         $this->validate($request,[
             'schoolId'=>'required'
         ]);
-        // if($request->lessonId){
-        //     return User::select('id','name','gender','phoneNumber')->where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId])->get();
-        // }else{
-        //     return User::select('id','name','gender','phoneNumber')->where('schoolId',$request->schoolId)->get();
-        // }
-        return User::select('id','name','gender','phoneNumber')->where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId,'roleId'=>$request->roleId])->get();
+        if($request->roleId){
+            if($request->lessonId){
+                return User::select('id','name','gender','phoneNumber')->where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId,'roleId'=>$request->roleId])->get();
+            }else{
+                return User::select('id','name','gender','phoneNumber')->where(['schoolId'=>$request->schoolId,'roleId'=>$request->roleId])->get();
+            }
+        }else{
+            if($request->lessonId){
+                return User::select('id','name','gender','phoneNumber')->where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId])->get();
+            }else{
+                return User::select('id','name','gender','phoneNumber')->where(['schoolId'=>$request->schoolId])->get();
+            }
+        }
     }
 }
