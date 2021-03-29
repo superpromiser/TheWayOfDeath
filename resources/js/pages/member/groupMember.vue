@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-banner>
-            <v-row :justify="justify-space-between">
+            <v-row justify-space-between>
                 <v-col cols="6" class="pa-5">
                     <span>头像</span>
                 </v-col>

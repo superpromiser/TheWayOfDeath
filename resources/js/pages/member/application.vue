@@ -12,13 +12,13 @@
             </v-row>
         </v-banner>
         <v-banner>
-            <v-row :justify="justify-space-between">
+            <v-row justify-space-between>
                 <v-col cols="8">申请人信息</v-col>
                 <v-col cols="4">邀请人</v-col>
             </v-row>
         </v-banner>
         <v-banner>
-            <v-row :justify="justify-space-between">
+            <v-row justify-space-between>
                 <v-col cols="8">
                     <v-row>
                         <v-col>

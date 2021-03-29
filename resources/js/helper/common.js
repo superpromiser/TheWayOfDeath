@@ -88,6 +88,29 @@ export default{
             }).catch(err=>{
                 //console.log(err.response)
             });
+        },
+        transGender(str){
+            if(str == 'M'){
+                return '男'
+            }else{
+                return '女'
+            }
+        },
+        pnEncrypt(num){
+            let enNum = ''
+            // for(let i=0;i<num.length;i++){
+            //     console.log(num[i])
+            // }
+            for(let i=0;i<3;i++){
+                enNum += num[i]
+            };
+            for(let i=0;i<5;i++){
+                enNum += '*'
+            }
+            for(let i = num.length-4;i<num.length;i++){
+                enNum += num[i];
+            }
+            return enNum;
         }
     }
 }

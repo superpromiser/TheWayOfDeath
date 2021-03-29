@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-banner>
-            <v-row :justify="justify-space-between">
+            <v-row justify-space-between>
                 <v-col cols="6" class="pa-5">
                     <span>头像</span>
                 </v-col>
@@ -19,7 +19,7 @@
             </v-row>
         </v-banner>
         <v-banner>
-            <v-row :justify="justify-space-between">
+            <v-row justify-space-between>
                 <v-col cols="6">
                     <span>昵称</span>
                 </v-col>
@@ -29,7 +29,7 @@
             </v-row>
         </v-banner>
         <v-banner>
-            <v-row :justify="justify-space-between">
+            <v-row justify-space-between>
                 <v-col>
                     <span>二维码</span>
                 </v-col>

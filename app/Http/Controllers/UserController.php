@@ -412,6 +412,6 @@ class UserController extends Controller
         $this->validate($request,[
             'schoolId'=>'required'
         ]);
-        return User::where('schoolId',$request->schoolId)->get();
+        return User::select('id','name','gender','phoneNumber')->where('schoolId',$request->schoolId)->get();
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-banner>
-            <v-row :justify="space-between">
+            <v-row space-between>
                 <v-col cols="6">
                     <span>角色</span> 
                 </v-col>
@@ -28,7 +28,7 @@
             </v-row>
         </v-banner>
         <v-banner>
-            <v-row :justify="space-between" @click="inviteMember">
+            <v-row space-between @click="inviteMember">
                 <v-col>
                     <span>邀请成员</span> 
                 </v-col>
@@ -43,7 +43,7 @@
             从其他群主邀请
         </div>
         <v-banner v-for="school in schoolData" :key="school.id">
-            <v-row :justify="space-between">
+            <v-row space-between>
                 <v-col>
                     <span>{{school.schoolName}}</span> 
                 </v-col>
