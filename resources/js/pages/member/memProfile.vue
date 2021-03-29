@@ -34,7 +34,7 @@
                     <span>二维码</span>
                 </v-col>
                 <v-col  class="float-right">
-                     <v-icon class="float-right">
+                    <v-icon class="float-right">
                         mdi-chevron-right
                     </v-icon>
                     <v-icon class="float-right">

@@ -407,4 +407,11 @@ class UserController extends Controller
         ]);
         return User::where('id',$request->userId)->first();
     }
+
+    public function getSchoolMember(Request $request){
+        $this->validate($request,[
+            'schoolId'=>'required'
+        ]);
+        return User::where('schoolId',$request->schoolId)->get();
+    }
 }

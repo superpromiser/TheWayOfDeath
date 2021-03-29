@@ -46,10 +46,23 @@
 </template>
 
 <script>
+import {getSchoolMemberList} from '~/api/user'
 export default {
     data:() => ({
         selected:[],
-    })
+    }),
+    computed:{
+        currentPath(){
+            return this.$route
+        }
+    },
+    created(){
+        getSchoolMemberList({schoolId:this.currentPath.params.schoolId}).then(res=>{
+            console.log(res.data)
+        }).catch(err=>{
+            console.log(err.response)
+        })
+    }
 }
 </script>
 

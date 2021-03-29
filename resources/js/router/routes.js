@@ -91,9 +91,12 @@ export default [
   {path:'/schoolSpace/:schoolId/post/vacation', name:'posts.vocation', component:page('school/posts/vacation/student/new.vue')},
   {path:'/schoolSpace/:schoolId/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
   {path:'/schoolSpace/:schoolId/member/add',name:'schoolSpace.addMember',component:page('member/addMember.vue')},
-  {path:'/schoolSpace/:schoolId/member/remove',name:'schoolSpace.removeMember',component:page('member/removeMember.vue')},
+  {path:'/schoolSpace/:schoolId/member/invite',name:'schoolSpace.inviteMember',component:page('member/inviteMember.vue')},
   {path:'/schoolSpace/:schoolId/member/:userId/profile',name:'schoolSpace.memProfile',component:page('member/memProfile.vue')},
   {path:'/schoolSpace/:schoolId/member/appliMember',name:'schoolSpace.appliMember',component:page('member/application.vue')},
+  {path:'/schoolSpace/:schoolId/member/groupMember',name:'schoolSpace.groupMember',component:page('member/groupMember.vue')},
+  {path:'/schoolSpace/:schoolId/member/seatMember',name:'schoolSpace.seatMember',component:page('member/seatMember.vue')},
+  {path:'/schoolSpace/:schoolId/member/studentIdMember',name:'schoolSpace.studentIdMember',component:page('member/studentIdMember.vue')},
 
   //classSpace
   {

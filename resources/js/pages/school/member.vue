@@ -9,7 +9,7 @@
           </v-card>
         </v-col>
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('remove')">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('invite')">
             <v-card-text>
               <span>移除成员</span>
             </v-card-text>
@@ -39,14 +39,14 @@
           </v-card>
         </v-col>
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('seat')">
             <v-card-text>
               <span>座位</span>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('studentId')">
             <v-card-text>
               <span>学号</span>
             </v-card-text>
@@ -176,8 +176,8 @@ export default {
         case 'add':
           this.$router.push({name:'schoolSpace.addMember',params:{schoolId:this.currentPath.params.schoolId}});
           break;
-        case 'remove':
-          this.$router.push({name:'schoolSpace.removeMember',params:{schoolId:this.currentPath.params.schoolId}});
+        case 'invite':
+          this.$router.push({name:'schoolSpace.inviteMember',params:{schoolId:this.currentPath.params.schoolId}});
           break;
         case 'application':
           this.$router.push({name:'schoolSpace.appliMember', params:{schoolId:this.currentPath.params.schoolId}});
@@ -187,6 +187,12 @@ export default {
           break;
         case 'group':
           this.$router.push({name:'schoolSpace.groupMember', params:{schoolId:this.currentPath.params.schoolId}});
+          break;
+        case 'seat':
+          this.$router.push({name:'schoolSpace.seatMember', params:{schoolId:this.currentPath.params.schoolId}});
+          break;
+        case 'studentId':
+          this.$router.push({name:'schoolSpace.studentIdMember', params:{schoolId:this.currentPath.params.schoolId}});
           break;
         default:
           break;

@@ -43,6 +43,10 @@ function getSelUser(payload){
     return axios.get('/api/v1/selUser',{params:payload});
 }
 
+function getSchoolMemberList(payload){
+    return axios.get('/api/v1/schoolMember',{params:payload});
+}
+
 
 export{
     createStaff,
@@ -55,5 +59,6 @@ export{
     deleteUser,
     getStudentBylessonId,
     getLessonUserList,
-    getUserByRole
+    getUserByRole,
+    getSchoolMemberList
 }

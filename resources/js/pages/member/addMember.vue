@@ -28,7 +28,7 @@
             </v-row>
         </v-banner>
         <v-banner>
-            <v-row :justify="space-between">
+            <v-row :justify="space-between" @click="inviteMember">
                 <v-col>
                     <span>邀请成员</span> 
                 </v-col>
@@ -72,6 +72,11 @@ export default {
     created(){
         this.schoolData = this.returnSchoolTree(this.currentPath.params.schoolId)
         console.log(this.schoolData)
+    },
+    methods:{
+        inviteMember(){
+            this.$router.push({name:'schoolSpace.inviteMember',params:{schoolId:this.currentPath.params.schoolId}})
+        }
     }
 }
 </script>
