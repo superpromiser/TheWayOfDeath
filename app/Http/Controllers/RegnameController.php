@@ -23,10 +23,21 @@ class RegnameController extends Controller
             'userId'=>$userId,
             'schoolId'=>$request->schoolId
         ])->id;
-        return Regname::create([
+        
+        Regname::create([
+            'title'=>$request->title,
+            'startTime'=>$request->startTime,
+            'endTime'=>$request->endTime,
+            'viewList'=>json_encode($request->viewList),
+            'inputTypeList'=>json_encode($request->inputTypeList),
+            'checkFlag'=>$request->checkFlag,
             'content'=>$shareData,
             'postId'=>$postId,
         ]);
+        
+        return response()->json([
+            'msg' => 'ok'
+        ],200);
 
     }
 }

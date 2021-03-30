@@ -284,6 +284,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     //share
     Route::post('share','ShareController@createShare');
+    
+    //regname
+    Route::post('regname','RegnameController@createRegname');
 
     //seat
     Route::get('seat','SeatController@getSeatData');

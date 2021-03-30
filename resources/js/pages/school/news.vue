@@ -30,8 +30,16 @@
           <HomeVisitPost :content='content'></HomeVisitPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 23">
+          <SharePost :content='content'></SharePost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 24">
+          <RegnamePost :content='content'></RegnamePost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
         <v-row class="pa-0 mt-1" v-else>
-          {{contentList}}
+          {{content}}
         </v-row>
       </v-container>
       <InfiniteLoading 
@@ -128,6 +136,8 @@ import CampusPost from '~/components/contents/campusPost'
 import AnouncementPost from '~/components/contents/anouncementPost'
 import BulletinBoardPost from '~/components/contents/bulletinBoardPost'
 import HomeVisitPost from '~/components/contents/homeVisitPost'
+import SharePost from '~/components/contents/sharePost'
+import RegnamePost from '~/components/contents/regnamePost'
 export default {
   components :{
     QusetionnairePost,
@@ -138,6 +148,8 @@ export default {
     AnouncementPost,
     BulletinBoardPost,
     HomeVisitPost,
+    SharePost,
+    RegnamePost,
 
     InfiniteLoading,
   },
@@ -193,7 +205,7 @@ export default {
           }
           vm.lastpageOfContent = res.data.last_page;
           $.each(res.data.data, function(key, value){
-            //console.log('-----',value)
+            console.log('-----', value);
               vm.contentList.push(value); 
           });
           if (vm.pageOfContent - 1 === vm.lastpageOfContent) {

@@ -136,7 +136,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createSms} from '~/api/sms'
+import {createRegname} from '~/api/regname'
 export default {
     components:{
         QuestionItem,
@@ -276,17 +276,16 @@ export default {
             if(this.regNameData.content.length == 0){
                 return
             }
-            console.log(this.regNameData)
-            // this.isSubmit = true
-            // await createSms(this.regNameData).then(res=>{
-            //     //console.log(res)
-            //     this.isSubmit = false
-            //     this.isSuccessed = true;
-            //     this.$router.push({name:'schoolSpace.news'})
-            // }).catch(err=>{
-            //     //console.log(err.response)
-            //     this.isSubmit = false
-            // })
+            this.isSubmit = true
+            await createRegname(this.regNameData).then(res=>{
+                console.log(res)
+                this.isSubmit = false
+                this.isSuccessed = true;
+                this.$router.push({name:'schoolSpace.news'})
+            }).catch(err=>{
+                //console.log(err.response)
+                this.isSubmit = false
+            })
         },
 
         loadContentData(data){
