@@ -7,6 +7,7 @@
                         solo
                         label="Prepend inner"
                         prepend-inner-icon="mdi-magnify"
+                        v-model="search"
                     ></v-text-field>
                 </v-col>
             </v-row>
@@ -17,7 +18,7 @@
                 <v-col cols="4">邀请人</v-col>
             </v-row>
         </v-banner>
-        <v-banner v-for="member in userList" :key="member.id">
+        <v-banner v-for="member in filteredList" :key="member.id">
             <v-row justify-space-between>
                 <v-col cols="8">
                     <v-row>
@@ -71,10 +72,16 @@ export default {
         userList:[],
         isAllow:false,
         isDeny:false,
+        search:''
     }),
     computed:{
         currentPath(){
             return this.$route
+        },
+        filteredList(){
+            return this.userList.filter(user=>{
+                return user.members.name.toLowerCase().includes(this.search.toLowerCase())
+            })
         }
     },
     async created(){

@@ -4,7 +4,7 @@
             <v-tabs>
                 <v-tab :to="{name:'schoolSpace.news'}">最新</v-tab>
                 <v-tab :to="{name:'schoolSpace.application'}">应用</v-tab>
-                <v-tab :to="{name:'schoolSpace.member'}">成员</v-tab>
+                <!-- <v-tab :to="{name:'schoolSpace.member'}">成员</v-tab> -->
             </v-tabs>
             <v-btn
                 tile

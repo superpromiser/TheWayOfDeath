@@ -271,13 +271,25 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     //group
     Route::get('groupMember','GroupController@getGroupMember');
+    Route::get('allGroupMember','GroupController@getAllGroupMember');
     Route::post('groupMember','GroupController@addGroupMember');
     Route::put('groupMember','GroupController@updateGroupMember');
     Route::delete('groupMember','GroupController@deleteGroup');
 
+    //club
+    Route::get('club','ClubController@getClub');
+    Route::post('club','ClubController@createClub');
+    Route::put('club','ClubController@updateClub');
+    Route::delete('club','ClubController@deleteClub');
 
     //share
     Route::post('share','ShareController@createShare');
+
+    //seat
+    Route::get('seat','SeatController@getSeatData');
+    Route::post('seat','SeatController@createSeatData');
+    Route::put('seat','SeatController@updateSeatData');
+    Route::delete('seat','SeatController@deleteSeatData');
 
 });
 
