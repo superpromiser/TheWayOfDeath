@@ -19,6 +19,8 @@ class CreateSeatsTable extends Migration
             $table->TinyInteger('lessonId');
             $table->char('lessonOrder');
             $table->string('seatData');
+            $table->TinyInteger('rowCnt');
+            $table->TinyInteger('colCnt');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

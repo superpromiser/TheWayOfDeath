@@ -24,7 +24,9 @@ class SeatController extends Controller
             'schoolId'=>'required',
             'lessonId'=>'required',
             'lessonOrder'=>'required',
-            'seatData'=>'required'
+            'seatData'=>'required',
+            'rowCnt'=>'required',
+            'colCnt'=>'requried'
         ]);
         $userId = Auth::user()->id;
         Seat::where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId,'lessonOrder'=>$request->lessonOrder])->delete();
@@ -33,6 +35,8 @@ class SeatController extends Controller
             'lessonId'=>$request->lessonId,
             'lessonOrder'=>$request->lessonOrder,
             'seatData'=>json_encode($request->seatData),
+            'rowCnt'=>$request->rowCnt,
+            'colCnt'=>$request->colCnt,
             'userId'=>$userId
         ]);
     }
