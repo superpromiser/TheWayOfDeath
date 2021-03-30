@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    color="blue"
+    color="#7879ff"
     height="74" 
     app
     >

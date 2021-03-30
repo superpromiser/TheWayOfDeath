@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Regname;
+use App\AnswerRegname;
 use App\Post;
 
 use Illuminate\Support\Facades\Auth;
@@ -39,5 +40,55 @@ class RegnameController extends Controller
             'msg' => 'ok'
         ],200);
 
+    }
+
+    public function answerRegname(Request $request){
+        $this->validate($request,[
+            'answer'=>'required'
+        ]);
+        AnswerRegname::create([
+            'userId'=> Auth::user()->id,
+            'postId'=> $request->postId,
+            'regnameId'=> $request->regnameId,
+            'answer'=> json_encode($request->answer)
+        ]);
+        
+        return response()->json([
+            'msg' => 'ok'
+        ],200);
+    }
+
+    public function getAnswerOne(Request $request)
+    {   
+        $answerData = AnswerRegname::where([
+            ['userId', '=', $request->userId],
+            ['postId', '=', $request->postId]
+        ])->get();
+
+        return response()->json([
+            'answer' => $answerData
+        ],200);
+    }
+
+    public function getAnswer(Request $request)
+    {   
+        $answerData = AnswerRegname::where([
+            ['regnameId', '=', $request->id]
+        ])->get();
+
+        return response()->json([
+            'answer' => $answerData
+        ],200);
+    }
+
+    public function updateAnswer(Request $request)
+    {
+        AnswerRegname::where('id', $request->id)->update([
+            'answer' => json_encode($request->answer)
+        ]);
+
+        return response()->json([
+            'msg' => 'ok'
+        ],200);
     }
 }

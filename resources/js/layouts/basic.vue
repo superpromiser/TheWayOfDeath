@@ -1,12 +1,10 @@
 <template>
   <v-app>
-    <LoggedNavbar v-if="isLogged" />
-    <BeforeLogNavbar v-else />
+    <BeforeLogNavbar v-if="$isMobile() == false" />
     <v-main class="">
       <child />
     </v-main>
-    <LoggedFooter v-if="isLogged" />
-    <BeforeLogFooter v-else />
+    <BeforeLogFooter v-if="$isMobile() == false"  />
   </v-app>
 </template>
 

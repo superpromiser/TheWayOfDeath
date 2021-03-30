@@ -1,6 +1,166 @@
 <template>
-  <v-container fluid class="login-bg d-flex justify-center align-center">
-    <v-row class="justify-center align-center">
+  <v-container fluid class="login-bg d-flex justify-center align-center py-0">
+
+    <v-row v-if="$isMobile()" class="w-100 h-100 mo-welcome-bg align-center justify-center">
+      <v-col cols="12">
+        <div class="d-flex justify-center mb-10">
+          <img :src="`${baseUrl}/asset/img/logo.png`" alt="upload-video-icon" style="width: 150px; height:45px"/>
+        </div>
+        <v-card>
+          <v-tabs
+                v-model="tab"
+                background-color="#7879ff"
+                centered
+                dark
+                icons-and-text
+              >
+                <v-tabs-slider></v-tabs-slider>
+                <v-tab href="#qr-login">
+                  扫码登录
+                  <v-icon>mdi-qrcode</v-icon>
+                </v-tab>
+                <v-tab href="#phone-login">
+                  账户登录
+                  <v-icon>mdi-account</v-icon>
+                </v-tab>
+              </v-tabs>
+              <v-tabs-items v-model="tab">
+                <v-tab-item value='qr-login' >
+                  <v-card flat class="pb-8 d-flex justify-center">
+                    <qrcode value="http://47.111.233.60" :options="{ width: 350 }"></qrcode>
+                  </v-card>
+                </v-tab-item>
+                
+                <v-tab-item value='phone-login' >
+                  <v-card flat>
+                    <v-card-text ref="form" class="mo-glow-bg">
+                      <v-form v-model="isFormValid" @submit.prevent="login">
+                        <v-text-field
+                          class="mo-glow-v-text"
+                          solo
+                          v-model="phoneNumber"
+                          label="帐号"
+                          prepend-inner-icon="mdi-phone"
+                          :rules="[rules.required]"
+                          :counter="11"
+                        ></v-text-field>
+                        <v-text-field
+                          class="mo-glow-v-text"
+                          solo
+                          v-model="password"
+                          name="password"
+                          label="密码"
+                          hint="至少8个字符"
+                          counter
+                          prepend-inner-icon="mdi-key-chain-variant"
+                          :rules="[rules.required, rules.min]"
+                          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                          :type="show1 ? 'text' : 'password'"
+                          @click:append="show1 = !show1"
+                        ></v-text-field>
+                        <v-checkbox
+                          v-model="agreeTerms"
+                          label="已阅读并同意《用户服务协议》和《隐私》"
+                          type="checkbox"
+                          :rules="[rules.required]"
+                        >
+                          <template v-slot:label>
+                            <div @click.stop="">
+                              已阅读并同意
+                              <a
+                                href="#"
+                                @click.prevent="terms = true"
+                              >《用户服务协议》</a>
+                              和
+                              <a
+                                href="#"
+                                @click.prevent="conditions = true"
+                              >《隐私》</a>
+                            </div>
+                          </template>
+                        </v-checkbox>
+                        <v-btn color="#7879ff" tile :dark="isFormValid" block type="submit" :loading="isLogging" :disabled="!isFormValid">
+                          <v-icon left>
+                            mdi-login
+                          </v-icon> 
+                          登录
+                        </v-btn>
+                      </v-form>
+                      <v-row class="justify-end pa-3">
+                        <v-btn color="primary" text class="align-right mt-4 mo-glow">
+                          忘记密码?
+                        </v-btn>
+                      </v-row>
+                      <v-row class="justify-center align-center ">
+                        <span>—————</span>
+                        <span class="px-2">  使用第三方账号登录  </span>
+                        <span>—————</span>
+                      </v-row>
+                      <v-row class="justify-center align-center pt-1 pb-4">
+                        <v-btn color="primary" text class="mo-glow">
+                          <v-icon left>
+                            mdi-wechat
+                          </v-icon> 
+                          企业微信
+                        </v-btn>
+                      </v-row>
+                      <v-dialog v-model="terms" width="90%" >
+                        <v-card>
+                          <v-card-title class="title">
+                            Terms
+                          </v-card-title>
+                          <v-card-text
+                            v-for="n in 5"
+                            :key="n"
+                          >
+                            {{ content }}
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="terms = false"
+                            >
+                              Ok
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                      <v-dialog
+                        v-model="conditions"
+                        width="90%"
+                      >
+                        <v-card>
+                          <v-card-title class="title">
+                            Conditions
+                          </v-card-title>
+                          <v-card-text
+                            v-for="n in 5"
+                            :key="n"
+                          >
+                            {{ content }}
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="conditions = false"
+                            >
+                              Ok
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-card-text>
+                  </v-card>
+                </v-tab-item>
+              </v-tabs-items>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row v-else class="justify-center align-center">
       <v-col cols="12" lg="4" class="align-center">
         <p class="text-left white--text">教育是什么，往简单方面说，只需一句话，就是养成良好的习惯。</p>
         <p class="text-right white--text">——布鲁纳（教育家）</p>
@@ -160,6 +320,7 @@
         </v-row>
       </v-col>
     </v-row>
+
     <v-snackbar
       timeout="3000"
       v-model="loginFailed"
@@ -186,6 +347,7 @@ export default {
   },
 
   data: () => ({
+    baseUrl:window.Laravel.base_url,
     tab : 'phone-login',
     phoneNumber : '',
     password : '',

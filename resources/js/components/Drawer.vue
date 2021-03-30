@@ -5,11 +5,12 @@
     @input="changedStatusToggle"
     app
     dark
+    class="primary-bg"
     :permanent="!$vuetify.breakpoint.smAndDown"
   > 
     <template v-slot:prepend>
       <v-toolbar
-        color="blue"
+        color="primary-bg"
         height="74"
         >
         <v-toolbar-title class="d-flex align-center pl-4">
@@ -38,6 +39,7 @@
     <!----------------Menu------------------>
     <v-list>
       <v-list-group
+        active-class="header-active"
         prepend-icon="mdi-cog-outline"
         v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3"
       >
@@ -47,6 +49,8 @@
           <v-list-item-title v-else-if="user.roleId == 3">教授管理</v-list-item-title>
         </template>
           <v-list-item
+            active-class="sub-header-active"
+
             link
             to="/admin/userlist"
             v-if="user.role.roleName == 'manager'"
@@ -57,6 +61,7 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list-item
+            active-class="sub-header-active"
             link
             to="/admin/assignRole"
             v-if="user.role.roleName == 'admin'"
@@ -67,6 +72,7 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list-item
+            active-class="sub-header-active"
             link
             to="/admin/school"
             v-if="user.role.roleName == 'admin'"
@@ -77,6 +83,7 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list-item
+            active-class="sub-header-active"
             link
             to="/admin/grade"
             v-if="user.role.roleName == 'admin'"
@@ -87,6 +94,7 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list-item
+            active-class="sub-header-active"
             link
             to="/admin/class"
             v-if="user.role.roleName == 'admin'"
@@ -97,6 +105,7 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list-item
+            active-class="sub-header-active"
             link
             to="/admin/schedule"
             v-if="user.role.roleName == 'manager'"
@@ -107,6 +116,7 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list-item
+            active-class="sub-header-active"
             link
             to="/admin/stream"
             v-if="user.role.roleName == 'manager'"
@@ -117,6 +127,7 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list-item
+            active-class="sub-header-active"
             link
             to="/admin/imei"
             v-if="user.role.roleName == 'manager'"
@@ -127,6 +138,7 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list-item
+            active-class="sub-header-active"
             link
             to="/admin/schedule/class"
             v-if="user.role.roleName == 'teacher'"
@@ -137,6 +149,7 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list-item
+            active-class="sub-header-active"
             link
             to="/admin/vacation/teacher"
             v-if="user.role.roleName == 'teacher'"
@@ -147,11 +160,12 @@
             </v-list-item-icon>
           </v-list-item>
           <v-list class="py-0" v-if="user.role.roleName == 'manager' || user.role.roleName == 'teacher'">
-            <v-list-group  >
+            <v-list-group  active-class="header-active">
             <template v-slot:activator>
               <v-list-item-title class="ml-9">考勤</v-list-item-title>
             </template>
               <v-list-item
+                active-class="sub-header-active"
                 link
                 to="/admin/attendance/index"
                 >
@@ -161,6 +175,7 @@
                 </v-list-item-icon>
               </v-list-item>
               <v-list-item
+                active-class="sub-header-active"
                 link
                 to="/admin/attendance/lesson"
                 >
@@ -170,6 +185,7 @@
                 </v-list-item-icon>
               </v-list-item>
               <v-list-item
+                active-class="sub-header-active"
                 link
                 to="/admin/attendance/check"
                 >
@@ -179,6 +195,7 @@
                 </v-list-item-icon>
               </v-list-item>
               <v-list-item
+                active-class="sub-header-active"
                 link
                 to="/admin/attendance/vacation"
                 >
@@ -188,6 +205,7 @@
                 </v-list-item-icon>
               </v-list-item>
               <v-list-item
+                active-class="sub-header-active"
                 link
                 to="/admin/attendance/statistics"
                 >
@@ -199,11 +217,12 @@
             </v-list-group>
           </v-list>
       </v-list-group>
-      <v-list-group  prepend-icon="mdi-school" v-for="(school, indexOfSchool) in mySchoolList" :key="indexOfSchool">
+      <v-list-group active-class="header-active" prepend-icon="mdi-school" v-for="(school, indexOfSchool) in mySchoolList" :key="indexOfSchool">
         <template v-slot:activator>
           <v-list-item-title>{{school.schoolName}}</v-list-item-title>
         </template>
         <v-list-item
+          active-class="sub-header-active"
           link
           :to="{name:'schoolSpace',params:{schoolId:school.id}}"
           >
@@ -214,13 +233,14 @@
         </v-list-item>
         <v-list class="py-0">
             <v-list-group
-              
+              active-class="header-active"
               v-for="(grade, indexOfGrade) in school.grades" :key="indexOfGrade"
             >
               <template v-slot:activator>
                 <v-list-item-title class="ml-9">{{grade.gradeName}}</v-list-item-title>
               </template>
               <v-list-item
+                active-class="sub-header-active"
                 v-for="(lesson, index) in grade.lessons" :key="index"
                 link
                 :to="{name:'classSpace',params:{schoolId:school.id,gradeId:grade.id,lessonId:lesson.id}}"
@@ -233,14 +253,16 @@
             </v-list-group>
           </v-list>
       </v-list-group>
-      <v-list-item link to="/home">
+      <v-list-item
+        active-class="sub-header-active" link to="/home">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
 
         <v-list-item-title>{{lang.home}}</v-list-item-title>
       </v-list-item>
-      <v-list-item link to="/chat">
+      <v-list-item
+        active-class="sub-header-active" link to="/chat">
         <v-list-item-icon>
           <v-icon>mdi-chat-processing-outline</v-icon>
         </v-list-item-icon>

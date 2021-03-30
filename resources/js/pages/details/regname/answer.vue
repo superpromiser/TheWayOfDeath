@@ -1,0 +1,292 @@
+<template>
+    <v-container>
+        <v-row class="align-center ma-0">
+            <v-col cols="12" md="6">
+                <v-row class="ma-0 align-center justify-center justify-md-start">
+                    <v-avatar class="ma-3 school-card-avatar" tile >
+                        <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" ></v-img>
+                    </v-avatar>
+                    <p class="font-weight-black fs-15 mb-3"> {{lang.regname}}  </p>
+                </v-row>
+            </v-col>
+            <v-col cols="12" md="6">
+                <v-row class="ma-0 align-center justify-center justify-md-end" >
+                    <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                    <p class="mb-0 mr-8" v-if="contentData !== null">{{TimeView(contentData.created_at)}}</p>
+                    <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                    <p class="mb-0" v-if="contentData !== null">{{contentData.users.name}}</p>
+                </v-row>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0">
+            <v-col cols="12" class="text-center">
+                <h1>{{regNameData.title}}</h1>
+            </v-col>
+            <v-col cols="12" >
+                <p class="text-wrap">{{regNameData.content[0].text}}</p>
+            </v-col>
+            <v-col cols="12" v-if="checkIfAttachExist(regNameData.content[0])">
+                <AttachItemViewer :items="regNameData.content[0]" />
+            </v-col>
+        </v-row>
+        <v-divider light></v-divider>
+        <v-row class="ma-0 pt-10" v-if="isAlreadyAnswer == true">
+            <v-col cols="12" class="text-center">
+                <h2>- 报名 -</h2>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" v-for="(item, i) in myAnswerData.answer" :key="i">
+                <v-text-field
+                    v-model="updateAnswerData[item[0]]"
+                    :label="convertLabel(item[0])"
+                    hide-details
+                ></v-text-field>
+            </v-col>
+            <v-col cols="12" class="text-right">
+                <v-btn @click="update" color="primary" tile :loading="isAnswering">
+                    {{lang.submit}}
+                </v-btn>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 pt-10" v-else>
+            <v-col cols="12" class="text-center">
+                <h2>- 报名 -</h2>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" v-for="(item, i) in regNameData.inputTypeList" :key="i">
+                <v-text-field
+                    v-model="regAnswerData[item]"
+                    :label="convertLabel(item)"
+                    hide-details
+                ></v-text-field>
+            </v-col>
+            <v-col cols="12" class="text-right">
+                <v-btn @click="submit" color="primary" tile :loading="isAnswering">
+                    {{lang.submit}}
+                </v-btn>
+            </v-col>
+        </v-row>
+    </v-container>
+</template>
+
+<script>
+import lang from '~/helper/lang.json'
+import {mapGetters} from 'vuex';
+import {answerRegname, getAnswerDataOne, updateAnswerRegname} from '~/api/regname'
+import AttachItemViewer from '~/components/attachItemViewer';
+
+export default {
+    components:{
+        AttachItemViewer,
+    },
+
+    data: ()=> ({
+        lang,
+        regNameData: null,
+        baseUrl:window.Laravel.base_url,
+        regAnswerData: {},
+        isAnswering: false,
+        myAnswerData: null,
+        isAlreadyAnswer: false,
+        updateAnswerData: {},
+        inputTypeItem:[
+            {
+                label: "姓名",
+                value: "name"
+            },
+            {
+                label: "头像",
+                value: "avatar"
+            },
+            {
+                label: "性别",
+                value: "gender"
+            },
+            {
+                label: "手机号码",
+                value: "phoneNumber"
+            },
+            {
+                label: "民族",
+                value: "nation"
+            },
+            {
+                label: "出生日期",
+                value: "birthday"
+            },
+            {
+                label: "毕业院校",
+                value: "gradedUniversity"
+            },
+            {
+                label: "家庭地址",
+                value: "homeAddress"
+            },
+            {
+                label: "户籍地址",
+                value: "livingAddress"
+            },
+            {
+                label: "身份证号",
+                value: "cardNum"
+            },
+            {
+                label: "email",
+                value: "email"
+            },
+            {
+                label: "父亲姓名",
+                value: "fatherName"
+            },
+            {
+                label: "父亲年龄",
+                value: "fatherAge"
+            },
+            {
+                label: "父亲联系方式",
+                value: "fatherPhoneNumber"
+            },
+            {
+                label: "父亲工作单位",
+                value: "fatherJob"
+            },
+            {
+                label: "母亲姓名",
+                value: "motherName"
+            },
+            {
+                label: "母亲年龄",
+                value: "motherAge"
+            },
+            {
+                label: "母亲备注",
+                value: "motherMemo"
+            },
+            {
+                label: "父亲备注",
+                value: "fatherMemo"
+            },
+            {
+                label: "母亲联系方式",
+                value: "motherPhoneNumber"
+            },
+            {
+                label: "母亲工作单位",
+                value: "motherJob"
+            },
+            {
+                label: "家长是否陪同",
+                value: "parentTogether"
+            },
+            {
+                label: "来访事由",
+                value: "reasonOfVisit"
+            },
+            {
+                label: "户籍所在地",
+                value: "homeRegPlace"
+            },
+
+        ]
+    }),
+
+    computed:{
+        ...mapGetters({
+            contentData: 'content/postDetail',
+            user: 'auth/user'
+        })
+    },
+
+    async created(){
+        if(this.contentData == null){
+            this.$router.push({name: 'schoolSpace.news'});
+        }
+        else{
+            console.log("^^^", this.contentData);
+            this.regNameData = this.contentData.regnames;
+            this.regNameData.content = JSON.parse(this.regNameData.content);
+            this.regNameData.inputTypeList = JSON.parse(this.regNameData.inputTypeList);
+            this.regNameData.viewList = JSON.parse(this.regNameData.viewList);
+
+            this.regNameData.inputTypeList.map(x=>{
+                this.regAnswerData[x] = "";
+            })
+            
+            let params = {
+                userId: this.user.id,
+                postId: this.regNameData.postId
+            }
+
+            await getAnswerDataOne(params)
+            .then((res) => {
+                this.myAnswerData = res.data.answer[0];
+                this.myAnswerData.answer = JSON.parse(this.myAnswerData.answer);
+                this.myAnswerData.answer = Object.keys(this.myAnswerData.answer).map((key) => [key, this.myAnswerData.answer[key]]);
+                console.log("this.myAnswerData", this.myAnswerData);
+                console.log("this.myAnswerData", this.myAnswerData.answer.length);
+                this.myAnswerData.answer.map(x=>{
+                    this.updateAnswerData[x[0]] = x[1];
+                })
+                if(this.myAnswerData !== null){
+                    this.isAlreadyAnswer = true;
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+            
+            console.log("###",this.regNameData, this.regAnswerData);
+        }
+    },
+
+    methods:{
+        async submit(){
+            console.log(this.regAnswerData);
+            let payload = {
+                postId: this.regNameData.postId,
+                regnameId: this.regNameData.id,
+                answer: this.regAnswerData
+            }
+            this.isAnswering = true;
+            await answerRegname(payload)
+            .then((res) => {
+                console.log(res);
+                this.$router.push({name: 'schoolSpace.news'});
+            }).catch((err) => {
+                console.log(err);
+            });
+            this.isAnswering = false;
+        },
+
+        convertLabel(item){
+            let label = ""
+            for(let i = 0; i < this.inputTypeItem.length; i++){
+                if(this.inputTypeItem[i].value === item){
+                    label = this.inputTypeItem[i].label;
+                    break;
+                }
+            }
+            return label;
+        },
+        async update(){
+            console.log(this.updateAnswerData)
+            let payload = {
+                id: this.myAnswerData.id,
+                answer: this.updateAnswerData
+            }
+            this.isAnswering = true;
+            await updateAnswerRegname(payload)
+            .then((res) => {
+                console.log(res);
+                this.isAnswering = false;
+                this.$router.push({name: 'schoolSpace.news'});
+            }).catch((err) => {
+                console.log(err);
+                this.isAnswering = false;
+            });
+            
+        }
+    }
+}
+</script>
+
+<style>
+
+</style>

@@ -4,8 +4,24 @@ function getRegname(){
     return axios.get('/api/v1/regname');
 }
 
+function getAnswerDataOne(payload){
+    return axios.get('/api/v1/regname/answer/one', {params: payload});
+}
+
+function getAnswerList(payload){
+    return axios.get('/api/v1/regname/answer', {params: payload});
+}
+
 function createRegname(payload){
     return axios.post('/api/v1/regname',payload)
+}
+
+function answerRegname(payload){
+    return axios.post('/api/v1/regname/answer',payload)
+}
+
+function updateAnswerRegname(payload){
+    return axios.put('/api/v1/regname/answer',payload)
 }
 
 function updateRegname(payload){
@@ -20,5 +36,9 @@ export{
     getRegname,
     createRegname,
     updateRegname,
-    deleteRegname
+    deleteRegname,
+    answerRegname,
+    getAnswerDataOne,
+    updateAnswerRegname,
+    getAnswerList
 }

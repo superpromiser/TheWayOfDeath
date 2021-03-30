@@ -7,5 +7,6 @@ import './imageviewer'
 import './videoview'
 import './infinite'
 import './vchatscroll'
+import './mobiledetect'
 
 import 'bootstrap'

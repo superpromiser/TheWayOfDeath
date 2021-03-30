@@ -281,6 +281,10 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     
     //regname
     Route::post('regname','RegnameController@createRegname');
+    Route::post('regname/answer','RegnameController@answerRegname');
+    Route::get('regname/answer/one','RegnameController@getAnswerOne');
+    Route::get('regname/answer','RegnameController@getAnswer');
+    Route::put('regname/answer','RegnameController@updateAnswer');
 
 });
 

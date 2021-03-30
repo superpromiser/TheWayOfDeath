@@ -164,5 +164,6 @@ export default {
     cursor: pointer;
     margin: 5px;
     display: inline-block;
+    max-height: 280px;
   }
 </style>

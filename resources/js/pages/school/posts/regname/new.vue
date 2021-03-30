@@ -161,43 +161,43 @@ export default {
         inputTypeItem:[
             {
                 label: "姓名",
-                value: "姓名"
+                value: "name"
             },
             {
                 label: "头像",
-                value: "头像"
+                value: "avatar"
             },
             {
                 label: "性别",
-                value: "性别"
+                value: "gender"
             },
             {
                 label: "手机号码",
-                value: "手机号码"
+                value: "phoneNumber"
             },
             {
                 label: "民族",
-                value: "民族"
+                value: "nation"
             },
             {
                 label: "出生日期",
-                value: "出生日期"
+                value: "birthday"
             },
             {
                 label: "毕业院校",
-                value: "毕业院校"
+                value: "gradedUniversity"
             },
             {
                 label: "家庭地址",
-                value: "家庭地址"
+                value: "homeAddress"
             },
             {
                 label: "户籍地址",
-                value: "户籍地址"
+                value: "livingAddress"
             },
             {
                 label: "身份证号",
-                value: "身份证号"
+                value: "cardNum"
             },
             {
                 label: "email",
@@ -205,55 +205,55 @@ export default {
             },
             {
                 label: "父亲姓名",
-                value: "父亲姓名"
+                value: "fatherName"
             },
             {
                 label: "父亲年龄",
-                value: "父亲年龄"
+                value: "fatherAge"
             },
             {
                 label: "父亲联系方式",
-                value: "父亲联系方式"
+                value: "fatherPhoneNumber"
             },
             {
                 label: "父亲工作单位",
-                value: "父亲工作单位"
+                value: "fatherJob"
             },
             {
                 label: "母亲姓名",
-                value: "母亲姓名"
+                value: "motherName"
             },
             {
                 label: "母亲年龄",
-                value: "母亲年龄"
+                value: "motherAge"
             },
             {
                 label: "母亲备注",
-                value: "母亲备注"
+                value: "motherMemo"
             },
             {
                 label: "父亲备注",
-                value: "父亲备注"
+                value: "fatherMemo"
             },
             {
                 label: "母亲联系方式",
-                value: "母亲联系方式"
+                value: "motherPhoneNumber"
             },
             {
                 label: "母亲工作单位",
-                value: "母亲工作单位"
+                value: "motherJob"
             },
             {
                 label: "家长是否陪同",
-                value: "家长是否陪同"
+                value: "parentTogether"
             },
             {
                 label: "来访事由",
-                value: "来访事由"
+                value: "reasonOfVisit"
             },
             {
                 label: "户籍所在地",
-                value: "户籍所在地"
+                value: "homeRegPlace"
             },
 
         ]

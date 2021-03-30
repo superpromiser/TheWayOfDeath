@@ -56,6 +56,8 @@ export default [
       {path:'bulletinboard', name:'details.bulletinBoard', component:page('details/bulletinBoard/index.vue')},
       {path:'announcement', name:'details.anouncement', component:page('details/anouncement/index.vue')},
       {path:'homevisit', name:'details.homeVisit', component:page('details/homeVisit/index.vue')},
+      {path:'regnameResult', name:'details.regnameResult', component:page('details/regname/result.vue')},
+      {path:'regnameAnswer', name:'details.regnameAnswer', component:page('details/regname/answer.vue')},
     ]
   },
   {path:'/schoolSpace/:schoolId/post', name:'schoolSpace.post', component:page('school/posts/index.vue')},

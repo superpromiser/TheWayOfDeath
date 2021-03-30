@@ -726,3 +726,38 @@ a {
 .msg-video-play-icon:hover, .msg-video-play-icon:active{
   color: #62acfc;
 }
+
+
+.mo-welcome-bg{
+    background-color: rgb(255 53 249 / 23%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.mo-glow, .mo-glow-v-text .v-input__control .v-input__slot{
+    background-color: #f2f3f7!important;
+    -webkit-box-shadow: -7px -7px 5px #ffffff,7px 7px 7px #dde4ef!important;
+    box-shadow: -7px -7px 5px #ffffff,7px 7px 7px #dde4ef!important;
+}
+
+.mo-glow-inverse{
+    background-color: #f2f3f7!important;
+    -webkit-box-shadow: inset -7px -7px 5px #ffffff,inset 7px 7px 7px #dde4ef!important;
+    box-shadow: inset -7px -7px 5px #ffffff,inset 7px 7px 7px #dde4ef!important;
+}
+
+.mo-glow-bg{
+    background-color: #f2f3f7;
+}
+
+.primary-bg{
+    background-color: #7879ff !important;
+    border-color: #7879ff !important;
+}
+.header-active{
+    color: white!important;
+}
+.sub-header-active{
+    color:white!important;
+    background-color: #333333!important;
+}
