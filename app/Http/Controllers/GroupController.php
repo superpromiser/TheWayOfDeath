@@ -20,6 +20,14 @@ class GroupController extends Controller
         }
     }
 
+    public function getAllGroupMember(Request $request){
+        $this->validate($request,[
+            'schoolId'=>'required',
+            'lessonId'=>'required'
+        ]);
+        return Group::where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId])->with('members:id,name')->get();
+    }
+
     public function addGroupMember(Request $request){
         $this->validate($request,[
             'schoolId'=>'required',

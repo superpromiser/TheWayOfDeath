@@ -31,8 +31,8 @@ function deleteUser(payload){
     return axios.delete('/api/v1/users', {data : payload});
 }
 
-function getLessonUserList(){
-    return axios.get('/api/v1/lessonUserList');
+function getLessonUserList(payload){
+    return axios.get('/api/v1/lessonUserList',{params:payload});
 }
 
 function getUserByRole(payload){

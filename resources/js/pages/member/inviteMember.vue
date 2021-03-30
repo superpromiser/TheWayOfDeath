@@ -19,6 +19,7 @@
             solo
             label="Prepend inner"
             prepend-inner-icon="mdi-magnify"
+            v-model="search"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -36,7 +37,7 @@
         </v-col>
       </v-row>
     </v-banner>
-    <v-banner v-for="(user, index) in userList" :key="index">
+    <v-banner v-for="(user, index) in filteredList" :key="index">
       <v-row>
         <v-col>
           <v-checkbox
@@ -63,11 +64,17 @@ export default {
     userList: [],
     lang,
     isSubmit: false,
-    selected: []
+    selected: [],
+    search:''
   }),
   computed: {
     currentPath() {
       return this.$route;
+    },
+    filteredList(){
+        return this.userList.filter(user=>{
+          return user.name.toLowerCase().includes(this.search.toLowerCase())
+        })
     }
   },
   created() {

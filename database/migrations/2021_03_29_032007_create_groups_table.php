@@ -18,6 +18,7 @@ class CreateGroupsTable extends Migration
             $table->TinyInteger('schoolId');
             $table->TinyInteger('lessonId')->default(0);
             $table->unsignedBigInteger('memberId');
+            $table->Integer('studentId')->nullable();
             $table->char('status')->default('pending');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');

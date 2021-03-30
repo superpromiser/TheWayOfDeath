@@ -25,11 +25,41 @@ function updateGroupMember(payload){
     return axios.put('/api/v1/groupMember',payload)
 }
 
+function getAllGroupMember(payload){
+    return axios.get('/api/v1/allGroupMember',{params:payload});
+}
+
+function getStudentIdUser(payload){
+    return axios.get('/api/v1/studentIdUser',{params:payload});
+}
+
+function createStudentIdUser(payload){
+    return axios.post('/api/v1/studentIdUser',payload)
+}
+
+function getSeatData(payload){
+    return axios.get('/api/v1/seat',{params:payload})
+}
+
+function createSeatData(payload){
+    return axios.post('/api/v1/seat',payload)
+}
+
+function updateSeatData(payload){
+    return axios.put('/api/v1/seat',payload)
+}
+
 export{
     getClub,
     createClub,
     deleteClub,
     getGroupMember,
     updateGroupMember,
+    getAllGroupMember,
     addGroupMember,
+    getSeatData,
+    createSeatData,
+    updateSeatData,
+    getStudentIdUser,
+    createStudentIdUser
 }
