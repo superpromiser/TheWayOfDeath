@@ -1,6 +1,7 @@
 <template>
     <v-container>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
+             座位
             <v-btn
                 tile
                 dark
@@ -15,35 +16,34 @@
         <v-banner>
             <v-row  class="ma-5">
                 <v-col cols="6">
-                    座位
+                   
                 </v-col>
                 <v-col cols=6>
                     <v-row>
                         <v-col cols="6">
-                                <v-select
-                                    :items="items"
-                                    label="Outlined style"
-                                    dense
-                                    outlined
-                                ></v-select>
+                            <v-select
+                                :items="items"
+                                v-model="rowCnt"
+                                dense
+                                @change="selRowCnt"
+                                outlined
+                            ></v-select>
                         </v-col>
                         <v-col cols="6">
                             <v-select
-                                v-model="selectedLesson"
                                 :items="items"
-                                item-text="name"
-                                item-value="id"
+                                v-model="colCnt"
                                 dense
                                 outlined
-                                @change="selLesson"
+                                @change="selColCnt"
                             ></v-select>
                         </v-col>
                     </v-row>
                 </v-col>
             </v-row>
         </v-banner>
-        <v-row v-for="(row, idx1) in seatList" :key="`row${idx1}`">
-            <v-col cols="2" v-for="(col, idx2) in row" :key="`colum${idx2}`">
+        <v-row v-for="(row, idx1) in rowCnt" :key="`row${idx1}`">
+            <v-col v-for="(col, idx2) in colCnt" :key="`colum${idx2}`">
                 <v-select
                     v-model="seatList[idx1][idx2]"
                     :items="userList"
@@ -63,11 +63,12 @@ import {getSeatData,createSeatData,updateSeatData} from '~/api/group'
 import lang from '~/helper/lang.json'
 export default {
     data:()=>({
-        items:['第一列','第二列','第三列','第四列','第五列','第六列'],
+        items:[1,2,3,4,5,6,7,8,9],
         userList:[{id:0,name:'',photo_url:''}],
         lang,
         isSubmit:false,
         seatList:[
+            [ 0, 0, 0, 0, 0, 0],
             [ 0, 0, 0, 0, 0, 0],
             [ 0, 0, 0, 0, 0, 0],
             [ 0, 0, 0, 0, 0, 0],
@@ -81,7 +82,10 @@ export default {
             [ 0, 0, 0, 0, 0, 0],
             [ 0, 0, 0, 0, 0, 0]
         ],
-        selectedLesson:'第一列'
+        selectedLesson:'第一列',
+        rowCnt:6,
+        colCnt:6,
+        colList:[0,0,0,0,0,0]
     }),
     computed:{
         currentPath(){
@@ -104,7 +108,10 @@ export default {
             lessonOrder:'第一列',
         }).then(res=>{
             console.log(res.data)
-            this.seatList = JSON.parse(res.data.seatData)
+            if(res.data){
+                this.seatList = [[]];
+                this.seatList = JSON.parse(res.data.seatData)
+            }
         }).catch(err=>{
             console.log(err.response)
         })
@@ -117,7 +124,9 @@ export default {
                 schoolId:this.currentPath.params.schoolId,
                 lessonId:this.currentPath.params.lessonId,
                 lessonOrder:this.selectedLesson,
-                seatData:this.seatList
+                seatData:this.seatList,
+                rowCnt:this.rowCnt,
+                colCnt:this.colCnt
             }).then(res=>{
                 this.isSubmit = false
                 console.log(res.data)
@@ -127,23 +136,21 @@ export default {
             })
 
         },
-        selLesson(){
-            console.log(this.selectedLesson)
-            getSeatData({
-                schoolId:this.currentPath.params.schoolId,
-                lessonId:this.currentPath.params.lessonId,
-                lessonOrder:this.selectedLesson,
-            }).then(res=>{
-                console.log(res.data)
-                if(res.data){
-                    this.seatList = JSON.parse(res.data.seatData)
-                }else{
-                    this.seatList = Object.assign({}, this.defaultList)
-                }
-            }).catch(err=>{
-                console.log(err.response)
-            })
-            // this.seatList = Object.assign({}, this.defaultList)
+        selRowCnt(){
+            // console.log(this.rowCnt)
+            console.log(this.seatList)
+            this.seatList = [[]];
+            for(let i=0;i<this.rowCnt;i++){
+                this.seatList.push(this.colList)
+            }
+        },
+        selColCnt(){
+            // console.log(this.colCnt)
+            console.log(this.seatList)
+            this.colList = []
+            for(let i=0;i<this.colCnt;i++){
+                this.colList.push(0)
+            }
         }
     }
 }
