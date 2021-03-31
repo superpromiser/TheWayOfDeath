@@ -42,8 +42,8 @@
                 </v-col>
             </v-row>
         </v-banner>
-        <v-row v-for="(row, idx1) in rowCnt" :key="`row${idx1}`">
-            <v-col v-for="(col, idx2) in colCnt" :key="`colum${idx2}`">
+        <v-row v-for="(row, idx1) in seatList" :key="`row${idx1}`">
+            <v-col v-for="(col, idx2) in row" :key="`colum${idx2}`">
                 <v-select
                     v-model="seatList[idx1][idx2]"
                     :items="userList"
@@ -51,6 +51,7 @@
                     item-value="id"
                     dense
                     outlined
+                    @change="selSeat(idx1,idx2)"
                 ></v-select>
             </v-col>
         </v-row>
@@ -80,12 +81,13 @@ export default {
             [ 0, 0, 0, 0, 0, 0],
             [ 0, 0, 0, 0, 0, 0],
             [ 0, 0, 0, 0, 0, 0],
+            [ 0, 0, 0, 0, 0, 0],
             [ 0, 0, 0, 0, 0, 0]
         ],
         selectedLesson:'第一列',
         rowCnt:6,
         colCnt:6,
-        colList:[0,0,0,0,0,0]
+        colList:[ 0, 0, 0, 0, 0, 0]
     }),
     computed:{
         currentPath(){
@@ -109,8 +111,10 @@ export default {
         }).then(res=>{
             console.log(res.data)
             if(res.data){
-                this.seatList = [[]];
+                this.seatList = [];
                 this.seatList = JSON.parse(res.data.seatData)
+                this.rowCnt = res.data.rowCnt
+                this.colCnt = res.data.colCnt
             }
         }).catch(err=>{
             console.log(err.response)
@@ -138,19 +142,29 @@ export default {
         },
         selRowCnt(){
             // console.log(this.rowCnt)
-            console.log(this.seatList)
-            this.seatList = [[]];
+            this.seatList = [];
             for(let i=0;i<this.rowCnt;i++){
                 this.seatList.push(this.colList)
             }
+            console.log(this.seatList)
+            
         },
         selColCnt(){
             // console.log(this.colCnt)
-            console.log(this.seatList)
             this.colList = []
             for(let i=0;i<this.colCnt;i++){
                 this.colList.push(0)
             }
+            this.seatList = []
+            for(let i=0;i<this.rowCnt;i++){
+                this.seatList.push(this.colList)
+            }
+            console.log(this.seatList)
+        },
+        selSeat(idx1,idx2){
+            console.log(idx1,idx2)
+            console.log(this.seatList[idx1,idx2])
+            console.log(this.seatList)
         }
     }
 }
