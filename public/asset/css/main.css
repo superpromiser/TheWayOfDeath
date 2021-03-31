@@ -130,6 +130,7 @@ a {
     font-size: 1.5rem;
 }
 
+
 .v-skeleton-loader__list-item-avatar-two-line .v-skeleton-loader__avatar {
     width: 70px !important;
     height: 70px !important;
@@ -805,13 +806,16 @@ a {
 
 .mo-bottom-nav-plut-btn{
     transform: translateX( -50%);
-    top: -87px;
     left: 50%;
     z-index: 11;
+    bottom: 0px;
 }
 
 .mo-home-carousel-img{
     height: 200px;
+    /* background-color: #f2f3f7!important; */
+    -webkit-box-shadow: inset -7px -7px 5px #ffffff,inset 7px 7px 7px #dde4ef!important;
+    box-shadow: inset -7px -7px 5px #ffffff,inset 7px 7px 7px #dde4ef!important;
 }
 
 .w-20-10px{
@@ -835,25 +839,52 @@ a {
         font-size: 0.75rem!important;
     }
 }
-.parallelogram:before {
-    content:'';
-    border-top:50px solid #ccc;
-    border-right:15px solid transparent;
-    border-left:75px solid transparent;
-    position:absolute;
-    top:40px;
-    right:15%;
-  }
-  .parallelogram:after {
-    content:'';
-    border-bottom:50px solid #ccc;
-    border-left:15px solid transparent;
-    border-right:75px solid transparent;
-    position:absolute;
-    top:40px;
-    right:26.25%;
-  }
+
+
   .parallelogram {
-    width:100px;
-    height:50px;
+    width: 8px;
+    height: 30px;
+    -webkit-transform: skew(-25deg);
+    -moz-transform: skew(-25deg);
+    -o-transform: skew(-25deg);
+    background-color: #f2f3f7!important;
+    -webkit-box-shadow: -4px -4px 5px #ffffff,7px 7px 7px #dde4ef!important;
+    box-shadow: -4px -4px 5px #ffffff,7px 7px 7px #dde4ef!important;
   }
+
+  .trapezoid {
+    width: 60px;
+    height: 30px;
+    -webkit-transform: skew(-25deg);
+    -moz-transform: skew(-25deg);
+    -o-transform: skew(-25deg);
+    background-color: #f2f3f7!important;
+    -webkit-box-shadow: -4px -4px 5px #ffffff,7px 7px 7px #dde4ef!important;
+    box-shadow: -4px -4px 5px #ffffff,7px 7px 7px #dde4ef!important;
+}
+
+.trapezoid::before{
+    content: '头条';
+    position: absolute;
+    transform: translate( -50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.mo-school-card-avatar {
+    height: 30px !important;
+    width: 30px !important;
+}
+
+.mo-bottom-nav-con{
+    bottom: 25px;
+    left: 50%;
+}
+
+.position-fixed{
+    position: fixed!important;
+}
+
+.fs-10 {
+    font-size: 1rem;
+}

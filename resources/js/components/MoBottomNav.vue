@@ -1,5 +1,5 @@
 <template>
-    <div class="position-relative">
+    <div class="position-fixed mo-bottom-nav-con">
         <v-bottom-navigation
             :value="value"
             color="#7879ff"

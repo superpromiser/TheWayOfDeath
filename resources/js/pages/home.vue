@@ -97,8 +97,189 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" class="mt-5 ">
-          <span class="parallelogram"></span>
+        <v-col cols="12" class="mt-5 d-flex pa-0 px-3 align-center">
+          <div class="trapezoid position-relative"></div>
+          <div class="parallelogram ml-4"></div>
+          <div class="ml-4">
+            something
+          </div>
+        </v-col>
+      </v-row>
+      <v-row class="ma-0 mt-5 mb-16">
+        <v-col cols="12" class="pa-0 d-flex align-center">
+          <v-avatar tile class="mo-glow-small-shadow" size="40" >
+            <v-icon color="#7879ff">
+              mdi-school
+            </v-icon>
+          </v-avatar>
+          <h3 class="ml-3">something</h3>
+        </v-col>
+        <v-col cols="12" class="pa-0">
+          <v-card class="ma-0 pa-0 mt-5 mo-glow">
+            <v-row class="ma-0">
+              <v-col cols="12" class="d-flex align-center pb-0">
+                <v-avatar class="mr-3 " tile >
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
+                </v-avatar>
+                <p class="font-weight-black fs-10 mb-0"> 报名  </p>
+                <div class="ml-auto">
+                  <v-menu offset-y >
+                    <template v-slot:activator="{ attrs, on }">
+                      <v-btn icon fab small v-bind="attrs" v-on="on" >
+                        <v-icon>mdi-dots-vertical  </v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">delete</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">fix to top</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
+              </v-col>
+              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
+                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
+                <p class="mb-0 mr-5">sammie</p>
+                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
+                <p class="mb-0">2011/12/3</p>
+              </v-col>
+            </v-row>
+          </v-card>
+          <v-card class="ma-0 pa-0 mt-5 mo-glow">
+            <v-row class="ma-0">
+              <v-col cols="12" class="d-flex align-center pb-0">
+                <v-avatar class="mr-3 " tile >
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
+                </v-avatar>
+                <p class="font-weight-black fs-10 mb-0"> 报名  </p>
+                <div class="ml-auto">
+                  <v-menu offset-y >
+                    <template v-slot:activator="{ attrs, on }">
+                      <v-btn icon fab small v-bind="attrs" v-on="on" >
+                        <v-icon>mdi-dots-vertical  </v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">delete</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">fix to top</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
+              </v-col>
+              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
+                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
+                <p class="mb-0 mr-5">sammie</p>
+                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
+                <p class="mb-0">2011/12/3</p>
+              </v-col>
+            </v-row>
+          </v-card>
+          <v-card class="ma-0 pa-0 mt-5 mo-glow">
+            <v-row class="ma-0">
+              <v-col cols="12" class="d-flex align-center pb-0">
+                <v-avatar class="mr-3 " tile >
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
+                </v-avatar>
+                <p class="font-weight-black fs-10 mb-0"> 报名  </p>
+                <div class="ml-auto">
+                  <v-menu offset-y >
+                    <template v-slot:activator="{ attrs, on }">
+                      <v-btn icon fab small v-bind="attrs" v-on="on" >
+                        <v-icon>mdi-dots-vertical  </v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">delete</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">fix to top</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
+              </v-col>
+              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
+                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
+                <p class="mb-0 mr-5">sammie</p>
+                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
+                <p class="mb-0">2011/12/3</p>
+              </v-col>
+            </v-row>
+          </v-card>
+          <v-card class="ma-0 pa-0 mt-5 mo-glow">
+            <v-row class="ma-0">
+              <v-col cols="12" class="d-flex align-center pb-0">
+                <v-avatar class="mr-3 " tile >
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
+                </v-avatar>
+                <p class="font-weight-black fs-10 mb-0"> 报名  </p>
+                <div class="ml-auto">
+                  <v-menu offset-y >
+                    <template v-slot:activator="{ attrs, on }">
+                      <v-btn icon fab small v-bind="attrs" v-on="on" >
+                        <v-icon>mdi-dots-vertical  </v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">delete</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">fix to top</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
+              </v-col>
+              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
+                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
+                <p class="mb-0 mr-5">sammie</p>
+                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
+                <p class="mb-0">2011/12/3</p>
+              </v-col>
+            </v-row>
+          </v-card>
+          <v-card class="ma-0 pa-0 mt-5 mo-glow">
+            <v-row class="ma-0">
+              <v-col cols="12" class="d-flex align-center pb-0">
+                <v-avatar class="mr-3 " tile >
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
+                </v-avatar>
+                <p class="font-weight-black fs-10 mb-0"> 报名  </p>
+                <div class="ml-auto">
+                  <v-menu offset-y >
+                    <template v-slot:activator="{ attrs, on }">
+                      <v-btn icon fab small v-bind="attrs" v-on="on" >
+                        <v-icon>mdi-dots-vertical  </v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">delete</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item link >
+                        <v-list-item-title class="px-2">fix to top</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
+              </v-col>
+              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
+                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
+                <p class="mb-0 mr-5">sammie</p>
+                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
+                <p class="mb-0">2011/12/3</p>
+              </v-col>
+            </v-row>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
