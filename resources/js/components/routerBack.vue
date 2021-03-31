@@ -9,7 +9,7 @@
                             mdi-chevron-left
                         </v-icon>
                     </a>
-                    <span style="font-size:30px;line-height:2">发布</span> 
+                    <span style="font-size:30px;line-height:2">{{title}}</span> 
                 </div>
             </v-col>
         </v-row>
@@ -18,6 +18,10 @@
 
 <script>
 export default {
+    props:{
+        title:String,
+        required:true
+    }
 
 }
 </script>

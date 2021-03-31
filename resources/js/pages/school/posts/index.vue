@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0">
-        <RouterBack></RouterBack>
+        <RouterBack title="发布"></RouterBack>
         <v-row v-for="(itemGroup, i) in contentItemList" :key="i" class="ma-0">
             <v-col cols="12">
                 <v-chip
