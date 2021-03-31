@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <LoggedNavbar /> 
+    <LoggedNavbar v-if="!$isMobile()"/> 
     <Drawer/>
-    <v-main class="main-bg-pattern d-flex justify-center align-center ">
+    <v-main v-if="!$isMobile()" class="main-bg-pattern d-flex justify-center align-center ">
       <!-- <v-container class="h-out-navbar bg-white">
         <child />
       </v-container> -->
@@ -16,10 +16,15 @@
       </v-sheet>
       <!-- <LoggedFooter /> -->
     </v-main>
+    <v-main v-else class="mo-glow-bg">
+      <child />
+    </v-main>
+    <MoBottomNav v-if="$isMobile()" />
   </v-app>
 </template>
 
 <script>
+import MoBottomNav from '~/components/MoBottomNav'
 import LoggedNavbar from '~/components/LoggedNavbar'
 import LoggedFooter from '~/components/LoggedFooter'
 import Drawer from '~/components/Drawer'
@@ -30,7 +35,8 @@ export default {
   components: {
     LoggedNavbar,
     LoggedFooter,
-    Drawer
+    Drawer,
+    MoBottomNav
   }
 }
 </script>
