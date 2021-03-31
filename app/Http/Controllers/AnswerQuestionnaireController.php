@@ -19,11 +19,11 @@ class AnswerQuestionnaireController extends Controller
 
     public function createAnswerQuestionnaire(Request $request){
         $this->validate($request,[
-            'singleAnswer'=>'required',
-            'multiAnswer'=>'required',
-            'questionAnswer'=>'required',
-            'statAnswer'=>'required',
-            'scoringAnswer'=>'required',
+            // 'singleAnswer'=>'required',
+            // 'multiAnswer'=>'required',
+            // 'questionAnswer'=>'required',
+            // 'statAnswer'=>'required',
+            // 'scoringAnswer'=>'required',
             'postId'=>'required',
         ]);
         $userId = Auth::user()->id;

@@ -40,7 +40,7 @@
             <v-col cols="12" v-for="(content, index) in contentData.questionnaires.content" :key="index">
                 <!--  single Datas  -->
                 <v-row v-if="content.type == 'single'">
-                  <v-col cols="12">
+                  <v-col cols="12" class="hover-cursor-point">
                     <p class="mb-0 d-flex align-center"> 
                       {{index + 1}}.  
                       <v-chip class="ma-2" color="success" outlined >
@@ -52,7 +52,7 @@
                   <v-col v-if="checkIfAttachExist(content.singleContentDataArr[0])">
                     <AttachItemViewer :items="content.singleContentDataArr[0]" />
                   </v-col>
-                  <v-col class="pl-6" cols="12" v-for="(singleData, singleDataIndex) in content.singleContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
+                  <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(singleData, singleDataIndex) in content.singleContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
                     <div class="d-flex align-center cursor-pointer" @click="singleAnswer(singleData,singleDataIndex)" :class="{active: singleDataIndex == answerData.singleAnswer}"> 
                       <v-chip
                         class="mr-2"
@@ -68,7 +68,7 @@
                 </v-row>
                 <!--  multi Datas  -->
                 <v-row v-if="content.type == 'multi'">
-                  <v-col cols="12">
+                  <v-col cols="12" class="hover-cursor-point">
                     <p class="mb-0 d-flex align-center"> 
                       {{index + 1}}.  
                       <v-chip class="ma-2" color="success" outlined >
@@ -80,7 +80,7 @@
                   <v-col v-if="checkIfAttachExist(content.multiContentDataArr[0])">
                     <AttachItemViewer :items="content.multiContentDataArr[0]" />
                   </v-col>
-                  <v-col class="pl-6" cols="12" v-for="(multiData, multiDataIndex) in content.multiContentDataArr" :key="multiDataIndex" v-if="multiDataIndex !== 0">
+                  <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(multiData, multiDataIndex) in content.multiContentDataArr" :key="multiDataIndex" v-if="multiDataIndex !== 0">
                     <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiData,multiDataIndex)" :class="{active: answerData.multiAnswer.indexOf(multiDataIndex) > -1}"> 
                       <v-chip
                         class="mr-2"
@@ -96,7 +96,7 @@
                 </v-row>
                 <!--  qa Datas  -->
                 <v-row v-if="content.type == 'qa'">
-                  <v-col cols="12">
+                  <v-col cols="12" class="hover-cursor-point">
                     <p class="mb-0 d-flex align-center"> 
                       {{index + 1}}.  
                       <v-chip class="ma-2" color="success" outlined >
@@ -223,6 +223,7 @@ export default {
 
     async created(){
         //console.log('------------',this.user)
+        console.log("this.contentdata",this.contentData)
         if(this.contentData == null){
           this.$router.push({name:'schoolSpace.news'})
         }
@@ -289,10 +290,12 @@ export default {
             alert('您已经回答了该帖子');
             return;
           }
-          if(this.answerData.singleAnswer == null || this.answerData.multiAnswer.length == 0 || this.answerData.questionAnswer == '' || this.answerData.statAnswer == '' || this.answerData.scoringAnswer == null){
-            alert('请回答所有问题');
-            return
-          }
+          // if(this.answerData.singleAnswer == null || this.answerData.multiAnswer.length == 0 || this.answerData.questionAnswer == '' || this.answerData.statAnswer == '' || this.answerData.scoringAnswer == null){
+          //   alert('请回答所有问题');
+          //   return
+          // }
+          console.log(this.answerData)
+          return
           this.isSubmit = true;
           await createAnswerQuestionnaire(this.answerData).then(res=>{
             //console.log(res)

@@ -2,6 +2,11 @@
     <v-container class="pa-0">
         <v-banner class=" mb-10" color="white" sticky elevation="20">
             <div class="d-flex align-center">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
                 <v-avatar
                     class="ma-3"
                     size="50"
