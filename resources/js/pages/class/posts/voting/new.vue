@@ -38,6 +38,7 @@
             <v-row>
                 <v-col cols="12" sm="6" md="4">
                     <v-select
+                        :menu-props="{ top: false, offsetY: true }"
                         solo
                         :items="typeItem"
                         item-text="label"
@@ -53,6 +54,7 @@
                         multiple
                         chips
                         :items="returnSchoolTree(currentPath.params.schoolId)"
+                        :menu-props="{ top: false, offsetY: true }"
                         item-text="lessonName"
                         item-value="lessonId"
                         @change="selectedLesson"
@@ -117,6 +119,7 @@
                         item-text="label"
                         item-value="value"
                         v-model="votingData.maxVote"
+                        :menu-props="{ top: false, offsetY: true }"
                         label="调查范围"
                         hide-details
                     ></v-select>

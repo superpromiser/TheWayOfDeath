@@ -32,6 +32,7 @@
                                 v-model="rowCnt"
                                 dense
                                 @change="selRowCnt"
+                                :menu-props="{ top: false, offsetY: true }"
                                 outlined
                             ></v-select>
                         </v-col>
@@ -39,6 +40,7 @@
                             <v-select
                                 :items="items"
                                 v-model="colCnt"
+                                :menu-props="{ top: false, offsetY: true }"
                                 dense
                                 outlined
                                 @change="selColCnt"
@@ -52,6 +54,7 @@
             <v-col v-for="(col, idx2) in row" :key="`colum${idx2}`">
                 <v-select
                     v-model="seatList[idx1][idx2]"
+                    :menu-props="{ top: false, offsetY: true }"
                     :items="userList"
                     item-text="name"
                     item-value="id"

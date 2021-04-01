@@ -99,6 +99,7 @@
                         solo
                         multiple
                         chips
+                        :menu-props="{ top: false, offsetY: true }"
                         :items="returnSchoolTree(currentPath.params.schoolId)"
                         item-text="lessonName"
                         item-value="lessonId"

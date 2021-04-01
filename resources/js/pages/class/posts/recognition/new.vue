@@ -33,6 +33,7 @@
             <v-row>
                 <v-col cols="12" sm="6" md="4">
                     <v-select
+                        :menu-props="{ top: false, offsetY: true }"
                         solo
                         :items="typeItem"
                         item-text="label"
@@ -47,6 +48,7 @@
                         solo
                         multiple
                         chips
+                        :menu-props="{ top: false, offsetY: true }"
                         :items="userListItem"
                         item-text="name"
                         item-value="id"

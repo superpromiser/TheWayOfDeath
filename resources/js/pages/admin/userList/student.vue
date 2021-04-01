@@ -67,6 +67,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-select
+                            :menu-props="{ top: false, offsetY: true }"
                             :items="genderItems"
                             item-text="label"
                             item-value="value"
@@ -88,6 +89,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-select
+                                :menu-props="{ top: false, offsetY: true }"
                                 :items="classSelectionItem"
                                 item-text="lessonName"
                                 item-value="lessonId"
@@ -147,6 +149,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
                                 <v-select
+                                :menu-props="{ top: false, offsetY: true }"
                                 :items="fatherJobItem"
                                 item-text="label"
                                 item-value="value"
@@ -170,6 +173,7 @@
                       <v-row>
                         <v-col cols="12" sm="6" md="4" >
                           <v-select
+                            :menu-props="{ top: false, offsetY: true }"
                             :items="madeJsonFromString"
                             item-text="label"
                             v-model="editedItem.familyAddress.province"
@@ -180,6 +184,7 @@
                         <v-col cols="12" sm="6" md="4" >
                           <v-select
                             :items="willBeCityDataOfFamilyAddress"
+                            :menu-props="{ top: false, offsetY: true }"
                             item-text="label"
                             v-model="editedItem.familyAddress.city"
                             :disabled="willBeCityDataOfFamilyAddress.length === 0"
@@ -190,6 +195,7 @@
                         <v-col cols="12" sm="6" md="4" >
                           <v-select
                             :items="willBeRegionDataOfFamilyAddress"
+                            :menu-props="{ top: false, offsetY: true }"
                             item-text="label"
                             v-model="editedItem.familyAddress.region"
                             :disabled="willBeRegionDataOfFamilyAddress.length === 0" 

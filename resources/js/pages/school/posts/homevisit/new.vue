@@ -43,6 +43,7 @@
                         multiple
                         chips
                         :items="userInfoItem"
+                        :menu-props="{ top: false, offsetY: true }"
                         item-text="label"
                         item-value="value"
                         @change="selectedLesson"

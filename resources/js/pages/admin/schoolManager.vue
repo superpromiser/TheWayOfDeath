@@ -76,6 +76,7 @@
                         <v-col cols="12" sm="6" md="4" >
                             <v-select
                             :items="genderItems"
+                            :menu-props="{ top: false, offsetY: true }"
                             item-text="label"
                             item-value="value"
                             v-model="editedItem.gender"
@@ -112,6 +113,7 @@
                             <v-select
                                 :items="madeJsonFromString"
                                 item-text="label"
+                                :menu-props="{ top: false, offsetY: true }"
                                 v-model="editedItem.residenceAddress.province"
                                 @change="selectedProvinceOfResidenceAddress(editedItem.residenceAddress.province)"
                                 label="--省--"
@@ -121,6 +123,7 @@
                             <v-select
                                 :items="willBeCityDataOfResidenceAddress"
                                 item-text="label"
+                                :menu-props="{ top: false, offsetY: true }"
                                 v-model="editedItem.residenceAddress.city"
                                 :disabled="willBeCityDataOfResidenceAddress.length === 0"
                                 label="--市--"
@@ -131,6 +134,7 @@
                             <v-select
                                 :items="willBeRegionDataOfResidenceAddress"
                                 item-text="label"
+                                :menu-props="{ top: false, offsetY: true }"
                                 v-model="editedItem.residenceAddress.region"
                                 :disabled="willBeRegionDataOfResidenceAddress.length === 0" 
                                 @change="selectedRegionOfResidenceAddress(editedItem.residenceAddress.region)"
@@ -149,6 +153,7 @@
                         <v-col cols="12" sm="6" md="4" >
                           <v-select
                             :items="madeJsonFromString"
+                            :menu-props="{ top: false, offsetY: true }"
                             item-text="label"
                             v-model="editedItem.familyAddress.province"
                             @change="selectedProvinceOfFamilyAddress(editedItem.familyAddress.province)"
@@ -159,6 +164,7 @@
                           <v-select
                             :items="willBeCityDataOfFamilyAddress"
                             item-text="label"
+                            :menu-props="{ top: false, offsetY: true }"
                             v-model="editedItem.familyAddress.city"
                             :disabled="willBeCityDataOfFamilyAddress.length === 0"
                             label="--市--"
@@ -169,6 +175,7 @@
                           <v-select
                             :items="willBeRegionDataOfFamilyAddress"
                             item-text="label"
+                            :menu-props="{ top: false, offsetY: true }"
                             v-model="editedItem.familyAddress.region"
                             :disabled="willBeRegionDataOfFamilyAddress.length === 0" 
                             @change="selectedRegionOfFamilyAddress(editedItem.familyAddress.region)"

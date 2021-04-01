@@ -115,6 +115,7 @@
                     multiple
                     chips
                     :items="returnSchoolTree(currentPath.params.schoolId)"
+                    :menu-props="{ top: false, offsetY: true }"
                     item-text="lessonName"
                     item-value="lessonId"
                     @change="selectedLesson"
@@ -278,6 +279,7 @@
                         multiple
                         chips
                         :items="returnSchoolTree(currentPath.params.schoolId)"
+                        :menu-props="{ top: false, offsetY: true }"
                         item-text="lessonName"
                         item-value="lessonId"
                         @change="selectedLesson"
