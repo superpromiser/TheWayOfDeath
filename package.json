@@ -38,6 +38,7 @@
     "vue-infinite-loading": "^2.4.5",
     "vue-meta": "^2.4.0",
     "vue-mobile-detection": "^1.0.0",
+    "vue-quick-menu": "^1.0.7",
     "vue-read-more": "^1.1.1",
     "vue-router": "^3.0.6",
     "vue-video-player": "^5.0.2",

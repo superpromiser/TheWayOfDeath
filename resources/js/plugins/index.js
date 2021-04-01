@@ -9,5 +9,6 @@ import './infinite'
 import './vchatscroll'
 import './mobiledetect'
 import './fragment'
+import './quickmenu'
 
 import 'bootstrap'
