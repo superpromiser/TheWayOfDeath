@@ -14,7 +14,7 @@
                     class="mo-glow-v-select"
                     solo
                     multiple
-                    chips
+                    small-chips
                     :items="userInfoItem"
                     :menu-props="{ top: false, offsetY: true }"
                     item-text="label"
@@ -34,7 +34,7 @@
                 > </v-datetime-picker>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-                <v-btn block large color="transparent" @click="openDetailDialog" style="height:48px!important;">
+                <v-btn block large class="mo-glow" @click="openDetailDialog" style="height:48px!important;">
                     <v-icon>
                         mdi-eye
                     </v-icon>家访内容
@@ -51,8 +51,8 @@
                         上门拜访详情
                     </v-card-title>
                 
-                    <v-row v-for="(item, i) in visitData.description" :key="i">
-                        <v-col class="px-5 pr-0" cols="12" v-for="(data, j) in item[0]" :key="j">
+                    <v-row class="ma-0" v-for="(item, i) in visitData.description" :key="i">
+                        <v-col class="px-5 " cols="12" v-for="(data, j) in item[0]" :key="j">
                             {{data}}
                         </v-col>
                     </v-row>
@@ -68,6 +68,7 @@
             >
             {{lang.requiredText}}
         </v-snackbar>
+        <quick-menu @clickDraft="something" @clickPublish="publishcampusData" :isPublishing="isCreating"></quick-menu>
     </v-container>
     <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
@@ -150,8 +151,8 @@
                         上门拜访详情
                     </v-card-title>
                 
-                    <v-row v-for="(item, i) in visitData.description" :key="i">
-                        <v-col class="px-5 pr-0" cols="12" v-for="(data, j) in item[0]" :key="j">
+                    <v-row class="ma-0" v-for="(item, i) in visitData.description" :key="i">
+                        <v-col class="px-5 " cols="12" v-for="(data, j) in item[0]" :key="j">
                             {{data}}
                         </v-col>
                     </v-row>
@@ -177,7 +178,7 @@ import UploadImage from '~/components/UploadImage'
 import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
 import Fragment from 'vue-fragment';
-
+import quickMenu from '~/components/quickMenu'
 
 import {createHomeVisit} from '~/api/homeVisit'
 
@@ -186,7 +187,8 @@ export default {
         VueEditor,
         QuestionItem,
         UploadImage,
-        Fragment
+        Fragment,
+        quickMenu
     },
 
     data: () => ({
@@ -391,8 +393,13 @@ export default {
             this.isCreating = true
             //console.log("this.visitData", this.visitData);
             await createHomeVisit(this.visitData).then(res=>{
-                this.$router.push({name:'schoolSpace.news'})
                 this.isCreating = false;
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
             }).catch(err=>{
                 //console.log(err.response)
                 this.isCreating = false;
@@ -404,6 +411,10 @@ export default {
         openDetailDialog(){
             this.detailDialog = true;
             //console.log("something");
+        },
+
+        something(){
+
         }
     }
 }

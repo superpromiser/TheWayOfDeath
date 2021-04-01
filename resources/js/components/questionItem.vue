@@ -90,7 +90,8 @@
             >
                 <v-icon>mdi-emoticon-excited-outline</v-icon>
             </v-btn>
-            <Picker v-if="emoStatus" :include="include" set="emojione" @select="onInput" title="选择你的表情符号..." />
+            <Picker v-click-outside="outSidePicker"
+                     class="w-90-i" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
         </v-row>
         <!--  IMAGE VIEWER  -->
         <v-row>
@@ -249,7 +250,7 @@
             >
                 <v-icon>mdi-emoticon-excited-outline</v-icon>
             </v-btn>
-            <Picker v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
+            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
         </v-row>
         <!--  IMAGE VIEWER  -->
         <v-row>
@@ -355,7 +356,7 @@ export default {
     data: () =>({
         emojiIndex: emojiIndex,
         emojisOutput: "",
-        
+
         include:["people", "nature"],
         baseUrl:window.Laravel.base_url,
         contentData:{
@@ -382,6 +383,10 @@ export default {
     methods:{
         showEmoji(emoji) {
             this.emojisOutput = this.emojisOutput + emoji.native;
+        },
+
+        outSidePicker(){
+            this.emoStatus = false;
         },
         clickUploadImageBtn() {
             this.isImageSelecting = true
