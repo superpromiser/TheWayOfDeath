@@ -226,6 +226,7 @@
   -moz-transition: all 1s ease;
   transition: all 1s ease;
   right: 30px;
+  z-index: 2;
   > .menu {
     display: block;
     position: absolute;
