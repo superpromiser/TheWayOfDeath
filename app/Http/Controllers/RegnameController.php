@@ -63,7 +63,7 @@ class RegnameController extends Controller
         $answerData = AnswerRegname::where([
             ['userId', '=', $request->userId],
             ['postId', '=', $request->postId]
-        ])->get();
+        ])->first();
 
         return response()->json([
             'answer' => $answerData

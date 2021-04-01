@@ -3,6 +3,11 @@
     <v-row class="align-center ma-0">
         <v-col cols="12" md="6">
             <v-row class="ma-0 align-center justify-center justify-md-start">
+                <a @click="$router.go(-1)" class="float-left">
+                  <v-icon size="70">
+                      mdi-chevron-left
+                  </v-icon>
+                </a>  
                 <v-avatar class="ma-3 school-card-avatar" tile >
                     <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" ></v-img>
                 </v-avatar>
@@ -34,36 +39,76 @@
       <v-col cols="12">
         <v-data-table
           :headers="headers"
-          :items="desserts"
+          :items="answerDataList"
           sort-by="calories"
           class="elevation-1"
         >
-          <template v-slot:top>
+          <!-- <template v-slot:top>
             <v-toolbar flat>
               <v-toolbar-title>My CRUD</v-toolbar-title>
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
                 <v-btn>something</v-btn>
             </v-toolbar>
+          </template> -->
+          <template v-slot:[`item.avatar`]="{ item }">
+            <img v-if="item.avatar !== '/'" :src="`${baseUrl}${item.avatar}`" alt="ManagerAvatar" class="school-manager-img">
+            <v-avatar v-else size="120" color="primary" > 
+              <span> {{item.name[0]}} </span>
+            </v-avatar>
           </template>
-          <template v-slot:[`item.actions`]="{  }">
-            <v-icon
-              small
-              class="mr-2"
-            >
-              mdi-pencil
-            </v-icon>
-            <v-icon
-              small
-
-            >
-              mdi-delete
-            </v-icon>
+          <template v-slot:[`item.phoneNumber`]="{ item }">
+            {{pnEncrypt(item.phoneNumber)}}
+          </template>
+          <template v-slot:[`item.familyAddress`]="{ item }">
+            {{convertAddress(item.familyAddress)}}
+          </template>
+          <template v-slot:[`item.fatherPhone`]="{ item }">
+            {{pnEncrypt(item.fatherPhone)}}
+          </template>
+          <!-- <template v-slot:[`item.birthday`]="{ item }">
+            {{TimeViewYMD(item.familyAddress)}}
+          </template> -->
+          <template v-slot:[`item.gender`]="{ item }">
+            {{transGender(item.gender)}}
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+              <v-icon
+                  small
+                  class="mr-2"
+                  @click="allowItem(item)"
+              >
+                  mdi-pencil
+              </v-icon>
+              <v-icon
+                  small
+                  @click="denyItem(item)"
+              >
+                  mdi-delete
+              </v-icon>
           </template>
           <template v-slot:no-data>
-            no data
+            没有数据
           </template>
         </v-data-table>
+        <!-- <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th v-for="(name,index) in regNameData.inputTypeList" :key="index">
+                  {{name}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(answer, answerIdx) in answerDataList" :key="answerIdx">
+                <td v-for="(item, itemIdx) in answer" :key="itemIdx">
+                  {{item}}
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table> -->
       </v-col>
     </v-row>
   </v-container>
@@ -83,14 +128,54 @@ import AttachItemViewer from '~/components/attachItemViewer';
             
         ],
         baseUrl:window.Laravel.base_url,
-        headers: [
-            { text: 'student', align: 'start', sortable: false, value: 'name' },
-            { text: 'className', value: 'calories', sortable: false },
-            { text: 'view', value: 'fat', sortable: false },
-            { text: 'status', value: 'carbs', sortable: false, align: 'center' },
-            { text: 'Actions', value: 'actions', sortable: false },
-        ],
-        
+        headers: [],
+        answerDataList:[],
+        inputTypeItem:[
+            {
+                label: "姓名",
+                value: "name"
+            },
+            {
+                label: "头像",
+                value: "avatar"
+            },
+            {
+                label: "性别",
+                value: "gender"
+            },
+            {
+                label: "手机号码",
+                value: "phoneNumber"
+            },
+            {
+                label: "民族",
+                value: "nation"
+            },
+            {
+                label: "出生日期",
+                value: "birthday"
+            },
+            {
+                label: "家庭地址",
+                value: "familyAddress"
+            },
+            {
+                label: "身份证号",
+                value: "cardNum"
+            },
+            {
+                label: "父亲姓名",
+                value: "fatherName"
+            },
+            {
+                label: "父亲联系方式",
+                value: "fatherPhone"
+            },
+            {
+                label: "父亲工作单位",
+                value: "fatherJob"
+            },
+        ]
     }),
 
     components:{
@@ -117,12 +202,20 @@ import AttachItemViewer from '~/components/attachItemViewer';
             this.regNameData.content = JSON.parse(this.regNameData.content);
             this.regNameData.inputTypeList = JSON.parse(this.regNameData.inputTypeList);
             this.regNameData.viewList = JSON.parse(this.regNameData.viewList);
-
-            // this.regNameData.inputTypeList.map(x=>{
-            //     this.regAnswerData[x] = "";
-            // })
-
-            console.log("###",this.regNameData, this.regAnswerData);
+            this.regNameData.inputTypeList.map(x=>{
+              this.inputTypeItem.map( y=> {
+                if( y.value == x){
+                  let headerItem = {
+                    text : y.label,
+                    value : x,
+                    sortable: false
+                  }
+                  this.headers.push(headerItem);
+                }
+              } )
+            })
+            let actionItem = { text: '操作', value: 'actions', sortable: false }
+            this.headers.push(actionItem)
 
             let payload = {
                 id: this.regNameData.id
@@ -130,7 +223,9 @@ import AttachItemViewer from '~/components/attachItemViewer';
 
             await getAnswerList(payload)
             .then((res) => {
-                console.log(res);
+                res.data.answer.map(item=>{
+                  this.answerDataList.push(JSON.parse(item.answer))
+                })
             }).catch((err) => {
                 console.log(err)
             });
@@ -138,7 +233,12 @@ import AttachItemViewer from '~/components/attachItemViewer';
     },
 
     methods: {
-
+      allowItem(item){
+        console.log('allow',item)
+      },
+      denyItem(item){
+        console.log('deny',item)
+      }
     },
   }
 </script>
