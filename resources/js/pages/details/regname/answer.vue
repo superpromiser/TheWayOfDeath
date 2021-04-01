@@ -3,6 +3,11 @@
         <v-row class="align-center ma-0">
             <v-col cols="12" md="6">
                 <v-row class="ma-0 align-center justify-center justify-md-start">
+                    <a @click="$router.go(-1)" class="float-left">
+                        <v-icon size="70">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
                     <v-avatar class="ma-3 school-card-avatar" tile >
                         <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" ></v-img>
                     </v-avatar>
@@ -30,36 +35,15 @@
             </v-col>
         </v-row>
         <v-divider light></v-divider>
-        <v-row class="ma-0 pt-10" v-if="isAlreadyAnswer == true">
-            <v-col cols="12" class="text-center">
-                <h2>- 报名 -</h2>
-            </v-col>
-            <v-col cols="12" sm="6" md="4" v-for="(item, i) in myAnswerData.answer" :key="i">
-                <v-text-field
-                    v-model="updateAnswerData[item[0]]"
-                    :label="convertLabel(item[0])"
-                    hide-details
-                ></v-text-field>
-            </v-col>
-            <v-col cols="12" class="text-right">
-                <v-btn @click="update" color="primary" tile :loading="isAnswering">
-                    {{lang.submit}}
-                </v-btn>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0 pt-10" v-else>
+        <v-row class="ma-0 pt-10">
             <v-col cols="12" class="text-center">
                 <h2>- 报名 -</h2>
             </v-col>
             <v-col cols="12" sm="6" md="4" v-for="(item, i) in regNameData.inputTypeList" :key="i">
-                <v-text-field
-                    v-model="regAnswerData[item]"
-                    :label="convertLabel(item)"
-                    hide-details
-                ></v-text-field>
+                <p>{{item}}:{{user[item]}}</p>
             </v-col>
             <v-col cols="12" class="text-right">
-                <v-btn @click="submit" color="primary" tile :loading="isAnswering">
+                <v-btn @click="submit" color="primary" tile :loading="isAnswering" :disabled="isAlreadyAnswer">
                     {{lang.submit}}
                 </v-btn>
             </v-col>
@@ -185,7 +169,11 @@ export default {
                 value: "homeRegPlace"
             },
 
-        ]
+        ],
+        isLoadingContents:false,
+        attrs: {
+          class: 'mb-6',
+        },
     }),
 
     computed:{
@@ -205,40 +193,40 @@ export default {
             this.regNameData.content = JSON.parse(this.regNameData.content);
             this.regNameData.inputTypeList = JSON.parse(this.regNameData.inputTypeList);
             this.regNameData.viewList = JSON.parse(this.regNameData.viewList);
-
-            this.regNameData.inputTypeList.map(x=>{
-                this.regAnswerData[x] = "";
+            console.log("this.regNameData.inputTypeList",this.regNameData.inputTypeList)
+            console.log("this.user",this.user)
+            this.regNameData.inputTypeList.map(item=>{
+                this.regAnswerData[item] = this.user[item]
+                // let obj = {}
+                // obj[item] = this.user[item]
+                // this.regAnswerData.push(this.user[item])
             })
             
             let params = {
                 userId: this.user.id,
                 postId: this.regNameData.postId
             }
-
+            // this.isLoadingContents = true
             await getAnswerDataOne(params)
             .then((res) => {
-                this.myAnswerData = res.data.answer[0];
-                this.myAnswerData.answer = JSON.parse(this.myAnswerData.answer);
-                this.myAnswerData.answer = Object.keys(this.myAnswerData.answer).map((key) => [key, this.myAnswerData.answer[key]]);
-                console.log("this.myAnswerData", this.myAnswerData);
-                console.log("this.myAnswerData", this.myAnswerData.answer.length);
-                this.myAnswerData.answer.map(x=>{
-                    this.updateAnswerData[x[0]] = x[1];
-                })
-                if(this.myAnswerData !== null){
-                    this.isAlreadyAnswer = true;
+                console.log(res.data)
+                if(res.data.answer != null){
+                    this.isAlreadyAnswer = true
                 }
+                this.isLoadingContents = false
             }).catch((err) => {
                 console.log(err);
+                this.isLoadingContents = false
             });
             
-            console.log("###",this.regNameData, this.regAnswerData);
+            // console.log("###",this.regNameData, this.regAnswerData);
         }
     },
 
     methods:{
         async submit(){
             console.log(this.regAnswerData);
+            // return
             let payload = {
                 postId: this.regNameData.postId,
                 regnameId: this.regNameData.id,

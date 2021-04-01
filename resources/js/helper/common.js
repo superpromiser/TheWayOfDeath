@@ -1,16 +1,51 @@
+import cityListJson from '!!raw-loader!./cityLaw.txt';
 
 import { mapGetters } from 'vuex'
 import axios from 'axios';
 export default{
-    data(){
-        return{
-
-        }
-    },
+    data: ()=> ({
+        provinceListJsonArr: [],
+        madeJsonFromString: [],
+    }),
     computed:{
         ...mapGetters({
             schoolData : 'schooltree/schoolData'
         })
+    },
+    created(){
+        this.provinceListJsonArr = cityListJson.split("#");
+        for (let i = 0; i < this.provinceListJsonArr.length; i++) {
+            let provinceObj = {
+                value : 1,
+                label : "",
+                city : []
+            }
+            let province = this.provinceListJsonArr[i].split("$")[0];
+            provinceObj.value = province.split("-")[0];
+            provinceObj.label = province.split("-")[1];
+            this.madeJsonFromString.push(provinceObj);
+            let TArea = this.provinceListJsonArr[i].split("$")[1].split("|");
+            for(let j = 0 ; j < TArea.length ; j++){
+                let cityObj = {
+                    value : 1,
+                    label : "",
+                    region : []
+                }
+                let cityArr = TArea[j].split(",");
+                cityObj.value = cityArr[0].split("-")[0];
+                cityObj.label = cityArr[0].split("-")[1];
+                for( let k = 1 ; k < cityArr.length ; k++){
+                    let regionObj = {
+                        value : 1, 
+                        label : "",
+                    }
+                    regionObj.value = cityArr[k].split("-")[0];
+                    regionObj.label = cityArr[k].split("-")[1];
+                    cityObj.region.push(regionObj);
+                }
+                this.madeJsonFromString[i].city.push(cityObj);
+            }
+        }
     },
     methods:{
         TimeView(str){
@@ -143,6 +178,28 @@ export default{
             }else{
                 return ''
             }
-        }
+        },
+         convertAddress(address){
+            address = JSON.parse(address);
+            let province = '';
+            let city = '';
+            let region = '';
+            for(let i = 0 ; i < this.madeJsonFromString.length ; i++){
+            if( address.province == this.madeJsonFromString[i].value ){
+                province = this.madeJsonFromString[i].label;
+                for(let j = 0 ; j < this.madeJsonFromString[i].city.length ; j++){
+                if( address.city == this.madeJsonFromString[i].city[j].value ){
+                    city = this.madeJsonFromString[i].city[j].label;
+                    for(let k = 0 ; k < this.madeJsonFromString[i].city[j].region.length ; k++){
+                    if( address.region == this.madeJsonFromString[i].city[j].region[k].value ){
+                        region = this.madeJsonFromString[i].city[j].region[k].label;
+                    }
+                    }
+                }
+                }
+            }
+            }
+            return province + ' ' + city + ' ' + region + ' ' + address.detail;
+        },
     }
 }
