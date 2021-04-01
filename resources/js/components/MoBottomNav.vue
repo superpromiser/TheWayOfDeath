@@ -39,7 +39,13 @@
                     <v-card class="mo-bottom-nav-carousel-card d-flex align-start">
                         <v-row class="ma-0 pa-0 mt-3">
                             <v-col cols="3" class="pa-0 d-flex justify-center mt-3 mb-3" v-for="(item, i) in first_carousel_schoolspace" :key="i" @click="selectItem(item)">
-                                <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
+                                <v-card tile class="mo-glow py-3 px-1 d-flex justify-center align-center" v-if="i==3">
+                                    <div class="text-center">
+                                        <v-img :src="`${baseUrl}${item.imgUrl}`" alt="postItem" width="30" height="30" class="mx-auto"></v-img>
+                                        <span class="font-size-0-75 pt-2"> {{item.title}}</span>
+                                    </div>
+                                </v-card>
+                                <v-card tile class="mo-glow pa-3 d-flex justify-center align-center" v-else>
                                     <div class="text-center">
                                         <v-img :src="`${baseUrl}${item.imgUrl}`" alt="postItem" width="30" height="30" class="mx-auto"></v-img>
                                         <span class="font-size-0-75 pt-2"> {{item.title}}</span>
