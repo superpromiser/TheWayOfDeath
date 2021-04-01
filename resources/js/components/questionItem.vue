@@ -90,7 +90,7 @@
             >
                 <v-icon>mdi-emoticon-excited-outline</v-icon>
             </v-btn>
-            <Picker v-if="emoStatus" set="emojione" @select="onInput" title="选择你的表情符号..." />
+            <Picker v-if="emoStatus" :include="include" set="emojione" @select="onInput" title="选择你的表情符号..." />
         </v-row>
         <!--  IMAGE VIEWER  -->
         <v-row>
@@ -249,7 +249,7 @@
             >
                 <v-icon>mdi-emoticon-excited-outline</v-icon>
             </v-btn>
-            <Picker v-if="emoStatus" set="emojione" @select="onInput" title="选择你的表情符号..." />
+            <Picker v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
         </v-row>
         <!--  IMAGE VIEWER  -->
         <v-row>
@@ -323,7 +323,13 @@
 
 <script>
 import {uploadImage, uploadVideo, uploadOther, deleteFile} from '~/api/upload'
-import { Picker } from 'emoji-mart-vue'
+// import { Picker } from 'emoji-mart-vue'
+
+import emojiData from "emoji-mart-vue-fast/data/all.json";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
+let emojiIndex = new EmojiIndex(emojiData);
+
 export default {
     props: {
         Label : {
@@ -347,6 +353,10 @@ export default {
         Picker,
     },
     data: () =>({
+        emojiIndex: emojiIndex,
+        emojisOutput: "",
+        
+        include:["people", "nature"],
         baseUrl:window.Laravel.base_url,
         contentData:{
             text:'',
@@ -370,6 +380,9 @@ export default {
     },
 
     methods:{
+        showEmoji(emoji) {
+            this.emojisOutput = this.emojisOutput + emoji.native;
+        },
         clickUploadImageBtn() {
             this.isImageSelecting = true
             window.addEventListener('focus', () => {
