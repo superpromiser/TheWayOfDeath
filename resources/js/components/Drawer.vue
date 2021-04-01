@@ -269,6 +269,14 @@
 
         <v-list-item-title>即时通讯</v-list-item-title>
       </v-list-item>
+      <v-list-item
+        active-class="sub-header-active" @click="logout" v-if="$isMobile()">
+        <v-list-item-icon>
+          <v-icon>mdi-logout</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-title>登出</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -340,6 +348,13 @@ export default {
           drawer: val,
         })
       }
+    },
+
+    async logout () {
+      // Log out the user.
+      await this.$store.dispatch('auth/logout')
+      // Redirect to login.
+      this.$router.push({ name: 'login' })
     },
     
   }

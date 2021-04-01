@@ -8,33 +8,47 @@
               mdi-school
             </v-icon>
           </v-avatar>
-          <h2 class="ml-3">something</h2>
+          <h2 class="ml-3">{{selectedItem.label}}</h2>
         </v-col>
-        <v-col cols="12" class="mo-glow-small-shadow mt-5 d-flex">
-          <!-- <v-select
-            solo
-            :items="typeItem"
-            :menu-props="{ top: false, offsetY: true }"
-            item-text="label"
-            v-model="campusData.camposeCategory"
-            label="栏目"
-            hide-details
-          ></v-select> -->
-          <v-select
-            solo
-            :items="schoolList"
-            :menu-props="{ top: false, offsetY: true }"
-            item-text="label"
-            label="栏目"
-            hide-details
-            class="mo-glow-v-select"
-          ></v-select>
-
-          <v-avatar class="mo-glow-small-shadow ml-3" >
+        <v-col cols="12" class="mo-glow-small-shadow mt-5 d-flex" >
+          <transition name="page" mode="out-in">
+            <v-text-field
+              v-if="isSearching" key="1"
+              class="mo-glow-v-text"
+              solo
+              clearable
+              v-model="searchKeyword"
+              label="请输入您的搜索词"
+              append-icon="mdi-check"
+              @click:append="onSearch"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+            ></v-text-field>
+            <v-select
+              v-else key="2"
+              solo
+              :items="schoolListDropdownItem"
+              :menu-props="{ top: false, offsetY: true }"
+              item-text="label"
+              label="栏目"
+              hide-details
+              class="mo-glow-v-select"
+              v-model="selectedItem"
+              @change="onSelectSchoolItem"
+            ></v-select>
+          </transition>
+          <transition name="page" mode="out-in">
+          <v-avatar v-if="isSearching" key="3" class="mo-glow-small-shadow ml-3" @click="onFalseSearching">
+            <v-icon color="#7879ff">
+              mdi-close
+            </v-icon>
+          </v-avatar>
+          <v-avatar v-else key="4" class="mo-glow-small-shadow ml-3" @click="isSearching = true">
             <v-icon color="#7879ff">
               mdi-magnify
             </v-icon>
           </v-avatar>
+          </transition>
         </v-col>
         <v-col cols="12" class="mt-5 pa-0">
           <carousel :autoplay="true" :nav="false" :items="1" :margin="10" :loop="true" :dots="false" :autoplaySpeed="5000">
@@ -48,52 +62,52 @@
         <v-col cols="12" class="mt-5 pa-0 d-flex justify-space-between">
           <v-row class="ma-0 pa-0 pb-3 mo-glow">
             <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-btn tile class="mo-glow px-0 inline-btn" height="60">
-                <v-icon color="#7879ff" top>
-                  mdi-school
-                </v-icon>
-                <span class="font-size-0-75"> 首页</span>
-              </v-btn>
+              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
+                <div class="text-center">
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
+                  <span class="font-size-0-75 pt-2"> 首页</span>
+                </div>
+              </v-card>
             </v-col>
             <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-btn tile class="mo-glow px-0 inline-btn" height="60">
-                <v-icon color="#7879ff">
-                  mdi-school
-                </v-icon>
-                <span class="font-size-0-75"> 首页</span>
-              </v-btn>
+              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
+                <div class="text-center">
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
+                  <span class="font-size-0-75 pt-2"> 首页</span>
+                </div>
+              </v-card>
             </v-col>
             <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-btn tile class="mo-glow px-0 inline-btn" height="60">
-                <v-icon color="#7879ff">
-                  mdi-school
-                </v-icon>
-                <span class="font-size-0-75"> 首页</span>
-              </v-btn>
+              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
+                <div class="text-center">
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
+                  <span class="font-size-0-75 pt-2"> 首页</span>
+                </div>
+              </v-card>
             </v-col>
             <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-btn tile class="mo-glow px-0 inline-btn" height="60">
-                <v-icon color="#7879ff">
-                  mdi-school
-                </v-icon>
-                <span class="font-size-0-75"> 首页</span>
-              </v-btn>
+              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
+                <div class="text-center">
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
+                  <span class="font-size-0-75 pt-2"> 首页</span>
+                </div>
+              </v-card>
             </v-col>
             <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-btn tile class="mo-glow px-0 inline-btn" height="60">
-                <v-icon color="#7879ff">
-                  mdi-school
-                </v-icon>
-                <span class="font-size-0-75"> 首页</span>
-              </v-btn>
+              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
+                <div class="text-center">
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
+                  <span class="font-size-0-75 pt-2"> 首页</span>
+                </div>
+              </v-card>
             </v-col>
             <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-btn tile class="mo-glow px-0 inline-btn" height="60">
-                <v-icon color="#7879ff">
-                  mdi-school
-                </v-icon>
-                <span class="font-size-0-75"> 首页</span>
-              </v-btn>
+              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
+                <div class="text-center">
+                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
+                  <span class="font-size-0-75 pt-2"> 首页</span>
+                </div>
+              </v-card>
             </v-col>
           </v-row>
         </v-col>
@@ -345,7 +359,12 @@ export default {
     schoolList : [],
     isLoadingSchoolData : false,
     mySchoolLessonData: [],
-    myLessonData:{}
+    schoolListDropdownItem: [],
+    selectedItem : {},
+    myLessonData:{},
+    isSearching: false,
+    searchKeyword: '',
+    isSchoolSpace: true,
   }),
 
   computed:{
@@ -356,36 +375,95 @@ export default {
   },
 
   async created(){
+    console.log(this.schoolTree);
     if(this.user.roleId == 1){
-      this.isLoadingSchoolData = true;
-      getSchool()
-        .then((res) => {
-          this.schoolList = res.data;
-          this.isLoadingSchoolData = false;
-        }).catch((err) => {
-          console.log(err);
-          this.isLoadingSchoolData = false;
-        });
+      this.schoolList = this.schoolTree;
+      this.schoolTree.map((school, schoolIndex)=>{
+        let schoolObj = {
+          label : school.schoolName,
+          schoolId : school.id,
+          type : "school",
+          value : 's'+schoolIndex
+        }
+        this.schoolListDropdownItem.push(schoolObj)
+        let dividerObj = {
+          divider : true
+        }
+        this.schoolListDropdownItem.push(dividerObj);
+        console.log("***", this.schoolListDropdownItem)
+        school.grades.map( (grade,gradeIndex) =>{
+            let gradeObj = {
+                header : grade.gradeName,
+            }
+            this.schoolListDropdownItem.push(gradeObj);
+            grade.lessons.map( (lesson, lessonIndex) =>{
+                let lessonObj = {
+                    schoolId : school.id,
+                    lessonId : lesson.id,
+                    gradeId : grade.id,
+                    label : lesson.lessonName,
+                    type: "lesson",
+                    value: 'l'+schoolIndex+gradeIndex+lessonIndex
+                }
+                this.schoolListDropdownItem.push(lessonObj);
+            } )
+            let dividerObj = {
+                divider : true
+            }
+            this.schoolListDropdownItem.push(dividerObj);
+        } )
+      })
     }
     else if (this.user.roleId == 2){
       let myschoolData = {}
-      this.schoolTree.map(x=>{
+      this.schoolTree.map((x, schoolIndex)=>{
         if(this.user.schoolId == x.id){
           myschoolData = x;
+          let schoolObj = {
+            label : x.schoolName,
+            schoolId : x.id,
+            type : "school",
+            value : 's'+schoolIndex
+          }
+          this.schoolListDropdownItem.push(schoolObj)
         }
       })
-      myschoolData.grades.map(grade=>{
-        grade.lessons.map(lesson=>{
+      myschoolData.grades.map((grade, gradeIndex)=>{
+        let gradeObj = {
+            header : grade.gradeName,
+          }
+          this.schoolListDropdownItem.push(gradeObj)
+        grade.lessons.map((lesson, lessonIndex)=>{
           lesson["gradeName"] = grade.gradeName;
           this.mySchoolLessonData.push(lesson);
+          let lessonObj = {
+            lessonId : lesson.id,
+            gradeId : grade.id,
+            schoolId : myschoolData.id,
+            label : lesson.lessonName,
+            type : "lesson",
+            value: 'l'+gradeIndex+lessonIndex
+          }
+          this.schoolListDropdownItem.push(lessonObj)
         })
       })
 
     }
     else{
-      this.schoolTree.map(school=>{
-        school.grades.map(grade=>{
-          grade.lessons.map(lesson=>{
+      let myschoolData = {}
+      this.schoolTree.map((school, schoolIndex)=>{
+        if(this.user.schoolId == school.id){
+          myschoolData = school;
+          let schoolObj = {
+            label : school.schoolName,
+            schoolId : school.id,
+            type : "school",
+            value : 's'+schoolIndex
+          }
+          this.schoolListDropdownItem.push(schoolObj)
+        }
+        myschoolData.grades.map((grade, gradeIndex)=>{
+          grade.lessons.map((lesson, lessonIndex)=>{
             if(this.user.lessonId == lesson.id){
               this.myLessonData = lesson;
               this.myLessonData["gradeName"] = grade.gradeName;
@@ -393,7 +471,18 @@ export default {
           })
         })
       })
+      let lessonObj = {
+          lessonId : this.myLessonData.id,
+          gradeId : this.myLessonData.gradeId,
+          label : this.myLessonData.lessonName,
+          schoolId : myschoolData.id,
+          type: "lesson",
+          value: 'l'+this.myLessonData.id
+      }
+      this.schoolListDropdownItem.push(lessonObj)
     }
+    this.selectedItem = this.schoolListDropdownItem[0];
+    this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
   },
 
   methods:{
@@ -402,6 +491,35 @@ export default {
     },
     goNewsOfClass(lesson){
       this.$router.push({name: 'classSpace', params:{schoolId: lesson.schoolId, gradeId: lesson.gradeId, lessonId: lesson.id}});
+    },
+    onSelectSchoolItem(val){
+      console.log(val);
+      console.log(this.schoolListDropdownItem);
+      if(val == this.selectedItem.value){
+        return
+      }
+      else{
+        this.schoolListDropdownItem.map( x =>{
+          if(x.value == val){
+            this.selectedItem = x;
+            if(this.selectedItem.type == "school"){
+              this.isSchoolSpace = true;
+            }
+            else{
+              this.isSchoolSpace = false;
+            }
+            this.$store.dispatch('mo/onIsSchoolSpace', this.isSchoolSpace);
+            this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
+          }
+        })
+      }
+    },
+    onSearch(){
+      console.log(this.searchKeyword)
+    },
+    onFalseSearching(){
+      this.isSearching = false;
+      this.searchKeyword = '';
     }
   }
 }

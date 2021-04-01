@@ -1,4 +1,5 @@
 <template>
+    
     <v-container class="pa-0">
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
@@ -168,6 +169,7 @@
             {{lang.requiredText}}
         </v-snackbar>
     </v-container>
+
 </template>
 
 <script>
