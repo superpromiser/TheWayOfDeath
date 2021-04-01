@@ -8,5 +8,6 @@ import './videoview'
 import './infinite'
 import './vchatscroll'
 import './mobiledetect'
+import './fragment'
 
 import 'bootstrap'

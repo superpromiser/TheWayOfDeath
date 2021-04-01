@@ -90,6 +90,7 @@
                           <v-select
                             solo
                             v-model="editedItem.attendanceTime"
+                            :menu-props="{ top: false, offsetY: true }"
                             :items="lessonTimeItem"
                             item-text="lessonTimeName"
                             item-value="lessonTimeValue"
@@ -168,6 +169,7 @@
                           <v-select
                             solo
                             v-model="editedItem.attendanceTime"
+                            :menu-props="{ top: false, offsetY: true }"
                             :items="lessonTimeItem"
                             item-text="lessonTimeName"
                             item-value="lessonTimeValue"

@@ -41,6 +41,7 @@
                     <v-select
                         solo
                         :items="typeItem"
+                        :menu-props="{ top: false, offsetY: true }"
                         item-text="label"
                         item-value="value"
                         v-model="votingData.votingType"
@@ -54,6 +55,7 @@
                         multiple
                         chips
                         :items="returnSchoolTree(currentPath.params.schoolId)"
+                        :menu-props="{ top: false, offsetY: true }"
                         item-text="lessonName"
                         item-value="lessonId"
                         @change="selectedLesson"
@@ -116,6 +118,7 @@
                         solo
                         :items="maxVoteItem"
                         item-text="label"
+                        :menu-props="{ top: false, offsetY: true }"
                         item-value="value"
                         v-model="votingData.maxVote"
                         label="调查范围"

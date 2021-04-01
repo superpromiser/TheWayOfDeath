@@ -818,6 +818,14 @@ a {
     box-shadow: inset -7px -7px 5px #ffffff,inset 7px 7px 7px #dde4ef!important;
 }
 
+.mo-bottom-nav-carousel-card{
+    height: 220px;
+    background-color: #f2f3f7!important;
+    -webkit-box-shadow: inset -7px -7px 5px #ffffff,inset 7px 7px 7px #dde4ef!important;
+    box-shadow: inset -7px -7px 5px #ffffff,inset 7px 7px 7px #dde4ef!important;
+    margin: 15px 15px;
+}
+
 .w-20-10px{
     width: calc(20% - 15px);
 }
@@ -887,4 +895,19 @@ a {
 
 .fs-10 {
     font-size: 1rem;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0
+}
+
+.mx-auto{
+    margin-left: auto!important;
+    margin-right: auto!important;
 }

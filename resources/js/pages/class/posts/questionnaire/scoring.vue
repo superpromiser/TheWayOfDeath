@@ -8,6 +8,7 @@
       <v-col cols="12" md="6" class="d-flex align-end">
         <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
         <v-select
+          :menu-props="{ top: false, offsetY: true }"
           :items="items"
           :label="lang.maxMinutes"
           v-model="scoreData.scoringDataArr[0].maxMin"

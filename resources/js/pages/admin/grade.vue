@@ -47,6 +47,7 @@
                           <v-select
                             :items="schoolInfo"
                             item-text="schoolName"
+                            :menu-props="{ top: false, offsetY: true }"
                             item-value="id"
                             v-model="editedItem.schoolId"
                             :disabled="schoolInfo.length === 0" 

@@ -42,6 +42,7 @@
                               :items="schoolInfo"
                               item-text="schoolName"
                               item-value="id"
+                              :menu-props="{ top: false, offsetY: true }"
                               v-model="editedItem.schoolId"
                               :disabled="schoolInfo.length === 0" 
                               @change="selectSchool(editedItem.schoolId)"
@@ -52,6 +53,7 @@
                             <v-select
                               :items="gradeInfo"
                               item-text="gradeName"
+                              :menu-props="{ top: false, offsetY: true }"
                               item-value="id"
                               v-model="editedItem.gradeId"
                               :disabled="gradeInfo.length === 0" 

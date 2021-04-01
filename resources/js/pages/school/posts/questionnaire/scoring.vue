@@ -9,6 +9,7 @@
         <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
         <v-select
           :items="items"
+          :menu-props="{ top: false, offsetY: true }"
           :label="lang.maxMinutes"
           v-model="scoreData.scoringDataArr[0].maxMin"
           hide-details

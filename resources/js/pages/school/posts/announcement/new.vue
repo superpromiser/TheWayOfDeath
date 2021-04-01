@@ -1,5 +1,144 @@
 <template>
-    <v-container class="pa-0">
+    <v-container v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center">
+                <v-avatar class="mo-glow-small-shadow" >
+                    <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">{{lang.announcement}}</h2>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 mo-glow mt-5">
+            <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                    class="mo-glow-v-text"
+                    solo
+                    v-model="announcementData.title"
+                    label="公告标题"
+                    hide-details
+                ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-dialog
+                    v-model="chooseSignNameDialog"
+                    max-width="500px"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            class="mo-glow-v-text"
+                            solo
+                            v-model="announcementData.signName"
+                            label="公告标题"
+                            hide-details
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                        ></v-text-field>
+                    </template>
+                    <v-card >
+                        <v-card-title>公告标题</v-card-title>
+                        <v-list>
+                            <v-list-item-group
+                                v-model="indexOfSignName"
+                                mandatory
+                                color="indigo"
+                            >
+                                <v-list-item >
+                                    <v-list-item-icon>
+                                        <v-icon > mdi-account</v-icon>
+                                    </v-list-item-icon>
+
+                                    <v-list-item-content>
+                                        <v-list-item-title> {{user.name}}</v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-divider></v-divider>
+                                <v-list-item v-for="(item, i) in signNameItems" :key="i">
+                                    <v-list-item-icon>
+                                        <v-icon v-text="item.icon"></v-icon>
+                                    </v-list-item-icon>
+
+                                    <v-list-item-content>
+                                        <v-list-item-title v-text="item.text"></v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item @click="newSignFlag = !newSignFlag">
+                                    <v-list-item-icon>
+                                        <v-icon>
+                                            mdi-plus
+                                        </v-icon>
+                                    </v-list-item-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title v-text="lang.addOption"></v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                <v-list-item v-if="newSignFlag">
+                                    <v-text-field
+                                        v-model="newSignName"
+                                        solo
+                                        label="公告标题"
+                                    ></v-text-field>
+                                    <v-btn
+                                        color="deep-purple lighten-2"
+                                        text
+                                        @click="addNewName"
+                                    >
+                                        {{lang.ok}}
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list-item-group>
+                        </v-list>
+                        <v-card-actions>
+                            <v-btn
+                                color="deep-purple lighten-2"
+                                text
+                                @click="chooseSignName"
+                            >
+                                {{lang.ok}}
+                            </v-btn>
+
+                            <v-btn
+                                color="deep-purple lighten-2"
+                                text
+                                @click="closeChooseSignNameDialog"
+                            >
+                                {{lang.cancel}}
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-select
+                    class="mo-glow-v-select"
+                    solo
+                    multiple
+                    chips
+                    :items="returnSchoolTree(currentPath.params.schoolId)"
+                    :menu-props="{ top: false, offsetY: true }"
+                    item-text="lessonName"
+                    item-value="lessonId"
+                    @change="selectedLesson"
+                    label="展示范围"
+                    hide-details
+                ></v-select>
+            </v-col>
+            <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
+                <span>签名反馈</span>
+                <v-switch
+                    v-model="announcementData.scopeFlag"
+                    color="primary"
+                    hide-details
+                    inset
+                    class="pt-0 mt-0"
+                ></v-switch>
+            </v-col>
+            <v-col cols="12">
+                <vue-editor v-model="announcementData.content" placeholder="公告内容"></vue-editor>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-container v-else class="pa-0">
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
@@ -104,7 +243,7 @@
                                             solo
                                             label="公告标题"
                                         ></v-text-field>
-                                         <v-btn
+                                        <v-btn
                                             color="deep-purple lighten-2"
                                             text
                                             @click="addNewName"
@@ -140,6 +279,7 @@
                         multiple
                         chips
                         :items="returnSchoolTree(currentPath.params.schoolId)"
+                        :menu-props="{ top: false, offsetY: true }"
                         item-text="lessonName"
                         item-value="lessonId"
                         @change="selectedLesson"
