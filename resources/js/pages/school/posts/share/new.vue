@@ -1,5 +1,39 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="pa-0" v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center">
+                <v-avatar class="mo-glow-small-shadow" >
+                    <v-img :src="`${baseUrl}/asset/img/icon/分享.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">{{lang.share}}</h2>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 mo-glow mt-5">
+            <v-col cols="12">
+                <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+            </v-col>
+        </v-row>
+        <v-snackbar
+            timeout="3000"
+            v-model="requiredText"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
+        <v-snackbar
+        timeout="3000"
+            v-model="isSuccessed"
+            color="success"
+            absolute
+            top
+            >
+            {{lang.successText}}
+        </v-snackbar>
+        <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
+  </v-container>
+    <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
@@ -74,9 +108,11 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {createShare} from '~/api/share'
+import quickMenu from '~/components/quickMenu'
 export default {
     components:{
         QuestionItem,
+        quickMenu,
     },
 
     data: ()=> ({
@@ -114,7 +150,12 @@ export default {
                 console.log(res)
                 this.isSubmit = false
                 this.isSuccessed = true;
-                this.$router.push({name:'schoolSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
             }).catch(err=>{
                 //console.log(err.response)
                 this.isSubmit = false
@@ -128,6 +169,9 @@ export default {
                 return;
             }
             this.shareData.content.push(data)
+        },
+        something(){
+
         }
     }
 }
