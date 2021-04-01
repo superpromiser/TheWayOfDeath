@@ -2,16 +2,17 @@
     <div class="position-fixed mo-bottom-nav-con">
         <v-bottom-navigation
             v-model="value"
+            :input-value="active"
             color="#7879ff"
             grow
             fixed
             class="mo-glow-bg mo-bottom-nav"
         >
-            <v-btn fab class="mo-glow-small-shadow ml-3">
+            <v-btn fab class="mo-glow-small-shadow ml-3" @click="navToFirst">
                 <span>首页</span>
                 <v-icon>mdi-home</v-icon>
             </v-btn>
-            <v-btn fab class="mo-glow-small-shadow mx-3 mr-auto">
+            <v-btn fab class="mo-glow-small-shadow mx-3 mr-auto" @click="navToSecond">
                 <span>通讯录</span>
                 <v-icon>mdi-account-group</v-icon>
             </v-btn>
@@ -120,7 +121,8 @@ export default {
         },
         currentPath:{
             handler(val){
-                if(val.name=="home"){
+                console.log("@@@val@@@", val.name)
+                if(val.name === "home"){
                     this.value = 0
                     // let btnList = document.getElementsByClassName('mo-glow-small-shadow');
                     // btnList[0].classList.add('v-btn--active');
@@ -129,7 +131,7 @@ export default {
                     this.value = 1
                 }
                 else{
-                    this.value = -1
+                    // this.value = -1
                     let btnList = document.getElementsByClassName('mo-glow-small-shadow');
                     for(let i = 0; i < btnList.length; i++){
                         btnList[i].classList.remove('v-btn--active');
@@ -141,6 +143,7 @@ export default {
         }
     },
     data: ()=> ({
+        active: true,
         sheet: false,
         value: 0,
         baseUrl: window.Laravel.base_url,
@@ -313,6 +316,12 @@ export default {
                     this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
                 }
             }
+        },
+        navToFirst(){
+            this.$router.push({name: "home"})
+        },
+        navToSecond(){
+            this.$router.push({name: "chat"})
         }
     }
 }
