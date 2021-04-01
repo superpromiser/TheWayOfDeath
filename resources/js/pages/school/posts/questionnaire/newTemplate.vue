@@ -92,13 +92,13 @@
                         </v-icon>问答题
                     </v-btn>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <!-- <v-col cols="12" sm="6" md="4">
                     <v-btn block dark large color="blue accent-3" @click="selContent('stat')">
                         <v-icon>
                             mdi-plus
                         </v-icon>统计题
                     </v-btn>
-                </v-col>
+                </v-col> -->
                 <v-col cols="12" sm="6" md="4">
                     <v-btn block dark large color="blue accent-3" @click="selContent('scoring')">
                         <v-icon>

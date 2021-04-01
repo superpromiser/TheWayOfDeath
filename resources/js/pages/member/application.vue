@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <RouterBack title="申请"></RouterBack>
         <v-banner>
             <v-row>
                 <v-col>
@@ -67,7 +68,11 @@
 
 <script>
 import {getGroupMember,updateGroupMember} from '~/api/group';
+import RouterBack from '~/components/routerBack'
 export default {
+    components:{
+        RouterBack,
+    },
     data:()=>({
         userList:[],
         isAllow:false,

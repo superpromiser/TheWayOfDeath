@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <RouterBack title="发布"></RouterBack>
         <v-row v-for="(itemGroup, i) in contentItemList" :key="i" class="ma-0">
             <v-col cols="12">
                 <v-chip
@@ -29,9 +30,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import PostItem from '~/components/postItem'
+import RouterBack from '~/components/routerBack'
 export default {
     components:{
         PostItem,
+        RouterBack
     },
 
     computed: {

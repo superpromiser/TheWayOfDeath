@@ -1,16 +1,23 @@
 <template>
     <v-container>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <v-btn
-                tile
-                dark
-                color="green lighten-1"
-                class="mx-2 float-right"
-                :loading="isSubmit"
-                @click="submit"
-            >
-                {{ lang.submit }}
-            </v-btn>
+           <div class="d-flex align-center justify-space-between">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+                <p class="mb-0">学号</p>
+                <v-btn
+                    tile
+                    dark
+                    color="green lighten-1"
+                    :loading="isSubmit"
+                    @click="submit"
+                    >
+                    {{ lang.submit }}
+                </v-btn>
+            </div>
         </v-banner>
         <v-banner>
             <v-row>

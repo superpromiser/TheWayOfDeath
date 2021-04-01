@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <RouterBack title="邀请成员"></RouterBack>
         <v-banner>
             <v-row space-between>
                 <v-col cols="6">
@@ -59,8 +60,11 @@
 </template>
 
 <script>
+import RouterBack from '~/components/routerBack'
 export default {
-
+    components:{
+        RouterBack
+    },
     data:()=>({
         roleId:"3",
         mySchoolData:null

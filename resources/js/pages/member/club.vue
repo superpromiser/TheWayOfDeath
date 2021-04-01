@@ -34,6 +34,7 @@
                 </v-col>
             </v-row>
         </v-banner> -->
+        <RouterBack title="小组"></RouterBack>
         <v-banner>
             <v-row>
                 <v-col cols="6">
@@ -82,7 +83,11 @@
 
 <script>
 import {getClub,createClub,deleteClub} from '~/api/group'
+import RouterBack from '~/components/routerBack'
 export default {
+    components:{
+        RouterBack,
+    },
     data:()=>({
         isSubmit:false,
         clubName:'',

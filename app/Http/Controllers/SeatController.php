@@ -26,7 +26,7 @@ class SeatController extends Controller
             'lessonOrder'=>'required',
             'seatData'=>'required',
             'rowCnt'=>'required',
-            'colCnt'=>'requried'
+            'colCnt'=>'required'
         ]);
         $userId = Auth::user()->id;
         Seat::where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId,'lessonOrder'=>$request->lessonOrder])->delete();

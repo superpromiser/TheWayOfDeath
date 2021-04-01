@@ -3,6 +3,11 @@
       <div v-if="postNew == true">
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
                 <v-avatar
                     class="ma-3 ml-3"
                     size="50"
@@ -178,13 +183,13 @@
                         </v-icon>问答题
                     </v-btn>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <!-- <v-col cols="12" sm="6" md="4">
                     <v-btn block dark large color="blue accent-3" @click="selContent('stat')">
                         <v-icon>
                             mdi-plus
                         </v-icon>统计题
                     </v-btn>
-                </v-col>
+                </v-col> -->
                 <v-col cols="12" sm="6" md="4">
                     <v-btn block dark large color="blue accent-3" @click="selContent('scoring')">
                         <v-icon>
@@ -450,12 +455,13 @@ export default {
   watch:{
     currentPath:{
       handler(val){
-        //console.log('posts.questionnaire',val)
+        console.log('posts.questionnaire',val)
         if(val.name == 'posts.questionnaire'){
           this.postNew = true
         }
         if(val.query.tempData){
           this.newQuestionnaireData.content = JSON.parse(val.query.tempData)
+          console.log("this.newQuestionnaireData.content",this.newQuestionnaireData.content)
         }
       },
       deep:true
