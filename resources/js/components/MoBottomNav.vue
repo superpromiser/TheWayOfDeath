@@ -121,7 +121,6 @@ export default {
         },
         currentPath:{
             handler(val){
-                console.log("@@@val@@@", val.name)
                 if(val.name === "home"){
                     this.value = 0
                     // let btnList = document.getElementsByClassName('mo-glow-small-shadow');
@@ -137,7 +136,6 @@ export default {
                         btnList[i].classList.remove('v-btn--active');
                     }
                 }
-                console.log("this.value", this.value);
             },
             deep: true
         }
