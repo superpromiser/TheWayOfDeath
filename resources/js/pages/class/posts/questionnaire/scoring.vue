@@ -5,7 +5,30 @@
       <v-divider></v-divider>
     </div>
     <v-row>
-      <v-col cols="12" md="6" class="d-flex align-end">
+      <v-col cols="12" md="6" class="d-flex align-center" v-if="$isMobile()">
+        <p class="mb-0 mr-5 px-4 py-3 mo-glow">{{lang.maxMinutes}}</p>
+        <v-select
+          class="mo-glow-v-select"
+          solo
+          :items="items"
+          :menu-props="{ top: false, offsetY: true }"
+          :label="lang.maxMinutes"
+          v-model="scoreData.scoringDataArr[0].maxMin"
+          hide-details
+        ></v-select>
+        <!-- <v-row>
+          <v-col cols="12">{{lang.maxMinutes}}</v-col>
+          <v-col cols="12">
+            <v-select
+              :items="items"
+              label="2"
+              v-model="scoreData.scoringDataArr[0].maxMin"
+              hide-details
+            ></v-select>
+          </v-col>
+        </v-row> -->
+      </v-col>
+      <v-col cols="12" md="6" class="d-flex align-end" v-else>
         <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
         <v-select
           :menu-props="{ top: false, offsetY: true }"
@@ -28,7 +51,11 @@
       </v-col>
     </v-row>
     <v-container>
-      <v-row class="my-10 d-flex align-center">
+      <v-row class="my-10 d-flex align-center justify-end" v-if="$isMobile()">
+        <v-btn class="ml-auto mr-3" large rounded dark color="#eb6846" @click="addScoringContent">{{lang.submit}}</v-btn>
+        <v-btn fab class="mo-glow " style="color:#eb6846" @click="$router.go(-1)"><v-icon>mdi-undo-variant</v-icon></v-btn>
+      </v-row>
+      <v-row class="my-10 d-flex align-center " v-else>
         <v-btn large rounded dark color="green lighten-1" @click="addScoringContent">{{lang.submit}}</v-btn>
       </v-row>
     </v-container>

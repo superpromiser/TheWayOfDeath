@@ -370,7 +370,8 @@ export default {
   computed:{
     ...mapGetters({
       user : 'auth/user',
-      schoolTree : 'schooltree/schoolData'
+      schoolTree : 'schooltree/schoolData',
+      selectedSchoolItem : 'mo/selectedSchoolItem'
     })
   },
 
@@ -481,8 +482,13 @@ export default {
       }
       this.schoolListDropdownItem.push(lessonObj)
     }
-    this.selectedItem = this.schoolListDropdownItem[0];
-    this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
+    if(this.selectedSchoolItem == null){
+      this.selectedItem = this.schoolListDropdownItem[0];
+      this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
+    }
+    else  {
+      this.selectedItem = this.selectedSchoolItem
+    }
   },
 
   methods:{
