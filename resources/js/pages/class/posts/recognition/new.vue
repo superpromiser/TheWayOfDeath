@@ -1,5 +1,151 @@
 <template>
-    <v-container class="pa-0">
+    <v-container v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center">
+                <v-avatar class="mo-glow-small-shadow" >
+                    <v-img :src="`${baseUrl}/asset/img/icon/表彰.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">表彰</h2>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 mo-glow mt-5">
+            <v-col cols="12" sm="6" md="4">
+                <v-select
+                    class="mo-glow-v-select"
+                    :menu-props="{ top: false, offsetY: true }"
+                    solo
+                    :items="typeItem"
+                    item-text="label"
+                    item-value="value"
+                    v-model="recognitionData.type"
+                    label="表彰类型"
+                    hide-details
+                ></v-select>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-select
+                    class="mo-glow-v-select"
+                    solo
+                    multiple
+                    small-chips
+                    :menu-props="{ top: false, offsetY: true }"
+                    :items="userListItem"
+                    item-text="name"
+                    item-value="id"
+                    @change="selectedUser"
+                    label="表彰对象"
+                    hide-details
+                    v-model="recognitionData.students"
+                ></v-select>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                    class="mo-glow-v-text"
+                    solo
+                    v-model="recognitionData.awardTitle"
+                    label="表彰称号"
+                    counter="8"
+                    :rules="maxEightRule"
+                    hint="选填(最多8个字)"
+                ></v-text-field>
+            </v-col>
+            <v-col
+                cols="12"
+                sm="6"
+                md="4"
+                >
+                <v-menu
+                    ref="menu"
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :return-value.sync="recognitionData.publishDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        class="mo-glow-v-text"
+                        solo
+                        v-model="recognitionData.publishDate"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                        hide-details
+                        placeholder="颁发日期"
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="recognitionData.publishDate"
+                    no-title
+                    scrollable
+                    locale="zh-cn"
+                    >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="menu = false"
+                    >
+                        {{lang.cancel}}
+                    </v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menu.save(date)"
+                    >
+                        {{lang.ok}}
+                    </v-btn>
+                    </v-date-picker>
+                </v-menu>
+            </v-col>
+            <v-col cols="12">
+                <v-textarea 
+                    class="mo-glow-v-text"
+                    counter
+                    solo
+                    label="表彰内容"
+                    :rules="maxFourtyRule"
+                    v-model="recognitionData.description"
+                    hint="限40字"
+                ></v-textarea>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 mo-glow mt-5">
+            <v-col cols="12">
+                <v-chip
+                    class="ma-2 px-5"
+                    color="primary"
+                    outlined
+                >
+                    <v-icon left>
+                        mdi-file-image-outline
+                    </v-icon>
+                    模板
+                </v-chip>
+            </v-col>
+            <v-col cols="12">
+                <v-row>
+                    <v-col v-for="(imgUrl, index) in imgUrlItem" :key="index" cols="12" sm="6" md="4" class="position-relative hover-cursor-point" @click="chooseImageTemplate(index)">
+                        <v-img :src="`${baseUrl}${imgUrl.path}`" min-height="300" max-height="300" alt="recognition" class="recognition-image" ></v-img>
+                        <v-icon :color="imgUrl.selected ? 'green' : 'grey'" class="recognition-img-check-icon position-absolute" size="30">mdi-check-circle</v-icon>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+        <v-snackbar
+            timeout="3000"
+            v-model="isRequired"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
+        <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isCreating"></quick-menu>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
@@ -170,6 +316,7 @@ import { mapGetters } from 'vuex';
 import lang from '~/helper/lang.json';
 import QuestionItem from '~/components/questionItem';
 import {createRecognition} from '~/api/recognition';
+import quickMenu from '~/components/quickMenu'
 export default {
     data: () => ({
         lang,
@@ -253,6 +400,7 @@ export default {
 
     components: {
         QuestionItem,
+        quickMenu
     },
 
     computed: {
@@ -294,12 +442,21 @@ export default {
             await createRecognition(this.recognitionData).then(res=>{
                 //console.log(res)
                 this.isCreating = false
-                this.$router.push({name:'classSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'classSpace.news'})
+                }
             }).catch(err=>{
                 this.isCreating = false
                 //console.log(err.response)
             })
 
+        },
+
+        something(){
+            
         }
     }
 }

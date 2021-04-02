@@ -1,5 +1,25 @@
 <template>
-    <v-container class="pa-0 "> 
+    <v-container v-if="$isMobile()"> 
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center">
+                <v-avatar class="mo-glow-small-shadow" >
+                    <v-img :src="`${baseUrl}/asset/img/icon/相册.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">相册</h2>
+            </v-col>
+            <v-col cols="12" class="d-flex justify-center mo-glow-inverse mt-5">
+                <div class="w-90 mo-glow">
+                    <img :src="`${baseUrl}/asset/img/class/3.png`" alt="classImage" class="class-img-mo" />
+                </div>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="12" sm="6" md="3" lg="4">
+                <img src="" alt="">
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-container class="pa-0 " v-else> 
         <v-row class="d-flex justify-center pt-10  ma-0">
             <v-col cols="12 d-flex justify-center position-relative">
                 <h2 class="red--text text--lighten-1 position-absolute" style="top:0; font-size: 3rem;">相册</h2>

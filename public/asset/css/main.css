@@ -286,6 +286,10 @@ a {
     border-image-repeat: round;
 }
 
+.class-img-mo {
+    width: 100%;
+}
+
 @media (max-width: 600px) {
     .class-img {
         border: 75px solid transparent;
@@ -914,6 +918,10 @@ a {
 
 .w-90-i{
     width: 100%!important;
+}
+
+.w-90{
+    width: 90%!important;
 }
 
 .circle-cus-btn{
