@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-0" v-if="$isMobile()">
+    <v-container v-if="$isMobile()">
         <v-row class="ma-0">
             <v-col cols="12" class="mo-glow d-flex align-center">
                 <v-avatar class="mo-glow-small-shadow" >
