@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import {getAttendaceData} from '~/api/attendance'
+import {getAttendanceData} from '~/api/attendance'
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -192,7 +192,7 @@ export default {
 
     async created(){
         this.isLoadingSchoolData = true;
-        await getAttendaceData().then(res=>{
+        await getAttendanceData().then(res=>{
             console.log(res.data)
             this.attendanceData = res.data
             this.isLoadingSchoolData = false;
@@ -247,7 +247,7 @@ export default {
             console.log(this.attendanceDate)
             this.menu = false
             this.isLoadingSchoolData = true
-            await getAttendaceData({selDate:this.attendanceDate}).then(res=>{
+            await getAttendanceData({selDate:this.attendanceDate}).then(res=>{
                 console.log(res.data)
                 this.attendanceData = res.data
                 this.isLoadingSchoolData = false;

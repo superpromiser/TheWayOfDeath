@@ -17,11 +17,15 @@ class CreateLessonAttendancesTable extends Migration
             $table->id();
             $table->date('attendanceDay');
             $table->char('attendanceTime');
+            $table->unsignedBigInteger('schoolId');
+            $table->unsignedBigInteger('gradeId');
             $table->unsignedBigInteger('lessonId');
             $table->LONGTEXT('resultArr');
             // $table->char('attendanceResult');
             // $table->char('studentName');
             // $table->char('other');
+            $table->foreign('schoolId')->references('id')->on('schools')->onDelete('cascade');
+            $table->foreign('gradeId')->references('id')->on('grades')->onDelete('cascade');
             $table->foreign('lessonId')->references('id')->on('lessons')->onDelete('cascade');
             $table->timestamps();
         });

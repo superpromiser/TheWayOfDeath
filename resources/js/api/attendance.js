@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function getAttendaceData(payload){
+function getAttendanceData(payload){
     return axios.get('/api/v1/attendance',{params:payload})
 }
 
@@ -20,10 +20,25 @@ function deleteLessonAttendanceData(payload){
     return axios.delete('/api/v1/lessonAttendance',{data:payload})
 }
 
+function getStatData(payload){
+    return axios.get('/api/v1/statAttendance',{params:payload})
+}
+
+function getStatLessonAttData(payload){
+    return axios.get('/api/v1/statLessonAttData',{params:payload});
+}
+
+function getStatDetailAttData(payload){
+    return axios.get('/api/v1/statDetailAttData',{params:payload});
+}
+
 export{
-    getAttendaceData,
+    getAttendanceData,
     getLessonAttendanceData,
     createLessonAttendanceData,
     updateLessonAttendanceData,
     deleteLessonAttendanceData,
+    getStatData,
+    getStatLessonAttData,
+    getStatDetailAttData,
 }

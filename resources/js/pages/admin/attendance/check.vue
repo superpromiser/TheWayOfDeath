@@ -210,6 +210,9 @@
           <template v-slot:[`item.imgUrl`]="{ item }">
             <img :src="`${baseUrl}${item.imgUrl}`" alt="Logo" class="school-table-img">
           </template>
+          <template v-slot:[`item.startTime`]="{ item }">
+            {{TimeView(item.startTime)}}
+          </template>
           <template v-slot:[`item.introduce`]="{ item }">
             <v-btn
               outlined
