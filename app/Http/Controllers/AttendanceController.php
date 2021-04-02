@@ -17,4 +17,14 @@ class AttendanceController extends Controller
         }
         return Attendance::whereDate('date',$selDate)->with('users:id,name')->get();
     }
+
+    public function getStatData(Request $request){
+        $this->validate($request,[
+            'startDate'=>'required',
+            'endDate'=>'required'
+        ]);
+        $from = $request->startDate;
+        $to = $request->endDate;
+        return Attendance::whereBetween('date',[$from,$to])->with(['school:id,schoolName','grade:id,gradeName','lesson:id,lessonName','user:id,name'])->get();
+    }
 }

@@ -220,6 +220,7 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
 
     //attendance
     Route::get('attendance','AttendanceController@getAttendanceData');
+    Route::get('statAttendance','AttendanceController@getStatData');
 
     //chat
     Route::get('/chat/userList', 'ChatController@getUserList')->name('getUserList');
@@ -252,6 +253,8 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::post('/lessonAttendance','LessonAttendanceController@createLessonAttendance');
     Route::put('/lessonAttendance','LessonAttendanceController@updateLessonAttendance');
     Route::delete('/lessonAttendance','LessonAttendanceController@deleteLessonAttendance');
+    Route::get('/statLessonAttData','LessonAttendanceController@getStatLessonAttData');
+    Route::get('/statDetailAttData','LessonAttendanceCOntroller@getStatDetailAttData');
 
     //checkIn
     Route::get('/checkIn','CheckInController@getCheckInData');
