@@ -1,5 +1,76 @@
 <template>
-    <v-container class="pa-0">
+<v-container v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center">
+                <v-avatar class="mo-glow-small-shadow" >
+                    <v-img :src="`${baseUrl}/asset/img/icon/家访 拷贝.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">{{lang.homeVisit}}</h2>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 mo-glow mt-5">
+            <v-col cols="12" sm="6" md="4">
+                <v-select
+                    class="mo-glow-v-select"
+                    solo
+                    multiple
+                    small-chips
+                    :items="userInfoItem"
+                    :menu-props="{ top: false, offsetY: true }"
+                    item-text="label"
+                    item-value="value"
+                    @change="selectedLesson"
+                    label="班级"
+                    hide-details
+                    v-model="visitData.userInfo"
+                ></v-select>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="d-flex justify-space-between align-center">
+                <v-datetime-picker 
+                    label="开始时间" 
+                    v-model="visitData.deadline"
+                    :okText='lang.ok'
+                    :clearText='lang.cancel'
+                > </v-datetime-picker>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-btn block large class="mo-glow" @click="openDetailDialog" style="height:48px!important;">
+                    <v-icon>
+                        mdi-eye
+                    </v-icon>家访内容
+                </v-btn>
+            </v-col>
+            <v-col cols="12">
+                <QuestionItem :Label="lang.contentPlace" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+            </v-col>
+        </v-row>
+        <v-dialog v-model="detailDialog" max-width="900px" style="background:white!important">
+            <v-container class="pa-0">
+                <v-card>
+                    <v-card-title class="headline grey lighten-2">
+                        上门拜访详情
+                    </v-card-title>
+                
+                    <v-row class="ma-0" v-for="(item, i) in visitData.description" :key="i">
+                        <v-col class="px-5 " cols="12" v-for="(data, j) in item[0]" :key="j">
+                            {{data}}
+                        </v-col>
+                    </v-row>
+                </v-card>
+            </v-container>            
+        </v-dialog>
+        <v-snackbar
+            timeout="3000"
+            v-model="requiredText"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
+        <quick-menu @clickDraft="something" @clickPublish="publishcampusData" :isPublishing="isCreating"></quick-menu>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
@@ -107,6 +178,7 @@ import UploadImage from '~/components/UploadImage'
 import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
 import Fragment from 'vue-fragment';
+import quickMenu from '~/components/quickMenu'
 
 
 import {createHomeVisit} from '~/api/homeVisit'
@@ -116,7 +188,8 @@ export default {
         VueEditor,
         QuestionItem,
         UploadImage,
-        Fragment
+        Fragment,
+        quickMenu
     },
 
     data: () => ({
@@ -325,8 +398,14 @@ export default {
             this.isCreating = true
             //console.log("this.visitData", this.visitData);
             await createHomeVisit(this.visitData).then(res=>{
-                this.$router.push({name:'classSpace.news'})
                 this.isCreating = false;
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'classSpace.news'})
+                }
+                
             }).catch(err=>{
                 //console.log(err.response)
                 this.isCreating = false;
@@ -337,6 +416,10 @@ export default {
         openDetailDialog(){
             this.detailDialog = true;
             //console.log("something");
+        },
+
+        something(){
+            
         }
     }
 }

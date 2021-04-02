@@ -65,7 +65,7 @@ export default {
         QuestionItem,
         Fragment,
     },
-    props:{
+    props:{ 
         type:{
             type:String,
             requireed:false
