@@ -1,5 +1,16 @@
 <template>
     <v-file-input
+        v-if="$isMobile()"
+        class="mo-glow-v-text"
+        accept="image/*"
+        :label="uploadLabel"
+        @change="getImgUrl"
+        :loading="isUploading"
+        hide-details
+        :solo="solo"
+    ></v-file-input>
+    <v-file-input
+        v-else
         accept="image/*"
         :label="uploadLabel"
         @change="getImgUrl"

@@ -1,5 +1,165 @@
 <template>
-    <v-container>
+    <v-container v-if="$isMobile()">
+        <v-row>
+            <!-- {{index}} -->
+            <v-textarea
+                class="mo-glow-v-text"
+                clearable
+                solo
+                clear-icon="mdi-close-circle"
+                :label="Label"
+                value=""
+                v-model="contentData.text"
+                hide-details
+            ></v-textarea>
+        </v-row>
+        <v-row class="mt-5">
+            <v-btn
+                fab
+                small
+                class="ma-2 mo-glow"
+                :loading="isImageSelecting"
+                @click="clickUploadImageBtn"
+                style="color:#7879ff;"
+            >
+              <v-icon>mdi-file-image-outline</v-icon>
+            </v-btn>
+            <input
+                ref="imageUploader"
+                class="d-none"
+                type="file"
+                accept="image/*"
+                @change="onImageFileChanged"
+            >
+            <v-btn
+                fab
+                small
+                dark
+                class="ma-2 mo-glow"
+                :loading="isVideoSelecting"
+                @click="clickUploadVideoBtn"
+                style="color:#7879ff;"
+            >
+              <v-icon>mdi-video</v-icon>
+            </v-btn>
+            <input
+                ref="videoUploader"
+                class="d-none"
+                type="file"
+                accept="video/*"
+                @change="onVideoFileChanged"
+            >
+            <v-btn
+                fab
+                small
+                dark
+                class="ma-2 mo-glow"
+                :loading="isFileSelecting"
+                @click="clickUploadFileBtn"
+                style="color:#7879ff;"
+            >
+              <v-icon>mdi-file-upload</v-icon>
+            </v-btn>
+            <input
+                ref="fileUploader"
+                class="d-none"
+                type="file"
+                accept="file/*"
+                @change="onFileFileChanged"
+            >
+            <v-btn
+                v-if="contact"
+                fab
+                small
+                dark
+                class="ma-2 mo-glow"
+                :loading="isUserSeleciting"
+                @click="selectUser"
+                style="color:#7879ff;"
+            >
+                <v-icon>mdi-id-card</v-icon>
+            </v-btn>
+            <v-btn
+                v-if="emoji"
+                fab
+                small
+                dark
+                class="ma-2 mo-glow"
+                @click="toggleEmo"
+                style="color:#7879ff;"
+            >
+                <v-icon>mdi-emoticon-excited-outline</v-icon>
+            </v-btn>
+            <Picker v-click-outside="outSidePicker"
+                     class="w-90-i" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
+        </v-row>
+        <!--  IMAGE VIEWER  -->
+        <v-row>
+            <v-col v-for="(imgUrl, index) in contentData.imgUrl" :key="index" cols="12" sm="4" md="3" lg="2" class="position-relative">
+                <v-btn
+                    icon
+                    class="position-absolute remove-uploaded-item-icon "
+                    @click="removeUploadItem('image', index)"
+                    :loading="imgUrl.isDeleting"
+                    color="pink"
+                    >
+                    <v-icon size="25">mdi-trash-can-outline</v-icon>
+                </v-btn>
+                <v-img :src="`${baseUrl}${imgUrl.path}`" alt="upload image" class="uploaded-image" ></v-img>
+            </v-col>
+        </v-row>
+        <!--  VIDEO VIEWER  -->
+        <v-row class="ma-0">
+            <v-col v-for="(video, index) in contentData.videoUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative mo-glow pa-0 mt-5">
+                <v-card
+                    class="d-flex align-center mo-glow-bg"
+                    flat
+                    tile
+                >
+                    <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                    <div class="">
+                        <div><span><strong>{{video.fileOriName}}</strong></span></div>
+                        <div>{{video.fileSize}}</div>
+                    </div>
+                    <v-btn
+                        icon
+                        class="ml-auto mo-glow mr-2"
+                        @click="removeUploadItem('video', index)"
+                        :loading="video.isDeleting"
+                        style="color:#ff264c;"
+                        >
+                        <v-icon size="25">mdi-trash-can-outline</v-icon>
+                    </v-btn>
+                </v-card>
+            </v-col>
+        </v-row>
+        <!--  FILE VIEWER  -->
+        <v-row class="ma-0">
+            <v-col v-for="(other, index) in contentData.otherUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative pa-0 mo-glow mt-5">
+                <v-card
+                    class="d-flex align-center mo-glow-bg"
+                    flat
+                    tile
+                >
+                    <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                    <div class="">
+                        <div><span><strong>{{other.fileOriName}}</strong></span></div>
+                        <div>{{other.fileSize}}</div>
+                    </div>
+                    <v-btn
+                        icon
+                        style="color:#ff264c;"
+                        class="ml-auto mo-glow mr-2"
+                        @click="removeUploadItem('other', index)"
+                        :loading="other.isDeleting"
+                        >
+                        <v-icon size="25">mdi-trash-can-outline</v-icon>
+                    </v-btn>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-container v-else>
         <v-row>
             <!-- {{index}} -->
             <v-textarea
@@ -90,7 +250,7 @@
             >
                 <v-icon>mdi-emoticon-excited-outline</v-icon>
             </v-btn>
-            <Picker v-if="emoStatus" set="emojione" @select="onInput" title="选择你的表情符号..." />
+            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
         </v-row>
         <!--  IMAGE VIEWER  -->
         <v-row>
@@ -164,7 +324,13 @@
 
 <script>
 import {uploadImage, uploadVideo, uploadOther, deleteFile} from '~/api/upload'
-import { Picker } from 'emoji-mart-vue'
+// import { Picker } from 'emoji-mart-vue'
+
+import emojiData from "emoji-mart-vue-fast/data/all.json";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
+let emojiIndex = new EmojiIndex(emojiData);
+
 export default {
     props: {
         Label : {
@@ -188,6 +354,10 @@ export default {
         Picker,
     },
     data: () =>({
+        emojiIndex: emojiIndex,
+        emojisOutput: "",
+
+        include:["people", "nature"],
         baseUrl:window.Laravel.base_url,
         contentData:{
             text:'',
@@ -211,6 +381,13 @@ export default {
     },
 
     methods:{
+        showEmoji(emoji) {
+            this.emojisOutput = this.emojisOutput + emoji.native;
+        },
+
+        outSidePicker(){
+            this.emoStatus = false;
+        },
         clickUploadImageBtn() {
             this.isImageSelecting = true
             window.addEventListener('focus', () => {

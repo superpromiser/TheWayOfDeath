@@ -1,5 +1,33 @@
 <template>
-    <v-container class="pa-0">
+    <v-container v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center">
+                <v-avatar class="mo-glow-small-shadow" >
+                    <v-img :src="`${baseUrl}/asset/img/icon/布告栏 拷贝.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">{{lang.bulletin}}</h2>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 mo-glow mt-5">
+            <v-col cols="12" sm="6" md="4">
+                <v-select
+                    solo
+                    class="mo-glow-v-select"
+                    :items="typeItem"
+                    :menu-props="{ top: false, offsetY: true }"
+                    item-text="label"
+                    v-model="bulletinboardData.type"
+                    label="栏目"
+                    hide-details
+                ></v-select>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <QuestionItem class="" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+            </v-col>
+        </v-row>
+        <quick-menu @clickDraft="something" @clickPublish="publishcampusData" :isPublishing="isCreating"></quick-menu>
+    </v-container>
+    <v-container v-else class="pa-0">
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
@@ -72,7 +100,7 @@ import QuestionItem from '~/components/questionItem'
 import UploadImage from '~/components/UploadImage'
 import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
-
+import quickMenu from '~/components/quickMenu'
 
 
 import {createBulletinBoard} from '~/api/bulletinBoard'
@@ -82,6 +110,7 @@ export default {
         VueEditor,
         QuestionItem,
         UploadImage,
+        quickMenu
     },
 
     data: () => ({
@@ -157,7 +186,12 @@ export default {
             //console.log("bulletinboardData", this.bulletinboardData);
             await createBulletinBoard(this.bulletinboardData).then(res=>{
                 //console.log(res.data)
-                this.$router.push({name:'schoolSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
             }).catch(err=>{
                 //console.log(err.response)
             })
@@ -170,6 +204,10 @@ export default {
                 return;
             }
             this.bulletinboardData.content = data
+        },
+
+        something(){
+
         }
     }
 }

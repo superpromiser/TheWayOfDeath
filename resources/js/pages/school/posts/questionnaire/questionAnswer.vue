@@ -5,8 +5,12 @@
         <v-divider></v-divider>
     </div>
     <v-container>
-      <v-row class="my-10 d-flex align-center">
-          <v-btn large rounded dark color="green lighten-1" @click="addQaContent">{{lang.submit}}</v-btn>
+      <v-row class="my-10 d-flex align-center justify-end" v-if="$isMobile()">
+        <v-btn class="ml-auto mr-3" large rounded dark color="#eb6846" @click="addQaContent">{{lang.submit}}</v-btn>
+        <v-btn fab class="mo-glow " style="color:#eb6846" @click="$router.go(-1)"><v-icon>mdi-undo-variant</v-icon></v-btn>
+      </v-row>
+      <v-row class="my-10 d-flex align-center " v-else>
+        <v-btn large rounded dark color="green lighten-1" @click="addQaContent">{{lang.submit}}</v-btn>
       </v-row>
     </v-container>
     <v-snackbar

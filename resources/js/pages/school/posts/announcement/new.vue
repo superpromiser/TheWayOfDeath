@@ -113,7 +113,7 @@
                     class="mo-glow-v-select"
                     solo
                     multiple
-                    chips
+                    small-chips
                     :items="returnSchoolTree(currentPath.params.schoolId)"
                     :menu-props="{ top: false, offsetY: true }"
                     item-text="lessonName"
@@ -123,20 +123,24 @@
                     hide-details
                 ></v-select>
             </v-col>
-            <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
-                <span>签名反馈</span>
+            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-around">
+                <span class="mo-glow-inverse pa-2">签名反馈</span>
                 <v-switch
                     v-model="announcementData.scopeFlag"
                     color="primary"
                     hide-details
-                    inset
                     class="pt-0 mt-0"
                 ></v-switch>
             </v-col>
             <v-col cols="12">
-                <vue-editor v-model="announcementData.content" placeholder="公告内容"></vue-editor>
+                <v-row class="ma-0 mo-glow">
+                    <v-col cols="12" class="pa-0">
+                        <vue-editor v-model="announcementData.content" placeholder="公告内容"></vue-editor>
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
+        <quick-menu @clickDraft="something" @clickPublish="publishcampusData" :isPublishing="isCreating"></quick-menu>
     </v-container>
     <v-container v-else class="pa-0">
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
@@ -321,6 +325,8 @@ import QuestionItem from '~/components/questionItem'
 import UploadImage from '~/components/UploadImage'
 import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
+// import quickMenu from 'vue-quick-menu'
+import quickMenu from '~/components/quickMenu'
 
 
 import {createAnouncement} from '~/api/anouncement'
@@ -330,6 +336,7 @@ export default {
         VueEditor,
         QuestionItem,
         UploadImage,
+        quickMenu
     },
 
     watch: {
@@ -400,7 +407,12 @@ export default {
             //console.log("announcementData", this.announcementData);
             await createAnouncement(this.announcementData).then(res=>{
                 //console.log(res)
-                this.$router.push({name:'schoolSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
             }).catch(err=>{
                 this.isCreating = false
                 //console.log(err.response)
@@ -430,6 +442,9 @@ export default {
                 text:this.newSignName
             })
             //console.log(this.signNameItems)
+        },
+        something(){
+            console.log("draft");
         }
     }
 }

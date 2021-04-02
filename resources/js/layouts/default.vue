@@ -16,7 +16,7 @@
       </v-sheet>
       <!-- <LoggedFooter /> -->
     </v-main>
-    <v-main v-else class="mo-glow-bg">
+    <v-main v-else class="mo-glow-bg mb-16">
       <child />
     </v-main>
     <MoBottomNav v-if="$isMobile()" />

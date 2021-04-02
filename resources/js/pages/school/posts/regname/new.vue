@@ -1,5 +1,105 @@
 <template>
-    <v-container class="pa-0">
+    <v-container v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center">
+                <v-avatar class="mo-glow-small-shadow" >
+                    <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">{{lang.regname}}</h2>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 mo-glow mt-5">
+                <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                        class="mo-glow-v-text"
+                        solo
+                        v-model="regNameData.title"
+                        label="标题"
+                        hide-details
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-datetime-picker 
+                        label="开始时间" 
+                        v-model="regNameData.startTime"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    > </v-datetime-picker>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-datetime-picker 
+                        label="截止时间" 
+                        v-model="regNameData.endTime"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    > </v-datetime-picker>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        class="mo-glow-v-select"
+                        solo
+                        multiple
+                        small-chips
+                        :menu-props="{ top: false, offsetY: true }"
+                        :items="inputTypeItem"
+                        item-text="label"
+                        item-value="value"
+                        @change="selectedInputType"
+                        label="可见范围"
+                        hide-details
+                    ></v-select>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        class="mo-glow-v-select"
+                        solo
+                        multiple
+                        small-chips
+                        :menu-props="{ top: false, offsetY: true }"
+                        :items="returnSchoolTree(currentPath.params.schoolId)"
+                        item-text="lessonName"
+                        item-value="lessonId"
+                        @change="selectedLesson"
+                        label="可见范围"
+                        hide-details
+                    ></v-select>
+                </v-col>
+                <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-around">
+                    <span class="pa-2 mo-glow-inverse">是否需要审核</span>
+                    <v-switch
+                        v-model="regNameData.checkFlag"
+                        color="#7879ff"
+                        hide-details
+                        class="pt-0 mt-0"
+                    ></v-switch>
+                </v-col>
+        </v-row>
+        <v-row class="ma-0 mo-glow mt-5">
+            <v-col cols="12">
+                <QuestionItem :Label="lang.contentPlaceFirst" :emoji="false" :contact="false"  ref="child" @contentData="loadContentData"></QuestionItem>
+            </v-col>
+        </v-row>
+        <v-snackbar
+            timeout="3000"
+            v-model="requiredText"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
+        <v-snackbar
+        timeout="3000"
+            v-model="isSuccessed"
+            color="success"
+            absolute
+            top
+            >
+            {{lang.successText}}
+        </v-snackbar>
+        <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
+  </v-container>
+    <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
@@ -142,9 +242,12 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {createRegname} from '~/api/regname'
+import quickMenu from '~/components/quickMenu'
+
 export default {
     components:{
         QuestionItem,
+        quickMenu,
     },
 
     data: ()=> ({
@@ -286,7 +389,12 @@ export default {
                 console.log(res)
                 this.isSubmit = false
                 this.isSuccessed = true;
-                this.$router.push({name:'schoolSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
             }).catch(err=>{
                 //console.log(err.response)
                 this.isSubmit = false
@@ -309,6 +417,10 @@ export default {
         selectedInputType(val){
             this.regNameData.inputTypeList = val;
         },
+
+        something(){
+
+        }
     }
 }
 </script>
