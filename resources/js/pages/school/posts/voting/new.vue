@@ -1,5 +1,154 @@
 <template>
-    <v-container class="pa-0">
+    <v-container v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center">
+                <v-avatar class="mo-glow-small-shadow" >
+                    <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">{{lang.voting}}</h2>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 mo-glow mt-5">
+            <v-col cols="12" sm="6" md="4">
+                <v-select
+                    class="mo-glow-v-select"
+                    solo
+                    :items="typeItem"
+                    :menu-props="{ top: false, offsetY: true }"
+                    item-text="label"
+                    item-value="value"
+                    v-model="votingData.votingType"
+                    label="投票人是否可见结果"
+                    hide-details
+                ></v-select>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-select
+                    class="mo-glow-v-select"
+                    solo
+                    multiple
+                    small-chips
+                    :items="returnSchoolTree(currentPath.params.schoolId)"
+                    :menu-props="{ top: false, offsetY: true }"
+                    item-text="lessonName"
+                    item-value="lessonId"
+                    @change="selectedLesson"
+                    label="班级"
+                    hide-details
+                    v-model="votingData.viewList"
+                ></v-select>
+            </v-col>
+            <v-col
+                cols="12"
+                sm="6"
+                md="4"
+                >
+                <v-menu
+                    ref="menu"
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :return-value.sync="votingData.deadline"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        class="mo-glow-v-text"
+                        solo
+                        v-model="votingData.deadline"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        label="最后期限"
+                        v-bind="attrs"
+                        v-on="on"
+                        hide-details
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="votingData.deadline"
+                    no-title
+                    scrollable
+                    locale="zh-cn"
+                    >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="menu = false"
+                    >
+                        {{lang.cancel}}
+                    </v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menu.save(votingData.deadline)"
+                    >
+                        {{lang.ok}}
+                    </v-btn>
+                    </v-date-picker>
+                </v-menu>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-select
+                    class="mo-glow-v-select"
+                    solo
+                    :items="maxVoteItem"
+                    item-text="label"
+                    :menu-props="{ top: false, offsetY: true }"
+                    item-value="value"
+                    v-model="votingData.maxVote"
+                    label="调查范围"
+                    hide-details
+                ></v-select>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-around">
+                <span class="pa-3 mo-glow-inverse"> 匿名投票 </span>
+                <v-switch
+                    v-model="votingData.anonyVote"
+                    color="error"
+                    hide-details
+                    class="pt-0 mt-0"
+                ></v-switch>
+            </v-col>
+         
+            <v-col cols="12" v-for="index in initialCnt" :key="index" class="mt-3">
+                <QuestionItem class="mt-5" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="index" @contentData="loadContentData"/>
+                <v-divider></v-divider>
+            </v-col>
+            
+            <v-container>
+                <v-row class="my-10 d-flex align-center mx-0">
+                    <v-btn color="#49d29e" text @click="addContent" class="mr-auto mo-glow" >
+                        <v-icon>
+                            mdi-plus
+                        </v-icon>
+                        {{lang.addOption}}
+                    </v-btn>
+                </v-row>
+            </v-container>
+        </v-row>
+        <v-snackbar
+            timeout="3000"
+            v-model="requiredText"
+            color="error"
+            absolute
+            top
+            >
+            {{lang.requiredText}}
+        </v-snackbar>
+        <v-snackbar
+        timeout="3000"
+        v-model="isSuccessed"
+        color="success"
+        absolute
+        top
+        >
+        {{lang.successText}}
+    </v-snackbar>
+    <quick-menu @clickDraft="something" @clickPublish="publishVotingData" :isPublishing="isCreating"></quick-menu>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
@@ -84,6 +233,7 @@
                             v-model="votingData.deadline"
                             prepend-icon="mdi-calendar"
                             readonly
+                            label="最后期限"
                             v-bind="attrs"
                             v-on="on"
                             hide-details
@@ -173,9 +323,11 @@ import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {createVoting} from '~/api/voting'
+import quickMenu from '~/components/quickMenu'
 export default {
     components: {
         QuestionItem,
+        quickMenu
     },
 
     data: () => ({
@@ -294,12 +446,20 @@ export default {
                 //console.log(res)
                 this.isCreating = false
                 this.isSuccessed = true
-                this.$router.push({name:'schoolSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
             }).catch(err=>{
                 //console.log(err.response);
                 this.isCreating = false
             })
         },
+        something(){
+
+        }
     }
 }
 </script>
