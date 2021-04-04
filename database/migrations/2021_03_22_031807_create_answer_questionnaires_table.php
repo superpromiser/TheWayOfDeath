@@ -15,13 +15,16 @@ class CreateAnswerQuestionnairesTable extends Migration
     {
         Schema::create('answer_questionnaires', function (Blueprint $table) {
             $table->id();
-            $table->string('singleAnswer');
-            $table->String('multiAnswer');
-            $table->String('questionAnswer');
-            $table->String('statAnswer');
-            $table->String('scoringAnswer');
-            $table->unsignedBigInteger('answerId');
-            $table->foreign('answerId')->references('id')->on('answers')->onDelete('cascade');
+            // $table->string('singleAnswer');
+            // $table->String('multiAnswer');
+            // $table->String('questionAnswer');
+            // $table->String('statAnswer');
+            // $table->String('scoringAnswer');
+            // $table->unsignedBigInteger('answerId');
+            // $table->foreign('answerId')->references('id')->on('answers')->onDelete('cascade');
+            $table->longText('answerData');
+            $table->tinyInteger('schoolId')->nullable();
+            $table->tinyInteger('lessonId')->nullable();
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->unsignedBigInteger('userId');

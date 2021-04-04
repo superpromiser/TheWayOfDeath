@@ -2,6 +2,11 @@
     <v-container class="pa-0">
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
+                <a @click="$router.go(-1)" class="float-left">
+                    <v-icon size="70">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
                 <v-avatar
                     class="ma-3 ml-3"
                     size="50"
@@ -52,8 +57,8 @@
                   <v-col v-if="checkIfAttachExist(content.singleContentDataArr[0])">
                     <AttachItemViewer :items="content.singleContentDataArr[0]" />
                   </v-col>
-                  <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(singleData, singleDataIndex) in content.singleContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
-                    <div class="d-flex align-center cursor-pointer" @click="singleAnswer(singleData,singleDataIndex)" :class="{active: singleDataIndex == answerData.singleAnswer}"> 
+                  <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(singleData, singleDataIndex) in content.singleContentDataArr" :key="`${index}_${singleDataIndex}`" v-if="singleDataIndex !== 0">
+                    <div class="d-flex align-center cursor-pointer" @click="singleAnswer(`${index}_${singleDataIndex}`,index,content.type)" :class="{active: answerData.indexOf(`${index}_${singleDataIndex}`) > -1}"> 
                       <v-chip
                         class="mr-2"
                         color="success"
@@ -80,8 +85,10 @@
                   <v-col v-if="checkIfAttachExist(content.multiContentDataArr[0])">
                     <AttachItemViewer :items="content.multiContentDataArr[0]" />
                   </v-col>
-                  <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(multiData, multiDataIndex) in content.multiContentDataArr" :key="multiDataIndex" v-if="multiDataIndex !== 0">
-                    <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiData,multiDataIndex)" :class="{active: answerData.multiAnswer.indexOf(multiDataIndex) > -1}"> 
+                  <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(multiData, multiDataIndex) in content.multiContentDataArr" :key="`${index}_${multiDataIndex}`" v-if="multiDataIndex !== 0">
+                    <div class="d-flex align-center cursor-pointer" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: answerData[index] ? answerData[index].indexOf(`${index}_${multiDataIndex}`) : -2 > -1}"> 
+                    <!-- <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiData,multiDataIndex)" :class="{active: answerData[index].indexOf(`${index}-${multiDataIndex}`) > -1}">  -->
+                      {{answerData[index] ? answerData[index].indexOf(`${index}_${multiDataIndex}`) : ''}}
                       <v-chip
                         class="mr-2"
                         color="success"
@@ -115,13 +122,13 @@
                       clear-icon="mdi-close-circle"
                       label=""
                       value=""
-                      v-model="answerData.questionAnswer"
+                      v-model="answerData[index]"
                       hide-details
                     ></v-textarea>
                   </v-col>
                 </v-row>
                 <!--  statistics Datas  -->
-                <v-row v-if="content.type == 'stat'">
+                <!-- <v-row v-if="content.type == 'stat'">
                   <v-col cols="12">
                     <p class="mb-0 d-flex align-center"> 
                       {{index + 1}}.  
@@ -145,7 +152,7 @@
                       hide-details
                     ></v-textarea>
                   </v-col>
-                </v-row>
+                </v-row> -->
                 <!--  score Datas  -->
                 <v-row v-if="content.type == 'score'">
                   <v-col cols="12">
@@ -161,7 +168,7 @@
                     <AttachItemViewer :items="content.scoringDataArr[0].contentData[0]" />
                   </v-col>
                   <v-col cols="12">
-                    <div v-for="(minute,i) in parseInt(content.scoringDataArr[0].maxMin)" :key="i" class="op-score" :class="{selMinute: minute == answerData.scoringAnswer}" @click="selScoring(minute)">
+                    <div v-for="(minute,i) in parseInt(content.scoringDataArr[0].maxMin)" :key="i" class="op-score" :class="{selMinute: minute == answerData.scoringAnswer}" @click="selScoring(minute,index,content.type)">
                         {{minute}}
                     </div>
                   </v-col>
@@ -174,6 +181,7 @@
                 color="deep-purple accent-3"
                 tile
                 :loading="isSubmit"
+                :disabled="alreadyAnswer"
                 @click="submit"
             > 
                 {{lang.submit}}
@@ -198,14 +206,15 @@ export default {
         lang,
         alphabet:['A','B','C','D','E','F','G','H','J','K','L','M','N',
                 'O','P','Q','R','S','T','U','V','W','X','Y','Z' ],
-        answerData:{
-          singleAnswer:null,
-          multiAnswer:[],
-          questionAnswer:'',
-          statAnswer:'',
-          scoringAnswer:null,
-          postId:null
-        },
+        // answerData:{
+        //   singleAnswer:[],
+        //   multiAnswer:[],
+        //   questionAnswer:[],
+        //   statAnswer:[],
+        //   scoringAnswer:[],
+        //   postId:null
+        // },
+        answerData:[],
         answerDataList:[],
         isSubmit:false,
         alreadyAnswer:false,
@@ -222,19 +231,17 @@ export default {
     },
 
     async created(){
-        //console.log('------------',this.user)
         console.log("this.contentdata",this.contentData)
         if(this.contentData == null){
           this.$router.push({name:'schoolSpace.news'})
         }
         this.contentData.questionnaires.content = JSON.parse(this.contentData.questionnaires.content);
-        this.answerData.postId = this.contentData.id
-        await getAnswerQuestionnaire({postId:this.answerData.postId}).then(res=>{
-          //console.log('getAnswerQuestionnaire',res.data)
+        await getAnswerQuestionnaire({postId:this.contentData.id}).then(res=>{
           this.answerDataList = res.data;
+          console.log(res.data)
           this.answerDataList.map(answerData=>{
             if(answerData.userId == this.user.id){
-              this.answerData = answerData
+              this.answerData = JSON.parse(answerData.answerData)
               this.alreadyAnswer = true
             }
           })
@@ -257,33 +264,48 @@ export default {
         answerUsers(){
           //console.log('answerUsers')
         },
-        singleAnswer(data,index){
+        singleAnswer(key,index,type){
           if(this.alreadyAnswer == true){
             alert('您已经回答了该帖子');
             return;
           }
-          //console.log(data,index)
-          this.answerData.singleAnswer = index
+          console.log(key)
+          // this.answerData[index] = key
+          this.$set(this.answerData,index,key)
+          console.log(this.answerData)
         },
-        multiAnswer(data,selIndex){
+        multiAnswer(key,index,type){
           if(this.alreadyAnswer == true){
             alert('您已经回答了该帖子');
             return;
           }
-          //console.log(data,selIndex)
-          let index = this.answerData.multiAnswer.indexOf(selIndex)
-          if(index > -1){
-            this.answerData.multiAnswer.splice(index,1);
+          
+          if(this.answerData[index] != undefined){
+            console.log(this.answerData[index])
+            let idx = this.answerData[index].indexOf(key)
+            console.log("---------",idx)
+            if(idx > -1 ){
+              this.answerData[index].splice(idx,1)
+            }else{
+              this.answerData[index].push(key)
+              // this.$set(this.answerData[index],this.answerData[index].length,key)
+            }
           }else{
-            this.answerData.multiAnswer.push(selIndex)
+            let item = []
+            item.push(key)
+            // this.answerData[index] = item
+            this.$set(this.answerData,index,item)
           }
+          // console.log(this.answerData[index])
         },
-        selScoring(minute){
+        selScoring(minute,index,type){
           if(this.alreadyAnswer == true){
             alert('您已经回答了该帖子');
             return;
           }
-          this.answerData.scoringAnswer = minute
+          console.log(minute,index,type)
+          // this.answerData.scoringAnswer = minute
+
         },
         async submit(){
           if(this.alreadyAnswer == true){
@@ -294,10 +316,14 @@ export default {
           //   alert('请回答所有问题');
           //   return
           // }
+          if(this.answerData.length != this.contentData.questionnaires.content.length){
+            alert('请回答所有问题');
+            return
+          }
           console.log(this.answerData)
-          return
           this.isSubmit = true;
-          await createAnswerQuestionnaire(this.answerData).then(res=>{
+          // return
+          await createAnswerQuestionnaire({answerData:this.answerData,schoolId:this.currentpath.params.schoolId,lessonId:this.currentpath.params.lessonId,postId:this.contentData.id}).then(res=>{
             //console.log(res)
             if(this.currentpath.params.lessonId){
               this.$router.push({name:'classSpace.news'})
@@ -307,7 +333,7 @@ export default {
             this.isSubmit = false;
           }).catch(err=>{
             this.isSubmit = false;
-            //console.log(err.response)
+            console.log(err.response)
           })
 
         }
