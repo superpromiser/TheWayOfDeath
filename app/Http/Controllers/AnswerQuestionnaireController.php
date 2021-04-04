@@ -15,7 +15,7 @@ class AnswerQuestionnaireController extends Controller
         $this->validate($request, [
             'postId' => 'required'
         ]);
-        return AnswerQuestionnaire::where('postId', $request->postId)->get();
+        return AnswerQuestionnaire::where('postId', $request->postId)->with('user:id,name')->get();
     }
 
     public function createAnswerQuestionnaire(Request $request)

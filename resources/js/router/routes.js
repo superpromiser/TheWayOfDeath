@@ -62,8 +62,16 @@ export default [
   },
   {path:'/schoolSpace/:schoolId/detail', name:"schoolSpace.detail", component:page('details/index.vue'),
     children:[
-      {path:'questionnaire', name:'details.quesionnaire', component:page('details/questionnaire/index.vue')},
-      {path:'voting', name:'details.voting', component:page('details/voting/index.vue')},
+      {path:'questionnaire', name:'details.quesionnaire', component:page('details/questionnaire/index.vue'),
+        children:[
+          {path:'answerUsers',name:'details.questionnaireUsers',component:page('details/questionnaire/answerUserList.vue')}
+        ]
+      },
+      {path:'voting', name:'details.voting', component:page('details/voting/index.vue'),
+        children:[
+          {path:'answerUsers', name:'details.votingUsers', component:page('details/voting/answerUserList.vue')}
+        ]
+      },
       {path:'sms', name:'details.sms', component:page('details/sms/index.vue')},
       {path:'campus', name:'details.campus', component:page('details/campus/index.vue')},
       {path:'bulletinboard', name:'details.bulletinBoard', component:page('details/bulletinBoard/index.vue')},

@@ -15,14 +15,14 @@ class CreateAnswerVotingsTable extends Migration
     {
         Schema::create('answer_votings', function (Blueprint $table) {
             $table->id();
-            $table->String('multiAnswer');
-            $table->unsignedBigInteger('answerId');
+            $table->String('answerData');
+            // $table->unsignedBigInteger('answerId');
             $table->unsignedBigInteger('postId');
             $table->unsignedBigInteger('userId');
-            $table->foreign('answerId')->references('id')->on('answers')->onDelete('cascade');
+            // $table->foreign('answerId')->references('id')->on('answers')->onDelete('cascade');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }
