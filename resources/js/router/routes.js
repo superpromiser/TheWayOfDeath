@@ -18,7 +18,17 @@ export default [
   //chat
   { path: '/chat', name: 'chat', component: page('chat/index.vue') },
 
-  //chat
+  //chat mobile
+  { path: '/chat/mobile', name: 'chatMobile', component: page('chat/mobile/index.vue'),
+      children : [
+        {path:'',redirect:{name: 'mochat.news'}},
+        {path:'news', name:'mochat.news',component:page('chat/mobile/news.vue')},
+        {path:'detail', name:'mochat.detail',component:page('chat/mobile/detail.vue')},
+        {path:'contact', name:'mochat.contact',component:page('chat/mobile/contact.vue')},
+      ]
+  },
+
+  //profile
   { path: '/profile', name: 'profile', component: page('profile/index.vue') },
 
   //Admin

@@ -43,7 +43,7 @@
                             </v-list-item>
                             <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
                                 <template v-slot:activator="{ attrs, on }">
-                                    <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 0px;">
+                                    <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 10px;">
                                         mdi-dots-horizontal-circle-outline
                                     </v-icon>
                                 </template>
@@ -93,7 +93,7 @@
                             </v-list-item>
                             <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
                                 <template v-slot:activator="{ attrs, on }">
-                                    <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 0px;">
+                                    <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 10px;">
                                         mdi-dots-horizontal-circle-outline
                                     </v-icon>
                                 </template>

@@ -7,7 +7,7 @@
             :ChatIn="ChatIn"
             @updatechatwith="updatechatwith"
             @updatechatIn="updatechatIn" />
-          <v-col cols="12" sm="12" md="9" class="h-100 bg-light-yellow pa-0" id="chat-area">
+            <v-col cols="12" sm="12" md="9" class="h-100 bg-light-yellow pa-0" id="chat-area">
                 <ChatArea  :chatto="ChatWith" :chatin="ChatIn" :messages="messages" :chatfrom="currentUser.id" />             
                 <v-row class="bg-white ma-0 pa-0">
                     <v-col cols="12" class="d-flex align-center position-relative">

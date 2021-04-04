@@ -132,7 +132,7 @@ export default {
                     // let btnList = document.getElementsByClassName('mo-glow-small-shadow');
                     // btnList[0].classList.add('v-btn--active');
                 }
-                else if(val.name=="chat"){
+                else if(val.name=="chatMobile" || val.name=="mochat.news" || val.name=="mochat.detail" || val.name=="mochat.contact"){
                     this.value = 1
                 }
                 else if(val.name=="profile"){
@@ -328,7 +328,7 @@ export default {
             this.$router.push({name: "home"})
         },
         navToSecond(){
-            this.$router.push({name: "chat"})
+            this.$router.push({name: "mochat.news"})
         },
         navToFourth(){
             this.$router.push({name:"profile"})
