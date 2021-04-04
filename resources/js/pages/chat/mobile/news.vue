@@ -106,14 +106,15 @@
 <script>
 import lang from '~/helper/lang.json'
 import { mapGetters } from 'vuex';
+import pinyin from 'js-pinyin'
 import { getUserList, getContactList, addUserToContact, postNewMsgCount, postNewGroup, removeContactUser, leaveGroup, removeGroup } from '~/api/chat'
 export default {
     props:{
-        ChatWith: {
+        chatto: {
             type: Number,
             required: false,
         },
-        ChatIn: {
+        chatin: {
             type: Number,
             required: false,
         },
@@ -195,7 +196,7 @@ export default {
                     this.totalNewMessageCount = this.totalNewMessageCount + this.chatGroupList[i].new_msg_count;
                 }
                 this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
-                this.$emit("updatechatwith", this.contactList[0]);
+                // this.$emit("updatechatwith", this.contactList[0]);
             }).catch((err) => {
                 console.log(err);
             });

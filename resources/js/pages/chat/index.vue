@@ -322,7 +322,8 @@ export default {
                 console.log(err);
             });
         },
-            //groupchat history
+        
+        //groupchat history
         getMessageGroup() {
             let payload =  {
                 to: this.ChatIn,

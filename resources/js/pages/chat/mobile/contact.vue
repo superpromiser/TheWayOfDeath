@@ -182,7 +182,6 @@ export default {
     }),
 
     async created(){
-        console.log(pinyin.getFullChars('管理员'));
         if(this.usersStore !== null){
             this.users = this.usersStore;
             this.addressedUsers = this.addressedUsersStore;
