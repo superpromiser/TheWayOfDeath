@@ -84,7 +84,7 @@
     <v-row justify="center">
       <v-dialog
         v-model="dialog"
-        max-width="600px"
+        max-width="700px"
       >
         <v-data-table
           dense
@@ -94,8 +94,28 @@
           item-key="name"
           class="elevation-1 pa-3"
         >
-          <template v-slot:[`item.actions`]="{ item }">
-            <span @click="detail(item)" class="text-primary hover-cursor-point">立即查若</span>
+          <template v-slot:[`item.attendance`]="{ item }">
+               <v-icon v-if="item.attendance == true">
+                 mdi-check
+               </v-icon>
+          </template>
+          <template v-slot:[`item.late`]="{ item }">
+               <v-icon v-if="item.late == true">
+                 mdi-check
+               </v-icon>
+          </template>
+          <template v-slot:[`item.absent`]="{ item }">
+               <v-icon v-if="item.absent == true">
+                 mdi-check
+               </v-icon>
+          </template>
+          <template v-slot:[`item.sick`]="{ item }">
+               <v-icon v-if="item.sick == true">
+                 mdi-check
+               </v-icon>
+          </template>
+          <template v-slot:[`item.remark`]="{ item }">
+            <span class="text-primary hover-cursor-point" v-if='item.remark'>{{item.remark}}</span>
           </template>
           <template v-slot:no-data>
             <p>没有学习资料</p>
@@ -165,26 +185,21 @@ export default {
     })
   },
   created(){
-    console.log("this.user",this.user)
+    this.searchAction()
   },
   methods:{
     selStartDate(){
       this.startMenu = false
-      console.log(this.startDate) 
     },
     selEndDate(){
       this.endMenu = false
-      console.log(this.endDate)
     },
     async searchAction(){
       this.desserts = []
       this.isLoading = true
-      console.log(this.startDate,this.endDate)
       await getLessonUserList().then(res=>{
-        console.log(res.data)
         res.data.map(user=>{
           if(this.user.roleId != 5){
-            console.log(user)
             let statObj = {}
             statObj.userId = user.id
             statObj.lessonId = user.lessonId
@@ -229,7 +244,6 @@ export default {
           // resultArr.push(JSON.parse(item.resultArr))
         })
         resultArr.map(item=>{
-          console.log(item)
           this.desserts.map(user=>{
             if(user.name == item.studentName){
               user[this.CountAttendanceResult(item.attendanceResult)] ++
@@ -263,9 +277,43 @@ export default {
     },
     async detail(item){
       this.dialog = true
-      console.log(item)
+      this.detailItem = []
       await getStatDetailAttData({from:this.startDate,to:this.endDate,lessonId:item.lessonId}).then(res=>{
-        console.log(res.data)
+        res.data.map(data=>{
+          let resultArr = JSON.parse(data.resultArr)
+          resultArr.map(att=>{
+            if(att.studentName == item.name){
+              switch(att.attendanceResult){
+                case '正常出勤':
+                  this.$set(data,'attendance',true);
+                  break;
+                case '出勤(带病)':
+                  this.$set(data,'attendance',true);
+                  break;
+                case '迟到':
+                  this.$set(data,'late',true);
+                  this.$set(data,'remark','身体不适')
+                  break;
+                case '病假':
+                  this.$set(data,'sick',true);
+                  this.$set(data,'remark','肠胃感昌')
+                  break;
+                case '事假':
+                  this.$set(data,'sick',true);
+                  this.$set(data,'remark','肠胃感昌')
+                  break;
+                case '缺勤':
+                  this.$set(data,'absent',true);
+                  this.$set(data,'remark','那肚子')
+                  break;
+                case '其他':
+                  this.$set(data,'absent',true);
+                  this.$set(data,'remark','那肚子')
+                  break;
+              }
+            }
+          })
+        })
         this.detailItem = res.data
       }).catch(err=>{
         console.log(err.response)
