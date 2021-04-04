@@ -74,7 +74,7 @@
                                     accept="file/*"
                                     @change="onFileFileChanged"
                                 >
-                                <v-btn
+                                <!-- <v-btn
                                     fab
                                     dark
                                     small
@@ -82,7 +82,7 @@
                                     @click="clickUploadMapBtn"
                                 >
                                     <v-icon>mdi-map-marker-outline</v-icon>
-                                </v-btn>
+                                </v-btn> -->
                             </v-speed-dial>
                             <v-icon @click="toggleEmo" size="30" class="hover-cursor-point mr-4">
                                 mdi-emoticon-happy-outline
@@ -322,7 +322,8 @@ export default {
                 console.log(err);
             });
         },
-            //groupchat history
+        
+        //groupchat history
         getMessageGroup() {
             let payload =  {
                 to: this.ChatIn,

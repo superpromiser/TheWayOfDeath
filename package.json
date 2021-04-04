@@ -23,6 +23,7 @@
     "emoji-mart-vue-fast": "^9.1.2",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.0",
+    "js-pinyin": "^0.1.9",
     "laravel-echo": "^1.10.0",
     "popper.js": "^1.15.0",
     "pusher-js": "^7.0.3",

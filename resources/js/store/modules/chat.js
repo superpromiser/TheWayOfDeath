@@ -3,6 +3,7 @@ import * as types from '../mutation-types';
 // state
 export const state = {
     usersStore: null,
+    addressedUsersStore: null,
     contactListStore: null,
     chatGroupListStore: null,
     totalNewMessageCountStore: -1,
@@ -13,6 +14,7 @@ export const getters = {
     usersStore: state => state.usersStore,
     contactListStore: state => state.contactListStore,
     chatGroupListStore: state => state.chatGroupListStore,
+    addressedUsersStore: state => state.addressedUsersStore,
     totalNewMessageCountStore: state => state.totalNewMessageCountStore,
 }
 
@@ -26,6 +28,9 @@ export const mutations = {
     },
     [types.STORE_GROUPLIST] (state,  payload ) {
         state.chatGroupListStore = payload;
+    },
+    [types.STORE_ADDRESSEDUSERS] (state,  payload ) {
+        state.addressedUsersStore = payload;
     },
     [types.STORE_TOTALNEWMESSAGECOUNT] (state,  payload ) {
         state.totalNewMessageCountStore = payload;
@@ -44,6 +49,9 @@ export const actions = {
     },
     storeGroupList ({ commit }, payload) {
         commit(types.STORE_GROUPLIST, payload)
+    },
+    storeAddressedUsers ({ commit }, payload) {
+        commit(types.STORE_ADDRESSEDUSERS, payload)
     },
     storeTotalNewMsgCount ({ commit }, payload) {
         commit(types.STORE_TOTALNEWMESSAGECOUNT, payload)
