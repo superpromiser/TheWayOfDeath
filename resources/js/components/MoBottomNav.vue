@@ -21,7 +21,7 @@
                 <span>圈子</span>
                 <v-icon>mdi-fire-hydrant</v-icon>
             </v-btn>
-            <v-btn fab class="mo-glow-small-shadow mr-3">
+            <v-btn fab class="mo-glow-small-shadow mr-3" @click="navToFourth">
                 <span>我的</span>
                 <v-icon>mdi-account</v-icon>
             </v-btn>
@@ -132,8 +132,11 @@ export default {
                     // let btnList = document.getElementsByClassName('mo-glow-small-shadow');
                     // btnList[0].classList.add('v-btn--active');
                 }
-                else if(val.name=="chat"){
+                else if(val.name=="chatMobile" || val.name=="mochat.news" || val.name=="mochat.detail" || val.name=="mochat.contact"){
                     this.value = 1
+                }
+                else if(val.name=="profile"){
+                    this.value = 3
                 }
                 else{
                     // this.value = -1
@@ -325,7 +328,10 @@ export default {
             this.$router.push({name: "home"})
         },
         navToSecond(){
-            this.$router.push({name: "chat"})
+            this.$router.push({name: "mochat.news"})
+        },
+        navToFourth(){
+            this.$router.push({name:"profile"})
         }
     }
 }

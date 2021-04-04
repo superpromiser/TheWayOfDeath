@@ -842,9 +842,9 @@ a {
 }
 
 @media (max-width: 550px) {
-    body{
+    /* body{
         font-size: 0.75rem;
-    }
+    } */
 
     button, input, optgroup, select, textarea {
         font-size: 0.75rem!important;
@@ -940,4 +940,13 @@ a {
     position: sticky;
     top: 0;
     z-index: 1;
+}
+
+.pb-100{
+    padding-bottom: 100px!important;
+}
+
+.mo-chat-cus-nav-w{
+    width: 46%;
+    color: #7879ff;
 }

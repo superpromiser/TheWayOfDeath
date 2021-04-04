@@ -15,8 +15,21 @@ export default [
   //home
   { path: '/home', name: 'home', component: page('home.vue') },
   
-  //home
+  //chat
   { path: '/chat', name: 'chat', component: page('chat/index.vue') },
+
+  //chat mobile
+  { path: '/chat/mobile', name: 'chatMobile', component: page('chat/mobile/index.vue'),
+      children : [
+        {path:'',redirect:{name: 'mochat.news'}},
+        {path:'news', name:'mochat.news',component:page('chat/mobile/news.vue')},
+        {path:'detail', name:'mochat.detail',component:page('chat/mobile/detail.vue')},
+        {path:'contact', name:'mochat.contact',component:page('chat/mobile/contact.vue')},
+      ]
+  },
+
+  //profile
+  { path: '/profile', name: 'profile', component: page('profile/index.vue') },
 
   //Admin
   { path: '/admin/assignRole', name: 'admin.assignRole', component: page('admin/assignRole.vue') },

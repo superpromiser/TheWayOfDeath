@@ -119,7 +119,7 @@
           </div>
         </v-col>
       </v-row>
-      <v-row class="ma-0 mt-5 mb-16">
+      <v-row class="ma-0 mt-5">
         <v-col cols="12" class="pa-0 d-flex align-center">
           <v-avatar tile class="mo-glow-small-shadow" size="40" >
             <v-icon color="#7879ff">
