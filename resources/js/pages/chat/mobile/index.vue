@@ -82,7 +82,7 @@ export default {
     watch:{
         currentPath:{
             handler(val){
-                if(val.name == "mochat.news" || val.name == "mochat.detail"){
+                if(val.name == "mochat.news"){
                     this.isActiveNavNews = true;
                     this.isActiveNavContactList = false;
                 }
@@ -117,7 +117,6 @@ export default {
             this.$router.push({name: "mochat.contact"})
         },
         updatechatwith(userInfo) {
-            console.log(userInfo)
             this.ChatWith = userInfo.user.id;
             this.contactNow = userInfo.user.name;
             this.ChatIn = null;
@@ -126,7 +125,6 @@ export default {
         },
 
         updatechatIn(group, index) {
-            console.log(group)
             this.ChatIn = group.roomId;
             this.contactNow = group.room_id.roomName;
             this.ChatWith = null;

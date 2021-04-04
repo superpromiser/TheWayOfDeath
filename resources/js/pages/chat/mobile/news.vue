@@ -13,12 +13,12 @@
             <v-list-item-group
                 v-model="model"
                 mandatory
-                color="indigo"
+                color="#7879ff"
             >
                 <template>
                     <v-list v-for="(group, i) in chatGroupList" :key="'A'+ i" class="py-0 position-relative">
                         <v-list-item @click="updatechatIn(group, i)">
-                            <v-avatar size="50" color="49d29e" class="ma-3" tile>
+                            <v-avatar size="50" color="#49d29e" class="ma-3" tile>
                                 <span dark class="white--text headline"> {{group.room_id.roomName[0]}}</span>
                             </v-avatar>
 
@@ -56,7 +56,7 @@
                                 offset-x="10"
                                 offset-y="10" class="ma-3"
                             >
-                                <v-avatar size="50" color="49d29e">
+                                <v-avatar size="50" color="#49d29e">
                                     <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
                                     <span dark v-else class="white--text headline"> {{user.user.name[0]}}</span>
                                 </v-avatar>
@@ -66,7 +66,7 @@
                                 offset-x="10"
                                 offset-y="10" class="ma-3"
                             >
-                                <v-avatar size="50" color="indigo">
+                                <v-avatar size="50" color="#49d29e">
                                     <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
                                     <span dark v-else class="white--text headline"> {{user.user.name[0]}}</span>
                                 </v-avatar>
@@ -122,7 +122,7 @@ export default {
 
     data: ()=> ({
         lang,
-        model: -1,
+        model: null,
         value: 0,
         addDialog: false,
         baseUrl: window.Laravel.base_url,

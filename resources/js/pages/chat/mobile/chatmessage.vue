@@ -15,7 +15,7 @@
             </div>
 
             <div v-else-if="chatfrom === message.from.id" class="d-flex justify-end mb-4 position-relative">
-                <div class="msg-container-send">
+                <div class="msg-container-send mo-glow-inverse">
                     <p v-html="detectUrl(message.text)" class="messagebox_p"></p>
                 </div>
                 <div class="ch-time">
@@ -50,7 +50,7 @@
         </div>
         <div v-else-if="message.image !== null && message.image !== undefined">
             <div v-if="chatfrom === message.from.id" class="d-flex justify-end mb-4 position-relative">
-                <div class="msg-container-send p-1">
+                <div class="msg-container-send p-1 mo-glow-inverse">
                     <div class="msg-image-container-send" v-viewer>
                         <img :src="message.image" alt="" @click="showSendImage">
                     </div>
@@ -88,7 +88,7 @@
         </div>
         <div v-else-if="message.video !== null && message.video !== undefined">
             <div v-if="chatfrom === message.from.id" class="d-flex justify-end mb-4 position-relative">
-                <div class="msg-container-send p-1">
+                <div class="msg-container-send p-1 mo-glow-inverse">
                     <div class="msg-video-container-send position-relative">
                         <img :src="`${baseUrl}/asset/img/coverImage/chatVideoCoverImage.jpg`" alt="">
                         <v-icon @click="sendVideoInfoToParent(message)" class="msg-video-play-icon" size="43" color="#2D8CF0"  type="logo-youtube">
@@ -133,7 +133,7 @@
         </div>
         <div v-else-if="message.voice !== null && message.voice !== undefined">
             <div v-if="chatfrom === message.from.id" class="d-flex justify-end mb-4 position-relative">
-                <div class="msg-container-send msg-voice-send">
+                <div class="msg-container-send msg-voice-send mo-glow-inverse">
                     <audio  :src="message.voice" controls />
                 </div>
                 <div class="ch-time">
@@ -167,7 +167,7 @@
         </div>
         <div v-else-if="message.file !== null && message.file !== undefined">
             <div v-if="chatfrom === message.from.id" class="d-flex justify-end mb-4 position-relative">
-                <div class="msg-container-send">
+                <div class="msg-container-send mo-glow-inverse">
                     <div class="msg-file-container d-flex">
                         <v-icon size="22" >mdi-file-outline</v-icon>
                         <p class="mb-0"><strong>{{message.file.name}}</strong></p>
@@ -220,7 +220,7 @@
         </div>
         <div v-else-if="message.map !== null && message.map !== undefined">
             <div v-if="chatfrom === message.from.id" class="d-flex justify-end mb-4 position-relative">
-                <div class="msg-container-send">
+                <div class="msg-container-send mo-glow-inverse">
                     <Icon @click="sendLocationInfoToParent(message.map)" type="md-eye" size="25" class="p-8px msg-map-view-icon msg-map-view-icon-send" />
                     <div class="msg-map-container d-flex">
                         <Icon size="22" type="md-pin" />

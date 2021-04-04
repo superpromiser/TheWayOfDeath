@@ -1,9 +1,9 @@
 <template>
  <v-container class="h-100 pa-0">
       <v-row class="h-100 ma-0">
-            <v-col cols="12" sm="12" md="9" class="h-100 bg-light-yellow pa-0">
-                <v-row class="bg-white ch-area-height ma-0 pa-0">
-                    <v-col cols="12" class="overflowY-auto h-100" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
+            <v-col cols="12" sm="12" md="9" class="h-100 mo-glow-bg">
+                <v-row class="mo-glow-bg mo-ch-area-height ma-0 ">
+                    <v-col cols="12" class="overflowY-auto h-100 mo-glow-bg mo-glow-inverse" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
                         <ChatMessage
                             v-for="(message, index) in messages"
                             :key="index"
@@ -105,7 +105,7 @@
                                     accept="file/*"
                                     @change="onFileFileChanged"
                                 >
-                                <v-btn
+                                <!-- <v-btn
                                     fab
                                     dark
                                     small
@@ -113,13 +113,13 @@
                                     @click="clickUploadMapBtn"
                                 >
                                     <v-icon>mdi-map-marker-outline</v-icon>
-                                </v-btn>
+                                </v-btn> -->
                             </v-speed-dial>
                             <v-icon @click="toggleEmo" size="30" class="hover-cursor-point mr-4">
                                 mdi-emoticon-happy-outline
                             </v-icon>
-                            <div class="emoji-area-popup position-absolute" style="bottom: 50px">
-                                <Picker v-if="emoStatus" set="emojione" @select="onInput" title="选择你的表情符号..." v-click-outside="onClickOutsideEmoji" />
+                            <div class="mo-chat-emoji-area-popup position-absolute" style="bottom: 50px">
+                                <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
                             </div>
                         </div>
                         <v-text-field
@@ -140,7 +140,7 @@
                             @keydown.enter.shift.exact.prevent
                             @keydown="sendTypingEvent"
                         ></v-text-field>
-                        <v-btn fab dark small color="primary" @click="$router.go(-1)" class="position-absolute hidden-md-and-up" style="right: 30px; top: -50px;">
+                        <v-btn fab dark small color="primary" @click="$router.go(-1)" class="position-absolute" style="right: 5px; top: 80px;">
                             <v-icon dark>
                                 mdi-backup-restore
                             </v-icon>
@@ -159,10 +159,17 @@ import { videoPlayer } from 'vue-video-player';
 import ChatMessage from './chatmessage';
 import lang from '~/helper/lang.json';
 import { getMessage, postMessage, postMessageImage, postMessageVideo, postMessageFile, getGroupChatMessage } from '~/api/chat';
+//emoji
+import emojiData from "emoji-mart-vue-fast/data/all.json";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
+let emojiIndex = new EmojiIndex(emojiData);
+
 export default {
     components:{
         ChatMessage,
         videoPlayer,
+        Picker
     },  
     props:{
         chatto:{
@@ -184,6 +191,9 @@ export default {
     },
 
     data: ()=> ({
+        emojiIndex: emojiIndex,
+        emojisOutput: "",
+
         fab: false,
         lang,
         isReachedTop : false,
@@ -242,6 +252,11 @@ export default {
 
     created(){
         console.log(this.chatto, this.chatfrom, this.chatin, this.messages);
+        this.ChatWith = this.chatto;
+        this.ChatIn = this.chatin;
+        if(this.ChatWith == null && this.ChatIn == null){
+            this.$router.push({name: "mochat.news"});
+        }
         this.listen();
     },
 
@@ -460,6 +475,7 @@ export default {
                     from: from,
                     created_at:currentTime
                 };
+                
                 this.messages.push(messageData);
                 let messageText = this.text;
                 this.text = "";
@@ -469,6 +485,7 @@ export default {
                     roomId: this.ChatIn,
                     from: this.currentUser.id,
                 }
+                console.log("payload",payload);
                 postMessage(payload)
                     .then((res) => {
                     }).catch((err) => {
@@ -619,9 +636,15 @@ export default {
                 this.text = this.text + e.native
             }
         },
-        onClickOutsideEmoji(){
+
+        showEmoji(emoji) {
+            this.emojisOutput = this.emojisOutput + emoji.native;
+        },
+
+        outSidePicker(){
             this.emoStatus = false;
         },
+
 
         toggleMarker () {
             this.marker = !this.marker

@@ -16,7 +16,7 @@
                     <v-list-item-title>新的朋友</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>  
-            <v-list-item v-ripple>
+            <v-list-item v-ripple @click="openAddGroup">
                 <v-list-item-icon class="my-2">
                     <v-avatar size="50" color="#49d29e" tile>
                         <v-icon dark> mdi-account-group </v-icon>
@@ -110,6 +110,87 @@
             </v-container>
         </v-card>
     </v-dialog>
+    <v-dialog
+        v-model="createNewGroupDialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition" >   
+        <v-card>
+            <v-toolbar
+                dark
+                color="indigo"
+                tile
+                class="mo-chat-index-nav"
+                >
+                <v-btn icon dark @click="closeAddGroup" >
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+                <v-toolbar-title class="pl-0">群聊</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-items>
+                    <v-btn dark text color="success" :disabled="newGroup.length < 2" @click="openGroupNameDialog" :loading="isCreatingNewGroup">
+                        <v-icon left> mdi-plus </v-icon>
+                        新的群聊
+                    </v-btn>
+                </v-toolbar-items>
+            </v-toolbar>
+            <v-container class="cus-container">
+                <v-row class="ma-0">
+                    <v-col cols="12">
+                        <v-row class="ma-0 pb-16">
+                            <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-for="user in contactList" :key="user.user.id" class="hover-cursor-point" @click="pushUserToNewGroup(user.user.id)">
+                                <v-card color="cyan lighten-2" dark tile>
+                                    <div class="d-flex flex-no-wrap justify-space-between">
+                                        <div>
+                                            <v-card-title > {{user.user.name}}</v-card-title>
+                                            <v-card-actions>
+                                                <v-icon :color="newGroup.includes(user.user.id) ? 'success' : 'gray'" size="25">
+                                                    mdi-check-circle
+                                                </v-icon>
+                                            </v-card-actions>
+                                        </div>
+                                        <v-avatar class="ma-3" size="50" color="indigo">
+                                            <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
+                                            <span dark v-else class="white--text headline"> {{user.user.name[0]}}</span>
+                                        </v-avatar>
+                                    </div>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                    <v-dialog v-model="groupNameDialog" transition="dialog-bottom-transition" max-width="500">   
+                        <v-card>
+                            <v-card-text class="pa-5">
+                                <v-text-field
+                                    v-model="groupName"
+                                    label="请输入群组名称"
+                                    hide-details
+                                ></v-text-field>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="close"
+                                >
+                                {{lang.cancel}}
+                                </v-btn>
+                                <v-btn
+                                color="blue darken-1"
+                                text
+                                :loading="isCreatingNewGroup"
+                                @click="createNewGroup"
+                                >
+                                {{lang.save}}
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                </v-row>
+            </v-container>
+        </v-card>
+    </v-dialog>
     <v-snackbar
         timeout="3000"
         v-model="postFailed"
@@ -134,6 +215,7 @@
 <script>
 import pinyin from 'js-pinyin'
 import { mapGetters } from 'vuex';
+import lang from '~/helper/lang.json'
 import { getUserList, getContactList, addUserToContact, postNewMsgCount, postNewGroup, removeContactUser, leaveGroup, removeGroup } from '~/api/chat'
 export default {
     computed:{
@@ -162,12 +244,17 @@ export default {
     },
 
     data: ()=> ({
+        lang,
         selectedUser: null,
         baseUrl: window.Laravel.base_url,
         addressedUsers: [],
         addUserDialog: false,
+        createNewGroupDialog: false,
+        groupNameDialog: false,
+        groupName: '',
         contactList: [],
         chatGroupList: [],
+        newGroup: [],
         isNoContactList: false,
         isGettingContactList: false,
         willAddToContactUser : {
@@ -179,6 +266,7 @@ export default {
         postFailed : false,
         postSuccess : false,
         users: [],
+        isCreatingNewGroup: false,
     }),
 
     async created(){
@@ -228,7 +316,6 @@ export default {
                     this.totalNewMessageCount = this.totalNewMessageCount + this.chatGroupList[i].new_msg_count;
                 }
                 this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
-                this.$emit("updatechatwith", this.contactList[0]);
             }).catch((err) => {
                 console.log(err);
             });
@@ -331,8 +418,68 @@ export default {
             });
             this.isAdding = false;
             this.willAddToContactUser.contactId = null;
-            this.addDialog = false;
         },
+
+        openGroupNameDialog(){
+            this.groupNameDialog = true;
+        },
+
+        close () {
+            this.groupNameDialog = false
+            this.$nextTick(() => {
+                this.groupName = '';
+                this.newGroup = [];
+            })
+        },
+
+        async createNewGroup(){
+            if(this.groupName.trim() == ''){
+                return this.close();
+            }
+            let payload = {
+                newgroup: this.newGroup,
+                groupName: this.groupName
+            }
+            console.log("this.newGroup",payload);
+            this.isCreatingNewGroup = true;
+            await postNewGroup(payload)
+            .then(res=>{
+                console.log(res.data);
+                this.chatGroupList.unshift(res.data.newGroup);
+                this.isCreatingNewGroup = false;
+                this.close();
+                this.willAddToContactUser.contactId = null;
+                this.createNewGroupDialog = false;
+                this.isNoContactList = false;
+            })
+            .catch(err=>{
+                this.isCreatingNewGroup = false;
+                console.log(err.response);
+            })
+            this.createNewGroupDialog = false;
+        },
+        
+        pushUserToNewGroup(userId){
+            if(this.newGroup.includes(userId)){
+                for( let i = 0; i < this.newGroup.length; i++){ 
+                    if ( this.newGroup[i] == userId) { 
+                        this.newGroup.splice(i, 1); 
+                    }
+                }
+            }
+            else{
+                this.newGroup.push(userId);
+            }
+        },
+
+        openAddGroup(){
+            this.createNewGroupDialog = true;
+        },
+
+        closeAddGroup(){
+            this.createNewGroupDialog = false;
+
+        }
     }
 }
 </script>

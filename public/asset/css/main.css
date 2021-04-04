@@ -880,6 +880,7 @@ a {
     transform: translate( -50%, -50%);
     top: 50%;
     left: 50%;
+    font-size: 0.75rem;
 }
 
 .mo-school-card-avatar {
@@ -955,4 +956,12 @@ a {
     position: sticky!important;
     top: 0px;
     z-index: 1;
+}
+
+.mo-ch-area-height{
+    height: calc(100vh - 300px);
+}
+
+.mo-chat-emoji-area-popup .emoji-mart.emoji-mart-static{
+    width: 83%!important;
 }
