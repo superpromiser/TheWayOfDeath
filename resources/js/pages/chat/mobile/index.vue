@@ -1,6 +1,6 @@
 <template>
-    <v-container>
-        <v-col cols="12" class="mo-glow-small-shadow d-flex" >
+    <v-container class="pa-0">
+        <v-col cols="12" class="mo-glow-small-shadow d-flex mo-chat-index-nav" >
           <transition name="page" mode="out-in">
             <v-text-field
                 v-if="isSearching" key="1"
@@ -36,7 +36,7 @@
           </v-avatar>
           </transition>
         </v-col>
-        <v-col cols="12" class=""> 
+        <v-col cols="12" class="pa-0 mt-5"> 
             <router-view></router-view>
         </v-col>
     </v-container>
@@ -49,11 +49,25 @@ export default {
         isSearching:  false,
         searchKeyword: '',
         isActiveNavContactList: false,
-        isActiveNavNews: true
+        isActiveNavNews: false
     }),
     computed:{
         currentPath(){
             return this.$route
+        }
+    },
+    created(){
+        if(this.currentPath.name == "mochat.news" || this.currentPath.name == "mochat.detail"){
+            this.isActiveNavNews = true;
+            this.isActiveNavContactList = false;
+        }
+        else if(this.currentPath.name == "mochat.contact"){
+            this.isActiveNavNews = false;
+            this.isActiveNavContactList = true;
+        }
+        else{
+            this.isActiveNavNews = false;
+            this.isActiveNavContactList = false;
         }
     },
     watch:{

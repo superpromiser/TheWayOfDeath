@@ -3,7 +3,7 @@
         <div v-if="isGettingContactList" class="justify-center align-center d-flex pt-3 m-0" >
             <v-progress-circular
             indeterminate
-            color="primary"
+            color="#7879ff"
             ></v-progress-circular>
         </div>
         <div v-else-if="isNoContactList" class="pa-3 text-center ">
@@ -18,7 +18,7 @@
                 <template>
                     <v-list v-for="(group, i) in chatGroupList" :key="'A'+ i" class="py-0 position-relative">
                         <v-list-item @click="updatechatIn(group, i)">
-                            <v-avatar size="50" color="indigo" class="ma-3" tile>
+                            <v-avatar size="50" color="49d29e" class="ma-3" tile>
                                 <span dark class="white--text headline"> {{group.room_id.roomName[0]}}</span>
                             </v-avatar>
 
@@ -56,7 +56,7 @@
                                 offset-x="10"
                                 offset-y="10" class="ma-3"
                             >
-                                <v-avatar size="50" color="indigo">
+                                <v-avatar size="50" color="49d29e">
                                     <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
                                     <span dark v-else class="white--text headline"> {{user.user.name[0]}}</span>
                                 </v-avatar>
@@ -106,6 +106,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import { mapGetters } from 'vuex';
+import { getUserList, getContactList, addUserToContact, postNewMsgCount, postNewGroup, removeContactUser, leaveGroup, removeGroup } from '~/api/chat'
 export default {
     props:{
         ChatWith: {
@@ -162,7 +163,9 @@ export default {
                 this.users.map( user => {
                     user['isSelected'] = false;
                 })
+                this.addressedUsers = this.pySort(this.users, 'name')
                 this.$store.dispatch('chat/storeUsers',this.users)
+                this.$store.dispatch('chat/storeAddressedUsers',this.addressedUsers)
             }).catch((err) => {
                 console.log(err);
             });
@@ -395,6 +398,57 @@ export default {
             .catch(err=>{
                 console.log(err.response);
             })
+        },
+        isChinese (temp) {
+            let re = /[^\u4E00-\u9FA5$]/
+            if (re.test(temp)) { return false }
+            return true
+        },
+        isChar (char) {
+            let reg = /[A-Za-z]/
+            if (!reg.test(char)) { return false }
+            return true
+        },
+        pySort (arr, attrName, empty) {
+            if (!attrName) {
+                    console.error ( 'pass in the sorting property')
+                return null
+            }
+            if (!String.prototype.localeCompare) { return null }
+            let letters = 'ABCDEFGHJKLMNOPQRSTWXYZ#'.split('')
+            let zh = '  It '.split('')
+            let arrList = []
+            for (let m = 0; m < arr.length; m++) {
+                arrList.push(arr[m])
+            }
+            let result = []
+            let curr = {}
+            for (let i = 0; i < letters.length; i++) {
+                curr = {letter: letters[i], data: []}
+                if (i !== 23) {
+                    for (let j = 0; j < arrList.length; j++) {
+                                let initial = arrList[j][attrName].charAt(0)// intercept the first character
+                                if (arrList[j][attrName].charAt(0) === letters[i] || arrList[j][attrName].charAt(0) === letters[i].toLowerCase()) { // the first character is in English
+                                    curr.data.push(arrList[j]) // English alphabet
+                                } else if (zh[i] !== '*' && this.isChinese(initial)) { // Determine if there is no Chinese character, is it Chinese?
+                            if (pinyin.getCamelChars(initial).charAt(0) === letters[i]) {
+                                curr.data.push(arrList[j])
+                            }
+                        }
+                    }
+                } else {
+                    for (let k = 0; k < arrList.length; k++) {
+                                let ini = arrList[k][attrName].charAt(0) // intercept the first character
+                                if (!this.isChar(ini) && !this.isChinese(ini)) { // The first character is not a Chinese character (such as numbers, special characters, etc.)
+                        curr.data.push(arrList[k])
+                        }
+                    }
+                }
+                if (empty || curr.data.length) {
+                    result.push(curr)
+                }
+            }
+            return result
         },
     }
 }

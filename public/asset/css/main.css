@@ -846,7 +846,7 @@ a {
         font-size: 0.75rem;
     } */
 
-    button, input, optgroup, select, textarea {
+    input, optgroup, select, textarea {
         font-size: 0.75rem!important;
     }
 }
@@ -949,4 +949,10 @@ a {
 .mo-chat-cus-nav-w{
     width: 46%;
     color: #7879ff;
+}
+
+.mo-chat-index-nav{
+    position: sticky!important;
+    top: 0px;
+    z-index: 1;
 }
