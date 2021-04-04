@@ -186,7 +186,7 @@ export default {
           if(this.user.roleId != 5){
             console.log(user)
             let statObj = {}
-            statObj.id = user.id
+            statObj.userId = user.id
             statObj.lessonId = user.lessonId
             statObj.name = user.name
             statObj.all = 0;
@@ -263,13 +263,13 @@ export default {
     },
     async detail(item){
       this.dialog = true
+      console.log(item)
       await getStatDetailAttData({from:this.startDate,to:this.endDate,lessonId:item.lessonId}).then(res=>{
         console.log(res.data)
         this.detailItem = res.data
       }).catch(err=>{
         console.log(err.response)
       })
-      // console.log(item)
     }
   }
 }
