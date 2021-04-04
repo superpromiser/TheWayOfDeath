@@ -1,9 +1,9 @@
 <template>
     <div>
         <div v-if="message.text !== null && message.text !== undefined">
-            <div v-if="checkIfCreateRoomInfo(message)" class="text-center">
+            <div v-if="checkIfCreateRoomInfo(message)" class="text-center pa-3 mo-glow-inverse">
                 <p class="pt-5"><strong style="font-size: 25px">{{message.text.createdUser}}</strong>在{{TimeViewHMS(message.created_at)}}创建了一个称为{{message.text.roomName}}的房间</p>
-                <p class="pb-4">
+                <p class="">
                     受邀的人:&nbsp;&nbsp;
                     <span 
                         v-for="(userName, i) in message.text.invitedUser" 
@@ -23,7 +23,7 @@
                 </div>
                 <div class="ch-user-avatar-sender">
                     <!-- <avatar :size="30" :username="message.from.name"></avatar> -->
-                    <v-avatar size="30" color="indigo">
+                    <v-avatar size="30" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -33,7 +33,7 @@
             <div v-else class="d-flex justify-start mb-4 position-relative">
                 <div class="ch-user-avatar">
                     <!-- <avatar :size="40" :username="message.from.name"></avatar> -->
-                    <v-avatar size="40" color="indigo">
+                    <v-avatar size="40" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="ch-user-avatar-sender">
                     <!-- <avatar :size="30" :username="message.from.name"></avatar> -->
-                    <v-avatar size="30" color="indigo">
+                    <v-avatar size="30" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -70,7 +70,7 @@
             <div v-else class="d-flex justify-start mb-4 position-relative">
                 <div class="ch-user-avatar">
                     <!-- <avatar :size="40" :username="message.from.name"></avatar> -->
-                    <v-avatar size="40" color="indigo">
+                    <v-avatar size="40" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="ch-user-avatar-sender">
                     <!-- <avatar :size="30" :username="message.from.name"></avatar> -->
-                    <v-avatar size="30" color="indigo">
+                    <v-avatar size="30" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -111,7 +111,7 @@
             <div v-else class="d-flex justify-start mb-4 position-relative">
                 <div class="ch-user-avatar">
                     <!-- <avatar :size="40" :username="message.from.name"></avatar> -->
-                    <v-avatar size="40" color="indigo">
+                    <v-avatar size="40" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -141,7 +141,7 @@
                 </div>
                 <div class="ch-user-avatar-sender">
                     <!-- <avatar :size="30" :username="message.from.name"></avatar> -->
-                    <v-avatar size="30" color="indigo">
+                    <v-avatar size="30" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -151,7 +151,7 @@
             <div v-else class="d-flex justify-start mb-4 position-relative">
                 <div class="ch-user-avatar">
                     <!-- <avatar :size="40" :username="message.from.name"></avatar> -->
-                    <v-avatar size="40" color="indigo">
+                    <v-avatar size="40" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -184,7 +184,7 @@
                 </div>
                 <div class="ch-user-avatar-sender">
                     <!-- <avatar :size="30" :username="message.from.name"></avatar> -->
-                    <v-avatar size="30" color="indigo">
+                    <v-avatar size="30" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -194,7 +194,7 @@
             <div v-else class="d-flex justify-start mb-4 position-relative">
                 <div class="ch-user-avatar">
                     <!-- <avatar :size="40" :username="message.from.name"></avatar> -->
-                    <v-avatar size="40" color="indigo">
+                    <v-avatar size="40" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -232,7 +232,7 @@
                 </div>
                 <div class="ch-user-avatar-sender">
                     <!-- <avatar :size="30" :username="message.from.name"></avatar> -->
-                    <v-avatar size="30" color="indigo">
+                    <v-avatar size="30" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>
@@ -242,7 +242,7 @@
             <div v-else class="d-flex justify-start mb-4 position-relative">
                 <div class="ch-user-avatar">
                     <!-- <avatar :size="40" :username="message.from.name"></avatar> -->
-                    <v-avatar size="40" color="indigo">
+                    <v-avatar size="40" color="#49d29e">
                         <v-img v-if="message.from.avatar !== '/'" :src="`${baseUrl}${message.from.avatar}`" :alt="message.from.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{message.from.name[0]}}</span>
                     </v-avatar>

@@ -172,7 +172,7 @@ export default {
                     }
                 }
                 this.messages = res.data.messages;
-                
+                this.$router.push({name: "mochat.detail"})
             });
         },
     }
