@@ -296,7 +296,7 @@ export default {
             // this.answerData[index] = item
             this.$set(this.answerData,index,item)
           }
-          console.log(this.answerData[index])
+          // console.log(this.answerData[index])
         },
         selScoring(minute,index,type){
           if(this.alreadyAnswer == true){
