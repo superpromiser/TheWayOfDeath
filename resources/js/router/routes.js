@@ -76,6 +76,7 @@ export default [
       {path:'campus', name:'details.campus', component:page('details/campus/index.vue')},
       {path:'bulletinboard', name:'details.bulletinBoard', component:page('details/bulletinBoard/index.vue')},
       {path:'announcement', name:'details.anouncement', component:page('details/anouncement/index.vue')},
+      {path:'share', name:'details.share', component:page('details/share/index.vue')},
       {path:'homevisit', name:'details.homeVisit', component:page('details/homeVisit/index.vue')},
       {path:'regnameResult', name:'details.regnameResult', component:page('details/regname/result.vue')},
       {path:'regnameAnswer', name:'details.regnameAnswer', component:page('details/regname/answer.vue')},
