@@ -21,7 +21,7 @@
                 <span>圈子</span>
                 <v-icon>mdi-fire-hydrant</v-icon>
             </v-btn>
-            <v-btn fab class="mo-glow-small-shadow mr-3">
+            <v-btn fab class="mo-glow-small-shadow mr-3" @click="navToFourth">
                 <span>我的</span>
                 <v-icon>mdi-account</v-icon>
             </v-btn>
@@ -134,6 +134,9 @@ export default {
                 }
                 else if(val.name=="chat"){
                     this.value = 1
+                }
+                else if(val.name=="profile"){
+                    this.value = 3
                 }
                 else{
                     // this.value = -1
@@ -326,6 +329,9 @@ export default {
         },
         navToSecond(){
             this.$router.push({name: "chat"})
+        },
+        navToFourth(){
+            this.$router.push({name:"profile"})
         }
     }
 }
