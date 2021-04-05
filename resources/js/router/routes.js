@@ -18,6 +18,9 @@ export default [
   //chat
   { path: '/chat', name: 'chat', component: page('chat/index.vue') },
 
+  //circle
+  { path: '/circle', name: 'circle', component: page('circle/index.vue') },
+
   //chat mobile
   { path: '/chat/mobile', name: 'chatMobile', component: page('chat/mobile/index.vue'),
       children : [

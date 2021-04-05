@@ -17,7 +17,7 @@
                 <v-icon>mdi-account-group</v-icon>
             </v-btn>
            
-            <v-btn fab class="mo-glow-small-shadow mx-3 ml-auto">
+            <v-btn fab class="mo-glow-small-shadow mx-3 ml-auto" @click="navToThird">
                 <span>圈子</span>
                 <v-icon>mdi-fire-hydrant</v-icon>
             </v-btn>
@@ -137,6 +137,9 @@ export default {
                 }
                 else if(val.name=="profile"){
                     this.value = 3
+                }
+                else if(val.name=="circle"){
+                    this.value = 2
                 }
                 else{
                     // this.value = -1
@@ -329,6 +332,9 @@ export default {
         },
         navToSecond(){
             this.$router.push({name: "mochat.news"})
+        },
+        navToThird(){
+            this.$router.push({name: "circle"})
         },
         navToFourth(){
             this.$router.push({name:"profile"})
