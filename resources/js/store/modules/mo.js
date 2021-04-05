@@ -3,13 +3,20 @@ import * as types from '../mutation-types'
 export const state = {
   isSchoolSpace: true,
   selectedSchoolItem: null,
-
+  selectedItemSchoolGroupStore: null,
+  selectedItemClassGroupStore: null,
+  selectedItemGroupForSchoolDiaStore: null,
+  selectedItemGroupForClassDiaStore: null,
 }
 
 // getters
 export const getters = {
   isSchoolSpace: state => state.isSchoolSpace,
   selectedSchoolItem: state => state.selectedSchoolItem,
+  selectedItemSchoolGroupStore: state => state.selectedItemSchoolGroupStore,
+  selectedItemClassGroupStore: state => state.selectedItemClassGroupStore,
+  selectedItemGroupForSchoolDiaStore: state => state.selectedItemGroupForSchoolDiaStore,
+  selectedItemGroupForClassDiaStore: state => state.selectedItemGroupForClassDiaStore,
 }
 
 // mutations
@@ -20,6 +27,18 @@ export const mutations = {
     [types.SELECT_SCHOOL_ITEM] (state,  selectedSchoolItem ) {
         state.selectedSchoolItem = selectedSchoolItem
     },
+    [types.SCHOOL_ITEM_GROUP] (state,  selectedItemSchoolGroupStore ) {
+        state.selectedItemSchoolGroupStore = selectedItemSchoolGroupStore
+    },
+    [types.CLASS_ITEM_GROUP] (state,  selectedItemClassGroupStore ) {
+        state.selectedItemClassGroupStore = selectedItemClassGroupStore
+    },
+    [types.SCHOOL_ITEM_GROUP_FOR_DIA] (state,  selectedItemGroupForSchoolDiaStore ) {
+        state.selectedItemGroupForSchoolDiaStore = selectedItemGroupForSchoolDiaStore
+    },
+    [types.CLASS_ITEM_GROUP_FOR_DIA] (state,  selectedItemGroupForClassDiaStore ) {
+        state.selectedItemGroupForClassDiaStore = selectedItemGroupForClassDiaStore
+    },
 }
 
 // actions
@@ -29,5 +48,17 @@ export const actions = {
     },
     onSelectedSchoolItem ({ commit }, payload) {
         commit(types.SELECT_SCHOOL_ITEM, payload)
+    },
+    onSelectedItemSchoolGroupStore ({ commit }, payload) {
+        commit(types.SCHOOL_ITEM_GROUP, payload)
+    },
+    onSelectedItemClassGroupStore ({ commit }, payload) {
+        commit(types.CLASS_ITEM_GROUP, payload)
+    },
+    onSelectedItemGroupForSchoolDiaStore ({ commit }, payload) {
+        commit(types.SCHOOL_ITEM_GROUP_FOR_DIA, payload)
+    },
+    onSelectedItemGroupForClassDiaStore ({ commit }, payload) {
+        commit(types.CLASS_ITEM_GROUP_FOR_DIA, payload)
     },
 }
