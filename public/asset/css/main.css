@@ -58,6 +58,10 @@ a {
     overflow: auto;
 }
 
+.textMain {
+    color: #7879ff;
+}
+
 @media (min-width: 1904px) {
     .h-out-navbar.container {
         max-width: 1400px !important;
@@ -205,6 +209,11 @@ a {
     .border-type-2 {
         border-radius: 0px !important;
     }
+}
+
+.medal-background {
+    max-width: 500px;
+    max-height: 300px;
 }
 
 .medal-item {

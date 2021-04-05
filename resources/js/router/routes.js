@@ -182,12 +182,30 @@ export default [
   {path:'/admin/attendance/statistics', name:'posts.attendance.statistics', component:page('admin/attendance/statistics.vue')},
 
   //classPostDetail
-  {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/12', name:'details.classQuesionnaire', component:page('school/details/questionnaire/index.vue')},
-  {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/13', name:'details.classVoting', component:page('school/details/voting/index.vue')},
-  {path:'/schoolspace/:id/class/:gradeId/:classId/1postDetail/16', name:'details.classHomeVisit', component:page('school/details/homeVisit/index.vue')},
-  {path:'/schoolspace/:id/class/:gradeId/:classId/1postDetail/17', name:'details.classNotification', component:page('school/details/notification/index.vue')},
-  {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/18', name:'details.classEvaluation', component:page('school/details/evaluation/index.vue')},
-  {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/19', name:'details.classRecognition', component:page('school/details/recognition/index.vue')},
+  {path:'/schoolSpace/:schoolId/:gradeId/:lessonId/detail', name:"schoolSpace.detail", component:page('details/index.vue'),
+    children:[
+      {path:'questionnaire', name:'details.classQuesionnaire', component:page('details/questionnaire/index.vue'),
+        children:[
+          {path:'answerUsers',name:'details.questionnaireUsers',component:page('details/questionnaire/answerUserList.vue')}
+        ]
+      },
+      {path:'voting', name:'details.classVoting', component:page('details/voting/index.vue'),
+        children:[
+          {path:'answerUsers', name:'details.votingUsers', component:page('details/voting/answerUserList.vue')}
+        ]
+      },
+      {path:'classHomeVisit', name:'details.classHomeVisit', component:page('details/homeVisit/index.vue')},
+      {path:'classNotification', name:'details.classNotification', component:page('details/notification/index.vue')},
+      {path:'classEvaluation', name:'details.classEvaluation', component:page('details/evaluation/index.vue')},
+      {path:'classRecognition', name:'details.classRecognition', component:page('details/recognition/index.vue')},
+    ]
+  },
+  // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/12', name:'details.classQuesionnaire', component:page('details/questionnaire/index.vue')},
+  // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/13', name:'details.classVoting', component:page('details/voting/index.vue')},
+  // {path:'/schoolspace/:id/class/:gradeId/:classId/1postDetail/16', name:'details.classHomeVisit', component:page('details/homeVisit/index.vue')},
+  // {path:'/schoolspace/:id/class/:gradeId/:classId/1postDetail/17', name:'details.classNotification', component:page('details/notification/index.vue')},
+  // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/18', name:'details.classEvaluation', component:page('details/evaluation/index.vue')},
+  // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/19', name:'details.classRecognition', component:page('details/recognition/index.vue')},
 
   //setting
   { path: '/settings',

@@ -31,7 +31,7 @@
               </v-menu>
             </div>
         </v-col>
-        <v-col cols="12">
+        <v-col cols="12" class="pl-10 pt-0">
            <v-card
               tile
               class="mx-auto"

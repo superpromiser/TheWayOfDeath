@@ -31,6 +31,20 @@
               </v-menu>
             </div>
         </v-col>
+        <v-col cols="12" class="pl-10 pt-0">
+          <v-chip v-for="user in userList" :key="user.id" class="ml-2 hover-cursor-point">
+            @{{user.name}}
+          </v-chip>
+        </v-col>
+        <v-col cols="12" class="pl-10 pt-0">
+          <!-- <v-img
+            :src="`${baseUrl}/asset/img/icon/medal/medal_plus_background.7422ef6e.png`"
+            class="medal-background"
+          ></v-img>
+          <v-col cols="6" sm="4" md="4" lg="3" class="d-flex justify-center" v-for="(medalItem, j) in medalGroup.menuList" :key="j">
+            <img v-for="(medalItem,idx) in medalList" :key="idx" :src="`${baseUrl}/asset/img/icon/medal_empty.png`" :style="medalItem.medalImg" alt="" class="md-logo">
+          </v-col> -->
+        </v-col>
     </v-container>
 </template>
 
@@ -46,7 +60,20 @@ export default {
     data:()=>({
         lang,
         baseUrl:window.Laravel.base_url,
+        userList:[],
+        medalList:[],
     }),
+    created(){
+      console.log(this.content)
+      this.userList = JSON.parse(this.content.evaluations.userList)
+      console.log(this.userList)
+      this.medalList = JSON.parse(this.content.evaluations.selMedalList)
+      this.medalList.map(medal=>{
+        // medal.medalImg = JSON.parse(medal.medalImg)
+        console.log(medal.medalImg)
+      })
+      console.log(this.medalList)
+    },
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)

@@ -249,7 +249,7 @@ export default {
     watch:{
       currentpath:{
         handler(val){
-          if(val.name == 'details.quesionnaire'){
+          if(val.name == 'details.quesionnaire' || val.name == 'details.classQuesionnaire'){
             this.answerUserShow = false
           }
         },
