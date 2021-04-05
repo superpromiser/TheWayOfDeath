@@ -58,6 +58,10 @@ a {
     overflow: auto;
 }
 
+.textMain {
+    color: #7879ff;
+}
+
 @media (min-width: 1904px) {
     .h-out-navbar.container {
         max-width: 1400px !important;

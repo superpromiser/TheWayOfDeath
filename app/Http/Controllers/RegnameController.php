@@ -12,54 +12,58 @@ use Illuminate\Support\Facades\Auth;
 
 class RegnameController extends Controller
 {
-    public function createRegname(Request $request){
-        $this->validate($request,[
-            'content'=>'required'
-
+    public function createRegname(Request $request)
+    {
+        $this->validate($request, [
+            'content' => 'required',
+            'startTime' => 'required',
+            'endTime' => 'requried',
+            'viewList' => 'required',
+            'inputTypeList' => 'required',
         ]);
         $shareData = json_encode($request->content);
         $userId = Auth::user()->id;
         $postId = Post::create([
-            'contentId'=>24,
-            'userId'=>$userId,
-            'schoolId'=>$request->schoolId
+            'contentId' => 24,
+            'userId' => $userId,
+            'schoolId' => $request->schoolId
         ])->id;
-        
+
         Regname::create([
-            'title'=>$request->title,
-            'startTime'=>$request->startTime,
-            'endTime'=>$request->endTime,
-            'viewList'=>json_encode($request->viewList),
-            'inputTypeList'=>json_encode($request->inputTypeList),
-            'checkFlag'=>$request->checkFlag,
-            'content'=>$shareData,
-            'postId'=>$postId,
+            'title' => $request->title,
+            'startTime' => $request->startTime,
+            'endTime' => $request->endTime,
+            'viewList' => json_encode($request->viewList),
+            'inputTypeList' => json_encode($request->inputTypeList),
+            'checkFlag' => $request->checkFlag,
+            'content' => $shareData,
+            'postId' => $postId,
         ]);
-        
+
         return response()->json([
             'msg' => 'ok'
-        ],200);
-
+        ], 200);
     }
 
-    public function answerRegname(Request $request){
-        $this->validate($request,[
-            'answer'=>'required'
+    public function answerRegname(Request $request)
+    {
+        $this->validate($request, [
+            'answer' => 'required'
         ]);
         AnswerRegname::create([
-            'userId'=> Auth::user()->id,
-            'postId'=> $request->postId,
-            'regnameId'=> $request->regnameId,
-            'answer'=> json_encode($request->answer)
+            'userId' => Auth::user()->id,
+            'postId' => $request->postId,
+            'regnameId' => $request->regnameId,
+            'answer' => json_encode($request->answer)
         ]);
-        
+
         return response()->json([
             'msg' => 'ok'
-        ],200);
+        ], 200);
     }
 
     public function getAnswerOne(Request $request)
-    {   
+    {
         $answerData = AnswerRegname::where([
             ['userId', '=', $request->userId],
             ['postId', '=', $request->postId]
@@ -67,18 +71,18 @@ class RegnameController extends Controller
 
         return response()->json([
             'answer' => $answerData
-        ],200);
+        ], 200);
     }
 
     public function getAnswer(Request $request)
-    {   
+    {
         $answerData = AnswerRegname::where([
             ['regnameId', '=', $request->id]
         ])->get();
 
         return response()->json([
             'answer' => $answerData
-        ],200);
+        ], 200);
     }
 
     public function updateAnswer(Request $request)
@@ -89,6 +93,6 @@ class RegnameController extends Controller
 
         return response()->json([
             'msg' => 'ok'
-        ],200);
+        ], 200);
     }
 }

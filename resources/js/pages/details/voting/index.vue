@@ -124,7 +124,7 @@ export default {
     watch:{
         currentpath:{
             handler(val){
-                if(val.name == 'details.voting'){
+                if(val.name == 'details.voting' || val.name == 'details.classVoting'){
                     this.answerUserShow = false
                 }
             },  

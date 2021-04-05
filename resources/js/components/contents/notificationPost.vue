@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-col cols="12" class="d-flex align-center" @click="showDetail(content)">
+        <v-col cols="12" class="d-flex align-cente hover-cursor-point" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/通知 拷贝.png`" alt="postItem" ></v-img>
             </v-avatar>
@@ -31,12 +31,33 @@
               </v-menu>
             </div>
         </v-col>
+        <v-col cols="12" class="pl-10 pt-0">
+          <p class="text-wrap mb-0">
+            <strong>标题:</strong>
+            {{content.notifications.title}}
+          </p>
+          <p class="text-wrap mb-0">
+            <strong>公告标题:</strong>
+            {{content.notifications.signName}}
+          </p>
+          <!-- <p class="text-wrap mb-0">
+            <strong>公告标题:</strong>
+            {{content.notifications.signName}}
+          </p>
+          <v-col cols="12" v-if="checkIfAttachExist(attachItem)">
+            <AttachItemViewer :items="attachItem" />
+          </v-col> -->
+        </v-col>
       </v-container>
 </template>
 
 <script>
 import lang from '~/helper/lang.json'
+import AttachItemViewer from '~/components/attachItemViewer';
 export default {
+    components:{
+        AttachItemViewer,
+    },
     props:{
         content:{
             type:Object,
@@ -46,15 +67,20 @@ export default {
     data:()=>({
         lang,
         baseUrl:window.Laravel.base_url,
+        attachItem:null
     }),
 
-    mounted(){
-      // //console.log("this.content", this.content);
+    created(){
+      console.log("this.content",this.content)
+      this.attachItem = JSON.parse(this.content.notifications.description)
+      console.log("this.attachItem",this.attachItem)
     },
+
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.campus'});
+        this.$router.push({name:'details.classNotification'});
+        
       }
     }
 }

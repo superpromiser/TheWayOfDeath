@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-col cols="12" class="d-flex align-center" @click="showDetail(content)">
+        <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/家访 拷贝.png`" alt="postItem" ></v-img>
             </v-avatar>
@@ -76,6 +76,11 @@ export default {
         baseUrl:window.Laravel.base_url,
         homeVisitData: null,
     }),
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     created(){
       this.homeVisitData = this.content.home_visit;
       this.homeVisitData.content = JSON.parse(this.homeVisitData.content); 
@@ -84,7 +89,11 @@ export default {
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.homeVisit'});
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'details.classHomeVisit'});
+        }else{
+          this.$router.push({name:'details.homeVisit'});
+        }
       }
     }
 }

@@ -17,8 +17,8 @@
                     small-chips
                     :items="userInfoItem"
                     :menu-props="{ top: false, offsetY: true }"
-                    item-text="label"
-                    item-value="value"
+                    item-text="name"
+                    item-value="name"
                     @change="selectedLesson"
                     label="班级"
                     hide-details
@@ -52,8 +52,8 @@
                     </v-card-title>
                 
                     <v-row class="ma-0" v-for="(item, i) in visitData.description" :key="i">
-                        <v-col class="px-5 " cols="12" v-for="(data, j) in item[0]" :key="j">
-                            {{data}}
+                        <v-col class="px-5 " cols="12" v-for="(data, j) in item" :key="j">
+                            <p :class="{textMain: j==0}">{{data.title}}</p>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -115,8 +115,8 @@
                         chips
                         :items="userInfoItem"
                         :menu-props="{ top: false, offsetY: true }"
-                        item-text="label"
-                        item-value="value"
+                        item-text="name"
+                        item-value="name"
                         @change="selectedLesson"
                         label="班级"
                         hide-details
@@ -152,8 +152,8 @@
                     </v-card-title>
                 
                     <v-row v-for="(item, i) in visitData.description" :key="i">
-                        <v-col class="px-5 pr-0" cols="12" v-for="(data, j) in item[0]" :key="j">
-                            {{data}}
+                        <v-col class="px-5 pr-0" cols="12" v-for="(data, j) in item" :key="j">
+                            <p :class="{textMain: j==0}">{{data.title}}</p>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -179,7 +179,7 @@ import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
 import Fragment from 'vue-fragment';
 import quickMenu from '~/components/quickMenu'
-
+import {getLessonUserList} from '~/api/user'
 
 import {createHomeVisit} from '~/api/homeVisit'
 
@@ -198,37 +198,7 @@ export default {
         requiredText:false,
         baseUrl: window.Laravel.base_url,
         detailDialog: false,
-        userInfoItem : [
-            { 
-                label : "sammie", 
-                value : 1 
-            },
-            { 
-                label : "tommy", 
-                value : 2 
-            },
-            { 
-                label : "hommey", 
-                value : 3 
-            },
-            { 
-                label : "gammy", 
-                value : 4 
-            },
-            { 
-                label : "bammy", 
-                value : 5
-            },
-            { 
-                label : "gymmie", 
-                value : 6
-            },
-            { 
-                label : "Qummie", 
-                value : 7
-            },
-            
-        ],
+        userInfoItem : [],
         visitData:{
             userInfo:null,
             deadline:'',
@@ -237,7 +207,7 @@ export default {
             [
                 {
                     title:"孩子的家庭成员有哪些？（多选题）",
-                    type:"多选题"
+                    type:"multi"
                 },
                 {title:"妈妈"},
                 {title:"外公外婆"},
@@ -247,18 +217,18 @@ export default {
             [
                 {
                     title:"孩子是否住宿（单选题）",
-                    type:"单选题"
+                    type:"single"
                 },
                 {title:"否"},
                 {title:"是"},
             ],
             [
-                {title:"您的孩子中午是否在校休息（单选题）",type:"单选题"},
+                {title:"您的孩子中午是否在校休息（单选题）",type:"single"},
                 {title:"是"},
                 {title:"否"},
             ],
             [
-                {title:"您重视对孩子哪方面能力的培养？ （多选题）",type:"多选题"},
+                {title:"您重视对孩子哪方面能力的培养？ （多选题）",type:"multi"},
                 {title:"个人卫生"},
                 {title:"语言能力"},
                 {title:"思维能力"},
@@ -267,7 +237,7 @@ export default {
                 {title:"自主劳动"}
             ],
             [
-                {title:"孩子比较擅长哪方面的能力？（多选题）",type:"多选题"},
+                {title:"孩子比较擅长哪方面的能力？（多选题）",type:"multi"},
                 {title:"文明礼貌"},
                 {title:"学习能力"},
                 {title:"自主劳动"},
@@ -276,31 +246,31 @@ export default {
                 {title:"思维能力"}
             ],
             [
-                {title:"您家里适合孩子阅读的课外书数量？（单选题）",type:"单选题"},
+                {title:"您家里适合孩子阅读的课外书数量？（单选题）",type:"single"},
                 {title:"文明礼貌"},
                 {title:"学习能力"},
                 {title:"自主劳动"},
             ],
             [
-                {title:"孩子的学习环境如何？（单选题）",type:"单选题"},
+                {title:"孩子的学习环境如何？（单选题）",type:"single"},
                 {title:"有独立的房间"},
                 {title:"与兄弟姐妹共用房间"},
                 {title:"无独立房间"},
             ],
             [
-                {title:"家里的卫生情况如何（单选题）",type:"单选题"},
+                {title:"家里的卫生情况如何（单选题）",type:"single"},
                 {title:"很干净"},
                 {title:"一般"},
                 {title:"不干净"},
             ],
             [
-                {title:"孩子和家庭成员的关系？",type:"单选题"},
+                {title:"孩子和家庭成员的关系？",type:"single"},
                 {title:"操作成功"},
                 {title:"一般"},
                 {title:"差"},
             ],
             [
-                {title:"当您发现孩子成绩下降后，您的常用做法是？（单选题）",type:"单选题"},
+                {title:"当您发现孩子成绩下降后，您的常用做法是？（单选题）",type:"single"},
                 {title:"帮助分析原因，制定措施"},
                 {title:"口头训斥"},
                 {title:"打骂"},
@@ -308,7 +278,7 @@ export default {
                 {title:"成绩不代表什么，身体健康就操作成功"},
             ],
             [
-                {title:"间隔多长时间主动与老师联系一次？（单选题）",type:"单选题"},
+                {title:"间隔多长时间主动与老师联系一次？（单选题）",type:"single"},
                 {title:"一个月"},
                 {title:"一周"},
                 {title:"每天"},
@@ -316,13 +286,13 @@ export default {
                 {title:"一学期"},
             ],
             [
-                {title:"您孩子定期帮助家人做家务吗？（单选题）",type:"单选题"},
+                {title:"您孩子定期帮助家人做家务吗？（单选题）",type:"single"},
                 {title:"经常有"},
                 {title:"偶尔有"},
                 {title:"从来没有"},
             ],
             [
-                {title:"孩子对课外阅读的兴趣如何？（单选题）",type:"单选题"},
+                {title:"孩子对课外阅读的兴趣如何？（单选题）",type:"single"},
                 {title:"很喜欢书，涉猎广泛，懂得很多课外知识"},
                 {title:"喜欢看书，但范围较窄"},
                 {title:"比较喜欢"},
@@ -330,14 +300,14 @@ export default {
                 {title:"完全不看书"},
             ],
             [
-                {title:"孩子经常有朋友到家里来玩吗？（单选题）",type:"单选题"},
+                {title:"孩子经常有朋友到家里来玩吗？（单选题）",type:"single"},
                 {title:"他有很操作成功的朋友，经常来家里"},
                 {title:"几乎没有朋友，也从不邀请到家"},
                 {title:"有一些朋友，但不常到家"},
                 {title:"有自己的朋友，但我不喜欢他带朋友到家里"},
             ],
             [
-                {title:"孩子为人处世的态度，您觉得比较符合下列哪一条？（单选题）",type:"单选题"},
+                {title:"孩子为人处世的态度，您觉得比较符合下列哪一条？（单选题）",type:"single"},
                 {title:"态度粗暴，比较自我，不容易被人接受"},
                 {title:"态度蛮横，性情暴躁，容易与人发生矛盾"},
                 {title:"态度冷淡，与世无争，性格较孤僻"},
@@ -363,8 +333,13 @@ export default {
         if(this.currentPath.params.lessonId){
             this.visitData.schoolId = this.currentPath.params.schoolId
             this.visitData.classId = this.currentPath.params.lessonId
-
         }
+        getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
+            console.log(res.data)
+            this.userInfoItem = res.data
+        }).catch(err=>{
+            console.log(err.response)
+        })
     },
 
     methods: {

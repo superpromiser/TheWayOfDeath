@@ -765,6 +765,7 @@ import AttachItemViewer from '~/components/attachItemViewer';
 import {getQuestionnaire,createQuestionnaire,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire';
 import {getTemplate,createTemplate,updateTemplate,deleteTemplate} from '~/api/template';
 import quickMenu from '~/components/quickMenu'
+import {getLessonUserList} from '~/api/user'
 export default {
   data: () => ({
       lang,
@@ -827,6 +828,11 @@ export default {
     //console.log(this.currentPath)
     this.newQuestionnaireData.schoolId = this.currentPath.params.schoolId
     this.newQuestionnaireData.classId = this.currentPath.params.lessonId
+    getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
+      console.log(res.data)
+    }).catch(err=>{
+      console.log(err.response)
+    })
   },
 
   methods:{
