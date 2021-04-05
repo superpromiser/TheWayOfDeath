@@ -111,12 +111,12 @@ export default {
                         imgUrl : "/asset/img/icon/布告栏 拷贝.png",
                         path : "posts.bulletinboard"
                     },
-                    {
-                        color : "red accent-3",
-                        title : "考勤",
-                        imgUrl : "/asset/img/icon/考勤.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "red accent-3",
+                    //     title : "考勤",
+                    //     imgUrl : "/asset/img/icon/考勤.png",
+                    //     path : "something"
+                    // },
                 ],
             },
             {

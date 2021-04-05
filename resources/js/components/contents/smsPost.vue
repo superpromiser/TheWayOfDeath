@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-col cols="12" class="d-flex align-center">
+    <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail">
       <v-avatar class="ma-3 school-card-avatar" tile >
         <v-img :src="`${baseUrl}/asset/img/icon/短信 拷贝.png`" alt="postItem" ></v-img>
       </v-avatar>
@@ -63,13 +63,14 @@ export default {
         baseUrl:window.Laravel.base_url,
         smsData: {},
     }),
+    
     created(){
       this.smsData = JSON.parse(this.content.sms.content);
     },
     methods:{
 
-      showDetail(content){
-        this.$store.dispatch('content/storePostDetail',content)
+      showDetail(){
+        this.$store.dispatch('content/storePostDetail',this.content)
         this.$router.push({name:'details.sms'});
       },
       

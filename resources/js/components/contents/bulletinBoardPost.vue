@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-col cols="12" class="d-flex align-center" >
+        <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/布告栏 拷贝.png`" alt="postItem" ></v-img>
             </v-avatar>

@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-col cols="12" class="d-flex align-center">
+        <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/动态 拷贝.png`" alt="postItem" ></v-img>
             </v-avatar>
@@ -36,7 +36,6 @@
               tile
               class="mx-auto"
               max-width="800"
-              @click="showDetail(content)"
             >
               <v-img height="450" :src="`${baseUrl}${content.campus.imgUrl}`" ></v-img>
               <v-card-title>{{content.campus.title}}</v-card-title>
