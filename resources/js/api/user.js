@@ -58,7 +58,7 @@ function postChooseableClassItem(payload){
     return axios.post('/api/v1/user/classItem',payload);
 }
 function getPostItem(){
-    return axios.get('/api/v1/user/getPostItem');
+    return axios.get('/api/v1/user/postItem');
 }
 export{
     createStaff,

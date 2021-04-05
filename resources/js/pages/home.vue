@@ -88,7 +88,7 @@
                           multiple
                           scrollable
                         >
-                          <template v-for="(item, i) in chooseableItemGroup">
+                          <template v-for="(item, i) in selectedTypeItemGroup">
                             <v-list-item
                               :key="i"
                               :value="item.title"
@@ -137,7 +137,7 @@
           <div class="trapezoid position-relative"></div>
           <div class="parallelogram ml-4"></div>
           <div class="ml-4">
-            something
+            学校要闻
           </div>
         </v-col>
       </v-row>
@@ -148,7 +148,7 @@
               mdi-school
             </v-icon>
           </v-avatar>
-          <h3 class="ml-3">something</h3>
+          <h3 class="ml-3">学校要闻</h3>
         </v-col>
         <v-col cols="12" class="pa-0">
           <v-card class="ma-0 pa-0 mt-5 mo-glow">
@@ -395,6 +395,9 @@ export default {
     selectedItemGroup: [],
     selectedItemSchoolGroup: [],
     selectedItemClassGroup: [],
+    selectedTypeItemGroup: null,
+    selectedItemGroupForSchoolDia: [],
+    selectedItemGroupForClassDia: [],
     schoolSpaceItems:[
       {
         title : "问卷",
@@ -525,35 +528,61 @@ export default {
     ...mapGetters({
       user : 'auth/user',
       schoolTree : 'schooltree/schoolData',
-      selectedSchoolItem : 'mo/selectedSchoolItem'
+      selectedSchoolItem : 'mo/selectedSchoolItem',
+      selectedItemSchoolGroupStore : 'mo/selectedItemSchoolGroupStore',
+      selectedItemClassGroupStore : 'mo/selectedItemClassGroupStore',
+      selectedItemGroupForSchoolDiaStore : 'mo/selectedItemGroupForSchoolDiaStore',
+      selectedItemGroupForClassDiaStore : 'mo/selectedItemGroupForClassDiaStore',
     })
   },
 
   async created(){
-    console.log(this.schoolTree);
-    await getPostItem()
-    .then((res) => {
-      let schoolItemArr = JSON.parse(res.data.schoolItem)
-      let classItemArr = JSON.parse(res.data.classItem)
-      schoolItemArr.map(x=>{
-        this.schoolSpaceItems.map(y=>{
-          if(y.title == x){
-            this.selectedItemSchoolGroup.push(y);
-          }
+    if(this.selectedItemSchoolGroupStore !== null || this.selectedItemClassGroupStore !== null){
+      if(this.selectedSchoolItem.type == "school"){
+        this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
+        this.selectedItemGroup = this.selectedItemGroupForSchoolDiaStore;
+        
+      }
+      else{
+        this.chooseableItemGroup = this.selectedItemClassGroupStore;
+        this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
+      }
+    }
+    else{
+      await getPostItem()
+      .then((res) => {
+        console.log("^^^");
+        let schoolArr = JSON.parse(res.data.schoolItem);
+        let classArr = JSON.parse(res.data.classItem);
+        this.selectedItemGroupForSchoolDia = schoolArr;
+        this.selectedItemGroupForClassDia = classArr;
+        this.$store.dispatch('mo/onSelectedItemGroupForSchoolDiaStore', this.selectedItemGroupForSchoolDia);
+        this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroupForClassDia);
+        schoolArr.map(y=>{
+          this.schoolSpaceItems.map(x=>{
+            if(x.title == y){
+              this.selectedItemSchoolGroup.push(x)
+            }
+          })
         })
-      })
-      classItemArr.map(x=>{
-        this.classSpaceItems.map(y=>{
-          if(y.title == x){
-            this.selectedItemClassGroup.push(y);
-          }
+        classArr.map(y=>{
+          this.classSpaceItems.map(x=>{
+            if(x.title == y){
+              this.selectedItemClassGroup.push(x)
+            }
+          })
         })
-      })
-      this.chooseableItemGroup = this.schoolSpaceItems;
-    }).catch((err) => {
-      
-    });
-
+      }).catch((err) => {
+        
+      });
+      this.$store.dispatch('mo/onSelectedItemSchoolGroupStore', this.selectedItemSchoolGroup);
+      this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.selectedItemClassGroup);
+      // if(this.selectedItemSchoolGroupStore == null && this.selectedItemClassGroupStore == null){
+      // }
+      this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
+      this.selectedItemGroup = this.selectedItemGroupForSchoolDia;
+      console.log("this.schoolTree", this.schoolTree, this.selectedItemGroup);
+    }
     if(this.user.roleId == 1){
       this.schoolList = this.schoolTree;
       this.schoolTree.map((school, schoolIndex)=>{
@@ -666,6 +695,7 @@ export default {
     else  {
       this.selectedItem = this.selectedSchoolItem
     }
+    this.selectedTypeItemGroup = this.schoolSpaceItems;
   },
 
   methods:{
@@ -687,11 +717,15 @@ export default {
             this.selectedItem = x;
             if(this.selectedItem.type == "school"){
               this.isSchoolSpace = true;
-              this.chooseableItemGroup = this.schoolSpaceItems;
+              this.selectedTypeItemGroup = this.schoolSpaceItems;
+              this.selectedItemGroup = this.selectedItemGroupForSchoolDiaStore;
+              this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
             }
             else{
               this.isSchoolSpace = false;
-              this.chooseableItemGroup = this.classSpaceItems;
+              this.selectedTypeItemGroup = this.classSpaceItems;
+              this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
+              this.chooseableItemGroup  = this.selectedItemClassGroupStore;
             }
             this.$store.dispatch('mo/onIsSchoolSpace', this.isSchoolSpace);
             this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
@@ -739,6 +773,13 @@ export default {
         }
     },
     openAddItemDialog(){
+      //selectedItemGroup
+      if(this.selectedItem.type == "school"){
+        this.selectedItemGroup = this.selectedItemGroupForSchoolDia
+      }
+      else{
+        this.selectedItemGroup = this.selectedItemGroupForClassDia
+      }
       this.addItemDialog = true;
     },
     closeAddItemDialog(){
@@ -747,49 +788,57 @@ export default {
     },
     saveSelectedItemGroup(){
       console.log(this.selectedItemGroup);
-      console.log(this.selectedItem)
       if(this.selectedItem.type == "school"){
-        this.selectedItemSchoolGroup = this.selectedItemGroup
-        this.selectedItemSchoolGroup.map(x=>{
-          this.schoolSpaceItems.map(y=>{
-            if(y.title == x){
-              this.chooseableItemGroup.push(y);
-            }
-          })
+        this.selectedItemGroupForSchoolDia = this.selectedItemGroup;
+        this.selectedItemGroupForSchoolDia.map(namedItem =>{
+          let found = this.chooseableItemGroup.some(el=>el.title == namedItem)
+          if(!found) {
+            this.schoolSpaceItems.map(schoolItem=>{
+              if(schoolItem.title == namedItem){
+                this.chooseableItemGroup.push(schoolItem);
+              }
+            })
+          }
         })
-        this.addItemDialog = false;
+        console.log(this.chooseableItemGroup, this.selectedItemGroupForSchoolDia)
         let payload = {
-          schoolItem : this.selectedItemSchoolGroup
+          schoolItem: this.selectedItemGroupForSchoolDia
         }
+        this.$store.dispatch('mo/onSelectedItemGroupForSchoolDiaStore', this.selectedItemGroupForSchoolDia);
+        this.$store.dispatch('mo/onSelectedItemSchoolGroupStore', this.chooseableItemGroup);
         postChooseableSchoolItem(payload)
         .then((res) => {
-          if(res.data.msg == 1){
-            console.log(res)
-          }
+          
         }).catch((err) => {
-          console.log(err)
+          
         });
       }
       else{
-        this.selectedItemClassGroup = this.selectedItemGroup
-        this.selectedItemClassGroup.map(x=>{
-          this.classSpaceItems.map(y=>{
-            if(y.title == x){
-              this.chooseableItemGroup.push(y);
-            }
-          })
+        this.selectedItemGroupForClassDia = this.selectedItemGroup;
+        this.selectedItemGroupForClassDia.map(namedItem =>{
+          let found = this.chooseableItemGroup.some(el=>el.title == namedItem)
+          if(!found) {
+            this.classSpaceItems.map(classItem=>{
+              if(classItem.title == namedItem){
+                this.chooseableItemGroup.push(classItem);
+              }
+            })
+          }
         })
-        this.addItemDialog = false;
+        console.log(this.chooseableItemGroup, this.selectedItemGroupForClassDia)
         let payload = {
-          classItem: this.selectedItemClassGroup
+          classItem: this.selectedItemGroupForClassDia
         }
+        this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroupForClassDia);
+        this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.chooseableItemGroup);
         postChooseableClassItem(payload)
         .then((res) => {
-          console.log(res)
+          
         }).catch((err) => {
-          console.log(err)
+          
         });
       }
+      this.closeAddItemDialog();
     }
   }
 }

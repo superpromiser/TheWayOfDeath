@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <LoggedNavbar v-if="!$isMobile()"/> 
-    <Drawer/>
+    <Drawer v-if="!$isMobile()"/>
     <v-main v-if="!$isMobile()" class="main-bg-pattern d-flex justify-center align-center ">
       <!-- <v-container class="h-out-navbar bg-white">
         <child />
