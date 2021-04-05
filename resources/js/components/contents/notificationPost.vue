@@ -71,9 +71,7 @@ export default {
     }),
 
     created(){
-      console.log("this.content",this.content)
       this.attachItem = JSON.parse(this.content.notifications.description)
-      console.log("this.attachItem",this.attachItem)
     },
 
     methods:{

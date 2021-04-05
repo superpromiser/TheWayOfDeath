@@ -45,13 +45,13 @@
 
                             <v-list-item
                                 v-else
-                                :key="`item-${i}`"
+                                :key="item.id"
                                 :value="item"
                                 active-class="deep-purple--text text--accent-4"
                             >
                                 <template v-slot:default="{ active }">
                                 <v-list-item-content>
-                                    <v-list-item-title v-text="item"></v-list-item-title>
+                                    <v-list-item-title v-text="item.name"></v-list-item-title>
                                 </v-list-item-content>
 
                                 <v-list-item-action>
@@ -133,7 +133,7 @@ import lang from '~/helper/lang.json';
 import QuestionItem from '~/components/questionItem';
 import {createEvaluation} from '~/api/evaluation';
 import medalData from '~/helper/medal.json';
-
+import {getLessonUserList} from '~/api/user'
 export default {
     components: {
         QuestionItem,
@@ -146,13 +146,7 @@ export default {
         requiredText:false,
         baseUrl: window.Laravel.base_url,
         contactInfo: [],
-        contactInfoItems: [
-            'Dog Photos',
-            'Cat Photos',
-            '',
-            'Potatoes',
-            'Carrots',
-        ],
+        contactInfoItems: [],
         initialCnt:4,
         selMedalList : [],
         isCreating:false,
@@ -164,6 +158,14 @@ export default {
         currentPath(){
             return this.$route;
         }
+    },
+
+    created(){
+        getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
+            this.contactInfoItems = res.data
+        }).catch(err=>{
+            console.log(err.response)
+        })
     },
 
     methods: {

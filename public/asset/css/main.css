@@ -211,6 +211,11 @@ a {
     }
 }
 
+.medal-background {
+    max-width: 500px;
+    max-height: 300px;
+}
+
 .medal-item {
     margin: 0 5px 5px 0;
     cursor: pointer;
