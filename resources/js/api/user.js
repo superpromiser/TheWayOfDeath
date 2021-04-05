@@ -50,6 +50,16 @@ function getSchoolMemberList(payload){
 function addGroupMember(payload){
     return axios.post('/api/v1/lessonGroup',payload);
 }
+
+function postChooseableSchoolItem(payload){
+    return axios.post('/api/v1/user/schoolItem',payload);
+}
+function postChooseableClassItem(payload){
+    return axios.post('/api/v1/user/classItem',payload);
+}
+function getPostItem(){
+    return axios.get('/api/v1/user/getPostItem');
+}
 export{
     createStaff,
     updateStaff,
@@ -62,5 +72,9 @@ export{
     getStudentBylessonId,
     getLessonUserList,
     getUserByRole,
-    getSchoolMemberList
+    getSchoolMemberList,
+    postChooseableSchoolItem,
+    postChooseableClassItem,
+    getPostItem,
+
 }

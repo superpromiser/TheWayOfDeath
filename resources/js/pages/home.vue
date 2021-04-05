@@ -60,56 +60,78 @@
           </carousel>
         </v-col>
         <v-col cols="12" class="mt-5 pa-0 d-flex justify-space-between">
-          <v-row class="ma-0 pa-0 pb-3 mo-glow">
-            <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
+          <v-row class="ma-0 pa-0 mo-glow">
+            <v-col cols="3" class="pa-0 d-flex justify-center mt-3 mb-3" v-for="(item, i) in chooseableItemGroup" :key="i" @click="selectItem(item)">
               <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
                 <div class="text-center">
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
-                  <span class="font-size-0-75 pt-2"> 首页</span>
+                  <v-img :src="`${baseUrl}${item.imgUrl}`" alt="postItem" width="30" height="30" class="mx-auto"></v-img>
+                  <span class="font-size-0-75 pt-2"> {{item.title}}</span>
                 </div>
               </v-card>
             </v-col>
-            <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
+            <v-col cols="3" class="pa-0 d-flex justify-center mt-3 mb-3" @click="openAddItemDialog">
               <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
                 <div class="text-center">
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
-                  <span class="font-size-0-75 pt-2"> 首页</span>
-                </div>
-              </v-card>
-            </v-col>
-            <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
-                <div class="text-center">
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
-                  <span class="font-size-0-75 pt-2"> 首页</span>
-                </div>
-              </v-card>
-            </v-col>
-            <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
-                <div class="text-center">
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
-                  <span class="font-size-0-75 pt-2"> 首页</span>
-                </div>
-              </v-card>
-            </v-col>
-            <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
-                <div class="text-center">
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
-                  <span class="font-size-0-75 pt-2"> 首页</span>
-                </div>
-              </v-card>
-            </v-col>
-            <v-col cols="3" class="pa-0 d-flex justify-center mt-3" >
-              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
-                <div class="text-center">
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" width="30" height="30"></v-img>
-                  <span class="font-size-0-75 pt-2"> 首页</span>
+                  <v-icon color="#7879ff" size="30">mdi-view-grid-plus</v-icon>
+                  <p class="font-size-0-75 pt-2 mb-0">添加</p>
                 </div>
               </v-card>
             </v-col>
           </v-row>
+            <v-dialog v-model="addItemDialog" width="100%" max-width="500" scrollable>
+              <v-card>
+                  <v-card-title class="title"> 添加 </v-card-title>
+                  <v-card-text class="px-0" style="height: 300px; ">
+                      <v-list >
+                        <v-list-item-group
+                          v-model="selectedItemGroup"
+                          multiple
+                          scrollable
+                        >
+                          <template v-for="(item, i) in chooseableItemGroup">
+                            <v-list-item
+                              :key="i"
+                              :value="item.title"
+                              active-class="deep-purple--text text--accent-2"
+                            >
+                              <template v-slot:default="{ active }">
+                                <v-list-item-content>
+                                  <v-list-item-title v-text="item.title"></v-list-item-title>
+                                </v-list-item-content>
+
+                                <v-list-item-action>
+                                  <v-checkbox
+                                    :input-value="active"
+                                    color="deep-purple accent-2"
+                                  ></v-checkbox>
+                                </v-list-item-action>
+                              </template>
+                            </v-list-item>
+                          </template>
+                        </v-list-item-group>
+                      </v-list>
+                  </v-card-text>
+                  
+                  <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                      text
+                      color="#49d29e"
+                      @click="closeAddItemDialog "
+                  >
+                      {{lang.cancel}}
+                  </v-btn>
+                  <v-btn
+                      text
+                      color="#49d29e"
+                      @click="saveSelectedItemGroup "
+                  >
+                      {{lang.ok}}
+                  </v-btn>
+                  </v-card-actions>
+              </v-card>
+          </v-dialog>
+
         </v-col>
         <v-col cols="12" class="mt-5 d-flex pa-0 px-3 align-center">
           <div class="trapezoid position-relative"></div>
@@ -343,7 +365,9 @@
 <script> 
 import { mapGetters } from 'vuex'
 import { getSchool } from '~/api/school'
+import {postChooseableSchoolItem,  postChooseableClassItem, getPostItem} from '~/api/user'
 import carousel from 'v-owl-carousel'
+import lang from '~/helper/lang.json'
 export default {
   middleware: 'auth',
 
@@ -355,6 +379,7 @@ export default {
   },
 
   data: () => ({
+    lang,
     baseUrl: window.Laravel.base_url,
     schoolList : [],
     isLoadingSchoolData : false,
@@ -365,6 +390,135 @@ export default {
     isSearching: false,
     searchKeyword: '',
     isSchoolSpace: true,
+    addItemDialog: false,
+    chooseableItemGroup: [],
+    selectedItemGroup: [],
+    selectedItemSchoolGroup: [],
+    selectedItemClassGroup: [],
+    schoolSpaceItems:[
+      {
+        title : "问卷",
+        imgUrl : "/asset/img/icon/问卷 拷贝.png",
+        path : "posts.questionnaire"
+      },
+      {
+        title : "投票",
+        imgUrl : "/asset/img/icon/投票.png",
+        path : "posts.voting"
+      },
+      {
+        title : "短信",
+        imgUrl : "/asset/img/icon/短信 拷贝.png",
+        path : "posts.sms"
+      },
+      {
+        title : "校园动态",
+        imgUrl : "/asset/img/icon/动态 拷贝.png",
+        path : "posts.campus"
+      },
+      {
+        title : "公告",
+        imgUrl : "/asset/img/icon/公告 拷贝.png",
+        path : "posts.announcement"
+      },
+      {
+        title : "分享",
+        imgUrl : "/asset/img/icon/分享.png",
+        path : "posts.share"
+      },
+      {
+        title : "布告栏",
+        imgUrl : "/asset/img/icon/布告栏 拷贝.png",
+        path : "posts.bulletinboard"
+      },
+      {
+        title : "考勤",
+        imgUrl : "/asset/img/icon/考勤.png",
+        path : "something"
+      },
+      {
+        title : "作业",
+        imgUrl : "/asset/img/icon/作业 拷贝.png",
+        path : "something"
+      },
+      {
+        title : "习题",
+        imgUrl : "/asset/img/icon/习题.png",
+        path : "something"
+      },
+      {
+        title : "家访",
+        imgUrl : "/asset/img/icon/家访 拷贝.png",
+        path : "posts.homevisit"
+      },
+      {
+        title : "报名",
+        imgUrl : "/asset/img/icon/报名 拷贝.png",
+        path : "posts.regname"
+      },
+      {
+        title : "请假",
+        imgUrl : "/asset/img/icon/请假.png",
+        path : "posts.vocation"
+      },
+    ],
+    classSpaceItems:[
+      {
+        title : "问卷",
+        imgUrl : "/asset/img/icon/问卷 拷贝.png",
+        path : "posts.Cquestionnaire"
+      },
+      {
+        title : "投票",
+        imgUrl : "/asset/img/icon/投票.png",
+        path : "posts.Cvoting"
+      },
+      {
+        title : "作业",
+        imgUrl : "/asset/img/icon/作业 拷贝.png",
+        path : "something"
+      },
+      {
+        title : "习题",
+        imgUrl : "/asset/img/icon/习题.png",
+        path : "something"
+      },
+      {
+        title : "家访",
+        imgUrl : "/asset/img/icon/家访 拷贝.png",
+        path : "posts.Chomevisit"
+      },
+      {
+        title : "通知",
+        imgUrl : "/asset/img/icon/通知 拷贝.png",
+        path : "posts.Cnotification"
+      },
+      {
+        title : "评价",
+        imgUrl : "/asset/img/icon/评价.png",
+        path : "posts.Cevaluation"
+      },
+      {
+        title : "表彰",
+        imgUrl : "/asset/img/icon/表彰.png",
+        path : "posts.Crecognition"
+      },
+      {
+        title : "课表",
+        imgUrl : "/asset/img/icon/组 29.png",
+        path : "something"
+      },
+      {
+        title : "相册",
+        imgUrl : "/asset/img/icon/相册.png",
+        path : "posts.Calbum"
+      },
+      {
+        title : "文件",
+        imgUrl : "/asset/img/icon/文件.png",
+        path : "file"
+      },
+    ]
   }),
 
   computed:{
@@ -377,6 +531,29 @@ export default {
 
   async created(){
     console.log(this.schoolTree);
+    await getPostItem()
+    .then((res) => {
+      let schoolItemArr = JSON.parse(res.data.schoolItem)
+      let classItemArr = JSON.parse(res.data.classItem)
+      schoolItemArr.map(x=>{
+        this.schoolSpaceItems.map(y=>{
+          if(y.title == x){
+            this.selectedItemSchoolGroup.push(y);
+          }
+        })
+      })
+      classItemArr.map(x=>{
+        this.classSpaceItems.map(y=>{
+          if(y.title == x){
+            this.selectedItemClassGroup.push(y);
+          }
+        })
+      })
+      this.chooseableItemGroup = this.schoolSpaceItems;
+    }).catch((err) => {
+      
+    });
+
     if(this.user.roleId == 1){
       this.schoolList = this.schoolTree;
       this.schoolTree.map((school, schoolIndex)=>{
@@ -510,9 +687,11 @@ export default {
             this.selectedItem = x;
             if(this.selectedItem.type == "school"){
               this.isSchoolSpace = true;
+              this.chooseableItemGroup = this.schoolSpaceItems;
             }
             else{
               this.isSchoolSpace = false;
+              this.chooseableItemGroup = this.classSpaceItems;
             }
             this.$store.dispatch('mo/onIsSchoolSpace', this.isSchoolSpace);
             this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
@@ -526,6 +705,91 @@ export default {
     onFalseSearching(){
       this.isSearching = false;
       this.searchKeyword = '';
+    },
+
+    selectItem(item){
+        this.sheet = false;
+        if(this.isSchoolSpace == true){
+            if(item.path == 'posts.vocation'){
+                if(this.user.roleId == 3){
+                    this.$router.push({name:"posts.vacationTeacher",params:{schoolId:this.selectedSchoolItem.schoolId}})
+                }else if(this.user.roleId == 2){
+                    this.$router.push({name:"posts.attendance.vacation",params:{schoolId:this.selectedSchoolItem.schoolId}})
+                }
+                else{
+                    this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId}})
+                }
+            }else{
+                this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId}})
+            }
+        }
+        else{
+            if(item.path == 'posts.vocation'){
+                if(this.user.roleId == 3){
+                    this.$router.push({name:"posts.vacationTeacher",params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
+                }else if(this.user.roleId == 2){
+                    this.$router.push({name:"posts.attendance.vacation",params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
+                }
+                else{
+                    this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
+                }
+            }else{
+                this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
+            }
+        }
+    },
+    openAddItemDialog(){
+      this.addItemDialog = true;
+    },
+    closeAddItemDialog(){
+      this.selectedItemGroup = [];
+      this.addItemDialog = false
+    },
+    saveSelectedItemGroup(){
+      console.log(this.selectedItemGroup);
+      console.log(this.selectedItem)
+      if(this.selectedItem.type == "school"){
+        this.selectedItemSchoolGroup = this.selectedItemGroup
+        this.selectedItemSchoolGroup.map(x=>{
+          this.schoolSpaceItems.map(y=>{
+            if(y.title == x){
+              this.chooseableItemGroup.push(y);
+            }
+          })
+        })
+        this.addItemDialog = false;
+        let payload = {
+          schoolItem : this.selectedItemSchoolGroup
+        }
+        postChooseableSchoolItem(payload)
+        .then((res) => {
+          if(res.data.msg == 1){
+            console.log(res)
+          }
+        }).catch((err) => {
+          console.log(err)
+        });
+      }
+      else{
+        this.selectedItemClassGroup = this.selectedItemGroup
+        this.selectedItemClassGroup.map(x=>{
+          this.classSpaceItems.map(y=>{
+            if(y.title == x){
+              this.chooseableItemGroup.push(y);
+            }
+          })
+        })
+        this.addItemDialog = false;
+        let payload = {
+          classItem: this.selectedItemClassGroup
+        }
+        postChooseableClassItem(payload)
+        .then((res) => {
+          console.log(res)
+        }).catch((err) => {
+          console.log(err)
+        });
+      }
     }
   }
 }

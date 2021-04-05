@@ -434,4 +434,35 @@ class UserController extends Controller
             }
         }
     }
+
+    public function postSchoolItem(Request $request)    
+    {
+        $userId = Auth::user()->id;
+        $userData = User::where('id', $userId)->first();
+        $userData->schoolItem = json_encode($request->schoolItem);
+        $userData->save();
+        return response()->json([
+            'msg'=> 1
+        ]);
+    }
+    public function postClassItem(Request $request)    
+    {
+        $userId = Auth::user()->id;
+        $userData = User::where('id', $userId)->first();
+        $userData->classItem = json_encode($request->classItem);
+        $userData->save();
+        return response()->json([
+            'msg'=> 1
+        ]);
+    }
+    public function getPostItem()    
+    {
+        $userId = Auth::user()->id;
+        $userData = User::where('id', $userId)->first();
+        return response()->json([
+            'msg'=> 1,
+            'schoolItem' => $userData->schoolItem,
+            'classItem' => $userData->classItem,
+        ]);
+    }
 }

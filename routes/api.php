@@ -20,6 +20,9 @@ Route::group(['middleware' => 'auth:api', 'prefix'=>'v1'], function () {
     Route::get('/user', 'Auth\UserController@current');
     Route::get('userByRole','UserController@getUserByRole');
     Route::get('selUser','UserController@getSelUser');
+    Route::post('user/schoolItem','UserController@postSchoolItem');
+    Route::post('user/classItem','UserController@postClassItem');
+    Route::get('user/postItem','UserController@getPostItem');
     Route::get('schoolMember','UserController@getSchoolMember');
     //actions with UserController
     Route::post('users','UserController@createUser')->name('createUser');
