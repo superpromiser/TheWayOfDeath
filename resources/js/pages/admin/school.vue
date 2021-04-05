@@ -475,12 +475,17 @@ export default {
       },
 
       selectedProvinceOfResidenceAddress(val){
+        console.log('----',val)
+        console.log('++++',this.madeJsonFromString[0].value)
         for( let i = 0 ; i < this.madeJsonFromString.length ; i++){
+          console.log(this.madeJsonFromString[i].value)
           if( val == this.madeJsonFromString[i].value ){
+            console.log('test',this.madeJsonFromString[i].value)
             this.willBeCityDataOfResidenceAddress = this.madeJsonFromString[i].city;
             this.willBeRegionDataOfResidenceAddress = [];
             this.editedItem.address.city = null;
             this.editedItem.address.region = null;
+            console.log(this.willBeCityDataOfResidenceAddress)
           }
         }
       },
