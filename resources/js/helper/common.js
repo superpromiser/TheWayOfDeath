@@ -13,39 +13,39 @@ export default{
         })
     },
     created(){
-        this.provinceListJsonArr = cityListJson.split("#");
-        for (let i = 0; i < this.provinceListJsonArr.length; i++) {
-            let provinceObj = {
-                value : 1,
-                label : "",
-                city : []
-            }
-            let province = this.provinceListJsonArr[i].split("$")[0];
-            provinceObj.value = province.split("-")[0];
-            provinceObj.label = province.split("-")[1];
-            this.madeJsonFromString.push(provinceObj);
-            let TArea = this.provinceListJsonArr[i].split("$")[1].split("|");
-            for(let j = 0 ; j < TArea.length ; j++){
-                let cityObj = {
-                    value : 1,
-                    label : "",
-                    region : []
-                }
-                let cityArr = TArea[j].split(",");
-                cityObj.value = cityArr[0].split("-")[0];
-                cityObj.label = cityArr[0].split("-")[1];
-                for( let k = 1 ; k < cityArr.length ; k++){
-                    let regionObj = {
-                        value : 1, 
-                        label : "",
-                    }
-                    regionObj.value = cityArr[k].split("-")[0];
-                    regionObj.label = cityArr[k].split("-")[1];
-                    cityObj.region.push(regionObj);
-                }
-                this.madeJsonFromString[i].city.push(cityObj);
-            }
-        }
+        // this.provinceListJsonArr = cityListJson.split("#");
+        // for (let i = 0; i < this.provinceListJsonArr.length; i++) {
+        //     let provinceObj = {
+        //         value : 1,
+        //         label : "",
+        //         city : []
+        //     }
+        //     let province = this.provinceListJsonArr[i].split("$")[0];
+        //     provinceObj.value = province.split("-")[0];
+        //     provinceObj.label = province.split("-")[1];
+        //     this.madeJsonFromString.push(provinceObj);
+        //     let TArea = this.provinceListJsonArr[i].split("$")[1].split("|");
+        //     for(let j = 0 ; j < TArea.length ; j++){
+        //         let cityObj = {
+        //             value : 1,
+        //             label : "",
+        //             region : []
+        //         }
+        //         let cityArr = TArea[j].split(",");
+        //         cityObj.value = cityArr[0].split("-")[0];
+        //         cityObj.label = cityArr[0].split("-")[1];
+        //         for( let k = 1 ; k < cityArr.length ; k++){
+        //             let regionObj = {
+        //                 value : 1, 
+        //                 label : "",
+        //             }
+        //             regionObj.value = cityArr[k].split("-")[0];
+        //             regionObj.label = cityArr[k].split("-")[1];
+        //             cityObj.region.push(regionObj);
+        //         }
+        //         this.madeJsonFromString[i].city.push(cityObj);
+        //     }
+        // }
     },
     methods:{
         TimeView(str){

@@ -980,3 +980,32 @@ a {
 .mo-chat-emoji-area-popup .emoji-mart.emoji-mart-static {
     width: 83% !important;
 }
+
+.overflow-unset{
+    overflow: unset!important;
+}
+
+.profile-bg{
+    height: 100%;
+    background-image: url(../img/coverImage/profile_bg2.jpg);
+    background-size: 100% 100%;
+    background-position: center center;
+}
+
+.dark-green-gradient-bg{
+    background: rgb(21,40,34);
+    background: linear-gradient(90deg, rgba(21,40,34,1) 0%, rgba(47,68,61,1) 50%, rgba(88,112,104,1) 100%);
+}
+
+
+.v-application .pr-18 {
+    padding-right: 80px !important;
+}
+
+.thick-border{
+    border-width: unset!important;
+}
+
+.z-index-10{
+    z-index: 10!important;
+}

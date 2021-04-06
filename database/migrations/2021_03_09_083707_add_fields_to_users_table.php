@@ -27,9 +27,11 @@ class AddFieldsToUsersTable extends Migration
             $table->string('fatherJob')->nullable();
             $table->string('introduce')->nullable();
             $table->timestamp('birthday')->nullable();
-            $table->unsignedInteger('status')->default(0);
+            $table->unsignedInteger('status')->default(1);
             $table->timestamp('statusFrom')->nullable();
             $table->timestamp('statusTo')->nullable();
+            $table->json('schoolItem')->nullable();
+            $table->json('classItem')->nullable();
         });
     }
 
@@ -55,6 +57,8 @@ class AddFieldsToUsersTable extends Migration
             $table->dropColumn(['status']);
             $table->dropColumn(['statusFrom']);
             $table->dropColumn(['statusTo']);
+            $table->dropColumn(['schoolItem']);
+            $table->dropColumn(['classItem']);
         });
     }
 }

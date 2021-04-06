@@ -4,7 +4,7 @@
       <v-col cols="12">
         <v-data-table
           :headers="headers"
-          :items="schoolData"
+          :items="schoolDataSchool"
           :loading="isLoadingSchoolData"
           loading-text="正在要求学习资料... 等一下"
           sort-by="calories"
@@ -250,7 +250,6 @@ import { createSchool, updateSchool, getSchool, deleteSchool } from '~/api/schoo
 export default {
   components:{
     UploadImage,
-    
   },
 
   data: () => ({
@@ -270,7 +269,7 @@ export default {
       { text: '学校简介', value: 'introduce', sortable: false },
       { text: '操作', value: 'actions', sortable: false },
     ],
-    schoolData: [],
+    schoolDataSchool: [],
     schoolListRaw : [],
     editedIndex: -1,
     editedItem: {
@@ -362,11 +361,11 @@ export default {
       this.isLoadingSchoolData = true;
       getSchool()
       .then((res) => {
-        this.schoolData = res.data;
-        for(let i = 0 ; i < this.schoolData.length ; i++){
-          let clonedVal = JSON.parse(JSON.stringify(this.schoolData[i]));
+        this.schoolDataSchool = res.data;
+        for(let i = 0 ; i < this.schoolDataSchool.length ; i++){
+          let clonedVal = JSON.parse(JSON.stringify(this.schoolDataSchool[i]));
           this.schoolListRaw.push(clonedVal); 
-          this.schoolData[i].address = this.convertAddress(this.schoolData[i].address);
+          this.schoolDataSchool[i].address = this.convertAddress(this.schoolDataSchool[i].address);
         }
         this.isLoadingSchoolData = false;
       }).catch((err) => {
@@ -387,14 +386,14 @@ export default {
     methods: {
 
       editItem (item) {
-        this.editedIndex = this.schoolData.indexOf(item)
+        this.editedIndex = this.schoolDataSchool.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.editedItem.address = JSON.parse(this.schoolListRaw[this.editedIndex].address)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.schoolData.indexOf(item)
+        this.editedIndex = this.schoolDataSchool.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
@@ -407,7 +406,7 @@ export default {
         await deleteSchool(payload)
         .then((res) => {
           if(res.data.msg == 1){
-            this.schoolData.splice(this.editedIndex, 1)
+            this.schoolDataSchool.splice(this.editedIndex, 1)
           }
           this.isDeleteSchool = false;
         }).catch((err) => {
@@ -434,7 +433,7 @@ export default {
       },
 
       async save () {
-        //update schoolData
+        //update schoolDataSchool
         if (this.editedIndex > -1) {
           this.isCreatingSchool = true;
           await updateSchool(this.editedItem)
@@ -445,14 +444,14 @@ export default {
               clonedVal.address = JSON.stringify(clonedVal.address);
               this.schoolListRaw.push(clonedVal);
               this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
-              Object.assign(this.schoolData[this.editedIndex], this.editedItem)
+              Object.assign(this.schoolDataSchool[this.editedIndex], this.editedItem)
             }
           }).catch((err) => {
             this.isCreatingSchool = false;
             //console.log(err)            
           });
         } 
-        //save schoolData
+        //save schoolDataSchool
         else {
           this.isCreatingSchool = true;
           await createSchool(this.editedItem)
@@ -463,9 +462,9 @@ export default {
             let clonedItem = JSON.parse(JSON.stringify(this.editedItem))
             clonedItem.address = JSON.stringify(clonedItem.address)
             this.schoolListRaw.push(clonedItem);
-            //push data to used schoolData
+            //push data to used schoolDataSchool
             this.editedItem.address = this.convertAddress(JSON.stringify(this.editedItem.address))
-            this.schoolData.push(this.editedItem);
+            this.schoolDataSchool.push(this.editedItem);
           }).catch((err) => {
             //console.log(err)
             this.isCreatingSchool = false;

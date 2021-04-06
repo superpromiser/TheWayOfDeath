@@ -24,12 +24,12 @@
       flat
       nav
     >
-      <!-- <AppBarItem
-        to="#"
-      >
-        <v-list-item-title>Profile</v-list-item-title>
-      </AppBarItem>
       <AppBarItem
+        to="/profile"
+      >
+        <v-list-item-title>我的</v-list-item-title>
+      </AppBarItem>
+      <!-- <AppBarItem
         to="#"
       >
         <v-list-item-title>Settings</v-list-item-title>
@@ -37,9 +37,7 @@
       <v-divider
         class="mb-2 mt-2"
       />
-      <AppBarItem
-        
-      >
+      <AppBarItem >
         <v-list-item-title @click="logout">登出</v-list-item-title>
       </AppBarItem>
     </v-list>
