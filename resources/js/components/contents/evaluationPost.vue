@@ -64,15 +64,11 @@ export default {
         medalList:[],
     }),
     created(){
-      console.log(this.content)
       this.userList = JSON.parse(this.content.evaluations.userList)
-      console.log(this.userList)
       this.medalList = JSON.parse(this.content.evaluations.selMedalList)
       this.medalList.map(medal=>{
         // medal.medalImg = JSON.parse(medal.medalImg)
-        console.log(medal.medalImg)
       })
-      console.log(this.medalList)
     },
     methods:{
       showDetail(content){

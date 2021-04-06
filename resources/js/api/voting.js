@@ -16,9 +16,14 @@ function deleteVoting(payload){
     return axios.delete('/api/v1/voting',{data:payload})
 }
 
+function getTemplateList(payload){
+    return axios.get('/api/v1/voting/template',{params:payload});
+}
+
 export{
     getVoting,
     createVoting,
     updateVoting,
-    deleteVoting
+    deleteVoting,
+    getTemplateList,
 }

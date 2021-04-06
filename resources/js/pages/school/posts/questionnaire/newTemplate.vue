@@ -10,16 +10,9 @@
               >
                   <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
               </v-avatar>
-              <h2>{{lang.questionnaire}}</h2>
+              <h2>{{lang.questionnaire}}模板</h2>
           </div>
           <template v-slot:actions>
-            <!-- <v-btn
-                text
-                color="primary"
-                @click="selContent('template')"
-            >
-                可用模板 0， 草稿 0
-            </v-btn> -->
             <v-btn
                 dark
                 color="#49d29e"
@@ -29,15 +22,6 @@
             >
                 {{lang.submit}}
             </v-btn>
-            <!-- <v-btn
-                dark
-                color="lighten-1"
-                class="mr-8"
-                :loading="isDraft"
-                @click="saveDraft"
-            >
-                {{lang.saveDraft}}
-            </v-btn> -->
           </template>
         </v-banner>
         <v-container class="pa-10">

@@ -28,15 +28,20 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
     data:() =>({
-        isPost:false
+        isPost:false,
+        userRoleId:''
     }),
 
     computed:{
         currentPath(){
             return this.$route
-        }
+        },
+        ...mapGetters({
+            user:'auth/user'
+        })
     },
     watch:{
         currentPath:{
@@ -54,7 +59,8 @@ export default {
     },
      
     created(){
-        //console.log(this.currentPath)
+        this.userRoleId = this.user.roleId
+        console.log("this.user.roleId",this.userRoleId)
         if(this.currentPath.name=="schoolSpace" || this.currentPath.name=="schoolSpace.news" || this.currentPath.name == "schoolSpace.member" || this.currentPath.name == "schoolSpace.application"){
             this.isPost = true
         }
@@ -62,7 +68,7 @@ export default {
     methods:{
         post(){
             this.$router.push({name:"schoolSpace.post"})
-            this.isPost = false
+            this.isUser = false
         }
     }
 }

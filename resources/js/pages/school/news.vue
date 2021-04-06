@@ -139,6 +139,7 @@ import HomeVisitPost from '~/components/contents/homeVisitPost'
 import SharePost from '~/components/contents/sharePost'
 import RegnamePost from '~/components/contents/regnamePost'
 export default {
+  middleware: 'auth',
   components :{
     QusetionnairePost,
     VotingPost,
