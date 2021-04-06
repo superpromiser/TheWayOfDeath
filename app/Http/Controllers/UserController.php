@@ -479,14 +479,15 @@ class UserController extends Controller
             $inputedOldPassword = $request->oldPassword;
             $inputedNewPassword = $request->newPassword;
             if (Hash::check($inputedOldPassword, Auth::user()->password)) {
+                User::where('id',$userId)->update(['password'=>bcrypt($inputedNewPassword)]);
                 return response()->json([
-                    'msg'=> 0,
+                    'msg'=> 1,
                 ]);
             }
-            User::where('id',$userId)->update(['password'=>bcrypt($inputedNewPassword)]);
             return response()->json([
-                'msg'=> 1,
+                'msg'=> 0,
             ]);
+            
         }else if($request->avatar){
             $avatar = $request->avatar;
             $data = User::where('id',$userId)->update(['avatar'=>$avatar]);
