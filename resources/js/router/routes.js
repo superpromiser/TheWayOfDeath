@@ -32,7 +32,13 @@ export default [
   },
 
   //profile
-  { path: '/profile', name: 'profile', component: page('profile/index.vue') },
+  { path: '/profile', name: 'profile', component: page('profile/index.vue'),
+    children : [
+      {path:'',redirect:{name: 'profile.list'}},
+      {path:'list', name:'profile.list',component:page('profile/list.vue')},
+      {path:'password', name:'profile.password',component:page('profile/password.vue')},
+    ]
+  },
 
   //Admin
   { path: '/admin/assignRole', name: 'admin.assignRole', component: page('admin/assignRole.vue') },

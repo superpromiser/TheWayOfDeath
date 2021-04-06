@@ -465,4 +465,40 @@ class UserController extends Controller
             'classItem' => $userData->classItem,
         ]);
     }
+
+    public function upProfile(Request $request)
+    {
+        $userId = $request->userId;
+        if($request->userName){
+            $userName = $request->userName;
+            $data = User::where('id',$userId)->update(['name'=>$userName]);
+        }else if($request->phoneNumber){
+            $phoneNumber = $request->phoneNumber;
+            $data = User::where('id',$userId)->update(['phoneNumber'=>$phoneNumber]);
+        }else if($request->newPassword){
+            $inputedOldPassword = $request->oldPassword;
+            $inputedNewPassword = $request->newPassword;
+            if (Hash::check($inputedOldPassword, Auth::user()->password)) {
+                User::where('id',$userId)->update(['password'=>bcrypt($inputedNewPassword)]);
+                return response()->json([
+                    'msg'=> 1,
+                ]);
+            }
+            return response()->json([
+                'msg'=> 0,
+            ]);
+            
+        }else if($request->avatar){
+            $avatar = $request->avatar;
+            $data = User::where('id',$userId)->update(['avatar'=>$avatar]);
+        }else if($request->status){
+            $status = $request->status;
+            $data = User::where('id',$userId)->update(['status'=>$status]);
+        }
+        return response()->json([
+            'msg'=> "ok",
+        ]);
+        // return $data;
+    }
+
 }

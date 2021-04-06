@@ -60,6 +60,9 @@ function postChooseableClassItem(payload){
 function getPostItem(){
     return axios.get('/api/v1/user/postItem');
 }
+function updateProfile(payload){
+    return axios.put('/api/v1/user/profile', payload);
+}
 export{
     createStaff,
     updateStaff,
@@ -76,5 +79,7 @@ export{
     postChooseableSchoolItem,
     postChooseableClassItem,
     getPostItem,
+    updateProfile,
+    addGroupMember
 
 }

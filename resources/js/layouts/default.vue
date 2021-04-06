@@ -20,6 +20,7 @@
       <child />
     </v-main>
     <MoBottomNav v-if="$isMobile()" />
+    <Snackbar></Snackbar>
   </v-app>
 </template>
 
@@ -27,6 +28,7 @@
 import MoBottomNav from '~/components/MoBottomNav'
 import LoggedNavbar from '~/components/LoggedNavbar'
 import LoggedFooter from '~/components/LoggedFooter'
+import Snackbar from '~/components/Snackbar.vue'
 import Drawer from '~/components/Drawer'
 
 export default {
@@ -36,7 +38,8 @@ export default {
     LoggedNavbar,
     LoggedFooter,
     Drawer,
-    MoBottomNav
+    MoBottomNav,
+    Snackbar
   }
 }
 </script>

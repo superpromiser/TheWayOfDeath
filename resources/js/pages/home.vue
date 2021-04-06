@@ -854,7 +854,6 @@ export default {
           this.schoolListDropdownItem.push(lessonObj)
         })
       })
-
     }
     else{
       let myschoolData = {}

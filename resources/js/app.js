@@ -5,6 +5,7 @@ import i18n from '~/plugins/i18n'
 import App from '~/components/App'
 import Vuetify from 'vuetify'
 import common from './helper/common'
+import snackbarPlugin from '~/plugins/snackbar';
 import '@mdi/font/css/materialdesignicons.css'
 import zhHans from 'vuetify/es5/locale/zh-Hans'
 Vue.mixin(common)
@@ -13,6 +14,8 @@ import '~/plugins'
 import '~/components'
 
 Vue.use(Vuetify);
+
+Vue.use(snackbarPlugin, { store })
 
 import Echo from 'laravel-echo';
 

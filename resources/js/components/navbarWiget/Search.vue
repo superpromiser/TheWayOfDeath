@@ -3,6 +3,7 @@
     placeholder="搜索"
     class="mr-16"
     color="white"
+    dark
     hide-details
     style="max-width: 220px"
   >
@@ -17,6 +18,7 @@
         elevation="2"
         height="35"
         width="35"
+        light
       >
         <v-icon>mdi-magnify</v-icon>
       </v-btn>

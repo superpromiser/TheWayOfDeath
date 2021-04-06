@@ -3,17 +3,15 @@
     <v-row>
       <v-col cols="12">
         <v-data-table
-          :headers="headers"
-          :items="scheduleData"
-          :loading="isLoadingSchoolData"
-          loading-text="等一下..."
-          sort-by="calories"
-          class="elevation-1"
+            :headers="headers"
+            :items="scheduleData"
+            :loading="isLoadingSchoolData"
+            loading-text="等一下..."
+            sort-by="calories"
+            class="elevation-1"
         >
           <template v-slot:top>
-            <v-toolbar
-                flat
-            >
+            <v-toolbar flat>
                 <v-toolbar-title><strong>课时维护</strong></v-toolbar-title>
                 <v-divider
                 class="mx-4"
