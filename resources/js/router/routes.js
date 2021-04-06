@@ -63,6 +63,7 @@ export default [
       {path:'member', name:'schoolSpace.member',component:page('school/member.vue')},
     ]
   },
+
   {path:'/schoolSpace/:schoolId/detail', name:"schoolSpace.detail", component:page('details/index.vue'),
     children:[
       {path:'questionnaire', name:'details.quesionnaire', component:page('details/questionnaire/index.vue'),
@@ -85,6 +86,7 @@ export default [
       {path:'regnameAnswer', name:'details.regnameAnswer', component:page('details/regname/answer.vue')},
     ]
   },
+  
   {path:'/schoolSpace/:schoolId/post', name:'schoolSpace.post', component:page('school/posts/index.vue')},
   {path:'/schoolSpace/:schoolId/post/questionnaire',name:'posts.questionnaire', component:page('school/posts/questionnaire/index.vue'),
     children:[
@@ -93,7 +95,7 @@ export default [
       {path:'questionAnswer', name:"questionnaire.questionAnswer", component:page('school/posts/questionnaire/questionAnswer.vue')},
       {path:'statistics', name:"questionnaire.statistics", component:page('school/posts/questionnaire/statistics.vue')},
       {path:'scoring', name:"questionnaire.scoring", component:page('school/posts/questionnaire/scoring.vue')},
-      {path:'tmeplate', name:"questionnaire.templateList", component:page('school/posts/questionnaire/templateList.vue')},
+      {path:'tmeplateList', name:"questionnaire.templateList", component:page('school/posts/questionnaire/templateList.vue')},
     ]
   },
 
@@ -107,6 +109,8 @@ export default [
     ]
   },
   {path:'/schoolSpace/:schoolId/post/voting', name:'posts.voting', component:page('school/posts/voting/new.vue')},
+  {path:'/schoolSpace/:schoolId/post/voting/templateList', name:'voting.tempList', component:page('school/posts/voting/templateList.vue')},
+  {path:'/schoolSpace/:schoolId/post/voting/newTemplate', name:'voting.newTemp', component:page('school/posts/voting/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/sms', name:'posts.sms', component:page('school/posts/sms/new.vue')},
   {path:'/schoolSpace/:schoolId/post/campus', name:'posts.campus', component:page('school/posts/campus/new.vue')},
   {path:'/schoolSpace/:schoolId/post/announcement', name:'posts.announcement', component:page('school/posts/announcement/new.vue')},

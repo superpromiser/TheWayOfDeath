@@ -161,7 +161,7 @@
                     size="50"
                     tile
                 >
-                    <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/icon/投票.png`" alt="postItem" ></v-img>
                 </v-avatar>
                 <h2>{{lang.voting}}</h2>
             </div>
@@ -169,6 +169,7 @@
             <v-btn
                 text
                 color="primary"
+                @click="tempList"
             >
                 可用模板 0， 草稿 0
             </v-btn>
@@ -400,6 +401,11 @@ export default {
             }
             this.votingData.content.push(data);
         },
+
+        tempList(){
+            this.$router.push({name:"voting.tempList"});
+        },
+
         addContent(){
             this.initialCnt ++;
             let item = {

@@ -329,9 +329,10 @@ export default {
   
   created() {
     
-    
+    console.log("this.user",this.user)
     if(this.user.roleId !== 1){
       this.schoolData.map(schoolItem=>{
+        console.log(schoolItem)
         if(this.user.schoolId == schoolItem.id){
           this.mySchoolList.push(schoolItem)
         }
