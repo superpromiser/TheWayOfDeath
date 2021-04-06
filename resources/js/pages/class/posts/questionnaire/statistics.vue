@@ -38,7 +38,7 @@
       </v-row>
       <v-container>
         <v-row class="my-10 d-flex align-center">
-            <v-btn large rounded dark color="green lighten-1" @click="addStatContent">{{lang.submit}}</v-btn>
+            <v-btn large rounded dark color="#49d29e" @click="addStatContent">{{lang.submit}}</v-btn>
         </v-row>
       </v-container>
       <v-snackbar

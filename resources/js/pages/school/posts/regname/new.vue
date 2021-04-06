@@ -127,7 +127,7 @@
                 <v-btn
                     dark
                     tile
-                    color="green lighten-1"
+                    color="#49d29e"
                     class="mx-2"
                     :loading="isSubmit"
                     @click="submit"
@@ -137,7 +137,7 @@
                 <v-btn
                     dark
                     tile
-                    color="purple accent-4"
+                    color="#F19861"
                     class="mr-8"
                     :loading="isDraft"
                     @click="saveDraft"

@@ -41,7 +41,7 @@
                     {{lang.addOption}}
                 </v-btn>
                 
-                <v-btn large rounded dark color="green lighten-1" @click="addMultiContent">{{lang.submit}}</v-btn>
+                <v-btn large rounded dark color="#49d29e" @click="addMultiContent">{{lang.submit}}</v-btn>
             </v-row>
         </v-container>
         <v-snackbar

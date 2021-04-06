@@ -11,7 +11,7 @@
             </div>
             <v-btn
                 dark
-                color="green lighten-1"
+                color="#49d29e"
                 class="mr-8"
                 @click="submit"
             >

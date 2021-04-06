@@ -244,7 +244,7 @@
               </v-dialog>
                 <v-btn
                     dark
-                    color="green lighten-1"
+                    color="#49d29e"
                     tile
                     class="ml-4"
                     large

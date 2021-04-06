@@ -19,7 +19,7 @@
             <template v-slot:actions>
                 <v-btn
                     dark
-                    color="green lighten-1"
+                    color="#49d29e"
                     @click="publishVotingData"
                     :loading="isCreating"
                     tile
@@ -57,7 +57,7 @@
                                 <v-list-item-action>
                                     <v-checkbox
                                     :input-value="active"
-                                    color="deep-purple accent-4"
+                                    color="#F19861"
                                     ></v-checkbox>
                                 </v-list-item-action>
                                 </template>
@@ -94,7 +94,7 @@
                                         <div class="medal-content">
                                             <span class="medal-name">{{medalItem.medalText}}</span>
                                         </div>
-                                        <v-icon v-if="medalItem.medalFlag == true" size="30" color="deep-purple accent-4" class="position-absolute" style="top: 10px; left:10px">
+                                        <v-icon v-if="medalItem.medalFlag == true" size="30" color="#F19861" class="position-absolute" style="top: 10px; left:10px">
                                             mdi-check-decagram
                                         </v-icon>
                                     </div>

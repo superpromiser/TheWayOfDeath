@@ -56,7 +56,7 @@
         <v-btn fab class="mo-glow " style="color:#eb6846" @click="$router.go(-1)"><v-icon>mdi-undo-variant</v-icon></v-btn>
       </v-row>
       <v-row class="my-10 d-flex align-center " v-else>
-        <v-btn large rounded dark color="green lighten-1" @click="addScoringContent">{{lang.submit}}</v-btn>
+        <v-btn large rounded dark color="#49d29e" @click="addScoringContent">{{lang.submit}}</v-btn>
       </v-row>
     </v-container>
     <v-snackbar

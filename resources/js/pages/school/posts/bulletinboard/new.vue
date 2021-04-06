@@ -54,7 +54,7 @@
             <v-btn
                 dark
                 tile
-                color="green lighten-1"
+                color="#49d29e"
                 @click="publishcampusData"
                 :loading="isCreating"
                 class="mr-md-8"

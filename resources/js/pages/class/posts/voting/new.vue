@@ -174,7 +174,7 @@
             </v-btn>
             <v-btn
                 dark
-                color="green lighten-1"
+                color="#49d29e"
                 @click="publishVotingData"
                 :loading="isCreating"
                 class="mr-md-8"

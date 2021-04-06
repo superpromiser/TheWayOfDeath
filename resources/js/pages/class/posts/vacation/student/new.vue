@@ -19,7 +19,7 @@
             <template v-slot:actions>
             <v-btn
                 dark
-                color="green lighten-1"
+                color="#49d29e"
                 class="mr-md-8"
                 tile
                 @click="postVacationData"
