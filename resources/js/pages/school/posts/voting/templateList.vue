@@ -78,6 +78,7 @@
 import lang from '~/helper/lang.json'
 import {getTemplateList} from '~/api/voting'
 export default {
+    middleware:'auth',
     data:()=>({
         lang,
         templateList:[],

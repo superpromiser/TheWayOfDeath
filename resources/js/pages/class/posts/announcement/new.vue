@@ -187,6 +187,7 @@ import { VueEditor } from "vue2-editor";
 import {createAnouncement} from '~/api/anouncement'
 
 export default {
+    middleware:['post','auth'],
     components: {
         VueEditor,
         QuestionItem,

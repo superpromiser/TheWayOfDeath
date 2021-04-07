@@ -318,6 +318,7 @@ import QuestionItem from '~/components/questionItem';
 import {createRecognition} from '~/api/recognition';
 import quickMenu from '~/components/quickMenu'
 export default {
+    middleware:['post','auth'],
     data: () => ({
         lang,
         baseUrl: window.Laravel.base_url,

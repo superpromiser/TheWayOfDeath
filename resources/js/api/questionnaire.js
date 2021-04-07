@@ -32,6 +32,10 @@ function deleteQuestionnaireTemp(payload){
     return axios.delete('/api/v1/questionnaireTemp',{data:payload})
 }
 
+function getQuestionnaireTempCnt(){
+    return axios.get('/api/v1/questionnaireTempCnt');
+}
+
 
 export{
     getQuestionnaire,
@@ -41,5 +45,6 @@ export{
     getQuestionnaireTemp,
     createQuestionnaireTemp,
     updateQuestionnaireTemp,
-    deleteQuestionnaireTemp
+    deleteQuestionnaireTemp,
+    getQuestionnaireTempCnt,
 }

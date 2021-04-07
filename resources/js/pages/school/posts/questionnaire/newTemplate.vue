@@ -307,6 +307,7 @@ export default {
           title:'',
           description:'',
           // viewList:[],
+          tempType:1,
           content:[],
       },
       templateNew:true,

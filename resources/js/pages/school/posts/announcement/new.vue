@@ -332,6 +332,7 @@ import quickMenu from '~/components/quickMenu'
 import {createAnouncement} from '~/api/anouncement'
 
 export default {
+    middleware:['auth','post'],
     components: {
         VueEditor,
         QuestionItem,

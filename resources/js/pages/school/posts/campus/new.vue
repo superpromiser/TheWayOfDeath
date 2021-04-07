@@ -142,6 +142,7 @@ import quickMenu from '~/components/quickMenu'
 import {createCampus} from '~/api/campus'
 
 export default {
+    middleware:['auth','post'],
     components: {
         VueEditor,
         QuestionItem,

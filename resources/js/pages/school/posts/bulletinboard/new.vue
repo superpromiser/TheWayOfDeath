@@ -106,6 +106,7 @@ import quickMenu from '~/components/quickMenu'
 import {createBulletinBoard} from '~/api/bulletinBoard'
 
 export default {
+    middleware:['auth','post'],
     components: {
         VueEditor,
         QuestionItem,

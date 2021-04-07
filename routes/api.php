@@ -133,7 +133,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('questionnaireTemp', 'QuestionnaireTempController@createQuestionnaireTemp');
     Route::put('questionnaireTemp', 'QuestionnaireTempController@updateQuestionnaireTemp');
     Route::delete('questionnaireTemp', 'QuestionnaireTempController@deleteQuestionnaireTemp');
-
+    Route::get('questionnaireTempCnt', 'QuestionnaireTempController@getQuestionnaireTempCnt');
     //voting
     Route::get('voting', 'VotingController@getVotingData');
     Route::post('voting', 'VotingController@createVotingData');
@@ -318,4 +318,7 @@ Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {
 
     Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
+
+    //guest manage
+    // Route::get('guestRequest')
 });
