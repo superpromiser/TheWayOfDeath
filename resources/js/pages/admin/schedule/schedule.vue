@@ -342,19 +342,6 @@
                     </v-icon>
                     无法修改
                 </v-btn>
-                <router-link :to="{ name : 'admin.scheduleSetting'}">
-                    <v-btn
-                        color="light-blue accent-4"
-                        dark
-                        class="mb-2 ml-2"
-                        tile
-                        >
-                        课程安排
-                        <v-icon right> 
-                            mdi-arrow-right-thick 
-                        </v-icon>
-                    </v-btn>
-                </router-link>
             </v-toolbar>
           </template>
           

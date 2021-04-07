@@ -1,26 +1,28 @@
 <template>
     <v-container>
         <v-row>
-            <v-col v-if="isGettingBaseData" cols="12" class="d-flex justify-center my-7">
-                <v-progress-circular
-                    
-                    color="primary"
-                    indeterminate
-                    ></v-progress-circular>
+            <v-col cols="12">
+                 <v-row class="ma-0 align-center">
+                    <v-col cols="12" md="6">
+                        <p class="mb-0">请选择需要维护的课程</p>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-select
+                            :items="mySchoolData.grades"
+                            item-text="gradeName"
+                            item-value="id"
+                            :menu-props="{ top: false, offsetY: true }"
+                            v-model="currentSelectedGrade"
+                            :disabled="mySchoolData.grades.length === 0"
+                            :loading="isLoadingSchoolData"
+                            hide-details
+                            solo
+                            @change="onChangeGrade"
+                            ></v-select>
+                    </v-col>
+                </v-row>
             </v-col>
-            <v-tabs
-                background-color="transparent"
-                color="primary"
-                grow
-                class="my-7"
-                v-else
-            >   
-                <v-tab v-for="(gradeData) in mySchoolData.grades" :key="gradeData.id" @click="triggerGrade(gradeData)">
-                    <v-icon class="mr-2">mdi-bookmark</v-icon>{{gradeData.gradeName}}
-                </v-tab>
-            </v-tabs>
         </v-row>
-        <transition name="fade" mode="out-in">
             <v-data-table
             :headers="headers"
             :items="scheduleSettingData"
@@ -67,37 +69,11 @@
                             <v-container>
                             <v-row>
                                 <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="subjectNameItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
-                                        v-model="editedItem.subject"
-                                        label="课时类型"
+                                    <v-text-field
+                                        v-model="editedItem.subjectName"
+                                        label="请输入主题名称"
                                         hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="teacherNameItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
-                                        v-model="editedItem.teacher"
-                                        label="课时类型"
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="classItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="label"
-                                        v-model="editedItem.lesson"
-                                        label="课时类型"
-                                        hide-details
-                                    ></v-select>
+                                    ></v-text-field>
                                 </v-col>
                             </v-row>
                             </v-container>
@@ -161,19 +137,6 @@
                         </v-icon>
                         无法修改
                     </v-btn>
-                    <router-link :to="{ name : 'admin.schedule'}">
-                        <v-btn
-                            color="light-blue accent-4"
-                            dark
-                            class="mb-2 ml-2"
-                            tile
-                            >
-                            课时维护
-                            <v-icon right> 
-                                mdi-arrow-right-thick 
-                            </v-icon>
-                        </v-btn>
-                    </router-link>
                 </v-toolbar>
             </template>
             
@@ -200,13 +163,12 @@
                 <p>没有学习资料</p>
             </template>
             </v-data-table>
-        </transition>
     </v-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { getBaseData,getSchedule,createSchedule,updateSchedule,deleteSchedule} from '~/api/managerSchedule'
+import { getSchedule,createSchedule,updateSchedule,deleteSchedule} from '~/api/managerSchedule'
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -233,8 +195,6 @@ export default {
         ],
         headers: [
             { text: '课程名称', value: 'subjectName', align: 'start'},
-            { text: '任课教师', value: 'teacherName', sortable: false },
-            { text: '任课班级', value: 'lessonName', sortable: false },
             { text: '操作', value: 'actions', sortable: false },
         ],
         scheduleSettingData: [
@@ -242,32 +202,12 @@ export default {
         ],
         editedIndex: -1,
         editedItem: {
-            subject:{
-                label:'',
-                value:'',
-            },
-            teacher:{
-                label:'',
-                value:'',
-            },
-            lesson:{
-                label:'',
-                value:'',
-            },
+            gradeId: null,
+            subjectName: ''
         },
         defaultItem: {
-            subject:{
-                label:'',
-                value:'',
-            },
-            teacher:{
-                label:'',
-                value:'',
-            },
-            lesson:{
-                label:'',
-                value:'',
-            },
+            gradeId: null,
+            subjectName: ''
         },
         
         baseUrl:window.Laravel.base_url,
@@ -284,34 +224,26 @@ export default {
             user : 'auth/user'
         }),
         formTitle () {
-            return this.editedIndex === -1 ? '新增课程安排' : '编辑课程安排'
+            return this.editedIndex === -1 ? '新科目' : '主题名称更改'
         },
     },
     async created(){
-        this.isLoadingSchoolData = true;
-        this.isGettingBaseData = true;
-        await getBaseData()
-        .then((res) => {
-            this.initialized(res.data.data)
-        }).catch((err) => {
-            //console.log(err.response)
-        });
-        this.isGettingBaseData = false
+        
         this.schoolData.map(x=>{
             if(this.user.schoolId == x.id){
                 this.mySchoolData = x;
             }
         })
-        this.currentSelectedGrade = this.mySchoolData.grades[0];
-        //console.log(this.currentSelectedGrade)
-        await getSchedule({gradeId:this.currentSelectedGrade.id}).then(res=>{
-            this.scheduleSettingData = res.data
-            //console.log(this.scheduleSettingData)
-        }).catch(err=>{
-            //console.log(err.response);
-        })
-        this.triggerLesson()
-        this.isLoadingSchoolData = false;
+        if(this.mySchoolData.grades.length > 0){
+            this.isLoadingSchoolData = true;
+            this.currentSelectedGrade = this.mySchoolData.grades[0].id;
+            await getSchedule({gradeId:this.currentSelectedGrade}).then(res=>{
+                this.scheduleSettingData = res.data
+            }).catch(err=>{
+    
+            })
+            this.isLoadingSchoolData = false;
+        }
     },
     
     watch: {
@@ -324,31 +256,10 @@ export default {
     },
 
     methods: {
-        initialized(data){
-            data.subjectArr.map(sub=>{
-                let element = {}
-                element.label = sub.subjectName
-                element.value = sub
-                this.subjectNameItem.push(element)
-            })
-            data.teacherArr.map(user=>{
-                let element = {}
-                element.label = user.name;
-                element.value = {id:user.id,teacherName:user.name};
-                this.teacherNameItem.push(element);
-            })
-            // this.scheduleSettingData = data.scheduleArr;
-        },
       editItem (item) {
           //console.log('------',item)
             this.editedIndex = this.scheduleSettingData.indexOf(item)
-
-            this.editedItem.subject.label = item.subjectName
-            this.editedItem.subject.value = item.subjectId
-            this.editedItem.teacher.label = item.teacherName
-            this.editedItem.teacher.value = item.teacherId
-            this.editedItem.lesson.label = item.lessonName
-            this.editedItem.lesson.value = item.lessonId
+            this.editedItem = Object.assign({}, item)
             //console.log('+++++',this.editedItem)
             this.dialog = true
       },
@@ -392,7 +303,7 @@ export default {
             //update scheduleSettingData
             this.isCreating = true
             //console.log(this.editedItem)
-            this.$set(this.editedItem,'gradeId',this.currentSelectedGrade.id)
+            this.$set(this.editedItem,'gradeId',this.currentSelectedGrade)
             //console.log(this.editedIndex)
             if (this.editedIndex > -1) {
                 await updateSchedule(this.editedItem).then(res=>{
@@ -405,6 +316,7 @@ export default {
             } 
             //save scheduleSettingData
             else {
+                this.editedItem.gradeId = this.currentSelectedGrade;
                 await createSchedule(this.editedItem).then(res=>{
                     // let index = this.subjectNameItem.findIndex(sbj=> sbj.value === this.editedItem.subject)
                     // if(index > -1){
@@ -419,40 +331,17 @@ export default {
             this.isCreating = false;
             this.close()
         },
-        triggerGrade(gradeData){
-            this.currentSelectedGrade = gradeData;
-            this.triggerLesson()
-        },
-        async triggerLesson(){
+
+        async onChangeGrade(val){
+            this.currentSelectedGrade = val;
+
             this.isLoadingSchoolData = true;
-            await getSchedule({gradeId:this.currentSelectedGrade.id}).then(res=>{
+            await getSchedule({gradeId:this.currentSelectedGrade}).then(res=>{
                 this.scheduleSettingData = res.data
             }).catch(err=>{
-                //console.log(err.response);
+    
             })
             this.isLoadingSchoolData = false;
-            this.classItem = []
-            this.currentSelectedGrade.lessons.map(lesson=>{
-                let element = {
-                    label:'',
-                    value:''
-                }
-                element.label = lesson.lessonName
-                element.value = {id:lesson.id,lessonName:lesson.lessonName}
-                this.classItem.push(element)
-            })
-        },
-        triggerSubject(data){
-            this.subjectNameItem = []
-            data.map(sub=>{
-                let element = {
-                    label:'',
-                    value:''
-                }
-                element.label = sub.subjectName
-                element.value = sub.id
-                this.subjectNameItem.push(element)
-            })
         }
     },
 }

@@ -15,24 +15,15 @@ class CreateScheduleSettingsTable extends Migration
     {
         Schema::create('schedule_settings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('gradeId');
-            $table->char('subjectName');
-            $table->unsignedBigInteger('subjectId');
-            $table->char('teacherName');
-            $table->unsignedBigInteger('teacherId');
-            $table->char('lessonName');
-            $table->unsignedBigInteger('lessonId');
-            $table->unsignedBigInteger('schoolId');
             $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('gradeId');
+            $table->foreign('gradeId')->references('id')->on('grades')->onDelete('cascade');
+            $table->unsignedBigInteger('schoolId');
+            $table->foreign('schoolId')->references('id')->on('schools')->onDelete('cascade');
+            $table->char('subjectName');
             $table->boolean('isActived')->default(false);
             $table->timestamps();
-
-            $table->foreign('gradeId')->references('id')->on('grades')->onDelete('cascade');
-            $table->foreign('subjectId')->references('id')->on('subjects')->onDelete('cascade');
-            $table->foreign('teacherId')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('lessonId')->references('id')->on('lessons')->onDelete('cascade');
-            $table->foreign('schoolId')->references('id')->on('schools')->onDelete('cascade');
-            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

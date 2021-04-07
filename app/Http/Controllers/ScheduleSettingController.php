@@ -44,33 +44,39 @@ class ScheduleSettingController extends Controller
     public function createSchedule(Request $request){
         $this->validate($request,[
             'gradeId'=>'required',
-            'lesson'=>'required',
-            'subject'=>'required',
-            'teacher'=>'required'
+            'subjectName'=>'required'
         ]);
-        $subject = $request->subject;
-        $lesson = $request->lesson;
-        $teacher = $request->teacher;
-        Subject::where('id',$request->subject['id'])->update([
-            'isActived'=>1
-        ]);
+        $subjectName = $request->subjectName;
+        $gradeId = $request->gradeId;
+        // Subject::where('id',$request->subject['id'])->update([
+        //     'isActived'=>1
+        // ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         return ScheduleSetting::create([
             'gradeId'=>$request->gradeId,
-            'subjectName'=>$request->subject['subjectName'],
-            'subjectId'=>$request->subject['id'],
-            'teacherName'=>$request->teacher['teacherName'],
-            'teacherId'=>$request->teacher['id'],
-            'lessonName'=>$request->lesson['lessonName'],
-            'lessonId'=>$request->lesson['id'],
+            'subjectName'=>$request->subjectName,
             'schoolId'=>$schoolId,
             'userId'=>$userId
         ]);
     }
 
     public function updateSchedule(Request $request){
-
+        $this->validate($request,[
+            'id'=>'required',
+            'subjectName'=>'required'
+        ]);
+        $subjectName = $request->subjectName;
+        $gradeId = $request->gradeId;
+        // Subject::where('id',$request->subject['id'])->update([
+        //     'isActived'=>1
+        // ]);
+        $userId = Auth::user()->id;
+        $schoolId = Auth::user()->schoolId;
+        return ScheduleSetting::where(['userId'=>$userId,'schoolId'=>$schoolId,'id'=>$request->id])->update([
+            'gradeId'=>$gradeId,
+            'subjectName'=>$request->subjectName,
+        ]);
     }
 
     public function deleteSchedule(Request $request){
