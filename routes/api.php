@@ -69,6 +69,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('manager/subject', 'SubjectController@storeSubject')->name('storeSubject');
     Route::put('manager/subject', 'SubjectController@updateSubject')->name('updateSubject');
     Route::delete('manager/subject', 'SubjectController@removeSubject')->name('removeSubject');
+    
+    //session of manager
+    Route::get('manager/session', 'SessionController@getSession')->name('getSession');
+    Route::post('manager/session', 'SessionController@storeSession')->name('storeSession');
+    Route::put('manager/session', 'SessionController@updateSession')->name('updateSession');
+    Route::delete('manager/session', 'SessionController@removeSession')->name('removeSession');
 
     //school
     Route::get('school', 'SchoolController@getSchool')->name('getSchool');

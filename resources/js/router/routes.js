@@ -51,9 +51,10 @@ export default [
   { path: '/admin/school', name: 'admin.school', component: page('admin/school.vue') },
   { path: '/admin/school/:id/manager', name: 'admin.manager', component: page('admin/schoolManager.vue'), props:true },
   { path: '/admin/stream', name: 'admin.stream', component: page('admin/stream.vue') },
-  { path: '/admin/schedule', name: 'admin.schedule', component: page('admin/schedule.vue') },
-  { path: '/admin/schedule/setting', name: 'admin.scheduleSetting', component: page('admin/scheduleSetting.vue')  },
-  { path: '/admin/schedule/class', name: 'admin.scheduleClass', component: page('admin/scheduleClass.vue')  },
+  { path: '/admin/schedule', name: 'admin.schedule', component: page('admin/schedule/schedule.vue') },
+  { path: '/admin/scheduleSetting', name: 'admin.scheduleSetting', component: page('admin/schedule/setting.vue')  },
+  { path: '/admin/scheduleTeacher', name: 'admin.scheduleTeacher', component: page('admin/schedule/teacher.vue')  },
+  { path: '/admin/schedule/class', name: 'admin.scheduleClass', component: page('admin/schedule/class.vue')  },
   { path: '/admin/userlist', name: 'admin.userlist', component: page('admin/userList.vue'),
     children : [
       {path:'',redirect:{name: 'userlist.teacher'}},
