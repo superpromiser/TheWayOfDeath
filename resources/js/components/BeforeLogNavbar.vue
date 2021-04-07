@@ -30,6 +30,12 @@
       </v-icon> 
       Mac
     </v-btn>
+    <v-btn text @click="guestMng">
+      <v-icon left>
+        mdi-account-arrow-right-outline
+      </v-icon> 
+      陌生访客管理
+    </v-btn>
   </v-app-bar>
 </template>
 
@@ -58,6 +64,9 @@ export default {
 
       // Redirect to login.
       this.$router.push({ name: 'login' })
+    },
+    guestMng(){
+      this.$router.push({name:'guestManage'})
     }
   }
 }
