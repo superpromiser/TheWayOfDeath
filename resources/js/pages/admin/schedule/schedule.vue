@@ -88,9 +88,9 @@
             </v-dialog>
         </v-col>
         <v-col cols="12" class="mt-5">
-            <v-row>
+            <v-row class="ma-0 align-center">
                 <v-col cols="12" md="6">
-                    <p>请选择需要维护的课时</p>
+                    <p class="mb-0">请选择需要维护的课时</p>
                 </v-col>
                 <v-col cols="12" md="6">
                     <v-select
@@ -100,7 +100,9 @@
                         :menu-props="{ top: false, offsetY: true }"
                         v-model="selectedSession"
                         :disabled="sessionDataArr.length === 0"
-                        
+                        :loading="isLoadingSchoolData"
+                        hide-details
+                        solo
                         @change="onChangeSession"
                         ></v-select>
                 </v-col>
@@ -479,6 +481,7 @@ export default {
             startTime: null,
             endTime: null,
             subjectStartDate: null,
+            sessionId: null,
         },
         defaultItem: {
             subjectOrderName: '',
@@ -486,6 +489,7 @@ export default {
             startTime: null,
             endTime: null,
             subjectStartDate: null,
+            sessionId: null,
         },
         
         baseUrl:window.Laravel.base_url,
@@ -513,22 +517,26 @@ export default {
         .then((res) => {
             this.sessionDataArr = res.data;
             if(this.sessionDataArr.length > 0){
-                this.selectedSession = this.sessionDataArr[0];
+                this.selectedSession = this.sessionDataArr[0].id;
             }
         }).catch((err) => {
             console.log(err);
         });
         this.isLoadingSessionData = false;
-
-        this.isLoadingSchoolData = true;
-        await getSubject()
-        .then((res) => {
-            //console.log(res.data)
-            this.scheduleData = res.data
-        }).catch((err) => {
-            
-        });
-        this.isLoadingSchoolData = false;
+        if(this.sessionDataArr.length > 0){
+            this.isLoadingSchoolData = true;
+            let payload = {
+                sessionId: this.selectedSession
+            }
+            await getSubject(payload)
+            .then((res) => {
+                //console.log(res.data)
+                this.scheduleData = res.data
+            }).catch((err) => {
+                
+            });
+            this.isLoadingSchoolData = false;
+        }
     },
 
     watch: {
@@ -598,6 +606,7 @@ export default {
             } 
             //save scheduleData
             else {
+                this.editedItem.sessionId = this.selectedSession;
                 await createSubject(this.editedItem).then(res=>{
                     //console.log(res.data)
                     this.scheduleData.push(res.data)
@@ -643,6 +652,9 @@ export default {
                             sessionName: this.sessionName
                         }
                         this.sessionDataArr.push(sessionObj)
+                        if(this.sessionDataArr.length == 1){
+                            this.selectedSession = this.sessionDataArr[0].id;
+                        }
                     }
                     this.sessionName = '';
                     this.addSessionDialog = false;
@@ -714,8 +726,20 @@ export default {
         },
 
         async onChangeSession(val){
-            console.log(val)
-            
+            this.selectedSession = val;
+
+            this.isLoadingSchoolData = true;
+            let payload = {
+                sessionId: this.selectedSession
+            }
+            await getSubject(payload)
+            .then((res) => {
+                //console.log(res.data)
+                this.scheduleData = res.data
+            }).catch((err) => {
+                
+            });
+            this.isLoadingSchoolData = false;
         }
     },
 }

@@ -9,7 +9,7 @@ function updateSubject(payload){
     return axios.put('/api/v1/manager/subject', payload);
 }
 function getSubject(payload){
-    return axios.get('/api/v1/manager/subject', payload);
+    return axios.get('/api/v1/manager/subject', {params: payload});
 }
 function deleteSubject(payload){
     return axios.delete('/api/v1/manager/subject', {data : payload});

@@ -7,10 +7,11 @@ use App\Subject;
 use Illuminate\Support\Facades\Auth;
 class SubjectController extends Controller
 {
-    public function getSubject(){
+    public function getSubject(Request $request){
+        $sessionId = $request->sessionId;
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
-        return Subject::where(['userId'=>$userId,'schoolId'=>$schoolId])->get();
+        return Subject::where(['userId'=>$userId,'schoolId'=>$schoolId, 'sessionId'=>$sessionId])->get();
     }
 
     public function createSubject(Request $request){
@@ -26,6 +27,7 @@ class SubjectController extends Controller
         return Subject::create([
             'userId'=>$userId,
             'schoolId'=>$schoolId,
+            'sessionId'=>$request->sessionId,
             'subjectOrderName'=>$request->subjectOrderName,
             'subjectOrderType'=>$request->subjectOrderType,
             'startTime'=>$request->startTime,
