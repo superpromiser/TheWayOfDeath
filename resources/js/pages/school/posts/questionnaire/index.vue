@@ -375,7 +375,7 @@
                 color="primary"
                 @click="selContent('template')"
             >
-                可用模板 0， 草稿 0
+                可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
             </v-btn>
             
             <v-btn
@@ -559,7 +559,7 @@
                 <v-divider></v-divider>
               </v-col>
               <!--  View Datas  -->
-              <v-col cols="12" v-for="(data, index) in newQuestionnaireData.content" :key="index">
+              <v-col cols="12" v-for="(data, index) in newQuestionnaireData.content" :key="index" v-if="newQuestionnaireData.content.length > 0">
                 <!--  single Datas  -->
                 <v-row v-if="data.type == 'single'">
                   <v-col cols="12">
@@ -767,8 +767,8 @@ import { mapGetters } from 'vuex';
 import lang from '~/helper/lang.json';
 import QuestionItem from '~/components/questionItem';
 import AttachItemViewer from '~/components/attachItemViewer';
-import {getQuestionnaire,createQuestionnaire,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire';
-// import {getTemplate,createTemplate,updateTemplate,deleteTemplate} from '~/api/template';
+import {getQuestionnaireTempCnt,createQuestionnaireTemp,createQuestionnaire,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire';
+// import {createTemplate} from '~/api/template';
 import quickMenu from '~/components/quickMenu'
 export default {
   middleware:['auth','post'],
@@ -796,6 +796,8 @@ export default {
       isSubmit:false,
       isDraft:false,
       isSuccessed:false,
+      tempCnt:0,
+      draftCnt:0,
       
   }),
 
@@ -831,6 +833,11 @@ export default {
     if(this.currentPath.name == 'posts.questionnaire'){
       this.postNew = true
     }
+    getQuestionnaireTempCnt().then(res=>{
+      console.log(res.data)
+      this.tempCnt = res.data.tempCnt
+      this.draftCnt = res.data.draftCnt
+    })
   },
 
   methods:{
@@ -930,13 +937,24 @@ export default {
 
     saveDraft(){
       //console.log(this.newQuestionnaireData)
+      let saveTime = new Date();
+      console.log(saveTime)
+      // return
       this.isDraft = true;
-      createTemplate({tempData:this.newQuestionnaireData,tempType:1,contentId:1}).then(res=>{
-        //console.log(res)
+      createQuestionnaireTemp({
+        temTitle:saveTime,
+        imgUrl:'/asset/img/coverImage/profile_bg2.jpg',
+        title:saveTime,
+        description:saveTime,
+        content:this.newQuestionnaireData,
+        temType:2,
+      }).then(res=>{
+        console.log(res)
+        this.isDraft = false;
       }).catch(err=>{
-        //console.log(err.response)
+        console.log(err.response)
+        this.isDraft = false;
       })
-      this.isDraft = false;
     },
 
     something(){

@@ -70,7 +70,6 @@
                 
                 <!-- <div>
                     {{template}}
-<<<<<<< HEAD
                 </div>
             </div>
             <v-btn
@@ -81,10 +80,8 @@
             >
                 {{lang.submit}}
             </v-btn>
-=======
                 </div> -->
             </v-row>
->>>>>>> d57f65cc92bda2f4bfc44594b5bf5dfe2040a0e7
         </v-container>
         <transition name="fade" mode="out-in">
             <router-view></router-view>
@@ -102,6 +99,7 @@ export default {
         lang,
         istemplateNew:false,
         baseUrl:window.Laravel.base_url,
+        isSubmit:false,
     }),
     computed:{
         currentPath(){

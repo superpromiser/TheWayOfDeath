@@ -133,7 +133,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('questionnaireTemp', 'QuestionnaireTempController@createQuestionnaireTemp');
     Route::put('questionnaireTemp', 'QuestionnaireTempController@updateQuestionnaireTemp');
     Route::delete('questionnaireTemp', 'QuestionnaireTempController@deleteQuestionnaireTemp');
-
+    Route::get('questionnaireTempCnt', 'QuestionnaireTempController@getQuestionnaireTempCnt');
     //voting
     Route::get('voting', 'VotingController@getVotingData');
     Route::post('voting', 'VotingController@createVotingData');
