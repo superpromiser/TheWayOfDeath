@@ -418,12 +418,14 @@
                         hide-details
                     ></v-text-field>
                 </v-col>
-                <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                    >
-                    <v-menu
+                <v-col cols="12" sm="6" md="4">
+                    <v-datetime-picker 
+                      label="最后期限" 
+                      v-model="newQuestionnaireData.deadline"
+                      :okText='lang.ok'
+                      :clearText='lang.cancel'
+                    > </v-datetime-picker>
+                    <!-- <v-menu
                         ref="menu"
                         v-model="menu"
                         :close-on-content-click="false"
@@ -465,7 +467,7 @@
                             {{lang.ok}}
                         </v-btn>
                         </v-date-picker>
-                    </v-menu>
+                    </v-menu> -->
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                     <v-select
@@ -480,7 +482,26 @@
                         label="班级"
                         hide-details
                         v-model="newQuestionnaireData.viewList"
-                    ></v-select>
+                    >
+                    <template v-slot:prepend-item>
+                        <v-list-item
+                          ripple
+                          @click="toggleSelectAll"
+                        >
+                          <v-list-item-action>
+                            <v-icon :color="newQuestionnaireData.viewList.length > 0 ? '#3989fc' : ''">
+                              {{ selectAllIcon }}
+                            </v-icon>
+                          </v-list-item-action>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              全选
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
+                        <v-divider class="mt-2"></v-divider>
+                      </template>  
+                    </v-select>
                 </v-col>
             </v-row>
             <v-row>
@@ -517,35 +538,35 @@
             </v-row>
             <v-row>
                 <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3" @click="selContent('single')">
+                    <v-btn block dark large color="#3989fc" @click="selContent('single')">
                         <v-icon>
                             mdi-plus
                         </v-icon>单选题
                     </v-btn>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3" @click="selContent('multi')">
+                    <v-btn block dark large color="#3989fc" @click="selContent('multi')">
                         <v-icon>
                             mdi-plus
                         </v-icon>多选题
                     </v-btn>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3" @click="selContent('question')">
+                    <v-btn block dark large color="#3989fc" @click="selContent('question')">
                         <v-icon>
                             mdi-plus
                         </v-icon>问答题
                     </v-btn>
                 </v-col>
                 <!-- <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3" @click="selContent('stat')">
+                    <v-btn block dark large color="#3989fc" @click="selContent('stat')">
                         <v-icon>
                             mdi-plus
                         </v-icon>统计题
                     </v-btn>
                 </v-col> -->
                 <v-col cols="12" sm="6" md="4">
-                    <v-btn block dark large color="blue accent-3" @click="selContent('scoring')">
+                    <v-btn block dark large color="#3989fc" @click="selContent('scoring')">
                         <v-icon>
                             mdi-plus
                         </v-icon>评分题
@@ -805,8 +826,24 @@ export default {
   },
 
   computed: {
+      
       currentPath(){
         return this.$route;
+      },
+      ...mapGetters({
+        user: 'auth/user'
+      }),
+
+      selectAllItems () {
+        return this.newQuestionnaireData.viewList.length === this.returnSchoolTree(this.currentPath.params.schoolId).filter(function(el){return el.lessonId !== undefined && el.lessonId !== null}).length
+      },
+      selectSomeItems () {
+        return this.newQuestionnaireData.viewList.length > 0 && !this.selectAllItems
+      },
+      selectAllIcon(){
+        if (this.selectAllItems) return 'mdi-close-box'
+        if (this.selectSomeItems) return 'mdi-minus-box'
+        return 'mdi-checkbox-blank-outline'
       }
   },
   watch:{
@@ -826,6 +863,7 @@ export default {
   },
 
   created(){
+    console.log("222", this.user);
     this.newQuestionnaireData.schoolId = this.currentPath.params.schoolId;
     if(this.currentPath.name == 'posts.questionnaire'){
       this.postNew = true
@@ -868,11 +906,38 @@ export default {
     saveContent(data){
       console.log('----------',data)
       this.postNew = true;
-      this.newQuestionnaireData.content.push(data)
+      if(data.index == null){
+        this.newQuestionnaireData.content.push(data)
+      }
+      else{
+        this.newQuestionnaireData.content[data.index] = data
+      }
       console.log('++++++++++',this.newQuestionnaireData)
     },
     async submit(){
-      //console.log(this.newQuestionnaireData)
+      console.log("!", this.newQuestionnaireData)
+      let dateNow = new Date();
+      if(this.newQuestionnaireData.title.trim() == ''){
+        return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
+      }
+      if(this.newQuestionnaireData.description.trim() == ''){
+        return this.$snackbar.showMessage({content: "说明（选填）字段为空。", color: "error"})
+      }
+      if(this.newQuestionnaireData.deadline == ""){
+        return this.$snackbar.showMessage({content: "输入截止日期。", color: "error"})
+      }
+      if( dateNow > this.newQuestionnaireData.deadline){
+        return this.$snackbar.showMessage({content: "截止日期应晚于当前时间。", color: "error"})
+      }
+      if(this.newQuestionnaireData.viewList.length == 0){
+        return this.$snackbar.showMessage({content: "请选择一个班级。", color: "error"})
+      }
+      if(this.newQuestionnaireData.content.length == 0){
+        return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})
+      }
+      
+      
+      this.newQuestionnaireData.deadline = this.TimeView(this.newQuestionnaireData.deadline)
       this.isSubmit = true
       await createQuestionnaire(this.newQuestionnaireData).then(res => {
         //console.log(res)
@@ -919,7 +984,11 @@ export default {
     },
 
     editContent(data, index){
-      //console.log(data, index);
+      console.log(data, index);
+      this.postNew = false;
+      if(data.type == "single"){
+        this.$router.push({name: "questionnaire.single", params: {editDataArr: data.singleContentDataArr, editDataIndex: index}})
+      }
     },
 
     deleteContent(index){
@@ -940,6 +1009,16 @@ export default {
 
     something(){
 
+    },
+
+    toggleSelectAll(){
+      this.$nextTick(() => {
+        if (this.selectAllItems) {
+          this.newQuestionnaireData.viewList = []
+        } else {
+          this.newQuestionnaireData.viewList = this.returnSchoolTree(this.currentPath.params.schoolId).filter(function(el){return el.lessonId !== undefined && el.lessonId !== null}).slice()
+        }
+      })
     }
 
   }

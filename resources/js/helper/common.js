@@ -60,6 +60,19 @@ export default{
             // date = date.getTime()
             // return date
         },
+        TimeViewSam(str){
+            // let date =  new Date(str)
+            let date = new Date(str);
+            let mnth = ("0" + (date.getMonth() + 1)).slice(-2);
+            let day = ("0" + date.getDate()).slice(-2);
+            let hour = ("0" + date.getHours()).slice(-2);
+            let min = ("0" + date.getMinutes()).slice(-2);
+            let sec = ("0" + date.getSeconds()).slice(-2);
+            let time = date.getFullYear() + '-' + mnth + '-' + day + ' ' + hour + ':' + min + ':' + sec;
+            return time
+            // date = date.getTime()
+            // return date
+        },
         TimeViewYMD(str){
             let date = new Date(str);
             let mnth = ("0" + (date.getMonth() + 1)).slice(-2);

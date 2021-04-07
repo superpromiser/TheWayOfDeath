@@ -28,10 +28,16 @@
         </v-snackbar>
     </v-container>
     <v-container v-else>
-        <div v-for="index in initialCnt" :key="index" class="mt-3">
+        <div v-if="isNew == true" v-for="index in initialCnt" :key="index" class="mt-3">
             <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
             <v-divider></v-divider>
         </div>
+        
+        <div v-if="isNew == false" v-for="(item, index) in singleData.singleContentDataArr" :key="index" class="mt-3">
+            <QuestionItem class="mt-10" :item="item" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+            <v-divider></v-divider>
+        </div>
+
         <v-container>
             <v-row class="my-10 d-flex align-center">
                 <v-btn color="primary" text @click="addContent" class="mr-5" >
@@ -69,25 +75,35 @@ export default {
         type:{
             type:String,
             requireed:false
-        }
+        },
+
     },
     
     data: () =>({
         singleData : {
             type : 'single',
             singleContentDataArr:[],
+            index: null,
         },
-        initialCnt:4,
+        initialCnt: 3,
         lang,
-        requiredText:false
+        requiredText:false,
+        isNew : true,
     }),
 
     computed:{
         currentPath(){
-            this.$route.path;
+            return this.$route;
         }
     },
     created(){
+        console.log(this.currentPath);
+        if(this.currentPath.params.editDataArr !== undefined){
+            this.isNew = false;
+            this.singleData.singleContentDataArr = this.currentPath.params.editDataArr;
+            this.singleData.index = this.currentPath.params.editDataIndex;
+            console.log("hey!", this.singleData);
+        }
         //console.log(this.type)
         if(this.type == undefined){
             this.$router.push({name:'posts.questionnaire'})
@@ -96,13 +112,33 @@ export default {
     
     methods:{
         addContent(){
-            this.initialCnt ++;
+            if(this.isNew == true){
+                this.initialCnt ++;
+            }
+            else if (this.isNew == false){
+                let contentData = {
+                    imgUrl: [],
+                    otherUrl: [],
+                    text: '',
+                    videoUrl: [],
+                }
+                this.singleData.singleContentDataArr.push(contentData)
+            }
         },
         addSingleContent(){
-            for(let index = 1;  index <= this.initialCnt; index++){
-                this.$refs[index][0].emitData()
+            if(this.isNew == false){
+                let initialLength = this.singleData.singleContentDataArr.length;
+                for(let index = 0;  index < initialLength; index++){
+                    this.$refs[index][0].emitData()
+                }
+                this.singleData.singleContentDataArr = this.singleData.singleContentDataArr.splice(0, initialLength );
             }
-            if(this.singleData.singleContentDataArr.length<4){
+            else{
+                for(let index = 1;  index <= this.initialCnt; index++){
+                    this.$refs[index][0].emitData()
+                }
+            }
+            if(this.singleData.singleContentDataArr.length<3){
                 return
             }
             // this.$store.dispatch('content/storeSingleData',this.singleContentDataArr)
