@@ -19,12 +19,13 @@ class CreateSubjectsTable extends Migration
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('schoolId');
             $table->foreign('schoolId')->references('id')->on('schools')->onDelete('cascade');
-            $table->string('subjectName');
-            $table->string('subjectType');
-            $table->string('subjectOrder');
+            $table->unsignedBigInteger('sessionId');
+            $table->foreign('sessionId')->references('id')->on('sessions')->onDelete('cascade');
+            $table->string('subjectOrderName');
+            $table->string('subjectOrderType');
             $table->char('startTime');
             $table->char('endTime');
-            $table->date('subjectDate');
+            $table->date('subjectStartDate');
             $table->boolean('isActived')->default(false);
             $table->timestamps();
         });

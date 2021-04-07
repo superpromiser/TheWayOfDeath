@@ -87,6 +87,25 @@
                 </v-card>
             </v-dialog>
         </v-col>
+        <v-col cols="12" class="mt-5">
+            <v-row>
+                <v-col cols="12" md="6">
+                    <p>请选择需要维护的课时</p>
+                </v-col>
+                <v-col cols="12" md="6">
+                    <v-select
+                        :items="sessionDataArr"
+                        item-text="sessionName"
+                        item-value="id"
+                        :menu-props="{ top: false, offsetY: true }"
+                        v-model="selectedSession"
+                        :disabled="sessionDataArr.length === 0"
+                        
+                        @change="onChangeSession"
+                        ></v-select>
+                </v-col>
+            </v-row>
+        </v-col>
       <v-col cols="12">
         <v-data-table
             :headers="headers"
@@ -398,6 +417,7 @@ export default {
         sessionEditMode: false,
         sessionName:'',
         sessionDataArr: [],
+        selectedSession: null,
         subjectTypeItem : [
             { 
                 label : "自习", 
@@ -492,6 +512,9 @@ export default {
         await getSession()
         .then((res) => {
             this.sessionDataArr = res.data;
+            if(this.sessionDataArr.length > 0){
+                this.selectedSession = this.sessionDataArr[0];
+            }
         }).catch((err) => {
             console.log(err);
         });
@@ -688,6 +711,11 @@ export default {
             this.deleteSessionDialog = false;
             this.isDeleting = false;
 
+        },
+
+        async onChangeSession(val){
+            console.log(val)
+            
         }
     },
 }

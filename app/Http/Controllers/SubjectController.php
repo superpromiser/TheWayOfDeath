@@ -15,24 +15,22 @@ class SubjectController extends Controller
 
     public function createSubject(Request $request){
         $this->validate($request,[
-            'subjectName'=>'required',
-            'subjectType'=>'required',
-            // 'startTime'=>'required',
-            // 'endTime'=>'required',
-            // 'subjectDate'=>'required'
-            'subjectOrder'=>'required'
+            'subjectOrderName'=>'required',
+            'subjectOrderType'=>'required',
+            'startTime'=>'required',
+            'endTime'=>'required',
+            'subjectStartDate'=>'required'
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         return Subject::create([
             'userId'=>$userId,
             'schoolId'=>$schoolId,
-            'subjectName'=>$request->subjectName,
-            'subjectType'=>$request->subjectType,
-            'subjectOrder'=>$request->subjectOrder,
-            // 'startTime'=>$request->startTime,
-            // 'endTime'=>$request->endTime,
-            // 'subjectDate'=>$request->subjectDate
+            'subjectOrderName'=>$request->subjectOrderName,
+            'subjectOrderType'=>$request->subjectOrderType,
+            'startTime'=>$request->startTime,
+            'endTime'=>$request->endTime,
+            'subjectStartDate'=>$request->subjectStartDate,
         ]);
 
     }
@@ -40,20 +38,20 @@ class SubjectController extends Controller
     public function updateSubject(Request $request){
         $this->validate($request,[
             'id'=>'required',
-            'subjectName'=>'required',
-            'subjectType'=>'required',
-            'subjectOrder'=>'required',
-            // 'startTime'=>'required',
-            // 'endTime'=>'required',
+            'subjectOrderName'=>'required',
+            'subjectOrderType'=>'required',
+            'subjectStartDate'=>'required',
+            'startTime'=>'required',
+            'endTime'=>'required',
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         return Subject::where(['userId'=>$userId,'schoolId'=>$schoolId,'id'=>$request->id])->update([
-            'subjectName'=>$request->subjectName,
-            'subjectType'=>$request->subjectType,
-            'subjectOrder'=>$request->subjectOrder,
-            // 'startTime'=>$request->startTime,
-            // 'endTime'=>$request->endTime
+            'subjectOrderName'=>$request->subjectOrderName,
+            'subjectOrderType'=>$request->subjectOrderType,
+            'subjectStartDate'=>$request->subjectStartDate,
+            'startTime'=>$request->startTime,
+            'endTime'=>$request->endTime
         ]);
         
     }
