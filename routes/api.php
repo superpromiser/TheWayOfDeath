@@ -18,22 +18,13 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
 
     //get current logged user
     Route::get('/user', 'Auth\UserController@current');
-<<<<<<< HEAD
     Route::get('userByRole', 'UserController@getUserByRole');
     Route::get('selUser', 'UserController@getSelUser');
     Route::post('user/schoolItem', 'UserController@postSchoolItem');
     Route::post('user/classItem', 'UserController@postClassItem');
     Route::get('user/postItem', 'UserController@getPostItem');
+    Route::put('user/profile', 'UserController@upProfile');
     Route::get('schoolMember', 'UserController@getSchoolMember');
-=======
-    Route::get('userByRole','UserController@getUserByRole');
-    Route::get('selUser','UserController@getSelUser');
-    Route::post('user/schoolItem','UserController@postSchoolItem');
-    Route::post('user/classItem','UserController@postClassItem');
-    Route::get('user/postItem','UserController@getPostItem');
-    Route::put('user/profile','UserController@upProfile');
-    Route::get('schoolMember','UserController@getSchoolMember');
->>>>>>> e780c5964c3a033ad28bf21401a3d58434e61310
     //actions with UserController
     Route::post('users', 'UserController@createUser')->name('createUser');
     Route::post('addUsers', 'UserController@addUser')->name('addUser');

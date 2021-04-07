@@ -26,6 +26,7 @@ import { mapGetters } from 'vuex'
 import PostItem from '~/components/postItem'
 import RouterBack from '~/components/routerBack'
 export default {
+    middleware:'auth',
     components:{
         PostItem,
         RouterBack

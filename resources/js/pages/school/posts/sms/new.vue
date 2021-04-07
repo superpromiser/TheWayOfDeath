@@ -110,6 +110,7 @@ import QuestionItem from '~/components/questionItem'
 import {createSms} from '~/api/sms'
 import quickMenu from '~/components/quickMenu'
 export default {
+    middleware:['auth','post'],
     components:{
         QuestionItem,
         quickMenu,

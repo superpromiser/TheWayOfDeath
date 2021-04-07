@@ -183,6 +183,7 @@ import quickMenu from '~/components/quickMenu'
 import {createHomeVisit} from '~/api/homeVisit'
 import {getSchoolMemberList} from '~/api/user'
 export default {
+    middleware:['auth','post'],
     components: {
         VueEditor,
         QuestionItem,

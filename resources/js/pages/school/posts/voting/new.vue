@@ -326,6 +326,7 @@ import QuestionItem from '~/components/questionItem'
 import {createVoting} from '~/api/voting'
 import quickMenu from '~/components/quickMenu'
 export default {
+    middleware:['auth','post'],
     components: {
         QuestionItem,
         quickMenu

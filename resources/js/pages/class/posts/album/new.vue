@@ -43,6 +43,7 @@
 <script>
 import {getClassPhoto} from '~/api/photo'
 export default {
+    middleware:['post','auth'],
     data: ()=> ({
         baseUrl: window.Laravel.base_url,
         imgUrl:[],

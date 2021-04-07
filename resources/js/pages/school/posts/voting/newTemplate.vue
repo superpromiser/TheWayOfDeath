@@ -62,6 +62,7 @@ import AttachItemViewer from '~/components/attachItemViewer'
 import UploadImage from '~/components/UploadImage';
 import QuestionItem from '~/components/questionItem'
 export default {
+    middleware:'auth',
     components: {
         QuestionItem,
         AttachItemViewer,

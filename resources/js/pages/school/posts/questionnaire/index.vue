@@ -771,6 +771,7 @@ import {getQuestionnaire,createQuestionnaire,updateQuestionnaire,deleteQuestionn
 // import {getTemplate,createTemplate,updateTemplate,deleteTemplate} from '~/api/template';
 import quickMenu from '~/components/quickMenu'
 export default {
+  middleware:['auth','post'],
   data: () => ({
       lang,
       baseUrl: window.Laravel.base_url,

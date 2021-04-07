@@ -154,6 +154,7 @@
 import lang from '~/helper/lang.json'
 import {getUserByRole} from '~/api/user'
 export default {
+  middleware:'auth',
   data:() => ({
     lang,
     userList:null,
