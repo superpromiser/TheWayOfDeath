@@ -54,7 +54,7 @@
                 </v-col>
                 <v-col cols="6">
                     <v-text-field
-                        v-model="homeworkData.title"
+                        v-model="homeworkData.subjectName"
                         solo
                         label="科目"
                         clearable
@@ -73,7 +73,7 @@
                         item-text="label"
                         item-value="value"
                         solo
-                        v-model="homeworkData.type"
+                        v-model="homeworkData.homeworkType"
                     ></v-select>
                 </v-col>
             </v-row>
@@ -127,8 +127,8 @@ export default {
         draftCnt:0,
         baseUrl:window.Laravel.base_url,
         homeworkData:{
-            title:'',
-            type:'offline',
+            subjectName:'',
+            homeworkType:'offline',
             content:null,
             deadline:'',
             monitorName:'',
@@ -137,15 +137,15 @@ export default {
         homeworkType:[
             {
                 label:'分为常规作业',
-                value:'offline'
+                value:'分为常规作业'
             },
             {
                 label:'在线作业',
-                value:'online'
+                value:'在线作业'
             },
             {
                 label:'在线测试',
-                value:'test'
+                value:'在线测试'
             }
         ],
         showRule:false
@@ -162,6 +162,11 @@ export default {
                     this.showRule = false
                 }
                 if(val.query.rule){
+                    console.log(val.query.rule)
+                    this.homeworkData.deadline = val.query.rule.deadline
+                    this.homeworkData.monitorName = val.query.rule.monitorName
+                    this.homeworkData.parentCheck = val.query.rule.parentCheck
+
                     // this.homeworkData = val.query.rule
                     // console.log(this.homeworkData)
                 }
@@ -177,15 +182,32 @@ export default {
             console.log("submit")
             this.$refs.child.emitData()
             if(this.homeworkData.content == null){
-                this.isRequired = true
-                return
+                return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})
             }
-            if(this.homeworkData.title == ''){
-                this.isRequired = true
-                return
+            if(this.homeworkData.subjectName == ''){
+                return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})             
             }
+            this.isSubmit = true
             
             console.log("this.homeworkData",this.homeworkData)
+
+            createHomeworkData({
+                schoolId:this.currentPath.params.schoolId,
+                lessonId:this.currentPath.params.lessonId,
+                subjectName:this.homeworkData.subjectName,
+                homeworkType:this.homeworkData.homeworkType,
+                content:this.homeworkData.content,
+                deadline:this.homeworkData.deadline,
+                monitorName:this.homeworkData.monitorName,
+                parentCheck:this.homeworkData.parentCheck,
+            }).then(res=>{
+                this.isSubmit = false
+                console.log(res.data)
+                this.$router.push({name:'classSpace.news'})
+            }).catch(err=>{
+                console.log(err.response)
+                this.isSubmit = false
+            })
         },
         templateList(){
             console.log("go to template list")

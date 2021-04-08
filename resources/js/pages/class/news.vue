@@ -12,6 +12,7 @@
         </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 14">
           <!-- <SmsPost :content='content'></SmsPost> -->
+          <HomeworkPost :content='content'></HomeworkPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 15">
@@ -127,6 +128,7 @@ import QusetionnairePost from '~/components/contents/questionnairePost'
 import VotingPost from '~/components/contents/votingPost';
 import NotificationPost from '~/components/contents/notificationPost'
 import HomeVisitPost from '~/components/contents/homeVisitPost'
+import HomeworkPost from '~/components/contents/homeworkPost'
 import EvaluationPost from '~/components/contents/evaluationPost'
 import RecognitionPost from '~/components/contents/recognitionPost'
 export default {
@@ -136,6 +138,7 @@ export default {
     FooterPost,
     NotificationPost,
     HomeVisitPost,
+    HomeworkPost,
     EvaluationPost,
     RecognitionPost,
 
