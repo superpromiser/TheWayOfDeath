@@ -18,13 +18,13 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
 
     //get current logged user
     Route::get('/user', 'Auth\UserController@current');
-    Route::get('userByRole', 'UserController@getUserByRole');
-    Route::get('selUser', 'UserController@getSelUser');
-    Route::post('user/schoolItem', 'UserController@postSchoolItem');
-    Route::post('user/classItem', 'UserController@postClassItem');
-    Route::get('user/postItem', 'UserController@getPostItem');
-    Route::put('user/profile', 'UserController@upProfile');
-    Route::get('schoolMember', 'UserController@getSchoolMember');
+    Route::get('userByRole','UserController@getUserByRole');
+    Route::get('selUser','UserController@getSelUser');
+    Route::post('user/schoolItem','UserController@postSchoolItem');
+    Route::post('user/classItem','UserController@postClassItem');
+    Route::get('user/postItem','UserController@getPostItem');
+    Route::put('user/profile','UserController@upProfile');
+    Route::get('schoolMember','UserController@getSchoolMember');
     //actions with UserController
     Route::post('users', 'UserController@createUser')->name('createUser');
     Route::post('addUsers', 'UserController@addUser')->name('addUser');
@@ -69,6 +69,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('manager/subject', 'SubjectController@storeSubject')->name('storeSubject');
     Route::put('manager/subject', 'SubjectController@updateSubject')->name('updateSubject');
     Route::delete('manager/subject', 'SubjectController@removeSubject')->name('removeSubject');
+    
+    //session of manager
+    Route::get('manager/session', 'SessionController@getSession')->name('getSession');
+    Route::post('manager/session', 'SessionController@storeSession')->name('storeSession');
+    Route::put('manager/session', 'SessionController@updateSession')->name('updateSession');
+    Route::delete('manager/session', 'SessionController@removeSession')->name('removeSession');
 
     //school
     Route::get('school', 'SchoolController@getSchool')->name('getSchool');

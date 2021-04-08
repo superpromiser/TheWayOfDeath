@@ -104,7 +104,7 @@
               <v-icon>mdi-google-classroom</v-icon>
             </v-list-item-icon>
           </v-list-item>
-          <v-list-item
+          <!-- <v-list-item
             active-class="sub-header-active"
             link
             to="/admin/schedule"
@@ -114,7 +114,45 @@
             <v-list-item-icon>
               <v-icon>mdi-calendar-month</v-icon>
             </v-list-item-icon>
-          </v-list-item>
+          </v-list-item> -->
+          <v-list class="py-0" v-if="user.role.roleName == 'manager'">
+            <v-list-group  active-class="header-active">
+            <template v-slot:activator>
+              <v-list-item-title class="ml-9">课程维护</v-list-item-title>
+            </template>
+              <v-list-item
+                active-class="sub-header-active"
+                link
+                to="/admin/schedule"
+                >
+                <v-list-item-title class="ml-16">课程维护</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-calendar-month</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-list-item
+                active-class="sub-header-active"
+                link
+                to="/admin/scheduleTeacher"
+                >
+                <v-list-item-title class="ml-16">任课教师</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-calendar-month</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-list-item
+                active-class="sub-header-active"
+                link
+                to="/admin/scheduleSetting"
+                >
+                <v-list-item-title class="ml-16">课程维护</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-calendar-month</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              
+            </v-list-group>
+          </v-list>
           <v-list-item
             active-class="sub-header-active"
             link

@@ -348,6 +348,10 @@ export default {
         contact : {
             type:Boolean,
             required:false,
+        },
+        item : {
+            type : Object,
+            required: false
         }
     },
     components: {
@@ -375,6 +379,12 @@ export default {
         isUserSeleciting:false,
         emoStatus:false,
     }),
+
+    created(){
+        if(this.item){
+            this.contentData = this.item;
+        }
+    },
 
     mounted(){
 

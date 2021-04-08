@@ -1,6 +1,113 @@
 <template>
   <v-container>
     <v-row>
+        <v-col cols="12" class="d-flex align-center ">
+            <v-row class="ma-0">
+                <v-col cols="12" class="d-flex align-center">
+                    <h2 class="mx-auto">
+                        学期
+                    </h2>
+                    <v-btn tile dark color="#49d29e" :loading="isAddingSession" @click="openAddSessionDialog" >
+                        加学期
+                    </v-btn>
+                </v-col>
+                <v-col cols="12" sm="9" md="6" class="mx-auto">
+                    <v-row v-if="isLoadingSessionData" class="ma-0 align-center justify-center" >
+                        <v-progress-circular
+                            indeterminate
+                            color="primary"
+                        ></v-progress-circular>
+                    </v-row>
+                    <v-row v-else-if="sessionDataArr.length == 0" class="ma-0">
+                        <p>没有学期数据。</p>
+                    </v-row>
+                    <v-row v-else class="ma-0 justify-space-between align-center border-bottom-1" v-for="(item, i) in sessionDataArr" :key="i">
+                        <p class="mb-0"> {{item.sessionName}}</p>
+                        <div class="d-flex align-center">
+                            <v-icon
+                                small
+                                color="success"
+                                class="mr-2"
+                                @click="editSession(item, i)"
+                            >
+                                mdi-pencil
+                            </v-icon>
+                            <v-icon
+                                small
+                                color="error"
+                                @click="deleteSession(item, i)"
+                            >
+                                mdi-delete
+                            </v-icon>
+                        </div>
+                    </v-row>
+                </v-col>
+            </v-row>
+            <v-dialog v-model="addSessionDialog" transition="dialog-bottom-transition" width="100%" max-width="500">   
+                <v-card>
+                    <v-card-title>
+                      <span class="headline">加学期</span>
+                    </v-card-title>
+                    <v-card-text class="pa-5">
+                        <v-text-field
+                            v-model="sessionName"
+                            label="请输入学期名称"
+                            hide-details
+                        ></v-text-field>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="closeAddSessionDialog"
+                        >
+                        {{lang.cancel}}
+                        </v-btn>
+                        <v-btn
+                        color="blue darken-1"
+                        text
+                        :loading="isAddingSession"
+                        @click="onSubmitSession"
+                        >
+                        {{lang.save}}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="deleteSessionDialog" transition="dialog-bottom-transition" width="100%" max-width="500px">
+                <v-card>
+                    <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="closeDeleteSessionDialog">{{lang.cancel}}</v-btn>
+                    <v-btn color="blue darken-1" text @click="deleteSessionConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
+                    <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </v-col>
+        <v-col cols="12" class="mt-5">
+            <v-row class="ma-0 align-center">
+                <v-col cols="12" md="6">
+                    <p class="mb-0">请选择需要维护的课时</p>
+                </v-col>
+                <v-col cols="12" md="6">
+                    <v-select
+                        :items="sessionDataArr"
+                        item-text="sessionName"
+                        item-value="id"
+                        :menu-props="{ top: false, offsetY: true }"
+                        v-model="selectedSession"
+                        :disabled="sessionDataArr.length === 0"
+                        :loading="isLoadingSchoolData"
+                        hide-details
+                        solo
+                        @change="onChangeSession"
+                        ></v-select>
+                </v-col>
+            </v-row>
+        </v-col>
       <v-col cols="12">
         <v-data-table
             :headers="headers"
@@ -48,7 +155,7 @@
                             <v-col cols="12"  >
                                 <v-text-field
                                     solo
-                                    v-model="editedItem.subjectName"
+                                    v-model="editedItem.subjectOrderName"
                                     label="机构名称"
                                     hide-details
                                 ></v-text-field>
@@ -59,23 +166,12 @@
                                     :items="subjectTypeItem"
                                     :menu-props="{ top: false, offsetY: true }"
                                     item-text="label"
-                                    v-model="editedItem.subjectType"
+                                    v-model="editedItem.subjectOrderType"
                                     label="课时类型"
                                     hide-details
                                 ></v-select>
                             </v-col>
-                            <v-col cols="12"  >
-                                <v-select
-                                    solo
-                                    :items="subjectOrderItem"
-                                    :menu-props="{ top: false, offsetY: true }"
-                                    item-text="label"
-                                    v-model="editedItem.subjectOrder"
-                                    label="课时类型"
-                                    hide-details
-                                ></v-select>
-                            </v-col>
-                            <!-- <v-col cols="12" >
+                            <v-col cols="12" >
                                 <v-menu
                                     ref="startTimeMenu"
                                     v-model="startTimeMenu"
@@ -144,14 +240,14 @@
                                     ref="subjectDateMenu"
                                     v-model="subjectDateMenu"
                                     :close-on-content-click="false"
-                                    :return-value.sync="editedItem.subjectDate"
+                                    :return-value.sync="editedItem.subjectStartDate"
                                     transition="scale-transition"
                                     offset-y
                                     min-width="auto"
                                 >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
-                                            v-model="editedItem.subjectDate"
+                                            v-model="editedItem.subjectStartDate"
                                             label="生效时间"
                                             prepend-icon="mdi-calendar"
                                             readonly
@@ -161,7 +257,7 @@
                                         ></v-text-field>
                                     </template>
                                     <v-date-picker
-                                        v-model="editedItem.subjectDate"
+                                        v-model="editedItem.subjectStartDate"
                                         no-title
                                         scrollable
                                         locale="zh-cn"
@@ -177,13 +273,13 @@
                                     <v-btn
                                         text
                                         color="primary"
-                                        @click="$refs.subjectDateMenu.save(editedItem.subjectDate)"
+                                        @click="$refs.subjectDateMenu.save(editedItem.subjectStartDate)"
                                     >
                                         {{lang.ok}}
                                     </v-btn>
                                     </v-date-picker>
                                 </v-menu>
-                            </v-col> -->
+                            </v-col>
                         </v-row>
                         </v-container>
                     </v-card-text>
@@ -246,19 +342,6 @@
                     </v-icon>
                     无法修改
                 </v-btn>
-                <router-link :to="{ name : 'admin.scheduleSetting'}">
-                    <v-btn
-                        color="light-blue accent-4"
-                        dark
-                        class="mb-2 ml-2"
-                        tile
-                        >
-                        课程安排
-                        <v-icon right> 
-                            mdi-arrow-right-thick 
-                        </v-icon>
-                    </v-btn>
-                </router-link>
             </v-toolbar>
           </template>
           
@@ -291,9 +374,19 @@
 </template>
 
 <script>
-import { createSchool, updateSchool, getSchool, deleteSchool } from '~/api/school'
-import { createSubject, updateSubject, getSubject, deleteSubject } from '~/api/managersubject'
+import { 
+    createSubject, 
+    updateSubject, 
+    getSubject, 
+    deleteSubject, 
+    createSession,
+    updateSession,
+    getSession,
+    deleteSession, 
+} from '~/api/managersubject'
+import { mapGetters } from 'vuex';
 import lang from '~/helper/lang.json'
+
 export default {
     components:{
     },
@@ -307,14 +400,25 @@ export default {
         endTimeMenu: false,
         subjectDateMenu: false,
         isEditable : false,
+        isAddingSession: false,
+        addSessionDialog: false,
+        deleteSessionDialog: false,
+        sessionEditMode: false,
+        sessionName:'',
+        sessionDataArr: [],
+        selectedSession: null,
         subjectTypeItem : [
             { 
-                label : "outsidePlay", 
-                value : "outsidePlay" 
+                label : "自习", 
+                value : "自习" 
             },
             { 
-                label : "insidePlay", 
-                value : "insidePlay" 
+                label : "课程", 
+                value : "课程" 
+            },
+            { 
+                label : "其它", 
+                value : "其它" 
             },
         ],
         subjectOrderItem: [
@@ -348,66 +452,78 @@ export default {
           },
         ],
         headers: [
-            { text: '课时名称', value: 'subjectName', align: 'start'},
-            { text: '课时类型', value: 'subjectType', sortable: false },
-            { text: '上课时间', value: 'subjectOrder', sortable: false },
-            
-            // { text: '上课时间', value: 'startTime', sortable: false },
-            // { text: '下课时间', value: 'endTime', sortable: false },
-            // { text: '生效时间', value: 'subjectDate', sortable: false },
-
+            { text: '课时名称', value: 'subjectOrderName', align: 'start'},
+            { text: '课时类型', value: 'subjectOrderType', sortable: false },
+            { text: '开始时间', value: 'startTime', sortable: false },
+            { text: '结束时间', value: 'endTime', sortable: false },
+            { text: '生效时间', value: 'subjectStartDate', sortable: false },
             { text: '操作', value: 'actions', sortable: false },
         ],
-        scheduleData: [
-            // {
-            //     subjectName: 'math',
-            //     subjectType: 'outsidePlay',
-            //     startTime: '00:00',
-            //     endTime: '00:01',
-            // },
-        ],
+        scheduleData: [],
         schoolListRaw : [],
         editedIndex: -1,
         editedItem: {
-            subjectName: '',
-            subjectType: '',
-            subjectOrder:'',
-            // startTime: null,
-            // endTime: null,
-            // subjectDate: null,
+            subjectOrderName: '',
+            subjectOrderType: '',
+            startTime: null,
+            endTime: null,
+            subjectStartDate: null,
+            sessionId: null,
         },
         defaultItem: {
-            subjectName: '',
-            subjectType: '',
-            subjectOrder:'',
-            // startTime: null,
-            // endTime: null,
-            // subjectDate: null,
+            subjectOrderName: '',
+            subjectOrderType: '',
+            startTime: null,
+            endTime: null,
+            subjectStartDate: null,
+            sessionId: null,
         },
         
         baseUrl:window.Laravel.base_url,
         isCreating : false,
         isLoadingSchoolData : false,
+        isLoadingSessionData : false,
         isDeleting : false,
         schoolIntroduceData : '',
+        tempSession : null,
+        tempSessionIndex : -1,
     }),
 
     computed: {
         formTitle () {
             return this.editedIndex === -1 ? '新增课' : '编辑课'
         },
+        ...mapGetters({
+            user: 'auth/user',
+        })
     },
 
     async created(){
-        this.isLoadingSchoolData = true;
-        await getSubject()
+        this.isLoadingSessionData = true;
+        await getSession()
         .then((res) => {
-            //console.log(res.data)
-            this.scheduleData = res.data
+            this.sessionDataArr = res.data;
+            if(this.sessionDataArr.length > 0){
+                this.selectedSession = this.sessionDataArr[0].id;
+            }
         }).catch((err) => {
-            
+            console.log(err);
         });
-        this.isLoadingSchoolData = false;
+        this.isLoadingSessionData = false;
+        if(this.sessionDataArr.length > 0){
+            this.isLoadingSchoolData = true;
+            let payload = {
+                sessionId: this.selectedSession
+            }
+            await getSubject(payload)
+            .then((res) => {
+                //console.log(res.data)
+                this.scheduleData = res.data
+            }).catch((err) => {
+                
+            });
+            this.isLoadingSchoolData = false;
+        }
     },
 
     watch: {
@@ -477,6 +593,7 @@ export default {
             } 
             //save scheduleData
             else {
+                this.editedItem.sessionId = this.selectedSession;
                 await createSubject(this.editedItem).then(res=>{
                     //console.log(res.data)
                     this.scheduleData.push(res.data)
@@ -491,7 +608,125 @@ export default {
         },
         saveSubjectDate(){
             this.$refs.subjectDateMenu.save(val);
-            // this.editedItem.subjectDate = val;
+            // this.editedItem.subjectStartDate = val;
+        },
+        openAddSessionDialog(){
+            this.addSessionDialog = true;
+        },
+
+        closeAddSessionDialog(){
+            this.sessionName = '';
+            this.addSessionDialog = false;
+        },
+        async onSubmitSession(){
+            if(this.sessionName.trim() == ''){
+                return this.$snackbar.showMessage({content: "学期名称字段为空白。", color: "error"})
+            }
+
+            if(this.sessionEditMode == false){
+
+                this.isAddingSession = true;
+                let payload = {
+                    sessionName: this.sessionName
+                }
+                await createSession(payload)
+                .then((res) => {
+                    if(res.data.msg == 1){
+                        let sessionObj = {
+                            id: res.data.id,
+                            userId: this.user.id,
+                            schoolId: this.user.schoolId,
+                            sessionName: this.sessionName
+                        }
+                        this.sessionDataArr.push(sessionObj)
+                        if(this.sessionDataArr.length == 1){
+                            this.selectedSession = this.sessionDataArr[0].id;
+                        }
+                    }
+                    this.sessionName = '';
+                    this.addSessionDialog = false;
+                }).catch((err) => {
+                    console.log(err)
+                });
+                this.isAddingSession = false;
+            }
+            else if(this.sessionEditMode = true){
+                let payload = {
+                    id: this.tempSession.id,
+                    sessionName: this.sessionName
+                }
+                this.isAddingSession = true;
+                await updateSession(payload)
+                .then((res) => {
+                    if(res.data.msg == 1){
+                        this.sessionDataArr[this.tempSessionIndex].sessionName = this.sessionName;
+                        this.tempSession = null;
+                        this.tempSessionIndex = -1;
+                        this.sessionName = '';
+                        this.addSessionDialog = false;
+                    }
+                }).catch((err) => {
+                    console.log(err)
+                });
+                this.isAddingSession = false;
+            }
+        },
+
+        editSession(session, index){
+            this.sessionEditMode = true;
+            this.tempSession = session;
+            this.tempSessionIndex = index;
+            this.sessionName = this.tempSession.sessionName;
+            this.addSessionDialog = true;
+        },
+
+        deleteSession(session, index){
+            this.tempSession = session;
+            this.tempSessionIndex = index;
+            this.deleteSessionDialog = true;
+        },
+
+        closeDeleteSessionDialog(){
+            this.tempSessionIndex = -1;
+            this.tempSession = null;
+            this.deleteSessionDialog = false;
+        },
+
+        async deleteSessionConfirm(){
+            this.isDeleting = true;
+            let payload = {
+                id: this.tempSession.id,
+            }
+            await deleteSession(payload)
+            .then((res) => {
+                if(res.data.msg == 1){
+                    this.sessionDataArr.splice(this.tempSessionIndex, 1);
+                    this.tempSessionIndex = -1;
+                    this.tempSession = null;
+                }
+            }).catch((err) => {
+                
+            });
+            this.deleteSessionDialog = false;
+            this.isDeleting = false;
+
+        },
+
+        async onChangeSession(val){
+            this.selectedSession = val;
+
+            this.isLoadingSchoolData = true;
+            let payload = {
+                sessionId: this.selectedSession
+            }
+            await getSubject(payload)
+            .then((res) => {
+                //console.log(res.data)
+                this.scheduleData = res.data
+            }).catch((err) => {
+                
+            });
+            this.isLoadingSchoolData = false;
         }
     },
 }
