@@ -70,6 +70,15 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('manager/subject', 'SubjectController@updateSubject')->name('updateSubject');
     Route::delete('manager/subject', 'SubjectController@removeSubject')->name('removeSubject');
 
+<<<<<<< HEAD
+=======
+    //scheduleTeacher of manager
+    Route::get('manager/schedule/teacher', 'ScheduleTeacherController@getScheduleTeacher')->name('getScheduleTeacher');
+    Route::post('manager/schedule/teacher', 'ScheduleTeacherController@createScheduleTeacher')->name('createScheduleTeacher');
+    Route::put('manager/schedule/teacher', 'ScheduleTeacherController@updateScheduleTeacher')->name('updateScheduleTeacher');
+    Route::delete('manager/schedule/teacher', 'ScheduleTeacherController@deleteScheduleTeacher')->name('deleteScheduleTeacher');
+    
+>>>>>>> 70acab4ece71e948d3b206485e0993fe0f6d0ab3
     //session of manager
     Route::get('manager/session', 'SessionController@getSession')->name('getSession');
     Route::post('manager/session', 'SessionController@storeSession')->name('storeSession');
