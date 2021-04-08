@@ -365,7 +365,7 @@
                     size="50"
                     tile
                 >
-                    <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/newIcon/问卷.png`" alt="postItem" ></v-img>
                 </v-avatar>
                 <h2>{{lang.questionnaire}}</h2>
             </div>

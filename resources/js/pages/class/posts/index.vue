@@ -70,15 +70,15 @@ export default {
                 icon : "mdi-message-text",
                 items : [
                     {
-                        color : "lime darken-4",
+                        color : "#98BB3A",
                         title : "问卷",
-                        imgUrl : "/asset/img/icon/问卷 拷贝.png",
+                        imgUrl : "/asset/img/newIcon/问卷.png",
                         path : "posts.Cquestionnaire"
                     },
                     {
-                        color : "lime darken-4",
+                        color : "#C95384",
                         title : "投票",
-                        imgUrl : "/asset/img/icon/投票.png",
+                        imgUrl : "/asset/img/newIcon/投票.png",
                         path : "posts.Cvoting"
                     },
                 ],
@@ -88,21 +88,21 @@ export default {
                 icon : "mdi-nfc-tap",
                 items : [
                     {
-                        color : "teal darken-4",
+                        color : "#DA7042",
                         title : "作业",
-                        imgUrl : "/asset/img/icon/作业 拷贝.png",
-                        path : "something"
+                        imgUrl : "/asset/img/newIcon/作业.png",
+                        path : "posts.Chomework"
                     },
                     {
-                        color : "lime darken-4",
+                        color : "#E4BC16",
                         title : "习题",
-                        imgUrl : "/asset/img/icon/习题.png",
+                        imgUrl : "/asset/img/newIcon/习题.png",
                         path : "something"
                     },
                     {
-                        color : "teal darken-4",
+                        color : "#DA7042",
                         title : "家访",
-                        imgUrl : "/asset/img/icon/家访 拷贝.png",
+                        imgUrl : "/asset/img/newIcon/家访.png",
                         path : "posts.Chomevisit"
                     },
                 ],
@@ -148,9 +148,9 @@ export default {
                         path : "something"
                     },
                     {
-                        color : "indigo accent-2",
+                        color : "#3EBBE8",
                         title : "相册",
-                        imgUrl : "/asset/img/icon/相册.png",
+                        imgUrl : "/asset/img/newIcon/相册.png",
                         path : "posts.Calbum"
                     },
                     {

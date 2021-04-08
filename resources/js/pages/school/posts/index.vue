@@ -61,112 +61,161 @@ export default {
         isPostItem:false,
         contentItemList : [
             {
-                title : "基础沟通",
+                title : "基础沟通",//기초의사소통
                 icon : "mdi-message-text",
                 items : [
                     {
-                        color : "lime darken-4",
-                        title : "问卷",
-                        imgUrl : "/asset/img/icon/问卷 拷贝.png",
+                        color : "#98BB3A",
+                        title : "问卷",//설문조사
+                        imgUrl : "/asset/img/newIcon/问卷.png",
                         path : "posts.questionnaire"
                     },
                     {
-                        color : "lime darken-4",
-                        title : "投票",
-                        imgUrl : "/asset/img/icon/投票.png",
+                        color : "#C95384",
+                        title : "投票",//투표
+                        imgUrl : "/asset/img/newIcon/投票.png",
                         path : "posts.voting"
                     },
                     {
-                        color : "lime darken-4",
-                        title : "短信",
-                        imgUrl : "/asset/img/icon/短信 拷贝.png",
+                        color : "#E4BC16",
+                        title : "短信",//통보문
+                        imgUrl : "/asset/img/newIcon/短信.png",
                         path : "posts.sms"
                     },
                     {
-                        color : "indigo accent-2",
-                        title : "校园动态",
-                        imgUrl : "/asset/img/icon/动态 拷贝.png",
+                        color : "#7180EA",
+                        title : "校园动态",//학원동태
+                        imgUrl : "/asset/img/newIcon/校园动态.png",
                         path : "posts.campus"
                     },
                     {
-                        color : "lime darken-4",
-                        title : "公告",
-                        imgUrl : "/asset/img/icon/公告 拷贝.png",
+                        color : "#3FB8E3",
+                        title : "公告",//공시
+                        imgUrl : "/asset/img/newIcon/公告.png",
                         path : "posts.announcement"
                     },
                     {
-                        color : "lime darken-4",
-                        title : "分享",
-                        imgUrl : "/asset/img/icon/分享.png",
+                        color : "#E4BC16",
+                        title : "分享",//공유
+                        imgUrl : "/asset/img/newIcon/分享.png",
                         path : "posts.share"
+                    },
+                    {
+                        color : "#C95384",
+                        title : "报名",//이름등록
+                        imgUrl : "/asset/img/newIcon/报名.png",
+                        path : "posts.regname"
+                    },
+                    {
+                        color : "#B673E0",
+                        title : "通讯录",//주소록
+                        imgUrl : "/asset/img/newIcon/通讯录.png",
+                        path : "something"
                     },
                 ],
             },
             {
-                title : "校园文化",
+                title : "校园文化",//교내문화
                 icon : "mdi-lifebuoy",
                 items : [
                     {
-                        color : "indigo accent-2",
-                        title : "布告栏",
-                        imgUrl : "/asset/img/icon/布告栏 拷贝.png",
+                        color : "#B673E0",
+                        title : "考勤",//출근
+                        imgUrl : "/asset/img/newIcon/课程表.png",
+                        path : "something"
+                    },
+                    {
+                        color : "#DA7042",
+                        title : "作业",//숙제
+                        imgUrl : "/asset/img/newIcon/作业.png",
+                        path : "posts.homework"
+                    },
+                    {
+                        color : "#3FB8E3",
+                        title : "班牌发布",//반표발포
+                        imgUrl : "/asset/img/newIcon/班牌发布.png",
+                        path : "something"
+                    },
+                    {
+                        color : "#7180EA",
+                        title : "布告栏",//게시란
+                        imgUrl : "/asset/img/newIcon/布告栏.png",
                         path : "posts.bulletinboard"
                     },
-                    // {
-                    //     color : "red accent-3",
-                    //     title : "考勤",
-                    //     imgUrl : "/asset/img/icon/考勤.png",
-                    //     path : "something"
-                    // },
-                ],
-            },
-            {
-                title : "家校互动",
-                icon : "mdi-nfc-tap",
-                items : [
                     {
-                        color : "teal darken-4",
-                        title : "作业",
-                        imgUrl : "/asset/img/icon/作业 拷贝.png",
+                        color : "#C95384",
+                        title : "学生风采",//학생풍채
+                        imgUrl : "/asset/img/newIcon/学生风采.png",
                         path : "something"
-                    },
-                    {
-                        color : "lime darken-4",
-                        title : "习题",
-                        imgUrl : "/asset/img/icon/习题.png",
-                        path : "something"
-                    },
-                    {
-                        color : "teal darken-4",
-                        title : "家访",
-                        imgUrl : "/asset/img/icon/家访 拷贝.png",
-                        path : "posts.homevisit"
-                    },
-                    {
-                        color : "lime darken-4",
-                        title : "报名",
-                        imgUrl : "/asset/img/icon/报名 拷贝.png",
-                        path : "posts.regname"
                     },
                     
                 ],
             },
             {
-                title : "智能考勤",
+                title : "家校互动",//가교호상활동
+                icon : "mdi-nfc-tap",
+                items : [
+                    {
+                        color : "#3EBBE8",
+                        title : "相册",//사진
+                        imgUrl : "/asset/img/newIcon/相册.png",
+                        path : "something"
+                    },
+                    {
+                        color : "#E4BC16",
+                        title : "习题",//련습문제
+                        imgUrl : "/asset/img/newIcon/习题.png",
+                        path : "something"
+                    },
+                    {
+                        color : "#DA7042",
+                        title : "家访",//가정방문
+                        imgUrl : "/asset/img/newIcon/家访.png",
+                        path : "posts.homevisit"
+                    },
+                    {
+                        color : "#7180EA",
+                        title : "提示",//제시
+                        imgUrl : "/asset/img/newIcon/提示.png",
+                        path : "something"
+                    },
+                    
+                ],
+            },
+            {
+                title : "智能考勤",//지능출근
                 icon : "mdi-calendar-month-outline",
                 items : [
                     {
-                        color : "teal darken-4",
-                        title : "请假",
-                        imgUrl : "/asset/img/icon/请假.png",
+                        color : "#98BB3A",
+                        title : "请假",//휴가
+                        imgUrl : "/asset/img/newIcon/请假单.png",
                         path : "posts.vocation"
                     },
-                    // {
-                    //     color : "teal darken-4",
-                    //     title : "考勤",
-                    //     imgUrl : "/asset/img/icon/组 25.png",
-                    //     path : "something"
-                    // },
+                    {
+                        color : "#E4BC16",
+                        title : "话题",//화제
+                        imgUrl : "/asset/img/newIcon/话题.png",
+                        path : "something"
+                    },
+                ],
+            },
+            {
+                title : "工具",//공구
+                icon : "mdi-hammer-wrench",
+                items : [
+                    {
+                        color : "#98BB3A",
+                        title : "我的",//나의
+                        imgUrl : "/asset/img/newIcon/我的.png",
+                        path : "profile.list"
+                    },
+                    {
+                        color : "#7180EA",
+                        title : "话题",//화제
+                        imgUrl : "/asset/img/newIcon/话题.png",
+                        path : "something"
+                    },
                 ],
             },
         ]

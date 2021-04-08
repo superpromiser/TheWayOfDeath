@@ -3,7 +3,7 @@
         <v-row class="ma-0">
             <v-col cols="12" class="mo-glow d-flex align-center">
                 <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/icon/请假.png`" alt="postItem" width="48" height="48" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/newIcon/请假单.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">请假</h2>
             </v-col>
