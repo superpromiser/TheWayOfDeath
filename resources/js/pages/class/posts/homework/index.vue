@@ -100,7 +100,7 @@
         </div>
         <v-snackbar
             timeout="3000"
-            v-model="isSuccessed"
+            v-model="isRequired"
             color="error"
             absolute
             top
@@ -122,6 +122,7 @@ export default {
         lang,
         isSubmit:false,
         isDraft:false,
+        isRequired:false,
         tempCnt:0,
         draftCnt:0,
         baseUrl:window.Laravel.base_url,
@@ -157,28 +158,30 @@ export default {
     watch:{
         currentPath:{
             handler(val){
-                if(val.name == 'posts.homework'){
+                if(val.name == 'posts.Chomework'){
                     this.showRule = false
                 }
                 if(val.query.rule){
-                    this.homeworkData = val.query.rule
-                    console.log(this.homeworkData)
+                    // this.homeworkData = val.query.rule
+                    // console.log(this.homeworkData)
                 }
             },
             deep:true
         }
     },
     created(){
-        this.$router.push({name:'posts.homework'})
+        this.$router.push({name:'posts.Chomework'})
     },
     methods:{
         submit(){
             console.log("submit")
             this.$refs.child.emitData()
             if(this.homeworkData.content == null){
+                this.isRequired = true
                 return
             }
             if(this.homeworkData.title == ''){
+                this.isRequired = true
                 return
             }
             
@@ -193,7 +196,7 @@ export default {
         setRule(){
             this.showRule = true
             console.log('setRule')
-            this.$router.push({name:'homework.setRule'});
+            this.$router.push({name:'Chomework.setRule'});
         },
         loadContentData(data){
             console.log(data)

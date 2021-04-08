@@ -175,6 +175,11 @@ export default [
     ]
   },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/voting', name:'posts.Cvoting', component:page('class/posts/voting/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/homework', name:'posts.Chomework', component:page('class/posts/homework/index.vue'),
+    children:[
+      {path:'setRule', name:'Chomework.setRule',component:page('class/posts/homework/rule.vue')},
+    ]
+  },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/homevisit', name:'posts.Chomevisit', component:page('class/posts/homevisit/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/notification', name:'posts.Cnotification', component:page('class/posts/notification/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/evaluation', name:'posts.Cevaluation', component:page('class/posts/evaluation/new.vue')},
