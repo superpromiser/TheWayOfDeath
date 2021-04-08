@@ -220,6 +220,16 @@ export default [
         ]
       },
       {path:'classHomeVisit', name:'details.classHomeVisit', component:page('details/homeVisit/index.vue')},
+      {path:'classHomework', name:'details.classHomework', component:page('details/homework/index.vue'),
+        children:[
+          {path:'offlineTeacher', name:'details.homework.offlineTeacher', componeent:page('details/homework/offlineTeacher.vue')},
+          {path:'offlineStudent', name:'details.homework.offlineStudent', componeent:page('details/homework/offlineStudent.vue')},
+          {path:'onlineTeacher', name:'details.homework.onlineTeacher', componeent:page('details/homework/onlineTeacher.vue')},
+          {path:'onlineStudent', name:'details.homework.onlineStudent', componeent:page('details/homework/offlineTeacher.vue')},
+          {path:'testTeacher', name:'details.homework.testTeacher', componeent:page('details/homework/testTeacher.vue')},
+          {path:'testTeacher', name:'details.homework.testTeacher', componeent:page('details/homework/testTeacher.vue')},
+        ]
+      },
       {path:'classNotification', name:'details.classNotification', component:page('details/notification/index.vue')},
       {path:'classEvaluation', name:'details.classEvaluation', component:page('details/evaluation/index.vue')},
       {path:'classRecognition', name:'details.classRecognition', component:page('details/recognition/index.vue')},
