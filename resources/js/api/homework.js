@@ -8,7 +8,17 @@ function createHomeworkData(payload){
     return axios.post('/api/v1/homeworkData',payload)
 }
 
+function getHomeworkResult(payload){
+    return axios.get('/api/v1/homeworkResult',{params:payload})
+}
+
+function createHomeworkResult(payload){
+    return axios.post('/api/v1/homeworkResult',payload)
+}
+
 export{
     getHomeworkData,
-    createHomeworkData
+    createHomeworkData,
+    getHomeworkResult,
+    createHomeworkResult
 }

@@ -5,7 +5,7 @@
               <v-img :src="`${baseUrl}/asset/img/newIcon/作业.png`" alt="postItem" ></v-img>
             </v-avatar>
             <div>
-              <p class="font-weight-black fs-15 mb-3"> {{lang.homework}}  </p>
+              <p class="font-weight-black fs-15 mb-3"> {{lang.homework}} 答卷  </p>
               <div class="d-flex align-center">
                 <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
                 <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
@@ -89,48 +89,24 @@ export default {
       })
     },
     created(){
-        console.log(this.content)
+        console.log("this.content homework result",this.content)
         if(this.content){
-            this.homeworkData = this.content.homework
+            this.homeworkData = this.content.homework_result.homework
             this.homeworkData.content = JSON.parse(this.homeworkData.content)
         }
         console.log(this.user)
     },
     methods:{
-      showDetail(){
-        this.$store.dispatch('content/storePostDetail',this.content)
-        if(this.currentPath.params.lessonId){
-          if(this.content.homework.homeworkType == "分为常规作业"){
+        showDetail(){
+            this.$store.dispatch('content/storePostDetail',this.content)
             if(this.user.roleId == 3){
-              this.$router.push({name:'details.homeworkofflineTeacher'});    
+                this.$router.push({name:'details.homeworkResult.onlineTeacher'})
             }else if(this.user.roleId == 5){
-              this.$router.push({name:'details.homeworkofflineStudent'});    
+                this.$router.push({name:'details.homeworkResult.onlineStudent'})
             }else{
-              this.$router.push({name:'details.classHomework'});    
+                this.$router.push({name:'details.homeworkResult'})
             }
-          }else if(this.content.homework.homeworkType == '在线作业'){
-            if(this.user.roleId == 3){
-              this.$router.push({name:'details.homeworkonlineTeacher'});    
-            }else if(this.user.roleId == 5){
-              this.$router.push({name:'details.homeworkonlineStudent'});    
-            }else{
-              this.$router.push({name:'details.classHomework'});    
-            }
-          }else if(this.content.homework.homeworkType == '在线测试'){
-            if(this.user.roleId == 3){
-              this.$router.push({name:'details.homeworktestTeacher'});    
-            }else if(this.user.roleId == 5){
-              this.$router.push({name:'details.homeworktestTeacher'});    
-            }else{
-              this.$router.push({name:'details.classHomework'});    
-            }
-          }else{
-            this.$router.push({name:'details.classHomework'});
-          }
-        }else{
-          this.$router.push({name:'details.homework'});
         }
-      }
     }
 }
 </script>

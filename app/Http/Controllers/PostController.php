@@ -58,6 +58,7 @@ class PostController extends Controller
                 'evaluations',
                 'recognitions',
                 'homework',
+                'homeworkResult.homework',
                 'users:id,name'
             ])
             ->orderBy('created_at', 'desc')
