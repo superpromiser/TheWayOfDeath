@@ -342,5 +342,5 @@ Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
 
     //guest manage
-    // Route::get('guestRequest')
+    Route::post('guest', 'GuestController@createGuestRequest');
 });

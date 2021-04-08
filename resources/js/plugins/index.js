@@ -11,5 +11,6 @@ import './mobiledetect'
 import './fragment'
 import './quickmenu'
 import './snackbar'
+import './webcam'
 
 import 'bootstrap'

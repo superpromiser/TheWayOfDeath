@@ -9,7 +9,7 @@
         :color="color"
         absolute
         top
-        class="z-index-10"
+        class="z-index-10 position-fixed"
         >
         {{ message }}
         <template v-slot:action="{ attrs }">

@@ -42,11 +42,45 @@ class ScheduleClassController extends Controller
     }
 
     public function createScheduleClass(Request $request){
+        $this->validate($request,[
+            'classSchedule'=>'required',
+        ]);
+        $userId = Auth::user()->id;
+        $schoolId = Auth::user()->schoolId;
+        $gradeId = Auth::user()->gradeId;
+        $lessonId = Auth::user()->lessonId;
+
+        $scheduleData = json_encode($request->classSchedule);
         
+        ScheduleClass::create([
+            'userId' => $userId,
+            'schoolId' => $schoolId,
+            'gradeId' => $gradeId,
+            'lessonId' => $lessonId,
+            'scheduleData'=> $scheduleData
+        ]);
+        return response()->json([
+            'msg' => 1,
+        ]);
     }
 
     public function updateScheduleClass(Request $request){
+        $this->validate($request,[
+            'id'=>'required',
+            'classSchedule'=>'required',
+        ]);
+        $scheduleData = json_encode($request->classSchedule);
 
+        $userId = Auth::user()->id;
+        $schoolId = Auth::user()->schoolId;
+
+        ScheduleClass::where(['id'=>$request->id])->update([
+            'scheduleData' => $scheduleData,
+        ]);
+
+        return response()->json([
+            'msg' => 1,
+        ]);
     }
 
     public function deleteScheduleClass(Request $request){

@@ -5,6 +5,7 @@
       <child />
     </v-main>
     <BeforeLogFooter v-if="$isMobile() == false"  />
+    <Snackbar></Snackbar>
   </v-app>
 </template>
 
@@ -13,6 +14,7 @@ import BeforeLogNavbar from '../components/BeforeLogNavbar'
 import LoggedNavbar from '../components/LoggedNavbar'
 import BeforeLogFooter from '../components/BeforeLogFooter'
 import LoggedFooter from '../components/LoggedFooter'
+import Snackbar from '~/components/Snackbar.vue'
 
 export default {
   name: 'BasicLayout',
@@ -20,7 +22,8 @@ export default {
     BeforeLogNavbar,
     LoggedNavbar,
     BeforeLogFooter,
-    LoggedFooter
+    LoggedFooter,
+    Snackbar
   },
   data: () => ({
     isLogged : false,
