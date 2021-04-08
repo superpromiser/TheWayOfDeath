@@ -15,151 +15,13 @@
                     flat
                 >
                     <!-- <v-toolbar-title><strong>{{someData.grade.className}}2021学下学期课程表</strong></v-toolbar-title> -->
-                    <v-toolbar-title><strong>1-1 : 2021学下学期课程表</strong></v-toolbar-title>
+                    <v-toolbar-title><strong>{{sessionName}}</strong></v-toolbar-title>
                     <v-divider
                     class="mx-4"
                     inset
                     vertical
                     ></v-divider>
                     <v-spacer></v-spacer>
-
-                    <!-- <v-dialog
-                    v-model="dialog"
-                    max-width="500px"
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                        color="primary"
-                        dark
-                        tile
-                        class="mb-2"
-                        v-bind="attrs"
-                        v-on="on"
-                        :disabled="!isEditable"
-                        >
-                        添加
-                        </v-btn>
-                        </template>
-                        <v-card>
-                        <v-card-title>
-                            <span class="headline">{{ formTitle }}</span>
-                        </v-card-title>
-
-                        <v-card-text>
-                            <v-container>
-                            <v-row>
-                                    <v-col cols="12">
-                                        <v-select
-                                            solo
-                                            :items="subjectItem[0]"
-                                            :menu-props="{ top: false, offsetY: true }"
-                                            item-text="subjectName"
-                                            v-model="editedItem.mon"
-                                            label="星期一"
-                                            hide-details
-                                        ></v-select>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-select
-                                            solo
-                                            :items="subjectItem[0]"
-                                            :menu-props="{ top: false, offsetY: true }"
-                                            item-text="subjectName"
-                                            v-model="editedItem.tue"
-                                            label="星期二"
-                                            hide-details
-                                        ></v-select>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-select
-                                            solo
-                                            :items="subjectItem[0]"
-                                            :menu-props="{ top: false, offsetY: true }"
-                                            item-text="subjectName"
-                                            v-model="editedItem.wed"
-                                            label="星期三"
-                                            hide-details
-                                        ></v-select>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-select
-                                            solo
-                                            :items="subjectItem[0]"
-                                            :menu-props="{ top: false, offsetY: true }"
-                                            item-text="subjectName"
-                                            v-model="editedItem.thu"
-                                            label="星期四"
-                                            hide-details
-                                        ></v-select>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-select
-                                            solo
-                                            :items="subjectItem[0]"
-                                            :menu-props="{ top: false, offsetY: true }"
-                                            item-text="subjectName"
-                                            v-model="editedItem.fri"
-                                            label="星期五"
-                                            hide-details
-                                        ></v-select>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-select
-                                            solo
-                                            :items="subjectItem[0]"
-                                            :menu-props="{ top: false, offsetY: true }"
-                                            item-text="subjectName"
-                                            v-model="editedItem.sat"
-                                            label="星期六"
-                                            hide-details
-                                        ></v-select>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-select
-                                            solo
-                                            :items="subjectItem[0]"
-                                            :menu-props="{ top: false, offsetY: true }"
-                                            item-text="subjectName"
-                                            v-model="editedItem.sun"
-                                            label="星期日"
-                                            hide-details
-                                        ></v-select>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </v-card-text>
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                            color="blue darken-1"
-                            text
-                            @click="closeRow"
-                            >
-                            取消
-                            </v-btn>
-                            <v-btn
-                            color="blue darken-1"
-                            text
-                            :loading="isCreatingSchool"
-                            @click="saveRow"
-                            >
-                            保存
-                            </v-btn>
-                        </v-card-actions>
-                        </v-card>
-                    </v-dialog>
-                    <v-dialog v-model="dialogDelete" max-width="500px">
-                        <v-card>
-                        <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
-                        <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-                        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
-                        <v-spacer></v-spacer>
-                        </v-card-actions>
-                        </v-card>
-                    </v-dialog> -->
 
                     <v-btn
                         color="green accent-4"
@@ -181,6 +43,18 @@
                         tile
                         v-if="isEditable == true"
                         @click="isEditable = !isEditable"
+                        >
+                        <v-icon left>
+                            mdi-alert-circle-outline
+                        </v-icon>
+                        无法修改
+                    </v-btn>
+                    <v-btn
+                        color="#49d29e"
+                        dark
+                        class="mb-2 ml-2"
+                        tile
+                        @click="onSubmit"
                         >
                         <v-icon left>
                             mdi-alert-circle-outline
@@ -217,14 +91,14 @@
                                 </v-icon>
                             </div>
                             <v-select v-else
-                                :items="subjectItem[idx]"
+                                :items="subjectItem"
                                 :menu-props="{ top: false, offsetY: true }"
                                 item-text="subjectName"
+                                item-value="id"
                                 v-model="item[header.value]"
                                 hide-details
                                 :disabled="!isEditable"
                             >
-
                             </v-select>
                         </td>
                     </tr>
@@ -254,9 +128,9 @@ export default {
         startTimeMenu: false,
         endTimeMenu: false,
         isEditable : false,
-        subjectItem : [[],[],[],[],[],[],[]],
+        subjectItem : [],
         headers: [
-            { text: "演讲顺序", value: "order", sortable: false, align: "left" },
+            { text: "演讲顺序", value: "ord", sortable: false, align: "left" },
             { text: "星期一", value: "mon", sortable: false, align: "left" },
             { text: "星期二", value: "tue", sortable: false, },
             { text: "星期三", value: "wed", sortable: false, },
@@ -264,8 +138,8 @@ export default {
             { text: "星期五", value: "fri", sortable: false, },
             { text: "星期六", value: "sat", sortable: false, },
             { text: "星期日", value: "sun", sortable: false, },
-            { text: '操作', value: 'actions', sortable: false },
         ],
+        sessionName: '',
         scheduleData: [
             {
                 ord: "第一节",
@@ -339,6 +213,7 @@ export default {
             },
         ],
         schoolListRaw : [],
+        
         editedIndex: -1,
         editedItem: {
             ord:"",
@@ -386,34 +261,16 @@ export default {
         this.isLoadingSchoolData = true;
         await getScheduleClass().then(res=>{
             console.log("----res.data",res.data)
-            res.data.map(item=>{
-                switch(item.subjects.subjectOrder){
-                    case "第一节":
-                        this.subjectItem[0].push(item.subjects);
-                        break;
-                    case "第二节":
-                        this.subjectItem[1].push(item.subjects);
-                        break;
-                    case "第三节":
-                        this.subjectItem[2].push(item.subjects);
-                        break;
-                    case "第四节":
-                        this.subjectItem[3].push(item.subjects);
-                        break;
-                    case "第五节":
-                        this.subjectItem[4].push(item.subjects);
-                        break;
-                    case "第六节":
-                        this.subjectItem[5].push(item.subjects);
-                        break;
-                    case "第七节":
-                        this.subjectItem[6].push(item.subjects);
-                        break;
-                    default:
-                        break;
-                }
+            this.sessionName = res.data.lastSession.sessionName;
+            let selfStudy = {
+                id: -1,
+                subjectName: "自习"
+            }
+            this.subjectItem.push(selfStudy);
+            res.data.scheduleTeacherDataArr.map(data=>{
+                data.subjectName = data.subjectName + ' - ' + data.teacherName
+                this.subjectItem.push(data);
             })
-            console.log('---subjectItem',this.subjectItem);
         }).catch(err=>{
             console.log(err.response)
         })
@@ -504,6 +361,9 @@ export default {
         close() {
 
         },
+        onSubmit(){
+            console.log(this.scheduleData);
+        }
     },
 }
 </script>
