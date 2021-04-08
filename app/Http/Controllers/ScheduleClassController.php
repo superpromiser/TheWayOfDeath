@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ScheduleSetting;
 use App\ScheduleClass;
+use App\ScheduleTeacher;
+use App\Subject;
+use App\Lesson;
+
+use App\Session;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -13,40 +18,27 @@ class ScheduleClassController extends Controller
     //
     public function getSCheduleClass(){
         $lessonId = Auth::user()->lessonId;
-        return $subjectItems = ScheduleSetting::where(['lessonId'=>$lessonId])->with('subjects')->get();
-        
-        // foreach($subjectItems as $subjectItem){
-        //     $subjectOrder = $subjectItem->subjects->subjectType;
-        //     switch($subjectOrder){
-        //         case "第一节":
-        //            array_push($result->item1,$subjectItem->subjects); 
-        //            break;
-        //         case "第二节":
-        //            array_push($result->item2,$subjectItem->subjects); 
-        //            break;
-        //         case "第三节":
-        //            array_push($result->item3,$subjectItem->subjects); 
-        //            break;
-        //         case "第四节":
-        //            array_push($result->item4,$subjectItem->subjects); 
-        //            break;
-        //         case "第五节":
-        //            array_push($result->item5,$subjectItem->subjects); 
-        //            break;
-        //         case "第六节":
-        //            array_push($result->item6,$subjectItem->subjects); 
-        //            break;
-        //         case "第七节":
-        //            array_push($result->item7,$subjectItem->subjects); 
-        //            break;
-        //         default:
-        //             break;
-        //     }
-        // }
-        // return response()->json([
-        //     'data'=>$result,
-        //     'status'=>'200'
-        // ]);
+        $lessonName = Lesson::where(['id'=>$lessonId])->first()->lessonName;
+        $lastSession = Session::latest('id')->first();
+        $subjectOrder = Subject::where(['schoolId'=>Auth::user()->schoolId, 'sessionId'=>$lastSession->id])->get();
+        $mySchoolScheduleTeacherData = ScheduleTeacher::where(['schoolId'=>Auth::user()->schoolId])->get();
+
+        $scheduleTeacherDataArr = array();
+        foreach ($mySchoolScheduleTeacherData as $key => $scheduleTeacherData){
+            $lessonArr = $scheduleTeacherData->lessons;
+            foreach ($lessonArr as $key => $lesson){
+                if($lesson == $lessonName){
+                    array_push($scheduleTeacherDataArr, $scheduleTeacherData);
+                }
+            }
+        }
+        $scheduleData = ScheduleClass::where(['lessonId'=>$lessonId])->get();
+        return response()->json([
+            'scheduleData' => $scheduleData,
+            'lastSession' => $lastSession,
+            'scheduleTeacherDataArr' => $scheduleTeacherDataArr,
+            'subjectOrder' => $subjectOrder,
+        ]);
     }
 
     public function createScheduleClass(Request $request){
