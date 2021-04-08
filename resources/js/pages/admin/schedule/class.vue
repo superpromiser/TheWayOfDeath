@@ -54,12 +54,10 @@
                         dark
                         class="mb-2 ml-2"
                         tile
+                        :loading="isLoadingNewData"
                         @click="onSubmit"
                         >
-                        <v-icon left>
-                            mdi-alert-circle-outline
-                        </v-icon>
-                        无法修改
+                        {{lang.submit}}
                     </v-btn>
                 </v-toolbar>
             </template>
@@ -69,7 +67,8 @@
                     <tr v-for="(item,idx) in items" :key="idx">
                         <td v-for="(header,key) in headers" :key="key" >
                             <div v-if="key == 0">
-                                {{item[idx]}}
+                                <!-- something -->
+                                {{item.ord}}
                             </div>
                             <div v-else-if="key == 8">
                                 <v-icon
@@ -114,7 +113,7 @@
 </template>
 
 <script>
-import {getScheduleClass} from '~/api/teacherSubject'
+import {getScheduleClass, createScheduleClass, updateScheduleClass} from '~/api/teacherSubject'
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -140,78 +139,7 @@ export default {
             { text: "星期日", value: "sun", sortable: false, },
         ],
         sessionName: '',
-        scheduleData: [
-            {
-                ord: "第一节",
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                ord: "第二节",
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                ord: "第三节",
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                ord: "第四节",
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                ord: "第五节",
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                ord: "第六节",
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-            {
-                ord: "第七节",
-                mon: "",
-                tue: "",
-                wed: "",
-                thu: "",
-                fri: "",
-                sat: "",
-                sun: ""
-            },
-        ],
+        scheduleData: [],
         schoolListRaw : [],
         
         editedIndex: -1,
@@ -249,6 +177,9 @@ export default {
         isLoadingSchoolData : false,
         isDeleteSchool : false,
         schoolIntroduceData : '',
+        isCreatMode: false,
+        isLoadingNewData: false,
+        scheduleDataId: null,
     }),
 
     computed: {
@@ -271,6 +202,27 @@ export default {
                 data.subjectName = data.subjectName + ' - ' + data.teacherName
                 this.subjectItem.push(data);
             })
+            if(res.data.scheduleData.length == 0){
+                this.isCreatMode = true;
+                res.data.subjectOrder.map( order => {
+                    let scheduleDataItemObj = {
+                        ord: order.subjectOrderName,
+                        mon: "",
+                        tue: "",
+                        wed: "",
+                        thu: "",
+                        fri: "",
+                        sat: "",
+                        sun: ""
+                    }
+                    this.scheduleData.push(scheduleDataItemObj);
+                } )
+            }
+            else{
+                this.scheduleData = JSON.parse(res.data.scheduleData[0].scheduleData);
+                this.scheduleDataId = res.data.scheduleData[0].id;
+                console.log("res.data.scheduleData", res.data.scheduleData);
+            }
         }).catch(err=>{
             console.log(err.response)
         })
@@ -361,9 +313,34 @@ export default {
         close() {
 
         },
-        onSubmit(){
+        async onSubmit(){
+            this.isLoadingNewData = true;
             console.log(this.scheduleData);
-        }
+            if(this.isCreatMode == true){
+                let payload = {
+                    classSchedule: this.scheduleData
+                }
+                await createScheduleClass(payload)
+                .then((res) => {
+                    console.log(res)
+                }).catch((err) => {
+                    
+                });
+            }
+            else{
+                let payload = {
+                    classSchedule: this.scheduleData,
+                    id: this.scheduleDataId,
+                }
+                await updateScheduleClass(payload)
+                .then((res) => {
+                    console.log(res);
+                }).catch((err) => {
+                    
+                });
+            }
+            this.isLoadingNewData = false;
+        }   
     },
 }
 </script>
