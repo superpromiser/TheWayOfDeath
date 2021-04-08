@@ -128,6 +128,12 @@ export default [
   {path:'/schoolSpace/:schoolId/post/homevisit', name:'posts.homevisit', component:page('school/posts/homevisit/new.vue')},
   {path:'/schoolSpace/:schoolId/post/regname', name:'posts.regname', component:page('school/posts/regname/new.vue')},
   {path:'/schoolSpace/:schoolId/post/vacation', name:'posts.vocation', component:page('school/posts/vacation/student/new.vue')},
+  {path:'/schoolSpace/:schoolId/post/homework', name:'posts.homework', component:page('school/posts/homework/index.vue'),
+    children:[
+      {path:'setRule', name:'homework.setRule',component:page('school/posts/homework/rule.vue')},
+    ]
+  },
+  
   {path:'/schoolSpace/:schoolId/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
     //school member
   {path:'/schoolSpace/:schoolId/member/add',name:'schoolSpace.addMember',component:page('member/addMember.vue')},
