@@ -222,12 +222,18 @@ export default [
       {path:'classHomeVisit', name:'details.classHomeVisit', component:page('details/homeVisit/index.vue')},
       {path:'classHomework', name:'details.classHomework', component:page('details/homework/index.vue'),
         children:[
-          {path:'offlineTeacher', name:'details.homework.offlineTeacher', componeent:page('details/homework/offlineTeacher.vue')},
-          {path:'offlineStudent', name:'details.homework.offlineStudent', componeent:page('details/homework/offlineStudent.vue')},
-          {path:'onlineTeacher', name:'details.homework.onlineTeacher', componeent:page('details/homework/onlineTeacher.vue')},
-          {path:'onlineStudent', name:'details.homework.onlineStudent', componeent:page('details/homework/offlineTeacher.vue')},
-          {path:'testTeacher', name:'details.homework.testTeacher', componeent:page('details/homework/testTeacher.vue')},
-          {path:'testTeacher', name:'details.homework.testTeacher', componeent:page('details/homework/testTeacher.vue')},
+          {path:'offlineTeacher', name:'details.homeworkofflineTeacher', component:page('details/homework/offlineTeacher.vue')},
+          {path:'offlineStudent', name:'details.homeworkofflineStudent', component:page('details/homework/offlineStudent.vue')},
+          {path:'onlineTeacher', name:'details.homeworkonlineTeacher', component:page('details/homework/onlineTeacher.vue')},
+          {path:'onlineStudent', name:'details.homeworkonlineStudent', component:page('details/homework/onlineStudent.vue')},
+          {path:'testTeacher', name:'details.homeworktestTeacher', component:page('details/homework/testTeacher.vue')},
+          {path:'testStudent', name:'details.homeworktestStudent', component:page('details/homework/testStudent.vue')},
+        ]
+      },
+      {path:'homeworkResult',name:'details.homeworkResult',component:page('details/homeworkResult/index.vue'),
+        children:[
+          {path:'onlineTeacher',name:'details.homeworkResult.onlineTeacher',component:page('details/homeworkResult/onlineTeacher.vue')},
+          {path:'onlineStudent',name:'details.homeworkResult.onlineStudent',component:page('details/homeworkResult/onlineStudent.vue')},
         ]
       },
       {path:'classNotification', name:'details.classNotification', component:page('details/notification/index.vue')},

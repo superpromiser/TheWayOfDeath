@@ -93,4 +93,9 @@ class Post extends Model
     {
         return $this->hasOne(Homework::class, 'postId');
     }
+
+    public function homeworkResult()
+    {
+        return $this->hasOne(HomeworkResult::class, 'postId');
+    }
 }
