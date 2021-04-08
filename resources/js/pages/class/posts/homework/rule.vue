@@ -100,16 +100,17 @@
         <v-divider light></v-divider>
         <v-row class="mt-1 align-center">
             <v-col cols="6">
-                <p class="">发布时间</p>
+                <p class="">课代表</p>
             </v-col>
             <v-col cols="6">
-                
-                <v-text-field
-                    v-model="homeworkData.monitorName"
+                <v-select
+                    :items="userList"
+                    label=""
+                    item-text="name"
+                    item-value="id"
                     solo
-                    label="即使发布"
-                    clearable
-                ></v-text-field>
+                    v-model="homeworkData.monitorName"
+                ></v-select>
             </v-col>
         </v-row>
         <v-divider light></v-divider>
@@ -141,6 +142,7 @@
 
 <script>
 import lang from '~/helper/lang.json'
+import {getLessonUserList} from '~/api/user'
 export default {
     data:()=>({
         lang,
@@ -156,7 +158,21 @@ export default {
         },
         menu:false,
         date: new Date().toISOString().substr(0, 10),
+        userList:[]
     }),
+    computed:{
+        currentPath(){
+            return this.$route
+        }
+    },
+    created(){
+        getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
+            console.log(res.data)
+            this.userList = res.data
+        }).catch(err=>{
+            console.log(err.response)
+        })
+    },
     methods:{
         templateList(){
             
