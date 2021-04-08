@@ -15,8 +15,7 @@ class ScheduleSettingController extends Controller
         
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
-        $baseData['subjectArr'] = Subject::select('id','subjectName')->where([
-            'userId'=>$userId,
+        $baseData['subjectArr'] = ScheduleSetting::select('id','subjectName', 'gradeId')->where([
             'schoolId'=>$schoolId
         ])->get();
         $baseData['teacherArr'] = User::select('id','name')->where([

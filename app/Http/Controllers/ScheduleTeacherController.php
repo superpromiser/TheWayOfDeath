@@ -9,57 +9,56 @@ use Illuminate\Support\Facades\Auth;
 
 class ScheduleTeacherController extends Controller
 {
-    public function getSubject(Request $request){
+    public function getScheduleTeacher(Request $request){
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         return ScheduleTeacher::where(['userId'=>$userId,'schoolId'=>$schoolId ])->get();
     }
 
-    public function createSubject(Request $request){
+    public function createScheduleTeacher(Request $request){
         $this->validate($request,[
-            'subjectOrderName'=>'required',
-            'subjectOrderType'=>'required',
-            'startTime'=>'required',
-            'endTime'=>'required',
-            'subjectStartDate'=>'required'
+            'scheduleSettingId'=>'required',
+            'subjectName'=>'required',
+            'teacherId'=>'required',
+            'teacherName'=>'required',
+            'lessons'=>'required'
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         return ScheduleTeacher::create([
             'userId'=>$userId,
             'schoolId'=>$schoolId,
-            'sessionId'=>$request->sessionId,
-            'subjectOrderName'=>$request->subjectOrderName,
-            'subjectOrderType'=>$request->subjectOrderType,
-            'startTime'=>$request->startTime,
-            'endTime'=>$request->endTime,
-            'subjectStartDate'=>$request->subjectStartDate,
+            'scheduleSettingId'=>$request->scheduleSettingId,
+            'subjectName'=>$request->subjectName,
+            'teacherId'=>$request->teacherId,
+            'teacherName'=>$request->teacherName,
+            'lessons'=>$request->lessons,
         ]);
 
     }
 
-    public function updateSubject(Request $request){
+    public function updateScheduleTeacher(Request $request){
         $this->validate($request,[
             'id'=>'required',
-            'subjectOrderName'=>'required',
-            'subjectOrderType'=>'required',
-            'subjectStartDate'=>'required',
-            'startTime'=>'required',
-            'endTime'=>'required',
+            'scheduleSettingId'=>'required',
+            'subjectName'=>'required',
+            'teacherId'=>'required',
+            'teacherName'=>'required',
+            'lessons'=>'required'
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
         return ScheduleTeacher::where(['userId'=>$userId,'schoolId'=>$schoolId,'id'=>$request->id])->update([
-            'subjectOrderName'=>$request->subjectOrderName,
-            'subjectOrderType'=>$request->subjectOrderType,
-            'subjectStartDate'=>$request->subjectStartDate,
-            'startTime'=>$request->startTime,
-            'endTime'=>$request->endTime
+            'scheduleSettingId'=>$request->scheduleSettingId,
+            'subjectName'=>$request->subjectName,
+            'teacherId'=>$request->teacherId,
+            'teacherName'=>$request->teacherName,
+            'lessons'=>$request->lessons,
         ]);
         
     }
 
-    public function deleteSubject(Request $request){
+    public function deleteScheduleTeacher(Request $request){
         $this->validate($request,[
             'id'=>'required'
         ]);

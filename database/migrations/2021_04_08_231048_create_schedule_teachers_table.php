@@ -19,8 +19,10 @@ class CreateScheduleTeachersTable extends Migration
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('scheduleSettingId');
             $table->foreign('scheduleSettingId')->references('id')->on('schedule_settings')->onDelete('cascade');
+            $table->char('subjectName');
             $table->unsignedBigInteger('teacherId');
             $table->foreign('teacherId')->references('id')->on('users')->onDelete('cascade');
+            $table->char('teacherName');
             $table->unsignedBigInteger('schoolId');
             $table->foreign('schoolId')->references('id')->on('schools')->onDelete('cascade');
             $table->json('lessons');

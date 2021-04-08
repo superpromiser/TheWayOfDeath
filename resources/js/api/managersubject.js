@@ -27,6 +27,19 @@ function deleteSession(payload){
     return axios.delete('/api/v1/manager/session', {data : payload});
 }
 
+function createScheduleTeacher(payload){
+    return axios.post('/api/v1/manager/schedule/teacher', payload);
+}
+function updateScheduleTeacher(payload){
+    return axios.put('/api/v1/manager/schedule/teacher', payload);
+}
+function getScheduleTeacher(payload){
+    return axios.get('/api/v1/manager/schedule/teacher', {params: payload});
+}
+function deleteScheduleTeacher(payload){
+    return axios.delete('/api/v1/manager/schedule/teacher', {data : payload});
+}
+
 export{
     createSubject,
     updateSubject,
@@ -36,5 +49,8 @@ export{
     updateSession,
     getSession,
     deleteSession,
-    
+    createScheduleTeacher,
+    updateScheduleTeacher,
+    getScheduleTeacher,
+    deleteScheduleTeacher
 }
