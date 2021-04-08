@@ -44,6 +44,7 @@
     "vue-read-more": "^1.1.1",
     "vue-router": "^3.0.6",
     "vue-video-player": "^5.0.2",
+    "vue-web-cam": "^1.9.0",
     "vue2-editor": "^2.10.2",
     "vuetify": "^2.4.5",
     "vuetify-datetime-picker": "^2.1.1",

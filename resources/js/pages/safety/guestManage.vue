@@ -6,21 +6,44 @@
     >
             <RouterBack title='新増访客'></RouterBack>
         <v-container>
-            <v-card class="pa-5">
-                <v-row>
-                    <v-col cols="6">
+            <vue-web-cam 
+                v-if="isStart"
+                ref="webcam" 
+                @started="onStarted"
+                @stopped="onStopped"
+                @error="onError"
+                @cameras="onCameras"
+                :selectFirstDevice="true"/>
+            <v-row class="ma-0 d-flex align-center justify-center mt-5">
+                <v-btn color="#3989fc" dark @click="onCapture">
+                    <v-icon left> mdi-camera </v-icon>
+                    拍摄照片
+                </v-btn>
+                <v-btn color="#eb5846" dark @click="onStop" class="mx-5">
+                    <v-icon left> mdi-stop </v-icon>
+                    停止相机
+                </v-btn>
+                <v-btn color="#49d29e" dark @click="onStart">
+                    <v-icon left> mdi-play </v-icon>
+                    启动相机
+                </v-btn>
+            </v-row>
+            <v-card class="pa-5" tile>
+                <v-row class="ma-0">
+                    <v-col cols="12" md="6" >
                         <v-avatar
                             class="profile"
                             color="grey"
-                            size="164"
+                            size="100%"
                         >
-                            <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                            <v-img v-if="guestData.avatar == null" src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                            <v-img v-else :src="guestData.avatar"></v-img>
                         </v-avatar>
                     </v-col>
-                    <v-col cols="6">
-                        <v-row class="mt-1 align-center">
+                    <v-col cols="12" md="6">
+                        <v-row class=" align-center ma-0">
                             <v-col cols="6">
-                                <p class="text-dark">姓名</p>
+                                <p class="mb-0">姓名</p>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field
@@ -28,13 +51,14 @@
                                     solo
                                     label="姓名"
                                     clearable
+                                    hide-details
                                 ></v-text-field>
                             </v-col>
                         </v-row>
                         <v-divider light></v-divider>
-                        <v-row class="mt-1 align-center">
+                        <v-row class=" align-center ma-0">
                             <v-col cols="6">
-                                <p class="">身份证件号</p>
+                                <p class="mb-0">身份证件号</p>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field
@@ -42,78 +66,58 @@
                                     solo
                                     label="身份证件号"
                                     clearable
+                                    hide-details
                                 ></v-text-field>
                             </v-col>
                         </v-row>
                         <v-divider light></v-divider>
-                        <v-row class="mt-1 align-center">
+                        <v-row class=" align-center ma-0">
                             <v-col cols="6">
-                                <p class="">拜访</p>
+                                <p class="mb-0">被访问者的姓名</p>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field
                                     v-model="guestData.memberName"
                                     solo
-                                    label="拜访"
+                                    label="被访问者的姓名"
                                     clearable
+                                    hide-details
                                 ></v-text-field>
                             </v-col>
                         </v-row>
                         <v-divider light></v-divider>
-                        <v-row class="mt-1 align-center">
+                        <v-row class=" align-center ma-0">
                             <v-col cols="6">
-                                <p class="">拜访时间</p>
+                                <p class="mb-0">被访问者的电话号码</p>
                             </v-col>
                             <v-col cols="6">
-                                <v-menu
-                                    ref="menu"
-                                    v-model="menu"
-                                    :close-on-content-click="false"
-                                    :return-value.sync="guestData.meetingDate"
-                                    transition="scale-transition"
-                                    offset-y
-                                    min-width="auto"
-                                >
-                                    <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
-                                        solo
-                                        v-model="guestData.meetingDate"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        hide-details
-                                    ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                    v-model="guestData.meetingDate"
-                                    no-title
-                                    scrollable
-                                    locale="zh-cn"
-                                    >
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="menu = false"
-                                    >
-                                        {{lang.cancel}}
-                                    </v-btn>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="$refs.menu.save(date)"
-                                    >
-                                        {{lang.ok}}
-                                    </v-btn>
-                                    </v-date-picker>
-                                </v-menu>
+                                <v-text-field
+                                    v-model="guestData.memberPhone"
+                                    solo
+                                    label="被访问者的电话号码"
+                                    clearable
+                                    hide-details
+                                ></v-text-field>
                             </v-col>
                         </v-row>
                         <v-divider light></v-divider>
-                        <v-row class="mt-1 align-center">
+                        <v-row class=" align-center ma-0">
                             <v-col cols="6">
-                                <p class="">拜访事件</p>
+                                <p class="mb-0">拜访时间</p>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-datetime-picker 
+                                    label="拜访时间" 
+                                    v-model="guestData.meetingDate"
+                                    :okText='lang.ok'
+                                    :clearText='lang.cancel'
+                                > </v-datetime-picker>
+                            </v-col>
+                        </v-row>
+                        <v-divider light></v-divider>
+                        <v-row class=" align-center ma-0">
+                            <v-col cols="6">
+                                <p class="mb-0">拜访事件</p>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field
@@ -121,11 +125,12 @@
                                     solo
                                     label="拜访事件"
                                     clearable
+                                    hide-details
                                 ></v-text-field>
                             </v-col>
                         </v-row>
                         <v-divider light></v-divider>
-                        <v-row class="mt-1 align-center">
+                        <v-row class=" align-center ma-0">
                             <v-col cols="12">
                                 <v-btn
                                     depressed
@@ -147,6 +152,7 @@
 
 <script>
 import RouterBack from '~/components/routerBack'
+import {createGuestRequest} from '~/api/guestMng'
 import lang from '~/helper/lang.json'
 export default {
     layout: 'basic',
@@ -156,8 +162,10 @@ export default {
     data:()=>({
         guestData:{
             name:'',
+            avatar: null,
             cardNum:'',
             memberName:'',
+            memberPhone:'',
             meetingDate:'',
             meetingReason:''
         },
@@ -165,11 +173,91 @@ export default {
         menu:false,
         isSubmit:false,
         date: new Date().toISOString().substr(0, 10),
+        deviceId: null,
+        isStart: true,
     }),
     methods:{
         submit(){
+            console.log();
+            let dateNow = new Date();
+            if(this.guestData.avatar == null){
+                return this.$snackbar.showMessage({content: "请拍照。", color: "error"})
+            }
+            if(this.guestData.name.trim() == ''){
+                return this.$snackbar.showMessage({content: "请输入您的名字。", color: "error"})
+            }
+            if(this.guestData.cardNum.trim() == ''){
+                return this.$snackbar.showMessage({content: "请输入您的卡号。", color: "error"})
+            }
+            if(this.guestData.memberName.trim() == ''){
+                return this.$snackbar.showMessage({content: "输入要拜访的人的姓名。", color: "error"})
+            }
+            if(this.guestData.memberPhone.trim() == ''){
+                return this.$snackbar.showMessage({content: "输入要拜访人员的电话号码。", color: "error"})
+            }
+            if(this.guestData.meetingDate == ""){
+                return this.$snackbar.showMessage({content: "记录您访问的日期和时间。", color: "error"})
+            }
+            if( dateNow > this.guestData.meetingDate){
+                return this.$snackbar.showMessage({content: "访问时间不能早于当前时间。", color: "error"})
+            }
+            if(this.guestData.meetingReason.trim() == ''){
+                return this.$snackbar.showMessage({content: "解释您访问的原因。", color: "error"})
+            }
+
+            this.guestData.meetingDate = this.TimeView(this.guestData.meetingDate)
             console.log(this.guestData)
-        }
+            createGuestRequest(this.guestData)
+            .then((res) => {
+                console.log(res);
+                if (res.data.msg == 0){
+                    return this.$snackbar.showMessage({content: "没有人与您输入的信息相匹配。", color: "error"})
+                }
+                else if (res.data.msg == 1){
+                    this.guestData = {
+                        name:'',
+                        avatar: null,
+                        cardNum:'',
+                        memberName:'',
+                        memberPhone:'',
+                        meetingDate:'',
+                        meetingReason:''
+                    };
+                    
+                    return this.$snackbar.showMessage({content: "已成功收到。 请稍等片刻。", color: "success"})
+                }
+            }).catch((err) => {
+                console.log(err)
+            });
+        },
+        notsupported(){
+
+        },
+        onCapture() {
+            this.guestData.avatar = this.$refs.webcam.capture();
+            console.log(this.guestData.avatar)
+        },
+        onStarted(stream) {
+            console.log("On Started Event", stream);
+        },
+        onStopped(stream) {
+            console.log("On Stopped Event", stream);
+        },
+        onStop() {
+            this.isStart = false;
+            this.$refs.webcam.stop();
+        },
+        onStart() {
+            this.isStart = true;
+            this.$refs.webcam.start();
+        },
+        onError(error) {
+            console.log("On Error Event", error);
+        },
+        onCameras(cameras) {
+            this.devices = cameras;
+            console.log("On Cameras Event", cameras);
+        },
     }
 
 }
