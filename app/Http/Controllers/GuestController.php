@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Guest;
 use App\User;
 use Illuminate\Http\Request;
+use App\Events\NewGuest;
 
 class GuestController extends Controller
 {
@@ -37,13 +38,9 @@ class GuestController extends Controller
                     'lessonId' => $memberData->lessonId,
                 ])->first();
             }
-
-            //Emit Event and push notification to teacher of memeber
             
-
-
             //save request of guest
-            Guest::create([
+            $guestData = Guest::create([
                 'name'=> $request->name,
                 'avatar'=> $request->avatar,
                 'cardNum'=> $request->cardNum,
@@ -53,9 +50,19 @@ class GuestController extends Controller
                 'meetingReason'=> $request->meetingReason,
             ]);
 
+            //make broadcasting data
+            $broadcastingData['id'] = $guestData->id;
+            $broadcastingData['name'] = $guestData->name;
+            $broadcastingData['avatar'] = $guestData->avatar;
+            $broadcastingData['memberName'] = $guestData->memberName;
+            $broadcastingData['memberPhone'] = $guestData->memberPhone;
+            $broadcastingData['meetingReason'] = $guestData->meetingReason;
+
+            //Emit Event and push notification to teacher of memeber
+            // broadcast(new NewGuest($broadcastingData, $teacherData->id));
+
             return response()->json([
                 'msg' => 1,
-                'teacherData' => $teacherData
             ]);
         }
 

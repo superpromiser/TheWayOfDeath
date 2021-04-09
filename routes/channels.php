@@ -25,3 +25,7 @@ Broadcast::channel('chats', function ($user) {
 Broadcast::channel('group', function ($user) {
     return auth()->check();
 });
+
+Broadcast::channel('newguest.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});
