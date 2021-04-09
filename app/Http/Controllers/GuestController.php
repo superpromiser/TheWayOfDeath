@@ -21,13 +21,25 @@ class GuestController extends Controller
             'meetingReason'=>'required',
         ]);
 
+        //save base 64 file to public directory
+        $image = $request->avatar;  // your base64 encoded
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = time().'.'.'png';
+
+        \Image::make($request->avatar)->save(public_path('uploads/image/').$imageName);
+
+        //find member in user table
         $memberData = User::where(['name'=>$request->memberName, 'phoneNumber'=>$request->memberPhone])->first();
+
+        //if member does not exist
         if(!$memberData){
             return response()->json([
                 'msg' => 0,
             ]);
         }
-
+        
+        //else member exist
         else{
             if($memberData->roldId == 3){
                 $teacherData = $memberData;
@@ -42,7 +54,7 @@ class GuestController extends Controller
             //save request of guest
             $guestData = Guest::create([
                 'name'=> $request->name,
-                'avatar'=> $request->avatar,
+                'avatar'=> '/uploads/image/'.$imageName,
                 'cardNum'=> $request->cardNum,
                 'memberName'=> $request->memberName,
                 'memberPhone'=> $request->memberPhone,
@@ -59,7 +71,7 @@ class GuestController extends Controller
             $broadcastingData['meetingReason'] = $guestData->meetingReason;
 
             //Emit Event and push notification to teacher of memeber
-            // broadcast(new NewGuest($broadcastingData, $teacherData->id));
+            broadcast(new NewGuest($broadcastingData, $teacherData->id));
 
             return response()->json([
                 'msg' => 1,

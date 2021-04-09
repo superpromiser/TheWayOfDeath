@@ -33,6 +33,7 @@ class NewGuest implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('newguest'.$id);
+        // return new PrivateChannel('newguest'.$this->id);
+        return new PrivateChannel('newguest.'.$this->id);
     }
 }

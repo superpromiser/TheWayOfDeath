@@ -176,6 +176,7 @@ export default {
             meetingDate:'',
             meetingReason:''
         },
+        baseUrl: window.Laravel.base_url,
         lang,
         menu:false,
         isSubmit:false,
@@ -184,7 +185,7 @@ export default {
         isStart: true,
     }),
     methods:{
-        submit(){
+        async submit(){
             console.log();
             let dateNow = new Date();
             if(this.guestData.avatar == null){
@@ -215,7 +216,7 @@ export default {
             this.guestData.meetingDate = this.TimeView(this.guestData.meetingDate)
             console.log(this.guestData)
             this.isSubmit = true;
-            createGuestRequest(this.guestData)
+            await createGuestRequest(this.guestData)
             .then((res) => {
                 console.log(res);
                 if (res.data.msg == 0){
@@ -231,7 +232,7 @@ export default {
                         meetingDate:'',
                         meetingReason:''
                     };
-
+                    this.imageName = res.data.imageName;
                     return this.$snackbar.showMessage({content: "已成功收到。 请稍等片刻。", color: "success"})
                 }
             }).catch((err) => {

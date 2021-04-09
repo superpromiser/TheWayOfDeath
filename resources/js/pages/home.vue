@@ -1040,12 +1040,12 @@ export default {
       }
       this.closeAddItemDialog();
     },
-    // listen(){
-    //   Echo.private('newguest.'+ this.user.id)
-    //     .listen('NewGuest', (e) => {
-    //       console.log("@@@@@@@@@@@@@", e);
-    //     });
-    // }
+    listen(){
+      Echo.private('newguest.'+ this.user.id)
+        .listen('NewGuest', (e) => {
+          console.log("@@@@@@@@@@@@@", e);
+        });
+    }
   }
 }
 </script>
