@@ -11,8 +11,8 @@
                 <AttachItemViewer :items="studentAnswer" />
             </v-col>
         </v-row>
-        <div class="category">批改洋情</div>
         <v-row v-if="teacherAnswer != null">
+            <div class="category">批改洋情</div>
             <v-col cols="12">
                 <p class="mb-0 d-flex align-center"> 
                 </p>
@@ -36,6 +36,7 @@
                 size="50"
                 value="0"
                 v-model="rating"
+                readonly
             ></v-rating>
         </v-row>
     </v-container>

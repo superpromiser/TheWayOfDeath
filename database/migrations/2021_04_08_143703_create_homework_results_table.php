@@ -17,7 +17,7 @@ class CreateHomeworkResultsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('homeworkId');
             $table->unsignedBigInteger('userId');
-            $table->longText('content');
+            $table->longText('content')->nullable();
             $table->char('homeworkType');
             $table->tinyInteger('schoolId');
             $table->tinyInteger('lessonId')->nullable();

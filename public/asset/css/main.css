@@ -1024,10 +1024,7 @@ a {
 .border-bottom-1 {
     border-bottom: 1px solid #dddddd;
 }
-<<<<<<< HEAD
-=======
 
-.position-fixed{
-    position: fixed!important;
+.position-fixed {
+    position: fixed !important;
 }
->>>>>>> 789009e920bd92be97bc217c95ec455376442771

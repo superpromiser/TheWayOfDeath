@@ -326,6 +326,9 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('homeworkResult', 'HomeworkResultController@getHomeworkResult');
     Route::post('homeworkResult', 'HomeworkResultController@createHomeworkResult');
     Route::put('homeworkTeacherAnswer', 'HomeworkResultController@updateTeacherAnswer');
+    Route::post('offlineTeacher', 'HomeworkResultController@createOfflineTeacher');
+    Route::get('offlineTeacher', 'HomeworkResultController@getOfflineTeacher');
+    Route::get('offlineStudent', 'HomeworkResultController@getOfflineStudent');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {

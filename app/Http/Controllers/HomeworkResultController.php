@@ -19,7 +19,8 @@ class HomeworkResultController extends Controller
         return HomeworkResult::where([
             'schoolId' => $request->schoolId,
             'lessonId' => $request->lessonId,
-            'userId' => $userId
+            'userId' => $userId,
+            'homeworkId' => $request->homeworkId
         ])->first();
     }
 
@@ -52,6 +53,33 @@ class HomeworkResultController extends Controller
         ]);
     }
 
+    public function getOfflineTeacher(Request $request)
+    {
+        $this->validate($request, [
+            'postId' => 'required'
+        ]);
+        return HomeworkResult::where('postId', $request->postId)->with('user:id,name')->get();
+    }
+
+    public function createOfflineTeacher(Request $request)
+    {
+        $this->validate($request, [
+            'ratingList' => 'required'
+        ]);
+        foreach ($request->ratingList as $data) {
+            HomeworkResult::create([
+                'homeworkId' => $data['homeworkId'],
+                'userId' => $data['userId'],
+                'rating' => $data['rating'],
+                'schoolId' => $data['schoolId'],
+                'lessonId' => $data['lessonId'],
+                'postId' => $data['postId'],
+                'homeworkType' => $data['homeworkType']
+            ]);
+        }
+        return;
+    }
+
     public function updateTeacherAnswer(Request $request)
     {
         $this->validate($request, [
@@ -64,5 +92,14 @@ class HomeworkResultController extends Controller
             'teacherAnswer' => json_encode($request->teacherAnswer),
             'rating' => $request->rating
         ]);
+    }
+
+    public function getOfflineStudent(Request $request)
+    {
+        $this->validate($request, [
+            'postId' => 'required'
+        ]);
+        $userId = Auth::user()->id;
+        return HomeworkResult::where(['userId' => $userId, 'postId' => $request->postId])->first();
     }
 }
