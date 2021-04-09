@@ -332,6 +332,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
 
     //tabelt
     Route::get('tablet/dashboard', 'TabletController@getDashboardData');
+
+    //alarm
+    Route::get('alarm', 'AlarmController@getAlarm');
+    Route::post('alarm', 'AlarmController@createAlarm');
+    Route::put('alarm', 'AlarmController@updateAlarm');
+    Route::delete('alarm', 'AlarmController@deleteAlarm');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {

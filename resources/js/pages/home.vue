@@ -737,7 +737,6 @@ export default {
   },
 
   async created(){
-    this.listen();
     if(this.selectedItemSchoolGroupStore !== null || this.selectedItemClassGroupStore !== null){
       if(this.selectedSchoolItem.type == "school"){
         this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
@@ -1040,12 +1039,6 @@ export default {
       }
       this.closeAddItemDialog();
     },
-    listen(){
-      Echo.private('newguest.'+ this.user.id)
-        .listen('NewGuest', (e) => {
-          console.log("@@@@@@@@@@@@@", e);
-        });
-    }
   }
 }
 </script>

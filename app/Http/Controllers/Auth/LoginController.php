@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\School;
 use App\Member;
+use App\Alarm;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -69,13 +70,15 @@ class LoginController extends Controller
         if ( auth()->user()->roleId == 3 || auth()->user()->roleId == 4 || auth()->user()->roleId == 5) {   
             $memberData = Member::where('userId', auth()->user()->id)->first();
         }
+        $alarmData = Alarm::where('userId', auth()->user()->id)->get();
         return response()->json([
             'token' => $token,
             'token_type' => 'bearer',
             'expires_in' => $expiration - time(),
             'user' => auth()->user()->load('role'),
             'schoolTree' => $schoolTree,
-            'memberData' => $memberData
+            'memberData' => $memberData,
+            'alarmData' => $alarmData,
         ]);
     }
 

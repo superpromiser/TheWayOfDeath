@@ -232,7 +232,6 @@ export default {
                         meetingDate:'',
                         meetingReason:''
                     };
-                    this.imageName = res.data.imageName;
                     return this.$snackbar.showMessage({content: "已成功收到。 请稍等片刻。", color: "success"})
                 }
             }).catch((err) => {
@@ -245,7 +244,6 @@ export default {
         },
         onCapture() {
             this.guestData.avatar = this.$refs.webcam.capture();
-            console.log(this.guestData.avatar)
         },
         onStarted(stream) {
             console.log("On Started Event", stream);

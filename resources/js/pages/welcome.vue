@@ -394,6 +394,10 @@ export default {
           // Fetch the user.
           this.$store.dispatch('auth/saveUserState', res.data.user)
           this.$store.dispatch('schooltree/storeSchoolData', res.data.schoolTree);
+          res.data.alarmData.map(alarm => {
+            alarm.content = JSON.parse(alarm.content);
+          })
+          this.$store.dispatch('alarm/storeAlarm', res.data.alarmData);
 
           //save MemberData
           if( res.data.memberData !== null && (res.data.user.roleId == 3 || res.data.user.roleId == 4 || res.data.user.roleId == 5) ) {

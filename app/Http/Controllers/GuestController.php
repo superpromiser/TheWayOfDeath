@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Guest;
 use App\User;
+use App\Alarm;
 use Illuminate\Http\Request;
 use App\Events\NewGuest;
 
@@ -62,6 +63,7 @@ class GuestController extends Controller
                 'meetingReason'=> $request->meetingReason,
             ]);
 
+
             //make broadcasting data
             $broadcastingData['id'] = $guestData->id;
             $broadcastingData['name'] = $guestData->name;
@@ -70,9 +72,16 @@ class GuestController extends Controller
             $broadcastingData['memberPhone'] = $guestData->memberPhone;
             $broadcastingData['meetingReason'] = $guestData->meetingReason;
 
-            //Emit Event and push notification to teacher of memeber
-            broadcast(new NewGuest($broadcastingData, $teacherData->id));
+            //save new alarm
+            $alarm = Alarm::create([
+                'userId' => $teacherData->id,
+                'type' => 'NewGuest',
+                'content' => json_encode($broadcastingData),
+            ]);
 
+            //Emit Event and push notification to teacher of memeber
+            broadcast(new NewGuest($alarm, $teacherData->id));
+            
             return response()->json([
                 'msg' => 1,
             ]);
