@@ -14,7 +14,7 @@ class HomeworkController extends Controller
     {
         $this->validate($request, [
             'schoolId' => 'required',
-            'lessonId' => 'required'
+            'lessonId' => 'required',
         ]);
         return Homework::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->get();
     }

@@ -101,7 +101,7 @@ export default {
                 return true;
             }
         },
-        submit(){
+        async submit(){
             console.log('submit')
             this.$refs.child.emitData()
             if(this.content == null){
@@ -111,14 +111,17 @@ export default {
                 return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})
             }
 
-            createTeacherAnswer({
+            await createTeacherAnswer({
                 teacherAnswer:this.content,
                 rating:this.rating,
                 id:this.contentData.homework_result.id
             }).then(res=>{
                 console.log(res.data)
+                this.isSubmit = false
+                this.$router.push({name:'classSpace.news'})
             }).catch(err=>{
                 console.log(err.response)
+                this.isSubmit = false
             })
 
 

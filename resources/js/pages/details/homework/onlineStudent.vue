@@ -62,7 +62,8 @@ export default {
         console.log("this.contentData",this.contentData)
         await getHomeworkResult({
             schoolId:this.currentPath.params.schoolId,
-            lessonId:this.currentPath.params.lessonId
+            lessonId:this.currentPath.params.lessonId,
+            homeworkId:this.contentData.homework.id
         }).then(res=>{
             console.log(res.data)
             if(res.data != null){

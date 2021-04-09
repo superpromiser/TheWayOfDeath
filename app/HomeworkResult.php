@@ -13,4 +13,9 @@ class HomeworkResult extends Model
     {
         return $this->belongsTo(Homework::class, 'homeworkId');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId');
+    }
 }
