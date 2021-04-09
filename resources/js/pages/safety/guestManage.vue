@@ -30,13 +30,20 @@
             </v-row>
             <v-card class="pa-5" tile>
                 <v-row class="ma-0">
-                    <v-col cols="12" md="6" >
+                    <v-col cols="12" md="6" class="d-flex justify-center align-center" >
                         <v-avatar
                             class="profile"
                             color="grey"
                             size="100%"
-                        >
-                            <v-img v-if="guestData.avatar == null" src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                            max-width="500px"
+                            min-width="250px"
+                            max-height="500px"
+                            min-height="250px"
+                        >   
+                            <v-icon v-if="guestData.avatar == null" size="500">
+                                mdi-account
+                            </v-icon>
+                            <!-- <v-img v-if="guestData.avatar == null" src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img> -->
                             <v-img v-else :src="guestData.avatar"></v-img>
                         </v-avatar>
                     </v-col>
@@ -207,6 +214,7 @@ export default {
 
             this.guestData.meetingDate = this.TimeView(this.guestData.meetingDate)
             console.log(this.guestData)
+            this.isSubmit = true;
             createGuestRequest(this.guestData)
             .then((res) => {
                 console.log(res);
@@ -223,12 +231,13 @@ export default {
                         meetingDate:'',
                         meetingReason:''
                     };
-                    
+
                     return this.$snackbar.showMessage({content: "已成功收到。 请稍等片刻。", color: "success"})
                 }
             }).catch((err) => {
                 console.log(err)
             });
+            this.isSubmit = false;
         },
         notsupported(){
 
