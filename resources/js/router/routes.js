@@ -70,7 +70,7 @@ export default [
     path:'/schoolSpace/:schoolId', name:'schoolSpace', component: page('school/schoolSpace.vue'), redirect:{name:'schoolSpace.news'},
     children:[
       {path:'news', name:'schoolSpace.news',component:page('school/news.vue')},
-      {path:'application', name:'schoolSpace.application',component:page('school/application.vue')},
+      {path:'application', name:'schoolSpace.application',component:page('school/applications/index.vue')},
       {path:'member', name:'schoolSpace.member',component:page('school/member.vue')},
     ]
   },
@@ -137,6 +137,11 @@ export default [
   },
   
   {path:'/schoolSpace/:schoolId/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
+
+  //school application
+
+  {path:'/schoolSpace/:schoolId/application/questionnaire',name:'schoolSpace.applications.quesitonnaire',component:page('school/applications/questionnaire/index.vue')},
+
     //school member
   {path:'/schoolSpace/:schoolId/member/add',name:'schoolSpace.addMember',component:page('member/addMember.vue')},
   {path:'/schoolSpace/:schoolId/member/invite',name:'schoolSpace.inviteMember',component:page('member/inviteMember.vue')},
