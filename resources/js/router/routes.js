@@ -42,8 +42,8 @@ export default [
 
   //school safety
   {path:'/guest/request', name:'guestRequest', component:page('safety/guestRequest.vue')},
-  {path:'/manage/guests', name:'manageGuests', component:page('safety/manageGuests.vue')},
 
+  
   //Admin
   { path: '/admin/assignRole', name: 'admin.assignRole', component: page('admin/assignRole.vue') },
   { path: '/admin/class', name: 'admin.class', component: page('admin/class.vue') },
@@ -248,6 +248,12 @@ export default [
   // {path:'/schoolspace/:id/class/:gradeId/:classId/1postDetail/17', name:'details.classNotification', component:page('details/notification/index.vue')},
   // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/18', name:'details.classEvaluation', component:page('details/evaluation/index.vue')},
   // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/19', name:'details.classRecognition', component:page('details/recognition/index.vue')},
+
+
+  //class application
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam', name:'classSpace.returnTeam', component:page('class/applications/safety/returnTeam.vue')},
+
 
   //setting
   { path: '/settings',
