@@ -85,7 +85,7 @@ export default {
                         color : "#7180EA",
                         title : "校园动态",//학원동태
                         imgUrl : "/asset/img/newIcon/校园动态.png",
-                        path : "posts.campus"
+                        path : "schoolSpace.applications.campus"
                     },
                     {
                         color : "#3FB8E3",

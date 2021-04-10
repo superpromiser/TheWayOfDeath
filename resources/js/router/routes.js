@@ -143,6 +143,7 @@ export default [
   {path:'/schoolSpace/:schoolId/application/questionnaire',name:'schoolSpace.applications.quesitonnaire',component:page('school/applications/questionnaire/index.vue')},
   {path:'/schoolSpace/:schoolId/application/voting',name:'schoolSpace.applications.voting',component:page('school/applications/voting/index.vue')},
   {path:'/schoolSpace/:schoolId/application/sms',name:'schoolSpace.applications.sms',component:page('school/applications/sms/index.vue')},
+  {path:'/schoolSpace/:schoolId/application/campus',name:'schoolSpace.applications.campus',component:page('school/applications/campus/index.vue')},
 
     //school member
   {path:'/schoolSpace/:schoolId/member/add',name:'schoolSpace.addMember',component:page('member/addMember.vue')},

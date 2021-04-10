@@ -19,6 +19,7 @@ class CreateCampusesTable extends Migration
             $table->char('title');
             $table->char('imgUrl');
             $table->LONGTEXT('content');
+            $table->tinyInteger('schoolId');
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
