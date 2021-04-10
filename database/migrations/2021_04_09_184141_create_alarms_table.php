@@ -19,6 +19,8 @@ class CreateAlarmsTable extends Migration
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->string('type');
             $table->LONGTEXT('content');
+            $table->unsignedBigInteger('guestId')->nullable();
+            $table->foreign('guestId')->references('id')->on('guests')->onDelete('cascade');
             $table->timestamps();
         });
     }

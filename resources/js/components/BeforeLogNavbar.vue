@@ -66,7 +66,7 @@ export default {
       this.$router.push({ name: 'login' })
     },
     guestMng(){
-      this.$router.push({name:'guestManage'})
+      this.$router.push({name:'guestRequest'})
     }
   }
 }

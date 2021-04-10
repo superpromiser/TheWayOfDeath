@@ -18,8 +18,15 @@ class CreateGuestsTable extends Migration
             $table->string('name');
             $table->LONGTEXT('avatar');
             $table->unsignedBigInteger('cardNum');
+            $table->string('phoneNumber');
             $table->string('memberName');
             $table->string('memberPhone');
+            $table->unsignedBigInteger('memberSchoolId')->nullable();
+            $table->foreign('memberSchoolId')->references('id')->on('schools')->onDelete('cascade');
+            $table->unsignedBigInteger('memberGradeId')->nullable();
+            $table->foreign('memberGradeId')->references('id')->on('grades')->onDelete('cascade');
+            $table->unsignedBigInteger('memberLessonId')->nullable();
+            $table->foreign('memberLessonId')->references('id')->on('lessons')->onDelete('cascade');
             $table->dateTime('meetingDate');
             $table->string('meetingReason');
             $table->enum('status', ['pending', 'allow', 'deny'])->default('pending');

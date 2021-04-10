@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Guest;
 use App\User;
 use App\Alarm;
-use Illuminate\Http\Request;
+
 use App\Events\NewGuest;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GuestController extends Controller
 {
@@ -16,6 +19,7 @@ class GuestController extends Controller
             'name'=>'required',
             'avatar'=>'required',
             'cardNum'=>'required',
+            'phoneNumber'=>'required',
             'memberName'=>'required',
             'memberPhone'=>'required',
             'meetingDate'=>'required',
@@ -57,8 +61,12 @@ class GuestController extends Controller
                 'name'=> $request->name,
                 'avatar'=> '/uploads/image/'.$imageName,
                 'cardNum'=> $request->cardNum,
+                'phoneNumber'=> $request->phoneNumber,
                 'memberName'=> $request->memberName,
                 'memberPhone'=> $request->memberPhone,
+                'memberSchoolId'=>$memberData->schoolId,
+                'memberGradeId'=>$memberData->gradeId,
+                'memberLessonId'=>$memberData->lessonId,
                 'meetingDate'=> $request->meetingDate,
                 'meetingReason'=> $request->meetingReason,
             ]);
@@ -68,6 +76,10 @@ class GuestController extends Controller
             $broadcastingData['id'] = $guestData->id;
             $broadcastingData['name'] = $guestData->name;
             $broadcastingData['avatar'] = $guestData->avatar;
+            $broadcastingData['cardNum'] = $guestData->cardNum;
+            $broadcastingData['status'] = 'pending';
+            $broadcastingData['phoneNumber'] = $guestData->phoneNumber;
+            $broadcastingData['meetingDate'] = $guestData->meetingDate;
             $broadcastingData['memberName'] = $guestData->memberName;
             $broadcastingData['memberPhone'] = $guestData->memberPhone;
             $broadcastingData['meetingReason'] = $guestData->meetingReason;
@@ -76,6 +88,7 @@ class GuestController extends Controller
             $alarm = Alarm::create([
                 'userId' => $teacherData->id,
                 'type' => 'NewGuest',
+                'guestId' => $guestData->id,
                 'content' => json_encode($broadcastingData),
             ]);
 
@@ -87,5 +100,29 @@ class GuestController extends Controller
             ]);
         }
 
+    }
+
+    public function getGuest()
+    {   
+        if(Auth::user()->roleId == 2){
+            return Guest::where([
+                'schoolId' => Auth::user()->schoolId,
+                ])->get();
+        }
+        else if(Auth::user()->roleId == 3){
+            return Guest::where([
+                'memberSchoolId' => Auth::user()->schoolId,
+                'memberGradeId' => Auth::user()->gradeId,
+                'memberLessonId' => Auth::user()->lessonId,
+                ])->get();
+        }
+    }
+
+    public function updateGuest(Request $request)
+    {
+        Guest::where('id', $request->id)->update(['status'=> $request->status]);
+        return response()->json([
+            'msg' => 1,
+        ]);
     }
 }

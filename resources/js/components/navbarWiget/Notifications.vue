@@ -83,19 +83,14 @@ export default {
     if(this.alarmData == null){
       await getAlarm()
       .then((res) => {
-        console.log("@@@@", res)
         res.data.map(alarm=>{
           alarm.content = JSON.parse(alarm.content);
         })
         this.$store.dispatch('alarm/storeAlarm', res.data);
-        // this.alarmData = res.data;
-        console.log("%%%%", this.alarmData)
       }).catch((err) => {
         console.log(err);
       });
     }
-    console.log("$$$");
-    console.log("this.alarmData", this.alarmData);
   },
 
   methods:{

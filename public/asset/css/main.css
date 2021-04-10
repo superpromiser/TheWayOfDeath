@@ -1032,10 +1032,23 @@ a {
     transition: all 0.5s ease;
 }
 .nav-v-list-item:hover{
-    background: #2962FF;
+    background: #3989fc;
     color: white;
 }
 
 .nav-v-list-item:hover .v-list-item__title{
     color: white;
+}
+
+.guest-welcome-bg{
+    background-color: rgb(255 255 255 / 23%)!important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.guest-control-hover{
+    bottom:0; 
+    top: 0; 
+    right: 0;
+    background-color: rgb(0 0 0 / 23%);
 }
