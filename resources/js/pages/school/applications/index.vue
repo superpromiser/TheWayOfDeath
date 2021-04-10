@@ -91,7 +91,7 @@ export default {
                         color : "#3FB8E3",
                         title : "公告",//공시
                         imgUrl : "/asset/img/newIcon/公告.png",
-                        path : "posts.announcement"
+                        path : "schoolSpace.applications.announcement"
                     },
                     {
                         color : "#E4BC16",

@@ -20,6 +20,7 @@ class CreateAnouncementsTable extends Migration
             $table->json('viewList');
             $table->boolean('scopeFlag');
             $table->LONGTEXT('content');
+            $table->tinyInteger('schoolId');
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();

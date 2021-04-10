@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getAnouncement(){
-    return axios.get('/api/v1/anouncement');
+function getAnouncement(payload){
+    return axios.get('/api/v1/anouncement',{params:payload});
 }
 
 function createAnouncement(payload){
