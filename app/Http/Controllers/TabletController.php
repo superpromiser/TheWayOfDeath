@@ -12,6 +12,7 @@ use App\Session;
 use App\Subject;
 use App\Post;
 use App\Anouncement;
+use App\Attendance;
 
 class TabletController extends Controller
 {
@@ -207,10 +208,13 @@ class TabletController extends Controller
                 }
             }
         }
+        $today = Carbon::today();
+        $attendanceData = Attendance::select('startTime', 'endTime', 'userId')->where(['lessonId' => $lessonId, 'date' => $today])->with('user:id,name')->get();
 
-        $resultData['timeTable'] = $subjectArr;
+        $resultData['timeTableData'] = $subjectArr;
         $resultData['albumData'] = $albumData;
         $resultData['announceData'] = $announcementData;
+        $resultData['attendanceData'] = $attendanceData;
         return response()->json($resultData);
     }
 }

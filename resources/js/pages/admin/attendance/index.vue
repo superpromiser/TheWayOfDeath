@@ -138,7 +138,7 @@ export default {
         menu:false,
         attendanceDate : new Date().toISOString().substr(0, 10),
         headers: [
-            { text: '姓名', value: 'users.name', align: 'start'},
+            { text: '姓名', value: 'user.name', align: 'start'},
             { text: '进校', value: 'startTime', sortable: false },
             { text: '离校', value: 'endTime', sortable: false },
             { text: '请假', value: 'type', sortable: false, align: 'center' },
