@@ -1080,3 +1080,11 @@ a {
     background: transparent!important;
     border: 1px solid white;
 }
+
+.secondary-text{
+    color: #999999!important;
+}
+
+.box-shadow-none.v-expansion-panel::before{
+    box-shadow: none!important;
+}

@@ -17,7 +17,7 @@
                             <v-btn dark class="mx-5" color="#feb31a">
                                 发布留堂信息
                             </v-btn>
-                            <v-btn dark color="#7879ff">
+                            <v-btn dark color="#7879ff" link :to="{name: 'classSpace.newReturnTeam'}">
                                 新建归程队
                             </v-btn>
                         </div>
