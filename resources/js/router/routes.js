@@ -41,7 +41,8 @@ export default [
   },
 
   //school safety
-  {path:'/guestManage', name:'guestManage', component:page('safety/guestManage.vue')},
+  {path:'/guest/request', name:'guestRequest', component:page('safety/guestRequest.vue')},
+  {path:'/manage/guests', name:'manageGuests', component:page('safety/manageGuests.vue')},
 
   //Admin
   { path: '/admin/assignRole', name: 'admin.assignRole', component: page('admin/assignRole.vue') },

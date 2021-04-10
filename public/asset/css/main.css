@@ -836,9 +836,7 @@ a {
 
 .mo-home-carousel-img {
     height: 200px;
-    /* background-color: #f2f3f7!important; */
-    -webkit-box-shadow: inset -7px -7px 5px #ffffff, inset 7px 7px 7px #dde4ef !important;
-    box-shadow: inset -7px -7px 5px #ffffff, inset 7px 7px 7px #dde4ef !important;
+    border-radius: 10px;
 }
 
 .mo-bottom-nav-carousel-card {
@@ -880,9 +878,7 @@ a {
     -webkit-transform: skew(-25deg);
     -moz-transform: skew(-25deg);
     -o-transform: skew(-25deg);
-    background-color: #f2f3f7 !important;
-    -webkit-box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
-    box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
+    background-color: #7879ff !important;
 }
 
 .trapezoid {
@@ -891,9 +887,7 @@ a {
     -webkit-transform: skew(-25deg);
     -moz-transform: skew(-25deg);
     -o-transform: skew(-25deg);
-    background-color: #f2f3f7 !important;
-    -webkit-box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
-    box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
+    background-color: #7879ff !important;
 }
 
 .trapezoid::before {
@@ -1027,4 +1021,62 @@ a {
 
 .position-fixed {
     position: fixed !important;
+}
+.nav-v-list-item, .nav-v-list-item .v-list-item__title{
+    transition: all 0.5s ease;
+}
+.nav-v-list-item:hover{
+    background: #3989fc;
+    color: white;
+}
+
+.nav-v-list-item:hover .v-list-item__title{
+    color: white;
+}
+
+.guest-welcome-bg{
+    background-color: rgb(255 255 255 / 23%)!important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.guest-control-hover{
+    bottom:0; 
+    top: 0; 
+    right: 0;
+    background-color: rgb(0 0 0 / 23%);
+}
+
+.mo-login-logo{
+    width: 100px;
+    height: 100px;
+    background: #7879ff;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.owl-cus-con .owl-carousel.owl-theme.owl-loaded.owl-drag .owl-dots{
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.owl-cus-con .owl-carousel.owl-theme.owl-loaded.owl-drag .owl-dots .owl-dot span{
+    width: 7px !important;
+    height: 7px !important;
+    margin: 5px 3px !important;
+}
+
+.owl-cus-con .owl-carousel.owl-theme.owl-loaded.owl-drag .owl-dots .owl-dot:focus{
+    outline: none!important
+}
+
+.owl-cus-con .owl-carousel.owl-theme.owl-loaded.owl-drag .owl-dots .owl-dot.active span{
+    background: white!important;
+}
+
+.owl-cus-con .owl-carousel.owl-theme.owl-loaded.owl-drag .owl-dots .owl-dot span{
+    background: transparent!important;
+    border: 1px solid white;
 }

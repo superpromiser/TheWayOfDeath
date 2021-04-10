@@ -24,11 +24,11 @@
       flat
       nav
     >
-      <AppBarItem
+      <v-list-item class="nav-v-list-item"
         to="/profile"
       >
         <v-list-item-title>我的</v-list-item-title>
-      </AppBarItem>
+      </v-list-item>
       <!-- <AppBarItem
         to="#"
       >
@@ -37,9 +37,9 @@
       <v-divider
         class="mb-2 mt-2"
       />
-      <AppBarItem >
-        <v-list-item-title @click="logout">登出</v-list-item-title>
-      </AppBarItem>
+      <v-list-item class="nav-v-list-item" @click="logout">
+        <v-list-item-title >登出</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>

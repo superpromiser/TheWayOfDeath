@@ -161,6 +161,18 @@ export default {
                     },
                 ],
             },
+            {
+                title : "校园安全",
+                icon : "mdi-safe",
+                items : [
+                    {
+                        color : "indigo accent-2",
+                        title : "访客管理",
+                        imgUrl : "/asset/img/icon/组 29.png",
+                        path : "manageGuests"
+                    },
+                ],
+            },
         ]
     }),
     methods:{

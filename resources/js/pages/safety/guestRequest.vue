@@ -1,7 +1,7 @@
 <template>
     <v-img
         height="100%"
-        src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
+        :src="`${baseUrl}/asset/img/WEB.png`"
             
     >
             <RouterBack title='新増访客'></RouterBack>
@@ -28,19 +28,19 @@
                     启动相机
                 </v-btn>
             </v-row>
-            <v-card class="pa-5" tile>
+            <v-card class="pa-5 guest-welcome-bg" tile >
                 <v-row class="ma-0">
                     <v-col cols="12" md="6" class="d-flex justify-center align-center" >
                         <v-avatar
                             class="profile"
-                            color="grey"
+                            color="#7879ff"
                             size="100%"
                             max-width="500px"
                             min-width="250px"
                             max-height="500px"
                             min-height="250px"
                         >   
-                            <v-icon v-if="guestData.avatar == null" size="500">
+                            <v-icon v-if="guestData.avatar == null" size="500" color="white">
                                 mdi-account
                             </v-icon>
                             <!-- <v-img v-if="guestData.avatar == null" src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img> -->
@@ -72,6 +72,21 @@
                                     v-model="guestData.cardNum"
                                     solo
                                     label="身份证件号"
+                                    clearable
+                                    hide-details
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-divider light></v-divider>
+                        <v-row class=" align-center ma-0">
+                            <v-col cols="6">
+                                <p class="mb-0">电话号码</p>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-text-field
+                                    v-model="guestData.phoneNumber"
+                                    solo
+                                    label="电话号码"
                                     clearable
                                     hide-details
                                 ></v-text-field>
@@ -171,11 +186,13 @@ export default {
             name:'',
             avatar: null,
             cardNum:'',
+            phoneNumber:'',
             memberName:'',
             memberPhone:'',
             meetingDate:'',
             meetingReason:''
         },
+        baseUrl: window.Laravel.base_url,
         lang,
         menu:false,
         isSubmit:false,
@@ -184,7 +201,7 @@ export default {
         isStart: true,
     }),
     methods:{
-        submit(){
+        async submit(){
             console.log();
             let dateNow = new Date();
             if(this.guestData.avatar == null){
@@ -195,6 +212,9 @@ export default {
             }
             if(this.guestData.cardNum.trim() == ''){
                 return this.$snackbar.showMessage({content: "请输入您的卡号。", color: "error"})
+            }
+            if(this.guestData.phoneNumber.trim() == ''){
+                return this.$snackbar.showMessage({content: "请输入您的电话号码。", color: "error"})
             }
             if(this.guestData.memberName.trim() == ''){
                 return this.$snackbar.showMessage({content: "输入要拜访的人的姓名。", color: "error"})
@@ -215,7 +235,7 @@ export default {
             this.guestData.meetingDate = this.TimeView(this.guestData.meetingDate)
             console.log(this.guestData)
             this.isSubmit = true;
-            createGuestRequest(this.guestData)
+            await createGuestRequest(this.guestData)
             .then((res) => {
                 console.log(res);
                 if (res.data.msg == 0){
@@ -231,7 +251,6 @@ export default {
                         meetingDate:'',
                         meetingReason:''
                     };
-
                     return this.$snackbar.showMessage({content: "已成功收到。 请稍等片刻。", color: "success"})
                 }
             }).catch((err) => {
@@ -244,7 +263,6 @@ export default {
         },
         onCapture() {
             this.guestData.avatar = this.$refs.webcam.capture();
-            console.log(this.guestData.avatar)
         },
         onStarted(stream) {
             console.log("On Started Event", stream);

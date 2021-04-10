@@ -1,20 +1,11 @@
 <template>
-  <v-container>
+  <v-container class="pa-0">
     <v-container v-if="$isMobile()" class="pa-0">
       <v-row class="ma-0">
-        <v-col class="mo-glow-small-shadow d-flex align-center" cols="12">
-          <v-avatar tile class="mo-glow-small-shadow" >
-            <v-icon color="#7879ff">
-              mdi-school
-            </v-icon>
-          </v-avatar>
-          <h2 class="ml-3">{{selectedItem.label}}</h2>
-        </v-col>
-        <v-col cols="12" class="mo-glow-small-shadow mt-5 d-flex" >
+        <v-col cols="12" class="d-flex align-center" >
           <transition name="page" mode="out-in">
             <v-text-field
               v-if="isSearching" key="1"
-              class="mo-glow-v-text"
               solo
               clearable
               v-model="searchKeyword"
@@ -23,6 +14,7 @@
               @click:append="onSearch"
               prepend-inner-icon="mdi-magnify"
               hide-details
+              dense 
             ></v-text-field>
             <v-select
               v-else key="2"
@@ -32,26 +24,26 @@
               item-text="label"
               label="栏目"
               hide-details
-              class="mo-glow-v-select"
               v-model="selectedItem"
               @change="onSelectSchoolItem"
+              dense 
             ></v-select>
           </transition>
           <transition name="page" mode="out-in">
-          <v-avatar v-if="isSearching" key="3" class="mo-glow-small-shadow ml-3" @click="onFalseSearching">
-            <v-icon color="#7879ff">
+          <v-btn icon color="#7879ff" v-if="isSearching" key="3" class="ml-3" @click="onFalseSearching">
+            <v-icon>
               mdi-close
             </v-icon>
-          </v-avatar>
-          <v-avatar v-else key="4" class="mo-glow-small-shadow ml-3" @click="isSearching = true">
-            <v-icon color="#7879ff">
+          </v-btn>
+          <v-btn icon color="#7879ff" v-else key="4" class="ml-3" @click="isSearching = true">
+            <v-icon>
               mdi-magnify
             </v-icon>
-          </v-avatar>
+          </v-btn>
           </transition>
         </v-col>
-        <v-col cols="12" class="mt-5 pa-0">
-          <carousel :autoplay="true" :nav="false" :items="1" :margin="10" :loop="true" :dots="false" :autoplaySpeed="5000">
+        <v-col cols="12" class="">
+          <carousel class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplaySpeed="5000">
             <img :src="`${baseUrl}/asset/img/class/1.jpeg`" alt="carousel" class="mo-home-carousel-img" />
             <img :src="`${baseUrl}/asset/img/class/2.jpg`" alt="carousel" class="mo-home-carousel-img" />
             <img :src="`${baseUrl}/asset/img/class/3.png`" alt="carousel" class="mo-home-carousel-img" />
@@ -59,26 +51,26 @@
             <img :src="`${baseUrl}/asset/img/class/5.jpg`" alt="carousel" class="mo-home-carousel-img" />
           </carousel>
         </v-col>
-        <v-col cols="12" class="mt-5 pa-0 d-flex justify-space-between">
-          <v-row class="ma-0 pa-0 mo-glow">
-            <v-col cols="3" class="pa-0 d-flex justify-center mt-3 mb-3" v-for="(item, i) in chooseableItemGroup" :key="i" @click="selectItem(item)">
-              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
+        <v-col cols="12" class="d-flex justify-space-between">
+          <v-row class="ma-0 pa-0">
+            <v-col cols="3" class="pa-0 d-flex justify-center " v-for="(item, i) in chooseableItemGroup" :key="i" @click="selectItem(item)">
+              <v-sheet tile class=" d-flex justify-center align-center">
                 <div class="text-center">
                   <v-img :src="`${baseUrl}${item.imgUrl}`" alt="postItem" width="30" height="30" class="mx-auto"></v-img>
                   <span class="font-size-0-75 pt-2"> {{item.title}}</span>
                 </div>
-              </v-card>
+              </v-sheet>
             </v-col>
-            <v-col cols="3" class="pa-0 d-flex justify-center mt-3 mb-3" @click="openAddItemDialog">
-              <v-card tile class="mo-glow pa-3 d-flex justify-center align-center">
+            <v-col cols="3" class="pa-0 d-flex justify-center " @click="openAddItemDialog">
+              <v-sheet tile class=" d-flex justify-center align-center">
                 <div class="text-center">
                   <v-icon color="#7879ff" size="30">mdi-view-grid-plus</v-icon>
-                  <p class="font-size-0-75 pt-2 mb-0">添加</p>
+                  <p class="font-size-0-75 pt-1 mb-0">添加</p>
                 </div>
-              </v-card>
+              </v-sheet>
             </v-col>
           </v-row>
-            <v-dialog v-model="addItemDialog" width="100%" max-width="500" scrollable>
+          <v-dialog v-model="addItemDialog" width="100%" max-width="500" scrollable>
               <v-card>
                   <v-card-title class="title"> 添加 </v-card-title>
                   <v-card-text class="px-0" style="height: 300px; ">
@@ -131,9 +123,9 @@
                   </v-card-actions>
               </v-card>
           </v-dialog>
-
         </v-col>
-        <v-col cols="12" class="mt-5 d-flex pa-0 px-3 align-center">
+        <v-divider light></v-divider>
+        <v-col cols="12" class="d-flex px-3 align-center">
           <div class="trapezoid position-relative"></div>
           <div class="parallelogram ml-4"></div>
           <div class="ml-4">
@@ -520,7 +512,7 @@
       </v-row>
     </v-container>
 
-    <v-container v-else class="pa-0">
+    <v-container v-else class="">
       <v-row v-if="user.roleId == 1">
         <v-col v-for="(schoolItem, i) in schoolList" :key="i" cols="12" md="4" sm="6" class="hover-cursor-point" @click="goNewsOfSchool(schoolItem.id)">
           <v-card>
@@ -737,7 +729,6 @@ export default {
   },
 
   async created(){
-    this.listen();
     if(this.selectedItemSchoolGroupStore !== null || this.selectedItemClassGroupStore !== null){
       if(this.selectedSchoolItem.type == "school"){
         this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
@@ -1040,12 +1031,6 @@ export default {
       }
       this.closeAddItemDialog();
     },
-    // listen(){
-    //   Echo.private('newguest.'+ this.user.id)
-    //     .listen('NewGuest', (e) => {
-    //       console.log("@@@@@@@@@@@@@", e);
-    //     });
-    // }
   }
 }
 </script>

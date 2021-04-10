@@ -14,40 +14,52 @@
         v-bind="attrs"
         v-on="on"
       >
-        <v-icon color="white">mdi-bell</v-icon>
-        <!-- <v-badge
+        <v-icon v-if="alarmData == null || alarmData.length == 0" color="white">mdi-bell</v-icon>
+        <v-badge
           bordered
           color="red"
           overlap
+          v-else
         >
           <template v-slot:badge>
-            <span>5</span>
+            <span v-if="alarmData.length > 0">{{alarmData.length}}</span>
           </template>
 
           <v-icon color="white">mdi-bell</v-icon>
-        </v-badge> -->
+        </v-badge>
       </v-btn>
     </template>
 
     <v-list
       flat
       nav
-    >
-      <AppBarItem
-        v-for="(n, i) in notifications"
+    > 
+      <v-list-item v-if="alarmData == null || alarmData.length == 0">
+        no alarm
+      </v-list-item>
+      <v-list-item
+        v-else
+        v-for="(alarm, i) in alarmData"
         :key="i"
-        link
-      >
-        <v-list-item-content>
-          <v-list-item-title>{{ n }} </v-list-item-title>
+        @click="onClickAlarm(alarm)"
+        class="nav-v-list-item"
+      > 
+        <v-list-item-avatar v-if="alarm.type == 'NewGuest'">
+          <span>v</span>
+        </v-list-item-avatar>
+        <v-list-item-content v-if="alarm.type == 'NewGuest'">
+          <v-list-item-title>{{ alarm.content.memberName }} 来拜访 {{alarm.content.name}}</v-list-item-title>
         </v-list-item-content>
-      </AppBarItem>
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import AppBarItem from '../app/BarItem'
+import {getAlarm} from '~/api/alarm'
+
 export default {
   name: 'DefaultNotifications',
 
@@ -55,15 +67,46 @@ export default {
     AppBarItem
   },
 
+  computed:{
+    ...mapGetters({
+      alarmData: 'alarm/alarmData',
+      user: 'auth/user'
+    })
+  },
+
   data: () => ({
-    notifications: [],
-    // notifications: [
-    //   'Mike John Responded to your email',
-    //   'You have 5 new tasks',
-    //   'You\'re now friends with Andrew',
-    //   'Another Notification',
-    //   'Another one',
-    // ],
+
   }),
+
+  async created(){
+    this.listen()
+    if(this.alarmData == null){
+      await getAlarm()
+      .then((res) => {
+        res.data.map(alarm=>{
+          alarm.content = JSON.parse(alarm.content);
+        })
+        this.$store.dispatch('alarm/storeAlarm', res.data);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  },
+
+  methods:{
+    listen(){
+      Echo.private('newguest.'+ this.user.id)
+        .listen('NewGuest', (alarm) => {
+          console.log(alarm)
+          alarm.guest.content = JSON.parse(alarm.guest.content);
+          this.alarmData.push(alarm.guest);
+          this.$store.dispatch('alarm/storeAlarm', this.alarmData);
+        });
+    },
+
+    onClickAlarm(alarm){
+      console.log(alarm);
+    }
+  }
 }
 </script>
