@@ -1,162 +1,128 @@
 <template>
   <v-container fluid class="login-bg d-flex justify-center align-center py-0">
 
-    <v-row v-if="$isMobile()" class="w-100 h-100 mo-welcome-bg align-center justify-center">
+    <v-row v-if="$isMobile()" class="w-100 h-100 bg-white align-center justify-center">
       <v-col cols="12">
         <div class="d-flex justify-center mb-10">
-          <img :src="`${baseUrl}/asset/img/logo.png`" alt="upload-video-icon" style="width: 150px; height:45px"/>
+          <img :src="`${baseUrl}/asset/img/favicon_white.png`" alt="upload-video-icon" class="mo-login-logo"/>
         </div>
-        <v-card>
-          <v-tabs
-                v-model="tab"
-                background-color="#7879ff"
-                centered
-                dark
-                icons-and-text
+         <v-card flat>
+          <v-card-text ref="form">
+            <v-form v-model="isFormValid" @submit.prevent="login">
+              <p class="mb-0">帐号</p>
+              <v-text-field
+                class="pt-0 mt-0"
+                color="#7879ff"
+                single-line
+                v-model="phoneNumber"
+                label="帐号"
+                :rules="[rules.required]"
+              ></v-text-field>
+              <p class="mb-0">密码</p>
+              <v-text-field
+                class="pt-0 mt-0"
+                color="#7879ff"
+                single-line
+                v-model="password"
+                name="password"
+                label="请输入登录密码"
+                hint="至少8个字符"
+                :rules="[rules.required, rules.min]"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show1 ? 'text' : 'password'"
+                @click:append="show1 = !show1"
+              ></v-text-field>
+              <v-checkbox
+                v-model="agreeTerms"
+                label="已阅读并同意《用户服务协议》和《隐私》"
+                type="checkbox"
+                color="#7879ff"
+                :rules="[rules.required]"
               >
-                <v-tabs-slider></v-tabs-slider>
-                <v-tab href="#qr-login">
-                  扫码登录
-                  <v-icon>mdi-qrcode</v-icon>
-                </v-tab>
-                <v-tab href="#phone-login">
-                  账户登录
-                  <v-icon>mdi-account</v-icon>
-                </v-tab>
-              </v-tabs>
-              <v-tabs-items v-model="tab">
-                <v-tab-item value='qr-login' >
-                  <v-card flat class="pb-8 d-flex justify-center">
-                    <qrcode value="http://47.111.233.60" :options="{ width: 350 }"></qrcode>
-                  </v-card>
-                </v-tab-item>
-                
-                <v-tab-item value='phone-login' >
-                  <v-card flat>
-                    <v-card-text ref="form" class="mo-glow-bg">
-                      <v-form v-model="isFormValid" @submit.prevent="login">
-                        <v-text-field
-                          class="mo-glow-v-text"
-                          solo
-                          v-model="phoneNumber"
-                          label="帐号"
-                          prepend-inner-icon="mdi-phone"
-                          :rules="[rules.required]"
-                          :counter="11"
-                        ></v-text-field>
-                        <v-text-field
-                          class="mo-glow-v-text"
-                          solo
-                          v-model="password"
-                          name="password"
-                          label="密码"
-                          hint="至少8个字符"
-                          counter
-                          prepend-inner-icon="mdi-key-chain-variant"
-                          :rules="[rules.required, rules.min]"
-                          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                          :type="show1 ? 'text' : 'password'"
-                          @click:append="show1 = !show1"
-                        ></v-text-field>
-                        <v-checkbox
-                          v-model="agreeTerms"
-                          label="已阅读并同意《用户服务协议》和《隐私》"
-                          type="checkbox"
-                          :rules="[rules.required]"
-                        >
-                          <template v-slot:label>
-                            <div @click.stop="">
-                              已阅读并同意
-                              <a
-                                href="#"
-                                @click.prevent="terms = true"
-                              >《用户服务协议》</a>
-                              和
-                              <a
-                                href="#"
-                                @click.prevent="conditions = true"
-                              >《隐私》</a>
-                            </div>
-                          </template>
-                        </v-checkbox>
-                        <v-btn color="#7879ff" tile :dark="isFormValid" block type="submit" :loading="isLogging" :disabled="!isFormValid">
-                          <v-icon left>
-                            mdi-login
-                          </v-icon> 
-                          登录
-                        </v-btn>
-                      </v-form>
-                      <v-row class="justify-end pa-3">
-                        <v-btn color="primary" text class="align-right mt-4 mo-glow">
-                          忘记密码?
-                        </v-btn>
-                      </v-row>
-                      <v-row class="justify-center align-center ">
-                        <span>—————</span>
-                        <span class="px-2">  使用第三方账号登录  </span>
-                        <span>—————</span>
-                      </v-row>
-                      <v-row class="justify-center align-center pt-1 pb-4">
-                        <v-btn color="primary" text class="mo-glow">
-                          <v-icon left>
-                            mdi-wechat
-                          </v-icon> 
-                          企业微信
-                        </v-btn>
-                      </v-row>
-                      <v-dialog v-model="terms" width="90%" >
-                        <v-card>
-                          <v-card-title class="title">
-                            Terms
-                          </v-card-title>
-                          <v-card-text
-                            v-for="n in 5"
-                            :key="n"
-                          >
-                            {{ content }}
-                          </v-card-text>
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                              text
-                              color="primary"
-                              @click="terms = false"
-                            >
-                              Ok
-                            </v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
-                      <v-dialog
-                        v-model="conditions"
-                        width="90%"
-                      >
-                        <v-card>
-                          <v-card-title class="title">
-                            Conditions
-                          </v-card-title>
-                          <v-card-text
-                            v-for="n in 5"
-                            :key="n"
-                          >
-                            {{ content }}
-                          </v-card-text>
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                              text
-                              color="primary"
-                              @click="conditions = false"
-                            >
-                              Ok
-                            </v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
-                    </v-card-text>
-                  </v-card>
-                </v-tab-item>
-              </v-tabs-items>
+                <template v-slot:label>
+                  <div @click.stop="">
+                    已阅读并同意
+                    <a
+                      href="#"
+                      style="color: #7879ff"
+                      @click.prevent="terms = true"
+                    >《用户服务协议》</a>
+                    和
+                    <a
+                      href="#"
+                      style="color: #7879ff"
+                      @click.prevent="conditions = true"
+                    >《隐私》</a>
+                  </div>
+                </template>
+              </v-checkbox>
+              <v-btn color="#7879ff" rounded dark large block type="submit" :loading="isLogging">
+                立即登录
+              </v-btn>
+            </v-form>
+            <v-row class="justify-end pa-3">
+              <v-btn text class="align-right mt-4 ">
+                忘记密码?
+              </v-btn>
+            </v-row>
+            <v-row class="justify-center align-center ">
+              <v-divider light></v-divider>
+              <span class="px-2">  使用第三方账号登录  </span>
+              <v-divider light></v-divider>
+            </v-row>
+            <v-row class=" justify-start align-center pt-1 pb-4">
+              <v-img :src="`${baseUrl}/asset/img/wechat.svg`" max-width="45" class="mt-3"></v-img>
+            </v-row>
+            <v-dialog v-model="terms" width="90%" >
+              <v-card>
+                <v-card-title class="title">
+                  Terms
+                </v-card-title>
+                <v-card-text
+                  v-for="n in 5"
+                  :key="n"
+                >
+                  {{ content }}
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="terms = false"
+                  >
+                    Ok
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-dialog
+              v-model="conditions"
+              width="90%"
+            >
+              <v-card>
+                <v-card-title class="title">
+                  Conditions
+                </v-card-title>
+                <v-card-text
+                  v-for="n in 5"
+                  :key="n"
+                >
+                  {{ content }}
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="conditions = false"
+                  >
+                    Ok
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
