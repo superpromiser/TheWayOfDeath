@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-function getQuestionnaire(){
-    return axios.get('/api/v1/questionnaire');
+function getQuestionnaire(payload){
+    return axios.get('/api/v1/questionnaire',{params:payload});
 }
 
 function createQuestionnaire(payload){

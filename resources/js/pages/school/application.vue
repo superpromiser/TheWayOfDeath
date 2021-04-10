@@ -12,11 +12,11 @@ export default {
     lang
   }),
   created(){
-    getDashboardData().then(res=>{
-      console.log('getdashboardData',res.data)
-    }).catch(err=>{
-      console.log(err.response)
-    })
+    // getDashboardData().then(res=>{
+    //   console.log('getdashboardData',res.data)
+    // }).catch(err=>{
+    //   console.log(err.response)
+    // })
   },
 
 }
