@@ -79,7 +79,7 @@ export default {
                         color : "#E4BC16",
                         title : "短信",//통보문
                         imgUrl : "/asset/img/newIcon/短信.png",
-                        path : "posts.sms"
+                        path : "schoolSpace.applications.sms"
                     },
                     {
                         color : "#7180EA",

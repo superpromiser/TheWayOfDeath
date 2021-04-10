@@ -17,6 +17,7 @@ class CreateSmsTable extends Migration
             $table->id();
             // $table->json('userList');
             $table->LONGTEXT('content');
+            $table->tinyInteger('schoolId');
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
