@@ -10,25 +10,44 @@ use Illuminate\Support\Facades\Auth;
 
 class ShareController extends Controller
 {
-    public function createShare(Request $request){
-        $this->validate($request,[
-            'content'=>'required'
+
+    public function getShare(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required'
+        ]);
+        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 23])
+            ->with([
+                'likes',
+                'views',
+                'comments',
+                'shares',
+                'users:id,name'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+    }
+
+    public function createShare(Request $request)
+    {
+        $this->validate($request, [
+            'content' => 'required'
         ]);
         $shareData = json_encode($request->content);
         $userId = Auth::user()->id;
         $postId = Post::create([
-            'contentId'=>23,
-            'userId'=>$userId,
-            'schoolId'=>$request->schoolId
+            'contentId' => 23,
+            'userId' => $userId,
+            'schoolId' => $request->schoolId
         ])->id;
         Share::create([
-            'content'=>$shareData,
-            'postId'=>$postId,
+            'content' => $shareData,
+            'postId' => $postId,
+            'schoolId' => $request->schoolId
         ]);
 
         return response()->json([
             'msg' => 'ok'
-        ],200);
-
+        ], 200);
     }
 }

@@ -97,7 +97,7 @@ export default {
                         color : "#E4BC16",
                         title : "分享",//공유
                         imgUrl : "/asset/img/newIcon/分享.png",
-                        path : "posts.share"
+                        path : "schoolSpace.applications.share"
                     },
                     {
                         color : "#C95384",

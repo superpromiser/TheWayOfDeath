@@ -18,6 +18,7 @@ class CreateSharesTable extends Migration
             $table->LONGTEXT('content');
             $table->enum('publishType', ['pub', 'pvt', 'spec'])->default('pub');
             $table->unsignedBigInteger('postId');
+            $table->tinyInteger('schoolId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });

@@ -303,6 +303,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::delete('club', 'ClubController@deleteClub');
 
     //share
+    Route::get('share', 'ShareController@getShare');
     Route::post('share', 'ShareController@createShare');
 
     //regname
