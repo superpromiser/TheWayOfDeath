@@ -256,8 +256,10 @@ export default [
 
 
   //class application
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests.vue')},
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam', name:'classSpace.returnTeam', component:page('class/applications/safety/returnTeam.vue')},
+  //manage guest
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests/index.vue')},
+  //return team
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam', name:'classSpace.returnTeam', component:page('class/applications/safety/returnTeam/index.vue')},
 
 
   //setting
