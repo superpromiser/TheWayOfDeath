@@ -103,7 +103,7 @@ export default {
                 case 'allow':
                     return "致谢"
                 case 'deny':
-                    return "拒绝"
+                    return "已拒绝"
 
             }
         },
