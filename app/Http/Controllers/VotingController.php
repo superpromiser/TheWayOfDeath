@@ -11,8 +11,21 @@ use Illuminate\Support\Facades\Auth;
 class VotingController extends Controller
 {
     //
-    public function getVotingData()
+    public function getVotingData(Request $request)
     {
+        $this->validate($request, [
+            'schoolId' => 'required'
+        ]);
+        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 2])
+            ->with([
+                'likes',
+                'views',
+                'comments',
+                'votings',
+                'users:id,name'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
     }
 
     public function createVotingData(Request $request)
@@ -51,6 +64,7 @@ class VotingController extends Controller
             'maxVote' => $maxVote,
             'anonyVote' => $anonyVote,
             'content' => $content,
+            'schoolId' => $request->schoolId,
             'classId' => $classId,
             'postId' => $postId
         ]);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getVoting(){
-    return axios.get('/api/v1/voting')
+function getVoting(payload){
+    return axios.get('/api/v1/voting',{params:payload})
 }
 
 function createVoting(payload){

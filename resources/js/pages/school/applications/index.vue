@@ -73,7 +73,7 @@ export default {
                         color : "#C95384",
                         title : "投票",//투표
                         imgUrl : "/asset/img/newIcon/投票.png",
-                        path : "posts.voting"
+                        path : "schoolSpace.applications.voting"
                     },
                     {
                         color : "#E4BC16",

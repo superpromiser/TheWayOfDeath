@@ -141,6 +141,7 @@ export default [
   //school application
 
   {path:'/schoolSpace/:schoolId/application/questionnaire',name:'schoolSpace.applications.quesitonnaire',component:page('school/applications/questionnaire/index.vue')},
+  {path:'/schoolSpace/:schoolId/application/voting',name:'schoolSpace.applications.voting',component:page('school/applications/voting/index.vue')},
 
     //school member
   {path:'/schoolSpace/:schoolId/member/add',name:'schoolSpace.addMember',component:page('member/addMember.vue')},
