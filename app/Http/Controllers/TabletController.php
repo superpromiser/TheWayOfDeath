@@ -11,6 +11,7 @@ use App\Lesson;
 use App\Session;
 use App\Subject;
 use App\Post;
+use App\Anouncement;
 
 class TabletController extends Controller
 {
@@ -83,35 +84,101 @@ class TabletController extends Controller
             ])
             ->orderBy('created_at', 'desc')
             ->get();
-        $tempData = array();
+        $albumData = array();
         foreach ($posts as $post) {
             switch ($post->contentId) {
                 case 12:
-                    $content = json_decode($post->questionnaires->content);
-
-                    array_push($tempData, json_decode($post->questionnaires->content));
-
+                    $contentData = json_decode($post->questionnaires->content);
+                    foreach ($contentData as $content) {
+                        if ($content->type == 'single') {
+                            $postingData = $content->singleContentDataArr;
+                            foreach ($postingData as $questionItem) {
+                                $imgUrls = $questionItem->imgUrl;
+                                foreach ($imgUrls as $imgUrl) {
+                                    $path = $imgUrl->path;
+                                    array_push($albumData, $path);
+                                }
+                            }
+                        } else if ($content->type == 'multi') {
+                            $postingData = $content->multiContentDataArr;
+                            foreach ($postingData as $questionItem) {
+                                $imgUrls = $questionItem->imgUrl;
+                                foreach ($imgUrls as $imgUrl) {
+                                    $path = $imgUrl->path;
+                                    array_push($albumData, $path);
+                                }
+                            }
+                        } else if ($content->type == 'qa') {
+                            $postingData = $content->qaContentDataArr;
+                            foreach ($postingData as $questionItem) {
+                                $imgUrls = $questionItem->imgUrl;
+                                foreach ($imgUrls as $imgUrl) {
+                                    $path = $imgUrl->path;
+                                    array_push($albumData, $path);
+                                }
+                            }
+                        } else if ($content->type == 'score') {
+                            $postingData = $content->scoringDataArr;
+                            foreach ($postingData as $contentData) {
+                                $post = $contentData->contentData;
+                                foreach ($post as $questionItem) {
+                                    $imgUrls = $questionItem->imgUrl;
+                                    foreach ($imgUrls as $imgUrl) {
+                                        $path = $imgUrl->path;
+                                        array_push($albumData, $path);
+                                    }
+                                }
+                            }
+                        }
+                    }
                     break;
                 case 13:
-                    array_push($tempData, $post->votings->content);
+                    $contentData = json_decode($post->votings->content);
+                    foreach ($contentData as $questionItem) {
+                        $imgUrls = $questionItem->imgUrl;
+                        foreach ($imgUrls as $imgUrl) {
+                            $path = $imgUrl->path;
+                            array_push($albumData, $path);
+                        }
+                    }
                     break;
                 case 14:
                     // array_push($tempData, $post->questionniare->content);
+                    $contentData = json_decode($post->homework->content);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($albumData, $path);
+                    }
                     break;
                 case 15:
                     // array_push($tempData, $post->questionniare->content);
                     break;
                 case 16:
                     // array_push($tempData, $post->questionniare->content);
+                    $contentData = json_decode($post->homeVisit->content);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($albumData, $path);
+                    }
                     break;
                 case 17:
                     // array_push($tempData, $post->questionniare->content);
+                    $contentData = json_decode($post->notifications->description);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($albumData, $path);
+                    }
                     break;
                 case 18:
                     // array_push($tempData, $post->questionniare->content);
+                    $contentData = json_decode($post->evaluations->selMedalList);
                     break;
                 case 19:
                     // array_push($tempData, $post->questionniare->content);
+                    $contentData = $post->recognitions->imgUrl;
                     break;
                 case 20:
                     // array_push($tempData, $post->questionniare->content);
@@ -129,6 +196,21 @@ class TabletController extends Controller
                     break;
             }
         }
-        return response()->json($subjectArr);
+
+        $announcementData = array();
+        $allAnounceData = Anouncement::all();
+        foreach ($allAnounceData as $data) {
+            $lessonArr = json_decode($data->viewList);
+            foreach ($lessonArr as $lesson) {
+                if ($lesson == $lessonId) {
+                    array_push($announcementData, $data);
+                }
+            }
+        }
+
+        $resultData['timeTable'] = $subjectArr;
+        $resultData['albumData'] = $albumData;
+        $resultData['announceData'] = $announcementData;
+        return response()->json($resultData);
     }
 }
