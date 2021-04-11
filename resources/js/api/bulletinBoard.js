@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getBulletinBoard(){
-    return axios.get('/api/v1/bulletinBoard');
+function getBulletinBoard(payload){
+    return axios.get('/api/v1/bulletinBoard',{params:payload});
 }
 
 function createBulletinBoard(payload){

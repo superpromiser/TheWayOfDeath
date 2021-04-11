@@ -98,15 +98,6 @@
         <div v-else>
             <router-view></router-view>
         </div>
-        <v-snackbar
-            timeout="3000"
-            v-model="isSuccessed"
-            color="error"
-            absolute
-            top
-            >
-            {{lang.successText}}
-        </v-snackbar>
     </v-container>
 </template>
 

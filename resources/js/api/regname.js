@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getRegname(){
-    return axios.get('/api/v1/regname');
+function getRegname(payload){
+    return axios.get('/api/v1/regname',{params:payload});
 }
 
 function getAnswerDataOne(payload){

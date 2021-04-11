@@ -12,12 +12,30 @@ use Illuminate\Support\Facades\Auth;
 
 class RegnameController extends Controller
 {
+
+    public function getRegname(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required'
+        ]);
+        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 24])
+            ->with([
+                'likes',
+                'views',
+                'comments',
+                'regnames',
+                'users:id,name'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+    }
+
     public function createRegname(Request $request)
     {
         $this->validate($request, [
             'content' => 'required',
             'startTime' => 'required',
-            'endTime' => 'requried',
+            'endTime' => 'required',
             'viewList' => 'required',
             'inputTypeList' => 'required',
         ]);
@@ -38,6 +56,7 @@ class RegnameController extends Controller
             'checkFlag' => $request->checkFlag,
             'content' => $shareData,
             'postId' => $postId,
+            'schoolId' => $request->schoolId
         ]);
 
         return response()->json([

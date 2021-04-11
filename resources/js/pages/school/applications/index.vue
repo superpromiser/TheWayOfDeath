@@ -103,7 +103,7 @@ export default {
                         color : "#C95384",
                         title : "报名",//이름등록
                         imgUrl : "/asset/img/newIcon/报名.png",
-                        path : "posts.regname"
+                        path : "schoolSpace.applications.regname"
                     },
                     {
                         color : "#B673E0",
@@ -127,7 +127,7 @@ export default {
                         color : "#DA7042",
                         title : "作业",//숙제
                         imgUrl : "/asset/img/newIcon/作业.png",
-                        path : "posts.homework"
+                        path : "schoolSpace.applications.homework"
                     },
                     {
                         color : "#3FB8E3",
@@ -139,7 +139,7 @@ export default {
                         color : "#7180EA",
                         title : "布告栏",//게시란
                         imgUrl : "/asset/img/newIcon/布告栏.png",
-                        path : "posts.bulletinboard"
+                        path : "schoolSpace.applications.bulletinboard"
                     },
                     {
                         color : "#C95384",

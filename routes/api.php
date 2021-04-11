@@ -307,6 +307,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('share', 'ShareController@createShare');
 
     //regname
+    Route::get('regname', 'RegnameController@getRegname');
     Route::post('regname', 'RegnameController@createRegname');
     Route::post('regname/answer', 'RegnameController@answerRegname');
     Route::get('regname/answer/one', 'RegnameController@getAnswerOne');
