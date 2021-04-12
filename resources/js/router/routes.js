@@ -267,6 +267,9 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam', name:'classSpace.returnTeam', component:page('class/applications/safety/returnTeam/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/new', name:'classSpace.newReturnTeam', component:page('class/applications/safety/returnTeam/new.vue')},
 
+  //addMember
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/addMember', name:'classSpace.addMemberName', component:page('class/addMember.vue')},
+
 
   //setting
   { path: '/settings',
