@@ -15,16 +15,29 @@ class QuestionnaireController extends Controller
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
-        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 1])
-            ->with([
-                'likes',
-                'views',
-                'comments',
-                'questionnaires',
-                'users:id,name'
-            ])
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        if ($request->lessonId) {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 12])
+                ->with([
+                    'likes',
+                    'views',
+                    'comments',
+                    'questionnaires',
+                    'users:id,name'
+                ])
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        } else {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 1])
+                ->with([
+                    'likes',
+                    'views',
+                    'comments',
+                    'questionnaires',
+                    'users:id,name'
+                ])
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        }
     }
 
     public function createQuestionnaire(Request $request)

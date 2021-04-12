@@ -98,4 +98,14 @@ class Post extends Model
     {
         return $this->hasOne(HomeworkResult::class, 'postId');
     }
+
+    public function shiftMng()
+    {
+        return $this->hasOne(ShiftMng::class, 'postId');
+    }
+
+    public function safestudy()
+    {
+        return $this->hasOne(SafeStudy::class, 'postId');
+    }
 }

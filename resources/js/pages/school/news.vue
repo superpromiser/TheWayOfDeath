@@ -26,6 +26,14 @@
           <BulletinBoardPost :content='content'></BulletinBoardPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 8">
+          <SafeStudyPost :content='content'></SafeStudyPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 9">
+          <ShiftMngPost :content='content'></ShiftMngPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 10">
           <HomeVisitPost :content='content'></HomeVisitPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
@@ -138,6 +146,8 @@ import BulletinBoardPost from '~/components/contents/bulletinBoardPost'
 import HomeVisitPost from '~/components/contents/homeVisitPost'
 import SharePost from '~/components/contents/sharePost'
 import RegnamePost from '~/components/contents/regnamePost'
+import ShiftMngPost from '~/components/contents/shiftMngPost'
+import SafeStudyPost from '~/components/contents/safeStudyPost'
 export default {
   middleware: 'auth',
   components :{
@@ -151,7 +161,8 @@ export default {
     HomeVisitPost,
     SharePost,
     RegnamePost,
-
+    ShiftMngPost,
+    SafeStudyPost,
     InfiniteLoading,
   },
 

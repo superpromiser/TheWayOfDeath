@@ -33,7 +33,13 @@
                   sm="6"
                   md="4"
                   >
-                  <v-menu
+                  <v-datetime-picker 
+                      label="最后期限" 
+                      v-model="newQuestionnaireData.deadline"
+                      :okText='lang.ok'
+                      :clearText='lang.cancel'
+                    > </v-datetime-picker>
+                  <!-- <v-menu
                       ref="menu"
                       v-model="menu"
                       :close-on-content-click="false"
@@ -76,7 +82,7 @@
                           {{lang.ok}}
                       </v-btn>
                       </v-date-picker>
-                  </v-menu>
+                  </v-menu> -->
               </v-col>
               <v-col cols="12" sm="6" md="4">
                   <v-select
@@ -420,7 +426,13 @@
                     sm="6"
                     md="4"
                     >
-                    <v-menu
+                    <v-datetime-picker 
+                      label="最后期限" 
+                      v-model="newQuestionnaireData.deadline"
+                      :okText='lang.ok'
+                      :clearText='lang.cancel'
+                    > </v-datetime-picker>
+                    <!-- <v-menu
                         ref="menu"
                         v-model="menu"
                         :close-on-content-click="false"
@@ -462,7 +474,7 @@
                             {{lang.ok}}
                         </v-btn>
                         </v-date-picker>
-                    </v-menu>
+                    </v-menu> -->
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                     <v-select
