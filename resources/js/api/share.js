@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getShare(){
-    return axios.get('/api/v1/share');
+function getShare(payload){
+    return axios.get('/api/v1/share',{params:payload});
 }
 
 function createShare(payload){

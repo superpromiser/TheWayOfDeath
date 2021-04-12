@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getSms(){
-    return axios.get('/api/v1/sms');
+function getSms(payload){
+    return axios.get('/api/v1/sms',{params:payload});
 }
 
 function createSms(payload){

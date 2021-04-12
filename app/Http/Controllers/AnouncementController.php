@@ -6,45 +6,60 @@ use Illuminate\Http\Request;
 use App\Anouncement;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
+
 class AnouncementController extends Controller
 {
     //
 
-    public function getAnnouncement(){
-
+    public function getAnouncement(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required'
+        ]);
+        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 5])
+            ->with([
+                'likes',
+                'views',
+                'comments',
+                'anouncements',
+                'users:id,name'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
     }
 
-    public function createAnouncement(Request $request){
-        $this->validate($request,[
-            'title'=>'required',
-            'signName'=>'required',
-            'viewList'=>'required',
-            'scopeFlag'=>'required',
-            'content'=>'required'
+    public function createAnouncement(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required',
+            'signName' => 'required',
+            'viewList' => 'required',
+            'scopeFlag' => 'required',
+            'content' => 'required'
         ]);
         $userId = Auth::user()->id;
         $postId = Post::create([
-            'contentId'=>5,
-            'userId'=>$userId,
-            'schoolId'=>$request->schoolId
+            'contentId' => 5,
+            'userId' => $userId,
+            'schoolId' => $request->schoolId
         ])->id;
         return Anouncement::create([
-            'title'=>$request->title,
-            'signName'=>$request->signName,
-            'viewList'=>json_encode($request->viewList),
-            'scopeFlag'=>$request->scopeFlag,
-            'content'=>json_encode($request->content),
-            'postId'=>$postId,
+            'title' => $request->title,
+            'signName' => $request->signName,
+            'viewList' => json_encode($request->viewList),
+            'scopeFlag' => $request->scopeFlag,
+            'content' => json_encode($request->content),
+            'schoolId' => $request->schoolId,
+            'postId' => $postId,
 
         ]);
-
     }
 
-    public function updateAnouncement(Request $reqeust){
-
+    public function updateAnouncement(Request $reqeust)
+    {
     }
 
-    public function deleteAnouoncement(Request $request){
-
+    public function deleteAnouoncement(Request $request)
+    {
     }
 }

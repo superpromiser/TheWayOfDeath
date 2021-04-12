@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getCampus(){
-    return axios.get('/api/v1/campus');
+function getCampus(payload){
+    return axios.get('/api/v1/campus',{params:payload});
 }
 
 function createCampus(payload){

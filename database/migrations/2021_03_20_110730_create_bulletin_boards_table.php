@@ -18,6 +18,7 @@ class CreateBulletinBoardsTable extends Migration
             $table->char('type');
             $table->LONGTEXT('content');
             $table->unsignedBigInteger('postId');
+            $table->tinyInteger('schoolId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
