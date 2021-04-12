@@ -62,7 +62,7 @@
             <v-divider light></v-divider>
             <v-row class="ma-0 py-3 hover-cursor-point" v-ripple>
                 <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <p class="mb-0 w-100"  >领队教师 </p>
+                    <p class="mb-0"  >领队教师 </p>
                     <div class="d-flex align-center">
                         <p v-if="returnTeamData.teacher !== null" class="mb-0 secondary-text">ssss</p>
                         <v-icon class="ml-4" color="#999999" size="40">
@@ -72,11 +72,11 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple>
+            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple @click="navToAddMember">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <p class="mb-0 w-100"  >归程队成员</p>
+                    <p class="mb-0"  >归程队成员</p>
                     <div class="d-flex align-center">
-                        <p v-if="returnTeamData.member.length !== 0" class="mb-0 secondary-text">ssss</p>
+                        <p v-if="returnTeamData.member.length !== 0" class="mb-0 secondary-text">{{returnTeamData.member.length}} 个已选择</p>
                         <v-icon class="ml-4" color="#999999" size="40">
                             mdi-chevron-right
                         </v-icon>
@@ -84,11 +84,11 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple>
+            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple @click="openSelectLeaderDialog">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <p class="mb-0 w-100"  >归程队组长 </p>
+                    <p class="mb-0"  >归程队组长 </p>
                     <div class="d-flex align-center">
-                        <p v-if="returnTeamData.leader !== null" class="mb-0 secondary-text">ssss</p>
+                        <p v-if="returnTeamData.leader !== null" class="mb-0 secondary-text">{{returnTeamData.leader.name}}</p>
                         <v-icon class="ml-4" color="#999999" size="40">
                             mdi-chevron-right
                         </v-icon>
@@ -115,47 +115,81 @@
                 </v-expansion-panels>
             </v-row> -->
             <v-divider light></v-divider>
-            <v-subheader>leader</v-subheader>
             <v-row class="ma-0 py-3">
-                <v-col cols="12" sm="6" md="4" lg="3" xl="2">
-                    <v-card>
-                        <v-avatar>
-                            <v-icon>
-                                mdi-account
-                            </v-icon>
+                <v-col cols="12" v-if="returnTeamData.member.length == 0" class="d-flex align-center justify-start">
+                    <v-chip class="ma-2" color="primary" outlined pill >
+                        没有人选择
+                        <v-icon right>
+                        mdi-cancel 
+                        </v-icon>
+                    </v-chip>
+                </v-col>
+                <v-col v-else v-for="(user, i) in returnTeamData.member" :key="i" cols="12" sm="6" md="4" lg="3" xl="2" >
+                    <v-card class="text-center pt-4 position-relative">
+                        <v-avatar color="#49d29e" size="60" class="rounded-circle mx-auto"  >
+                            <span v-if="user.avatar == '/'" class="white--text headline">{{user.name[0]}}</span>
+                            <v-img v-else :src="`${baseUrl}${user.avatar}`"></v-img>
                         </v-avatar>
-                        <v-card-title>ddd</v-card-title>
-                        <v-card-subtitle>ddd</v-card-subtitle>
+                        <v-card-title class="justify-center">{{user.name}}</v-card-title>
+                        <v-card-subtitle>{{pnEncrypt(user.phoneNumber)}}</v-card-subtitle>
+                        <v-chip v-if="returnTeamData.leader !== null && user.id == returnTeamData.leader.id" dark class="position-absolute" color="#999999" style="top: 0px; right:0px;">
+                            组长  
+                        </v-chip>
                     </v-card>
                 </v-col>
             </v-row>
-            <v-subheader>member</v-subheader>
-            <v-row class="ma-0 py-3">
-                <v-col cols="12" sm="6" md="4" lg="3" xl="2">
-                    <v-card>
-                        <v-avatar>
-                            <v-icon>
-                                mdi-account
-                            </v-icon>
-                        </v-avatar>
-                        <v-card-title>ddd</v-card-title>
-                        <v-card-subtitle>ddd</v-card-subtitle>
-                    </v-card>
-                </v-col>
-            </v-row>
+            <v-dialog v-model="selectLeaderDialog" width="100%" max-width="500">
+                <v-card>
+                    <v-card-title class="title"> 归程队组长 </v-card-title>
+                    <v-card-text v-if="returnTeamData.member.length == 0">
+                        请首先选择归程团队成员
+                    </v-card-text>
+                    <v-card-text v-else class="">
+                        <v-select 
+                            :items="returnTeamData.member"
+                            :menu-props="{ top: false, offsetY: true }"
+                            item-text="name"
+                            item-value="id"
+                            v-model="returnTeamData.leader"
+                            hide-details
+                            return-object
+                            @change="onSelectLeader"
+                            color="#7879ff"
+                        >
+                        </v-select>
+                    </v-card-text>
+                    
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            text
+                            color="#7879ff"
+                            @click="onSubmitSelectedLeader"
+                        >
+                            {{lang.ok}}
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-container>
     </v-container>
 </template>
 
 <script>
+
+import lang from '~/helper/lang.json'
+import {mapGetters} from 'vuex'
 import {uploadImage} from '~/api/upload'
+import {createReturnTeam,} from '~/api/returnteam'
 
 export default {
 
     data: ()=> ({
+        lang,
         baseUrl:window.Laravel.base_url,
         isImageSelecting: false,
         selectedImageFile: null,
+        selectLeaderDialog: false,
         returnTeamData: {
             avatar: null,
             name: '',
@@ -164,6 +198,28 @@ export default {
             member: [],
         }
     }),
+
+    computed:{
+        ...mapGetters({
+            selectedGroup: 'member/selectedGroup',
+            returnTeamName: 'returnteam/name',
+            returnTeamAvatar: 'returnteam/avatar',
+            returnTeamLeader: 'returnteam/leader',
+        }),
+    },
+
+    created(){
+        this.returnTeamData.name = this.returnTeamName;
+        this.returnTeamData.avatar = this.returnTeamAvatar;
+        this.returnTeamData.leader = this.returnTeamLeader;
+
+        if(this.selectedGroup !== null){
+            if(this.selectedGroup.length == 0){
+                this.returnTeamData.leader = null;
+            }
+            this.returnTeamData.member = this.selectedGroup
+        }
+    },
 
     methods:{
         clickUploadImageBtn() {
@@ -195,8 +251,54 @@ export default {
             this.$refs.imageUploader.value = ''
         },
 
-        submit(){
+        async submit(){
+            if(this.returnTeamData.avatar == null){
+                return this.$snackbar.showMessage({content: "头像是空的", color: "error"})
+            }
+            if(this.returnTeamData.name == ''){
+                return this.$snackbar.showMessage({content: "归程队名称为空", color: "error"})
+            }
+            if(this.returnTeamData.member.length == 0){
+                return this.$snackbar.showMessage({content: "请选择归程团队成员", color: "error"})
+            }
+            if(this.returnTeamData.leader == null){
+                return this.$snackbar.showMessage({content: "请选择归程队组长", color: "error"})
+            }
             console.log(this.returnTeamData)
+            let payload = Object.assign({}, this.returnTeamData);
+            payload.leader = payload.leader.id;
+            let idArr = [];
+            payload.member.map( member => {
+                idArr.push(member.id);
+            })
+            payload.member = idArr;
+            console.log(payload);
+            await createReturnTeam(payload)
+            .then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                
+            });
+        },
+
+        navToAddMember(){
+            this.$store.dispatch('returnteam/storeReturnTeamName', this.returnTeamData.name);
+            this.$store.dispatch('returnteam/storeReturnTeamAvatar', this.returnTeamData.avatar);
+            this.$store.dispatch('returnteam/storeReturnTeamLeader', this.returnTeamData.leader);
+            this.$router.push({name: 'classSpace.addMemberName'})
+        },
+
+        openSelectLeaderDialog(){
+            this.selectLeaderDialog = true;
+
+        },
+
+        onSubmitSelectedLeader(){   
+            this.selectLeaderDialog = false;
+        },
+
+        onSelectLeader(val){
+            this.returnTeamData.leader = val;
         }
     }
 }

@@ -339,6 +339,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('alarm', 'AlarmController@updateAlarm');
     Route::delete('alarm', 'AlarmController@deleteAlarm');
 
+    //returnteam
+    Route::get('returnteam', 'ReturnTeamController@getReturnTeam');
+    Route::post('returnteam', 'ReturnTeamController@createReturnTeam');
+    Route::put('returnteam', 'ReturnTeamController@updateReturnTeam');
+    Route::delete('returnteam', 'ReturnTeamController@deleteReturnTeam');
+
     //get Guest 
     Route::get('guest', 'GuestController@getGuest');
     Route::put('guest', 'GuestController@updateGuest');
