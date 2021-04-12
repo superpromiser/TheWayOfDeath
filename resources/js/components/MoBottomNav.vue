@@ -6,27 +6,27 @@
             color="#7879ff"
             grow
             fixed
-            class="mo-glow-bg mo-bottom-nav"
+            class=" bg-secondary mo-bottom-nav"
         >
-            <v-btn fab class="mo-glow-small-shadow ml-3" @click="navToFirst">
+            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item ml-3" @click="navToFirst">
                 <span>首页</span>
                 <v-icon>mdi-home</v-icon>
             </v-btn>
-            <v-btn fab class="mo-glow-small-shadow mx-3 mr-auto" @click="navToSecond">
+            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item mx-3 mr-auto" @click="navToSecond">
                 <span>通讯录</span>
                 <v-icon>mdi-account-group</v-icon>
             </v-btn>
            
-            <v-btn fab class="mo-glow-small-shadow mx-3 ml-auto" @click="navToThird">
+            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item mx-3 ml-auto" @click="navToThird">
                 <span>圈子</span>
                 <v-icon>mdi-fire-hydrant</v-icon>
             </v-btn>
-            <v-btn fab class="mo-glow-small-shadow mr-3" @click="navToFourth">
+            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item mr-3" @click="navToFourth">
                 <span>我的</span>
                 <v-icon>mdi-account</v-icon>
             </v-btn>
         </v-bottom-navigation>
-         <v-btn fab dark class="position-absolute mo-bottom-nav-plut-btn" large color="#7879ff"
+         <v-btn fab dark depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff"
             @click="openSheet"
             >
             <v-icon>
@@ -143,7 +143,7 @@ export default {
                 }
                 else{
                     // this.value = -1
-                    let btnList = document.getElementsByClassName('mo-glow-small-shadow');
+                    let btnList = document.getElementsByClassName('mo-bottom-nav-btn-item');
                     for(let i = 0; i < btnList.length; i++){
                         btnList[i].classList.remove('v-btn--active');
                     }
