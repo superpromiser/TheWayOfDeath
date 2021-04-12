@@ -255,15 +255,12 @@ export default [
       {path:'classRecognition', name:'details.classRecognition', component:page('details/recognition/index.vue')},
     ]
   },
-  // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/12', name:'details.classQuesionnaire', component:page('details/questionnaire/index.vue')},
-  // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/13', name:'details.classVoting', component:page('details/voting/index.vue')},
-  // {path:'/schoolspace/:id/class/:gradeId/:classId/1postDetail/16', name:'details.classHomeVisit', component:page('details/homeVisit/index.vue')},
-  // {path:'/schoolspace/:id/class/:gradeId/:classId/1postDetail/17', name:'details.classNotification', component:page('details/notification/index.vue')},
-  // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/18', name:'details.classEvaluation', component:page('details/evaluation/index.vue')},
-  // {path:'/schoolspace/:id/class/:gradeId/:classId/postDetail/19', name:'details.classRecognition', component:page('details/recognition/index.vue')},
-
 
   //class application
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/questionnaire',name:'classSpace.applications.quesitonnaire',component:page('class/applications/questionnaire/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/voting',name:'classSpace.applications.voting',component:page('class/applications/voting/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/homework',name:'classSpace.applications.homework',component:page('class/applications/homework/index.vue')},
+
   //manage guest
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests/index.vue')},
   //return team

@@ -106,48 +106,48 @@ export default {
                         imgUrl : "/asset/img/newIcon/报名.png",
                         path : "posts.regname"
                     },
-                    {
-                        color : "#B673E0",
-                        title : "通讯录",//주소록
-                        imgUrl : "/asset/img/newIcon/通讯录.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "#B673E0",
+                    //     title : "通讯录",//주소록
+                    //     imgUrl : "/asset/img/newIcon/通讯录.png",
+                    //     path : "something"
+                    // },
                 ],
             },
             {
                 title : "校园文化",//교내문화
                 icon : "mdi-lifebuoy",
                 items : [
-                    {
-                        color : "#B673E0",
-                        title : "考勤",//출근
-                        imgUrl : "/asset/img/newIcon/课程表.png",
-                        path : "something"
-                    },
-                    {
-                        color : "#DA7042",
-                        title : "作业",//숙제
-                        imgUrl : "/asset/img/newIcon/作业.png",
-                        path : "posts.homework"
-                    },
-                    {
-                        color : "#3FB8E3",
-                        title : "班牌发布",//반표발포
-                        imgUrl : "/asset/img/newIcon/班牌发布.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "#B673E0",
+                    //     title : "考勤",//출근
+                    //     imgUrl : "/asset/img/newIcon/课程表.png",
+                    //     path : "something"
+                    // },
+                    // {
+                    //     color : "#DA7042",
+                    //     title : "作业",//숙제
+                    //     imgUrl : "/asset/img/newIcon/作业.png",
+                    //     path : "posts.homework"
+                    // },
+                    // {
+                    //     color : "#3FB8E3",
+                    //     title : "班牌发布",//반표발포
+                    //     imgUrl : "/asset/img/newIcon/班牌发布.png",
+                    //     path : "something"
+                    // },
                     {
                         color : "#7180EA",
                         title : "布告栏",//게시란
                         imgUrl : "/asset/img/newIcon/布告栏.png",
                         path : "posts.bulletinboard"
                     },
-                    {
-                        color : "#C95384",
-                        title : "学生风采",//학생풍채
-                        imgUrl : "/asset/img/newIcon/学生风采.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "#C95384",
+                    //     title : "学生风采",//학생풍채
+                    //     imgUrl : "/asset/img/newIcon/学生风采.png",
+                    //     path : "something"
+                    // },
                     
                 ],
             },
@@ -155,69 +155,69 @@ export default {
                 title : "家校互动",//가교호상활동
                 icon : "mdi-nfc-tap",
                 items : [
-                    {
-                        color : "#3EBBE8",
-                        title : "相册",//사진
-                        imgUrl : "/asset/img/newIcon/相册.png",
-                        path : "something"
-                    },
-                    {
-                        color : "#E4BC16",
-                        title : "习题",//련습문제
-                        imgUrl : "/asset/img/newIcon/习题.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "#3EBBE8",
+                    //     title : "相册",//사진
+                    //     imgUrl : "/asset/img/newIcon/相册.png",
+                    //     path : "something"
+                    // },
+                    // {
+                    //     color : "#E4BC16",
+                    //     title : "习题",//련습문제
+                    //     imgUrl : "/asset/img/newIcon/习题.png",
+                    //     path : "something"
+                    // },
                     {
                         color : "#DA7042",
                         title : "家访",//가정방문
                         imgUrl : "/asset/img/newIcon/家访.png",
                         path : "posts.homevisit"
                     },
-                    {
-                        color : "#7180EA",
-                        title : "提示",//제시
-                        imgUrl : "/asset/img/newIcon/提示.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "#7180EA",
+                    //     title : "提示",//제시
+                    //     imgUrl : "/asset/img/newIcon/提示.png",
+                    //     path : "something"
+                    // },
                     
                 ],
             },
-            {
-                title : "智能考勤",//지능출근
-                icon : "mdi-calendar-month-outline",
-                items : [
-                    {
-                        color : "#98BB3A",
-                        title : "请假",//휴가
-                        imgUrl : "/asset/img/newIcon/请假单.png",
-                        path : "posts.vocation"
-                    },
-                    {
-                        color : "#E4BC16",
-                        title : "话题",//화제
-                        imgUrl : "/asset/img/newIcon/话题.png",
-                        path : "something"
-                    },
-                ],
-            },
-            {
-                title : "工具",//공구
-                icon : "mdi-hammer-wrench",
-                items : [
-                    {
-                        color : "#98BB3A",
-                        title : "我的",//나의
-                        imgUrl : "/asset/img/newIcon/我的.png",
-                        path : "profile.list"
-                    },
-                    {
-                        color : "#7180EA",
-                        title : "话题",//화제
-                        imgUrl : "/asset/img/newIcon/话题.png",
-                        path : "something"
-                    },
-                ],
-            },
+            // {
+            //     title : "智能考勤",//지능출근
+            //     icon : "mdi-calendar-month-outline",
+            //     items : [
+            //         {
+            //             color : "#98BB3A",
+            //             title : "请假",//휴가
+            //             imgUrl : "/asset/img/newIcon/请假单.png",
+            //             path : "posts.vocation"
+            //         },
+            //         {
+            //             color : "#E4BC16",
+            //             title : "话题",//화제
+            //             imgUrl : "/asset/img/newIcon/话题.png",
+            //             path : "something"
+            //         },
+            //     ],
+            // },
+            // {
+            //     title : "工具",//공구
+            //     icon : "mdi-hammer-wrench",
+            //     items : [
+            //         {
+            //             color : "#98BB3A",
+            //             title : "我的",//나의
+            //             imgUrl : "/asset/img/newIcon/我的.png",
+            //             path : "profile.list"
+            //         },
+            //         {
+            //             color : "#7180EA",
+            //             title : "话题",//화제
+            //             imgUrl : "/asset/img/newIcon/话题.png",
+            //             path : "something"
+            //         },
+            //     ],
+            // },
         ]
     }),
 

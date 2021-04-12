@@ -18,7 +18,7 @@ class CreateQuestionnairesTable extends Migration
             $table->string('title');
             $table->string('desc');
             $table->json('viewList');
-            $table->dateTime('deadline');
+            $table->char('deadline');
             $table->boolean('questionnaireFlag');
             $table->boolean('resultFlag');
             $table->boolean('answerFlag');

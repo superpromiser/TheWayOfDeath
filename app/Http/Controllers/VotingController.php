@@ -16,16 +16,29 @@ class VotingController extends Controller
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
-        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 2])
-            ->with([
-                'likes',
-                'views',
-                'comments',
-                'votings',
-                'users:id,name'
-            ])
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        if ($request->lessonId) {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 13])
+                ->with([
+                    'likes',
+                    'views',
+                    'comments',
+                    'votings',
+                    'users:id,name'
+                ])
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        } else {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 2])
+                ->with([
+                    'likes',
+                    'views',
+                    'comments',
+                    'votings',
+                    'users:id,name'
+                ])
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        }
     }
 
     public function createVotingData(Request $request)
