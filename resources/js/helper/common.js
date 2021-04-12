@@ -214,5 +214,18 @@ export default{
             }
             return province + ' ' + city + ' ' + region + ' ' + address.detail;
         },
+
+        isToday(someDate){
+            let date = new Date(someDate);
+            const today = new Date()
+            if (date.getDate() == today.getDate() &&
+                date.getMonth() == today.getMonth() &&
+                date.getFullYear() == today.getFullYear()){
+                    return true
+                }
+            else{
+                return false
+            }
+        }
     }
 }

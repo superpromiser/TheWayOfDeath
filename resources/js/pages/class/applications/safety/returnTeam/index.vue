@@ -11,10 +11,10 @@
                         </a>
                         <span style="font-size:30px;line-height:2">归程队管理</span> 
                         <div class="float-right">
-                            <v-btn dark color="#333333">
+                            <v-btn dark color="#333333" link :to="{name: 'classSpace.remainReturnTeam'}">
                                 历史留堂
                             </v-btn>
-                            <v-btn dark class="mx-5" color="#feb31a">
+                            <v-btn dark class="mx-5" color="#feb31a" link :to="{name: 'classSpace.detailReturnTeam', params:{ teamData: remainTeam}}">
                                 发布留堂信息
                             </v-btn>
                             <v-btn dark color="#7879ff" link :to="{name: 'classSpace.newReturnTeam'}">
@@ -25,20 +25,127 @@
                 </v-col>
             </v-row>
         </v-banner>
-        <v-row class="ma-0">
-            <v-col cols="12" class="d-flex justify-end align-center">
-                
-            </v-col>
-        </v-row>
+        <v-container v-if="isLoading" class="d-flex align-center justify-center">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </v-container>
+        <v-container v-else-if="noData" class="d-flex justify-center align-center">
+            <v-chip class="ma-2" color="primary" outlined pill >
+                没有数据
+                <v-icon right>
+                mdi-cancel 
+                </v-icon>
+            </v-chip>
+        </v-container>
+        <v-container v-else class="pa-0">
+            <v-row  v-if="returnTeam.name !==  '留堂成员'" class="ma-0 py-3 hover-cursor-point" v-ripple v-for="(returnTeam, i) in todayReturnTeamArr" :key="i" @click="navToDetail(returnTeam)">
+                <v-col cols="12" class="d-flex justify-space-between align-center">
+                    <div class="d-flex align-center">
+                        <v-avatar size="50" :color="returnTeam.name == '' && returnTeam.avatar == null ? '#999999': '#49d29e'">
+                            <v-img v-if="returnTeam.avatar !== null" :src="`${baseUrl}${returnTeam.avatar}`"> </v-img>
+                            <span v-else-if="returnTeam.name !== ''" class="white--text headline">{{returnTeam.name[0]}}</span>
+                            <v-icon v-else dark >
+                                mdi-account
+                            </v-icon>
+                        </v-avatar>
+                        <p class="mb-0 ml-4"  >{{returnTeam.name}} </p>
+                    </div>
+                    <v-icon class="ml-4" color="#999999" size="40">
+                        mdi-chevron-right
+                    </v-icon>
+                </v-col>
+                <v-divider light></v-divider>
+            </v-row>
+            <v-divider v-if="remainTeam !== null" light class="thick-border"></v-divider>
+            <v-row  v-if="remainTeam !== null" class="ma-0 py-3 hover-cursor-point" v-ripple @click="navToDetail(remainTeam)">
+                <v-col cols="12" class="d-flex justify-space-between align-center">
+                    <div class="d-flex align-center">
+                        <v-avatar size="50" :color="remainTeam.name == '' && remainTeam.avatar == null ? '#999999': '#49d29e'">
+                            <span  class="white--text headline">留</span>
+                        </v-avatar>
+                        <p class="mb-0 ml-4"  >{{remainTeam.name}} </p>
+                    </div>
+                    <v-icon class="ml-4" color="#999999" size="40">
+                        mdi-chevron-right
+                    </v-icon>
+                </v-col>
+            </v-row>
+        </v-container>
     </v-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { getReturnTeam } from '~/api/returnteam';
 
 export default {
     components:{
         
     },
+
+    computed:{
+        ...mapGetters({
+            todayReturnTeamArr: 'returnteam/todayReturnTeamArr'
+        })
+    },
+
+    data: ()=> ({
+        baseUrl: window.Laravel.base_url,
+        remainTeam: null,
+        isLoading: false,
+        noData: false,
+        remainTeamArr: [],
+    }),
+
+    async created(){
+        console.log("this.todayReturnTeamArr", this.todayReturnTeamArr);
+        if(this.todayReturnTeamArr == null){
+            let todayTeamArr = [];
+            let remainTeamArr = [];
+            this.isLoading = true;
+            await getReturnTeam()
+            .then((res) => {
+                console.log(res)
+                res.data.returnTeamArr.map(returnTeam=>{
+                    if(this.isToday(returnTeam.updated_at) == true){
+                        todayTeamArr.push(returnTeam);
+                        if(returnTeam.name == '留堂成员'){
+                            this.$set(returnTeam, "checkbox", false);
+                            this.$set(returnTeam, "isDelete", false);
+                            this.remainTeam = returnTeam;
+                        }
+                    }
+                    if(returnTeam.name == '留堂成员'){
+                        remainTeamArr.push(returnTeam);
+                    }
+                });
+    
+                if(todayTeamArr.length == 0){
+                    this.noData = true;
+                }
+                this.$store.dispatch('returnteam/storeRemainTeamArr', remainTeamArr);
+                this.$store.dispatch('returnteam/storeTodayReturnTeamArr', todayTeamArr);
+            }).catch((err) => {
+                
+            }); 
+            this.isLoading = false;
+        }
+        else{
+            this.todayReturnTeamArr.map(x=>{
+                if(x.name == '留堂成员'){
+                    this.remainTeam = x;
+                }
+            });
+        }
+    },
+
+    methods:{
+        navToDetail(returnTeam){
+            this.$router.push({name: 'classSpace.detailReturnTeam', params: {teamData: returnTeam}});
+        }
+    }
 }
 </script>
 
