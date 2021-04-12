@@ -3,7 +3,20 @@
     {{ message }}
     <v-btn text @click="show = false">Close</v-btn>
   </v-snackbar> -->
+  <v-snackbar v-if="$isMobile()"
+        timeout="3000"
+        v-model="show"
+        color="#999999"
+        rounded="pill"
+        absolute
+        dark
+        top
+        class="z-index-10 position-fixed mo-snackbar"
+        >
+        {{ message }}
+    </v-snackbar>
   <v-snackbar
+        v-else
         timeout="3000"
         v-model="show"
         :color="color"

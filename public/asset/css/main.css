@@ -1094,3 +1094,16 @@ a {
 .bg-secondary{
     background-color: #F2F2F2!important;
 }
+
+.mo-snackbar.v-snack .v-snack__wrapper{
+    box-shadow: none!important;
+    min-height: fit-content!important;
+    min-width: fit-content!important;
+}
+
+.mo-snackbar.v-snack .v-snack__wrapper .v-snack__content{
+    font-size: 0.75rem!important;
+    padding: 10px 10px 10px 17px!important;
+    line-height: 1rem!important;
+    text-align: center!important;
+}

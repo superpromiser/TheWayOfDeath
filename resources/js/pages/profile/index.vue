@@ -1,5 +1,9 @@
 <template>
-    <v-container v-if="$isMobile()" class="pa-0">
+    <v-container v-if="$isMobile()" class="pa-0 h-100" 
+    v-touch="{
+      left: () => swipe('Left'),
+      right: () => swipe('Right'),
+    }">
         <v-row class="ma-0 pt-10">
             <v-col cols="12" class="d-flex justify-space-between align-center pb-0">
                 <div class="d-flex align-center">
@@ -30,7 +34,7 @@
         </v-row>
         <v-divider light class="thick-border"></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
                     <v-icon color="#3989fc">
                         mdi-cellphone
@@ -44,7 +48,7 @@
         </v-row>
         <v-divider light class="thick-border"></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
                     <v-icon color="#49d29e">
                         mdi-wechat 
@@ -58,7 +62,7 @@
         </v-row>
         <v-divider light ></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
                     <v-icon color="#3989fc">
                         mdi-qqchat
@@ -72,7 +76,7 @@
         </v-row>
         <v-divider light ></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
                     <v-icon color="#49d29e">
                         mdi-lock-outline
@@ -86,7 +90,7 @@
         </v-row>
         <v-divider light ></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
                     <v-icon color="#feb31a">
                         mdi-folder-outline
@@ -100,7 +104,7 @@
         </v-row>
         <v-divider light class=" thick-border"></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
                     <v-icon color="#7879ff">
                         mdi-book-outline
@@ -114,7 +118,7 @@
         </v-row>
         <v-divider light ></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
                     <v-icon color="#F19861">
                         mdi-share-variant-outline
@@ -128,7 +132,7 @@
         </v-row>
         <v-divider light class=" thick-border"></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
                     <v-icon color="#7879ff">
                         mdi-cog-outline
@@ -141,6 +145,33 @@
             </v-col>
         </v-row>
         <v-divider light ></v-divider>
+        <v-row class="ma-0">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="openLogoutDialog">
+                <div class="d-flex align-center">
+                    <v-icon color="#eb5846">
+                        mdi-logout
+                    </v-icon>
+                    <p class="mb-0 font-size-0-75 ml-3">登出</p>
+                </div>
+                <v-icon>
+                    mdi-chevron-right
+                </v-icon>
+            </v-col>
+        </v-row>
+        <v-dialog v-model="logoutDialog"  width="100%" max-width="500" >
+            <v-card>
+                <v-card-title class="title"> <v-icon color="#F19861" class="mr-2">mdi-alert-circle</v-icon> 您确定要注销吗？ </v-card-title>
+                 <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn outlined rounded plain color="#feb31a" @click="closeLogoutDialog " >
+                        {{lang.cancel}}
+                    </v-btn>
+                    <v-btn outlined rounded plain color="#eb5846" @click="logout " :loading="isLogout" >
+                        {{lang.ok}}
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-container>
     <v-container v-else class="pa-0">
         <RouterBack title="我的"></RouterBack>
@@ -151,6 +182,7 @@
 </template>
 
 <script>
+import lang from '~/helper/lang.json'
 import { mapGetters } from 'vuex';
 import {uploadImage} from '~/api/upload'
 import {updateProfile} from '~/api/user'
@@ -166,6 +198,7 @@ export default {
         }),
     },
     data: ()=> ({
+        lang,
         baseUrl: window.Laravel.base_url,
         isActiveStatus: false,
         isActivePhone: false,
@@ -177,6 +210,8 @@ export default {
 
         selectedImageFile: null,
         isImageSelecting: false,
+        logoutDialog: false,
+        isLogout: false,
     }),
     methods:{
         onClickStatus(){
@@ -251,7 +286,32 @@ export default {
             }).catch((err) => {
                 
             });
-        }
+        },
+
+        swipe (direction) {
+            console.log("direction", direction)
+            if(direction == "Right"){
+                this.$router.push({name: 'circle'});
+            }
+        },
+
+        openLogoutDialog(){
+            this.logoutDialog = true;
+        },
+
+        closeLogoutDialog(){
+            this.logoutDialog = false;
+        },
+
+        async logout(){
+            this.isLogout = true;
+            // Log out the user.
+            await this.$store.dispatch('auth/logout')
+            this.isLogout = false;
+            // Redirect to login.
+            this.$router.push({ name: 'login' })
+        },
+
     },
 }
 </script>
