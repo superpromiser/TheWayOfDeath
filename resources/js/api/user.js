@@ -63,6 +63,11 @@ function getPostItem(){
 function updateProfile(payload){
     return axios.put('/api/v1/user/profile', payload);
 }
+
+function getEmployeeList(){
+    return axios.get('/api/v1/employee')
+}
+
 export{
     createStaff,
     updateStaff,
@@ -80,6 +85,7 @@ export{
     postChooseableClassItem,
     getPostItem,
     updateProfile,
-    addGroupMember
+    addGroupMember,
+    getEmployeeList,
 
 }

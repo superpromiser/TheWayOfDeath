@@ -135,6 +135,7 @@ export default [
       {path:'setRule', name:'homework.setRule',component:page('school/posts/homework/rule.vue')},
     ]
   },
+  {path:'/schoolSpace/:schoolId/post/shiftMng', name:'posts.shift', component:page('school/posts/shiftManagement/index.vue')},
   
   {path:'/schoolSpace/:schoolId/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
 
@@ -149,6 +150,7 @@ export default [
   {path:'/schoolSpace/:schoolId/application/regName',name:'schoolSpace.applications.regname',component:page('school/applications/regName/index.vue')},
   {path:'/schoolSpace/:schoolId/application/homework',name:'schoolSpace.applications.homework',component:page('school/applications/homework/index.vue')},
   {path:'/schoolSpace/:schoolId/application/bulletinboard',name:'schoolSpace.applications.bulletinboard',component:page('school/applications/bulletinboard/index.vue')},
+  {path:'/schoolSpace/:schoolId/application/shiftMng',name:'schoolSpace.applications.shiftMng',component:page('school/applications/shiftMng/index.vue')},
 
     //school member
   {path:'/schoolSpace/:schoolId/member/add',name:'schoolSpace.addMember',component:page('member/addMember.vue')},
@@ -199,6 +201,7 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/evaluation', name:'posts.Cevaluation', component:page('class/posts/evaluation/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/recognition', name:'posts.Crecognition', component:page('class/posts/recognition/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/album', name:'posts.Calbum', component:page('class/posts/album/new.vue')},
+  
   //class member  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/invite',name:'classSpace.inviteMember',component:page('member/inviteMember.vue')},

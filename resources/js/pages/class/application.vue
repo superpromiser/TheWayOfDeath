@@ -166,7 +166,7 @@ export default {
                         color : "#98BB3A",
                         title : "交接班管理",//Shift management
                         imgUrl : "/asset/img/newIcon/交接班.png",
-                        path : "posts.campus"
+                        path : "posts.Cshift"
                     },
                     {
                         color : "#7180EA",

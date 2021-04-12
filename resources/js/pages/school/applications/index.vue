@@ -217,6 +217,30 @@ export default {
             //         },
             //     ],
             // },
+            {
+                title : "校园安全", //safety
+                icon : "mdi-message-text",
+                items : [
+                    {
+                        color : "#98BB3A",
+                        title : "交接班管理",//Shift management
+                        imgUrl : "/asset/img/newIcon/交接班.png",
+                        path : "schoolSpace.applications.shiftMng"
+                    },
+                    {
+                        color : "#7180EA",
+                        title : "维修工单",//Repair work order
+                        imgUrl : "/asset/img/newIcon/维修工单.png",
+                        path : "posts.announcement"
+                    },
+                    {
+                        color : "#DA7042",
+                        title : "请假放行", //Ask for leave
+                        imgUrl : "/asset/img/newIcon/闸机.png",
+                        path : "posts.share"
+                    },
+                ],
+            },
         ]
     }),
 

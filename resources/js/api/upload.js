@@ -14,12 +14,10 @@ function deleteFile(payload){
     // return axios.delete( "/api/fileUpload/file?fileName=" + leagueImage, {headers: {"Authorization" : `Bearer ${token}`} },  )
 }
 
-
-
 export{
     uploadImage,
     uploadVideo,
     uploadOther,
     deleteFile,
-
+  
 }
