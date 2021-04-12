@@ -95,6 +95,8 @@ export default [
       {path:'homevisit', name:'details.homeVisit', component:page('details/homeVisit/index.vue')},
       {path:'regnameResult', name:'details.regnameResult', component:page('details/regname/result.vue')},
       {path:'regnameAnswer', name:'details.regnameAnswer', component:page('details/regname/answer.vue')},
+      {path:'shiftMng', name:'details.shiftMng', component:page('details/shiftMng/index.vue')},
+      {path:'safeStudy', name:'details.safeStudy', component:page('details/safeStudy/index.vue')},
     ]
   },
   
@@ -136,6 +138,7 @@ export default [
     ]
   },
   {path:'/schoolSpace/:schoolId/post/shiftMng', name:'posts.shift', component:page('school/posts/shiftManagement/index.vue')},
+  {path:'/schoolSpace/:schoolId/post/safeStudy', name:'posts.safeStudy', component:page('school/posts/safeStudy/index.vue')},
   
   {path:'/schoolSpace/:schoolId/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
 
@@ -151,6 +154,7 @@ export default [
   {path:'/schoolSpace/:schoolId/application/homework',name:'schoolSpace.applications.homework',component:page('school/applications/homework/index.vue')},
   {path:'/schoolSpace/:schoolId/application/bulletinboard',name:'schoolSpace.applications.bulletinboard',component:page('school/applications/bulletinboard/index.vue')},
   {path:'/schoolSpace/:schoolId/application/shiftMng',name:'schoolSpace.applications.shiftMng',component:page('school/applications/shiftMng/index.vue')},
+  {path:'/schoolSpace/:schoolId/application/safeStudy',name:'schoolSpace.applications.safeStudy',component:page('school/applications/safeStudy/index.vue')},
 
     //school member
   {path:'/schoolSpace/:schoolId/member/add',name:'schoolSpace.addMember',component:page('member/addMember.vue')},

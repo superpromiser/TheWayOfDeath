@@ -46,11 +46,11 @@
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <v-row>
                         <v-col cols="6">
-                            <p class="mb-0"  >归程队成员</p>
+                            <p class="mb-0"  >交接时间</p>
                         </v-col>
                         <v-col cols="6">
                             <v-datetime-picker 
-                                label="最后期限" 
+                                label="交接时间" 
                                 v-model="shiftData.scheduleDate"
                                 :okText='lang.ok'
                                 :clearText='lang.cancel'

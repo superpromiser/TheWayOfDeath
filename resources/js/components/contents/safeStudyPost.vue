@@ -1,11 +1,11 @@
 <template>
   <v-container>
-    <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail">
+    <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
       <v-avatar class="ma-3 school-card-avatar" tile >
-        <v-img :src="`${baseUrl}/asset/img/newIcon/交接班.png`" alt="postItem" ></v-img>
+        <v-img :src="`${baseUrl}/asset/img/newIcon/闸机.png`" alt="postItem" ></v-img>
       </v-avatar>
       <div>
-        <p class="font-weight-black fs-15 mb-3"> 交接班管理  </p>
+        <p class="font-weight-black fs-15 mb-3"> {{lang.safeStudy}}  </p>
         <div class="d-flex align-center">
           <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
           <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
@@ -32,30 +32,14 @@
       </div>
     </v-col>
     <v-col cols="12" class="pl-10 pt-0">
-        <div class="d-flex align-center">
-            <p class="text-wrap mb-0">
-            <strong>姓名:</strong>
-            {{content.shift_mng.prevName}}
-            </p>
-        </div>
-        <div class="d-flex align-center">
-            <p class="text-wrap mb-0">
-            <strong>交接人姓名:</strong>
-            {{content.shift_mng.nextName}}
-            </p>
-        </div>
-        <div class="d-flex align-center">
-            <p class="text-wrap mb-0">
-            <strong>归程队成员:</strong>
-            {{TimeViewSam(content.shift_mng.scheduleDate)}}
-            </p>
-        </div>
-        <div class="d-flex align-center">
-            <p class="text-wrap mb-0">
-            <strong>交接物品:</strong>
-            {{content.shift_mng.itemList}}
-            </p>
-        </div>
+      <v-row>
+        <v-col cols="12">
+          <p class="text-wrap"><read-more more-str="全文" :text="shareData[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+        </v-col>
+        <v-col cols="12" v-if="checkIfAttachExist(shareData[0])">
+          <AttachItemViewer :items="shareData[0]" />
+        </v-col>
+      </v-row>
     </v-col>
   </v-container>
 </template>
@@ -77,16 +61,16 @@ export default {
     data:() => ({
         lang,
         baseUrl:window.Laravel.base_url,
-        smsData: {},
+        shareData: {},
     }),
-    
     created(){
+      this.shareData = JSON.parse(this.content.safestudy.content);
     },
     methods:{
 
-      showDetail(){
-        this.$store.dispatch('content/storePostDetail',this.content)
-        this.$router.push({name:'details.shiftMng'});
+      showDetail(content){
+        this.$store.dispatch('content/storePostDetail',content)
+        this.$router.push({name:'details.safeStudy'});
       },
       
     }

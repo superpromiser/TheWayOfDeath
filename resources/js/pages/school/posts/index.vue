@@ -236,9 +236,9 @@ export default {
                     },
                     {
                         color : "#DA7042",
-                        title : "请假放行", //Ask for leave
+                        title : "安全教育", //Ask for leave
                         imgUrl : "/asset/img/newIcon/闸机.png",
-                        path : "posts.share"
+                        path : "posts.safeStudy"
                     },
                 ],
             },

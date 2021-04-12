@@ -8,7 +8,18 @@
                             mdi-chevron-left
                         </v-icon>
                     </a>
-                    <h2>接班管理</h2>
+                <!-- </v-col>
+                <v-col> -->
+                    <!-- <v-avatar
+                        class="ma-3 ml-3"
+                        size="50"
+                        tile
+                    >
+                        <v-img :src="`${baseUrl}/asset/img/newIcon/问卷.png`" alt="postItem" ></v-img>
+                    </v-avatar> -->
+                    <h2>{{lang.safeStudy}}</h2>
+                <!-- </v-col>
+                <v-col> -->
                     <v-btn
                         tile
                         color="success"
@@ -23,9 +34,10 @@
                 </v-col>
             </v-row>
         </v-banner>
+        <!-- <v-divider class="thick-border"></v-divider> -->
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
             <v-row class="pa-0 mt-1">
-                <ShfitMngPost :content="content"></ShfitMngPost>
+                <SafeStudyPost :content="content"></SafeStudyPost>
                 <FooterPost :footerInfo='content'></FooterPost>
             </v-row>
         </v-container>
@@ -112,14 +124,14 @@
 
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
-import {getShiftMng} from '~/api/shiftMng';
-import ShfitMngPost from '~/components/contents/shiftMngPost'
+import {getSafeStudy} from '~/api/safeStudy';
+import SafeStudyPost from '~/components/contents/safeStudyPost'
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
 export default {
     components:{
         InfiniteLoading,
-        ShfitMngPost,
+        SafeStudyPost,
         FooterPost
     },
     data:()=>({
@@ -146,9 +158,8 @@ export default {
                 timeOut = 1000;
             }
             let vm = this;
-            await getShiftMng({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId})
+            await getSafeStudy({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId})
             .then(res=>{
-                console.log("res.dat",res.data)
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
                     $state.complete();
                     return;
@@ -169,7 +180,7 @@ export default {
             this.isLoadingContents = false;
         },
         post(){
-            this.$router.push({name:"posts.shift"})
+            this.$router.push({name:"posts.safeStudy"})
         }
     }
 }
