@@ -497,6 +497,8 @@ export default {
                     console.log(i)
                 }else if(i == 48){
                     console.log(i)
+                }else if(i == 49){
+                    console.log(i)
                 }
             }
         }
