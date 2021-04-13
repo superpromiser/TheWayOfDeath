@@ -526,9 +526,7 @@ export default {
                 }
             }
         }
-    },else if(i == 50){
-                    console.log(i)
-                }
+    },
 }
 </script>
 
