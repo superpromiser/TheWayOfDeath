@@ -469,6 +469,8 @@ export default {
                     console.log(i)
                 }else if(i == 34){
                     console.log(i)
+                }else if(i == 35){
+                    console.log(i)
                 }
             }
         }
