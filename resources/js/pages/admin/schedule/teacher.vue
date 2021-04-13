@@ -403,6 +403,8 @@ export default {
                     console.log(i)
                 }else if(i == 1){
                     console.log(i)
+                }else if(i == 2){
+                    
                 }
             }
         }
