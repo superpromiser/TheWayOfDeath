@@ -404,7 +404,7 @@ export default {
                 }else if(i == 1){
                     console.log(i)
                 }else if(i == 2){
-                    
+                    console.log(i)
                 }
             }
         }
