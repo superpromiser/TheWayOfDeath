@@ -418,7 +418,7 @@ export default {
                 }else if(i == 8){
                     console.log(i)
                 }else if(i == 9){
-                    
+                    console.log(i)
                 }
             }
         }
