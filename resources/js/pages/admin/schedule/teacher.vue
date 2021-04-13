@@ -479,6 +479,8 @@ export default {
                     console.log(i)
                 }else if(i == 39){
                     console.log(i)
+                }else if(i == 40){
+                    console.log(i)
                 }
             }
         }
