@@ -413,6 +413,8 @@ export default {
                     console.log(i)
                 }else if(i == 6){
                     console.log(i)
+                }else if(i == 7){
+                    
                 }
             }
         }
