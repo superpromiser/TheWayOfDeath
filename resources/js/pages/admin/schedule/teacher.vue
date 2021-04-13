@@ -402,7 +402,7 @@ export default {
                 if(i==0){
                     console.log(i)
                 }else if(i == 1){
-                    
+                    console.log(i)
                 }
             }
         }
