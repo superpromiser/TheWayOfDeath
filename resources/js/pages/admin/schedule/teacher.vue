@@ -451,6 +451,8 @@ export default {
                     console.log(i)
                 }else if(i == 25){
                     console.log(i)
+                }else if(i == 26){
+                    console.log(i)
                 }
             }
         }
