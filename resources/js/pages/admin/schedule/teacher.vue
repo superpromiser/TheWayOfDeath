@@ -463,6 +463,8 @@ export default {
                     console.log(i)
                 }else if(i == 31){
                     console.log(i)
+                }else if(i == 32){
+                    console.log(i)
                 }
             }
         }
