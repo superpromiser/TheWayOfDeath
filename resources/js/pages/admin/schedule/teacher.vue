@@ -411,6 +411,8 @@ export default {
                     console.log(i)
                 }else if(i ==5){
                     console.log(i)
+                }else if(i == 6){
+                    
                 }
             }
         }
