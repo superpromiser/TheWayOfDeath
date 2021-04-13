@@ -40,6 +40,9 @@ export default [
     ]
   },
 
+  //mo profile
+  { path: '/profile/passwordMo', name: 'profile.passwordMo', component: page('profile/passwordMo.vue')},
+
   //school safety
   {path:'/guest/request', name:'guestRequest', component:page('safety/guestRequest.vue')},
 
@@ -276,6 +279,8 @@ export default [
   //return team
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam', name:'classSpace.returnTeam', component:page('class/applications/safety/returnTeam/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/new', name:'classSpace.newReturnTeam', component:page('class/applications/safety/returnTeam/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/detail', name:'classSpace.detailReturnTeam', component:page('class/applications/safety/returnTeam/detail.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/remain', name:'classSpace.remainReturnTeam', component:page('class/applications/safety/returnTeam/remain.vue')},
 
   //addMember
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/addMember', name:'classSpace.addMemberName', component:page('class/addMember.vue')},

@@ -1,12 +1,24 @@
 <template>
-    <v-container class="ma-0 pa-0" v-if="$isMobile()">
+    <v-container class="ma-0 pa-0">
+        <v-row class="ma-0">
+            <v-col cols="12" class="d-flex align-center">
+                <a @click="$router.go(-1)">
+                    <v-icon size="30">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+                <v-spacer></v-spacer>
+                <h3>修改密码</h3>
+                <v-spacer></v-spacer>
+            </v-col>
+        </v-row>
         <v-row class="ma-0 ">
             <v-col cols="12">
                 <v-text-field
-                    solo
+                    color="#7879ff"
                     v-model="oldPassword"
                     label="请输入旧密码"
-                    prepend-inner-icon="mdi-key-chain-variant"
+                    prepend-icon="mdi-key-chain-variant"
                     :append-icon="showOldPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showOldPassword ? 'text' : 'password'"
                     @click:append="showOldPassword = !showOldPassword"
@@ -16,12 +28,12 @@
         <v-row class="ma-0">
             <v-col cols="12">
                 <v-text-field
-                    solo
+                    color="#7879ff"
                     v-model="newPassword"
                     label="请输入新密码"
                     hint="密码长度8-32位，且必须包含大小写字母/数字/符号任意三者组合，如：Ab123567、Aa@1234+"
                     counter
-                    prepend-inner-icon="mdi-key-chain-variant"
+                    prepend-icon="mdi-key-chain-variant"
                     :append-icon="showNewPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showNewPassword ? 'text' : 'password'"
                     @click:append="showNewPassword = !showNewPassword"
@@ -31,10 +43,10 @@
         <v-row class="ma-0">
             <v-col cols="12">
                 <v-text-field
-                    solo
+                    color="#7879ff"
                     v-model="newPasswordConfirm"
                     label="请再次输入新密码"
-                    prepend-inner-icon="mdi-key-chain-variant"
+                    prepend-icon="mdi-key-chain-variant"
                     :append-icon="showNewPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showNewPasswordConfirm ? 'text' : 'password'"
                     @click:append="showNewPasswordConfirm = !showNewPasswordConfirm"
@@ -42,58 +54,8 @@
             </v-col>
         </v-row>
         <v-row class="ma-0">
-            <v-col cols="12">
-                <v-btn color="#feb31a" dark class="ml-auto" @click="updatePassword" :loading="isUpdatingPassword">  
-                    修改密码
-                </v-btn>
-            </v-col>
-        </v-row>
-    </v-container>
-    <v-container class="ma-0 pa-0" v-else>
-        <v-row class="ma-0 ">
-            <v-col cols="12" sm="8" md="6" class="mx-auto">
-                <v-text-field
-                    solo
-                    v-model="oldPassword"
-                    label="请输入旧密码"
-                    prepend-inner-icon="mdi-key-chain-variant"
-                    :append-icon="showOldPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="showOldPassword ? 'text' : 'password'"
-                    @click:append="showOldPassword = !showOldPassword"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0">
-            <v-col cols="12" sm="8" md="6" class="mx-auto">
-                <v-text-field
-                    solo
-                    v-model="newPassword"
-                    label="请输入新密码"
-                    hint="密码长度8-32位，且必须包含大小写字母/数字/符号任意三者组合，如：Ab123567、Aa@1234+"
-                    counter
-                    prepend-inner-icon="mdi-key-chain-variant"
-                    :append-icon="showNewPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="showNewPassword ? 'text' : 'password'"
-                    @click:append="showNewPassword = !showNewPassword"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0">
-            <v-col cols="12" sm="8" md="6" class="mx-auto">
-                <v-text-field
-                    solo
-                    v-model="newPasswordConfirm"
-                    label="请再次输入新密码"
-                    prepend-inner-icon="mdi-key-chain-variant"
-                    :append-icon="showNewPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="showNewPasswordConfirm ? 'text' : 'password'"
-                    @click:append="showNewPasswordConfirm = !showNewPasswordConfirm"
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0">
-            <v-col cols="12" sm="8" md="6" class="mx-auto">
-                <v-btn color="#feb31a" dark class="ml-auto" @click="updatePassword" :loading="isUpdatingPassword">  
+            <v-col cols="12" class="d-flex align-center justify-center">
+                <v-btn color="#7879ff" tile dark @click="updatePassword" :loading="isUpdatingPassword">  
                     修改密码
                 </v-btn>
             </v-col>
@@ -168,6 +130,7 @@ export default {
                     this.oldPassword = '';
                     this.newPassword = '';
                     this.newPasswordConfirm = '';
+                    this.$router.push({name: 'profile'});
                 }
                 else if(res.data.msg == 0){
                     this.$snackbar.showMessage({content: "旧密码和新密码不匹配", color: "error"})

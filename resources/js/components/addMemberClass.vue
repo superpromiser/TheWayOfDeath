@@ -126,7 +126,7 @@ export default {
             await getSchoolMemberList({
                 schoolId:this.currentPath.params.schoolId,
                 lessonId: lessonId,
-                roleId: this.currentPath.query.roleId
+                roleId: 5
             })
             .then(res => {
                 if(res.data.length == 0){

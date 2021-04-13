@@ -9,9 +9,9 @@
                                 mdi-chevron-left
                             </v-icon>
                         </a>
-                        <span style="font-size:30px;line-height:2">归程队管理</span> 
+                        <span style="font-size:30px;line-height:2">新建归程队</span> 
                         <div class="float-right">
-                            <v-btn dark color="#7879ff" @click="submit">
+                            <v-btn dark color="#7879ff" @click="submit" :loading="isCreating">
                                 新建归程队
                             </v-btn>
                         </div>
@@ -196,7 +196,8 @@ export default {
             teacher: null,
             leader: null,
             member: [],
-        }
+        },
+        isCreating: false,
     }),
 
     computed:{
@@ -205,6 +206,7 @@ export default {
             returnTeamName: 'returnteam/name',
             returnTeamAvatar: 'returnteam/avatar',
             returnTeamLeader: 'returnteam/leader',
+            todayReturnTeamArr: 'returnteam/todayReturnTeamArr'
         }),
     },
 
@@ -255,8 +257,11 @@ export default {
             if(this.returnTeamData.avatar == null){
                 return this.$snackbar.showMessage({content: "头像是空的", color: "error"})
             }
-            if(this.returnTeamData.name == ''){
+            if(this.returnTeamData.name.trim() == ''){
                 return this.$snackbar.showMessage({content: "归程队名称为空", color: "error"})
+            }
+            if(this.returnTeamData.name.trim() == '留堂成员'){
+                return this.$snackbar.showMessage({content: "请将该名称设置为其他名称", color: "error"})
             }
             if(this.returnTeamData.member.length == 0){
                 return this.$snackbar.showMessage({content: "请选择归程团队成员", color: "error"})
@@ -273,12 +278,28 @@ export default {
             })
             payload.member = idArr;
             console.log(payload);
+            this.isCreating = true;
             await createReturnTeam(payload)
             .then((res) => {
-                console.log(res);
+                this.$store.dispatch('returnteam/storeReturnTeamName', '');
+                this.$store.dispatch('returnteam/storeReturnTeamAvatar', null);
+                this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
+                if(this.todayReturnTeamArr == null){
+                    let arr = [];
+                    arr.push(this.returnTeamData);
+                    this.$store.dispatch('returnteam/storeTodayReturnTeamArr', arr)
+                }
+                else{
+                    this.todayReturnTeamArr.push(this.returnTeamData);
+                    this.$store.dispatch('returnteam/storeTodayReturnTeamArr', this.todayReturnTeamArr)
+                }
+                this.$store.dispatch('member/storeSelectedGroup', []);
+                this.$router.push({name: 'classSpace.returnTeam'});
+
             }).catch((err) => {
                 
             });
+            this.isCreating = false;
         },
 
         navToAddMember(){
