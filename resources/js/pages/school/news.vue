@@ -2,27 +2,27 @@
   <v-container class="school-space-tab-bar-outter px-lg-10">
     <v-row class="pa-3">
       <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
-        <v-row class="pa-0 mt-1" v-if="content.contentId == 1">
+        <v-row class="pa-0 mt-1" v-if="content.contentId == 1 && content.questionnaires">
           <QusetionnairePost :content="content"></QusetionnairePost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 2">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 2 && content.votings">
           <VotingPost :content='content'></VotingPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 3">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 3 && content.sms">
           <SmsPost :content='content'></SmsPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 4">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 4 && content.campus">
           <CampusPost :content='content'></CampusPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 5">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 5 && content.anouncements">
           <AnouncementPost :content="content"></AnouncementPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 6">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 6 && content.bulletinBoards">
           <BulletinBoardPost :content='content'></BulletinBoardPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
@@ -30,23 +30,27 @@
           <RepairDataPost :content='content'></RepairDataPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 8">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 8 && content.safestudy">
           <SafeStudyPost :content='content'></SafeStudyPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 9">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 9 && content.shift_mng">
           <ShiftMngPost :content='content'></ShiftMngPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 10">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 10 && content.homeVisit">
           <HomeVisitPost :content='content'></HomeVisitPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 23">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 11 && content.schoolstory">
+          <SchoolStoryPost :content='content'></SchoolStoryPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 23 && content.shares">
           <SharePost :content='content'></SharePost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 24">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 24 && content.regnames">
           <RegnamePost :content='content'></RegnamePost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
@@ -153,6 +157,7 @@ import RegnamePost from '~/components/contents/regnamePost'
 import ShiftMngPost from '~/components/contents/shiftMngPost'
 import SafeStudyPost from '~/components/contents/safeStudyPost'
 import RepairDataPost from '~/components/contents/repairDataPost'
+import SchoolStoryPost from '~/components/contents/schoolStoryPost'
 export default {
   middleware: 'auth',
   components :{
@@ -169,6 +174,7 @@ export default {
     ShiftMngPost,
     SafeStudyPost,
     RepairDataPost,
+    SchoolStoryPost,
     InfiniteLoading,
   },
 

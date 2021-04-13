@@ -26,7 +26,7 @@ class RepairDataController extends Controller
                 'views',
                 'comments',
                 'repairdata' => function ($q) use ($status, $deadline, $userId) {
-                    $q->where(['status' => $status, 'userId' => $userId])->whereDate('deadline', $deadline);
+                    $q->where(['status' => $status])->whereDate('deadline', $deadline);
                 },
                 'users:id,name'
             ])

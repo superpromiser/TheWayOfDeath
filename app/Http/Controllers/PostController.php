@@ -17,7 +17,7 @@ class PostController extends Controller
         ]);
         $userId = Auth::user()->id;
         // $isLiked = Like::where('userId',$userId)->count();
-        return Post::whereIn('contentId', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 23, 24])
+        return Post::whereIn('contentId', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 24])
             ->where('schoolId', $request->schoolId)
             ->with([
                 'likes',
@@ -36,6 +36,7 @@ class PostController extends Controller
                 'repairdata' => function ($q) {
                     $q->whereIn('status', ['progress', 'done']);
                 },
+                'schoolstory',
                 'regnames',
                 'users:id,name'
             ])

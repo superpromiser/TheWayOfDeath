@@ -113,4 +113,9 @@ class Post extends Model
     {
         return $this->hasOne(RepairData::class, 'postId');
     }
+
+    public function schoolstory()
+    {
+        return $this->hasOne(SchoolStory::class, 'postId');
+    }
 }

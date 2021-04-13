@@ -8,7 +8,7 @@
                             mdi-chevron-left
                         </v-icon>
                     </a>
-                    <h2>接班管理</h2>
+                    <h2>{{lang.schoolStory}}</h2>
                     <v-btn
                         tile
                         color="success"
@@ -25,7 +25,7 @@
         </v-banner>
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
             <v-row class="pa-0 mt-1">
-                <ShfitMngPost :content="content"></ShfitMngPost>
+                <SchoolStoryPost :content="content"></SchoolStoryPost>
                 <FooterPost :footerInfo='content'></FooterPost>
             </v-row>
         </v-container>
@@ -112,14 +112,14 @@
 
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
-import {getShiftMng} from '~/api/shiftMng';
-import ShfitMngPost from '~/components/contents/shiftMngPost'
+import {getSchoolStory} from '~/api/schoolStory';
+import SchoolStoryPost from '~/components/contents/schoolStoryPost'
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
 export default {
     components:{
         InfiniteLoading,
-        ShfitMngPost,
+        SchoolStoryPost,
         FooterPost
     },
     data:()=>({
@@ -146,7 +146,7 @@ export default {
                 timeOut = 1000;
             }
             let vm = this;
-            await getShiftMng({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId})
+            await getSchoolStory({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId})
             .then(res=>{
                 console.log("res.dat",res.data)
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
