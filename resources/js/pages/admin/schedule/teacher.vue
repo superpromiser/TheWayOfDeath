@@ -445,6 +445,8 @@ export default {
                     console.log(i)
                 }else if(i == 22){
                     console.log(i)
+                }else if(i == 23){
+                    console.log(i)
                 }
             }
         }
