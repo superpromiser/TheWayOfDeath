@@ -525,8 +525,6 @@ export default {
                     console.log(i)
                 }else if(i == 50){
                     console.log(i)
-                }else if(i == 50){
-                    console.log(i)
                 }
             }
         }
