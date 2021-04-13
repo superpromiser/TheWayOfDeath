@@ -405,6 +405,8 @@ export default {
                     console.log(i)
                 }else if(i == 2){
                     console.log(i)
+                }else if(i ==3 ){
+                    
                 }
             }
         }
