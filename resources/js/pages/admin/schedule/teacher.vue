@@ -396,7 +396,9 @@ export default {
             this.editedItem.teacherId = val.id;
             this.editedItem.teacherName = val.name;
         },
-        on(){}
+        on(){
+            let i=0
+        }
     },
 }
 </script>
