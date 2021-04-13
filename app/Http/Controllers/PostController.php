@@ -33,7 +33,9 @@ class PostController extends Controller
                 'shares',
                 'shiftMng',
                 'safestudy',
-                'repairdata',
+                'repairdata' => function ($q) {
+                    $q->whereIn('status', ['progress', 'done']);
+                },
                 'regnames',
                 'users:id,name'
             ])

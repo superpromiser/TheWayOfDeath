@@ -22,7 +22,7 @@ class CreateRepairDataTable extends Migration
             $table->char('viewListName');
             $table->char('repairType');
             $table->longText('content');
-            $table->char('deadline');
+            $table->dateTime('deadline');
             $table->tinyInteger('schoolId');
             $table->tinyInteger('lessonId')->nullable();
             $table->unsignedBigInteger('postId');

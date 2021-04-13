@@ -34,9 +34,48 @@
                 </v-col>
             </v-row>
         </v-banner>
+        <v-row>
+            <v-col>
+                <v-select
+                    :items="viewList"
+                    label="Solo field"
+                    solo
+                    @change="selViewType"
+                    v-model="viewType"
+                    item-text='text'
+                    item-value="value"
+                ></v-select>
+            </v-col>
+            <v-col>
+                <v-menu
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="date"
+                        label="Picker without buttons"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="date"
+                    @input="menu = false"
+                    @change="selDate"
+                    ></v-date-picker>
+                </v-menu>
+            </v-col>
+        </v-row>
         <!-- <v-divider class="thick-border"></v-divider> -->
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
-            <v-row class="pa-0 mt-1">
+            <v-row class="pa-0 mt-1" v-if="content.repairdata">
                 <RepairDataPost :content="content"></RepairDataPost>
                 <FooterPost :footerInfo='content'></FooterPost>
             </v-row>
@@ -144,6 +183,27 @@ export default {
         contentList: [],
         baseUrl:window.Laravel.base_url,
         lang,
+        viewList:[
+            {
+                text:'已维修',
+                value:'done'
+            },
+            {
+                text:'已发布',
+                value:'progress'
+            },
+            {
+                text:'已完成',
+                value:'completed'
+            },
+            {
+                text:'已取消',
+                value:'cancel'
+            },
+        ],
+        viewType:'progress',
+        date:new Date().toISOString().substr(0, 10),
+        menu:false
     }),
     computed:{
         currentPath(){
@@ -158,7 +218,7 @@ export default {
                 timeOut = 1000;
             }
             let vm = this;
-            await getRepairData({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId})
+            await getRepairData({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,status:this.viewType,deadline:this.date})
             .then(res=>{
                 console.log(res.data)
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
@@ -182,6 +242,20 @@ export default {
         },
         post(){
             this.$router.push({name:"posts.repair"})
+        },
+        selViewType(){
+            console.log(this.viewType)
+            this.pageOfContent = 1;
+            this.lastPageOfContent = 0;
+            this.contentList = [];
+            this.infiniteHandler()
+        },
+        selDate(){
+            console.log(this.date)
+            this.pageOfContent = 1;
+            this.lastPageOfContent = 0;
+            this.contentList = [];
+            this.infiniteHandler()
         }
     }
 }

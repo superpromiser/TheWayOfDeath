@@ -19,28 +19,27 @@
                 </div>
             </div>
             <div class="ml-auto" v-if="this.user.roleId == 6">
-                <v-btn class="mr-3" @click="incomplete" :loading="isIncomplete">
+                <v-btn class="mr-3" @click="repairUpdate('Undone')" :loading="isIncomplete">
                     未完成
                 </v-btn>
-                <v-btn dark color="#7879ff" @click="complete" :loading="isComplete">
+                <v-btn dark color="#7879ff" @click="repairUpdate('done')" :loading="isComplete">
                     己完成
                 </v-btn>
             </div>
-            <div class="ml-auto" v-else-if="this.user.roleId == 5">
-                <v-btn class="mr-3" @click="incomplete" :loading="isIncomplete">
-                    取诮发布
-                </v-btn>
-                <v-btn dark color="#7879ff" @click="complete" :loading="isComplete">
-                    确认完成
-                </v-btn>
-            </div>
             <div class="ml-auto" v-else>
-                <v-btn class="mr-3" @click="incomplete" :loading="isIncomplete">
-                    未完成
-                </v-btn>
-                <v-btn dark color="#7879ff" @click="complete" :loading="isComplete">
-                    确认完成
-                </v-btn>
+                <div v-if="contentData.repairdata.status == 'progress'">
+                    <v-btn class="mr-3" @click="repairUpdate('cancel')" :loading="isCancelPost">
+                        取诮发布
+                    </v-btn>
+                </div>
+                <div v-if="contentData.repairdata.status == 'done'">
+                    <v-btn class="mr-3" @click="repairUpdate('progress')" :loading="isIncomplete">
+                        未完成
+                    </v-btn>
+                    <v-btn dark color="#7879ff" @click="repairUpdate('completed')" :loading="isComplete">
+                        确认完成
+                    </v-btn>
+                </div>
             </div>
         </v-col>
         <v-row class="ma-0 hover-cursor-point">
@@ -88,7 +87,7 @@
 import {mapGetters} from 'vuex';
 import lang from '~/helper/lang.json';
 import AttachItemViewer from '~/components/attachItemViewer';
-
+import {updateRepairData} from '~/api/repair';
 export default {
     components:{
         AttachItemViewer,
@@ -123,11 +122,14 @@ export default {
         console.log(this.contentData)
     },
     methods:{
-        incomplete(){
-            console.log('incomplete')
-        },
-        complete(){
-            console.log('complete')
+        repairUpdate(status){
+            console.log(status)
+            updateRepairData({status:status,repairId:this.contentData.repairdata.id}).then(res=>{
+                console.log(res.data)
+                this.$router.push({name:'schoolSpace.news'})
+            }).catch(err=>{
+                console.log(err.response)
+            })
         }
     }
 

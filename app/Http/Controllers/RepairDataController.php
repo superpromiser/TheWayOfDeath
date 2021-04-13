@@ -13,14 +13,21 @@ class RepairDataController extends Controller
     public function getRepairData(Request $request)
     {
         $this->validate($request, [
-            'schoolId' => 'required'
+            'schoolId' => 'required',
+            'status' => 'required',
+            'deadline' => 'required'
         ]);
+        $status = $request->status;
+        $deadline = $request->deadline;
+        $userId = Auth::user()->id;
         return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 7])
             ->with([
                 'likes',
                 'views',
                 'comments',
-                'repairdata',
+                'repairdata' => function ($q) use ($status, $deadline, $userId) {
+                    $q->where(['status' => $status, 'userId' => $userId])->whereDate('deadline', $deadline);
+                },
                 'users:id,name'
             ])
             ->orderBy('created_at', 'desc')
@@ -50,7 +57,7 @@ class RepairDataController extends Controller
             'viewListName' => $request->viewListName,
             'repairType' => $request->repairType,
             'content' => json_encode($request->content),
-            'deadline' => $request->deadline,
+            'deadline' => date('Y-m-d h:i:s', strtotime($request->deadline)),
             'postId' => $postId,
             'schoolId' => $request->schoolId,
             'lessonId' => $request->lessonId
@@ -59,6 +66,13 @@ class RepairDataController extends Controller
 
     public function updateRepairData(Request $request)
     {
+        $this->validate($request, [
+            'status' => 'required',
+            'repairId' => 'required'
+        ]);
+        return RepairData::where('id', $request->repairId)->update([
+            'status' => $request->status
+        ]);
     }
 
     public function deleteRepairData(Request $request)

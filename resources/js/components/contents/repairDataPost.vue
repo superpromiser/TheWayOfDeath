@@ -5,7 +5,12 @@
         <v-img :src="`${baseUrl}/asset/img/newIcon/维修工单.png`" alt="postItem" ></v-img>
       </v-avatar>
       <div>
-        <p class="font-weight-black fs-15 mb-3"> 维修工单  </p>
+        <div class="d-flex align-center mb-3">
+          <p class="font-weight-black fs-15 mb-0"> 维修工单  </p>
+          <v-chip class="ma-2" color="pink" label text-color="white" v-if="content.repairdata.status == 'done'">
+            <v-icon left> mdi-label </v-icon> 已完成
+          </v-chip>
+        </div>
         <div class="d-flex align-center">
           <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
           <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
@@ -67,6 +72,7 @@
             </p>
         </div>
     </v-col>
+   
   </v-container>
 </template>
 

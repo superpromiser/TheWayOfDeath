@@ -26,7 +26,7 @@
           <BulletinBoardPost :content='content'></BulletinBoardPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 7">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 7 && content.repairdata">
           <RepairDataPost :content='content'></RepairDataPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
