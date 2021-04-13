@@ -435,6 +435,8 @@ export default {
                     console.log(i)
                 }else if(i == 17){
                     console.log(i)
+                }else if(i == 18){
+                    console.log(i)
                 }
             }
         }
