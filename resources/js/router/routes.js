@@ -40,6 +40,9 @@ export default [
     ]
   },
 
+  //mo profile
+  { path: '/profile/passwordMo', name: 'profile.passwordMo', component: page('profile/passwordMo.vue')},
+
   //school safety
   {path:'/guest/request', name:'guestRequest', component:page('safety/guestRequest.vue')},
 

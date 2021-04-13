@@ -76,7 +76,7 @@
         </v-row>
         <v-divider light ></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('password')">
                 <div class="d-flex align-center">
                     <v-icon color="#49d29e">
                         mdi-lock-outline
@@ -311,6 +311,15 @@ export default {
             // Redirect to login.
             this.$router.push({ name: 'login' })
         },
+
+        navToProfileItem(item){
+            console.log(item);
+            switch (item) {
+                case 'password':
+                    this.$router.push({name: 'profile.passwordMo'});
+                    break;
+            }
+        }
 
     },
 }

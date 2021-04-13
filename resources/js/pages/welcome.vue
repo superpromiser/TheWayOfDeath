@@ -376,7 +376,7 @@ export default {
         .catch(err=>{
           //console.log(err);
           this.isLogging = false;
-          this.loginFailed = true;
+          this.$snackbar.showMessage({content: "登录失败", color: "error"})
         })
     }
   },
