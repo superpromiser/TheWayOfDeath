@@ -425,6 +425,8 @@ export default {
                     console.log(i)
                 }else if(i ==12 ){
                     console.log(i)
+                }else if( i== 13){
+                    
                 }
             }
         }
