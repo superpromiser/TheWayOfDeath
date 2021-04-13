@@ -26,6 +26,10 @@
           <BulletinBoardPost :content='content'></BulletinBoardPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 7">
+          <RepairDataPost :content='content'></RepairDataPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 8">
           <SafeStudyPost :content='content'></SafeStudyPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
@@ -148,6 +152,7 @@ import SharePost from '~/components/contents/sharePost'
 import RegnamePost from '~/components/contents/regnamePost'
 import ShiftMngPost from '~/components/contents/shiftMngPost'
 import SafeStudyPost from '~/components/contents/safeStudyPost'
+import RepairDataPost from '~/components/contents/repairDataPost'
 export default {
   middleware: 'auth',
   components :{
@@ -163,6 +168,7 @@ export default {
     RegnamePost,
     ShiftMngPost,
     SafeStudyPost,
+    RepairDataPost,
     InfiniteLoading,
   },
 

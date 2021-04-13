@@ -108,4 +108,9 @@ class Post extends Model
     {
         return $this->hasOne(SafeStudy::class, 'postId');
     }
+
+    public function repairdata()
+    {
+        return $this->hasOne(RepairData::class, 'postId');
+    }
 }

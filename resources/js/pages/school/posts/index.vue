@@ -232,7 +232,7 @@ export default {
                         color : "#7180EA",
                         title : "维修工单",//Repair work order
                         imgUrl : "/asset/img/newIcon/维修工单.png",
-                        path : "posts.announcement"
+                        path : "posts.repair"
                     },
                     {
                         color : "#DA7042",

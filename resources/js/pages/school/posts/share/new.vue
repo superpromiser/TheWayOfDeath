@@ -142,7 +142,7 @@ export default {
         async submit(){
             this.$refs.child.emitData()
             if(this.shareData.content.length == 0){
-                return
+                return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
             }
             //console.log(this.shareData)
             this.isSubmit = true
