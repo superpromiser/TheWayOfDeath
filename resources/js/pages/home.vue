@@ -1,24 +1,31 @@
 <template>
   <v-container class="pa-0">
-    <v-container v-if="$isMobile()" class="pa-0">
+    <v-container v-if="$isMobile()" class="pa-0" >
       <v-row class="ma-0">
-        <v-col cols="12" class="d-flex align-center" >
+        <v-col cols="12" class="d-flex align-center bg-secondary py-2" v-touch="{
+          left: () => swipe('Left'),
+          right: () => swipe('Right'),
+        }">
           <transition name="page" mode="out-in">
             <v-text-field
               v-if="isSearching" key="1"
               solo
               clearable
+              class="mo-select-gray-bg"
               v-model="searchKeyword"
               label="请输入您的搜索词"
               append-icon="mdi-check"
               @click:append="onSearch"
               prepend-inner-icon="mdi-magnify"
               hide-details
+              color="#7879ff"
               dense 
             ></v-text-field>
             <v-select
               v-else key="2"
               solo
+              class="mo-select-gray-bg"
+              color="#7879ff"
               :items="schoolListDropdownItem"
               :menu-props="{ top: false, offsetY: true }"
               item-text="label"
@@ -30,19 +37,19 @@
             ></v-select>
           </transition>
           <transition name="page" mode="out-in">
-          <v-btn icon color="#7879ff" v-if="isSearching" key="3" class="ml-3" @click="onFalseSearching">
+          <v-btn icon v-if="isSearching" key="3" class="ml-3" @click="onFalseSearching">
             <v-icon>
               mdi-close
             </v-icon>
           </v-btn>
-          <v-btn icon color="#7879ff" v-else key="4" class="ml-3" @click="isSearching = true">
-            <v-icon>
+          <v-btn icon plain v-else key="4" class="ml-3" @click="isSearching = true">
+            <v-icon size="30">
               mdi-magnify
             </v-icon>
           </v-btn>
           </transition>
         </v-col>
-        <v-col cols="12" class="">
+        <v-col cols="12" class="" >
           <carousel class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplaySpeed="5000">
             <img :src="`${baseUrl}/asset/img/class/1.jpeg`" alt="carousel" class="mo-home-carousel-img" />
             <img :src="`${baseUrl}/asset/img/class/2.jpg`" alt="carousel" class="mo-home-carousel-img" />
@@ -51,25 +58,87 @@
             <img :src="`${baseUrl}/asset/img/class/5.jpg`" alt="carousel" class="mo-home-carousel-img" />
           </carousel>
         </v-col>
-        <v-col cols="12" class="d-flex justify-space-between">
-          <v-row class="ma-0 pa-0">
-            <v-col cols="3" class="pa-0 d-flex justify-center " v-for="(item, i) in chooseableItemGroup" :key="i" @click="selectItem(item)">
-              <v-sheet tile class=" d-flex justify-center align-center">
-                <div class="text-center">
-                  <v-img :src="`${baseUrl}${item.imgUrl}`" alt="postItem" width="30" height="30" class="mx-auto"></v-img>
-                  <span class="font-size-0-75 pt-2"> {{item.title}}</span>
-                </div>
-              </v-sheet>
-            </v-col>
-            <v-col cols="3" class="pa-0 d-flex justify-center " @click="openAddItemDialog">
-              <v-sheet tile class=" d-flex justify-center align-center">
-                <div class="text-center">
-                  <v-icon color="#7879ff" size="30">mdi-view-grid-plus</v-icon>
-                  <p class="font-size-0-75 pt-1 mb-0">添加</p>
-                </div>
-              </v-sheet>
-            </v-col>
-          </v-row>
+        <v-col cols="12" class="pa-0">
+          <carousel :nav="false" :items="1" :loop="false" :dots="false">
+            <v-card elevation="0" v-for="(selectableGroup, i ) in convert(chooseableItemGroup, 5)" :key="i" >
+              <v-row class="ma-0 pa-0">
+                <v-col class="pa-0 d-flex justify-center col-50" v-for="(selectableItem, j) in selectableGroup" :key="j">
+                  <v-sheet v-if="selectableItem.title == 'openDialog'" tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                    <div class="text-center">
+                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                    </div>
+                  </v-sheet>
+                  <v-sheet v-else tile class=" d-flex justify-center align-center">
+                    <div class="text-center">
+                      <v-img :src="`${baseUrl}${selectableItem.imgUrl}`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                      <p class="font-size-0-75 pt-1 mb-0">{{selectableItem.title}}</p>
+                    </div>
+                  </v-sheet>
+                </v-col>
+              </v-row>
+            </v-card>
+            <!-- <v-card elevation="0" >
+              <v-row class="ma-0 pa-0 cus-overflow-x-row">
+                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
+                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                    <div class="text-center">
+                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                    </div>
+                  </v-sheet>
+                </v-col>
+                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
+                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                    <div class="text-center">
+                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                    </div>
+                  </v-sheet>
+                </v-col>
+                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
+                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                    <div class="text-center">
+                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                    </div>
+                  </v-sheet>
+                </v-col>
+                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
+                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                    <div class="text-center">
+                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                    </div>
+                  </v-sheet>
+                </v-col>
+                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
+                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                    <div class="text-center">
+                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                    </div>
+                  </v-sheet>
+                </v-col>
+                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
+                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                    <div class="text-center">
+                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                    </div>
+                  </v-sheet>
+                </v-col>
+                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
+                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                    <div class="text-center">
+                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                    </div>
+                  </v-sheet>
+                </v-col>
+              </v-row>
+            </v-card> -->
+          </carousel>
           <v-dialog v-model="addItemDialog" width="100%" max-width="500" scrollable>
               <v-card>
                   <v-card-title class="title"> 添加 </v-card-title>
@@ -87,6 +156,9 @@
                               active-class="deep-purple--text text--accent-2"
                             >
                               <template v-slot:default="{ active }">
+                                <v-list-item-avatar size="30">
+                                  <v-img :src="`${baseUrl}${item.imgUrl}`"></v-img>
+                                </v-list-item-avatar>
                                 <v-list-item-content>
                                   <v-list-item-title v-text="item.title"></v-list-item-title>
                                 </v-list-item-content>
@@ -124,8 +196,10 @@
               </v-card>
           </v-dialog>
         </v-col>
-        <v-divider light></v-divider>
-        <v-col cols="12" class="d-flex px-3 align-center">
+        <v-col cols="12" class="d-flex px-3 align-center" v-touch="{
+          left: () => swipe('Left'),
+          right: () => swipe('Right'),
+        }">
           <div class="trapezoid position-relative"></div>
           <div class="parallelogram ml-4"></div>
           <div class="ml-4">
@@ -133,7 +207,10 @@
           </div>
         </v-col>
       </v-row>
-      <v-row class="ma-0 mt-5">
+      <v-row class="ma-0 pt-5" v-touch="{
+        left: () => swipe('Left'),
+        right: () => swipe('Right'),
+      }">
         <v-col cols="12" class="pa-0 d-flex align-center">
           <v-avatar tile class="mo-glow-small-shadow" size="40" >
             <v-icon color="#7879ff">
@@ -593,84 +670,84 @@ export default {
     schoolSpaceItems:[
       {
         title : "问卷",
-        imgUrl : "/asset/img/icon/问卷 拷贝.png",
+        imgUrl : "/asset/img/appIcon/基础沟通/问卷.png",
         path : "posts.questionnaire"
       },
       {
         title : "投票",
-        imgUrl : "/asset/img/icon/投票.png",
+        imgUrl : "/asset/img/appIcon/基础沟通/投票.png",
         path : "posts.voting"
       },
       {
         title : "短信",
-        imgUrl : "/asset/img/icon/短信 拷贝.png",
+        imgUrl : "/asset/img/appIcon/基础沟通/短信.png",
         path : "posts.sms"
       },
       {
         title : "校园动态",
-        imgUrl : "/asset/img/icon/动态 拷贝.png",
+        imgUrl : "/asset/img/appIcon/校园文化/校园动态.png",
         path : "posts.campus"
       },
       {
         title : "公告",
-        imgUrl : "/asset/img/icon/公告 拷贝.png",
+        imgUrl : "/asset/img/appIcon/家校互动/公告.png",
         path : "posts.announcement"
       },
       {
         title : "分享",
-        imgUrl : "/asset/img/icon/分享.png",
+        imgUrl : "/asset/img/appIcon/基础沟通/分享.png",
         path : "posts.share"
       },
       {
         title : "布告栏",
-        imgUrl : "/asset/img/icon/布告栏 拷贝.png",
+        imgUrl : "/asset/img/appIcon/others/布告栏.png",
         path : "posts.bulletinboard"
       },
       {
         title : "考勤",
-        imgUrl : "/asset/img/icon/考勤.png",
+        imgUrl : "/asset/img/appIcon/智能考勤/考勤.png",
         path : "something"
       },
       {
         title : "作业",
-        imgUrl : "/asset/img/icon/作业 拷贝.png",
+        imgUrl : "/asset/img/appIcon/家校互动/作业.png",
         path : "something"
       },
       {
-        title : "习题",
-        imgUrl : "/asset/img/icon/习题.png",
+        title : "通讯录",
+        imgUrl : "/asset/img/appIcon/基础沟通/通讯录.png",
         path : "something"
       },
       {
         title : "家访",
-        imgUrl : "/asset/img/icon/家访 拷贝.png",
+        imgUrl : "/asset/img/appIcon/others/家访.png",
         path : "posts.homevisit"
       },
       {
         title : "报名",
-        imgUrl : "/asset/img/icon/报名 拷贝.png",
+        imgUrl : "/asset/img/appIcon/基础沟通/报名.png",
         path : "posts.regname"
       },
       {
         title : "请假",
-        imgUrl : "/asset/img/icon/请假.png",
+        imgUrl : "/asset/img/appIcon/智能考勤/请假审批.png",
         path : "posts.vocation"
       },
     ],
     classSpaceItems:[
       {
         title : "问卷",
-        imgUrl : "/asset/img/icon/问卷 拷贝.png",
+        imgUrl : "/asset/img/appIcon/基础沟通/问卷.png",
         path : "posts.Cquestionnaire"
       },
       {
         title : "投票",
-        imgUrl : "/asset/img/icon/投票.png",
+        imgUrl : "/asset/img/appIcon/基础沟通/投票.png",
         path : "posts.Cvoting"
       },
       {
         title : "作业",
-        imgUrl : "/asset/img/icon/作业 拷贝.png",
+        imgUrl : "/asset/img/appIcon/家校互动/作业.png",
         path : "something"
       },
       {
@@ -680,7 +757,7 @@ export default {
       },
       {
         title : "家访",
-        imgUrl : "/asset/img/icon/家访 拷贝.png",
+        imgUrl : "/asset/img/appIcon/others/家访.png",
         path : "posts.Chomevisit"
       },
       {
@@ -700,21 +777,24 @@ export default {
       },
       {
         title : "课表",
-        imgUrl : "/asset/img/icon/组 29.png",
+        imgUrl : "/asset/img/appIcon/智能考勤/课程表.png",
         path : "something"
       },
       {
         title : "相册",
-        imgUrl : "/asset/img/icon/相册.png",
+        imgUrl : "/asset/img/appIcon/工具/相册.png",
         path : "posts.Calbum"
       },
       {
         title : "文件",
-        imgUrl : "/asset/img/icon/文件.png",
+        imgUrl : "/asset/img/appIcon/基础沟通/文件.png",
         path : "file"
       },
-    ]
+    ],
   }),
+
+  watch:{
+  },
 
   computed:{
     ...mapGetters({
@@ -725,7 +805,9 @@ export default {
       selectedItemClassGroupStore : 'mo/selectedItemClassGroupStore',
       selectedItemGroupForSchoolDiaStore : 'mo/selectedItemGroupForSchoolDiaStore',
       selectedItemGroupForClassDiaStore : 'mo/selectedItemGroupForClassDiaStore',
-    })
+    }),
+
+    
   },
 
   async created(){
@@ -739,11 +821,13 @@ export default {
         this.chooseableItemGroup = this.selectedItemClassGroupStore;
         this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
       }
+      console.log("this.chooseableItemGroup", this.chooseableItemGroup);
+      console.log("this.selectedItemGroup", this.selectedItemGroup);
     }
     else{
       await getPostItem()
       .then((res) => {
-        console.log("^^^");
+        console.log("^^^", res);
         let schoolArr = JSON.parse(res.data.schoolItem);
         let classArr = JSON.parse(res.data.classItem);
         this.selectedItemGroupForSchoolDia = schoolArr;
@@ -773,7 +857,9 @@ export default {
       // }
       this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
       this.selectedItemGroup = this.selectedItemGroupForSchoolDia;
-      console.log("this.schoolTree", this.schoolTree, this.selectedItemGroup);
+      console.log("this.schoolTree", this.schoolTree);
+      console.log("this.chooseableItemGroup", this.chooseableItemGroup);
+      console.log("this.selectedItemGroup", this.selectedItemGroup);
     }
     if(this.user.roleId == 1){
       this.schoolList = this.schoolTree;
@@ -1031,6 +1117,49 @@ export default {
       }
       this.closeAddItemDialog();
     },
+
+    swipe (direction) {
+      if(direction == "Left"){
+        // this.$router.push({name: 'circle'});
+        console.log("right now!!")
+      }
+    },
+
+
+    // convert(groupItems){
+    //   console.log("groupItems", groupItems)
+    //   let returnVal = [];      
+    //   let openDiaObj = {
+    //     imgUrl: '/asset/img/appIcon/others/全部.png',
+    //     path: 'openDialog',
+    //     title: 'openDialog'
+    //   }
+    //   groupItems.push(openDiaObj);
+    //   let i,j,temparray,chunk = 5;
+    //   for ( i = 0; i< groupItems.length; i+=chunk) {
+    //     temparray = groupItems.slice(i,i+chunk);
+    //     console.log(temparray);
+    //     returnVal.push(temparray);
+    //   }
+    //   return returnVal;
+    // },
+
+    convert(arr, size) {
+      var myArray = [];
+      // let openDiaObj = {
+      //   imgUrl: '/asset/img/appIcon/others/全部.png',
+      //   path: 'openDialog',
+      //   title: 'openDialog'
+      // }
+      // arr.push(openDiaObj);
+      for(var i = 0; i < arr.length; i += size) {
+        myArray.push(arr.slice(i, i+size));
+      }
+      console.log("myArray", myArray)
+      // myArray[myArray.length - 1]
+      return myArray;
+    }
+    
   }
 }
 </script>

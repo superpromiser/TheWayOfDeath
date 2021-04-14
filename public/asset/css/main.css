@@ -1107,3 +1107,24 @@ a {
     line-height: 1rem!important;
     text-align: center!important;
 }
+
+.mo-select-gray-bg .v-input__control .v-input__slot{
+    box-shadow: none!important;
+    background: #f2f2f2!important;
+}
+
+.col-50 {
+    flex: 0 0 20%!important;
+    max-width: 20%!important;
+    flex-basis: 20%!important;
+}
+
+.cus-overflow-x-row{
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.cus-overflow-x-col{
+    display: inline-block;
+    float: none;
+}
