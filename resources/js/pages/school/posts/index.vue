@@ -173,12 +173,12 @@ export default {
                         imgUrl : "/asset/img/newIcon/家访.png",
                         path : "posts.homevisit"
                     },
-                    // {
-                    //     color : "#7180EA",
-                    //     title : "提示",//제시
-                    //     imgUrl : "/asset/img/newIcon/提示.png",
-                    //     path : "something"
-                    // },
+                    {
+                        color : "#7180EA",
+                        title : "学校动态",//학교동태
+                        imgUrl : "/asset/img/newIcon/校园动态.png",
+                        path : "posts.schoolStory"
+                    },
                     
                 ],
             },
@@ -232,7 +232,7 @@ export default {
                         color : "#7180EA",
                         title : "维修工单",//Repair work order
                         imgUrl : "/asset/img/newIcon/维修工单.png",
-                        path : "posts.announcement"
+                        path : "posts.repair"
                     },
                     {
                         color : "#DA7042",

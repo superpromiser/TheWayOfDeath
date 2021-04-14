@@ -7,10 +7,10 @@
                 </v-icon>
             </a>
             <v-avatar class="ma-3 school-card-avatar" tile >
-                <v-img :src="`${baseUrl}/asset/img/newIcon/交接班.png`" alt="postItem" ></v-img>
+                <v-img :src="`${baseUrl}/asset/img/newIcon/校园动态.png`" alt="postItem" ></v-img>
             </v-avatar>
             <div>
-                <p class="font-weight-black fs-15 mb-3"> 交接班管理  </p>
+                <p class="font-weight-black fs-15 mb-3"> {{lang.schoolStory}}  </p>
                 <div class="d-flex align-center">
                 <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
                 <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
@@ -37,30 +37,14 @@
             </div> -->
         </v-col>
         <v-col cols="12" class="pl-10 pt-0">
-            <div class="d-flex align-center">
-                <p class="text-wrap mb-0">
-                <strong>姓名:</strong>
-                {{contentData.shift_mng.prevName}}
-                </p>
-            </div>
-            <div class="d-flex align-center">
-                <p class="text-wrap mb-0">
-                <strong>交接人姓名:</strong>
-                {{contentData.shift_mng.nextName}}
-                </p>
-            </div>
-            <div class="d-flex align-center">
-                <p class="text-wrap mb-0">
-                <strong>归程队成员:</strong>
-                {{TimeViewSam(contentData.shift_mng.scheduleDate)}}
-                </p>
-            </div>
-            <div class="d-flex align-center">
-                <p class="text-wrap mb-0">
-                <strong>交接物品:</strong>
-                {{contentData.shift_mng.itemList}}
-                </p>
-            </div>
+            <v-row>
+                <v-col cols="12">
+                <p class="text-wrap"><read-more more-str="全文" :text="schoolStory.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                </v-col>
+                <v-col cols="12" v-if="checkIfAttachExist(schoolStory)">
+                <AttachItemViewer :items="schoolStory" />
+                </v-col>
+            </v-row>
         </v-col>
     </v-container>
 </template>
@@ -78,7 +62,7 @@ export default {
         // contentData:null
         lang,
         baseUrl:window.Laravel.base_url,
-        shiftMng: {},
+        schoolStory: {},
     }),
 
     computed:{
@@ -97,6 +81,7 @@ export default {
                 this.$router.push({name:'schoolSpace.news'})
             }
         }
+        this.schoolStory = JSON.parse(this.contentData.schoolstory.content);
         console.log(this.contentData)
     }
 }

@@ -172,6 +172,12 @@ export default {
                         imgUrl : "/asset/img/newIcon/家访.png",
                         path : "posts.homevisit"
                     },
+                    {
+                        color : "#7180EA",
+                        title : "学校动态",//학교동태
+                        imgUrl : "/asset/img/newIcon/校园动态.png",
+                        path : "schoolSpace.applications.schoolStory"
+                    },
                     // {
                     //     color : "#7180EA",
                     //     title : "提示",//제시
@@ -231,7 +237,7 @@ export default {
                         color : "#7180EA",
                         title : "维修工单",//Repair work order
                         imgUrl : "/asset/img/newIcon/维修工单.png",
-                        path : "posts.announcement"
+                        path : "schoolSpace.applications.repair"
                     },
                     {
                         color : "#DA7042",

@@ -366,6 +366,18 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('safeStudy', 'SafeStudyController@createSafeStudy');
     Route::put('safeStudy', 'SafeStudyController@updateSafeStudy');
     Route::delete('safeStudy', 'SafeStudyController@deleteSafeStudy');
+
+    //repiarData
+    Route::get('repairData', 'RepairDataController@getRepairData');
+    Route::post('repairData', 'RepairDataController@createRepairData');
+    Route::put('repairData', 'RepairDataController@updateRepairData');
+    Route::delete('repairData', 'RepairDataController@deleteRepairData');
+
+    //schoolStory
+    Route::get('schoolStory', 'SchoolStoryController@getSchoolStory');
+    Route::post('schoolStory', 'SchoolStoryController@createSchoolStory');
+    Route::put('schoolStory', 'SchoolStoryController@updateSchoolStory');
+    Route::delete('schoolStory', 'SchoolStoryController@deleteSchoolStory');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {

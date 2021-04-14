@@ -3,9 +3,9 @@
         <v-row class="ma-0">
             <v-col cols="12" class="mo-glow d-flex align-center">
                 <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/分享.png`" alt="postItem" width="48" height="48" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/newIcon/校园动态.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
-                <h2 class="ml-3">{{lang.share}}</h2>
+                <h2 class="ml-3">{{lang.schoolStory}}</h2>
             </v-col>
         </v-row>
         <v-row class="ma-0 mo-glow mt-5">
@@ -46,9 +46,9 @@
                     size="50"
                     tile
                 >
-                    <v-img :src="`${baseUrl}/asset/img/icon/分享.png`" alt="postItem" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/newIcon/校园动态.png`" alt="postItem" ></v-img>
                 </v-avatar>
-                <h2>{{lang.share}}</h2>
+                <h2>{{lang.schoolStory}}</h2>
             </div>
             <template v-slot:actions>
                 <v-btn
@@ -107,7 +107,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createShare} from '~/api/share'
+import {createSchoolStory} from '~/api/schoolStory'
 import quickMenu from '~/components/quickMenu'
 export default {
     components:{
@@ -123,7 +123,7 @@ export default {
         requiredText:false,
         shareData:{
             schoolId:null,
-            content:[]
+            content:null
         },
         isSuccessed:false,
     }),
@@ -141,12 +141,12 @@ export default {
         },
         async submit(){
             this.$refs.child.emitData()
-            if(this.shareData.content.length == 0){
+            if(this.shareData.content == null){
                 return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
             }
             //console.log(this.shareData)
             this.isSubmit = true
-            await createShare(this.shareData).then(res=>{
+            await createSchoolStory(this.shareData).then(res=>{
                 console.log(res)
                 this.isSubmit = false
                 this.isSuccessed = true;
@@ -165,10 +165,10 @@ export default {
         loadContentData(data){
             if(data.text === ''){
                 this.requiredText = true;
-                this.shareData.content = [];
+                this.shareData.content = null;
                 return;
             }
-            this.shareData.content.push(data)
+            this.shareData.content = data
         },
         something(){
 
