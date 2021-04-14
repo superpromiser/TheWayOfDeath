@@ -107,7 +107,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createInterClassStory} from '~/api/classStory'
+import {createInterClassStory} from '~/api/interClassStory'
 import quickMenu from '~/components/quickMenu'
 export default {
     components:{
