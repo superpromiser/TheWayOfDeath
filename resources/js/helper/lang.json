@@ -43,5 +43,8 @@
     "regname":"报名",
     "recognition":"表彰",
     "safeStudy":"安全教育",
-    "schoolStory":"学校动态"
+    "schoolStory":"学校动态",
+    "classStory":"班级动态",
+    "interClassStory":"班际动态"
+    
 }

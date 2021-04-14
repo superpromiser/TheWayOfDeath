@@ -378,6 +378,18 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('schoolStory', 'SchoolStoryController@createSchoolStory');
     Route::put('schoolStory', 'SchoolStoryController@updateSchoolStory');
     Route::delete('schoolStory', 'SchoolStoryController@deleteSchoolStory');
+
+    //classStory
+    Route::get('classStory', 'ClassStoryController@getClassStory');
+    Route::post('classStory', 'ClassStoryController@createClassStory');
+    Route::put('classStory', 'ClassStoryController@updateClassStory');
+    Route::delete('classStory', 'ClassStoryController@deleteClassStory');
+
+    //interClassStory
+    Route::get('interClassStory', 'InterClassStoryController@getInterClassStory');
+    Route::post('interClassStory', 'InterClassStoryController@createInterClassStory');
+    Route::put('interClassStory', 'InterClassStoryController@updateInterClassStory');
+    Route::delete('interClassStory', 'InterClassStoryController@deleteInterClassStory');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {

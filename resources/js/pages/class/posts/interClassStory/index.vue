@@ -3,9 +3,9 @@
         <v-row class="ma-0">
             <v-col cols="12" class="mo-glow d-flex align-center">
                 <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/班级动态.png`" alt="postItem" width="48" height="48" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/newIcon/班际动态.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
-                <h2 class="ml-3">{{lang.classStory}}</h2>
+                <h2 class="ml-3">{{lang.interClassStory}}</h2>
             </v-col>
         </v-row>
         <v-row class="ma-0 mo-glow mt-5">
@@ -46,9 +46,9 @@
                     size="50"
                     tile
                 >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/班级动态.png`" alt="postItem" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/newIcon/班际动态.png`" alt="postItem" ></v-img>
                 </v-avatar>
-                <h2>{{lang.classStory}}</h2>
+                <h2>{{lang.interClassStory}}</h2>
             </div>
             <template v-slot:actions>
                 <v-btn
@@ -107,7 +107,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createClassStory} from '~/api/classStory'
+import {createInterClassStory} from '~/api/classStory'
 import quickMenu from '~/components/quickMenu'
 export default {
     components:{
@@ -148,7 +148,7 @@ export default {
             }
             //console.log(this.shareData)
             this.isSubmit = true
-            await createClassStory(this.shareData).then(res=>{
+            await createInterClassStory(this.shareData).then(res=>{
                 console.log(res)
                 this.isSubmit = false
                 this.isSuccessed = true;

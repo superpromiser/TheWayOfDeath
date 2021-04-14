@@ -105,6 +105,18 @@ export default {
                         imgUrl : "/asset/img/newIcon/家访.png",
                         path : "posts.Chomevisit"
                     },
+                    {
+                        color : "#EB5846",
+                        title : "班级动态",
+                        imgUrl : "/asset/img/newIcon/班级动态.png",
+                        path : "posts.classStory"
+                    },
+                    {
+                        color : "#EB5846",
+                        title : "班际动态",
+                        imgUrl : "/asset/img/newIcon/班际动态.png",
+                        path : "posts.interClassStory"
+                    },
                 ],
             },
             {
