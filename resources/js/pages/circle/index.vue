@@ -1,5 +1,8 @@
 <template>
-  <v-container>
+  <v-container v-touch="{
+    left: () => swipe('Left'),
+    right: () => swipe('Right'),
+  }">
       <v-row class="ma-0">
         <v-col cols="12" class="pa-0">
           <v-card class="ma-0 pa-0 mt-5 mo-glow">
@@ -374,7 +377,18 @@
 export default {
     data: ()=> ({
         baseUrl: window.Laravel.base_url,
-    })
+    }),
+
+    methods:{
+      swipe (direction) {
+        if(direction == "Left"){
+          this.$router.push({name: 'profile.list'});
+        }
+        if(direction == "Right"){
+          this.$router.push({name: 'mochat.news'});
+        }
+      },
+    }
 }
 </script>
 

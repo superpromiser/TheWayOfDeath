@@ -1,42 +1,43 @@
 <template>
-    <v-container class="pa-0">
-        <v-col cols="12" class="mo-glow-small-shadow d-flex mo-chat-index-nav" >
+    <v-container class="pa-0 h-100"
+        v-touch="{
+            left: () => swipe('Left'),
+            right: () => swipe('Right'),
+        }"
+    >
+        <v-col cols="12" class=" d-flex mo-chat-index-nav pa-0 bg-secondary align-center" >
           <transition name="page" mode="out-in">
             <v-text-field
                 v-if="isSearching" key="1"
-                class="mo-glow-v-text"
                 solo
                 clearable
                 v-model="searchKeyword"
                 label="请输入您的搜索词"
                 append-icon="mdi-check"
                 @click:append="onSearch"
+                class="mo-select-gray-bg"
                 prepend-inner-icon="mdi-magnify"
                 hide-details
             ></v-text-field>
-            <div v-else class="d-flex w-100 justify-space-between">
-                <div @click="navToChatNews" class="mo-chat-cus-nav-w d-flex justify-center align-center" v-bind:class="{ 'mo-glow-inverse': isActiveNavNews, 'mo-glow': !isActiveNavNews }">
-                    <v-icon color="#7879ff" class="mr-2">mdi-email-newsletter</v-icon>消息
-                </div>
-                <div @click="navToChatContact" class="mo-chat-cus-nav-w d-flex justify-center align-center" v-bind:class="{ 'mo-glow-inverse': isActiveNavContactList, 'mo-glow': !isActiveNavContactList }">
-                    <v-icon color="#7879ff" class="mr-2">mdi-contacts</v-icon> 联系人
-                </div>
-            </div>
+            <v-tabs v-model="moChatTab" color="#999999" v-else background-color="#f2f2f2">
+                <v-tab @click="navToChatNews" :ripple="false" active-class="mo-chat-nav-active">消息</v-tab>
+                <v-tab @click="navToChatContact" :ripple="false" active-class="mo-chat-nav-active"> 联系人</v-tab>
+            </v-tabs>
           </transition>
           <transition name="page" mode="out-in">
-          <v-avatar v-if="isSearching" key="3" class="mo-glow-small-shadow ml-3" @click="onFalseSearching">
-            <v-icon color="#7879ff">
-              mdi-close
-            </v-icon>
-          </v-avatar>
-          <v-avatar v-else key="4" class="mo-glow-small-shadow ml-3" @click="isSearching = true">
-            <v-icon color="#7879ff">
-              mdi-magnify
-            </v-icon>
-          </v-avatar>
+            <v-btn icon v-if="isSearching" key="3" class="ml-3" @click="onFalseSearching">
+                <v-icon>
+                mdi-close
+                </v-icon>
+            </v-btn>
+            <v-btn icon plain v-else key="4" class="ml-3" @click="isSearching = true">
+                <v-icon size="30">
+                mdi-magnify
+                </v-icon>
+            </v-btn>
           </transition>
         </v-col>
-        <v-col cols="12" class="pa-0 mt-5"> 
+        <v-col cols="12" class="pa-0"> 
             <router-view @updatechatwith="updatechatwith" @updatechatIn="updatechatIn" :chatto="ChatWith" :chatin="ChatIn" :messages="messages" :chatfrom="currentUser.id" ></router-view>
         </v-col>
     </v-container>
@@ -56,6 +57,7 @@ export default {
         ChatIn: null,
         contactNow: null,
         messages: [],
+        moChatTab: 0
     }),
     computed:{
         currentPath(){
@@ -67,16 +69,13 @@ export default {
     },
     created(){
         if(this.currentPath.name == "mochat.news" || this.currentPath.name == "mochat.detail"){
-            this.isActiveNavNews = true;
-            this.isActiveNavContactList = false;
+            this.moChatTab = 0
         }
         else if(this.currentPath.name == "mochat.contact"){
-            this.isActiveNavNews = false;
-            this.isActiveNavContactList = true;
+            this.moChatTab = 1
         }
         else{
-            this.isActiveNavNews = false;
-            this.isActiveNavContactList = false;
+            this.moChatTab = -1
         }
     },
     watch:{
@@ -174,6 +173,15 @@ export default {
                 this.messages = res.data.messages;
                 this.$router.push({name: "mochat.detail"})
             });
+        },
+
+        swipe (direction) {
+            if(direction == "Left"){
+                this.$router.push({name: 'circle'});
+            }
+            if(direction == "Right"){
+                this.$router.push({name: 'home'});
+            }
         },
     }
 }

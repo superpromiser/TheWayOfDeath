@@ -1128,3 +1128,27 @@ a {
     display: inline-block;
     float: none;
 }
+
+.mo-home-tag-bg-img::before{
+    content: '头条';
+    font-size: 0.7rem;
+    color: white;
+    position: absolute;
+    padding-left: 4px;
+}
+
+.mo-home-tag-bg-img::after{
+    content: url(../img/mo-tag-bg-img-line.svg);
+    position: absolute;
+    left: 48px;
+    top: 7px;
+    transform: rotate(37deg);
+}
+
+.border-left-5{
+    border-left: 5px solid #7879ff;
+}
+
+.mo-chat-nav-active{
+    font-size: 1.125rem!important;
+}
