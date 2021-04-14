@@ -118,4 +118,9 @@ class Post extends Model
     {
         return $this->hasOne(SchoolStory::class, 'postId');
     }
+
+    public function classstory()
+    {
+        return $this->hasOne(ClassStory::class, 'postId');
+    }
 }

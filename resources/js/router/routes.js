@@ -214,6 +214,8 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/evaluation', name:'posts.Cevaluation', component:page('class/posts/evaluation/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/recognition', name:'posts.Crecognition', component:page('class/posts/recognition/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/album', name:'posts.Calbum', component:page('class/posts/album/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/classStory', name:'posts.classStory', component:page('class/posts/classStory/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/interClassStory', name:'posts.interClassStory', component:page('class/posts/interClassStory/index.vue')},
   
   //class member  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
