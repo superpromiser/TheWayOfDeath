@@ -3,7 +3,7 @@
         <v-row>
             <!-- {{index}} -->
             <v-textarea
-                class="mo-glow-v-text"
+                class="mo-glow-v-text mt-0 pt-0"
                 clearable
                 auto-grow
                 color="#7879ff"

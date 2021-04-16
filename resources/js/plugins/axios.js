@@ -24,7 +24,7 @@ axios.interceptors.request.use(request => {
 // Response interceptor
 axios.interceptors.response.use(response => response, error => {
   const { status } = error.response
-  console.log(this.$isMobile)
+  // console.log(this.$isMobile)
   if (status >= 500) {
     Swal.fire({
       type: 'error',

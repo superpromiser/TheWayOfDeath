@@ -15,6 +15,7 @@
                         color="#7879ff"
                         v-model="shiftData.prevName"
                         readonly
+                        label="姓名"
                         hide-details
                         class="mt-0 pt-0"
                     ></v-text-field>
