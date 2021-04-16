@@ -74,7 +74,7 @@
                     ></v-switch>
                 </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow">
+        <v-row class="ma-0 mo-glow mb-16">
             <v-col cols="12">
                 <QuestionItem :Label="lang.contentPlaceFirst" :emoji="false" :contact="false"  ref="child" @contentData="loadContentData"></QuestionItem>
             </v-col>
