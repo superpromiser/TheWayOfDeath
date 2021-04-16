@@ -1,18 +1,18 @@
 <template>
     <v-container v-if="$isMobile()">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
                 <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/布告栏.png`" alt="postItem" width="48" height="48" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/others/布告栏.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">{{lang.bulletin}}</h2>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
+        <v-row class="ma-0 mo-glow">
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    solo
-                    class="mo-glow-v-select"
+                    color="#7879ff"
+                    class="mo-glow-v-select mt-0 pt-0"
                     :items="typeItem"
                     :menu-props="{ top: false, offsetY: true }"
                     item-text="label"
@@ -210,9 +210,8 @@ export default {
 
         loadContentData(data){
             if(data.text === ''){
-                this.requiredText = true;
                 this.bulletinboardData.content = null;
-                return;
+                return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"})
             }
             this.bulletinboardData.content = data
         },

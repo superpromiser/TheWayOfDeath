@@ -1,5 +1,80 @@
 <template>
-    <v-container>
+    <v-container v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
+                <v-avatar class="" >
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/校园安全/维修工单.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">维修工单</h2>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 hover-cursor-point">
+            <v-col cols="12" class="d-flex align-center">
+                <v-text-field
+                    color="#7879ff"
+                    v-model="repairData.userName"
+                    label="姓名"
+                    hide-details
+                    readonly
+                    class="mt-0 pt-0"
+                ></v-text-field>
+            </v-col>
+        </v-row>
+        <!-- <v-row class="ma-0 hover-cursor-point">
+            <v-col cols="12" class="d-flex justify-space-between align-center">
+                <p class="mb-0">发布位置</p>
+                <p class="mb-0">{{repairData.viewList}}</p>
+            </v-col>
+        </v-row> -->
+        <v-row class="ma-0 hover-cursor-point">
+            <v-col cols="12" class="d-flex justify-space-between align-center">
+                <v-select
+                    color="#7879ff"
+                    small-chips
+                    :items="returnSchoolTree(currentPath.params.schoolId)"
+                    :menu-props="{ top: false, offsetY: true }"
+                    item-text="lessonName"
+                    item-value="lessonId"
+                    @change="selectedLesson"
+                    label="发布位置"
+                    hide-details
+                    return-object
+                    v-model="viewList"
+                    class="mt-0 pt-0"
+                ></v-select>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 hover-cursor-point">
+            <v-col cols="12" class="d-flex justify-space-between align-center">
+                <v-datetime-picker 
+                    label="发布时间" 
+                    v-model="repairData.deadline"
+                    :okText='lang.ok'
+                    :clearText='lang.cancel'
+                ></v-datetime-picker>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 hover-cursor-point">
+            <v-col cols="12" class="d-flex justify-space-between align-center">
+                <v-select
+                    :menu-props="{ top: false, offsetY: true }"
+                    :items="itemList"
+                    color="#7879ff"
+                    v-model="repairData.repairType"
+                    class="mt-0 pt-0"
+                    label="维修物品"
+                    hide-details
+                ></v-select>
+            </v-col>
+        </v-row>
+        <v-row class="ma-0 hover-cursor-point">
+            <v-col cols="12">
+                <QuestionItem :Label="lang.contentPlaceFirst" ref="child" @contentData="loadContentData"></QuestionItem>            
+            </v-col>
+        </v-row>
+        <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
+    </v-container>
+    <v-container v-else>
         <v-banner>
             <v-row class="ma-0">
                 <v-col>
@@ -102,9 +177,11 @@ import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {mapGetters} from 'vuex'
 import {createRepairData} from '~/api/repair'
+import quickMenu from '~/components/quickMenu'
 export default {
     components:{
         QuestionItem,
+        quickMenu,
     },
     data:()=>({
         repairData:{
@@ -124,7 +201,8 @@ export default {
         ],
         isSubmit:false,
         lang,
-        viewList:null
+        viewList:null,
+        baseUrl: window.Laravel.base_url,
     }),
     computed:{
         currentPath(){
@@ -173,6 +251,10 @@ export default {
         selectedLesson(val){
             //console.log(val)
         },
+
+        something(){
+
+        }
     }
 }
 </script>

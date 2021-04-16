@@ -1,18 +1,18 @@
 <template>
     <v-container v-if="$isMobile()">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
                 <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/校园动态.png`" alt="postItem" width="48" height="48" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/校园文化/校园动态.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">{{lang.campus}}</h2>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
+        <v-row class="ma-0 mo-glow">
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
-                    solo
+                    class="mo-glow-v-select mt-0 pt-0"
+                    color="#7879ff"
                     :items="typeItem"
                     :menu-props="{ top: false, offsetY: true }"
                     item-text="label"
@@ -23,15 +23,15 @@
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-text-field
-                    class="mo-glow-v-text"
-                    solo
+                    class="mo-glow-v-text mt-0 pt-0"
+                    color="#7879ff"
                     v-model="campusData.title"
                     label="标题"
                     hide-details
                 ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-                <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" :solo="true" uploadLabel="模板封面" />
+                <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" :solo="false" uploadLabel="模板封面" />
             </v-col>
             <v-col cols="12">
                 <v-row class="ma-0 mo-glow">
@@ -41,7 +41,7 @@
                 </v-row>
             </v-col>
         </v-row>
-        <quick-menu @clickDraft="something" @clickPublish="publishcampusData" :isPublishing="isCreating"></quick-menu>
+        <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isCreating"></quick-menu>
         <v-snackbar
             timeout="3000"
             v-model="requiredText"
@@ -258,6 +258,10 @@ export default {
         },
 
         saveDraft(){
+
+        },
+
+        something(){
 
         }
     }

@@ -2,9 +2,9 @@
   <v-container class="ma-0 pa-0" v-if="$isMobile()">
       <v-container v-if="postNew == true">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
-                <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/问卷.png`" alt="postItem" width="48" height="48" ></v-img>
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
+                <v-avatar class="" >
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/问卷.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">{{lang.questionnaire}}</h2>
             </v-col>

@@ -1,9 +1,9 @@
 <template>
     <v-container v-if="$isMobile()">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
                 <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/公告.png`" alt="postItem" width="48" height="48" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/家校互动/公告.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">{{lang.announcement}}</h2>
             </v-col>
@@ -11,8 +11,8 @@
         <v-row class="ma-0 mo-glow mt-5">
             <v-col cols="12" sm="6" md="4">
                 <v-text-field
-                    class="mo-glow-v-text"
-                    solo
+                    class="mo-glow-v-text mt-0 pt-0"
+                    color="#7879ff"
                     v-model="announcementData.title"
                     label="公告标题"
                     hide-details
@@ -25,8 +25,8 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                            class="mo-glow-v-text"
-                            solo
+                            class="mo-glow-v-text mt-0 pt-0"
+                            color="#7879ff"
                             v-model="announcementData.signName"
                             label="落款名称"
                             hide-details
@@ -110,8 +110,8 @@
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
-                    solo
+                    class="mo-glow-v-select mt-0 pt-0"
+                    color="#7879ff"
                     multiple
                     small-chips
                     :items="returnSchoolTree(currentPath.params.schoolId)"
@@ -123,11 +123,11 @@
                     hide-details
                 ></v-select>
             </v-col>
-            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-around">
+            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
                 <span class="mo-glow-inverse pa-2">签名反馈</span>
                 <v-switch
                     v-model="announcementData.scopeFlag"
-                    color="primary"
+                    color="#7879ff"
                     hide-details
                     class="pt-0 mt-0"
                 ></v-switch>

@@ -1,14 +1,14 @@
 <template>
     <v-container v-if="$isMobile()">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
                 <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/短信.png`" alt="postItem" width="48" height="48" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/短信.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">{{lang.sms}}</h2>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
+        <v-row class="ma-0 mo-glow">
             <v-col cols="12">
                 <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
             </v-col>
@@ -148,7 +148,6 @@ export default {
             await createSms(this.smsData).then(res=>{
                 //console.log(res)
                 this.isSubmit = false
-                this.isSuccessed = true;
                 if(this.$isMobile()){
                     this.$router.push({name:'home'})
                 }
@@ -163,9 +162,8 @@ export default {
 
         loadContentData(data){
             if(data.text === ''){
-                this.requiredText = true;
                 this.smsData.content = [];
-                return;
+                return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"})
             }
             this.smsData.content.push(data)
         },

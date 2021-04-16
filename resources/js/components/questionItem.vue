@@ -3,7 +3,7 @@
         <v-row>
             <!-- {{index}} -->
             <v-textarea
-                class="mo-glow-v-text"
+                class="mo-glow-v-text mt-0 pt-0"
                 clearable
                 auto-grow
                 color="#7879ff"
@@ -18,7 +18,7 @@
         <v-row class="mt-5">
             <v-btn
                 fab
-                small
+                x-small
                 class="ma-2 mo-glow"
                 :loading="isImageSelecting"
                 @click="clickUploadImageBtn"
@@ -35,7 +35,7 @@
             >
             <v-btn
                 fab
-                small
+                x-small
                 class="ma-2 mo-glow"
                 :loading="isVideoSelecting"
                 @click="clickUploadVideoBtn"
@@ -52,7 +52,7 @@
             >
             <v-btn
                 fab
-                small
+                x-small
                 class="ma-2 mo-glow"
                 :loading="isFileSelecting"
                 @click="clickUploadFileBtn"
@@ -70,8 +70,7 @@
             <v-btn
                 v-if="contact"
                 fab
-                small
-                dark
+                x-small
                 class="ma-2 mo-glow"
                 :loading="isUserSeleciting"
                 @click="selectUser"
@@ -82,8 +81,7 @@
             <v-btn
                 v-if="emoji"
                 fab
-                small
-                dark
+                x-small
                 class="ma-2 mo-glow"
                 @click="toggleEmo"
                 style="color:#7879ff;"
