@@ -59,28 +59,41 @@
           </carousel>
         </v-col>
         <v-col cols="12" class="pa-0">
-            <carousel class="mb-3" v-if="chooseableItemGroup.length > 0" :key="carouselKey" :nav="false" :items="5" :loop="false" :dots="false">
-              <v-col class="pa-0 d-flex justify-center" v-for="(chooseableItem, i) in chooseableItemGroup" :key="i">
-                <v-sheet v-if="chooseableItem.title == 'openDialog'" tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+            <v-row v-if="isLoadingPostItems" class="ma-0 d-flex justify-center py-5 mb-3" >
+              <v-progress-circular
+                indeterminate
+                color="#7879ff"
+              ></v-progress-circular>
+            </v-row>
+            <!-- <carousel class="mb-3" v-else-if="chooseableItemGroup.length == 0" :key="carouselKey" :nav="false" :items="5" :loop="false" :dots="false"> -->
+            <carousel class="mb-3" v-else-if="chooseableItemGroup.length == 0" :nav="false" :items="5" :loop="false" :dots="false">
+              <v-col class="pa-0 d-flex justify-center">
+                <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
                   <div class="text-center">
-                    <v-img :src="`${baseUrl}${chooseableItem.imgUrl}`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
                     <p class="font-size-0-75 pt-1 mb-0">添加</p>
                   </div>
                 </v-sheet>
-                <v-sheet v-else tile class=" d-flex justify-center align-center">
+              </v-col>
+            </carousel>
+            <carousel class="mb-3" v-else-if="chooseableItemGroup.length > 0" :key="carouselKey" :nav="false" :items="5" :loop="false" :dots="false">
+              <v-col class="pa-0 d-flex justify-center" v-for="(chooseableItem, i) in chooseableItemGroup" :key="i">
+                <v-sheet tile class=" d-flex justify-center align-center">
                   <div class="text-center">
                     <v-img :src="`${baseUrl}${chooseableItem.imgUrl}`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
                     <p class="font-size-0-75 pt-1 mb-0">{{chooseableItem.title}}</p>
                   </div>
                 </v-sheet>
               </v-col>
+              <v-col class="pa-0 d-flex justify-center">
+                <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                  <div class="text-center">
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                    <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                  </div>
+                </v-sheet>
+              </v-col>
             </carousel>
-            <v-row v-else class="ma-0 d-flex justify-center py-5 mb-3" >
-              <v-progress-circular
-                indeterminate
-                color="#7879ff"
-              ></v-progress-circular>
-            </v-row>
             <v-divider class="mx-3" light></v-divider>
 
           <v-dialog v-model="addItemDialog" width="100%" max-width="500" scrollable>
@@ -257,6 +270,7 @@ export default {
     selectedTypeItemGroup: null,
     selectedItemGroupForSchoolDia: [],
     selectedItemGroupForClassDia: [],
+    isLoadingPostItems: false,
     schoolSpaceItems:[
       {
         title : "问卷",
@@ -406,31 +420,17 @@ export default {
       if(this.selectedSchoolItem.type == "school"){
         this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
         this.selectedItemGroup = this.selectedItemGroupForSchoolDiaStore;
-        let obj = {
-          imgUrl: '/asset/img/appIcon/others/全部.png',
-          path: 'openDialog',
-          title: 'openDialog'
-        };
-        this.chooseableItemGroup.push(obj);
       }
       else{
         this.chooseableItemGroup = this.selectedItemClassGroupStore;
         this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
-        let obj = {
-          imgUrl: '/asset/img/appIcon/others/全部.png',
-          path: 'openDialog',
-          title: 'openDialog'
-        };
-        this.chooseableItemGroup.push(obj);
       }
-      console.log("this.chooseableItemGroup", this.chooseableItemGroup);
-      console.log("this.selectedItemGroup", this.selectedItemGroup);
       
     }
     else{
+      this.isLoadingPostItems = true;
       await getPostItem()
       .then((res) => {
-        console.log("^^^", res);
         let schoolArr = JSON.parse(res.data.schoolItem);
         let classArr = JSON.parse(res.data.classItem);
         this.selectedItemGroupForSchoolDia = schoolArr;
@@ -454,21 +454,16 @@ export default {
       }).catch((err) => {
         
       });
+      
       this.$store.dispatch('mo/onSelectedItemSchoolGroupStore', this.selectedItemSchoolGroup);
       this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.selectedItemClassGroup);
       // if(this.selectedItemSchoolGroupStore == null && this.selectedItemClassGroupStore == null){
       // }
       this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
-      let obj = {
-        imgUrl: '/asset/img/appIcon/others/全部.png',
-        path: 'openDialog',
-        title: 'openDialog'
-      };
-      this.chooseableItemGroup.push(obj);
+
+      this.isLoadingPostItems = false;
+
       this.selectedItemGroup = this.selectedItemGroupForSchoolDia;
-      console.log("this.schoolTree", this.schoolTree);
-      console.log("this.chooseableItemGroup", this.chooseableItemGroup);
-      console.log("this.selectedItemGroup", this.selectedItemGroup);
     }
     if(this.user.roleId == 1){
       this.schoolList = this.schoolTree;
@@ -484,7 +479,6 @@ export default {
           divider : true
         }
         this.schoolListDropdownItem.push(dividerObj);
-        console.log("***", this.schoolListDropdownItem)
         school.grades.map( (grade,gradeIndex) =>{
             let gradeObj = {
                 header : grade.gradeName,
@@ -592,8 +586,7 @@ export default {
       this.$router.push({name: 'classSpace', params:{schoolId: lesson.schoolId, gradeId: lesson.gradeId, lessonId: lesson.id}});
     },
     onSelectSchoolItem(val){
-      console.log(val);
-      console.log(this.schoolListDropdownItem);
+      this.carouselKey += 1
       if(val == this.selectedItem.value){
         return
       }
@@ -613,7 +606,6 @@ export default {
               this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
               this.chooseableItemGroup  = this.selectedItemClassGroupStore;
             }
-            console.log("this.chooseableItemGroup",this.chooseableItemGroup);
             this.$store.dispatch('mo/onIsSchoolSpace', this.isSchoolSpace);
             this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
           }
@@ -621,7 +613,6 @@ export default {
       }
     },
     onSearch(){
-      console.log(this.searchKeyword)
     },
     onFalseSearching(){
       this.isSearching = false;
@@ -660,21 +651,12 @@ export default {
         }
     },
     openAddItemDialog(){
-      //selectedItemGroup
-      if(this.selectedItem.type == "school"){
-        this.selectedItemGroup = this.selectedItemGroupForSchoolDia
-      }
-      else{
-        this.selectedItemGroup = this.selectedItemGroupForClassDia
-      }
       this.addItemDialog = true;
     },
     closeAddItemDialog(){
-      this.selectedItemGroup = [];
       this.addItemDialog = false
     },
     saveSelectedItemGroup(){
-      console.log("sssss", this.selectedItemGroup);
       if(this.selectedItem.type == "school"){
         this.selectedItemGroupForSchoolDia = this.selectedItemGroup;
         this.selectedItemGroupForSchoolDia.map(namedItem =>{
@@ -688,18 +670,17 @@ export default {
             })
           }
         })
-        console.log(this.chooseableItemGroup, this.selectedItemGroupForSchoolDia)
         let payload = {
           schoolItem: this.selectedItemGroupForSchoolDia
         }
         this.$store.dispatch('mo/onSelectedItemGroupForSchoolDiaStore', this.selectedItemGroupForSchoolDia);
         this.$store.dispatch('mo/onSelectedItemSchoolGroupStore', this.chooseableItemGroup);
-        // postChooseableSchoolItem(payload)
-        // .then((res) => {
+        postChooseableSchoolItem(payload)
+        .then((res) => {
           
-        // }).catch((err) => {
+        }).catch((err) => {
           
-        // });
+        });
       }
       else{
         this.selectedItemGroupForClassDia = this.selectedItemGroup;
@@ -709,22 +690,22 @@ export default {
             this.classSpaceItems.map(classItem=>{
               if(classItem.title == namedItem){
                 this.chooseableItemGroup.push(classItem);
+                this.carouselKey += 1
               }
             })
           }
         })
-        console.log(this.chooseableItemGroup, this.selectedItemGroupForClassDia)
         let payload = {
           classItem: this.selectedItemGroupForClassDia
         }
         this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroupForClassDia);
         this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.chooseableItemGroup);
-        // postChooseableClassItem(payload)
-        // .then((res) => {
+        postChooseableClassItem(payload)
+        .then((res) => {
           
-        // }).catch((err) => {
+        }).catch((err) => {
           
-        // });
+        });
       }
       this.closeAddItemDialog();
     },
@@ -735,41 +716,6 @@ export default {
       }
     },
 
-
-    // convert(groupItems){
-    //   console.log("groupItems", groupItems)
-    //   let returnVal = [];      
-    //   let openDiaObj = {
-    //     imgUrl: '/asset/img/appIcon/others/全部.png',
-    //     path: 'openDialog',
-    //     title: 'openDialog'
-    //   }
-    //   groupItems.push(openDiaObj);
-    //   let i,j,temparray,chunk = 5;
-    //   for ( i = 0; i< groupItems.length; i+=chunk) {
-    //     temparray = groupItems.slice(i,i+chunk);
-    //     console.log(temparray);
-    //     returnVal.push(temparray);
-    //   }
-    //   return returnVal;
-    // },
-
-    convert(arr, size) {
-      var myArray = [];
-      let openDiaObj = {
-        imgUrl: '/asset/img/appIcon/others/全部.png',
-        path: 'openDialog',
-        title: 'openDialog'
-      }
-      arr.push(openDiaObj);
-      for(var i = 0; i < arr.length; i += size) {
-        myArray.push(arr.slice(i, i+size));
-      }
-      console.log("myArray", myArray)
-      // myArray[myArray.length - 1]
-      return myArray;
-    }
-    
   }
 }
 </script>
