@@ -1,5 +1,55 @@
 <template>
-  <v-container>
+  <v-container v-if="$isMobile()">
+    <v-row>
+      <v-col cols="12" class="d-flex">
+        <v-avatar>
+          <v-img :src="`${baseUrl}/asset/img/appIcon/校园安全/维修工单.png`" alt="postItem" ></v-img>
+        </v-avatar>
+        <div class="ml-2 d-flex flex-column">
+          <div class="d-flex align-center mb-auto">
+            <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color">维修工单</p>
+            <v-chip class="ma-2" color="pink" label text-color="white" v-if="content.repairdata.status == 'done'">
+              <v-icon left> mdi-label </v-icon> 已完成
+            </v-chip>
+          </div>
+          <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+        </div>
+      </v-col>
+      <v-col cols="12" class="py-0 font-size-0-8">
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+          <strong>姓名:</strong>
+          {{content.repairdata.userName}}
+          </p>
+        </div>
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+          <strong>交接人姓名:</strong>
+          {{content.repairdata.viewListName}}
+          </p>
+        </div>
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+          <strong>维修物品:</strong>
+          {{content.repairdata.repairType}}
+          </p>
+        </div>
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+          <strong>发布时间:</strong>
+          {{TimeViewSam(content.repairdata.deadline)}}
+          </p>
+        </div>
+      </v-col>
+      <v-col cols="12" class="pb-0">
+        <p class="text-wrap mb-0 font-size-0-75"><read-more more-str="全文" :text="description.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+      </v-col>
+      <v-col cols="12" class="" v-if="checkIfAttachExist(description)">
+        <AttachItemViewer :items="description" />
+      </v-col>
+    </v-row>
+  </v-container>
+  <v-container v-else>
     <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail">
       <v-avatar class="ma-3 school-card-avatar" tile >
         <v-img :src="`${baseUrl}/asset/img/newIcon/维修工单.png`" alt="postItem" ></v-img>
