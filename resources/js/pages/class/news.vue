@@ -43,6 +43,10 @@
           <ClassStoryPost :content="content"></ClassStoryPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 26">
+          <InterClassStoryPost :content="content"></InterClassStoryPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
       </v-container>
       <InfiniteLoading 
           class="pb-3 w-100"
@@ -141,6 +145,7 @@ import EvaluationPost from '~/components/contents/evaluationPost'
 import RecognitionPost from '~/components/contents/recognitionPost'
 import HomeworkResultPost from '~/components/contents/homeworkResultPost'
 import ClassStoryPost from '~/components/contents/classStoryPost'
+import InterClassStoryPost from '~/components/contents/interClassStoryPost'
 export default {
   components :{
     QusetionnairePost,
@@ -153,6 +158,7 @@ export default {
     RecognitionPost,
     HomeworkResultPost,
     ClassStoryPost,
+    InterClassStoryPost,
     InfiniteLoading,
   },
 

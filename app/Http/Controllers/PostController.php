@@ -51,7 +51,7 @@ class PostController extends Controller
         ]);
         // $userId = Auth::user()->id;
         $classId = $request->classId;
-        return Post::whereIn('contentId', [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 25])
+        return Post::whereIn('contentId', [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 25, 26])
             ->where('classId', $classId)
             ->with([
                 'likes',
@@ -66,6 +66,7 @@ class PostController extends Controller
                 'homework',
                 'homeworkResult.homework',
                 'classstory',
+                'interclassstory',
                 'users:id,name'
             ])
             ->orderBy('created_at', 'desc')

@@ -123,4 +123,9 @@ class Post extends Model
     {
         return $this->hasOne(ClassStory::class, 'postId');
     }
+
+    public function interclassstory()
+    {
+        return $this->hasOne(InterClassStory::class, 'postId');
+    }
 }

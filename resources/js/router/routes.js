@@ -271,6 +271,8 @@ export default [
       {path:'classNotification', name:'details.classNotification', component:page('details/notification/index.vue')},
       {path:'classEvaluation', name:'details.classEvaluation', component:page('details/evaluation/index.vue')},
       {path:'classRecognition', name:'details.classRecognition', component:page('details/recognition/index.vue')},
+      {path:'classStory', name:'details.classStory', component:page('details/classStory/index.vue')},
+      {path:'interClassStory', name:'details.interClassStory', component:page('details/interClassStory/index.vue')},
     ]
   },
 

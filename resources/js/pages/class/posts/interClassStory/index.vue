@@ -32,7 +32,7 @@
             {{lang.successText}}
         </v-snackbar>
         <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
-  </v-container>
+    </v-container>
     <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
@@ -107,7 +107,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createInterClassStory} from '~/api/classStory'
+import {createInterClassStory} from '~/api/interClassStory'
 import quickMenu from '~/components/quickMenu'
 export default {
     components:{

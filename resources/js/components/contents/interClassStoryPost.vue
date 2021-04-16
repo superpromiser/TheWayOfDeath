@@ -2,10 +2,10 @@
   <v-container>
     <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
       <v-avatar class="ma-3 school-card-avatar" tile >
-        <v-img :src="`${baseUrl}/asset/img/newIcon/班级动态.png`" alt="postItem" ></v-img>
+        <v-img :src="`${baseUrl}/asset/img/newIcon/班际动态.png`" alt="postItem" ></v-img>
       </v-avatar>
       <div>
-        <p class="font-weight-black fs-15 mb-3"> {{lang.classStory}}  </p>
+        <p class="font-weight-black fs-15 mb-3"> {{lang.interClassStory}}  </p>
         <div class="d-flex align-center">
           <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
           <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
@@ -64,13 +64,13 @@ export default {
         schoolstory: {},
     }),
     created(){
-      this.schoolstory = JSON.parse(this.content.classstory.content);
+      this.schoolstory = JSON.parse(this.content.interclassstory.content);
     },
     methods:{
 
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.classStory'});
+        this.$router.push({name:'details.interClassStory'});
       },
       
     }
