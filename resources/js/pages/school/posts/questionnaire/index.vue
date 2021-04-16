@@ -33,50 +33,12 @@
                   sm="6"
                   md="4"
                   >
-                  <v-menu
-                      ref="menu"
-                      v-model="menu"
-                      :close-on-content-click="false"
-                      :return-value.sync="newQuestionnaireData.deadline"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="auto"
-                  >
-                      <template v-slot:activator="{ on, attrs }">
-                      <v-text-field
-                          color="#7879ff"
-                          v-model="newQuestionnaireData.deadline"
-                          prepend-inner-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                          hide-details
-                          class="mt-0 pt-0"
-                      ></v-text-field>
-                      </template>
-                      <v-date-picker
+                  <v-datetime-picker 
+                      label="最后期限" 
                       v-model="newQuestionnaireData.deadline"
-                      no-title
-                      scrollable
-                      locale="zh-cn"
-                      >
-                      <v-spacer></v-spacer>
-                      <v-btn
-                          text
-                          color="primary"
-                          @click="menu = false"
-                      >
-                          {{lang.cancel}}
-                      </v-btn>
-                      <v-btn
-                          text
-                          color="primary"
-                          @click="$refs.menu.save(date)"
-                      >
-                          {{lang.ok}}
-                      </v-btn>
-                      </v-date-picker>
-                  </v-menu>
+                      :okText='lang.ok'
+                      :clearText='lang.cancel'
+                  > </v-datetime-picker>
               </v-col>
               <v-col cols="12" sm="6" md="4">
                   <v-select
@@ -143,7 +105,7 @@
               </v-col>
           </v-row>
           <!--  View Datas  -->
-          <v-row class="ma-0 mo-glow mt-5 mb-10 pb-16">
+          <v-row class="ma-0 mo-glow mb-10 pb-16">
             <!--  View Divider  -->
             <v-col cols="12" class="text-center">
               <h2>预览</h2>
