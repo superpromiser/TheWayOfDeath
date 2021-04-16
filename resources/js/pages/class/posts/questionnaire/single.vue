@@ -1,8 +1,8 @@
 <template>
 <v-container v-if="$isMobile()">
         <div v-for="index in initialCnt" :key="index" class="mt-3">
-            <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
-            <v-divider></v-divider>
+            <QuestionItem :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+            <v-divider class="thick-border" light></v-divider>
         </div>
         <v-container>
             <v-row class="my-10 d-flex align-center ">
@@ -76,7 +76,7 @@ export default {
             type : 'single',
             singleContentDataArr:[],
         },
-        initialCnt:4,
+        initialCnt:3,
         lang,
         requiredText:false
     }),
@@ -88,7 +88,7 @@ export default {
             for(let index = 1;  index <= this.initialCnt; index++){
                 this.$refs[index][0].emitData()
             }
-            if(this.singleData.singleContentDataArr.length<4){
+            if(this.singleData.singleContentDataArr.length<3){
                 return
             }
             // this.$store.dispatch('content/storeSingleData',this.singleContentDataArr)
@@ -101,9 +101,8 @@ export default {
         },
         loadContentData(data){
             if(data.text === ''){
-                this.requiredText = true
                 this.singleData.singleContentDataArr = []
-                return;
+                return this.$snackbar.showMessage({content: "标题不能为空", color: "error"})
             }
             this.singleData.singleContentDataArr.push(data);
         }

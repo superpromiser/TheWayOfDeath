@@ -1,15 +1,14 @@
 <template>
   <v-container>
     <div class="mt-3 mb-10">
-      <QuestionItem class="mt-10" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
-      <v-divider></v-divider>
+      <QuestionItem :class="$isMobile() ? '': 'mt-10'" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+      <v-divider class="thick-border" light></v-divider>
     </div>
     <v-row>
       <v-col cols="12" md="6" class="d-flex align-center" v-if="$isMobile()">
-        <p class="mb-0 mr-5 px-4 py-3 mo-glow">{{lang.maxMinutes}}</p>
         <v-select
-          class="mo-glow-v-select"
-          solo
+          class="mo-glow-v-select mt-0 pt-0"
+          color="#7879ff"
           :items="items"
           :menu-props="{ top: false, offsetY: true }"
           :label="lang.maxMinutes"
@@ -105,8 +104,7 @@ export default {
     addScoringContent(){
       this.$refs.child.emitData();
       if(this.scoreData.scoringDataArr[0].contentData.length == 0){
-        this.requiredText = true;
-        return
+        return this.$snackbar.showMessage({content: "标题不能为空", color: "error"})
       }
       
       this.$emit('contentData',this.scoreData);

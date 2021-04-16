@@ -1,7 +1,7 @@
 <template>
     <v-container v-if="$isMobile()">
         <div v-for="index in initialCnt" :key="index" class="mt-3">
-            <QuestionItem :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+            <QuestionItem class="mt-3" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
             <v-divider light class="thick-border"></v-divider>
         </div>
         <v-container>

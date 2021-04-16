@@ -137,7 +137,7 @@
             <v-card>
               <v-tabs
                 v-model="tab"
-                background-color="light-blue accent-4"
+                background-color="#7879ff"
                 centered
                 dark
                 icons-and-text
@@ -166,6 +166,7 @@
                         <v-text-field
                           v-model="phoneNumber"
                           label="帐号"
+                          color="#7879ff"
                           prepend-inner-icon="mdi-phone"
                           :rules="[rules.required]"
                           :counter="11"
@@ -176,6 +177,7 @@
                           label="密码"
                           hint="至少8个字符"
                           counter
+                          color="#7879ff"
                           prepend-inner-icon="mdi-key-chain-variant"
                           :rules="[rules.required, rules.min]"
                           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -183,6 +185,7 @@
                           @click:append="show1 = !show1"
                         ></v-text-field>
                         <v-checkbox
+                          color="#7879ff"
                           v-model="agreeTerms"
                           label="已阅读并同意《用户服务协议》和《隐私》"
                           type="checkbox"
@@ -194,16 +197,18 @@
                               <a
                                 href="#"
                                 @click.prevent="terms = true"
+                                style="color: #7879ff"
                               >《用户服务协议》</a>
                               和
                               <a
                                 href="#"
                                 @click.prevent="conditions = true"
+                                style="color: #7879ff"
                               >《隐私》</a>
                             </div>
                           </template>
                         </v-checkbox>
-                        <v-btn color="primary" block type="submit" :loading="isLogging" :disabled="!isFormValid">
+                        <v-btn color="#7879ff" :dark="isFormValid" block type="submit" :loading="isLogging" :disabled="!isFormValid">
                           <v-icon left>
                             mdi-login
                           </v-icon> 
@@ -211,7 +216,7 @@
                         </v-btn>
                       </v-form>
                       <v-row class="justify-end pa-3">
-                        <v-btn color="primary" text class="align-right">
+                        <v-btn color="#7879ff" text class="align-right">
                           忘记密码?
                         </v-btn>
                       </v-row>
@@ -221,7 +226,7 @@
                         <span>—————</span>
                       </v-row>
                       <v-row class="justify-center align-center pt-1 pb-4">
-                        <v-btn color="primary" text>
+                        <v-btn color="#7879ff" text>
                           <v-icon left>
                             mdi-wechat
                           </v-icon> 

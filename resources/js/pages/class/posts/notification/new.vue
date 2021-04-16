@@ -1,18 +1,18 @@
 <template>
     <v-container v-if="$isMobile()">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
                 <v-avatar class="mo-glow-small-shadow" >
                     <v-img :src="`${baseUrl}/asset/img/icon/通知 拷贝.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">{{lang.notification}}</h2>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
+        <v-row class="ma-0 mo-glow">
             <v-col cols="12" sm="6" md="4">
                 <v-text-field
-                    class="mo-glow-v-text"
-                    solo
+                    class="mo-glow-v-text mt-0 pt-0"
+                    color="#7879ff"
                     v-model="notificationData.title"
                     label="标题"
                     hide-details
@@ -25,8 +25,8 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                            class="mo-glow-v-text"
-                            solo
+                            class="mo-glow-v-text mt-0 pt-0"
+                            color="#7879ff"
                             v-model="notificationData.signName"
                             label="公告标题"
                             hide-details
@@ -75,7 +75,8 @@
                                 <v-list-item v-if="newSignFlag">
                                     <v-text-field
                                         v-model="newSignName"
-                                        solo
+                                        hide-details
+                                        color="#7879ff"
                                         label="公告标题"
                                     ></v-text-field>
                                         <v-btn
@@ -333,9 +334,8 @@ export default {
         },  
         loadContentData(data){
             if(data.text === ''){
-                this.requiredText = true;
                 this.notificationData.description = null;
-                return;
+                return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"})
             }
             this.notificationData.description = data;
         },
@@ -352,7 +352,7 @@ export default {
         async publishcampusData(){
             this.$refs.child.emitData();
             if(this.notificationData.description == null){
-                return
+                return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"})
             }
             this.isCreating = true;
             //console.log("notificationData", this.notificationData);
