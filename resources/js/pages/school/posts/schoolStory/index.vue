@@ -160,9 +160,8 @@ export default {
 
         loadContentData(data){
             if(data.text === ''){
-                this.requiredText = true;
                 this.shareData.content = null;
-                return;
+                return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"}) 
             }
             this.shareData.content = data
         },
