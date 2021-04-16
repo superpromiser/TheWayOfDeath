@@ -16,6 +16,7 @@
                       v-model="newQuestionnaireData.title"
                       label="标题"
                       hide-details
+                      class="mt-0 pt-0"
                   ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="4">
@@ -24,6 +25,7 @@
                       v-model="newQuestionnaireData.description"
                       label="说明（选填）"
                       hide-details
+                      class="mt-0 pt-0"
                   ></v-text-field>
               </v-col>
               <v-col
@@ -44,11 +46,12 @@
                       <v-text-field
                           color="#7879ff"
                           v-model="newQuestionnaireData.deadline"
-                          prepend-icon="mdi-calendar"
+                          prepend-inner-icon="mdi-calendar"
                           readonly
                           v-bind="attrs"
                           v-on="on"
                           hide-details
+                          class="mt-0 pt-0"
                       ></v-text-field>
                       </template>
                       <v-date-picker
@@ -87,6 +90,7 @@
                       @change="selectedLesson"
                       label="班级"
                       hide-details
+                      class="mt-0 pt-0"
                       v-model="newQuestionnaireData.viewList"
                   ></v-select>
               </v-col>

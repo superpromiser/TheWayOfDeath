@@ -10,18 +10,18 @@
 
         </div> -->
         <div class="sub-menu mo-glow d-flex align-center justify-center bg-primary" @click="publish" :style="getSubMenu(0)">
-            <v-progress-circular indeterminate color="#7879ff" v-if="isPublishing"></v-progress-circular>
+            <v-progress-circular indeterminate color="white" v-if="isPublishing"></v-progress-circular>
             <div v-else>
-                <v-icon ref="icon" color="#7879ff">mdi-share-variant-outline</v-icon>
+                <v-icon ref="icon" color="white">mdi-share-variant-outline</v-icon>
                 <span>提交</span>
             </div>
         </div>
         <div class="sub-menu mo-glow d-flex align-center justify-center bg-primary" @click="draft" :style="getSubMenu(1)">
-            <v-icon ref="icon" color="#7879ff">mdi-file-document-edit-outline</v-icon>
+            <v-icon ref="icon" color="white">mdi-file-document-edit-outline</v-icon>
             <span>模板</span>
         </div>
         <div class="sub-menu mo-glow d-flex align-center justify-center bg-primary" @click="$router.go(-1)" :style="getSubMenu(2)">
-            <v-icon ref="icon" color="#7879ff">mdi-share-outline</v-icon>
+            <v-icon ref="icon" color="white">mdi-share-outline</v-icon>
             <span>回去</span>
         </div>
 
@@ -304,7 +304,7 @@
     width: 60px;
     height: 60px;
     font-size: 0.75rem;
-    color: #7879ff;
+    color:white;
     text-align: center;
     border-radius: 50% !important;
     a{
