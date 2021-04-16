@@ -1,100 +1,60 @@
 <template>
-    <v-container>
-        <!-- <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <v-avatar
-                    class="ma-3 ml-3"
-                    size="50"
+    <v-container v-if="$isMobile()">
+        <v-row class="ma-0 align-center">
+            <v-col cols="12">
+                <v-datetime-picker 
+                    label="最后期限" 
+                    v-model="homeworkData.deadline"
+                    :okText='lang.ok'
+                    :clearText='lang.cancel'
+                > </v-datetime-picker>
+            </v-col>
+            <v-col cols="12">
+                <v-select
+                    :items="userList"
+                    label="课代表"
+                    item-text="name"
+                    item-value="id"
+                    color="#7879ff"
+                    class="mt-0 pt-0"
+                    v-model="homeworkData.monitorName"
+                    :menu-props="{ top: false, offsetY: true }"
+                ></v-select>
+            </v-col> 
+            <v-col cols="12" class="d-flex align-center justify-space-between">
+                <p class="mb-0">家长评价提示</p>
+                <v-switch
+                    v-model="homeworkData.parentCheck"
+                    color="#7879ff"
+                    hide-details
+                    class="mt-0 pt-0"
+                ></v-switch>
+            </v-col>
+            <v-col cols="12" class="text-right">
+                <v-btn
                     tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/作业 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>{{lang.homework}}</h2>
-            </div>
-            <template v-slot:actions>
-            <v-btn
-                text
-                color="primary"
-                @click="templateList"
-            >
-                可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
-            </v-btn>
-            
-            <v-btn
-                tile
-                dark
-                color="#F19861"
-                class="mx-2"
-                :loading="isDraft"
-                @click="saveDraft"
-            >
-                {{lang.saveDraft}}
-            </v-btn>
-            <v-btn
-                tile
-                dark
-                color="#49d29e"
-                class="mr-8"
-                :loading="isSubmit"
-                @click="submit"
-            >
-                {{lang.submit}}
-            </v-btn>
-            </template>
-        </v-banner> -->
+                    color="#feb31a"
+                    @click="submit"
+                    :loading="isSubmit"
+                    dark
+                    >
+                    确定
+                </v-btn>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-container v-else>
         <v-row class="mt-1 align-center">
             <v-col cols="6">
                 <p class="">发布时间</p>
             </v-col>
             <v-col cols="6">
-                <v-menu
-                    ref="menu"
-                    v-model="menu"
-                    :close-on-content-click="false"
-                    :return-value.sync="homeworkData.deadline"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                        solo
-                        v-model="homeworkData.deadline"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                        hide-details
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker
+                <v-datetime-picker 
+                    label="发布时间" 
                     v-model="homeworkData.deadline"
-                    no-title
-                    scrollable
-                    locale="zh-cn"
-                    >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="menu = false"
-                    >
-                        {{lang.cancel}}
-                    </v-btn>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.menu.save(date)"
-                    >
-                        {{lang.ok}}
-                    </v-btn>
-                    </v-date-picker>
-                </v-menu>
+                    :okText='lang.ok'
+                    :clearText='lang.cancel'
+                > </v-datetime-picker>
             </v-col>
         </v-row>
         <v-divider light></v-divider>

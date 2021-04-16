@@ -1,5 +1,58 @@
 <template>
-    <v-container>
+    <v-container class="ma-0 pa-0" v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
+                <v-avatar class="" >
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/家校互动/作业.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">{{lang.homework}}</h2>
+            </v-col>
+        </v-row>
+        <v-container v-if="showRule == false">
+            <v-row class="ma-0">
+                <v-col cols="12">
+                    <v-text-field
+                        v-model="homeworkData.subjectName"
+                        color="#7879ff"
+                        label="科目"
+                        clearable
+                        hide-details
+                        class="mt-0 pt-0"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-select
+                        :items="homeworkType"
+                        label="类型"
+                        item-text="label"
+                        item-value="value"
+                        color="#7879ff"
+                        hide-details
+                        class="mt-0 pt-0"
+                        v-model="homeworkData.homeworkType"
+                        :menu-props="{ top: false, offsetY: true }"
+                    ></v-select>
+                </v-col>
+                <v-col cols="12" class="d-flex align-center justify-space-between" @click="setRule">
+                    <p class="mb-0">发布规则</p>
+                    <div class="d-flex align-center">
+                        <span>即使发布</span>
+                        <v-icon right> mdi-chevron-right </v-icon>
+                    </div>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0">
+                <v-col cols="12" class="mb-16">
+                    <QuestionItem Label="作业内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                </v-col>
+            </v-row>
+        </v-container>
+        <div v-else>
+            <router-view></router-view>
+        </div>
+        <quick-menu v-if="showRule == false" @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
+    </v-container>
+    <v-container v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
@@ -98,15 +151,6 @@
         <div v-else>
             <router-view></router-view>
         </div>
-        <v-snackbar
-            timeout="3000"
-            v-model="isRequired"
-            color="error"
-            absolute
-            top
-            >
-            {{lang.successText}}
-        </v-snackbar>
     </v-container>
 </template>
 
@@ -114,15 +158,16 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {getHomeworkData,createHomeworkData} from '~/api/homework'
+import quickMenu from '~/components/quickMenu'
 export default {
     components:{
         QuestionItem,
+        quickMenu,
     },
     data:()=>({
         lang,
         isSubmit:false,
         isDraft:false,
-        isRequired:false,
         tempCnt:0,
         draftCnt:0,
         baseUrl:window.Laravel.base_url,
@@ -203,7 +248,13 @@ export default {
             }).then(res=>{
                 this.isSubmit = false
                 console.log(res.data)
-                this.$router.push({name:'classSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'classSpace.news'})
+                }
+                
             }).catch(err=>{
                 console.log(err.response)
                 this.isSubmit = false
@@ -227,6 +278,10 @@ export default {
                 return
             }
             this.homeworkData.content = data
+        },
+
+        something(){
+
         }
     }
 }
