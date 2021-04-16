@@ -23,7 +23,7 @@
             {{lang.requiredText}}
         </v-snackbar>
         <v-snackbar
-        timeout="3000"
+            timeout="3000"
             v-model="isSuccessed"
             color="success"
             absolute
