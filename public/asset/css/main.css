@@ -1179,3 +1179,10 @@ a {
 .mo-chat-nav-active {
     font-size: 1.125rem !important;
 }
+
+.banner-custom {
+    position: sticky;
+    top: 0;
+    background: white;
+    box-shadow: 0px 0px 15px #a2a2a2;
+}

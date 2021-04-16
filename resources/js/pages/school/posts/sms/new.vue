@@ -34,16 +34,16 @@
         <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
   </v-container>
     <v-container class="pa-0" v-else>
-        <v-container class="pa-10 mb-10 z-index-2" color="white" sticky elevation="20">
-            <v-row class="justify-space-between">
-                <v-col cols="4" md="4" class="d-flex align-center position-relative">
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
                     <a @click="$router.go(-1)">
-                        <v-icon size="70" class="postion-absolute left-24p">
+                        <v-icon size="70" class="left-24p">
                             mdi-chevron-left
                         </v-icon>
                     </a>
                 </v-col>
-                <v-col cols="8" md="4" class="d-flex align-center justify-center">
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
                     <h2>{{lang.sms}}</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">

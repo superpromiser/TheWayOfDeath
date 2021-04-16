@@ -34,45 +34,50 @@
         <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
   </v-container>
     <v-container class="pa-0" v-else>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center w-50 justify-space-between">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <h2>{{lang.share}}</h2>
-            </div>
-            <div class="d-flex align-center justify-center">
-                <v-btn
-                    text
-                    color="primary"
-                    @click="selContent('template')"
-                >
-                    可用模板 0， 草稿 0
-                <v-btn
-                    dark
-                    tile
-                    color="#F19861"
-                    :loading="isDraft"
-                    class="mx-2"
-                    @click="saveDraft"
-                >
-                    {{lang.saveDraft}}
-                </v-btn>
-                </v-btn>
-                <v-btn
-                    dark
-                    tile
-                    color="#49d29e"
-                    class="mr-8"
-                    :loading="isSubmit"
-                    @click="submit"
-                >
-                    {{lang.submit}}
-                </v-btn>
-            </div>
-        </v-banner>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.share}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="selContent('template')"
+                    >
+                        可用模板 0， 草稿 0
+                    </v-btn>
+
+                    <v-btn
+                        dark
+                        tile
+                        color="#49d29e"
+                        class="mx-2"
+                        :loading="isSubmit"
+                        @click="submit"
+                    >
+                        {{lang.submit}}
+                    </v-btn>
+
+                    <v-btn
+                        dark
+                        tile
+                        color="#F19861"
+                        :loading="isDraft"
+                        @click="saveDraft"
+                    >
+                        {{lang.saveDraft}}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container class="pa-10">
             <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
         </v-container>
