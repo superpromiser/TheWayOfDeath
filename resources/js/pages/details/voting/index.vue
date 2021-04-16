@@ -1,52 +1,41 @@
 <template>
     <v-container class="pa-0">
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
-                <a @click="$router.go(-1)" class="float-left">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <v-avatar
-                    class="ma-3 ml-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/投票.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>{{lang.voting}}</h2>
-            </div>
-            <template v-slot:actions>
-                <v-btn
-                    dark
-                    color="#49d29e"
-                    class="mr-8"
-                    tile
-                    @click="answerUsers"
-                >
-                    已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
-                    <v-icon right>
-                        mdi-chevron-right
-                    </v-icon>
-                </v-btn>
-            </template>
-        </v-banner>
-        <!----title---->
-        <!-- <v-row class="ma-0 px-5 px-md-10">
-            <v-col cols="12" class="d-flex justify-center align-center">
-                <h2>{{contentData.voting.title}}</h2>
-            </v-col>
-            <v-col cols="12">
-                <p>{{contentData.questionnaires.desc}}</p>
-            </v-col>
-        </v-row> -->
+        <div class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)" class="float-left">
+                        <v-icon size="70">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.voting}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        dark
+                        color="#49d29e"
+                        class="mr-8"
+                        tile
+                        @click="answerUsers"
+                    >
+                        已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
+                        <v-icon right>
+                            mdi-chevron-right
+                        </v-icon>
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </div>
         <div v-if="answerUserShow == false">
             <v-row>
                 <v-col cols="12">
                     <p class="mb-0 d-flex align-center"> 
                         <!-- {{index + 1}}.   -->
                         <v-chip class="ma-2" color="success" outlined >
-                        <strong>多选题</strong>
+                            <strong v-if="contentData.votings.maxVote>1">多选</strong>
+                            <strong v-else>单选</strong>
                         </v-chip>
                     </p>
                     <p class="text-wrap pl-3 mb-0">{{ content[0].text }}</p>
@@ -172,15 +161,25 @@ export default {
                 alert('您已经回答了该帖子');
                 return;
             }
-            let index = this.answerData.indexOf(selIndex)
-            if(index > -1){
-                this.answerData.splice(index,1)
-            }else{
-                if(this.answerData.length >= this.contentData.votings.maxVote){
-                    alert('无法再选择')
-                    return
+            if(this.contentData.votings.maxVote > 1){
+                let index = this.answerData.indexOf(selIndex)
+                if(index > -1){
+                    this.answerData.splice(index,1)
+                }else{
+                    if(this.answerData.length >= this.contentData.votings.maxVote){
+                        alert('无法再选择')
+                        return
+                    }
+                    this.answerData.push(selIndex)
                 }
-                this.answerData.push(selIndex)
+            }else{
+                console.log(selIndex)
+                console.log(this.answerData)
+                if(this.answerData.length == 0){
+                    this.answerData.push(selIndex)
+                }else{
+                    this.$set(this.answerData,0,selIndex)
+                }
             }
         },
 
