@@ -59,86 +59,30 @@
           </carousel>
         </v-col>
         <v-col cols="12" class="pa-0">
-          <carousel :nav="false" :items="1" :loop="false" :dots="false">
-            <v-card elevation="0" v-for="(selectableGroup, i ) in convert(chooseableItemGroup, 5)" :key="i" >
-              <v-row class="ma-0 pa-0">
-                <v-col class="pa-0 d-flex justify-center col-50" v-for="(selectableItem, j) in selectableGroup" :key="j">
-                  <v-sheet v-if="selectableItem.title == 'openDialog'" tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
-                    <div class="text-center">
-                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
-                    </div>
-                  </v-sheet>
-                  <v-sheet v-else tile class=" d-flex justify-center align-center">
-                    <div class="text-center">
-                      <v-img :src="`${baseUrl}${selectableItem.imgUrl}`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                      <p class="font-size-0-75 pt-1 mb-0">{{selectableItem.title}}</p>
-                    </div>
-                  </v-sheet>
-                </v-col>
-              </v-row>
-            </v-card>
-            <!-- <v-card elevation="0" >
-              <v-row class="ma-0 pa-0 cus-overflow-x-row">
-                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
-                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
-                    <div class="text-center">
-                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
-                    </div>
-                  </v-sheet>
-                </v-col>
-                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
-                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
-                    <div class="text-center">
-                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
-                    </div>
-                  </v-sheet>
-                </v-col>
-                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
-                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
-                    <div class="text-center">
-                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
-                    </div>
-                  </v-sheet>
-                </v-col>
-                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
-                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
-                    <div class="text-center">
-                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
-                    </div>
-                  </v-sheet>
-                </v-col>
-                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
-                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
-                    <div class="text-center">
-                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
-                    </div>
-                  </v-sheet>
-                </v-col>
-                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
-                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
-                    <div class="text-center">
-                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
-                    </div>
-                  </v-sheet>
-                </v-col>
-                <v-col class="pa-0 d-flex justify-center col-50 cus-overflow-x-col">
-                  <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
-                    <div class="text-center">
-                      <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                      <p class="font-size-0-75 pt-1 mb-0">添加</p>
-                    </div>
-                  </v-sheet>
-                </v-col>
-              </v-row>
-            </v-card> -->
-          </carousel>
+            <carousel class="mb-3" v-if="chooseableItemGroup.length > 0" :key="carouselKey" :nav="false" :items="5" :loop="false" :dots="false">
+              <v-col class="pa-0 d-flex justify-center" v-for="(chooseableItem, i) in chooseableItemGroup" :key="i">
+                <v-sheet v-if="chooseableItem.title == 'openDialog'" tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
+                  <div class="text-center">
+                    <v-img :src="`${baseUrl}${chooseableItem.imgUrl}`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                    <p class="font-size-0-75 pt-1 mb-0">添加</p>
+                  </div>
+                </v-sheet>
+                <v-sheet v-else tile class=" d-flex justify-center align-center">
+                  <div class="text-center">
+                    <v-img :src="`${baseUrl}${chooseableItem.imgUrl}`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                    <p class="font-size-0-75 pt-1 mb-0">{{chooseableItem.title}}</p>
+                  </div>
+                </v-sheet>
+              </v-col>
+            </carousel>
+            <v-row v-else class="ma-0 d-flex justify-center py-5 mb-3" >
+              <v-progress-circular
+                indeterminate
+                color="#7879ff"
+              ></v-progress-circular>
+            </v-row>
+            <v-divider class="mx-3" light></v-divider>
+
           <v-dialog v-model="addItemDialog" width="100%" max-width="500" scrollable>
               <v-card>
                   <v-card-title class="title"> 添加 </v-card-title>
@@ -196,397 +140,43 @@
               </v-card>
           </v-dialog>
         </v-col>
-        <v-col cols="12" class="d-flex px-3 align-center" v-touch="{
+        
+        <v-col cols="12" class="d-flex px-3 align-center mo-home-tag-bg-img position-relative" v-touch="{
           left: () => swipe('Left'),
           right: () => swipe('Right'),
         }">
-          <div class="trapezoid position-relative"></div>
-          <div class="parallelogram ml-4"></div>
-          <div class="ml-4">
-            学校要闻
-          </div>
+          <img :src="`${baseUrl}/asset/img/mo-tag-bg-img.svg`"  alt="">
+          <p class="mb-0 ml-4 font-size-0-75">学校要闻</p>
         </v-col>
       </v-row>
-      <v-row class="ma-0 pt-5" v-touch="{
+      <v-divider class="thick-border" light></v-divider>
+      <v-row class="ma-0 pt-1" v-touch="{
         left: () => swipe('Left'),
         right: () => swipe('Right'),
       }">
-        <v-col cols="12" class="pa-0 d-flex align-center">
-          <v-avatar tile class="mo-glow-small-shadow" size="40" >
-            <v-icon color="#7879ff">
-              mdi-school
-            </v-icon>
-          </v-avatar>
-          <h3 class="ml-3">学校要闻</h3>
-        </v-col>
-        <v-col cols="12" class="pa-0">
-          <v-col cols="12" class="pa-0">
-          <v-card class="ma-0 pa-0 mt-5 mo-glow">
-            <v-row class="ma-0">
-              <v-col cols="12" class="d-flex align-center pb-0">
-                <v-avatar class="mr-3 " tile >
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <p class="font-weight-black fs-10 mb-0"> 晨晓  </p>
-                <div class="ml-auto">
-                  <v-menu offset-y >
-                    <template v-slot:activator="{ attrs, on }">
-                      <v-btn icon fab small v-bind="attrs" v-on="on" >
-                        <v-icon>mdi-dots-vertical  </v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">删除</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">固定到顶部</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </v-col>
-              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
-                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
-                <p class="mb-0 mr-5">sammie</p>
-                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
-                <p class="mb-0">2011/12/3</p>
-              </v-col>
-              <v-col cols="12">
-                  <p class="mb-0 mr-5">
-                      在《小欢喜》中，乔卫东哄女朋友小梦的是20000元的包包，哄前妻用的是500块的榴莲。
-                  </p>
-                  <p class="mb-0 mr-5">
-                      在剧中，小梦是乔卫东的女朋友，他第一次出场，是在一顿3人的火锅上。
-                  </p>
-              </v-col>
-              <v-col cols="12"> 
-                  <v-img :src="`${baseUrl}/asset/img/login.jpg`"></v-img>
-              </v-col>
-              <v-col cols="12" class="d-flex justify-space-between">
-                  <p class="mb-0">浏览65次</p>
-                  <v-menu
-                    bottom
-                    origin="center center"
-                    transition="scale-transition"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                         <v-icon v-bind="attrs" v-on="on">mdi-dots-horizontal</v-icon>
-                    </template>
-
-                    <v-list>
-                        <v-list-item>
-                            <v-list-item-title>点赞</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>分享</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>转发</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>评论</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col cols="12" class="pa-0">
-          <v-card class="ma-0 pa-0 mt-5 mo-glow">
-            <v-row class="ma-0">
-              <v-col cols="12" class="d-flex align-center pb-0">
-                <v-avatar class="mr-3 " tile >
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <p class="font-weight-black fs-10 mb-0"> 晨晓  </p>
-                <div class="ml-auto">
-                  <v-menu offset-y >
-                    <template v-slot:activator="{ attrs, on }">
-                      <v-btn icon fab small v-bind="attrs" v-on="on" >
-                        <v-icon>mdi-dots-vertical  </v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">删除</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">固定到顶部</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </v-col>
-              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
-                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
-                <p class="mb-0 mr-5">sammie</p>
-                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
-                <p class="mb-0">2011/12/3</p>
-              </v-col>
-              <v-col cols="12">
-                  <p class="mb-0 mr-5">
-                      在《小欢喜》中，乔卫东哄女朋友小梦的是20000元的包包，哄前妻用的是500块的榴莲。
-                  </p>
-                  <p class="mb-0 mr-5">
-                      在剧中，小梦是乔卫东的女朋友，他第一次出场，是在一顿3人的火锅上。
-                  </p>
-              </v-col>
-              <v-col cols="12"> 
-                  <v-img :src="`${baseUrl}/asset/img/login.jpg`"></v-img>
-              </v-col>
-              <v-col cols="12" class="d-flex justify-space-between">
-                  <p class="mb-0">浏览65次</p>
-                  <v-menu
-                    bottom
-                    origin="center center"
-                    transition="scale-transition"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                         <v-icon v-bind="attrs" v-on="on">mdi-dots-horizontal</v-icon>
-                    </template>
-
-                    <v-list>
-                        <v-list-item>
-                            <v-list-item-title>点赞</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>分享</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>转发</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>评论</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col cols="12" class="pa-0">
-          <v-card class="ma-0 pa-0 mt-5 mo-glow">
-            <v-row class="ma-0">
-              <v-col cols="12" class="d-flex align-center pb-0">
-                <v-avatar class="mr-3 " tile >
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <p class="font-weight-black fs-10 mb-0"> 晨晓  </p>
-                <div class="ml-auto">
-                  <v-menu offset-y >
-                    <template v-slot:activator="{ attrs, on }">
-                      <v-btn icon fab small v-bind="attrs" v-on="on" >
-                        <v-icon>mdi-dots-vertical  </v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">删除</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">固定到顶部</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </v-col>
-              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
-                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
-                <p class="mb-0 mr-5">sammie</p>
-                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
-                <p class="mb-0">2011/12/3</p>
-              </v-col>
-              <v-col cols="12">
-                  <p class="mb-0 mr-5">
-                      在《小欢喜》中，乔卫东哄女朋友小梦的是20000元的包包，哄前妻用的是500块的榴莲。
-                  </p>
-                  <p class="mb-0 mr-5">
-                      在剧中，小梦是乔卫东的女朋友，他第一次出场，是在一顿3人的火锅上。
-                  </p>
-              </v-col>
-              <v-col cols="12"> 
-                  <v-img :src="`${baseUrl}/asset/img/login.jpg`"></v-img>
-              </v-col>
-              <v-col cols="12" class="d-flex justify-space-between">
-                  <p class="mb-0">浏览65次</p>
-                  <v-menu
-                    bottom
-                    origin="center center"
-                    transition="scale-transition"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                         <v-icon v-bind="attrs" v-on="on">mdi-dots-horizontal</v-icon>
-                    </template>
-
-                    <v-list>
-                        <v-list-item>
-                            <v-list-item-title>点赞</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>分享</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>转发</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>评论</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col cols="12" class="pa-0">
-          <v-card class="ma-0 pa-0 mt-5 mo-glow">
-            <v-row class="ma-0">
-              <v-col cols="12" class="d-flex align-center pb-0">
-                <v-avatar class="mr-3 " tile >
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <p class="font-weight-black fs-10 mb-0"> 晨晓  </p>
-                <div class="ml-auto">
-                  <v-menu offset-y >
-                    <template v-slot:activator="{ attrs, on }">
-                      <v-btn icon fab small v-bind="attrs" v-on="on" >
-                        <v-icon>mdi-dots-vertical  </v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">删除</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">固定到顶部</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </v-col>
-              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
-                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
-                <p class="mb-0 mr-5">sammie</p>
-                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
-                <p class="mb-0">2011/12/3</p>
-              </v-col>
-              <v-col cols="12">
-                  <p class="mb-0 mr-5">
-                      在《小欢喜》中，乔卫东哄女朋友小梦的是20000元的包包，哄前妻用的是500块的榴莲。
-                  </p>
-                  <p class="mb-0 mr-5">
-                      在剧中，小梦是乔卫东的女朋友，他第一次出场，是在一顿3人的火锅上。
-                  </p>
-              </v-col>
-              <v-col cols="12"> 
-                  <v-img :src="`${baseUrl}/asset/img/login.jpg`"></v-img>
-              </v-col>
-              <v-col cols="12" class="d-flex justify-space-between">
-                  <p class="mb-0">浏览65次</p>
-                  <v-menu
-                    bottom
-                    origin="center center"
-                    transition="scale-transition"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                         <v-icon v-bind="attrs" v-on="on">mdi-dots-horizontal</v-icon>
-                    </template>
-
-                    <v-list>
-                        <v-list-item>
-                            <v-list-item-title>点赞</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>分享</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>转发</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>评论</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col cols="12" class="pa-0">
-          <v-card class="ma-0 pa-0 mt-5 mo-glow">
-            <v-row class="ma-0">
-              <v-col cols="12" class="d-flex align-center pb-0">
-                <v-avatar class="mr-3 " tile >
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <p class="font-weight-black fs-10 mb-0"> 晨晓  </p>
-                <div class="ml-auto">
-                  <v-menu offset-y >
-                    <template v-slot:activator="{ attrs, on }">
-                      <v-btn icon fab small v-bind="attrs" v-on="on" >
-                        <v-icon>mdi-dots-vertical  </v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">删除</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">固定到顶部</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </v-col>
-              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
-                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
-                <p class="mb-0 mr-5">sammie</p>
-                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
-                <p class="mb-0">2011/12/3</p>
-              </v-col>
-              <v-col cols="12">
-                  <p class="mb-0 mr-5">
-                      在《小欢喜》中，乔卫东哄女朋友小梦的是20000元的包包，哄前妻用的是500块的榴莲。
-                  </p>
-                  <p class="mb-0 mr-5">
-                      在剧中，小梦是乔卫东的女朋友，他第一次出场，是在一顿3人的火锅上。
-                  </p>
-              </v-col>
-              <v-col cols="12"> 
-                  <v-img :src="`${baseUrl}/asset/img/login.jpg`"></v-img>
-              </v-col>
-              <v-col cols="12" class="d-flex justify-space-between">
-                  <p class="mb-0">浏览65次</p>
-                  <v-menu
-                    bottom
-                    origin="center center"
-                    transition="scale-transition"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                         <v-icon v-bind="attrs" v-on="on">mdi-dots-horizontal</v-icon>
-                    </template>
-
-                    <v-list>
-                        <v-list-item>
-                            <v-list-item-title>点赞</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>分享</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>转发</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>评论</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
+        <v-col cols="12" class="d-flex align-center pb-0">
+          <p class="mb-0 pl-3 border-left-5">学校要闻</p>
         </v-col>
       </v-row>
+      <v-container class="" v-touch="{
+        left: () => swipe('Left'),
+        right: () => swipe('Right'),
+      }">
+        <v-row class="ma-0">
+          <v-col cols="7" class="pl-0 d-flex align-start flex-column">
+            <p class="mb-auto font-weight-bold">something</p>
+            <div class="d-flex align-center justify-space-between w-100">
+              <p class="mb-0">something</p>
+              <p class="mb-0">something</p>
+            </div>
+          </v-col>
+          <v-col cols="5" class="pr-0">
+            <v-img :src="`${baseUrl}/asset/img/login.jpg`" height="100"></v-img>
+          </v-col>
+        </v-row>
+        <v-divider light></v-divider>
+        
+      </v-container>
     </v-container>
 
     <v-container v-else class="">
@@ -635,7 +225,7 @@
 import { mapGetters } from 'vuex'
 import { getSchool } from '~/api/school'
 import {postChooseableSchoolItem,  postChooseableClassItem, getPostItem} from '~/api/user'
-import carousel from 'v-owl-carousel'
+import carousel from 'v-owl-carousel';
 import lang from '~/helper/lang.json'
 export default {
   middleware: 'auth',
@@ -791,6 +381,7 @@ export default {
         path : "file"
       },
     ],
+    carouselKey: 0,
   }),
 
   watch:{
@@ -815,14 +406,26 @@ export default {
       if(this.selectedSchoolItem.type == "school"){
         this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
         this.selectedItemGroup = this.selectedItemGroupForSchoolDiaStore;
-        
+        let obj = {
+          imgUrl: '/asset/img/appIcon/others/全部.png',
+          path: 'openDialog',
+          title: 'openDialog'
+        };
+        this.chooseableItemGroup.push(obj);
       }
       else{
         this.chooseableItemGroup = this.selectedItemClassGroupStore;
         this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
+        let obj = {
+          imgUrl: '/asset/img/appIcon/others/全部.png',
+          path: 'openDialog',
+          title: 'openDialog'
+        };
+        this.chooseableItemGroup.push(obj);
       }
       console.log("this.chooseableItemGroup", this.chooseableItemGroup);
       console.log("this.selectedItemGroup", this.selectedItemGroup);
+      
     }
     else{
       await getPostItem()
@@ -856,6 +459,12 @@ export default {
       // if(this.selectedItemSchoolGroupStore == null && this.selectedItemClassGroupStore == null){
       // }
       this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
+      let obj = {
+        imgUrl: '/asset/img/appIcon/others/全部.png',
+        path: 'openDialog',
+        title: 'openDialog'
+      };
+      this.chooseableItemGroup.push(obj);
       this.selectedItemGroup = this.selectedItemGroupForSchoolDia;
       console.log("this.schoolTree", this.schoolTree);
       console.log("this.chooseableItemGroup", this.chooseableItemGroup);
@@ -1004,6 +613,7 @@ export default {
               this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
               this.chooseableItemGroup  = this.selectedItemClassGroupStore;
             }
+            console.log("this.chooseableItemGroup",this.chooseableItemGroup);
             this.$store.dispatch('mo/onIsSchoolSpace', this.isSchoolSpace);
             this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
           }
@@ -1064,7 +674,7 @@ export default {
       this.addItemDialog = false
     },
     saveSelectedItemGroup(){
-      console.log(this.selectedItemGroup);
+      console.log("sssss", this.selectedItemGroup);
       if(this.selectedItem.type == "school"){
         this.selectedItemGroupForSchoolDia = this.selectedItemGroup;
         this.selectedItemGroupForSchoolDia.map(namedItem =>{
@@ -1073,6 +683,7 @@ export default {
             this.schoolSpaceItems.map(schoolItem=>{
               if(schoolItem.title == namedItem){
                 this.chooseableItemGroup.push(schoolItem);
+                this.carouselKey += 1
               }
             })
           }
@@ -1083,12 +694,12 @@ export default {
         }
         this.$store.dispatch('mo/onSelectedItemGroupForSchoolDiaStore', this.selectedItemGroupForSchoolDia);
         this.$store.dispatch('mo/onSelectedItemSchoolGroupStore', this.chooseableItemGroup);
-        postChooseableSchoolItem(payload)
-        .then((res) => {
+        // postChooseableSchoolItem(payload)
+        // .then((res) => {
           
-        }).catch((err) => {
+        // }).catch((err) => {
           
-        });
+        // });
       }
       else{
         this.selectedItemGroupForClassDia = this.selectedItemGroup;
@@ -1108,20 +719,19 @@ export default {
         }
         this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroupForClassDia);
         this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.chooseableItemGroup);
-        postChooseableClassItem(payload)
-        .then((res) => {
+        // postChooseableClassItem(payload)
+        // .then((res) => {
           
-        }).catch((err) => {
+        // }).catch((err) => {
           
-        });
+        // });
       }
       this.closeAddItemDialog();
     },
 
     swipe (direction) {
       if(direction == "Left"){
-        // this.$router.push({name: 'circle'});
-        console.log("right now!!")
+        this.$router.push({name: 'mochat.news'});
       }
     },
 
@@ -1146,12 +756,12 @@ export default {
 
     convert(arr, size) {
       var myArray = [];
-      // let openDiaObj = {
-      //   imgUrl: '/asset/img/appIcon/others/全部.png',
-      //   path: 'openDialog',
-      //   title: 'openDialog'
-      // }
-      // arr.push(openDiaObj);
+      let openDiaObj = {
+        imgUrl: '/asset/img/appIcon/others/全部.png',
+        path: 'openDialog',
+        title: 'openDialog'
+      }
+      arr.push(openDiaObj);
       for(var i = 0; i < arr.length; i += size) {
         myArray.push(arr.slice(i, i+size));
       }

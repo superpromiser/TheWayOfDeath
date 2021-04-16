@@ -135,7 +135,7 @@ export default {
                 else if(val.name=="chatMobile" || val.name=="mochat.news" || val.name=="mochat.detail" || val.name=="mochat.contact"){
                     this.value = 1
                 }
-                else if(val.name=="profile"){
+                else if(val.name=="profile.list"){
                     this.value = 3
                 }
                 else if(val.name=="circle"){
@@ -337,7 +337,7 @@ export default {
             this.$router.push({name: "circle"})
         },
         navToFourth(){
-            this.$router.push({name:"profile"})
+            this.$router.push({name:"profile.list"})
         }
     }
 }
