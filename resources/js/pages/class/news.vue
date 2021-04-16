@@ -2,48 +2,48 @@
   <v-container class="school-space-tab-bar-outter px-lg-10">
     <v-row class="pa-3">
       <v-container  v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id">
-        <v-row class="pa-0 mt-1" v-if="content.contentId == 12">
+        <v-row class="pa-0 mt-1" v-if="content.contentId == 12 && content.questionnaires">
           <QusetionnairePost :content="content"></QusetionnairePost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 13">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 13 && content.votings">
           <VotingPost :content='content'></VotingPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 14">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 14 && content.homework">
           <!-- <SmsPost :content='content'></SmsPost> -->
           <HomeworkPost :content='content'></HomeworkPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 15">
-          <!-- <CampusPost :content='content'></CampusPost> -->
+        <!-- <v-row class="pa-0 mt-1" v-else-if="content.contentId == 15">
+          <CampusPost :content='content'></CampusPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
-        </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 16">
+        </v-row> -->
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 16 && content.home_visit">
           <HomeVisitPost :content="content"></HomeVisitPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 17">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 17 && content.notifications">
           <NotificationPost :content="content"></NotificationPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 18">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 18 && content.evaluations">
           <EvaluationPost :content="content"></EvaluationPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 19">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 19 && content.recognitions">
           <RecognitionPost :content="content"></RecognitionPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 22">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 22 && content.homework_result">
           <HomeworkResultPost :content="content"></HomeworkResultPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 25">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 25 && content.classstory">
           <ClassStoryPost :content="content"></ClassStoryPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 26">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 26 && content.interclassstory">
           <InterClassStoryPost :content="content"></InterClassStoryPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
