@@ -8,7 +8,7 @@
                 <h2 class="ml-3">{{lang.sms}}</h2>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow">
+        <v-row class="ma-0 mo-glow mb-16">
             <v-col cols="12">
                 <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
             </v-col>

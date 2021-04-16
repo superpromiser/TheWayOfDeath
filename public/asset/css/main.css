@@ -169,6 +169,14 @@ a {
     height: 45px;
 }
 
+@media (max-width: 600px) {
+    .uploaded-video-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+
 .school-space-tab-bar-outter {
     height: calc(100% - 72px);
     overflow: auto;

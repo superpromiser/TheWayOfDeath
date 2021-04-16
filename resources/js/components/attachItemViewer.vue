@@ -19,6 +19,26 @@
                     color="blue lighten-4"
                     flat
                     tile
+                    v-if="$isMobile()"
+                >
+                    <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                    <div class="font-size-0-75">
+                        <div><span><strong>{{video.fileOriName}}</strong></span></div>
+                        <div>{{video.fileSize}}</div>
+                    </div>
+                    <div class="ml-auto mr-2">
+                        <v-btn icon color="blue darken-1" @click="openVideoViewDialog(index, video)" >
+                            <v-icon size="25" >mdi-eye </v-icon>
+                        </v-btn>
+                    </div>
+                    
+                </v-card>
+                <v-card
+                    class="d-flex align-center "
+                    color="blue lighten-4"
+                    flat
+                    tile
+                    v-else
                 >
                     <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
                     <div class="">
@@ -69,6 +89,27 @@
                     color="blue lighten-4"
                     flat
                     tile
+                    v-if="$isMobile()"
+                >
+                    <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                    <div class="font-size-0-75">
+                        <div><span><strong>{{other.fileOriName}}</strong></span></div>
+                        <div>{{other.fileSize}}</div>
+                    </div>
+                    <div class="ml-auto mr-2">
+                        <a class="file-box" :href="other.imgUrl" :download="other.fileOriName">
+                            <v-btn icon color="blue darken-1" >
+                                <v-icon size="25" >mdi-download-circle-outline </v-icon>
+                            </v-btn>
+                        </a>
+                    </div>
+                </v-card>
+                <v-card
+                    class="d-flex align-center "
+                    color="blue lighten-4"
+                    flat
+                    tile
+                    v-else
                 >
                     <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
                     <div class="">
