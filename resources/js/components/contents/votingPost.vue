@@ -33,7 +33,7 @@
           <v-btn
             rounded
             small
-            color="success"
+            color="#49d29e"
             outlined
             class="ma-1 ml-0"
             @click="showDetail(content)"
