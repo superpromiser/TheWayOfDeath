@@ -149,42 +149,85 @@
     <quick-menu @clickDraft="something" @clickPublish="publishVotingData" :isPublishing="isCreating"></quick-menu>
     </v-container>
     <v-container class="pa-0" v-else>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
+        <v-container class="pa-10 mb-10 z-index-2" color="white" sticky elevation="20">
+            <v-row>
+                <v-col cols="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="position-absoluet left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="4" class="d-flex align-center justify-center justify-center">
+                    <h2>{{lang.voting}}</h2>
+                </v-col>
+                <v-col cols="4" class="d-flex align-center justify-center justify-end">
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="tempList"
+                    >
+                        可用模板 0， 草稿 0
+                    </v-btn>
+                    <v-btn
+                        dark
+                        tile
+                        color="#49d29e"
+                        @click="publishVotingData"
+                        :loading="isCreating"
+                        class="mx-2"
+                    >
+                        提交
+                    </v-btn>
+                    <v-btn
+                        tile
+                        dark
+                        color="#F19861"
+                        :loading="isDraft"
+                        @click="saveDraft"
+                    >
+                        {{lang.saveDraft}}
+                    </v-btn>
+                </v-col>
+            </v-row>
+            <!-- <div class="d-flex align-center w-50 justify-space-between">
                 <a @click="$router.go(-1)">
                     <v-icon size="70">
                         mdi-chevron-left
                     </v-icon>
                 </a>
-                <v-avatar
-                    class="ma-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/投票.png`" alt="postItem" ></v-img>
-                </v-avatar>
                 <h2>{{lang.voting}}</h2>
-            </div>
-            <template v-slot:actions>
-            <v-btn
-                text
-                color="primary"
-                @click="tempList"
-            >
-                可用模板 0， 草稿 0
-            </v-btn>
-            <v-btn
-                dark
-                tile
-                color="#49d29e"
-                @click="publishVotingData"
-                :loading="isCreating"
-                class="mr-8"
-            >
-                提交
-            </v-btn>
-            </template>
-        </v-banner>
+            </div> -->
+            <!-- <div class="d-flex align-center justify-center">
+                <v-btn
+                    text
+                    color="primary"
+                    @click="tempList"
+                >
+                    可用模板 0， 草稿 0
+                </v-btn>
+                <v-btn
+                    tile
+                    dark
+                    color="#F19861"
+                    class="mx-2"
+                    :loading="isDraft"
+                    @click="saveDraft"
+                >
+                    {{lang.saveDraft}}
+                </v-btn>
+                <v-btn
+                    dark
+                    tile
+                    color="#49d29e"
+                    @click="publishVotingData"
+                    :loading="isCreating"
+                    class="mr-8"
+                >
+                    提交
+                </v-btn>
+            </div> -->
+        </v-container>
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" md="4">
@@ -308,13 +351,13 @@
             {{lang.requiredText}}
         </v-snackbar>
         <v-snackbar
-        timeout="3000"
-        v-model="isSuccessed"
-        color="success"
-        absolute
-        top
-        >
-        {{lang.successText}}
+            timeout="3000"
+            v-model="isSuccessed"
+            color="success"
+            absolute
+            top
+            >
+            {{lang.successText}}
         </v-snackbar>
     </v-container>
 </template>
@@ -377,7 +420,8 @@ export default {
             schoolId:null,
         },
         isCreating:false,
-        isSuccessed:false
+        isSuccessed:false,
+        isDraft:false,
     }),
 
     computed: {
@@ -440,7 +484,7 @@ export default {
                 this.isCreating = false
             })
         },
-        something(){
+        saveDraft(){
 
         }
     }

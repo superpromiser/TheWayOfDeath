@@ -54,39 +54,51 @@
     </v-container>
     <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
+            <div class="d-flex align-center w-50 justify-space-between">
                 <a @click="$router.go(-1)">
                     <v-icon size="70">
                         mdi-chevron-left
                     </v-icon>
                 </a>
-                <v-avatar
+                <!-- <v-avatar
                     class="ma-3"
                     size="50"
                     tile
                 >
                     <v-img :src="`${baseUrl}/asset/img/icon/动态 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
+                </v-avatar> -->
                 <h2>{{lang.campus}}</h2>
             </div>
-            <template v-slot:actions>
-            <v-btn
-                text
-                color="primary"
-            >
-                可用模板 0， 草稿 0
-            </v-btn>
-            <v-btn
-                dark
-                color="#49d29e"
-                :loading="isCreating"
-                @click="publishcampusData"
-                tile
-                class="mr-md-8"
-            >
-                提交
-            </v-btn>
-            </template>
+            <div class="d-flex align-center justify-center">
+                <v-btn
+                    text
+                    color="primary"
+                    @click="selContent('template')"
+                >
+                    可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
+                </v-btn>
+                
+                <v-btn
+                    tile
+                    dark
+                    color="#F19861"
+                    class="mx-2"
+                    :loading="isDraft"
+                    @click="saveDraft"
+                >
+                    {{lang.saveDraft}}
+                </v-btn>
+                <v-btn
+                    tile
+                    dark
+                    color="#49d29e"
+                    class="mr-8"
+                    :loading="isCreating"
+                    @click="submit"
+                >
+                    {{lang.submit}}
+                </v-btn>
+            </div>
         </v-banner>
         <v-container class="pa-10">
             <v-row>
@@ -193,7 +205,11 @@ export default {
             content:'',
             schoolId:null,
         },
-        isCreating:false
+        isCreating:false,
+        isDraft:false,
+        isSubmit:false,
+        tempCnt:0,
+        draftCnt:0,
     }),
 
     computed: {
@@ -228,7 +244,7 @@ export default {
             //console.log(this.campusData.imgUrl);
         },
 
-        async publishcampusData(){
+        async submit(){
             this.isCreating = true
             //console.log("campusData", this.campusData);
             await createCampus(this.campusData).then(res=>{
@@ -246,7 +262,7 @@ export default {
             })
         },
 
-        something(){
+        saveDraft(){
 
         }
     }

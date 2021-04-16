@@ -35,50 +35,43 @@
   </v-container>
     <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
+            <div class="d-flex align-center w-50 justify-space-between">
                 <a @click="$router.go(-1)">
                     <v-icon size="70">
                         mdi-chevron-left
                     </v-icon>
                 </a>
-                <v-avatar
-                    class="ma-3 ml-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/分享.png`" alt="postItem" ></v-img>
-                </v-avatar>
                 <h2>{{lang.share}}</h2>
             </div>
-            <template v-slot:actions>
+            <div class="d-flex align-center justify-center">
                 <v-btn
                     text
                     color="primary"
                     @click="selContent('template')"
                 >
                     可用模板 0， 草稿 0
+                <v-btn
+                    dark
+                    tile
+                    color="#F19861"
+                    :loading="isDraft"
+                    class="mx-2"
+                    @click="saveDraft"
+                >
+                    {{lang.saveDraft}}
+                </v-btn>
                 </v-btn>
                 <v-btn
                     dark
                     tile
                     color="#49d29e"
-                    class="mx-2"
+                    class="mr-8"
                     :loading="isSubmit"
                     @click="submit"
                 >
                     {{lang.submit}}
                 </v-btn>
-                <v-btn
-                    dark
-                    tile
-                    color="#F19861"
-                    class="mr-8"
-                    :loading="isDraft"
-                    @click="saveDraft"
-                >
-                    {{lang.saveDraft}}
-                </v-btn>
-            </template>
+            </div>
         </v-banner>
         <v-container class="pa-10">
             <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>

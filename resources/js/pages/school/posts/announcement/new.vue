@@ -144,27 +144,30 @@
     </v-container>
     <v-container v-else class="pa-0">
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
+            <div class="d-flex align-center w-50 justify-space-between">
                 <a @click="$router.go(-1)">
                     <v-icon size="70">
                         mdi-chevron-left
                     </v-icon>
                 </a>
-                <v-avatar
-                    class="ma-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
                 <h2>{{lang.announcement}}</h2>
             </div>
-            <template v-slot:actions>
+            <div class="d-flex align-center justify-center">
             <v-btn
                 text
                 color="primary"
             >
                 可用模板 0， 草稿 0
+            </v-btn>
+            <v-btn
+                tile
+                dark
+                color="#F19861"
+                class="mx-2"
+                :loading="isDraft"
+                @click="saveDraft"
+            >
+                {{lang.saveDraft}}
             </v-btn>
             <v-btn
                 dark
@@ -176,7 +179,7 @@
             >
                 提交
             </v-btn>
-            </template>
+            </div>
         </v-banner>
         <v-container class="pa-10">
             <v-row>
@@ -366,6 +369,8 @@ export default {
         newSignFlag:false,
         newSignName:'',
         isCreating:false,
+        isDraft:false,
+
     }),
 
     computed: {
@@ -382,6 +387,9 @@ export default {
     },
 
     methods: {
+        saveDraft(){
+
+        },
         selectedLesson(val){
             //console.log(val)
         },  

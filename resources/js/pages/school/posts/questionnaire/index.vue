@@ -353,23 +353,118 @@
   </v-container>
   <v-container class="pa-0" v-else>
       <div v-if="postNew == true">
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
+        <v-container class="pa-10 mb-10 z-index-2" color="white" sticky elevation="20">
+            <v-row>
+              <v-col cols="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class="postion-absolute left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+              </v-col>
+              <v-col cols="4" class="d-flex align-center justify-center">
+                 <h2>{{lang.questionnaire}}</h2>
+              </v-col>
+              <v-col cols="4" class="d-flex align-center justify-end">
+                <v-btn
+                  text
+                  color="primary"
+                  @click="selContent('template')"
+                >
+                    可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
+                </v-btn>
+                <v-btn
+                    tile
+                    dark
+                    color="#49d29e"
+                    class="mx-2"
+                    :loading="isSubmit"
+                    @click="submit"
+                >
+                    {{lang.submit}}
+                </v-btn>
+                <v-btn
+                    tile
+                    dark
+                    color="#F19861"
+                    :loading="isDraft"
+                    @click="saveDraft"
+                >
+                    {{lang.saveDraft}}
+                </v-btn>
+              </v-col>
+            </v-row>
+            <!-- <div class="d-flex align-center justify-space-between">
                 <a @click="$router.go(-1)">
                     <v-icon size="70">
                         mdi-chevron-left
                     </v-icon>
                 </a>
-                <v-avatar
-                    class="ma-3 ml-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/问卷.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>{{lang.questionnaire}}</h2>
-            </div>
-            <template v-slot:actions>
+                <div class="">
+                 <h2>{{lang.questionnaire}}</h2>
+                </div>
+                <div>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="selContent('template')"
+                  >
+                      可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
+                  </v-btn>
+                  <v-btn
+                      tile
+                      dark
+                      color="#49d29e"
+                      class="mx-2"
+                      :loading="isSubmit"
+                      @click="submit"
+                  >
+                      {{lang.submit}}
+                  </v-btn>
+                  <v-btn
+                      tile
+                      dark
+                      color="#F19861"
+                      class="mr-8"
+                      :loading="isDraft"
+                      @click="saveDraft"
+                  >
+                      {{lang.saveDraft}}
+                  </v-btn>
+                </div>
+            </div> -->
+            <!-- <div class="d-flex align-center justify-center">
+              <v-btn
+                text
+                color="primary"
+                @click="selContent('template')"
+              >
+                  可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
+              </v-btn>
+              <v-btn
+                  tile
+                  dark
+                  color="#49d29e"
+                  class="mx-2"
+                  :loading="isSubmit"
+                  @click="submit"
+              >
+                  {{lang.submit}}
+              </v-btn>
+              <v-btn
+                  tile
+                  dark
+                  color="#F19861"
+                  class="mr-8"
+                  :loading="isDraft"
+                  @click="saveDraft"
+              >
+                  {{lang.saveDraft}}
+              </v-btn>
+              
+            </div> -->
+            
+            <!-- <template v-slot:actions>
             <v-btn
                 text
                 color="primary"
@@ -398,8 +493,8 @@
             >
                 {{lang.submit}}
             </v-btn>
-            </template>
-        </v-banner>
+            </template> -->
+        </v-container>
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" md="4">

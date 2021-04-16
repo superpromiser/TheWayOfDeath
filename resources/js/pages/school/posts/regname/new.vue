@@ -101,22 +101,15 @@
   </v-container>
     <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
+            <div class="d-flex align-center w-50 justify-space-between">
                 <a @click="$router.go(-1)">
                     <v-icon size="70">
                         mdi-chevron-left
                     </v-icon>
                 </a>
-                <v-avatar
-                    class="ma-3 ml-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
                 <h2>{{lang.regname}}</h2>
             </div>
-            <template v-slot:actions>
+            <div class="d-flex align-center justify-center">
                 <v-btn
                     text
                     color="primary"
@@ -144,7 +137,7 @@
                 >
                     {{lang.saveDraft}}
                 </v-btn>
-            </template>
+            </div>
         </v-banner>
         <v-container class="pa-10">
             <v-row class="align-start">
