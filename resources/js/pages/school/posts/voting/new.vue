@@ -1,9 +1,9 @@
 <template>
     <v-container v-if="$isMobile()">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
                 <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/投票.png`" alt="postItem" width="48" height="48" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/投票.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">{{lang.voting}}</h2>
             </v-col>
@@ -11,8 +11,8 @@
         <v-row class="ma-0 mo-glow mt-5">
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
-                    solo
+                    class="mo-glow-v-select mt-0 pt-0"
+                    color="#7879ff"
                     :items="typeItem"
                     :menu-props="{ top: false, offsetY: true }"
                     item-text="label"
@@ -24,8 +24,8 @@
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
-                    solo
+                    class="mo-glow-v-select mt-0 pt-0"
+                    color="#7879ff"
                     multiple
                     small-chips
                     :items="returnSchoolTree(currentPath.params.schoolId)"
@@ -54,10 +54,10 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                        class="mo-glow-v-text"
-                        solo
+                        class="mo-glow-v-text mt-0 pt-0"
+                        color="#7878ff"
                         v-model="votingData.deadline"
-                        prepend-icon="mdi-calendar"
+                        prepend-inner-icon="mdi-calendar"
                         readonly
                         label="最后期限"
                         v-bind="attrs"
@@ -91,8 +91,8 @@
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
-                    solo
+                    class="mo-glow-v-select mt-0 pt-0"
+                    color="#7879ff"    
                     :items="maxVoteItem"
                     item-text="label"
                     :menu-props="{ top: false, offsetY: true }"
@@ -102,19 +102,19 @@
                     hide-details
                 ></v-select>
             </v-col>
-            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-around">
-                <span class="pa-3 mo-glow-inverse"> 匿名投票 </span>
+            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
+                <span class="mo-glow-inverse"> 匿名投票 </span>
                 <v-switch
                     v-model="votingData.anonyVote"
-                    color="error"
+                    color="#7879ff"
                     hide-details
                     class="pt-0 mt-0"
                 ></v-switch>
             </v-col>
          
             <v-col cols="12" v-for="index in initialCnt" :key="index" class="mt-3">
-                <QuestionItem class="mt-5" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="index" @contentData="loadContentData"/>
-                <v-divider></v-divider>
+                <QuestionItem class="" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+                <v-divider class="thick-border" light></v-divider>
             </v-col>
             
             <v-container>
@@ -440,9 +440,7 @@ export default {
         },  
         loadContentData(data){
             if(data.text === ''){
-                this.requiredText = true
-                this.votingData.content = []
-                return;
+                return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
             }
             this.votingData.content.push(data);
         },
@@ -467,6 +465,7 @@ export default {
             if(this.votingData.content.length < 4){
                 return
             }
+
             this.isCreating = true
             //console.log("votingData", this.votingData);
             await createVoting(this.votingData).then(res=>{
@@ -485,6 +484,10 @@ export default {
             })
         },
         saveDraft(){
+
+        },
+
+        something(){
 
         }
     }

@@ -18,7 +18,7 @@
         <v-row class="mt-5">
             <v-btn
                 fab
-                small
+                x-small
                 class="ma-2 mo-glow"
                 :loading="isImageSelecting"
                 @click="clickUploadImageBtn"
@@ -35,7 +35,7 @@
             >
             <v-btn
                 fab
-                small
+                x-small
                 class="ma-2 mo-glow"
                 :loading="isVideoSelecting"
                 @click="clickUploadVideoBtn"
@@ -52,7 +52,7 @@
             >
             <v-btn
                 fab
-                small
+                x-small
                 class="ma-2 mo-glow"
                 :loading="isFileSelecting"
                 @click="clickUploadFileBtn"
@@ -70,7 +70,7 @@
             <v-btn
                 v-if="contact"
                 fab
-                small
+                x-small
                 dark
                 class="ma-2 mo-glow"
                 :loading="isUserSeleciting"
@@ -82,7 +82,7 @@
             <v-btn
                 v-if="emoji"
                 fab
-                small
+                x-small
                 dark
                 class="ma-2 mo-glow"
                 @click="toggleEmo"
