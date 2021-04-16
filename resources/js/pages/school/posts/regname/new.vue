@@ -1,20 +1,20 @@
 <template>
     <v-container v-if="$isMobile()">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
                 <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/报名.png`" alt="postItem" width="48" height="48" ></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/报名.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">{{lang.regname}}</h2>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
+        <v-row class="ma-0 mo-glow">
                 <v-col cols="12" sm="6" md="4">
                     <v-text-field
-                        class="mo-glow-v-text"
-                        solo
+                        class="mo-glow-v-text mt-0 pt-0"
                         v-model="regNameData.title"
                         label="标题"
+                        color="#7879ff"
                         hide-details
                     ></v-text-field>
                 </v-col>
@@ -36,8 +36,8 @@
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                     <v-select
-                        class="mo-glow-v-select"
-                        solo
+                        class="mo-glow-v-select mt-0 pt-0"
+                        color="#7879ff"
                         multiple
                         small-chips
                         :menu-props="{ top: false, offsetY: true }"
@@ -51,8 +51,8 @@
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                     <v-select
-                        class="mo-glow-v-select"
-                        solo
+                        class="mo-glow-v-select mt-0 pt-0"
+                        color="#7879ff"
                         multiple
                         small-chips
                         :menu-props="{ top: false, offsetY: true }"
@@ -64,8 +64,8 @@
                         hide-details
                     ></v-select>
                 </v-col>
-                <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-around">
-                    <span class="pa-2 mo-glow-inverse">是否需要审核</span>
+                <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
+                    <span class="mo-glow-inverse">是否需要审核</span>
                     <v-switch
                         v-model="regNameData.checkFlag"
                         color="#7879ff"
@@ -74,7 +74,7 @@
                     ></v-switch>
                 </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
+        <v-row class="ma-0 mo-glow">
             <v-col cols="12">
                 <QuestionItem :Label="lang.contentPlaceFirst" :emoji="false" :contact="false"  ref="child" @contentData="loadContentData"></QuestionItem>
             </v-col>
@@ -379,7 +379,7 @@ export default {
         async submit(){
             this.$refs.child.emitData()
             if(this.regNameData.content.length == 0){
-                return
+                return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"})
             }
             this.isSubmit = true
             await createRegname(this.regNameData).then(res=>{
@@ -400,7 +400,6 @@ export default {
 
         loadContentData(data){
             if(data.text === ''){
-                this.requiredText = true;
                 this.regNameData.content = [];
                 return;
             }
