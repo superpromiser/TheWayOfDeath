@@ -1,7 +1,7 @@
 <template>
     <v-file-input
         v-if="$isMobile()"
-        class="mo-glow-v-text"
+        class="mo-glow-v-text mt-0 pt-0"
         accept="image/*"
         :label="uploadLabel"
         @change="getImgUrl"
