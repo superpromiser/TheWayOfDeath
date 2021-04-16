@@ -1,19 +1,19 @@
 <template>
     <v-container v-if="$isMobile()">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
                 <v-avatar class="mo-glow-small-shadow" >
                     <v-img :src="`${baseUrl}/asset/img/icon/表彰.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">表彰</h2>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
+        <v-row class="ma-0 mo-glow">
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
+                    class="mo-glow-v-select mt-0 pt-0"
                     :menu-props="{ top: false, offsetY: true }"
-                    solo
+                    color="#7879ff"
                     :items="typeItem"
                     item-text="label"
                     item-value="value"
@@ -24,8 +24,8 @@
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
-                    solo
+                    class="mo-glow-v-select mt-0 pt-0"
+                    color="#7879ff"
                     multiple
                     small-chips
                     :menu-props="{ top: false, offsetY: true }"
@@ -37,17 +37,6 @@
                     hide-details
                     v-model="recognitionData.students"
                 ></v-select>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                    class="mo-glow-v-text"
-                    solo
-                    v-model="recognitionData.awardTitle"
-                    label="表彰称号"
-                    counter="8"
-                    :rules="maxEightRule"
-                    hint="选填(最多8个字)"
-                ></v-text-field>
             </v-col>
             <v-col
                 cols="12"
@@ -65,10 +54,10 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                        class="mo-glow-v-text"
-                        solo
+                        class="mo-glow-v-text mt-0 pt-0"
+                        color="#7879ff"
                         v-model="recognitionData.publishDate"
-                        prepend-icon="mdi-calendar"
+                        prepend-inner-icon="mdi-calendar"
                         readonly
                         v-bind="attrs"
                         v-on="on"
@@ -100,11 +89,22 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
+            <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                    class="mo-glow-v-text mt-0 pt-0"
+                    color="#7879ff"
+                    v-model="recognitionData.awardTitle"
+                    label="表彰称号"
+                    counter="8"
+                    :rules="maxEightRule"
+                    hint="选填(最多8个字)"
+                ></v-text-field>
+            </v-col>
             <v-col cols="12">
                 <v-textarea 
-                    class="mo-glow-v-text"
+                    class="mo-glow-v-text mt-0 pt-0"
                     counter
-                    solo
+                    color="#7879ff"
                     label="表彰内容"
                     :rules="maxFourtyRule"
                     v-model="recognitionData.description"
@@ -112,7 +112,7 @@
                 ></v-textarea>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
+        <v-row class="ma-0 mo-glow">
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"
