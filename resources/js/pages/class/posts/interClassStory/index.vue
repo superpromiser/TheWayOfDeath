@@ -32,7 +32,7 @@
             {{lang.successText}}
         </v-snackbar>
         <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
-  </v-container>
+    </v-container>
     <v-container class="pa-0" v-else>
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
