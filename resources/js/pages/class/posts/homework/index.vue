@@ -1,49 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <v-container>
-        <v-container class="px-10 z-index-2 banner-custom">
-            <v-row>
-                <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                    <a @click="$router.go(-1)">
-                        <v-icon size="70" class="left-24p">
-                            mdi-chevron-left
-                        </v-icon>
-                    </a>
-                </v-col>
-                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.homework}}</h2>
-                </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="templateList"
-                    >
-                        可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
-                    </v-btn>
-                    <v-btn
-                        tile
-                        dark
-                        color="#49d29e"
-                        class="mx-2"
-                        :loading="isSubmit"
-                        @click="submit"
-                    >
-                        {{lang.submit}}
-                    </v-btn>
-                    <v-btn
-                        tile
-                        dark
-                        color="#F19861"
-                        :loading="isDraft"
-                        @click="saveDraft"
-                    >
-                        {{lang.saveDraft}}
-                    </v-btn>
-                </v-col>
-            </v-row>
-        </v-container>
-=======
     <v-container class="ma-0 pa-0" v-if="$isMobile()">
         <v-row class="ma-0">
             <v-col cols="12" class="mo-glow d-flex align-center justify-center">
@@ -145,7 +100,6 @@
             </v-btn>
             </template>
         </v-banner>
->>>>>>> ffd2f7740510255a489d6466df10cd61b78eda45
         <div v-if="showRule == false">
             <v-row class="mt-1 align-center">
                 <v-col cols="6">
