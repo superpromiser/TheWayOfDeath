@@ -205,7 +205,7 @@ export default {
                     },
                     {
                         color : "#DA7042",
-                        title : "安全教育", //Ask for leave
+                        title : "安全教育", //safe study
                         imgUrl : "/asset/img/appIcon/校园安全/闸机.png",
                         path : "posts.safeStudy"
                     },
