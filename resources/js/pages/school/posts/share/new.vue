@@ -79,7 +79,7 @@
             </v-row>
         </v-container>
         <v-container class="pa-10">
-            <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+            <QuestionItem Label="分享内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
         </v-container>
         <v-snackbar
             timeout="3000"

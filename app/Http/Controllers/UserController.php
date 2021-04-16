@@ -520,6 +520,9 @@ class UserController extends Controller
     public function getEmployeeList()
     {
         $schoolId = Auth::user()->schoolId;
+        if ($schoolId == 0) {
+            return User::where(['roleId' => 6])->get();
+        }
         return User::where(['roleId' => 6, 'schoolId' => $schoolId])->get();
     }
 }

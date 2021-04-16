@@ -313,7 +313,7 @@
           <v-icon>mdi-logout</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-title>登出</v-list-item-title>
+        <v-list-item-title>退出</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

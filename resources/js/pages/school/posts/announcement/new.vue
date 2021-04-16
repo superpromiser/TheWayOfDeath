@@ -28,7 +28,7 @@
                             class="mo-glow-v-text mt-0 pt-0"
                             color="#7879ff"
                             v-model="announcementData.signName"
-                            label="公告标题"
+                            label="落款名称"
                             hide-details
                             readonly
                             v-bind="attrs"
@@ -203,7 +203,7 @@
                             <v-text-field
                                 solo
                                 v-model="announcementData.signName"
-                                label="公告标题"
+                                label="落款名称"
                                 hide-details
                                 readonly
                                 v-bind="attrs"

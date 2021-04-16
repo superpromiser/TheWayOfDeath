@@ -2,7 +2,7 @@
     <v-container>
         <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
-              <v-img :src="`${baseUrl}/asset/img/icon/布告栏 拷贝.png`" alt="postItem" ></v-img>
+              <v-img :src="`${baseUrl}/asset/img/newIcon/布告栏.png`" alt="postItem" ></v-img>
             </v-avatar>
             <div>
               <p class="font-weight-black fs-15 mb-3"> {{lang.bulletin}} ▪ {{bulletinBoardData.type}}  </p>

@@ -86,9 +86,9 @@
                         </a>
                         <span style="font-size:30px;line-height:2">维修工单</span> 
                         <div class="float-right">
-                            <v-btn class="mr-3" @click="draft">
+                            <!-- <v-btn class="mr-3" @click="draft">
                                 取消
-                            </v-btn>
+                            </v-btn> -->
                             <v-btn dark color="#7879ff" @click="submit" :loading="isSubmit">
                                 确定
                             </v-btn>
@@ -150,7 +150,7 @@
             </v-col>
         </v-row>
         <v-row class="ma-0 py-3 hover-cursor-point">
-            <QuestionItem :Label="lang.contentPlaceFirst" ref="child" @contentData="loadContentData"></QuestionItem>            
+            <QuestionItem Label="请输入维修物品的详细信息，例如：桌子、椅子等" ref="child" @contentData="loadContentData"></QuestionItem>            
         </v-row>
         <v-row class="ma-0 py-3 hover-cursor-point">
             <v-col cols="12" class="d-flex justify-space-between align-center">
