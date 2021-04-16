@@ -861,6 +861,10 @@ a {
     font-size: 0.75rem;
 }
 
+.font-size-0-8 {
+    font-size: 0.8rem;
+}
+
 @media (max-width: 550px) {
     /* body{
         font-size: 0.75rem;

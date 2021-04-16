@@ -17,6 +17,9 @@ export default [
   
   //chat
   { path: '/chat', name: 'chat', component: page('chat/index.vue') },
+ 
+  //newPost
+  { path: '/newPost', name: 'mo.newPost', component: page('moNewPost.vue') },
 
   //circle
   { path: '/circle', name: 'circle', component: page('circle/index.vue') },
