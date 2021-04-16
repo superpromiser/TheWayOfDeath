@@ -1,5 +1,67 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="pa-0" v-if="$isMobile()">
+        <v-row class="ma-0">
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
+                <v-avatar class="" >
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/校园安全/交接班.png`" alt="postItem" width="48" height="48" ></v-img>
+                </v-avatar>
+                <h2 class="ml-3">{{lang.shiftMng}}</h2>
+            </v-col>
+        </v-row>
+        <v-container class="pa-0">
+            <v-row class="ma-0 hover-cursor-point">
+                <v-col cols="12" class="d-flex justify-space-between align-center">
+                    <v-text-field
+                        color="#7879ff"
+                        v-model="shiftData.prevName"
+                        readonly
+                        hide-details
+                        class="mt-0 pt-0"
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0  hover-cursor-point">
+                <v-col cols="12" class="d-flex justify-space-between align-center">
+                    <v-select
+                        label="交接人姓名"
+                        :items="employeeList"
+                        v-model="employeeObj"
+                        :menu-props="{ top: false, offsetY: true }"
+                        item-text="name"
+                        color="#7879ff"
+                        return-object
+                        class="mt-0 pt-0"
+                        hide-details
+                    ></v-select>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0  hover-cursor-point">
+                <v-col cols="12" class="d-flex justify-space-between align-center">
+                    <v-datetime-picker 
+                        label="交接时间" 
+                        v-model="shiftData.scheduleDate"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    ></v-datetime-picker>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0  hover-cursor-point" @click="$refs.shiftItemList.focus()">
+                <v-col cols="12" class="d-flex justify-space-between align-center">
+                    <v-textarea
+                        label="交接物品"
+                        v-model="shiftData.itemList"
+                        class="mt-0 pt-0"
+                        ref="shiftItemList"
+                        rows="1"
+                        auto-grow
+                        clearable
+                    ></v-textarea>
+                </v-col>
+            </v-row>
+            <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -58,6 +120,7 @@
                         v-model="employeeObj"
                         item-text="name"
                         return-object
+                        :menu-props="{ top: false, offsetY: true }"
                     ></v-select>
                 </v-col>
             </v-row>
@@ -101,7 +164,12 @@ import lang from '~/helper/lang.json'
 import {mapGetters} from 'vuex'
 import {getEmployeeList} from '~/api/user'
 import {createShiftMng} from '~/api/shiftMng'
+import quickMenu from '~/components/quickMenu'
 export default {
+
+    components:{
+        quickMenu,
+    },
 
     data: ()=> ({
         lang,
@@ -169,6 +237,10 @@ export default {
 
         },
         draft(){
+
+        },
+
+        something(){
 
         },
 
