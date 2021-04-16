@@ -1,18 +1,18 @@
 <template>
  <v-container v-if="$isMobile()">
         <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
-                <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" width="48" height="48" ></v-img>
+            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
+                <v-avatar class="" >
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/投票.png`" alt="postItem" width="48" height="48" ></v-img>
                 </v-avatar>
                 <h2 class="ml-3">{{lang.voting}}</h2>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
+        <v-row class="ma-0 mo-glow">
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
-                    solo
+                    class="mo-glow-v-select mt-0 pt-0"
+                    color="#7879ff"
                     :items="typeItem"
                     :menu-props="{ top: false, offsetY: true }"
                     item-text="label"
@@ -24,8 +24,8 @@
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
-                    solo
+                    class="mo-glow-v-select mt-0 pt-0"
+                    color="#7879ff"
                     multiple
                     small-chips
                     :items="returnSchoolTree(currentPath.params.schoolId)"
@@ -43,56 +43,17 @@
                 sm="6"
                 md="4"
                 >
-                <v-menu
-                    ref="menu"
-                    v-model="menu"
-                    :close-on-content-click="false"
-                    :return-value.sync="votingData.deadline"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                        class="mo-glow-v-text"
-                        solo
-                        v-model="votingData.deadline"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        label="最后期限"
-                        v-bind="attrs"
-                        v-on="on"
-                        hide-details
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker
+                <v-datetime-picker 
+                    label="最后期限" 
                     v-model="votingData.deadline"
-                    no-title
-                    scrollable
-                    locale="zh-cn"
-                    >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="menu = false"
-                    >
-                        {{lang.cancel}}
-                    </v-btn>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.menu.save(votingData.deadline)"
-                    >
-                        {{lang.ok}}
-                    </v-btn>
-                    </v-date-picker>
-                </v-menu>
+                    :okText='lang.ok'
+                    :clearText='lang.cancel'
+                > </v-datetime-picker>
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-select
-                    class="mo-glow-v-select"
-                    solo
+                    class="mo-glow-v-select mt-0 pt-0"
+                    color="#7879ff"
                     :items="maxVoteItem"
                     item-text="label"
                     :menu-props="{ top: false, offsetY: true }"
@@ -102,19 +63,19 @@
                     hide-details
                 ></v-select>
             </v-col>
-            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-around">
-                <span class="pa-3 mo-glow-inverse"> 匿名投票 </span>
+            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
+                <span class=""> 匿名投票 </span>
                 <v-switch
                     v-model="votingData.anonyVote"
-                    color="error"
+                    color="#7879ff"
                     hide-details
                     class="pt-0 mt-0"
                 ></v-switch>
             </v-col>
          
-            <v-col cols="12" v-for="index in initialCnt" :key="index" class="mt-3">
-                <QuestionItem class="mt-5" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="index" @contentData="loadContentData"/>
-                <v-divider></v-divider>
+            <v-col cols="12" v-for="index in initialCnt" :key="index">
+                <QuestionItem :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+                <v-divider light class="thick-border"></v-divider>
             </v-col>
             
             <v-container>
@@ -395,9 +356,8 @@ export default {
         },  
         loadContentData(data){
             if(data.text === ''){
-                this.requiredText = true
                 this.votingData.content = []
-                return;
+                return this.$snackbar.showMessage({content: "标题不能为空", color: "error"})
             }
             this.votingData.content.push(data);
         },
@@ -422,7 +382,7 @@ export default {
             await createVoting(this.votingData).then(res=>{
                 //console.log(res)
                 this.isCreating = false
-                this.isSuccessed = true
+                
                 if(this.$isMobile()){
                     this.$router.push({name:'home'})
                 }
