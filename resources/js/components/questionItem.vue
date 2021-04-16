@@ -71,7 +71,6 @@
                 v-if="contact"
                 fab
                 x-small
-                dark
                 class="ma-2 mo-glow"
                 :loading="isUserSeleciting"
                 @click="selectUser"
@@ -83,7 +82,6 @@
                 v-if="emoji"
                 fab
                 x-small
-                dark
                 class="ma-2 mo-glow"
                 @click="toggleEmo"
                 style="color:#7879ff;"
