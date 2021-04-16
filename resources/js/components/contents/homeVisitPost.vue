@@ -27,7 +27,7 @@
         <v-col cols="12" class="pb-0">
           <p class="text-wrap mb-0 font-size-0-75"><read-more more-str="全文" :text="homeVisitData.content.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
         </v-col>
-        <v-col cols="12" class="pt-0" v-if="checkIfAttachExist(homeVisitData.content)">
+        <v-col cols="12" class="py-0" v-if="checkIfAttachExist(homeVisitData.content)">
           <AttachItemViewer :items="homeVisitData.content" />
         </v-col>
       </v-row>

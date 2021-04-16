@@ -13,7 +13,7 @@
       <v-col cols="12" class="pb-0">
         <p class="text-wrap mb-0 font-size-0-75"><read-more more-str="全文" :text="shareData[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
       </v-col>
-      <v-col cols="12" class="pt-0" v-if="checkIfAttachExist(shareData[0])">
+      <v-col cols="12" class="py-0" v-if="checkIfAttachExist(shareData[0])">
         <AttachItemViewer :items="shareData[0]" />
       </v-col>
     </v-row>
