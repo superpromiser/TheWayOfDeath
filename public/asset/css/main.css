@@ -1207,3 +1207,23 @@ a {
 .bg-primary{
     background: #7879ff!important;
 }   
+
+.font-size-0-95{
+    font-size: 0.95rem;
+}
+
+.font-color-gray{
+    color:#999999;
+}
+
+.primary-font-color{
+    color: #7879ff;
+}
+/* 
+.v-speed-dial.mo-news-item-fab .v-speed-dial__list{
+    background: #474747;
+} */
+
+.font-color-white{
+    color: white!important;
+}

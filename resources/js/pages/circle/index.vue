@@ -1,91 +1,209 @@
 <template>
-  <v-container v-touch="{
+  <v-container class="pa-0" v-touch="{
     left: () => swipe('Left'),
     right: () => swipe('Right'),
   }">
-      <v-row class="ma-0">
-        <v-col cols="12" class="pa-0">
-          <v-card class="ma-0 pa-0 mt-5 mo-glow">
-            <v-row class="ma-0">
-              <v-col cols="12" class="d-flex align-center pb-0">
-                <v-avatar class="mr-3 " tile >
-                  <v-img :src="`${baseUrl}/asset/img/icon/报名 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <p class="font-weight-black fs-10 mb-0"> 晨晓  </p>
-                <div class="ml-auto">
-                  <v-menu offset-y >
-                    <template v-slot:activator="{ attrs, on }">
-                      <v-btn icon fab small v-bind="attrs" v-on="on" >
-                        <v-icon>mdi-dots-vertical  </v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">删除</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item >
-                        <v-list-item-title class="px-2">固定到顶部</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
+    <v-row class="ma-0">
+      <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+        <v-row class="pa-0 ma-0" v-if="content.contentId == 1 && content.questionnaires">
+          <QusetionnairePost :content="content"></QusetionnairePost>
+          <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 2 && content.votings">
+          <VotingPost :content='content'></VotingPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 3 && content.sms">
+          <SmsPost :content='content'></SmsPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 4 && content.campus">
+          <CampusPost :content='content'></CampusPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 5 && content.anouncements">
+          <AnouncementPost :content="content"></AnouncementPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 6 && content.bulletin_boards">
+          <BulletinBoardPost :content='content'></BulletinBoardPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 7 && content.repairdata">
+          <RepairDataPost :content='content'></RepairDataPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 8 && content.safestudy">
+          <SafeStudyPost :content='content'></SafeStudyPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 9 && content.shift_mng">
+          <ShiftMngPost :content='content'></ShiftMngPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 10 && content.home_visit">
+          <HomeVisitPost :content='content'></HomeVisitPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 11 && content.schoolstory">
+          <SchoolStoryPost :content='content'></SchoolStoryPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 23 && content.shares">
+          <SharePost :content='content'></SharePost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 24 && content.regnames">
+          <RegnamePost :content='content'></RegnamePost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 ma-0" v-else>
+          {{content}}
+        </v-row>
+      </v-container>
+      <InfiniteLoading 
+          class="pb-3 w-100"
+          @infinite="infiniteHandler"
+      >   
+          <div slot="spinner">
+            <v-row class="pa-3">
+              <v-col cols="12" class="pt-10">
+                <v-skeleton-loader
+                  v-bind="attrs"
+                  type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
+                  :loading="isLoadingContents"
+                ></v-skeleton-loader>
               </v-col>
-              <v-col cols="12" class="d-flex align-center pt-2 pl-8">
-                <v-icon medium color="primary" class="mr-1">mdi-account </v-icon>
-                <p class="mb-0 mr-5">sammie</p>
-                <v-icon medium color="primary" class="mr-1">mdi-clock-outline </v-icon>
-                <p class="mb-0">2011/12/3</p>
+              <v-divider></v-divider>
+              <v-col cols="12" class="pt-10">
+                <v-skeleton-loader
+                  v-bind="attrs"
+                  type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
+                  :loading="isLoadingContents"
+                ></v-skeleton-loader>
               </v-col>
-              <v-col cols="12">
-                  <p class="mb-0 mr-5">
-                      在《小欢喜》中，乔卫东哄女朋友小梦的是20000元的包包，哄前妻用的是500块的榴莲。
-                  </p>
-                  <p class="mb-0 mr-5">
-                      在剧中，小梦是乔卫东的女朋友，他第一次出场，是在一顿3人的火锅上。
-                  </p>
+              <v-divider></v-divider>
+              <v-col cols="12" class="pt-10">
+                <v-skeleton-loader
+                  v-bind="attrs"
+                  type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
+                  :loading="isLoadingContents"
+                ></v-skeleton-loader>
               </v-col>
-              <v-col cols="12"> 
-                  <v-img :src="`${baseUrl}/asset/img/login.jpg`"></v-img>
+              <v-divider></v-divider>
+              <v-col cols="12" class="pt-10">
+                <v-skeleton-loader
+                  v-bind="attrs"
+                  type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
+                  :loading="isLoadingContents"
+                ></v-skeleton-loader>
               </v-col>
-              <v-col cols="12" class="d-flex justify-space-between">
-                  <p class="mb-0">浏览65次</p>
-                  <v-menu
-                    bottom
-                    origin="center center"
-                    transition="scale-transition"
-                    >
-                    <template v-slot:activator="{ on, attrs }">
-                         <v-icon v-bind="attrs" v-on="on">mdi-dots-horizontal</v-icon>
-                    </template>
-
-                    <v-list>
-                        <v-list-item>
-                            <v-list-item-title>点赞</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>分享</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>转发</v-list-item-title>
-                        </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>评论</v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
+              <v-divider></v-divider>
+              <v-col cols="12" class="pt-10">
+                <v-skeleton-loader
+                  v-bind="attrs"
+                  type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
+                  :loading="isLoadingContents"
+                ></v-skeleton-loader>
               </v-col>
+              <v-divider></v-divider>
+              <v-col cols="12" class="pt-10">
+                <v-skeleton-loader
+                  v-bind="attrs"
+                  type=" list-item-avatar-two-line, list-item-three-line,list-item,list-item-two-line, actions"
+                  :loading="isLoadingContents"
+                ></v-skeleton-loader>
+              </v-col>
+              <v-divider></v-divider>
             </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
+          </div>
+          <div slot="no-more" class="pa-3 ma-3 text-center">
+            <v-chip
+              class="ma-2"
+              color="primary"
+              outlined
+              pill
+            >
+              没有更多数据
+              <v-icon right>
+                mdi-cancel 
+              </v-icon>
+            </v-chip>
+          </div>
+          <div slot="no-results" class="position-relative row m-0 p-2 h-50 d-flex justify-content-center align-items-center">
+              <div class="w-100 text-center p-5 m-5 mt-10">
+                  <v-icon size="150" color="grey darken-1">
+                    mdi-magnify
+                  </v-icon>
+                  <h5>资料不存在</h5>
+              </div>
+          </div>
+      </InfiniteLoading>
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import {getSchoolPost} from '~/api/post';
+import lang from '~/helper/lang.json'
+import {mapGetters} from 'vuex';
+
+import InfiniteLoading from 'vue-infinite-loading';
+import FooterPost from '~/components/contents/footerPost'
+import QusetionnairePost from '~/components/contents/questionnairePost'
+import VotingPost from '~/components/contents/votingPost';
+import SmsPost from '~/components/contents/smsPost';
+import CampusPost from '~/components/contents/campusPost'
+import AnouncementPost from '~/components/contents/anouncementPost'
+import BulletinBoardPost from '~/components/contents/bulletinBoardPost'
+import HomeVisitPost from '~/components/contents/homeVisitPost'
+import SharePost from '~/components/contents/sharePost'
+import RegnamePost from '~/components/contents/regnamePost'
+import ShiftMngPost from '~/components/contents/shiftMngPost'
+import SafeStudyPost from '~/components/contents/safeStudyPost'
+import RepairDataPost from '~/components/contents/repairDataPost'
+import SchoolStoryPost from '~/components/contents/schoolStoryPost'
 export default {
+
+  middleware: 'auth',
+  components :{
+    QusetionnairePost,
+    VotingPost,
+    SmsPost,
+    FooterPost,
+    CampusPost,
+    AnouncementPost,
+    BulletinBoardPost,
+    HomeVisitPost,
+    SharePost,
+    RegnamePost,
+    ShiftMngPost,
+    SafeStudyPost,
+    RepairDataPost,
+    SchoolStoryPost,
+    InfiniteLoading,
+  },
+
     data: ()=> ({
-        baseUrl: window.Laravel.base_url,
+      baseUrl: window.Laravel.base_url,
+      isLoadingContents:false,
+      attrs: {
+        class: 'mb-6',
+      },
+      contentList: [],
+      lang,
+      //infinit loading
+      pageOfContent: 1,
+      lastPageOfContent: 0,
     }),
+
+    computed:{
+      ...mapGetters({
+        isSchoolSpace: 'mo/isSchoolSpace',
+        selectedSchoolItem: 'mo/selectedSchoolItem',
+        user: 'auth/user'
+      }),
+    },
 
     methods:{
       swipe (direction) {
@@ -95,6 +213,41 @@ export default {
         if(direction == "Right"){
           this.$router.push({name: 'mochat.news'});
         }
+      },
+
+      updateFooterInfo(data){
+        let index = this.contentList.findIndex(content=>content.id === data.id)
+        if(index > -1){
+          
+        }
+      },
+
+      async infiniteHandler($state){
+        let timeOut = 0;
+        this.isLoadingContents = true;
+        if (this.pageOfContent > 1) {
+            timeOut = 1000;
+        }
+        let vm = this;
+        await getSchoolPost({page:this.pageOfContent,schoolId:this.selectedSchoolItem.schoolId})
+        .then(res=>{
+            if(vm.pageOfContent == 1 && res.data.data.length == 0){
+                $state.complete();
+                return;
+            }
+            vm.lastpageOfContent = res.data.last_page;
+            $.each(res.data.data, function(key, value){
+                vm.contentList.push(value); 
+            });
+            if (vm.pageOfContent - 1 === vm.lastpageOfContent) {
+                $state.complete();
+            }
+            else {
+                $state.loaded();
+            }
+            vm.pageOfContent = vm.pageOfContent + 1;
+        });
+        this.isLoadingContents = false;
       },
     }
 }
