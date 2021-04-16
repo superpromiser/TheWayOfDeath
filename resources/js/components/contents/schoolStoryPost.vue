@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" class="d-flex" @click="showDetail(content)">
         <v-avatar>
-          <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/短信.png`" alt="postItem" ></v-img>
+          <v-img :src="`${baseUrl}/asset/img/appIcon/校园文化/校园动态.png`" alt="postItem" ></v-img>
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
           <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.schoolStory}}  </p>
