@@ -1,5 +1,6 @@
 <template>
     <v-container class="pa-0" v-if="$isMobile()">
+      <v-row class="ma-0">
         <v-col cols="12" class="d-flex">
             <v-avatar>
               <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/问卷.png`" alt="postItem" ></v-img>
@@ -44,6 +45,7 @@
               </v-btn>
             </div>
         </v-col>
+      </v-row>
   </v-container>
     <v-container v-else>
         <v-col cols="12" class="d-flex align-center">
