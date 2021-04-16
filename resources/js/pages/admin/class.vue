@@ -31,7 +31,7 @@
                   </template>
                   <v-card>
                     <v-card-title>
-                      <span class="headline"></span>
+                      <span class="headline">{{formTitle}}</span>
                     </v-card-title>
 
                     <v-card-text>
@@ -64,7 +64,7 @@
                           <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.lessonName"
-                            label="机构名称"
+                            label="班级名称"
                             ></v-text-field>
                           </v-col>
                         </v-row>
@@ -74,7 +74,7 @@
                             <img v-else-if="editedItem.imgUrl !== ''" :src="editedItem.imgUrl" alt="" style="width:127px; height: 127px;">
                           </v-col>
                           <v-col cols="12" md="8" sm="6">
-                            <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传学校图片" />
+                            <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传班级图片" />
                           </v-col>
                         </v-row>
                       </v-container>
@@ -196,7 +196,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? lang.add : lang.edit
+        return this.editedIndex === -1 ? '新增班级' : lang.edit
       },
     },
 
