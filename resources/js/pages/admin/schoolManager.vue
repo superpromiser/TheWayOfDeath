@@ -14,7 +14,7 @@
             <v-toolbar
                 flat
             >
-              <v-toolbar-title><strong>经理名单</strong></v-toolbar-title>
+              <v-toolbar-title><strong>管理员列表</strong></v-toolbar-title>
               <v-divider
               class="mx-4"
               inset
@@ -40,7 +40,7 @@
                       color="indigo"
                       dark
                     >
-                      返回学校清单
+                      返回学校列表
                     </v-btn>
                   </router-link>
                 </template>
@@ -51,17 +51,18 @@
 
                   <v-card-text>
                     <v-container>
+                      
                       <v-row>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.name"
-                            label="机构名称"
+                            label="姓名"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.phoneNumber"
-                            label="组织机构代码"
+                            label="手机号码"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
@@ -80,7 +81,7 @@
                             item-text="label"
                             item-value="value"
                             v-model="editedItem.gender"
-                            label="邮编"
+                            label="性别"
                             ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
@@ -105,8 +106,11 @@
                             <img v-else-if="editedItem.avatar !== '/'" :src="editedItem.avatar" alt="" style="width:127px; height: 127px;">
                         </v-col>
                         <v-col cols="12" md="8" sm="6">
-                            <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传学校图片" />
+                            <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传管理员图片" />
                         </v-col>
+                      </v-row>
+                      <v-row>
+                        户籍地址
                       </v-row>
                       <v-row>
                         <v-col cols="12" sm="6" md="4" >
@@ -148,6 +152,9 @@
                                 label="详細地址"
                             ></v-text-field>
                         </v-col>
+                      </v-row>
+                       <v-row>
+                        家庭地址
                       </v-row>
                       <v-row>
                         <v-col cols="12" sm="6" md="4" >
@@ -392,7 +399,7 @@ export default {
 
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? '新增学校' : '编辑学校'
+      return this.editedIndex === -1 ? '新增管理员' : '编辑学校'
     },
     currentPath(){
         return this.$route

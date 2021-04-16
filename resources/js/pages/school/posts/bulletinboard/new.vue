@@ -28,41 +28,47 @@
         <quick-menu @clickDraft="something" @clickPublish="publishcampusData" :isPublishing="isCreating"></quick-menu>
     </v-container>
     <v-container v-else class="pa-0">
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <v-avatar
-                    class="ma-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/布告栏 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>{{lang.bulletin}}</h2>
-            </div>
-            <template v-slot:actions>
-            <v-btn
-                text
-                color="primary"
-            >
-                可用模板 0， 草稿 0
-            </v-btn>
-            <v-btn
-                dark
-                tile
-                color="#49d29e"
-                @click="publishcampusData"
-                :loading="isCreating"
-                class="mr-md-8"
-            >
-                提交
-            </v-btn>
-            </template>
-        </v-banner>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.bulletin}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        text
+                        color="primary"
+                    >
+                        可用模板 0， 草稿 0
+                    </v-btn>
+                    <v-btn
+                        dark
+                        tile
+                        color="#49d29e"
+                        @click="publishcampusData"
+                        :loading="isCreating"
+                        class="mx-2"
+                    >
+                        {{lang.submit}}
+                    </v-btn>
+                    <v-btn
+                        tile
+                        dark
+                        color="#F19861"
+                        :loading="isDraft"
+                        @click="saveDraft"
+                    >
+                        {{lang.saveDraft}}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" md="4">
@@ -157,6 +163,7 @@ export default {
             schoolId:null
         },
         isCreating:false,
+        isDraft:false,
     }),
 
     computed: {
@@ -170,6 +177,9 @@ export default {
     },
 
     methods: {
+        saveDraft(){
+
+        },
         selectedLesson(val){
             //console.log(val)
         },  

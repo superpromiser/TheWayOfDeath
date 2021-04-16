@@ -53,41 +53,48 @@
         </v-snackbar>
     </v-container>
     <v-container class="pa-0" v-else>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <v-avatar
-                    class="ma-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/动态 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>{{lang.campus}}</h2>
-            </div>
-            <template v-slot:actions>
-            <v-btn
-                text
-                color="primary"
-            >
-                可用模板 0， 草稿 0
-            </v-btn>
-            <v-btn
-                dark
-                color="#49d29e"
-                :loading="isCreating"
-                @click="publishcampusData"
-                tile
-                class="mr-md-8"
-            >
-                提交
-            </v-btn>
-            </template>
-        </v-banner>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.campus}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="selContent('template')"
+                    >
+                        可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
+                    </v-btn>
+                    <v-btn
+                        tile
+                        dark
+                        color="#49d29e"
+                        class="mx-2"
+                        :loading="isCreating"
+                        @click="submit"
+                    >
+                        {{lang.submit}}
+                    </v-btn>
+                    <v-btn
+                        tile
+                        dark
+                        color="#F19861"
+                        :loading="isDraft"
+                        @click="saveDraft"
+                    >
+                        {{lang.saveDraft}}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" md="4">
@@ -193,7 +200,11 @@ export default {
             content:'',
             schoolId:null,
         },
-        isCreating:false
+        isCreating:false,
+        isDraft:false,
+        isSubmit:false,
+        tempCnt:0,
+        draftCnt:0,
     }),
 
     computed: {
@@ -228,7 +239,7 @@ export default {
             //console.log(this.campusData.imgUrl);
         },
 
-        async publishcampusData(){
+        async submit(){
             this.isCreating = true
             //console.log("campusData", this.campusData);
             await createCampus(this.campusData).then(res=>{
@@ -246,7 +257,7 @@ export default {
             })
         },
 
-        something(){
+        saveDraft(){
 
         }
     }
