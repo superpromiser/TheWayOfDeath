@@ -1,28 +1,48 @@
 <template>
     <v-container class="pa-0">
-        <v-banner>
-            <v-row class="ma-0">
-                <v-col>
-                    <div class="text-center d-flex justify-space-between align-center">
-                        <a @click="$router.go(-1)" class="float-left">
-                            <v-icon size="70">
-                                mdi-chevron-left
-                            </v-icon>
-                        </a>
-                        <span style="font-size:30px;line-height:2">接班管理</span> 
-                        <div class="float-right">
-                            <v-btn class="mr-3" @click="draft">
-                                取消
-                            </v-btn>
-                            <v-btn dark color="#7879ff" @click="submit" :loading="isSubmit">
-                                确定
-                            </v-btn>
-                        </div>
-                    </div>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.shiftMng}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="tempList"
+                    >
+                        可用模板 0， 草稿 0
+                    </v-btn>
+                    <v-btn
+                        dark
+                        tile
+                        color="#49d29e"
+                        @click="submit"
+                        :loading="isSubmit"
+                        class="mx-2"
+                    >
+                        提交
+                    </v-btn>
+                    <v-btn
+                        tile
+                        dark
+                        color="#F19861"
+                        :loading="isDraft"
+                        @click="draft"
+                    >
+                        {{lang.saveDraft}}
+                    </v-btn>
                 </v-col>
             </v-row>
-        </v-banner>
-        <v-container>
+        </v-container>
+        <v-container class="pa-10">
             <v-row class="ma-0 hover-cursor-point">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <p class="mb-0" >姓名 </p>
@@ -98,6 +118,7 @@ export default {
         employeeList:[],
         employeeObj:null,
         isSubmit:false,
+        isDraft:false,
     }),
 
     computed:{
@@ -122,8 +143,6 @@ export default {
     },
 
     methods:{
-        
-
         async submit(){
             this.shiftData.nextName = this.employeeObj.name
             this.shiftData.nextNameId = this.employeeObj.id
@@ -146,7 +165,9 @@ export default {
                 console.log(err.response)
             })
         },
+        tempList(){
 
+        },
         draft(){
 
         },
