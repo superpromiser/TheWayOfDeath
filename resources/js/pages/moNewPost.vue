@@ -1,13 +1,13 @@
 <template>
-    <v-container class="pa-0">
-        <v-container class="pa-0" v-for="(schoolContentList, i) in schoolContentItemList" :key="i">
+    <v-container class="pa-0 pb-12">
+        <v-container class="pa-0" v-for="(selectItems, i) in selectItemGroup" :key="i">
             <v-row class="ma-0">
                 <v-col cols="12">
-                    <p class="mb-0 border-left-5 pl-2 font-size-0-8 font-weight-bold">{{schoolContentList.title}}</p>
+                    <p class="mb-0 border-left-5 pl-2 font-size-0-8 font-weight-bold">{{selectItems.title}}</p>
                 </v-col>
-                <v-col class="col-50 text-center px-2 py-2" v-for="(schoolContent, j) in schoolContentList.items" :key="j" @click="selectItem(schoolContent)">
-                    <v-img :src="`${baseUrl}${schoolContent.imgUrl}`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
-                    <p class="font-size-0-75 pt-1 mb-0">{{schoolContent.title}}</p>
+                <v-col class="col-50 text-center px-2 py-2" v-for="(item, j) in selectItems.items" :key="j" @click="selectItem(item)">
+                    <v-img :src="`${baseUrl}${item.imgUrl}`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                    <p class="font-size-0-75 pt-1 mb-0">{{item.title}}</p>
                 </v-col>
             </v-row >
             <v-divider class="thick-border" light></v-divider>
@@ -211,8 +211,139 @@ export default {
                     },
                 ],
             },
+        ],
+        classContentItemList : [
+            {
+                title : "基础沟通",
+                icon : "mdi-message-text",
+                items : [
+                    {
+                        color : "#98BB3A",
+                        title : "问卷",
+                        imgUrl : "/asset/img/appIcon/基础沟通/问卷.png",
+                        path : "posts.Cquestionnaire"
+                    },
+                    {
+                        color : "#C95384",
+                        title : "投票",
+                        imgUrl : "/asset/img/appIcon/基础沟通/投票.png",
+                        path : "posts.Cvoting"
+                    },
+                ],
+            },
+            {
+                title : "家校互动",
+                icon : "mdi-nfc-tap",
+                items : [
+                    {
+                        color : "#DA7042",
+                        title : "作业",
+                        imgUrl : "/asset/img/appIcon/家校互动/作业.png",
+                        path : "posts.Chomework"
+                    },
+                    {
+                        color : "#E4BC16",
+                        title : "习题",
+                        imgUrl : "/asset/img/newIcon/习题.png",
+                        path : "something"
+                    },
+                    {
+                        color : "#DA7042",
+                        title : "家访",
+                        imgUrl : "/asset/img/appIcon/others/家访.png",
+                        path : "posts.Chomevisit"
+                    },
+                    {
+                        color : "#EB5846",
+                        title : "班级动态",
+                        imgUrl : "/asset/img/newIcon/班级动态.png",
+                        path : "posts.classStory"
+                    },
+                    {
+                        color : "#EB5846",
+                        title : "班际动态",
+                        imgUrl : "/asset/img/newIcon/班际动态.png",
+                        path : "posts.interClassStory"
+                    },
+                ],
+            },
+            {
+                title : "移动办公",
+                icon : "mdi-calendar-month-outline",
+                items : [
+                    {
+                        color : "red accent-3",
+                        title : "通知",
+                        imgUrl : "/asset/img/icon/通知 拷贝.png",
+                        path : "posts.Cnotification"
+                    },
+                ],
+            },
+            {
+                title : "数字德育",
+                icon : "mdi-calendar-month-outline",
+                items : [
+                    {
+                        color : "lime darken-4",
+                        title : "评价",
+                        imgUrl : "/asset/img/icon/评价.png",
+                        path : "posts.Cevaluation"
+                    },
+                    {
+                        color : "lime darken-4",
+                        title : "表彰",
+                        imgUrl : "/asset/img/icon/表彰.png",
+                        path : "posts.Crecognition"
+                    },
+                ],
+            },
+            {
+                title : "工具",
+                icon : "mdi-calendar-month-outline",
+                items : [
+                    {
+                        color : "indigo accent-2",
+                        title : "课表",
+                        imgUrl : "/asset/img/appIcon/智能考勤/课程表.png",
+                        path : "something"
+                    },
+                    {
+                        color : "#3EBBE8",
+                        title : "相册",
+                        imgUrl : "/asset/img/appIcon/工具/相册.png",
+                        path : "posts.Calbum"
+                    },
+                    {
+                        color : "indigo accent-2",
+                        title : "文件",
+                        imgUrl : "/asset/img/appIcon/基础沟通/文件.png",
+                        path : "file"
+                    },
+                ],
+            },
+            {
+                title : "校园安全",
+                icon : "mdi-safe",
+                items : [
+                    {
+                        color : "indigo accent-2",
+                        title : "访客管理",
+                        imgUrl : "/asset/img/appIcon/校园安全/访客管理.png",
+                        path : "manageGuests"
+                    },
+                ],
+            },
         ]
     }),
+
+    created(){
+        if(this.isSchoolSpace == true){
+            this.selectItemGroup = this.schoolContentItemList;
+        }
+        else{
+            this.selectItemGroup = this.classContentItemList;
+        }
+    },
 
     methods:{
         selectItem(item){

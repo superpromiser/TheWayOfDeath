@@ -49,7 +49,6 @@ export default {
     watch:{
         selectedSchoolItem: {
             handler(val){
-            console.log("sss", val)
             },
             deep: true
         },
@@ -57,17 +56,15 @@ export default {
             handler(val){
                 if(val.name === "home"){
                     this.value = 0
-                    // let btnList = document.getElementsByClassName('mo-glow-small-shadow');
-                    // btnList[0].classList.add('v-btn--active');
                 }
                 else if(val.name=="chatMobile" || val.name=="mochat.news" || val.name=="mochat.detail" || val.name=="mochat.contact"){
                     this.value = 1
                 }
-                else if(val.name=="profile.list"){
-                    this.value = 3
-                }
                 else if(val.name=="circle"){
                     this.value = 2
+                }
+                else if(val.name=="profile.list"){
+                    this.value = 3
                 }
                 else{
                     // this.value = -1

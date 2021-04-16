@@ -5,12 +5,14 @@
             <v-textarea
                 class="mo-glow-v-text"
                 clearable
-                solo
+                auto-grow
+                color="#7879ff"
                 clear-icon="mdi-close-circle"
                 :label="Label"
                 value=""
                 v-model="contentData.text"
                 hide-details
+                rows="1"
             ></v-textarea>
         </v-row>
         <v-row class="mt-5">
@@ -34,7 +36,6 @@
             <v-btn
                 fab
                 small
-                dark
                 class="ma-2 mo-glow"
                 :loading="isVideoSelecting"
                 @click="clickUploadVideoBtn"
@@ -52,7 +53,6 @@
             <v-btn
                 fab
                 small
-                dark
                 class="ma-2 mo-glow"
                 :loading="isFileSelecting"
                 @click="clickUploadFileBtn"
