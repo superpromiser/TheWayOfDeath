@@ -169,6 +169,14 @@ a {
     height: 45px;
 }
 
+@media (max-width: 600px) {
+    .uploaded-video-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+
 .school-space-tab-bar-outter {
     height: calc(100% - 72px);
     overflow: auto;
@@ -1207,3 +1215,23 @@ a {
 .bg-primary{
     background: #7879ff!important;
 }   
+
+.font-size-0-95{
+    font-size: 0.95rem;
+}
+
+.font-color-gray{
+    color:#999999;
+}
+
+.primary-font-color{
+    color: #7879ff;
+}
+/* 
+.v-speed-dial.mo-news-item-fab .v-speed-dial__list{
+    background: #474747;
+} */
+
+.font-color-white{
+    color: white!important;
+}

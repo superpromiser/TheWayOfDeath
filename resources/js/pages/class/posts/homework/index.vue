@@ -53,6 +53,7 @@
         <quick-menu v-if="showRule == false" @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
     </v-container>
     <v-container v-else>
+<<<<<<< HEAD
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -95,6 +96,55 @@
                 </v-col>
             </v-row>
         </v-container>
+=======
+        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
+            <div class="d-flex align-center">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+                <v-avatar
+                    class="ma-3 ml-3"
+                    size="50"
+                    tile
+                >
+                    <v-img :src="`${baseUrl}/asset/img/newIcon/作业.png`" alt="postItem" ></v-img>
+                </v-avatar>
+                <h2>{{lang.homework}}</h2>
+            </div>
+            <template v-slot:actions>
+            <v-btn
+                text
+                color="primary"
+                @click="templateList"
+            >
+                可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
+            </v-btn>
+            
+            <v-btn
+                tile
+                dark
+                color="#F19861"
+                class="mx-2"
+                :loading="isDraft"
+                @click="saveDraft"
+            >
+                {{lang.saveDraft}}
+            </v-btn>
+            <v-btn
+                tile
+                dark
+                color="#49d29e"
+                class="mr-8"
+                :loading="isSubmit"
+                @click="submit"
+            >
+                {{lang.submit}}
+            </v-btn>
+            </template>
+        </v-banner>
+>>>>>>> 45b4629303f0ceaa63effa3dae1f2be397adbabe
         <div v-if="showRule == false">
             <v-row class="mt-1 align-center">
                 <v-col cols="6">
