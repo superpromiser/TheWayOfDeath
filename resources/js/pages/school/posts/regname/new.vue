@@ -178,7 +178,7 @@
                         item-text="label"
                         item-value="value"
                         @change="selectedInputType"
-                        label="可见范围"
+                        label="报名信息可见"
                         hide-details
                     ></v-select>
                 </v-col>
@@ -209,7 +209,7 @@
             </v-row>
             <v-row>
                 <v-col cols="12">
-                    <QuestionItem :Label="lang.contentPlaceFirst" :emoji="false" :contact="false"  ref="child" @contentData="loadContentData"></QuestionItem>
+                    <QuestionItem Label="报名内容" :emoji="false" :contact="false"  ref="child" @contentData="loadContentData"></QuestionItem>
                 </v-col>
             </v-row>
         </v-container>

@@ -153,12 +153,12 @@ export default {
                 title : "工具",
                 icon : "mdi-calendar-month-outline",
                 items : [
-                    {
-                        color : "indigo accent-2",
-                        title : "课表",
-                        imgUrl : "/asset/img/icon/组 29.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "indigo accent-2",
+                    //     title : "课表",
+                    //     imgUrl : "/asset/img/icon/组 29.png",
+                    //     path : "something"
+                    // },
                     {
                         color : "#3EBBE8",
                         title : "相册",
@@ -173,18 +173,18 @@ export default {
                     },
                 ],
             },
-            {
-                title : "校园安全",
-                icon : "mdi-safe",
-                items : [
-                    {
-                        color : "indigo accent-2",
-                        title : "访客管理",
-                        imgUrl : "/asset/img/icon/组 29.png",
-                        path : "manageGuests"
-                    },
-                ],
-            },
+            // {
+            //     title : "校园安全",
+            //     icon : "mdi-safe",
+            //     items : [
+            //         {
+            //             color : "indigo accent-2",
+            //             title : "访客管理",
+            //             imgUrl : "/asset/img/icon/组 29.png",
+            //             path : "manageGuests"
+            //         },
+            //     ],
+            // },
         ]
     }),
     methods:{

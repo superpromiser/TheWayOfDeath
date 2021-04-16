@@ -363,7 +363,7 @@
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
                     <v-icon size="70">
-                        mdi-chevron-left
+                      mdi-chevron-left
                     </v-icon>
                 </a>
                 <v-avatar

@@ -1,6 +1,19 @@
 <template>
   <v-container>
-      <v-col cols="12" class="d-flex align-center">
+    <v-row class="px-10 z-index-2 banner-custom">
+      <v-col cols="6" md="4" class="d-flex align-center position-relative">
+        <a @click="$router.go(-1)" class="float-left">
+          <v-icon size="70" class=" left-24p">
+              mdi-chevron-left
+          </v-icon>
+        </a>
+      </v-col>
+      <v-col  cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+        <h2>{{lang.sms}}</h2>
+      </v-col>
+      <v-col cols="12" md="4" class="d-flex align-center justify-end"></v-col>
+    </v-row>
+    <!-- <v-col cols="12" class="d-flex align-center">
         <a @click="$router.go(-1)" class="float-left">
             <v-icon size="70">
                 mdi-chevron-left
@@ -35,8 +48,8 @@
           </v-list>
         </v-menu>
       </div>
-    </v-col>
-    <v-col cols="12" class="pl-10 pt-0">
+    </v-col> -->
+    <v-col cols="12" class="pl-10 mt-5">
       <v-row>
         <v-col cols="12">
           <p class="text-wrap"><read-more more-str="全文" :text="smsData[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>

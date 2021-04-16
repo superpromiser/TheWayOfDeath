@@ -2,7 +2,7 @@
     <v-container>
         <v-col cols="12" class="d-flex align-center">
             <v-avatar class="ma-3 school-card-avatar" tile >
-              <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" ></v-img>
+              <v-img :src="`${baseUrl}/asset/img/newIcon/公告.png`" alt="postItem" ></v-img>
             </v-avatar>
             <div>
               <p class="font-weight-black fs-15 mb-3"> {{lang.announcement}}  </p>

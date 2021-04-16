@@ -22,7 +22,7 @@
           <AnouncementPost :content="content"></AnouncementPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 6 && content.bulletinBoards">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 6 && content.bulletin_boards">
           <BulletinBoardPost :content='content'></BulletinBoardPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
@@ -38,7 +38,7 @@
           <ShiftMngPost :content='content'></ShiftMngPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 10 && content.homeVisit">
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 10 && content.home_visit">
           <HomeVisitPost :content='content'></HomeVisitPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>

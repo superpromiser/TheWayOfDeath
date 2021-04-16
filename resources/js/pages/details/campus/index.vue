@@ -7,7 +7,7 @@
                 </v-icon>
             </a>
             <v-avatar class="ma-3 school-card-avatar" tile >
-              <v-img :src="`${baseUrl}/asset/img/icon/动态 拷贝.png`" alt="postItem" ></v-img>
+              <v-img :src="`${baseUrl}/asset/img/newIcon/校园动态.png`" alt="postItem" ></v-img>
             </v-avatar>
             <div>
               <p class="font-weight-black fs-15 mb-3"> {{lang.campus}}  </p>

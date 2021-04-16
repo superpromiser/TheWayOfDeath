@@ -93,7 +93,7 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+            <QuestionItem Label="作业内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
         </div>
         <div v-else>
             <router-view></router-view>
@@ -136,8 +136,8 @@ export default {
         },
         homeworkType:[
             {
-                label:'分为常规作业',
-                value:'分为常规作业'
+                label:'常规作业',
+                value:'常规作业'
             },
             {
                 label:'在线作业',
