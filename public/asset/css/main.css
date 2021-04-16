@@ -759,31 +759,6 @@ a {
     -webkit-backdrop-filter: blur(10px);
 }
 
-.mo-glow,
-.mo-glow-v-text .v-input__control .v-input__slot {
-    background-color: #f2f3f7 !important;
-    -webkit-box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
-    box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
-}
-
-.mo-glow-v-select .v-input__control .v-input__slot {
-    background-color: #f2f3f7 !important;
-    -webkit-box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
-    box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
-}
-
-.mo-glow-small-shadow {
-    background-color: #f2f3f7 !important;
-    -webkit-box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
-    box-shadow: -4px -4px 5px #ffffff, 7px 7px 7px #dde4ef !important;
-}
-
-.mo-glow-inverse {
-    background-color: #f2f3f7 !important;
-    -webkit-box-shadow: inset -7px -7px 5px #ffffff, inset 7px 7px 7px #dde4ef !important;
-    box-shadow: inset -7px -7px 5px #ffffff, inset 7px 7px 7px #dde4ef !important;
-}
-
 .mo-glow-bg {
     background-color: #f2f3f7 !important;
 }

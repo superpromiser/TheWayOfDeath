@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <div class="mt-3">
-        <QuestionItem class="mt-10" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
-        <v-divider></v-divider>
+        <QuestionItem :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+        <v-divider light class="thick-border"></v-divider>
     </div>
     <v-container>
       <v-row class="my-10 d-flex align-center justify-end" v-if="$isMobile()">
@@ -77,9 +77,7 @@ export default {
     },
     loadContentData(data){
       if(data.text === ''){
-        this.requiredText = true;
-        this.qaData.qaContentDataArr = [];
-        return;
+        return this.$snackbar.showMessage({content: "标题不能为空", color: "error"})
       }
       this.qaData.qaContentDataArr.push(data)
     }

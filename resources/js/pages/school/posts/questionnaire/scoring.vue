@@ -1,15 +1,13 @@
 <template>
   <v-container>
     <div class="mt-3 mb-10">
-      <QuestionItem class="mt-10" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
-      <v-divider></v-divider>
+      <QuestionItem class="" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+      <v-divider light class="thick-border"></v-divider>
     </div>
     <v-row>
       <v-col cols="12" md="6" class="d-flex align-center" v-if="$isMobile()">
-        <p class="mb-0 mr-5 px-4 py-3 mo-glow">{{lang.maxMinutes}}</p>
         <v-select
-          class="mo-glow-v-select"
-          solo
+          color="#7879ff"
           :items="items"
           :menu-props="{ top: false, offsetY: true }"
           :label="lang.maxMinutes"

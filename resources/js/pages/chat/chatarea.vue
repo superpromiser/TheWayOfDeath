@@ -124,7 +124,6 @@ export default {
 
         reachedTop(){
             this.isReachedTop = true;
-            console.log("sss");
         }
         
     }
