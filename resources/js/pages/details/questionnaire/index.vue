@@ -31,7 +31,7 @@
         </div>
         <!----title---->
         <div v-if="answerUserShow == false">
-          <v-row class="ma-0 px-5 px-md-10">
+          <v-row class="ma-0 px-5 px-md-10 mt-5">
               <v-col cols="12" class="d-flex justify-center align-center">
                   <h2>{{contentData.questionnaires.title}}</h2>
               </v-col>

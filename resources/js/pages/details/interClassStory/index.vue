@@ -1,42 +1,48 @@
 <template>
     <v-container>
-        <v-col cols="12" class="d-flex align-center">
-            <a @click="$router.go(-1)" class="float-left">
-                <v-icon size="70">
-                    mdi-chevron-left
-                </v-icon>
-            </a>
-            <v-avatar class="ma-3 school-card-avatar" tile >
-                <v-img :src="`${baseUrl}/asset/img/newIcon/班际动态.png`" alt="postItem" ></v-img>
-            </v-avatar>
-            <div>
-                <p class="font-weight-black fs-15 mb-3"> {{lang.interClassStory}}  </p>
-                <div class="d-flex align-center">
-                <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
-                <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
-                <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
-                <p class="mb-0">{{contentData.users.name}}</p>
-                </div>
-            </div>
-            <!-- <div class="ml-auto">
-                <v-menu offset-y >
-                <template v-slot:activator="{ attrs, on }">
-                    <v-btn icon color="primary" v-bind="attrs" v-on="on" >
-                    <v-icon size="30">mdi-chevron-down </v-icon>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.interClassStory}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <!-- <v-btn
+                        text
+                        color="primary"
+                        @click="templateList"
+                    >
+                        可用模板 0， 草稿 0
                     </v-btn>
-                </template>
-                <v-list>
-                    <v-list-item link >
-                    <v-list-item-title class="px-2">{{lang.toTop}}</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item link >
-                    <v-list-item-title class="px-2" @click="postRemove(contentData)">{{lang.remove}}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-                </v-menu>
-            </div> -->
-        </v-col>
-        <v-col cols="12" class="pl-10 pt-0">
+                    <v-btn
+                        dark
+                        tile
+                        color="#49d29e"
+                        class="mx-2"
+                        :loading="isSubmit"
+                        @click="submit"
+                    >
+                        {{lang.submit}}
+                    </v-btn>
+                    <v-btn
+                        dark
+                        tile
+                        color="#F19861"
+                        :loading="isDraft"
+                        @click="saveDraft"
+                    >
+                        {{lang.saveDraft}}
+                    </v-btn> -->
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-col cols="12" class="pl-10 pt-0 mt-5">
             <v-row>
                 <v-col cols="12">
                 <p class="text-wrap"><read-more more-str="全文" :text="schoolStory.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
