@@ -8,7 +8,7 @@
                 <h2 class="ml-3">{{lang.homeVisit}}</h2>
             </v-col>
         </v-row>
-        <v-row class="ma-0 mo-glow">
+        <v-row class="ma-0 mo-glow mb-16">
             <v-col cols="12" sm="6" md="4">
                 <v-select
                     class="mo-glow-v-select mt-0 pt-0"
@@ -40,7 +40,7 @@
                     </v-icon>家访内容
                 </v-btn>
             </v-col>
-            <v-col cols="12">
+            <v-col cols="12" >
                 <QuestionItem :Label="lang.contentPlace" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
             </v-col>
         </v-row>
