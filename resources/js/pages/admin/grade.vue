@@ -58,7 +58,7 @@
                         <v-col cols="12" sm="6" md="4" >
                           <v-text-field
                           v-model="editedItem.gradeName"
-                          label="机构名称"
+                          label="年级名称"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -68,7 +68,7 @@
                           <img v-else-if="editedItem.imgUrl !== ''" :src="editedItem.imgUrl" alt="" style="width:127px; height: 127px;">
                         </v-col>
                         <v-col cols="12" md="8" sm="6">
-                          <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传学校图片" />
+                          <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传年级图片" />
                         </v-col>
                       </v-row>
                     </v-container>
@@ -147,7 +147,7 @@ export default {
       dialogDelete: false,
       headers: [
         { text: '序号', value: 'id', align: 'start'},
-        { text: '图标', value: 'imgUrl', sortable: false },
+        { text: '图片', value: 'imgUrl', sortable: false },
         { text: '学校', value: 'schoolName', sortable: false },
         { text: '年级', value: 'gradeName' },
         { text: '操作', value: 'actions', sortable: false },

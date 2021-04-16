@@ -43,6 +43,7 @@
 
                   <v-card-text>
                     <v-container>
+                      
                       <v-row>
                         <v-col cols="12" sm="6" md="4" >
                           <v-text-field
@@ -84,6 +85,7 @@
                           <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传学校图片" />
                         </v-col>
                       </v-row>
+                     
                       <v-row>
                         <v-col cols="12" sm="6" md="4" >
                           <v-select
@@ -130,8 +132,6 @@
                           label="学校简介"
                           ></v-text-field>
                         </v-col>
-                        
-                      
                       </v-row>
                     </v-container>
                   </v-card-text>
@@ -213,7 +213,7 @@
                 color="indigo"
                 class="ma-2"
               >
-                查看经理数据
+                查看管理员
               </v-btn>
             </router-link>
           </template>
@@ -258,8 +258,8 @@ export default {
     dialogDelete: false,
     indroduceDialog : false,
     headers: [
-      { text: '号码', value: 'id', align: 'start'},
-      { text: '图标图像', value: 'imgUrl', sortable: false },
+      { text: '序号', value: 'id', align: 'start'},
+      { text: '学校图片', value: 'imgUrl', sortable: false },
       { text: '机构名称', value: 'schoolName', sortable: false },
       { text: '组织机构代码', value: 'code' },
       { text: '固定电话', value: 'phoneNum' },

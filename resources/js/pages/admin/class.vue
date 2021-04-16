@@ -31,7 +31,7 @@
                   </template>
                   <v-card>
                     <v-card-title>
-                      <span class="headline">{{ formTitle }}</span>
+                      <span class="headline"></span>
                     </v-card-title>
 
                     <v-card-text>
@@ -160,7 +160,7 @@
           sortable: false,
           value: 'id',
         },
-        { text: '图标', value: 'imgUrl' },
+        { text: '班级图片', value: 'imgUrl' },
         { text: '学校', value: 'schoolName' },
         { text: '年级', value: 'gradeName' },
         { text: '班级', value: 'lessonName' },
