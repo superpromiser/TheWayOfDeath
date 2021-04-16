@@ -1,5 +1,28 @@
 <template>
-    <v-container>
+    <v-container class="pa-0" v-if="$isMobile()">
+      <v-row class="ma-0">
+        <v-col cols="12" class="d-flex" @click="showDetail(content)">
+          <v-avatar>
+            <v-img :src="`${baseUrl}/asset/img/appIcon/校园文化/校园动态.png`" alt="postItem" ></v-img>
+          </v-avatar>
+          <div class="ml-2 d-flex flex-column">
+            <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.campus}}  </p>
+            <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+          </div>
+        </v-col>
+        <v-col cols="12" class="py-0 font-size-0-8">
+          <v-card
+            tile
+            class="mx-auto"
+            max-width="800"
+          >
+            <v-img height="250" :src="`${baseUrl}${content.campus.imgUrl}`" ></v-img>
+            <v-card-title class="px-3 py-2" style="font-size:0.8rem!important">{{content.campus.title}}</v-card-title>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container v-else>
         <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/newIcon/校园动态.png`" alt="postItem" ></v-img>
@@ -41,7 +64,7 @@
               <v-card-title>{{content.campus.title}}</v-card-title>
             </v-card>
         </v-col>
-      </v-container>
+    </v-container>
 </template>
 
 <script>
