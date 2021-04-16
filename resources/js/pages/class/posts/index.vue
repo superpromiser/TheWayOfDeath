@@ -31,6 +31,7 @@
 import { mapGetters } from 'vuex'
 import PostItem from '~/components/postItem'
 import RouterBack from '~/components/routerBack'
+import {getDashboardData} from '~/api/tablet'
 export default {
     components:{
         PostItem,
@@ -60,6 +61,11 @@ export default {
        if(this.currentPath.name == 'classSpace.post'){
             this.isPostItem = true
         }
+        // getDashboardData().then(res=>{
+        //     console.log(res.data)
+        // }).catch(err=>{
+        //     console.log(err.response)
+        // })
     },
     data: () => ({
         currentSchoolId : -1,
@@ -93,12 +99,12 @@ export default {
                         imgUrl : "/asset/img/newIcon/作业.png",
                         path : "posts.Chomework"
                     },
-                    {
-                        color : "#E4BC16",
-                        title : "习题",
-                        imgUrl : "/asset/img/newIcon/习题.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "#E4BC16",
+                    //     title : "习题",
+                    //     imgUrl : "/asset/img/newIcon/习题.png",
+                    //     path : "something"
+                    // },
                     {
                         color : "#DA7042",
                         title : "家访",

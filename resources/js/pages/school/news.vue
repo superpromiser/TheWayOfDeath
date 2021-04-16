@@ -54,9 +54,9 @@
           <RegnamePost :content='content'></RegnamePost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else>
+        <!-- <v-row class="pa-0 mt-1" v-else>
           {{content}}
-        </v-row>
+        </v-row> -->
       </v-container>
       <InfiniteLoading 
           class="pb-3 w-100"

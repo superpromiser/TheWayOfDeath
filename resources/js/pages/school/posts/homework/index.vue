@@ -41,51 +41,6 @@
                     </v-btn>
                 </v-col>
             </v-row>
-            <div class="d-flex align-center">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <v-avatar
-                    class="ma-3 ml-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/作业.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>{{lang.homework}}</h2>
-            </div>
-            <template v-slot:actions>
-            <v-btn
-                text
-                color="primary"
-                @click="templateList"
-            >
-                可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
-            </v-btn>
-            
-            <v-btn
-                tile
-                dark
-                color="#F19861"
-                class="mx-2"
-                :loading="isDraft"
-                @click="saveDraft"
-            >
-                {{lang.saveDraft}}
-            </v-btn>
-            <v-btn
-                tile
-                dark
-                color="#49d29e"
-                class="mr-8"
-                :loading="isSubmit"
-                @click="submit"
-            >
-                {{lang.submit}}
-            </v-btn>
-            </template>
         </v-container>
         <div v-if="showRule == false">
             <v-row class="mt-1 align-center">
