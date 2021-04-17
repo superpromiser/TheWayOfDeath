@@ -1,5 +1,26 @@
 <template>
-    <v-container>
+    <v-container v-if="$isMobile()">
+      <v-row>
+        <v-col cols="12" class="d-flex" @click="showDetail(content)">
+          <v-avatar>
+            <v-img :src="`${baseUrl}/asset/img/icon/评价.png`" alt="postItem" ></v-img>
+          </v-avatar>
+          <div class="ml-2 d-flex flex-column">
+            <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.evaluation}}  </p>
+            <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+          </div>
+        </v-col>
+        <v-col cols="12" class="py-0">
+          <v-chip v-for="user in userList" :key="user.id" class="ml-2 hover-cursor-point">
+            @{{user.name}}
+          </v-chip>
+        </v-col>
+        <v-col cols="12" class="py-0">
+
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container v-else>
         <v-col cols="12" class="d-flex align-center" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/评价.png`" alt="postItem" ></v-img>

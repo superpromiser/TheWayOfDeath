@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="$isMobile()" class="mb-16" >
+    <v-container v-if="$isMobile()" >
         <v-row>
             <!-- {{index}} -->
             <v-textarea

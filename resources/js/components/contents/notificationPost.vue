@@ -1,5 +1,28 @@
 <template>
-    <v-container>
+    <v-container v-if="$isMobile()">
+      <v-row>
+        <v-col cols="12" class="d-flex" @click="showDetail(content)">
+          <v-avatar>
+            <v-img :src="`${baseUrl}/asset/img/icon/通知 拷贝.png`" alt="postItem" ></v-img>
+          </v-avatar>
+          <div class="ml-2 d-flex flex-column">
+            <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.notification}}  </p>
+            <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+          </div>
+        </v-col>
+        <v-col cols="12" class="py-0 font-size-0-8">
+          <p class="text-wrap mb-0">
+            <strong>标题:</strong>
+            {{content.notifications.title}}
+          </p>
+          <p class="text-wrap mb-0">
+            <strong>公告标题:</strong>
+            {{content.notifications.signName}}
+          </p>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container v-else>
         <v-col cols="12" class="d-flex align-cente hover-cursor-point" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/通知 拷贝.png`" alt="postItem" ></v-img>
@@ -48,7 +71,7 @@
             <AttachItemViewer :items="attachItem" />
           </v-col> -->
         </v-col>
-      </v-container>
+    </v-container>
 </template>
 
 <script>
