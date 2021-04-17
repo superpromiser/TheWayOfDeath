@@ -1,5 +1,38 @@
 <template>
-    <v-container>
+    <v-container v-if="$isMobile()">
+      <v-row>
+        <v-col cols="12" class="d-flex" @click="showDetail">
+          <v-avatar>
+            <v-img :src="`${baseUrl}/asset/img/appIcon/others/家访.png`" alt="postItem" ></v-img>
+          </v-avatar>
+          <div class="ml-2 d-flex flex-column">
+            <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.homeVisit}}  </p>
+            <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+          </div>
+        </v-col>
+        <v-col cols="12" class="py-0 font-size-0-8">
+          <div class="d-flex align-center">
+            <p class="text-wrap mb-0">
+              <strong>截止日期:</strong>
+              {{TimeView(homeVisitData.deadline)}}
+            </p>
+          </div>
+          <div class="d-flex align-center">
+            <p class="text-wrap mb-0">
+              <strong>家访内容:</strong>
+              {{homeVisitData.type}}
+            </p>
+          </div>
+        </v-col>
+        <v-col cols="12" class="pb-0">
+          <p class="text-wrap mb-0 font-size-0-75"><read-more more-str="全文" :text="homeVisitData.content.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+        </v-col>
+        <v-col cols="12" class="py-0" v-if="checkIfAttachExist(homeVisitData.content)">
+          <AttachItemViewer :items="homeVisitData.content" />
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container v-else>
         <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/newIcon/家访.png`" alt="postItem" ></v-img>

@@ -53,6 +53,51 @@
         <quick-menu v-if="showRule == false" @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
     </v-container>
     <v-container v-else>
+<<<<<<< HEAD
+=======
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.homework}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="templateList"
+                    >
+                        可用模板 0， 草稿 0
+                    </v-btn>
+                    <v-btn
+                        dark
+                        tile
+                        color="#49d29e"
+                        class="mx-2"
+                        :loading="isSubmit"
+                        @click="submit"
+                    >
+                        {{lang.submit}}
+                    </v-btn>
+                    <v-btn
+                        dark
+                        tile
+                        color="#F19861"
+                        :loading="isDraft"
+                        @click="saveDraft"
+                    >
+                        {{lang.saveDraft}}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+>>>>>>> 87b87a097d54145b06839a8e843353dd4d8153ac
         <div v-if="showRule == false">
             <v-container class="px-10 z-index-2 banner-custom">
                 <v-row>

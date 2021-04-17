@@ -50,12 +50,11 @@
           </transition>
         </v-col>
         <v-col cols="12" class="" >
-          <carousel class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplaySpeed="5000">
-            <img :src="`${baseUrl}/asset/img/class/1.jpeg`" alt="carousel" class="mo-home-carousel-img" />
-            <img :src="`${baseUrl}/asset/img/class/2.jpg`" alt="carousel" class="mo-home-carousel-img" />
-            <img :src="`${baseUrl}/asset/img/class/3.png`" alt="carousel" class="mo-home-carousel-img" />
-            <img :src="`${baseUrl}/asset/img/class/4.jpg`" alt="carousel" class="mo-home-carousel-img" />
-            <img :src="`${baseUrl}/asset/img/class/5.jpg`" alt="carousel" class="mo-home-carousel-img" />
+          <carousel v-if="isSchoolSpace" :key="bannerKey" class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplaySpeed="5000">
+            <img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img"  @click="showDetailSchoolStory(story)" />
+          </carousel>
+          <carousel v-else class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplaySpeed="5000">
+            <img :src="`${baseUrl}${story.classstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img" @click="showDetailClassStory(story)" />
           </carousel>
         </v-col>
         <v-col cols="12" class="pa-0">
@@ -171,25 +170,43 @@
           <p class="mb-0 pl-3 border-left-5">学校要闻</p>
         </v-col>
       </v-row>
-      <v-container class="" v-touch="{
+      <v-container v-if="isSchoolSpace" class="pb-16" v-touch="{
         left: () => swipe('Left'),
         right: () => swipe('Right'),
-      }">
-        <v-row class="ma-0">
+      }" >
+        <v-row class="ma-0" v-for="story in bodyStoryList" :key="story.id" @click="showDetailSchoolStory(story)">
           <v-col cols="7" class="pl-0 d-flex align-start flex-column">
-            <p class="mb-auto font-weight-bold">something</p>
+            <p class="mb-auto font-weight-bold d-inline-block text-truncate w-100">{{story.schoolstory.content.text}}</p>
             <div class="d-flex align-center justify-space-between w-100">
-              <p class="mb-0">something</p>
-              <p class="mb-0">something</p>
+              <p class="mb-0">{{TimeViewYMD(story.created_at)}}</p>
+              <p class="mb-0">{{story.users.name}}</p>
             </div>
           </v-col>
           <v-col cols="5" class="pr-0">
-            <v-img :src="`${baseUrl}/asset/img/login.jpg`" height="100"></v-img>
+            <v-img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" height="100"></v-img>
           </v-col>
         </v-row>
         <v-divider light></v-divider>
-        
       </v-container>
+      <v-container v-else class="pb-16" v-touch="{
+        left: () => swipe('Left'),
+        right: () => swipe('Right'),
+      }">
+        <v-row class="ma-0" v-for="story in bodyStoryList" :key="story.id" @click="showDetailClassStory(story)">
+          <v-col cols="7" class="pl-0 d-flex align-start flex-column">
+            <p class="mb-auto font-weight-bold">{{story.classstory.content.text}}</p>
+            <div class="d-flex align-center justify-space-between w-100">
+              <p class="mb-0">{{TimeViewYMD(story.created_at)}}</p>
+              <p class="mb-0">{{story.users.name}}</p>
+            </div>
+          </v-col>
+          <v-col cols="5" class="pr-0">
+            <v-img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" height="100"></v-img>
+          </v-col>
+        </v-row>
+        <v-divider light></v-divider>
+      </v-container>
+      
     </v-container>
 
     <v-container v-else class="">
@@ -237,6 +254,8 @@
 <script> 
 import { mapGetters } from 'vuex'
 import { getSchool } from '~/api/school'
+import {getSchoolStoryMo} from '~/api/schoolStory'
+import {getClassStory} from '~/api/classStory'
 import {postChooseableSchoolItem,  postChooseableClassItem, getPostItem} from '~/api/user'
 import carousel from 'v-owl-carousel';
 import lang from '~/helper/lang.json'
@@ -396,6 +415,10 @@ export default {
       },
     ],
     carouselKey: 0,
+    bannerKey: 0,
+    selectedStoryGroup: [],
+    bannerStoryList: [],
+    bodyStoryList: [],
   }),
 
   watch:{
@@ -410,12 +433,62 @@ export default {
       selectedItemClassGroupStore : 'mo/selectedItemClassGroupStore',
       selectedItemGroupForSchoolDiaStore : 'mo/selectedItemGroupForSchoolDiaStore',
       selectedItemGroupForClassDiaStore : 'mo/selectedItemGroupForClassDiaStore',
+      schoolStoryList: 'mo/schoolStoryList',
+      classStoryList: 'mo/classStoryList'
     }),
 
     
   },
 
   async created(){
+    if(this.$isMobile() && this.schoolStoryList == null){
+      let obj = {
+        schoolId: this.user.schoolId,
+        lessonId: this.user.lessonId
+      }
+      await getSchoolStoryMo(obj)
+      .then((res) => {
+        res.data.schoolStory.map(item=>{
+          item.schoolstory.content = JSON.parse(item.schoolstory.content);
+        });
+        res.data.classStory.map(item=>{
+          item.classstory.content = JSON.parse(item.classstory.content);
+        });
+        this.$store.dispatch('mo/onSchoolStoryList', res.data.schoolStory);
+        this.$store.dispatch('mo/onClassStoryList', res.data.classStory);
+        this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.schoolStoryList))
+        if(this.selectedStoryGroup.length < 6 ){
+          this.bannerStoryList = this.selectedStoryGroup;
+          this.bodyStoryList = [];
+          this.bannerKey++;
+        }
+        else{
+          this.bannerStoryList = this.selectedStoryGroup.splice(0, 5);
+          this.bodyStoryList = this.selectedStoryGroup;
+          this.bannerKey++;
+        }
+      }).catch((err) => {
+        
+      });
+    }
+    else{
+      if(this.isSchoolSpace){
+        this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.schoolStoryList))
+      }
+      else{
+        this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.classStoryList))
+      }
+      if(this.selectedStoryGroup.length < 6 ){
+        this.bannerStoryList = this.selectedStoryGroup;
+        this.bodyStoryList = [];
+        this.bannerKey++;
+      }
+      else{
+        this.bannerStoryList = this.selectedStoryGroup.splice(0, 5);
+        this.bodyStoryList = this.selectedStoryGroup;
+        this.bannerKey++;
+      }
+    }
     if(this.selectedItemSchoolGroupStore !== null || this.selectedItemClassGroupStore !== null){
       if(this.selectedSchoolItem.type == "school"){
         this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
@@ -599,18 +672,35 @@ export default {
               this.selectedTypeItemGroup = this.schoolSpaceItems;
               this.selectedItemGroup = this.selectedItemGroupForSchoolDiaStore;
               this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
+              //story
+              this.selectedStoryGroup = JSON.parse(JSON.stringify(this.schoolStoryList));
             }
             else{
               this.isSchoolSpace = false;
               this.selectedTypeItemGroup = this.classSpaceItems;
               this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
               this.chooseableItemGroup  = this.selectedItemClassGroupStore;
+              //story
+              this.selectedStoryGroup = JSON.parse(JSON.stringify(this.classStoryList));
             }
             this.$store.dispatch('mo/onIsSchoolSpace', this.isSchoolSpace);
             this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
+
+            //story
+            if(this.selectedStoryGroup.length < 6 ){
+              this.bannerStoryList = this.selectedStoryGroup;
+              this.bodyStoryList = [];
+              this.bannerKey++;
+            }
+            else{
+              this.bannerStoryList = this.selectedStoryGroup.splice(0, 5);
+              this.bodyStoryList = this.selectedStoryGroup;
+              this.bannerKey++;
+            }
           }
         })
       }
+      
     },
     onSearch(){
     },
@@ -716,6 +806,17 @@ export default {
       }
     },
 
+    showDetailSchoolStory(story){
+      story.schoolstory.content = JSON.stringify(story.schoolstory.content);
+      this.$store.dispatch('content/storePostDetail',story)
+      this.$router.push({name:'details.schoolStory'});
+    },
+
+    showDetailClassStory(story){
+      story.classstory.content = JSON.stringify(story.classstory.content);
+      this.$store.dispatch('content/storePostDetail',story)
+      this.$router.push({name:'details.classStory'});
+    },
   }
 }
 </script>

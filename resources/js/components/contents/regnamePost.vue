@@ -1,5 +1,59 @@
 <template>
-  <v-container>
+  <v-container v-if="$isMobile()">
+    <v-row>
+      <v-col cols="12" class="d-flex" @click="showDetail">
+        <v-avatar>
+          <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/报名.png`" alt="postItem" ></v-img>
+        </v-avatar>
+        <div class="ml-2 d-flex flex-column">
+          <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.regname}}  </p>
+          <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+        </div>
+      </v-col>
+      <v-col cols="12" class="font-size-0-8">
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+            <strong>标题:</strong>
+            {{content.regnames.title}}
+          </p>
+        </div>
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+            <strong>开始时间:</strong>
+            {{TimeViewYMD(content.regnames.startTime)}}
+          </p>
+        </div>
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+            <strong>截止时间:</strong>
+            {{TimeViewYMD(content.regnames.endTime)}}
+          </p>
+        </div>
+      </v-col>
+      <v-col cols="12 py-0">
+        <p class="text-wrap mb-0 font-size-0-75"><read-more more-str="全文" :text="regnameData[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+      </v-col>
+      <v-col cols="12" class="py-0" v-if="checkIfAttachExist(regnameData[0])">
+        <AttachItemViewer :items="regnameData[0]" />
+      </v-col>
+      <v-col cols="12 py-0">
+        <v-btn
+          rounded
+          small
+          color="#49d29e"
+          outlined
+          class="ma-1 ml-0"
+          @click="showDetail(content)"
+        >
+          <v-icon left>
+            mdi-eye
+          </v-icon>
+          {{lang.viewDetail}}
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
+  <v-container v-else>
     <v-col cols="12" class="d-flex align-center">
       <v-avatar class="ma-3 school-card-avatar" tile >
         <v-img :src="`${baseUrl}/asset/img/newIcon/报名.png`" alt="postItem" ></v-img>

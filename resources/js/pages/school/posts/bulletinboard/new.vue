@@ -21,7 +21,7 @@
                     hide-details
                 ></v-select>
             </v-col>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="12" sm="6" md="4" class="mb-16">
                 <QuestionItem class="" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
             </v-col>
         </v-row>

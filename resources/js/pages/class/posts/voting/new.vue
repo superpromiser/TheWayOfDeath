@@ -43,12 +43,51 @@
                 sm="6"
                 md="4"
                 >
-                <v-datetime-picker 
-                    label="最后期限" 
+                <v-menu
+                    ref="menu"
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :return-value.sync="votingData.deadline"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        class="mo-glow-v-text mt-0 pt-0"
+                        color="#7878ff"
+                        v-model="votingData.deadline"
+                        prepend-inner-icon="mdi-calendar"
+                        readonly
+                        label="最后期限"
+                        v-bind="attrs"
+                        v-on="on"
+                        hide-details
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
                     v-model="votingData.deadline"
-                    :okText='lang.ok'
-                    :clearText='lang.cancel'
-                > </v-datetime-picker>
+                    no-title
+                    scrollable
+                    locale="zh-cn"
+                    >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="menu = false"
+                    >
+                        {{lang.cancel}}
+                    </v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.menu.save(votingData.deadline)"
+                    >
+                        {{lang.ok}}
+                    </v-btn>
+                    </v-date-picker>
+                </v-menu>
             </v-col>
             <v-col cols="12" sm="6" md="4">
                 <v-select

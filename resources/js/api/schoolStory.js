@@ -4,6 +4,10 @@ function getSchoolStory(payload){
     return axios.get('/api/v1/schoolStory',{params:payload})
 }
 
+function getSchoolStoryMo(payload){
+    return axios.get('/api/v1/SchoolStoryMo',{params:payload})
+}
+
 function createSchoolStory(payload){
     return axios.post('/api/v1/schoolStory',payload)
 }
@@ -21,4 +25,5 @@ export{
     createSchoolStory,
     updateSchoolStory,
     deleteSchoolStory,
+    getSchoolStoryMo,
 }

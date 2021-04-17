@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="$isMobile()">
+    <v-container v-if="$isMobile()" >
         <v-row>
             <!-- {{index}} -->
             <v-textarea
@@ -115,7 +115,7 @@
                     tile
                 >
                     <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
-                    <div class="">
+                    <div class="font-size-0-75">
                         <div><span><strong>{{video.fileOriName}}</strong></span></div>
                         <div>{{video.fileSize}}</div>
                     </div>
@@ -140,7 +140,7 @@
                     tile
                 >
                     <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
-                    <div class="">
+                    <div class="font-size-0-75">
                         <div><span><strong>{{other.fileOriName}}</strong></span></div>
                         <div>{{other.fileSize}}</div>
                     </div>

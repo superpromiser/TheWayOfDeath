@@ -2,13 +2,13 @@
     <v-container class="pa-0" v-if="$isMobile()">
       <v-row class="ma-0">
         <v-col cols="12" class="d-flex">
-            <v-avatar>
-              <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/问卷.png`" alt="postItem" ></v-img>
-            </v-avatar>
-            <div class="ml-2 d-flex flex-column">
-              <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.questionnaire}}  </p>
-              <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
-            </div>
+          <v-avatar>
+            <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/问卷.png`" alt="postItem" ></v-img>
+          </v-avatar>
+          <div class="ml-2 d-flex flex-column">
+            <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.questionnaire}}  </p>
+            <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+          </div>
         </v-col>
         <v-col cols="12" class="py-0 font-size-0-8">
             <div class="d-flex align-center">
@@ -31,7 +31,7 @@
             </div>
             <div>
               <v-btn
-                color="success"
+                color="#49d29e"
                 outlined
                 rounded
                 small

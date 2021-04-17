@@ -239,7 +239,12 @@ export default {
             await createRepairData(this.repairData).then(res=>{
                 console.log(res.data)
                 this.isSubmit = false
-                this.$router.push({name:'schoolSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name:'home'})
+                }
+                else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
             }).catch(err=>{
                 this.isSubmit = false
                 console.log(err.response)

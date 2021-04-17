@@ -1,5 +1,53 @@
 <template>
-    <v-container>
+    <v-container class="pa-0" v-if="$isMobile()">
+      <v-row class="ma-0">
+        <v-col cols="12" class="d-flex">
+          <v-avatar>
+            <v-img :src="`${baseUrl}/asset/img/appIcon/家校互动/公告.png`" alt="postItem" ></v-img>
+          </v-avatar>
+          <div class="ml-2 d-flex flex-column">
+            <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.announcement}}  </p>
+            <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+          </div>
+        </v-col>
+        <v-col cols="12" class="py-0 font-size-0-8">
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>标题:</strong>
+                {{content.anouncements.title}}
+              </p>
+            </div>
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>落款:</strong>
+                {{content.anouncements.signName}}
+              </p>
+            </div>
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>日期:</strong>
+                {{TimeViewYMD(content.anouncements.created_at)}}
+              </p>
+            </div>
+            <div>
+              <v-btn
+                rounded
+                small   
+                color="#49d29e"
+                outlined
+                class="ma-1 ml-0"
+                @click="showDetail(content)"
+              >
+                <v-icon left>
+                  mdi-eye
+                </v-icon>
+                {{lang.viewDetail}}
+              </v-btn>
+            </div>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container v-else>
         <v-col cols="12" class="d-flex align-center">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/newIcon/公告.png`" alt="postItem" ></v-img>
