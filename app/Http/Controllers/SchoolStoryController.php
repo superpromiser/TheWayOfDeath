@@ -26,6 +26,41 @@ class SchoolStoryController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(5);
     }
+    public function getSchoolStoryMo(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required',
+            'lessonId' => 'required'
+        ]);
+        $schoolId = $request->schoolId;
+        $lessonId = $request->lessonId;
+
+        $classStory =  Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 25])
+            ->with([
+                'classstory',
+                'users:id,name'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        $schoolStory =  Post::where(['schoolId' => $request->schoolId,  'contentId' => 11])
+            ->with([
+                'schoolstory',
+                'users:id,name'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'classStory' => $classStory,
+            'schoolStory' => $schoolStory
+        ], 200); 
+        // return response()->json([
+        //     'classStory' => "c",
+        //     'schoolStory' => "s"
+        // ], 200); 
+    }
+
     public function createSchoolStory(Request $request)
     {
         $this->validate($request, [

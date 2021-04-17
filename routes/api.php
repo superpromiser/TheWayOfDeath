@@ -375,6 +375,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
 
     //schoolStory
     Route::get('schoolStory', 'SchoolStoryController@getSchoolStory');
+    Route::get('SchoolStoryMo', 'SchoolStoryController@getSchoolStoryMo');
     Route::post('schoolStory', 'SchoolStoryController@createSchoolStory');
     Route::put('schoolStory', 'SchoolStoryController@updateSchoolStory');
     Route::delete('schoolStory', 'SchoolStoryController@deleteSchoolStory');

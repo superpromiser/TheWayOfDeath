@@ -7,6 +7,9 @@ export const state = {
   selectedItemClassGroupStore: null,
   selectedItemGroupForSchoolDiaStore: null,
   selectedItemGroupForClassDiaStore: null,
+
+  schoolStoryList : null,
+  classStoryList : null,
 }
 
 // getters
@@ -17,6 +20,9 @@ export const getters = {
   selectedItemClassGroupStore: state => state.selectedItemClassGroupStore,
   selectedItemGroupForSchoolDiaStore: state => state.selectedItemGroupForSchoolDiaStore,
   selectedItemGroupForClassDiaStore: state => state.selectedItemGroupForClassDiaStore,
+
+  schoolStoryList: state => state.schoolStoryList,
+  classStoryList: state => state.classStoryList,
 }
 
 // mutations
@@ -39,6 +45,12 @@ export const mutations = {
     [types.CLASS_ITEM_GROUP_FOR_DIA] (state,  selectedItemGroupForClassDiaStore ) {
         state.selectedItemGroupForClassDiaStore = selectedItemGroupForClassDiaStore
     },
+    [types.SCHOOL_STORY_LIST] (state,  schoolStoryList ) {
+        state.schoolStoryList = schoolStoryList
+    },
+    [types.CLASS_STORY_LIST] (state,  classStoryList ) {
+        state.classStoryList = classStoryList
+    },
 }
 
 // actions
@@ -60,5 +72,11 @@ export const actions = {
     },
     onSelectedItemGroupForClassDiaStore ({ commit }, payload) {
         commit(types.CLASS_ITEM_GROUP_FOR_DIA, payload)
+    },
+    onSchoolStoryList ({ commit }, payload) {
+        commit(types.SCHOOL_STORY_LIST, payload)
+    },
+    onClassStoryList ({ commit }, payload) {
+        commit(types.CLASS_STORY_LIST, payload)
     },
 }

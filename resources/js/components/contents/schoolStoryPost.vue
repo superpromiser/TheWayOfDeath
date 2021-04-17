@@ -88,6 +88,7 @@ export default {
     methods:{
 
       showDetail(content){
+        console.log("content", content)
         this.$store.dispatch('content/storePostDetail',content)
         this.$router.push({name:'details.schoolStory'});
       },
