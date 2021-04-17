@@ -53,51 +53,6 @@
         <quick-menu v-if="showRule == false" @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
     </v-container>
     <v-container v-else>
-<<<<<<< HEAD
-=======
-        <v-container class="px-10 z-index-2 banner-custom">
-            <v-row>
-                <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                    <a @click="$router.go(-1)">
-                        <v-icon size="70" class="left-24p">
-                            mdi-chevron-left
-                        </v-icon>
-                    </a>
-                </v-col>
-                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.homework}}</h2>
-                </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="templateList"
-                    >
-                        可用模板 0， 草稿 0
-                    </v-btn>
-                    <v-btn
-                        dark
-                        tile
-                        color="#49d29e"
-                        class="mx-2"
-                        :loading="isSubmit"
-                        @click="submit"
-                    >
-                        {{lang.submit}}
-                    </v-btn>
-                    <v-btn
-                        dark
-                        tile
-                        color="#F19861"
-                        :loading="isDraft"
-                        @click="saveDraft"
-                    >
-                        {{lang.saveDraft}}
-                    </v-btn>
-                </v-col>
-            </v-row>
-        </v-container>
->>>>>>> 87b87a097d54145b06839a8e843353dd4d8153ac
         <div v-if="showRule == false">
             <v-container class="px-10 z-index-2 banner-custom">
                 <v-row>
@@ -141,52 +96,68 @@
                     </v-col>
                 </v-row>
             </v-container>
-            <v-row class="mt-1 align-center">
-                <v-col cols="6">
-                    <p class="">科目</p>
-                </v-col>
-                <v-col cols="6">
-                    <v-text-field
-                        v-model="homeworkData.subjectName"
-                        solo
-                        label="科目"
-                        clearable
-                    ></v-text-field>
-                </v-col>
-            </v-row>
-            <v-divider light></v-divider>
-            <v-row class="mt-1 align-center">
-                <v-col cols="6">
-                    <p class="">类型</p>
-                </v-col>
-                <v-col cols="6">
-                    <v-select
-                        :items="homeworkType"
-                        label=""
-                        item-text="label"
-                        item-value="value"
-                        solo
-                        v-model="homeworkData.homeworkType"
-                    ></v-select>
-                </v-col>
-            </v-row>
-            <v-divider light></v-divider>
-            <v-row class="mt-1 align-center hover-cursor-point" @click="setRule">
-                <v-col cols="6">
-                    <p class="">发布规则</p>
-                </v-col>
-                <v-col cols="6" class="text-right">
-                    <span>即使发布</span>
-                    <v-icon
-                        right  
-                    >
-                        mdi-chevron-right
-                    </v-icon>
-                        
-                </v-col>
-            </v-row>
-            <v-divider light></v-divider>
-            <QuestionItem Label="作业内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+            <v-container class="pa-10">
+                <v-row class="mt-1 align-center">
+                    <v-col cols="6" md="10">
+                        <p class="">科目</p>
+                    </v-col>
+                    <v-col cols="6" md="2">
+                        <!-- <v-text-field
+                            v-model="homeworkData.subjectName"
+                            solo
+                            label="科目"
+                            clearable
+                        ></v-text-field> -->
+                        <v-select
+                            :items="subjectList"
+                            v-model="homeworkData.subjectName"
+                            label="科目"
+                        ></v-select>
+                    </v-col>
+                </v-row>
+                <v-divider light></v-divider>
+                <v-row class="mt-1 align-center">
+                    <v-col cols="6" md="10">
+                        <p class="">类型</p>
+                    </v-col>
+                    <v-col cols="6" md="2">
+                        <v-select
+                            :items="homeworkType"
+                            label=""
+                            item-text="label"
+                            item-value="value"
+                            solo
+                            v-model="homeworkData.homeworkType"
+                        ></v-select>
+                    </v-col>
+                </v-row>
+                <v-divider light></v-divider>
+                <v-row class="mt-1 align-center hover-cursor-point" @click="setRule">
+                    <v-col cols="6">
+                        <p class="">发布规则</p>
+                    </v-col>
+                    <v-col cols="6" class="text-right">
+                        <span>即使发布</span>
+                        <v-icon
+                            right  
+                        >
+                            mdi-chevron-right
+                        </v-icon>
+                            
+                    </v-col>
+                </v-row>
+                <v-divider light></v-divider>
+                <QuestionItem Label="作业内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                <v-row>
+                    <v-col cols="8" md="10"></v-col>
+                    <v-col cols="4" class="justify-end" md="2">
+                        <v-select
+                            :items='viewList'
+                            v-model="viewType"
+                        ></v-select>
+                    </v-col>
+                </v-row>
+            </v-container>
         </div>
         <div v-else>
             <router-view></router-view>
@@ -197,7 +168,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {getHomeworkData,createHomeworkData} from '~/api/homework'
+import {getMySubject,createHomeworkData} from '~/api/homework'
 import quickMenu from '~/components/quickMenu'
 export default {
     components:{
@@ -233,7 +204,12 @@ export default {
                 value:'在线测试'
             }
         ],
-        showRule:false
+        subjectList:[],
+        showRule:false,
+        viewList:[
+            'all','me','some'
+        ],
+        viewType:'all'
     }),
     computed:{
         currentPath(){
@@ -261,6 +237,9 @@ export default {
     },
     created(){
         this.$router.push({name:'posts.Chomework'})
+        getMySubject({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+            this.subjectList = res.data
+        })
     },
     methods:{
         submit(){

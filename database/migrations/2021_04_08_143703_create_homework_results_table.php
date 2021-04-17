@@ -23,7 +23,7 @@ class CreateHomeworkResultsTable extends Migration
             $table->tinyInteger('lessonId')->nullable();
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('homeworkId')->references('id')->on('homeworks')->onDelete('cascade');
-            $table->char('rating')->nullable();
+            $table->tinyInteger('rating')->nullable();
             $table->longText('teacherAnswer')->nullable();
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');

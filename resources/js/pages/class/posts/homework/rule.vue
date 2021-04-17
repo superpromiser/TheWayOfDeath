@@ -159,8 +159,9 @@ export default {
             //     return this.$snackbar.showMessage({content: "确定日期", color: "error"})
             // }
             // console.log('rule',this.homeworkData)
-            console.log(this.testTime)
-            this.homeworkData.deadline = this.testTime
+            console.log(this.testTime.toString())
+            this.homeworkData.deadline = this.testTime.toString()
+            console.log(this.homeworkData)
             this.$router.push({name:'posts.Chomework',query:{rule:this.homeworkData}})
 
         }

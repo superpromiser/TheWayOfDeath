@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <div class="category">答卷</div>
+        <!-- <div class="category">答卷</div> -->
         <div v-if="alreadyAnswer == false">
             <QuestionItem Label='答卷' ref="child" @contentData="loadContentData"></QuestionItem>
             <v-row class="float-right">

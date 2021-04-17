@@ -21,7 +21,7 @@ function getAppHomeworkData(payload){
 }
 
 function getMySubject(payload){
-    return axios.get('getMySubject')
+    return axios.get('/api/v1/mySubject',{params:payload})
 }
 
 export{
@@ -30,4 +30,5 @@ export{
     getHomeworkResult,
     createHomeworkResult,
     getAppHomeworkData,
+    getMySubject,
 }

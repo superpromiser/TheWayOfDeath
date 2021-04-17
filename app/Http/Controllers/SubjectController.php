@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Subject;
+use App\ScheduleTeacher;
+use App\Lesson;
 use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller
@@ -77,5 +79,23 @@ class SubjectController extends Controller
 
     public function getMySubject(Request $request)
     {
+        // $schoolId = Auth::user()->schoolId;
+        // if($schoolId == 0){
+
+        // }
+        $schoolId = $request->schoolId;
+        $lessonId = $request->lessonId;
+        $lessonName = Lesson::where('id', $lessonId)->first()->lessonName;
+        $mySubject = array();
+        $subjectList = ScheduleTeacher::where('schoolId', $schoolId)->get();
+        foreach ($subjectList as $subject) {
+            $lessons = $subject->lessons;
+            foreach ($lessons as $lesson) {
+                if ($lesson == $lessonName) {
+                    array_push($mySubject, $subject->subjectName);
+                }
+            }
+        }
+        return $mySubject;
     }
 }

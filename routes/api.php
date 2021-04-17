@@ -69,6 +69,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('manager/subject', 'SubjectController@storeSubject')->name('storeSubject');
     Route::put('manager/subject', 'SubjectController@updateSubject')->name('updateSubject');
     Route::delete('manager/subject', 'SubjectController@removeSubject')->name('removeSubject');
+    Route::get('mySubject', 'SubjectController@getMySubject');
 
     //scheduleTeacher of manager
     Route::get('manager/schedule/teacher', 'ScheduleTeacherController@getScheduleTeacher')->name('getScheduleTeacher');
