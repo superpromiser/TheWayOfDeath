@@ -35,12 +35,12 @@ class HomeworkController extends Controller
             'schoolId' => $request->schoolId,
             'classId' => $request->lessonId
         ])->id;
-
+        $deadline = $request->deadline;
         return Homework::create([
             'subjectName' => $request->subjectName,
             'homeworkType' => $request->homeworkType,
             'content' => json_encode($request->content),
-            'deadline' => $request->deadline,
+            'deadline' => json_encode($request->deadline),
             'monitorName' => $request->monitorName,
             'parentCheck' => $request->parentCheck,
             'schoolId' => $request->schoolId,
@@ -48,6 +48,36 @@ class HomeworkController extends Controller
             'userId' => $userId,
             'postId' => $postId
         ]);
+    }
+
+    public function getAppHomeworkData(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required'
+        ]);
+        if ($request->lessonId) {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 14])
+                ->with([
+                    'likes',
+                    'views',
+                    'comments',
+                    'homework',
+                    'users:id,name'
+                ])
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        } else {
+            // return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 1])
+            //     ->with([
+            //         'likes',
+            //         'views',
+            //         'comments',
+            //         'questionnaires',
+            //         'users:id,name'
+            //     ])
+            //     ->orderBy('created_at', 'desc')
+            //     ->paginate(5);
+        }
     }
 
     public function updateHomeworkData(Request $request)

@@ -87,35 +87,32 @@
     </v-snackbar>
     </v-container>
     <v-container class="pa-0" v-else>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <v-avatar
-                    class="ma-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/评价.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>{{lang.evaluation}}</h2>
-            </div>
-            <template v-slot:actions>
-                <v-btn
-                    dark
-                    color="#49d29e"
-                    @click="publishVotingData"
-                    :loading="isCreating"
-                    tile
-                    class="mr-6"
-                >
-                    {{lang.submit}}
-                </v-btn>
-            </template>
-        </v-banner>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.evaluation}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        dark
+                        color="#49d29e"
+                        @click="publishVotingData"
+                        :loading="isCreating"
+                        tile
+                        class="mx-2"
+                    >
+                        {{lang.submit}}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container class="px-10">
             <v-row class="bg-light-yellow">
                 <v-col cols="12" md="4" lg="4" class="fixed-height-out-contact border-type-1">

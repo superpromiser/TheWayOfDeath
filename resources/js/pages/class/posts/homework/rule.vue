@@ -4,7 +4,7 @@
             <v-col cols="12">
                 <v-datetime-picker 
                     label="最后期限" 
-                    v-model="homeworkData.deadline"
+                    v-model="testTime"
                     :okText='lang.ok'
                     :clearText='lang.cancel'
                 > </v-datetime-picker>
@@ -44,6 +44,30 @@
         </v-row>
     </v-container>
     <v-container v-else>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.homework}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        depressed
+                        color="primary"
+                        @click="submit"
+                        :loading="isSubmit"
+                        >
+                        确定
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-row class="mt-1 align-center">
             <v-col cols="6">
                 <p class="">发布时间</p>
@@ -51,10 +75,10 @@
             <v-col cols="6">
                 <v-datetime-picker 
                     label="发布时间" 
-                    v-model="homeworkData.deadline"
+                    v-model="testTime"
                     :okText='lang.ok'
                     :clearText='lang.cancel'
-                > </v-datetime-picker>
+                ></v-datetime-picker>
             </v-col>
         </v-row>
         <v-divider light></v-divider>
@@ -83,20 +107,6 @@
                 ></v-switch>
             </v-col>
         </v-row>
-        <v-divider light></v-divider>
-        <v-row class="mt-1 align-center">
-            <v-col cols="12">
-                <v-btn
-                    depressed
-                    color="primary"
-                    class="float-right"
-                    @click="submit"
-                    :loading="isSubmit"
-                    >
-                    确定
-                </v-btn>
-            </v-col>
-        </v-row>
     </v-container>
 </template>
 
@@ -116,6 +126,7 @@ export default {
             monitorName:'',
             parentCheck:false
         },
+        testTime:'',
         menu:false,
         date: new Date().toISOString().substr(0, 10),
         userList:[]
@@ -141,6 +152,15 @@ export default {
 
         },
         submit(){
+            // console.log(new Date(this.homeworkData.deadline))
+            // this.homeworkData.deadline = new Date(this.homeworkData.deadline)
+            // if(typeof this.homeworkData.deadline == 'object'){
+            //     console.log(typeof this.homeworkData.deadline)
+            //     return this.$snackbar.showMessage({content: "确定日期", color: "error"})
+            // }
+            // console.log('rule',this.homeworkData)
+            console.log(this.testTime)
+            this.homeworkData.deadline = this.testTime
             this.$router.push({name:'posts.Chomework',query:{rule:this.homeworkData}})
 
         }

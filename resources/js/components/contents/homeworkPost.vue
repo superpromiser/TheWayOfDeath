@@ -5,7 +5,7 @@
               <v-img :src="`${baseUrl}/asset/img/newIcon/作业.png`" alt="postItem" ></v-img>
             </v-avatar>
             <div>
-              <p class="font-weight-black fs-15 mb-3"> {{lang.homework}}  </p>
+              <p class="font-weight-black fs-15 mb-3"> {{homeworkData.homeworkType}}  </p>
               <div class="d-flex align-center">
                 <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
                 <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
@@ -100,7 +100,7 @@ export default {
       showDetail(){
         this.$store.dispatch('content/storePostDetail',this.content)
         if(this.currentPath.params.lessonId){
-          if(this.content.homework.homeworkType == "分为常规作业"){
+          if(this.content.homework.homeworkType == "常规作业"){
             if(this.user.roleId == 3){
               this.$router.push({name:'details.homeworkofflineTeacher'});    
             }else if(this.user.roleId == 5){

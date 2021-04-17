@@ -58,19 +58,31 @@ export default {
                         color : "#DA7042",
                         title : "作业",
                         imgUrl : "/asset/img/newIcon/作业.png",
-                        path : "classSpace.applications.Chomework"
+                        path : "classSpace.applications.homework"
                     },
-                    {
-                        color : "#E4BC16",
-                        title : "习题",
-                        imgUrl : "/asset/img/newIcon/习题.png",
-                        path : "something"
-                    },
+                    // {
+                    //     color : "#E4BC16",
+                    //     title : "习题",
+                    //     imgUrl : "/asset/img/newIcon/习题.png",
+                    //     path : "something"
+                    // },
                     {
                         color : "#DA7042",
                         title : "家访",
                         imgUrl : "/asset/img/newIcon/家访.png",
-                        path : "posts.Chomevisit"
+                        path : "classSpace.applications.homevisit"
+                    },
+                    {
+                        color : "#EB5846",
+                        title : "班级动态",
+                        imgUrl : "/asset/img/newIcon/班级动态.png",
+                        path : "classSpace.applications.classStory"
+                    },
+                    {
+                        color : "#EB5846",
+                        title : "班际动态",
+                        imgUrl : "/asset/img/newIcon/班际动态.png",
+                        path : "classSpace.applications.interClassStory"
                     },
                 ],
             },

@@ -331,7 +331,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('offlineTeacher', 'HomeworkResultController@createOfflineTeacher');
     Route::get('offlineTeacher', 'HomeworkResultController@getOfflineTeacher');
     Route::get('offlineStudent', 'HomeworkResultController@getOfflineStudent');
-
+    Route::get('appHomeworkData', 'HomeworkController@getAppHomeworkData');
     //tabelt
     Route::get('tablet/dashboard', 'TabletController@getDashboardData');
 

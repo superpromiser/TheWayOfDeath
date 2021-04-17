@@ -16,9 +16,18 @@ function createHomeworkResult(payload){
     return axios.post('/api/v1/homeworkResult',payload)
 }
 
+function getAppHomeworkData(payload){
+    return axios.get('/api/v1/appHomeworkData',{params:payload})
+}
+
+function getMySubject(payload){
+    return axios.get('getMySubject')
+}
+
 export{
     getHomeworkData,
     createHomeworkData,
     getHomeworkResult,
-    createHomeworkResult
+    createHomeworkResult,
+    getAppHomeworkData,
 }
