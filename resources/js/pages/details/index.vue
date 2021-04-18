@@ -1,7 +1,5 @@
 <template>
-    <v-container>
-        <v-container>
-        </v-container>
+    <v-container class="pa-0">
         <transition name="fade" mode="out-in">
             <router-view></router-view>
         </transition>

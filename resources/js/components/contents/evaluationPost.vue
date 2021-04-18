@@ -1,7 +1,7 @@
 <template>
     <v-container v-if="$isMobile()">
       <v-row>
-        <v-col cols="12" class="d-flex" @click="showDetail(content)">
+        <v-col cols="12" class="d-flex hover-cursor-point" @click="showDetail(content)">
           <v-avatar>
             <v-img :src="`${baseUrl}/asset/img/icon/评价.png`" alt="postItem" ></v-img>
           </v-avatar>
@@ -85,11 +85,9 @@ export default {
         medalList:[],
     }),
     created(){
+      console.log("####", this.content);
       this.userList = JSON.parse(this.content.evaluations.userList)
-      this.medalList = JSON.parse(this.content.evaluations.selMedalList)
-      this.medalList.map(medal=>{
-        // medal.medalImg = JSON.parse(medal.medalImg)
-      })
+      this.medalList = this.content.evaluations.selMedalList
     },
     methods:{
       showDetail(content){
