@@ -8,4 +8,10 @@ class Evaluation extends Model
 {
     //
     protected $guarded = [];
+
+    protected $casts = [
+        'selMedalList' => 'array',
+    ];
+
+
 }

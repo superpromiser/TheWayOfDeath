@@ -13,27 +13,29 @@
                 </v-btn>
             </v-col>
             <v-col cols="12">
-                  <v-select
-                      color="#7879ff"
-                      multiple
-                      small-chips
-                      :items="contactInfoItems"
-                      :menu-props="{ top: false, offsetY: true }"
-                      item-text="name"
-                      item-value="id"
-                      label="选择您的会员"
-                      hide-details
-                      class="mt-0 pt-0"
-                      v-model="contactInfo"
-                      return-object
-                  ></v-select>
+                <v-select
+                    color="#7879ff"
+                    multiple
+                    small-chips
+                    :loading="isLoading"
+                    :disabled="noData"
+                    :items="contactInfoItems"
+                    :menu-props="{ top: false, offsetY: true }"
+                    item-text="name"
+                    item-value="id"
+                    label="选择您的会员"
+                    hide-details
+                    class="mt-0 pt-0"
+                    v-model="contactInfo"
+                    return-object
+                ></v-select>
               </v-col>
               <v-col cols="12" md="8" lg="8" class=" mb-16">
                     <v-row v-for="(medalGroup, i) in medalData.medal" :key="i" class="pa-3">
                         <v-col cols="12">
                             <v-chip
                                 class="ma-2"
-                                color="primary"
+                                color="#7879ff"
                                 outlined
                                 pill
                                 >
@@ -113,13 +115,26 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-container class="px-10">
+        <v-container class="px-10 mt-10">
             <v-row class="bg-light-yellow">
                 <v-col cols="12" md="4" lg="4" class="fixed-height-out-contact border-type-1">
                     <v-list shaped class="bg-light-yellow">
+                        <v-list-item-title class="text-center pa-3">班级学生名单</v-list-item-title>
+                        <v-list-item-title v-if="isLoading" class="pa-5 d-flex align-center justify-center">
+                            <v-progress-circular
+                                indeterminate
+                                color="#7879ff"
+                            ></v-progress-circular>
+                        </v-list-item-title>
+                        <v-list-item-title v-else-if="noData" class="pa-5 d-flex align-center justify-center">
+                            <v-chip class="ma-2" color="primary" outlined pill >
+                                没有更多数据
+                                <v-icon right> mdi-cancel  </v-icon>
+                            </v-chip>
+                        </v-list-item-title>
                         <v-list-item-group
                             v-model="contactInfo"
-                            multiple
+                            multiple v-else
                         >
                             <template v-for="(item, i) in contactInfoItems">
                             <v-divider
@@ -131,7 +146,7 @@
                                 v-else
                                 :key="item.id"
                                 :value="item"
-                                active-class="deep-purple--text text--accent-4"
+                                active-class="primary-font-color"
                             >
                                 <template v-slot:default="{ active }">
                                 <v-list-item-content>
@@ -141,7 +156,7 @@
                                 <v-list-item-action>
                                     <v-checkbox
                                     :input-value="active"
-                                    color="#F19861"
+                                    color="#7879ff"
                                     ></v-checkbox>
                                 </v-list-item-action>
                                 </template>
@@ -155,7 +170,7 @@
                         <v-col cols="12">
                             <v-chip
                                 class="ma-2"
-                                color="primary"
+                                color="#7879ff"
                                 outlined
                                 pill
                                 >
@@ -234,7 +249,9 @@ export default {
         initialCnt:4,
         selMedalList : [],
         isCreating:false,
-        isSuccessed:false
+        isSuccessed:false,
+        isLoading: false,
+        noData: false,
     }),
 
     computed: {
@@ -244,12 +261,17 @@ export default {
         }
     },
 
-    created(){
-        getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
+    async created(){
+        this.isLoading = true;
+        await getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
             this.contactInfoItems = res.data
+            if(this.contactInfoItems.length == 0){
+                this.noData = true;
+            }
         }).catch(err=>{
             console.log(err.response)
         })
+        this.isLoading = false;
     },
 
     methods: {
@@ -277,8 +299,11 @@ export default {
                 // viewList:[],
                 // postShow:[],
             }
-            if(this.contactInfo.length == 0 || this.selMedalList.length == 0){
-                return;
+            if(this.contactInfo.length == 0 ){
+                return this.$snackbar.showMessage({content: '选择一个学生', color:'error'})
+            }
+            if(this.selMedalList.length == 0){
+                return this.$snackbar.showMessage({content: '选择一个认可', color:'error'})
             }
             answerData.userList = this.contactInfo;
             answerData.selMedalList = this.selMedalList;
@@ -287,7 +312,6 @@ export default {
             this.isCreating = true;
             console.log("answerData", answerData);
             await createEvaluation(answerData).then(res=>{
-                //console.log(res.data)
                 this.isCreating = false
                 if(this.$isMobile()){
                     this.$router.push({name:'home'})
@@ -300,7 +324,7 @@ export default {
                 this.isCreating = false
             })
             
-            // this.isCreating = true
+            this.isCreating = false
             
         },
         selectMedalItem(medalItem){
@@ -309,7 +333,7 @@ export default {
             for(let i=0;i<this.medalData.medal.length;i++){
                 for(let j=0;j<this.medalData.medal[i].menuList.length;j++){
                     if(this.medalData.medal[i].menuList[j].medalFlag == true){
-                        this.selMedalList.push(this.medalData.medal[i].menuList[j])
+                        this.selMedalList.push(this.medalData.medal[i].menuList[j].medalText)
                     }
                 }
             }

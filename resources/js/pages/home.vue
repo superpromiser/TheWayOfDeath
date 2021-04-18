@@ -457,6 +457,7 @@ export default {
         this.$store.dispatch('mo/onSchoolStoryList', res.data.schoolStory);
         this.$store.dispatch('mo/onClassStoryList', res.data.classStory);
         this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.schoolStoryList))
+        console.log("this.selectedStoryGroup", this.selectedStoryGroup);
         if(this.selectedStoryGroup.length < 6 ){
           this.bannerStoryList = this.selectedStoryGroup;
           this.bodyStoryList = [];
@@ -471,7 +472,7 @@ export default {
         
       });
     }
-    else{
+    else if(this.$isMobile()){
       if(this.isSchoolSpace){
         this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.schoolStoryList))
       }
@@ -687,6 +688,7 @@ export default {
             this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);
 
             //story
+            
             if(this.selectedStoryGroup.length < 6 ){
               this.bannerStoryList = this.selectedStoryGroup;
               this.bodyStoryList = [];

@@ -1235,3 +1235,7 @@ a {
 .font-color-white{
     color: white!important;
 }
+
+.primary-font-color .v-list-item__content .v-list-item__title{
+    color: #7879ff;
+}

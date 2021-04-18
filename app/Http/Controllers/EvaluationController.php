@@ -26,12 +26,16 @@ class EvaluationController extends Controller
             'classId'=>$request->classId,
             'schoolId'=>$request->schoolId
         ])->id;
-        return Evaluation::create([
+        Evaluation::create([
             'userList'=>json_encode($request->userList),
-            'selMedalList'=>json_encode($request->selMedalList),
+            'selMedalList'=>$request->selMedalList,
             'classId'=>$request->classId,
             'postId'=>$postId
         ]);
+
+        return response()->json([
+            'msg' => 'ok'
+        ], 201);
 
     }
 
