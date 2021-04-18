@@ -44,6 +44,11 @@
             </v-menu>
           </div>
       </v-col>
+      <v-col cols="12" class="pl-10 pt-0">
+        <v-chip v-for="student in students" :key="student.id" class="ml-2 hover-cursor-point">
+          @{{student.name}}
+        </v-chip>
+      </v-col>
   </v-container>
 </template>
 
@@ -59,13 +64,17 @@ export default {
     data:()=>({
         lang,
         baseUrl:window.Laravel.base_url,
+        students:[],
     }),
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
         this.$router.push({name:'details.classRecognition'});
       }
-    }
+    },
+    created(){
+      this.students = JSON.parse(this.content.recognitions.students)
+    },
 }
 </script>
 

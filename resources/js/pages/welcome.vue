@@ -155,7 +155,7 @@
               <v-tabs-items v-model="tab">
                 <v-tab-item value='qr-login' >
                   <v-card flat class="pb-8 d-flex justify-center">
-                    <qrcode value="http://47.111.233.60" :options="{ width: 350 }"></qrcode>
+                    <qrcode value="http://8.131.231.180/" :options="{ width: 350 }"></qrcode>
                   </v-card>
                 </v-tab-item>
                 

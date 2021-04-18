@@ -30,11 +30,14 @@
                     small-chips
                     :menu-props="{ top: false, offsetY: true }"
                     :items="userListItem"
+                    :loading="isLoading"
                     item-text="name"
                     item-value="id"
                     @change="selectedUser"
-                    label="表彰对象"
+                    :label="noData? '没有学生资料':'表彰对象'"
+                    :disabled="noData"
                     hide-details
+                    return-object
                     v-model="recognitionData.students"
                 ></v-select>
             </v-col>
@@ -82,7 +85,7 @@
                     <v-btn
                         text
                         color="primary"
-                        @click="$refs.menu.save(date)"
+                        @click="$refs.menu.save(recognitionData.publishDate)"
                     >
                         {{lang.ok}}
                     </v-btn>
@@ -199,8 +202,11 @@
                         item-text="name"
                         item-value="id"
                         @change="selectedUser"
-                        label="表彰对象"
+                        :loading="isLoading"
+                        :label="noData? '没有学生资料':'表彰对象'"
+                        :disabled="noData"
                         hide-details
+                        return-object
                         v-model="recognitionData.students"
                     ></v-select>
                 </v-col>
@@ -257,7 +263,7 @@
                         <v-btn
                             text
                             color="primary"
-                            @click="$refs.menu.save(date)"
+                            @click="$refs.menu.save(recognitionData.publishDate)"
                         >
                             {{lang.ok}}
                         </v-btn>
@@ -316,7 +322,9 @@ import { mapGetters } from 'vuex';
 import lang from '~/helper/lang.json';
 import QuestionItem from '~/components/questionItem';
 import {createRecognition} from '~/api/recognition';
-import quickMenu from '~/components/quickMenu'
+import quickMenu from '~/components/quickMenu';
+import {getLessonUserList} from '~/api/user';
+
 export default {
     middleware:['post','auth'],
     data: () => ({
@@ -353,21 +361,7 @@ export default {
             },
             
         ],
-        userListItem : [
-            { 
-                name : "sammie", 
-                id : 1 
-            },
-            { 
-                name : "tommy", 
-                id : 2 
-            },
-            { 
-                name : "hommey", 
-                id : 3 
-            },
-            
-        ],
+        userListItem : [],
         imgUrlItem : [
             {
                 path: '/asset/img/icon/recognition/2_副本.jpg',
@@ -397,6 +391,8 @@ export default {
         dialog:false,
         date: new Date().toISOString().substr(0, 10),
         menu: false,
+        noData: false,
+        isLoading: false,
     }),
 
     components: {
@@ -410,7 +406,19 @@ export default {
         }
     },
 
-    created(){
+    async created(){
+        this.isLoading = true;
+        await getLessonUserList({lessonId:this.currentPath.params.lessonId})
+        .then(res=>{
+            this.userListItem = res.data
+            if(this.userListItem.length == 0){
+                this.noData = true;
+            }
+        }).catch(err=>{
+            console.log(err.response)
+        })
+        this.isLoading = false;
+
         //console.log(this.recognitionData.content)
         this.recognitionData.schoolId = this.currentPath.params.schoolId
         this.recognitionData.classId = this.currentPath.params.lessonId
@@ -432,16 +440,34 @@ export default {
             this.recognitionData.imgUrl = this.imgUrlItem[index].path;
         },
         async submit(){
-            //console.log(this.recognitionData)
-            if(this.recognitionData.type == '' || this.recognitionData.students.length == 0 || this.recognitionData.awardTitle == '' || this.recognitionData.publishDate == '' || this.recognitionData.description == '' || this.recognitionData.imgUrl == ''){
-                // alert('x')
-                //console.log('isRequred')
-                this.isRequired = true
-                return
+            console.log(this.recognitionData)
+            if(this.recognitionData.type == '' ){
+                return this.$snackbar.showMessage({content: '请选择识别类型', color: 'error'});
+            }
+            if(this.recognitionData.students.length == 0){
+                return this.$snackbar.showMessage({content: '选择学生获得认可', color: 'error'});
+            }
+            if(this.recognitionData.awardTitle.trim() == ''){
+                return this.$snackbar.showMessage({content: '奖励标题不能为空', color: 'error'});
+            }
+            if(this.recognitionData.awardTitle.trim().length > 8 ){
+                return this.$snackbar.showMessage({content: '奖励标题不得超过8个字符', color: 'error'});
+            }
+            if(this.recognitionData.publishDate == ''){
+                return this.$snackbar.showMessage({content: '奖励的颁发日期不可空白', color: 'error'});
+            }
+            if(this.recognitionData.description.trim() == ''){
+                return this.$snackbar.showMessage({content: '奖项说明不能空白', color: 'error'});
+            }
+            if(this.recognitionData.description.trim().length > 40){
+                return this.$snackbar.showMessage({content: '奖励内容不得超过40个字符', color: 'error'});
+            }
+            if(this.recognitionData.imgUrl == ''){
+                return this.$snackbar.showMessage({content: '请选择引文模板', color: 'error'});
             }
             this.isCreating = true
             await createRecognition(this.recognitionData).then(res=>{
-                //console.log(res)
+                console.log(res)
                 this.isCreating = false
                 if(this.$isMobile()){
                     this.$router.push({name:'home'})
