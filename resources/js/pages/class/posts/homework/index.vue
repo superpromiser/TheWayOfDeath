@@ -153,6 +153,8 @@
                     <v-col cols="4" class="justify-end" md="2">
                         <v-select
                             :items='viewList'
+                            item-text="label"
+                            item-value="value"
                             v-model="viewType"
                             @change="selViewList"
                         ></v-select>
@@ -225,7 +227,18 @@ export default {
         subjectList:[],
         showRule:false,
         viewList:[
-            'all','me','some'
+            {
+                label:'公开',
+                value:'all'
+            },
+            {
+                label:'私密',
+                value:'me'
+            },
+            {
+                label:'部分可见',
+                value:'some'
+            },
         ],
         viewType:'all',
         userList:[],

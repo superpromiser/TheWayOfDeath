@@ -93,7 +93,7 @@
                                 :items="subjectItem"
                                 :menu-props="{ top: false, offsetY: true }"
                                 item-text="subjectName"
-                                item-value="id"
+                                item-value="subjectName"
                                 v-model="item[header.value]"
                                 hide-details
                                 :disabled="!isEditable"

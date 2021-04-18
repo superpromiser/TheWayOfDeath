@@ -23,6 +23,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import ApplicationItem from '~/components/applicationItem'
+import {getDashboardData} from '~/api/tablet'
 export default {
   middleware:'auth',
   components:{
@@ -196,7 +197,13 @@ export default {
             },
         ]
   }),
-
+  created(){
+      getDashboardData().then(res=>{
+          console.log(res.data)
+      }).catch(err=>{
+          console.log(err.response)
+      })
+  },
   methods:{
     selectedPost(){
 

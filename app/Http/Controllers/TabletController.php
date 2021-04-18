@@ -57,16 +57,16 @@ class TabletController extends Controller
         }
         $todaySchedule = array();
         foreach ($scheduleData as $key => $oneDaySchedule) {
-            $schedule['id'] = $oneDaySchedule->$weekday;
-            if ($schedule['id'] == -1) {
-                $schedule['name'] = '自习';
-            } else {
-                $schedule['name'] = ScheduleTeacher::where('id', $schedule['id'])->first()->subjectName;
-            }
+            $schedule['name'] = $oneDaySchedule->$weekday;
+            // if ($schedule['id'] == -1) {
+            //     $schedule['name'] = '自习';
+            // } else {
+            //     $schedule['name'] = ScheduleTeacher::where('id', $schedule['id'])->first()->subjectName;
+            // }
             array_push($todaySchedule, $schedule);
         }
         for ($i = 0; $i < count($subjectArr); $i++) {
-            $subjectArr[$i]['id'] = $todaySchedule[$i]['id'];
+            // $subjectArr[$i]['id'] = $todaySchedule[$i]['id'];
             $subjectArr[$i]['name'] = $todaySchedule[$i]['name'];
         }
         // $result = array_merge($subjectArr, $todaySchedule);
@@ -216,5 +216,33 @@ class TabletController extends Controller
         $resultData['announceData'] = $announcementData;
         $resultData['attendanceData'] = $attendanceData;
         return response()->json($resultData);
+    }
+
+    public function getLessonTimeTable(Request $request)
+    {
+        $lessonId = Auth::user()->lessonId;
+        $lessonName = Lesson::where('id', $lessonId)->first->lessonName;
+        $scheduleData = scheduleClass::where('lessonId', $lessonId)->first()->scheduleData;
+        $schoolId = Auth::user()->schoolId;
+        $scheduleTeachers = ScheduleTeacher::where('schoolId', $schoolId)->get();
+        foreach ($scheduleData as $scheduleOrder) {
+            $scheduleOrder = json_decode($scheduleOrder);
+            $monId = $scheduleOrder['mon'];
+            $tueId = $scheduleOrder['tue'];
+            $wedId = $scheduleOrder['wed'];
+            $thuId = $scheduleOrder['thu'];
+            $friId = $scheduleOrder['fri'];
+            $satId = $scheduleOrder['sat'];
+            $sunId = $scheduleOrder['sun'];
+        }
+        // $scheduleLessons = array();
+        // foreach ($scheduleTeachers as $schedule) {
+        //     $lessons = $schedule->lessons;
+        //     foreach ($lessons as $lesson) {
+        //         if ($lesson == $lessonName) {
+        //             array_push($schedulelessons, $schedule);
+        //         }
+        //     }
+        // }
     }
 }
