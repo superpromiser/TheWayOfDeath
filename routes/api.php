@@ -233,8 +233,9 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('/class/recognition', 'RecognitionController@updateRecognition');
     Route::delete('/class/recognition', 'RecognitionController@deleteRecognition');
 
-    //class albums
+    //class albums and files
     Route::get('/class/photos', 'PostController@getClassPhoto');
+    Route::get('/class/files', 'PostController@getClassFile');
 
     //attendance
     Route::get('attendance', 'AttendanceController@getAttendanceData');
