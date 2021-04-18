@@ -259,7 +259,11 @@ export default [
         children:[
           {path:'offlineTeacher', name:'details.homeworkofflineTeacher', component:page('details/homework/offlineTeacher.vue')},
           {path:'offlineStudent', name:'details.homeworkofflineStudent', component:page('details/homework/offlineStudent.vue')},
-          {path:'onlineTeacher', name:'details.homeworkonlineTeacher', component:page('details/homework/onlineTeacher.vue')},
+          {path:'onlineTeacher', name:'details.homeworkonlineTeacher', component:page('details/homework/onlineTeacher.vue'),
+            children:[
+              {path:':userId',name:'details.homworkResult.onlineTeacher.selUser', component:page('details/homework/onlineTeacherCheck.vue')}
+            ]
+          },
           {path:'onlineStudent', name:'details.homeworkonlineStudent', component:page('details/homework/onlineStudent.vue')},
           {path:'testTeacher', name:'details.homeworktestTeacher', component:page('details/homework/testTeacher.vue')},
           {path:'testStudent', name:'details.homeworktestStudent', component:page('details/homework/testStudent.vue')},

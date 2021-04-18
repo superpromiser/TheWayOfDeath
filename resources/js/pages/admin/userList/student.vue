@@ -93,6 +93,7 @@
                                 :items="classSelectionItem"
                                 item-text="lessonName"
                                 item-value="lessonId"
+                                v-model="editedItem.lessonId"
                                 @change="selectedLesson"
                                 label="班级"
                             ></v-select>

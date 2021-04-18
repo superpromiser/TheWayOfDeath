@@ -20,10 +20,15 @@ function getOfflineStudent(payload){
     return axios.get('/api/v1/offlineStudent',{params:payload})
 }
 
+function getOnlineTeacherCheck(payload){
+    return axios.get('/api/v1/onlineTeacherCheck',{params:payload})
+}
+
 export{
     getHomeworkResult,
     createTeacherAnswer,
     getOfflineTeacherAnswer,
     createOfflineTeacherAnswer,
     getOfflineStudent,
+    getOnlineTeacherCheck,
 }

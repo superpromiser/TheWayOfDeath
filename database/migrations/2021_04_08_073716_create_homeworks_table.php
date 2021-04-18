@@ -24,6 +24,7 @@ class CreateHomeworksTable extends Migration
             $table->tinyInteger('schoolId');
             $table->tinyInteger('lessonId');
             $table->unsignedBigInteger('userId');
+            $table->string('viewList');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
