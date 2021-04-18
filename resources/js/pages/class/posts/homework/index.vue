@@ -154,9 +154,25 @@
                         <v-select
                             :items='viewList'
                             v-model="viewType"
+                            @change="selViewList"
                         ></v-select>
                     </v-col>
                 </v-row>
+                <div v-if="viewType == 'some'">
+                    <v-row v-for="user in userList" :key="user.id" class=" ma-0">
+                        <v-col class="d-flex justify-space-between align-center" cols="12">
+                            <v-checkbox
+                                v-model="user.checkbox"
+                                :label="user.name"
+                            ></v-checkbox>
+                            <!-- <span class="pl-2">
+                                {{idx + 1}}.
+                                {{user.name}}
+                            </span> -->
+                        </v-col>
+                        <v-divider class="thick-border"></v-divider>
+                    </v-row>
+                </div>
             </v-container>
         </div>
         <div v-else>
@@ -170,6 +186,7 @@ import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {getMySubject,createHomeworkData} from '~/api/homework'
 import quickMenu from '~/components/quickMenu'
+import {getLessonUserList} from '~/api/user'
 export default {
     components:{
         QuestionItem,
@@ -189,6 +206,7 @@ export default {
             deadline:'',
             monitorName:'',
             parentCheck:false,
+            viewList:[],
         },
         homeworkType:[
             {
@@ -209,7 +227,8 @@ export default {
         viewList:[
             'all','me','some'
         ],
-        viewType:'all'
+        viewType:'all',
+        userList:[],
     }),
     computed:{
         currentPath(){
@@ -240,6 +259,15 @@ export default {
         getMySubject({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
             this.subjectList = res.data
         })
+        getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
+            res.data.map(data=>{
+                this.$set(data,'checkbox',false)
+            })
+            this.userList = res.data
+            console.log("this.userList",this.userList)
+        }).catch(err=>{
+            console.log(err.response)
+        })
     },
     methods:{
         submit(){
@@ -252,7 +280,19 @@ export default {
                 return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})             
             }
             this.isSubmit = true
-            
+            if(this.viewType == 'all'){
+                this.userList.map(user=>{
+                    this.homeworkData.viewList.push(user.id)
+                })
+            }else if(this.viewType == 'me'){
+                this.homeworkData.viewlist.push(0)
+            }else if(this.viewType == 'some'){
+                this.userList.map(user=>{
+                    if(user.checkbox == true){
+                        this.homeworkData.viewList.push(user.id)
+                    }
+                })
+            }
             console.log("this.homeworkData",this.homeworkData)
             // return
             createHomeworkData({
@@ -264,6 +304,7 @@ export default {
                 deadline:this.homeworkData.deadline,
                 monitorName:this.homeworkData.monitorName,
                 parentCheck:this.homeworkData.parentCheck,
+                viewList:this.homeworkData.viewList
             }).then(res=>{
                 this.isSubmit = false
                 console.log(res.data)
@@ -297,6 +338,9 @@ export default {
                 return
             }
             this.homeworkData.content = data
+        },
+        selViewList(){
+            console.log(this.viewType)
         },
 
         something(){

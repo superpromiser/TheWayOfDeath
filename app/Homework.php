@@ -8,4 +8,9 @@ class Homework extends Model
 {
     //
     protected $guarded = [];
+
+    public function homeworkresult()
+    {
+        return $this->hasOne(HomeworkResult::class, 'homeworkId');
+    }
 }

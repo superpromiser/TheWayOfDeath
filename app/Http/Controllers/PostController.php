@@ -63,7 +63,7 @@ class PostController extends Controller
                 'notifications',
                 'evaluations',
                 'recognitions',
-                'homework',
+                'homework.homeworkresult',
                 'homeworkResult.homework',
                 'classstory',
                 'interclassstory',

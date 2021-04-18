@@ -20,7 +20,8 @@ class HomeworkResultController extends Controller
             'schoolId' => $request->schoolId,
             'lessonId' => $request->lessonId,
             'userId' => $userId,
-            'homeworkId' => $request->homeworkId
+            'homeworkId' => $request->homeworkId,
+            'homeworkType' => '在线作业'
         ])->first();
     }
 
@@ -30,18 +31,19 @@ class HomeworkResultController extends Controller
             'homeworkId' => 'required',
             'content' => 'required',
             'homeworkType' => 'required',
-            'schoolId' => 'required'
+            'schoolId' => 'required',
+            'postId' => 'required'
         ]);
 
         $userId = Auth::user()->id;
 
-        $postId = Post::create([
-            'schoolId' => $request->schoolId,
-            'classId' => $request->lessonId,
-            'userId' => $userId,
-            'contentId' => 22
-        ])->id;
-
+        // $postId = Post::create([
+        //     'schoolId' => $request->schoolId,
+        //     'classId' => $request->lessonId,
+        //     'userId' => $userId,
+        //     'contentId' => 22
+        // ])->id;
+        $postId = $request->postId;
         return HomeworkResult::create([
             'homeworkId' => $request->homeworkId,
             'content' => json_encode($request->content),
@@ -101,5 +103,14 @@ class HomeworkResultController extends Controller
         ]);
         $userId = Auth::user()->id;
         return HomeworkResult::where(['userId' => $userId, 'postId' => $request->postId])->first();
+    }
+
+    public function getOnlineTeacherCheck(Request $request)
+    {
+        $this->validate($request, [
+            'postId' => 'required',
+            'userId' => 'required',
+        ]);
+        return HomeworkResult::where(['postId' => $request->postId, 'userId' => $request->userId, 'homeworkType' => '在线作业'])->first();
     }
 }

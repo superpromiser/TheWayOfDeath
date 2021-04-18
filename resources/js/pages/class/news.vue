@@ -35,10 +35,10 @@
           <RecognitionPost :content="content"></RecognitionPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 22 && content.homework_result">
+        <!-- <v-row class="pa-0 mt-1" v-else-if="content.contentId == 22 && content.homework_result">
           <HomeworkResultPost :content="content"></HomeworkResultPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
-        </v-row>
+        </v-row> -->
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 25 && content.classstory">
           <ClassStoryPost :content="content"></ClassStoryPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
