@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => '李飞鸿',
+        // 'name' => $faker->name,
         'phoneNumber' => rand(pow(10, 10), pow(10, 11) - 1),
         // 'phoneNumber'=>60680503910,
         // 'email_verified_at' => now(),
