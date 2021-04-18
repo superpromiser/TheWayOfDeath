@@ -387,13 +387,13 @@ class UserController extends Controller
     {
         if (Auth::user()->roleId == 2) {
             $schoolId = Auth::user()->schoolId;
-            return User::select('id', 'name', 'lessonId')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
+            return User::select('id', 'name', 'lessonId', 'avatar')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
         } else {
             $lessonId = Auth::user()->lessonId;
             if ($request->lessonId) {
                 $lessonId = $request->lessonId;
             }
-            return User::select('id', 'name', 'lessonId')->where(['lessonId' => $lessonId, 'roleId' => 5])->get();
+            return User::select('id', 'name', 'lessonId', 'avatar')->where(['lessonId' => $lessonId, 'roleId' => 5])->get();
         }
     }
 

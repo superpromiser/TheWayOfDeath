@@ -232,6 +232,7 @@ export default {
           vm.pageOfContent = vm.pageOfContent + 1;
       });
       this.isLoadingContents = false;
+      console.log("this.contentList", this.contentList);
     },
 
     updateFooterInfo(data){
