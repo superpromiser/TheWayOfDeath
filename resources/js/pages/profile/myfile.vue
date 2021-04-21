@@ -1,5 +1,138 @@
 <template>
-    <v-container>
+    <v-container v-if="$isMobile()" class="pa-0">
+        <v-row class="ma-0 bg-secondary justify-center position-relative" >
+            <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                mdi-chevron-left
+            </v-icon>
+            <p class="mb-0 font-size-0-95 font-weight-bold py-4">我的文件</p>
+        </v-row>
+        <!--- my image file --->
+        <v-row class="ma-0">
+            <v-col cols="12" class="d-flex justify-center align-center">
+                <v-chip class="" color="#49d29e" outlined >
+                    我的图片文件
+                    <v-icon right> mdi-file-image  </v-icon>
+                </v-chip>
+            </v-col>
+            <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
+                <v-progress-circular
+                    indeterminate
+                    color="#49d29e"
+                ></v-progress-circular>
+            </v-col>
+            <v-col v-else-if="noImageFile" cols="12" class="d-flex justify-center align-center">
+                <v-chip class="ma-2" color="#F19861" outlined pill >
+                    我的图片文件没有数据
+                    <v-icon right> mdi-cancel  </v-icon>
+                </v-chip>
+            </v-col>
+            <v-col cols="12" v-else v-viewer="optionsMo" class="images clearfix ma-0">
+                <template v-for="img in imageFileList">
+                    <img :src="`${baseUrl}${img}`" :data-source="`${baseUrl}${img}`" class="image" :key="img" >
+                </template>
+            </v-col>
+        </v-row>
+        <!--- my video file --->
+        <v-row class="ma-0">
+            <v-col cols="12" class="d-flex justify-center align-center">
+                <v-chip class="" color="#49d29e" outlined >
+                    我的视频文件数据
+                    <v-icon right> mdi-file-video  </v-icon>
+                </v-chip>
+            </v-col>
+            <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
+                <v-progress-circular
+                    indeterminate
+                    color="#49d29e"
+                ></v-progress-circular>
+            </v-col>
+            <v-col v-else-if="noImageFile" cols="12" class="d-flex justify-center align-center">
+                <v-chip class="ma-2" color="#F19861" outlined pill >
+                    我的视频文件没有数据
+                    <v-icon right> mdi-cancel  </v-icon>
+                </v-chip>
+            </v-col>
+            <v-col v-else v-for="(video, index) in videoFileList" :key="index" cols="12" sm="6" md="4" lg="3" class="position-relative">
+                <v-card class="d-flex align-center " color="blue lighten-4" flat tile >
+                    <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                    <div class=" font-size-0-75">
+                        <div><span><strong>{{video.fileOriName}}</strong></span></div>
+                        <div>{{video.fileSize}}</div>
+                    </div>
+                    <div class="ml-auto mr-2">
+                        <v-btn icon color="blue darken-1" @click="openVideoViewDialog(index, video)" >
+                            <v-icon size="25" >mdi-eye </v-icon>
+                        </v-btn>
+                    </div>
+                </v-card>
+            </v-col>
+            <v-dialog v-model="videoViewDialog" width="100%" max-width="1000">
+                <v-card>
+                    <v-card-title class="title">
+                    {{selectedViedoName}}
+                    </v-card-title>
+                    <v-card-text class="px-0">
+                        <video-player  
+                            class="video-player-box vjs-custom-skin w-100"
+                            ref="videoPlayer"
+                            :options="playerOptionsGroup[selectedVideoIndex]"
+                            :playsinline="true"
+                            >
+                        </video-player>
+                    </v-card-text>
+                    
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="#49d29e"
+                        @click="videoViewDialog = false"
+                    >
+                        {{lang.ok}}
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </v-row>
+        <!--- my other file --->
+        <v-row class="ma-0 mb-16">
+            <v-col cols="12" class="d-flex justify-center align-center">
+                <v-chip class="" color="#49d29e" outlined >
+                    我的文件
+                    <v-icon right> mdi-file  </v-icon>
+                </v-chip>
+            </v-col>
+            <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
+                <v-progress-circular
+                    indeterminate
+                    color="#49d29e"
+                ></v-progress-circular>
+            </v-col>
+            <v-col v-else-if="noOtherFile" cols="12" class="d-flex justify-center align-center">
+                <v-chip class="ma-2" color="#F19861" outlined pill >
+                    没有我的文件数据
+                    <v-icon right> mdi-cancel  </v-icon>
+                </v-chip>
+            </v-col>
+            <v-col v-else v-for="(other, index) in otherFileList" :key="index" cols="12" sm="6" md="4" lg="3" class="position-relative">
+                <v-card class="d-flex align-center " color="blue lighten-4" flat tile >
+                    <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                    <div class="font-size-0-75">
+                        <div><span><strong>{{other.fileOriName}}</strong></span></div>
+                        <div>{{other.fileSize}}</div>
+                    </div>
+                    <div class="ml-auto mr-2">
+                        <a class="file-box" :href="other.imgUrl" :download="other.fileOriName">
+                            <v-btn icon color="blue darken-1" >
+                                <v-icon size="25" >mdi-download-circle-outline </v-icon>
+                            </v-btn>
+                        </a>
+                    </div>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-container v-else>
         <!--- my image file --->
         <v-row>
             <v-col cols="12">
@@ -147,6 +280,10 @@ export default {
             toolbar: true,
             url: 'data-source'
         },
+        optionsMo: {
+            toolbar: false,
+            url: 'data-source'
+        },
         playerOptionsGroup:[],
         playerOptions: {
             // videojs options
@@ -167,7 +304,6 @@ export default {
         this.isLoading = true;
         await getMyFile()
         .then((res) => {
-            console.log(res);
             this.imageFileList = res.data.imageFileList
             this.videoFileList = res.data.videoFileList
             this.otherFileList = res.data.otherFileList
@@ -186,7 +322,6 @@ export default {
                     clonedOption.sources[0].src = this.baseUrl + '/uploads/video/'+this.videoFileList[i].fileName;
                     this.playerOptionsGroup.push(clonedOption);
                 }
-                console.log("this.playerOptionsGroup", this.playerOptionsGroup);
             }
         }).catch((err) => {
             

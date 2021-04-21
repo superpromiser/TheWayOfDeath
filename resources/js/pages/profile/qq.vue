@@ -1,5 +1,21 @@
 <template>
-    <v-container class="h-100">
+    <v-container class="pa-0" v-if="$isMobile()">
+        <v-row class="ma-0 bg-secondary justify-center position-relative" >
+            <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                mdi-chevron-left
+            </v-icon>
+            <p class="mb-0 font-size-0-95 font-weight-bold py-4">修改QQ号</p>
+            <v-btn @click="updateProfile" rounded :dark="isChanged" :disabled="!isChanged" :loading="isLoading" color="#49d29e" class="position-absolute put-align-center" style="right: 12px; top:50%">
+                保存
+            </v-btn>
+        </v-row>
+        <v-row class="ma-0">
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="$refs.qq.focus()">
+                <v-text-field v-model="user.qq" ref="qq" hint="请输入正确的QQ号" dense color="#7879ff" class="mt-0 pt-0"></v-text-field>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-container class="h-100" v-else>
         <v-row class="h-100">
             <v-col cols="12" class="d-flex justify-center align-center h-100">
                 <div class="qq-content text-center">
@@ -40,6 +56,8 @@ export default {
         qqDialog: false,
         qq: '',
         isLoading: false,
+        oldQQ: '',
+        isChanged: false,
     }),
 
     computed:{
@@ -48,13 +66,25 @@ export default {
         }),
     },
 
+    watch:{
+        user:{
+            handler(val){
+                if(val.qq !== this.oldQQ){
+                    this.isChanged = true;
+                }
+            },
+            deep:true
+        }
+    },
+
     created(){
         if(this.user.qq == null){
             this.notSetQQ = true;
         }
         else{
-            this.qq = this.user.qq
+            this.qq = this.user.qq;
         }
+        this.oldQQ = this.user.qq;
     },
 
     methods:{
@@ -80,6 +110,26 @@ export default {
             });
             this.qq = '';
             this.qqDialog = false;
+            this.isLoading = false;
+        },
+
+        async updateProfile(){
+            if(this.user.qq.trim() == ''){
+                return this.$snackbar.showMessage({content: 'QQ号字段不能为空', color: 'error'});
+            }
+            this.isLoading = true;
+            let payload = {
+                userId: this.user.id,
+                qq: this.user.qq
+            }
+            await updateProfile(payload)
+            .then((res) => {
+                this.$snackbar.showMessage({content: '操作成功', color: 'success'})
+                this.isChanged = false;
+                this.oldQQ = this.user.qq
+            }).catch((err) => {
+                
+            });
             this.isLoading = false;
         }
     }

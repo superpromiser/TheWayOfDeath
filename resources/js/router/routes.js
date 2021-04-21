@@ -46,6 +46,7 @@ export default [
       {path:'myshare', name:'profile.myshare',component:page('profile/myshare.vue')},
       {path:'schoolshare', name:'profile.schoolshare',component:page('profile/schoolshare.vue')},
       {path:'name', name:'profile.name',component:page('profile/name.vue')},
+      {path:'phone', name:'profile.phone',component:page('profile/phone.vue')},
     ]
   },
 

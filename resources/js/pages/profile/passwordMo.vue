@@ -1,16 +1,13 @@
 <template>
     <v-container class="ma-0 pa-0">
-        <v-row class="ma-0">
-            <v-col cols="12" class="d-flex align-center">
-                <a @click="$router.go(-1)">
-                    <v-icon size="30">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <v-spacer></v-spacer>
-                <h3>修改密码</h3>
-                <v-spacer></v-spacer>
-            </v-col>
+        <v-row class="ma-0 bg-secondary justify-center position-relative" >
+            <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                mdi-chevron-left
+            </v-icon>
+            <p class="mb-0 font-size-0-95 font-weight-bold py-4">修改密码</p>
+            <v-btn @click="updatePassword" dark :loading="isUpdatingPassword" rounded color="#49d29e" class="position-absolute put-align-center" style="right: 12px; top:50%">
+                保存
+            </v-btn>
         </v-row>
         <v-row class="ma-0 ">
             <v-col cols="12">
@@ -51,13 +48,6 @@
                     :type="showNewPasswordConfirm ? 'text' : 'password'"
                     @click:append="showNewPasswordConfirm = !showNewPasswordConfirm"
                 ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0">
-            <v-col cols="12" class="d-flex align-center justify-center">
-                <v-btn color="#7879ff" tile dark @click="updatePassword" :loading="isUpdatingPassword">  
-                    修改密码
-                </v-btn>
             </v-col>
         </v-row>
     </v-container>
