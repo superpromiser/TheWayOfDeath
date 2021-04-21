@@ -30,7 +30,7 @@
         </v-row>
         <v-divider light class="thick-border"></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('phoneNumber')">
                 <div class="d-flex align-center">
                     <v-icon color="#3989fc">
                         mdi-cellphone
@@ -44,7 +44,7 @@
         </v-row>
         <v-divider light class="thick-border"></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('wechat')">
                 <div class="d-flex align-center">
                     <v-icon color="#49d29e">
                         mdi-wechat 
@@ -58,7 +58,7 @@
         </v-row>
         <v-divider light ></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('qq')">
                 <div class="d-flex align-center">
                     <v-icon color="#3989fc">
                         mdi-qqchat
@@ -86,7 +86,7 @@
         </v-row>
         <v-divider light ></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('myfile')">
                 <div class="d-flex align-center">
                     <v-icon color="#feb31a">
                         mdi-folder-outline
@@ -100,7 +100,7 @@
         </v-row>
         <v-divider light class=" thick-border"></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('schoolshare')">
                 <div class="d-flex align-center">
                     <v-icon color="#7879ff">
                         mdi-book-outline
@@ -114,7 +114,7 @@
         </v-row>
         <v-divider light ></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('myshare')">
                 <div class="d-flex align-center">
                     <v-icon color="#F19861">
                         mdi-share-variant-outline
@@ -597,7 +597,26 @@ export default {
                     this.$router.push({name: 'profile.passwordMo'});
                     break;
                 case 'name':
-                    this.$router.push({name: 'profile.name'})
+                    this.$router.push({name: 'profile.name'});
+                    break;
+                case 'phoneNumber':
+                    this.$router.push({name: 'profile.phone'});
+                    break;
+                case 'wechat':
+                    this.$router.push({name: 'profile.wechat'});
+                    break;
+                case 'qq':
+                    this.$router.push({name: 'profile.qq'});
+                    break;
+                case 'myfile':
+                    this.$router.push({name: 'profile.myfile'});
+                    break;
+                case 'myshare':
+                    this.$router.push({name: 'profile.myshare'});
+                    break;
+                case 'schoolshare':
+                    this.$router.push({name: 'profile.schoolshare'});
+                    break;
             }
         },
         openLogoutDialog(){

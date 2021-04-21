@@ -495,7 +495,11 @@ class UserController extends Controller
     public function upProfile(Request $request)
     {
         $userId = $request->userId;
-        if ($request->userName) {
+        if ($request->userName && $request->avatar) {
+            $avatar = $request->avatar;
+            $userName = $request->userName;
+            $data = User::where('id', $userId)->update(['avatar' => $avatar, 'name' => $userName]);
+        } else if ($request->userName) {
             $userName = $request->userName;
             $data = User::where('id', $userId)->update(['name' => $userName]);
         } else if ($request->phoneNumber) {
