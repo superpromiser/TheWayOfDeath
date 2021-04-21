@@ -17,10 +17,10 @@ class CreateVotingTempsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('userId');
             $table->char('tempTitle');
-            $table->char('title');
             $table->char('description');
             $table->char('imgUrl');
-            $table->longText('content');
+            $table->tinyInteger('tempType');
+            $table->json('content');
             $table->tinyInteger('schoolId');
             $table->tinyInteger('lessonId')->nullable();
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');

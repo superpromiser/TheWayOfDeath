@@ -26,7 +26,7 @@ class QuestionnaireTempController extends Controller
             'title' => 'required',
             'description' => 'required',
             'content' => 'required',
-            'temType' => 'required'
+            'tempType' => 'required'
         ]);
         $userId = Auth::user()->id;
         return QuestionnaireTemp::create([
@@ -35,7 +35,7 @@ class QuestionnaireTempController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'content' => json_encode($request->content),
-            'temType' => $request->temType,
+            'temType' => $request->tempType,
             'userId' => $userId
         ]);
     }

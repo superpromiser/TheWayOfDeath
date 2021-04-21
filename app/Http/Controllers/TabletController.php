@@ -13,6 +13,8 @@ use App\Subject;
 use App\Post;
 use App\Anouncement;
 use App\Attendance;
+use App\ClassStory;
+use App\SchoolStory;
 
 class TabletController extends Controller
 {
@@ -86,120 +88,140 @@ class TabletController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         $albumData = array();
-        foreach ($posts as $post) {
-            switch ($post->contentId) {
-                case 12:
-                    $contentData = json_decode($post->questionnaires->content);
-                    foreach ($contentData as $content) {
-                        if ($content->type == 'single') {
-                            $postingData = $content->singleContentDataArr;
-                            foreach ($postingData as $questionItem) {
-                                $imgUrls = $questionItem->imgUrl;
-                                foreach ($imgUrls as $imgUrl) {
-                                    $path = $imgUrl->path;
-                                    array_push($albumData, $path);
-                                }
-                            }
-                        } else if ($content->type == 'multi') {
-                            $postingData = $content->multiContentDataArr;
-                            foreach ($postingData as $questionItem) {
-                                $imgUrls = $questionItem->imgUrl;
-                                foreach ($imgUrls as $imgUrl) {
-                                    $path = $imgUrl->path;
-                                    array_push($albumData, $path);
-                                }
-                            }
-                        } else if ($content->type == 'qa') {
-                            $postingData = $content->qaContentDataArr;
-                            foreach ($postingData as $questionItem) {
-                                $imgUrls = $questionItem->imgUrl;
-                                foreach ($imgUrls as $imgUrl) {
-                                    $path = $imgUrl->path;
-                                    array_push($albumData, $path);
-                                }
-                            }
-                        } else if ($content->type == 'score') {
-                            $postingData = $content->scoringDataArr;
-                            foreach ($postingData as $contentData) {
-                                $post = $contentData->contentData;
-                                foreach ($post as $questionItem) {
-                                    $imgUrls = $questionItem->imgUrl;
-                                    foreach ($imgUrls as $imgUrl) {
-                                        $path = $imgUrl->path;
-                                        array_push($albumData, $path);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    break;
-                case 13:
-                    $contentData = json_decode($post->votings->content);
-                    foreach ($contentData as $questionItem) {
-                        $imgUrls = $questionItem->imgUrl;
-                        foreach ($imgUrls as $imgUrl) {
-                            $path = $imgUrl->path;
-                            array_push($albumData, $path);
-                        }
-                    }
-                    break;
-                case 14:
-                    // array_push($tempData, $post->questionniare->content);
-                    $contentData = json_decode($post->homework->content);
-                    $imgUrls = $contentData->imgUrl;
-                    foreach ($imgUrls as $imgUrl) {
-                        $path = $imgUrl->path;
-                        array_push($albumData, $path);
-                    }
-                    break;
-                case 15:
-                    // array_push($tempData, $post->questionniare->content);
-                    break;
-                case 16:
-                    // array_push($tempData, $post->questionniare->content);
-                    $contentData = json_decode($post->homeVisit->content);
-                    $imgUrls = $contentData->imgUrl;
-                    foreach ($imgUrls as $imgUrl) {
-                        $path = $imgUrl->path;
-                        array_push($albumData, $path);
-                    }
-                    break;
-                case 17:
-                    // array_push($tempData, $post->questionniare->content);
-                    $contentData = json_decode($post->notifications->description);
-                    $imgUrls = $contentData->imgUrl;
-                    foreach ($imgUrls as $imgUrl) {
-                        $path = $imgUrl->path;
-                        array_push($albumData, $path);
-                    }
-                    break;
-                case 18:
-                    // array_push($tempData, $post->questionniare->content);
-                    $contentData = json_decode($post->evaluations->selMedalList);
-                    break;
-                case 19:
-                    // array_push($tempData, $post->questionniare->content);
-                    $contentData = $post->recognitions->imgUrl;
-                    break;
-                case 20:
-                    // array_push($tempData, $post->questionniare->content);
-                    break;
-                case 21:
-                    // array_push($tempData, $post->questionniare->content);
-                    break;
-                case 22:
-                    // array_push($tempData, $post->questionniare->content);
-                    break;
-                case 23:
-                    // array_push($tempData, $post->questionniare->content);
-                    break;
-                default:
-                    break;
+        // foreach ($posts as $post) {
+        //     switch ($post->contentId) {
+        //         case 12:
+        //             $contentData = json_decode($post->questionnaires->content);
+        //             foreach ($contentData as $content) {
+        //                 if ($content->type == 'single') {
+        //                     $postingData = $content->singleContentDataArr;
+        //                     foreach ($postingData as $questionItem) {
+        //                         $imgUrls = $questionItem->imgUrl;
+        //                         foreach ($imgUrls as $imgUrl) {
+        //                             $path = $imgUrl->path;
+        //                             array_push($albumData, $path);
+        //                         }
+        //                     }
+        //                 } else if ($content->type == 'multi') {
+        //                     $postingData = $content->multiContentDataArr;
+        //                     foreach ($postingData as $questionItem) {
+        //                         $imgUrls = $questionItem->imgUrl;
+        //                         foreach ($imgUrls as $imgUrl) {
+        //                             $path = $imgUrl->path;
+        //                             array_push($albumData, $path);
+        //                         }
+        //                     }
+        //                 } else if ($content->type == 'qa') {
+        //                     $postingData = $content->qaContentDataArr;
+        //                     foreach ($postingData as $questionItem) {
+        //                         $imgUrls = $questionItem->imgUrl;
+        //                         foreach ($imgUrls as $imgUrl) {
+        //                             $path = $imgUrl->path;
+        //                             array_push($albumData, $path);
+        //                         }
+        //                     }
+        //                 } else if ($content->type == 'score') {
+        //                     $postingData = $content->scoringDataArr;
+        //                     foreach ($postingData as $contentData) {
+        //                         $post = $contentData->contentData;
+        //                         foreach ($post as $questionItem) {
+        //                             $imgUrls = $questionItem->imgUrl;
+        //                             foreach ($imgUrls as $imgUrl) {
+        //                                 $path = $imgUrl->path;
+        //                                 array_push($albumData, $path);
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //             break;
+        //         case 13:
+        //             $contentData = json_decode($post->votings->content);
+        //             foreach ($contentData as $questionItem) {
+        //                 $imgUrls = $questionItem->imgUrl;
+        //                 foreach ($imgUrls as $imgUrl) {
+        //                     $path = $imgUrl->path;
+        //                     array_push($albumData, $path);
+        //                 }
+        //             }
+        //             break;
+        //         case 14:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             $contentData = json_decode($post->homework->content);
+        //             $imgUrls = $contentData->imgUrl;
+        //             foreach ($imgUrls as $imgUrl) {
+        //                 $path = $imgUrl->path;
+        //                 array_push($albumData, $path);
+        //             }
+        //             break;
+        //         case 15:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             break;
+        //         case 16:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             $contentData = json_decode($post->homeVisit->content);
+        //             $imgUrls = $contentData->imgUrl;
+        //             foreach ($imgUrls as $imgUrl) {
+        //                 $path = $imgUrl->path;
+        //                 array_push($albumData, $path);
+        //             }
+        //             break;
+        //         case 17:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             $contentData = json_decode($post->notifications->description);
+        //             $imgUrls = $contentData->imgUrl;
+        //             foreach ($imgUrls as $imgUrl) {
+        //                 $path = $imgUrl->path;
+        //                 array_push($albumData, $path);
+        //             }
+        //             break;
+        //         case 18:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             $contentData = json_decode($post->evaluations->selMedalList);
+        //             break;
+        //         case 19:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             $contentData = $post->recognitions->imgUrl;
+        //             break;
+        //         case 20:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             break;
+        //         case 21:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             break;
+        //         case 22:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             break;
+        //         case 23:
+        //             // array_push($tempData, $post->questionniare->content);
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
+
+        $schoolStoryData = array();
+        $schoolStory = SchoolStory::select('content')->where('schoolId', $schoolId)->get();
+        foreach ($schoolStory as $content) {
+            $contentData = json_decode($content->content);
+            $imgUrls = $contentData->imgUrl;
+            foreach ($imgUrls as $imgUrl) {
+                array_push($schoolStoryData, $imgUrl->path);
+            }
+        }
+
+        $classStoryData = array();
+        $classStory = ClassStory::select('content')->where('lessonId', $lessonId)->get();
+        foreach ($classStory as $content) {
+            $contentData = json_decode($content->content);
+            $imgUrls = $contentData->imgUrl;
+            foreach ($imgUrls as $imgUrl) {
+                array_push($classStoryData, $imgUrl->path);
             }
         }
 
         $announcementData = array();
-        $allAnounceData = Anouncement::all();
+        $allAnounceData = Anouncement::where('schoolId', $schoolId)->get();
         foreach ($allAnounceData as $data) {
             $lessonArr = json_decode($data->viewList);
             foreach ($lessonArr as $lesson) {
@@ -215,6 +237,8 @@ class TabletController extends Controller
         $resultData['albumData'] = $albumData;
         $resultData['announceData'] = $announcementData;
         $resultData['attendanceData'] = $attendanceData;
+        $resultData['schoolStoryData'] = $schoolStoryData;
+        $resultData['classStoryData'] = $classStoryData;
         return response()->json($resultData);
     }
 

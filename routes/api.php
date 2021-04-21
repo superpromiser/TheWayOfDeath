@@ -155,6 +155,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('voting', 'VotingController@updateVotingData');
     Route::delete('voting', 'VotingController@deleteVotingData');
     Route::get('voting/template', 'VotingController@getTemplateList');
+    Route::post('voting/template', 'VotingController@createTemplate');
     //sms
     Route::get('sms', 'SmsController@getSms');
     Route::post('sms', 'SmsController@createSms');
@@ -293,11 +294,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::delete('vacation', 'VacationController@deleteVacation');
 
     //group
-    Route::get('groupMember', 'GroupController@getGroupMember');
-    Route::get('allGroupMember', 'GroupController@getAllGroupMember');
+    Route::get('pendingGroupMember', 'GroupController@getPendingGroupMember');
+    Route::get('allowGroupMember', 'GroupController@getAllowGroupMember');
+    Route::get('groupMember', 'GroupController@getAllGroupMember');
     Route::post('groupMember', 'GroupController@addGroupMember');
     Route::put('groupMember', 'GroupController@updateGroupMember');
-    Route::delete('groupMember', 'GroupController@deleteGroup');
+    Route::delete('groupMember', 'GroupController@deleteGroupMember');
 
     //club
     Route::get('club', 'ClubController@getClub');

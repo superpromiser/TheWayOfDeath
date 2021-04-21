@@ -179,25 +179,25 @@ export default {
     action(type){
       switch(type){
         case 'add':
-          this.$router.push({name:'classSpace.addMember',params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.addMember'});
           break;
         case 'invite':
-          this.$router.push({name:'classSpace.inviteMember',params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.removeMember'});
           break;
         case 'application':
-          this.$router.push({name:'classSpace.appliMember', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.appliMember'});
           break;
         case 'import':
-          this.$router.push({name:'classSpace.importMember', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.importMember'});
           break;
         case 'group':
-          this.$router.push({name:'classSpace.club', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.club'});
           break;
         case 'seat':
-          this.$router.push({name:'classSpace.seatMember', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.seatMember'});
           break;
         case 'studentId':
-          this.$router.push({name:'classSpace.studentIdMember', params:{schoolId:this.currentPath.params.schoolId,gradeId:this.currentPath.params.gradeId,lessonId:this.currentPath.params.lessonId}});
+          this.$router.push({name:'classSpace.studentIdMember'});
           break;
         default:
           break;

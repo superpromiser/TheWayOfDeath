@@ -1,6 +1,32 @@
 <template>
     <v-container>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
+        <v-container class="z-index-2 mb-15 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class=" left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.voting}}模板清单</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        tile
+                        dark
+                        color="green lighten-1"
+                        class="mx-2"
+                        :loading="isSubmit"
+                        @click="submit"
+                    >
+                        {{lang.submit}}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+        <!-- <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center">
                 <a @click="$router.go(-1)">
                     <v-icon size="70">
@@ -28,8 +54,8 @@
                     {{lang.submit}}
                 </v-btn>
             </template>
-        </v-banner>
-        <div class="d-flex align-center text-center" v-if='templateList.length == 0'>
+        </v-banner> -->
+        <div class="d-flex align-center justify-center" v-if='templateList.length == 0'>
             {{lang.noData}}
         </div>
         <v-row v-else>
@@ -43,7 +69,7 @@
                         height="200px"
                         :src="baseUrl+template.imgUrl"
                     >
-                        <v-card-title>{{template.temTitle}}</v-card-title>
+                        <v-card-title>{{template.tempTitle}}</v-card-title>
                     </v-img>
 
                     <v-card-subtitle class="pb-0">
@@ -54,7 +80,7 @@
                         <div>{{template.description}}</div>
                     </v-card-text>
 
-                    <v-card-actions>
+                    <v-card-actions class="justify-end">
                         <v-btn
                             color="orange"
                             tile
@@ -96,13 +122,17 @@ export default {
     async created(){
         getTemplateList({schoolId:this.currentPath.params.schoolId}).then(res=>{
             console.log(res.data)
+            this.templateList = res.data
         }).catch(err=>{
             console.log(err.response)
         })
     },
     methods:{
-        selTemp(){
-
+        selTemp(content){
+            console.log(content)
+            // return
+            this.$store.dispatch('content/storePostTempData',content)
+            this.$router.push({name:'posts.voting'})
         },
         submit(){
             this.$router.push({name:'voting.newTemp'})

@@ -210,6 +210,8 @@ class PostController extends Controller
             }
         }
         return $albumData;
+<<<<<<< HEAD
+=======
     }
     public function getClassFile(Request $request)
     {
@@ -393,6 +395,7 @@ class PostController extends Controller
             'videoData' => $videoData
         ], 200);
         
+>>>>>>> 9abd38001527ad97f2887bafe8b23b784636e747
     }
 
     public function deletePost(Request $request)

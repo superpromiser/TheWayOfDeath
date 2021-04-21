@@ -350,7 +350,11 @@ export default {
         item : {
             type : Object,
             required: false
-        }
+        },
+        // contentItem:{
+        //     type:Object,
+        //     required:false
+        // }
     },
     components: {
         Picker,
@@ -382,6 +386,7 @@ export default {
         if(this.item){
             this.contentData = this.item;
         }
+        console.log('index',this.index)
     },
 
     mounted(){
