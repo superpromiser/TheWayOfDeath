@@ -1243,3 +1243,10 @@ a {
 .put-align-center{
     transform: translateY(-50%);
 }
+
+
+@media (max-width: 600px) {
+    .vjs-custom-skin > .video-js .vjs-big-play-button {
+        font-size: 1.5em;
+    }
+}

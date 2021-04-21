@@ -180,6 +180,9 @@ export default {
         for(let i = 0; i < this.items.videoUrl.length ; i++){
             let clonedOption = JSON.parse(JSON.stringify(this.playerOptions));
             clonedOption.sources[0].src = this.baseUrl + '/uploads/video/'+this.items.videoUrl[i].fileName;
+            if(this.$isMobile()){
+                clonedOption.height = '300'
+            }
             this.playerOptionsGroup.push(clonedOption);
         }
     },

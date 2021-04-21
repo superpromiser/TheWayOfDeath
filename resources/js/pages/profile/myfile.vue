@@ -53,7 +53,7 @@
                 </v-chip>
             </v-col>
             <v-col v-else v-for="(video, index) in videoFileList" :key="index" cols="12" sm="6" md="4" lg="3" class="position-relative">
-                <v-card class="d-flex align-center " color="blue lighten-4" flat tile >
+                <v-card class="d-flex align-center " color="#F2F2F2" flat tile >
                     <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
                     <div class=" font-size-0-75">
                         <div><span><strong>{{video.fileOriName}}</strong></span></div>
@@ -115,7 +115,7 @@
                 </v-chip>
             </v-col>
             <v-col v-else v-for="(other, index) in otherFileList" :key="index" cols="12" sm="6" md="4" lg="3" class="position-relative">
-                <v-card class="d-flex align-center " color="blue lighten-4" flat tile >
+                <v-card class="d-flex align-center " color="#F2F2F2" flat tile >
                     <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
                     <div class="font-size-0-75">
                         <div><span><strong>{{other.fileOriName}}</strong></span></div>
@@ -287,7 +287,7 @@ export default {
         playerOptionsGroup:[],
         playerOptions: {
             // videojs options
-            height:'650',
+            height: '650',
             muted: true,
             language: 'en',
             playbackRates: [0.7, 1.0, 1.5, 2.0],
@@ -320,6 +320,9 @@ export default {
                 for(let i = 0; i < this.videoFileList.length ; i++){
                     let clonedOption = JSON.parse(JSON.stringify(this.playerOptions));
                     clonedOption.sources[0].src = this.baseUrl + '/uploads/video/'+this.videoFileList[i].fileName;
+                    if(this.$isMobile()){
+                        clonedOption.height = '300'
+                    }
                     this.playerOptionsGroup.push(clonedOption);
                 }
             }
