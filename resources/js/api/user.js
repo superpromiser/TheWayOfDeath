@@ -68,6 +68,10 @@ function getEmployeeList(){
     return axios.get('/api/v1/employee')
 }
 
+function getMyFile(){
+    return axios.get('/api/v1/user/profile/myfile')
+}
+
 export{
     createStaff,
     updateStaff,
@@ -87,5 +91,7 @@ export{
     updateProfile,
     addGroupMember,
     getEmployeeList,
+    getMyFile,
+    
 
 }

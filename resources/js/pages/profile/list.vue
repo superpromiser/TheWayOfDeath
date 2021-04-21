@@ -60,7 +60,7 @@
         <v-divider light></v-divider>
         <!--   wechat  -->
         <v-row class="ma-0 ">
-            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple >
+            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple @click="navToChangeWechat">
                 <p class="mb-0">微信号</p>
                 <v-icon size="30" class="ml-5">
                     mdi-chevron-right
@@ -70,7 +70,7 @@
         <v-divider light></v-divider>
         <!--   QQ  -->
         <v-row class="ma-0 ">
-            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple >
+            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple @click="navToChangeQQ">
                 <p class="mb-0">QQ号</p>
                 <v-icon size="30" class="ml-5">
                     mdi-chevron-right
@@ -80,7 +80,7 @@
         <v-divider light></v-divider>
         <!--   my file  -->
         <v-row class="ma-0 ">
-            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple >
+            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple @click="navToMyFile">
                 <p class="mb-0">我的文件</p>
                 <v-icon size="30" class="ml-5">
                     mdi-chevron-right
@@ -90,7 +90,7 @@
         <v-divider light class="thick-border"></v-divider>
         <!--   teacher development file  -->
         <v-row class="ma-0 ">
-            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple >
+            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple @click="navToSchoolShare">
                 <p class="mb-0">教师发展档案</p>
                 <v-icon size="30" class="ml-5">
                     mdi-chevron-right
@@ -100,7 +100,7 @@
         <v-divider light></v-divider>
         <!--   sharing  -->
         <v-row class="ma-0 ">
-            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple >
+            <v-col cols="12" class="d-flex justify-space-between align-center py-5 px-md-10 hover-cursor-point" v-ripple @click="navToMyShare">
                 <p class="mb-0">个人分享</p>
                 <v-icon size="30" class="ml-5">
                     mdi-chevron-right
@@ -392,7 +392,22 @@ export default {
 
         navToChangePassword(){
             this.$router.push({name: "profile.password"})
-        }
+        },
+        navToChangeWechat(){
+            this.$router.push({name: "profile.wechat"})
+        },
+        navToChangeQQ(){
+            this.$router.push({name: "profile.qq"})
+        },
+        navToMyFile(){
+            this.$router.push({name: "profile.myfile"})
+        },
+        navToMyShare(){
+            this.$router.push({name: "profile.myshare"})
+        },
+        navToSchoolShare(){
+            this.$router.push({name: "profile.schoolshare"})
+        },
     }
 }
 </script>

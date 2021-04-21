@@ -40,6 +40,11 @@ export default [
       {path:'',redirect:{name: 'profile.list'}},
       {path:'list', name:'profile.list',component:page('profile/list.vue')},
       {path:'password', name:'profile.password',component:page('profile/password.vue')},
+      {path:'wechat', name:'profile.wechat',component:page('profile/wechat.vue')},
+      {path:'qq', name:'profile.qq',component:page('profile/qq.vue')},
+      {path:'myfile', name:'profile.myfile',component:page('profile/myfile.vue')},
+      {path:'myshare', name:'profile.myshare',component:page('profile/myshare.vue')},
+      {path:'schoolshare', name:'profile.schoolshare',component:page('profile/schoolshare.vue')},
     ]
   },
 
