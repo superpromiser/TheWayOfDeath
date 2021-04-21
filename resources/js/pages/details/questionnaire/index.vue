@@ -267,7 +267,7 @@ export default {
           this.answerDataList.map(answerData=>{
             if(answerData.userId == this.user.id){
               this.answerData = JSON.parse(answerData.answerData)
-              console.log(this.answerData)
+              // console.log(this.answerData)
               this.alreadyAnswer = true
             }
           })
@@ -291,23 +291,20 @@ export default {
           //console.log('answerUsers')
           console.log(this.answerDataList)
           if(this.answerDataList.length == 0){
-            alert(lang.noData)
-            return
+            return this.$snackbar.showMessage({content: this.lang.noData, color: 'error'})
           }
           this.answerUserShow = true
           this.$router.push({name:'details.questionnaireUsers'})
         },
         singleAnswer(key,index,type){
           if(this.alreadyAnswer == true){
-            alert('您已经回答了该帖子');
-            return;
+            return this.$snackbar.showMessage({content: '您已经回答了该帖子', color: 'error'})
           }
           this.$set(this.answerData,index,key)
         },
         multiAnswer(key,index,type){
           if(this.alreadyAnswer == true){
-            alert('您已经回答了该帖子');
-            return;
+            return this.$snackbar.showMessage({content: '您已经回答了该帖子', color: 'error'})
           }
           let idx = this.multiAnswerArr.indexOf(key)
           if(idx > -1){
@@ -320,24 +317,21 @@ export default {
         },
         selScoring(minute,index){
           if(this.alreadyAnswer == true){
-            alert('您已经回答了该帖子');
-            return;
+            return this.$snackbar.showMessage({content: '您已经回答了该帖子', color: 'error'})
           }
           // this.answerData[index] = minute
           this.$set(this.answerData,index,minute)
         },
         async submit(){
           if(this.alreadyAnswer == true){
-            alert('您已经回答了该帖子');
-            return;
+            return this.$snackbar.showMessage({content: '您已经回答了该帖子', color: 'error'})
           }
           
           this.answerData.map(answer=>{
             this.checkCnt ++;
           })
           if(this.checkCnt != this.contentData.questionnaires.content.length){
-            alert('请回答所有问题');
-            return
+            return this.$snackbar.showMessage({content: '请回答所有问题', color: 'error'})
           }
           this.isSubmit = true;
           await createAnswerQuestionnaire({answerData:this.answerData,schoolId:this.currentpath.params.schoolId,lessonId:this.currentpath.params.lessonId,postId:this.contentData.id}).then(res=>{

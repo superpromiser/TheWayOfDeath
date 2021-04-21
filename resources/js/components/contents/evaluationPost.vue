@@ -85,7 +85,6 @@ export default {
         medalList:[],
     }),
     created(){
-      console.log("####", this.content);
       this.userList = JSON.parse(this.content.evaluations.userList)
       this.medalList = this.content.evaluations.selMedalList
     },

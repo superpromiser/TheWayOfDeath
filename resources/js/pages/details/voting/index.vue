@@ -158,8 +158,7 @@ export default {
         },
         multiAnswer(selIndex){
             if(this.alreadyAnswer == true){
-                alert('您已经回答了该帖子');
-                return;
+                return this.$snackbar.showMessage({content: '您已经回答了该帖子', color: 'error'})
             }
             if(this.contentData.votings.maxVote > 1){
                 let index = this.answerData.indexOf(selIndex)
@@ -167,8 +166,7 @@ export default {
                     this.answerData.splice(index,1)
                 }else{
                     if(this.answerData.length >= this.contentData.votings.maxVote){
-                        alert('无法再选择')
-                        return
+                        return this.$snackbar.showMessage({content: '无法再选择', color: 'error'})
                     }
                     this.answerData.push(selIndex)
                 }
@@ -186,12 +184,10 @@ export default {
         async submit(){
             //console.log(this.answerData)
             if(this.answerData.length == 0){
-                alert('请回答所有问题');
-                return
+                return this.$snackbar.showMessage({content: '请回答所有问题', color: 'error'})
             }
             if(this.alreadyAnswer == true){
-                alert('您已经回答了该帖子');
-                return;
+                return this.$snackbar.showMessage({content: '您已经回答了该帖子', color: 'error'})
             }
             this.isSubmit = true
             await createAnswerVoting({answer:this.answerData,postId:this.contentData.id}).then(res=>{
@@ -209,8 +205,7 @@ export default {
 
         answerUsers(){
             if(this.answerDataList.length == 0){
-                alert(lang.noData)
-                return
+                return this.$snackbar.showMessage({content: this.lang.noData, color: 'error'})
             }
             this.answerUserShow = true
             this.$router.push({name:'details.votingUsers'});

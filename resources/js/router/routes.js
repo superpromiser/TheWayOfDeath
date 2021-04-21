@@ -40,6 +40,12 @@ export default [
       {path:'',redirect:{name: 'profile.list'}},
       {path:'list', name:'profile.list',component:page('profile/list.vue')},
       {path:'password', name:'profile.password',component:page('profile/password.vue')},
+      {path:'wechat', name:'profile.wechat',component:page('profile/wechat.vue')},
+      {path:'qq', name:'profile.qq',component:page('profile/qq.vue')},
+      {path:'myfile', name:'profile.myfile',component:page('profile/myfile.vue')},
+      {path:'myshare', name:'profile.myshare',component:page('profile/myshare.vue')},
+      {path:'schoolshare', name:'profile.schoolshare',component:page('profile/schoolshare.vue')},
+      {path:'name', name:'profile.name',component:page('profile/name.vue')},
     ]
   },
 
@@ -217,6 +223,7 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/evaluation', name:'posts.Cevaluation', component:page('class/posts/evaluation/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/recognition', name:'posts.Crecognition', component:page('class/posts/recognition/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/album', name:'posts.Calbum', component:page('class/posts/album/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/file', name:'posts.Cfile', component:page('class/posts/file/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/classStory', name:'posts.classStory', component:page('class/posts/classStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/interClassStory', name:'posts.interClassStory', component:page('class/posts/interClassStory/index.vue')},
   

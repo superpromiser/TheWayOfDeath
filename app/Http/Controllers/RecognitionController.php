@@ -31,7 +31,7 @@ class RecognitionController extends Controller
             'classId'=>$request->classId,
             'schoolId'=>$request->schoolId
         ])->id;
-        return Recognition::create([
+        Recognition::create([
             'type'=>$request->type,
             'students'=>json_encode($request->students),
             'awardTitle'=>$request->awardTitle,
@@ -40,6 +40,9 @@ class RecognitionController extends Controller
             'imgUrl'=>$request->imgUrl,
             'postId'=>$postId
         ]);
+        return response()->json([
+            'msg' => 'ok'
+        ], 201);
     }
 
     public function updateRecognition(){

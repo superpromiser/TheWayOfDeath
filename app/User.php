@@ -44,6 +44,8 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
         'roleId', 
         'schoolItem', 
         'classItem', 
+        'wechat', 
+        'qq', 
         
     ];
 

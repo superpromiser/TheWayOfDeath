@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\User;
 use App\Permission;
 use App\Content;
 use App\UserRole;
 use App\Member;
-use Illuminate\Support\Facades\Auth;
+use App\Post;
+use App\Like;
+
 use Hash;
 use Carbon\Carbon;
 use DateTime;
@@ -273,7 +277,7 @@ class UserController extends Controller
         } else if ($request->isActived == 0) {
             $isActived = $request->isActived;
             $data = User::where('id', $userId)->update(['isActived' => 0]);
-        }
+        } 
         return $data;
     }
 
@@ -510,6 +514,12 @@ class UserController extends Controller
         } else if ($request->status) {
             $status = $request->status;
             $data = User::where('id', $userId)->update(['status' => $status]);
+        } else if ($request->wechat) {
+            $wechat = $request->wechat;
+            $data = User::where('id', $userId)->update(['wechat' => $wechat]);
+        } else if ($request->qq) {
+            $qq = $request->qq;
+            $data = User::where('id', $userId)->update(['qq' => $qq]);
         }
         return response()->json([
             'msg' => "ok",
@@ -524,5 +534,422 @@ class UserController extends Controller
             return User::where(['roleId' => 6])->get();
         }
         return User::where(['roleId' => 6, 'schoolId' => $schoolId])->get();
+    }
+
+    public function getMyFile()
+    {
+        $userId = Auth::user()->id;
+        $posts = Post::whereIn('contentId', [1,2,3,6,7,8,11,12,13,16,17,23,24,25,26])
+            ->where('userId', $userId)
+            ->with([
+                'questionnaires:postId,content', //1, 12
+                'votings:postId,content', //2, 13
+                'sms:postId,content', //3
+                'bulletinBoards:postId,content', //6
+                'shares:postId,content', //23
+                'safestudy:postId,content', //8
+                'repairdata' => function ($q) { //7
+                    $q->whereIn('status', ['progress', 'done']);
+                },
+                'schoolstory:postId,content', // 11
+                'regnames:postId,content', // 24
+                'homeVisit:postId,content', // 16
+                'notifications:postId,description', // 17
+                'classstory:postId,content', //25
+                'interclassstory:postId,content', // 26
+                'users:id,name'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $imageFileList = array();
+        $videoFileList = array();
+        $otherFileList = array();
+        foreach ($posts as $post) {
+            switch ($post->contentId) {
+                case 1:     //questionnaire
+                    $contentData = json_decode($post->questionnaires->content);
+                    foreach ($contentData as $content) {
+                        if ($content->type == 'single') {
+                            $postingData = $content->singleContentDataArr;
+                            foreach ($postingData as $questionItem) {
+                                $imgUrls = $questionItem->imgUrl;
+                                foreach ($imgUrls as $imgUrl) {
+                                    $path = $imgUrl->path;
+                                    array_push($imageFileList, $path);
+                                }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
+                            }
+                        } else if ($content->type == 'multi') {
+                            $postingData = $content->multiContentDataArr;
+                            foreach ($postingData as $questionItem) {
+                                $imgUrls = $questionItem->imgUrl;
+                                foreach ($imgUrls as $imgUrl) {
+                                    $path = $imgUrl->path;
+                                    array_push($imageFileList, $path);
+                                }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
+                            }
+                        } else if ($content->type == 'qa') {
+                            $postingData = $content->qaContentDataArr;
+                            foreach ($postingData as $questionItem) {
+                                $imgUrls = $questionItem->imgUrl;
+                                foreach ($imgUrls as $imgUrl) {
+                                    $path = $imgUrl->path;
+                                    array_push($imageFileList, $path);
+                                }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
+                            }
+                        } else if ($content->type == 'score') {
+                            $postingData = $content->scoringDataArr;
+                            foreach ($postingData as $contentData) {
+                                $post = $contentData->contentData;
+                                foreach ($post as $questionItem) {
+                                    $imgUrls = $questionItem->imgUrl;
+                                    foreach ($imgUrls as $imgUrl) {
+                                        $path = $imgUrl->path;
+                                        array_push($imageFileList, $path);
+                                    }
+                                    $videoUrls = $questionItem->videoUrl;
+                                    foreach ($videoUrls as $videoUrl) {
+                                        array_push($videoFileList, $videoUrl);
+                                    }
+                                    $otherUrls = $questionItem->otherUrl;
+                                    foreach ($otherUrls as $otherUrl) {
+                                        array_push($otherFileList, $otherUrl);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case 12:    //questionnaire
+                    $contentData = json_decode($post->questionnaires->content);
+                    foreach ($contentData as $content) {
+                        if ($content->type == 'single') {
+                            $postingData = $content->singleContentDataArr;
+                            foreach ($postingData as $questionItem) {
+                                $imgUrls = $questionItem->imgUrl;
+                                foreach ($imgUrls as $imgUrl) {
+                                    $path = $imgUrl->path;
+                                    array_push($imageFileList, $path);
+                                }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
+                            }
+                        } else if ($content->type == 'multi') {
+                            $postingData = $content->multiContentDataArr;
+                            foreach ($postingData as $questionItem) {
+                                $imgUrls = $questionItem->imgUrl;
+                                foreach ($imgUrls as $imgUrl) {
+                                    $path = $imgUrl->path;
+                                    array_push($imageFileList, $path);
+                                }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
+                            }
+                        } else if ($content->type == 'qa') {
+                            $postingData = $content->qaContentDataArr;
+                            foreach ($postingData as $questionItem) {
+                                $imgUrls = $questionItem->imgUrl;
+                                foreach ($imgUrls as $imgUrl) {
+                                    $path = $imgUrl->path;
+                                    array_push($imageFileList, $path);
+                                }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
+                            }
+                        } else if ($content->type == 'score') {
+                            $postingData = $content->scoringDataArr;
+                            foreach ($postingData as $contentData) {
+                                $post = $contentData->contentData;
+                                foreach ($post as $questionItem) {
+                                    $imgUrls = $questionItem->imgUrl;
+                                    foreach ($imgUrls as $imgUrl) {
+                                        $path = $imgUrl->path;
+                                        array_push($imageFileList, $path);
+                                    }
+                                    $videoUrls = $questionItem->videoUrl;
+                                    foreach ($videoUrls as $videoUrl) {
+                                        array_push($videoFileList, $videoUrl);
+                                    }
+                                    $otherUrls = $questionItem->otherUrl;
+                                    foreach ($otherUrls as $otherUrl) {
+                                        array_push($otherFileList, $otherUrl);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case 2:     //voting
+                    $contentData = json_decode($post->votings->content);
+                    foreach ($contentData as $questionItem) {
+                        $imgUrls = $questionItem->imgUrl;
+                        foreach ($imgUrls as $imgUrl) {
+                            $path = $imgUrl->path;
+                            array_push($imageFileList, $path);
+                        }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
+                    }
+                    break;
+                case 13:    //voting
+                    $contentData = json_decode($post->votings->content);
+                    foreach ($contentData as $questionItem) {
+                        $imgUrls = $questionItem->imgUrl;
+                        foreach ($imgUrls as $imgUrl) {
+                            $path = $imgUrl->path;
+                            array_push($imageFileList, $path);
+                        }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
+                    }
+                    break;
+                case 3:     //sms
+                    $contentData = json_decode($post->sms->content);
+                    foreach ($contentData as $questionItem) {
+                        $imgUrls = $questionItem->imgUrl;
+                        foreach ($imgUrls as $imgUrl) {
+                            $path = $imgUrl->path;
+                            array_push($imageFileList, $path);
+                        }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
+                    }
+                    break;
+                case 6:     //bulletinBoards
+                    $contentData = json_decode($post->bulletinBoards->content);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($imageFileList, $path);
+                    }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
+                    break;
+                case 23:    //shares
+                    $contentData = json_decode($post->shares->content);
+                    foreach ($contentData as $questionItem) {
+                        $imgUrls = $questionItem->imgUrl;
+                        foreach ($imgUrls as $imgUrl) {
+                            $path = $imgUrl->path;
+                            array_push($imageFileList, $path);
+                        }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
+                    }
+                    break;
+                case 8:     //safestudy
+                    $contentData = json_decode($post->safestudy->content);
+                    foreach ($contentData as $questionItem) {
+                        $imgUrls = $questionItem->imgUrl;
+                        foreach ($imgUrls as $imgUrl) {
+                            $path = $imgUrl->path;
+                            array_push($imageFileList, $path);
+                        }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
+                    }
+                    break;
+                case 7:     //repair data
+                    $contentData = json_decode($post->repairdata->content);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($imageFileList, $path);
+                    }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
+                    break;
+                case 11:    //schoolstory
+                    $contentData = json_decode($post->schoolstory->content);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($imageFileList, $path);
+                    }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
+                    break;
+                case 24:    //regnames
+                    $contentData = json_decode($post->regnames->content);
+                    foreach ($contentData as $questionItem) {
+                        $imgUrls = $questionItem->imgUrl;
+                        foreach ($imgUrls as $imgUrl) {
+                            $path = $imgUrl->path;
+                            array_push($imageFileList, $path);
+                        }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
+                    }
+                    break;
+                case 16:    //homeVisit
+                    $contentData = json_decode($post->homeVisit->content);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($imageFileList, $path);
+                    }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
+                    break;
+                case 17:    //notifications
+                    $contentData = json_decode($post->notifications->description);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($imageFileList, $path);
+                    }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
+                    break;
+                case 25:    //classstory
+                    $contentData = json_decode($post->classstory->content);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($imageFileList, $path);
+                    }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
+                    break;
+                case 26:    //interclassstory
+                    $contentData = json_decode($post->interclassstory->content);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($imageFileList, $path);
+                    }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
+                    break;
+                
+                default:
+                    break;
+            }
+        }
+
+        return response()->json([
+            'imageFileList' => $imageFileList,
+            'videoFileList' => $videoFileList,
+            'otherFileList' => $otherFileList,
+        ]);
     }
 }

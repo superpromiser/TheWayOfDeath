@@ -137,7 +137,7 @@ export default {
                         color : "indigo accent-2",
                         title : "文件",
                         imgUrl : "/asset/img/icon/文件.png",
-                        path : "file"
+                        path : "posts.Cfile"
                     },
                 ],
             },
