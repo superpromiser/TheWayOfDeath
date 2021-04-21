@@ -52,7 +52,7 @@
         </div>
         <quick-menu v-if="showRule == false" @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
     </v-container>
-    <v-container v-else>
+    <v-container v-else class="pa-0">
         <div v-if="showRule == false">
             <v-container class="px-10 z-index-2 banner-custom">
                 <v-row>

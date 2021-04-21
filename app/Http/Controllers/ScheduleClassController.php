@@ -20,25 +20,28 @@ class ScheduleClassController extends Controller
         $lessonId = Auth::user()->lessonId;
         $lessonName = Lesson::where(['id'=>$lessonId])->first()->lessonName;
         $lastSession = Session::latest('id')->first();
-        $subjectOrder = Subject::where(['schoolId'=>Auth::user()->schoolId, 'sessionId'=>$lastSession->id])->get();
-        $mySchoolScheduleTeacherData = ScheduleTeacher::where(['schoolId'=>Auth::user()->schoolId])->get();
-
-        $scheduleTeacherDataArr = array();
-        foreach ($mySchoolScheduleTeacherData as $key => $scheduleTeacherData){
-            $lessonArr = $scheduleTeacherData->lessons;
-            foreach ($lessonArr as $key => $lesson){
-                if($lesson == $lessonName){
-                    array_push($scheduleTeacherDataArr, $scheduleTeacherData);
+        
+        if($lastSession){ // error appears next line with id is non defined, so setted if condition
+            $subjectOrder = Subject::where(['schoolId'=>Auth::user()->schoolId, 'sessionId'=>$lastSession->id])->get();
+            $mySchoolScheduleTeacherData = ScheduleTeacher::where(['schoolId'=>Auth::user()->schoolId])->get();
+    
+            $scheduleTeacherDataArr = array();
+            foreach ($mySchoolScheduleTeacherData as $key => $scheduleTeacherData){
+                $lessonArr = $scheduleTeacherData->lessons;
+                foreach ($lessonArr as $key => $lesson){
+                    if($lesson == $lessonName){
+                        array_push($scheduleTeacherDataArr, $scheduleTeacherData);
+                    }
                 }
             }
+            $scheduleData = ScheduleClass::where(['lessonId'=>$lessonId])->get();
+            return response()->json([
+                'scheduleData' => $scheduleData,
+                'lastSession' => $lastSession,
+                'scheduleTeacherDataArr' => $scheduleTeacherDataArr,
+                'subjectOrder' => $subjectOrder,
+            ]);
         }
-        $scheduleData = ScheduleClass::where(['lessonId'=>$lessonId])->get();
-        return response()->json([
-            'scheduleData' => $scheduleData,
-            'lastSession' => $lastSession,
-            'scheduleTeacherDataArr' => $scheduleTeacherDataArr,
-            'subjectOrder' => $subjectOrder,
-        ]);
     }
 
     public function createScheduleClass(Request $request){
