@@ -308,6 +308,14 @@
         <v-list-item-title>即时通讯</v-list-item-title>
       </v-list-item>
       <v-list-item
+        active-class="sub-header-active" link to="/fence">
+        <v-list-item-icon>
+          <v-icon>mdi-map</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-title>地图</v-list-item-title>
+      </v-list-item>
+      <v-list-item
         active-class="sub-header-active" @click="logout" v-if="$isMobile()">
         <v-list-item-icon>
           <v-icon>mdi-logout</v-icon>

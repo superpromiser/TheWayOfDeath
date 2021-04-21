@@ -1,6 +1,6 @@
 <template>
-    <v-container>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
+    <v-container class="pa-0">
+        <v-banner class="z-index-2" color="white" sticky elevation="20">
             <div class="d-flex align-center justify-space-between">
                 <a @click="$router.go(-1)">
                     <v-icon size="70">
@@ -17,51 +17,49 @@
                     >
                     {{ lang.submit }}
                 </v-btn>
-            </div>
+            </div>  
         </v-banner>
-        <v-banner>
-            <v-row  class="ma-5">
-                <v-col cols="6">
-                   
-                </v-col>
-                <v-col cols=6>
-                    <v-row>
-                        <v-col cols="6">
-                            <v-select
-                                :items="items"
-                                v-model="rowCnt"
-                                dense
-                                @change="selRowCnt"
-                                :menu-props="{ top: false, offsetY: true }"
-                                outlined
-                            ></v-select>
-                        </v-col>
-                        <v-col cols="6">
-                            <v-select
-                                :items="items"
-                                v-model="colCnt"
-                                :menu-props="{ top: false, offsetY: true }"
-                                dense
-                                outlined
-                                @change="selColCnt"
-                            ></v-select>
-                        </v-col>
-                    </v-row>
-                </v-col>
-            </v-row>
-        </v-banner>
-        <v-row v-for="(row, idx1) in seatList" :key="`row${idx1}`">
+        <v-row  class="ma-5">
+            <v-col cols="6">
+                
+            </v-col>
+            <v-col cols=6>
+                <v-row>
+                    <v-col cols="6">
+                        <v-select
+                            :items="items"
+                            v-model="rowCnt"
+                            dense
+                            @change="selRowCnt"
+                            :menu-props="{ top: false, offsetY: true }"
+                            outlined
+                        ></v-select>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-select
+                            :items="items"
+                            v-model="colCnt"
+                            :menu-props="{ top: false, offsetY: true }"
+                            dense
+                            outlined
+                            @change="selColCnt"
+                        ></v-select>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+        <v-row class="px-5" v-for="(row, idx1) in seatList" :key="`row${idx1}`">
             <v-col v-for="(col, idx2) in row" :key="`colum${idx2}`">
-                <v-select
+                <v-text-field
                     v-model="seatList[idx1][idx2]"
-                    :menu-props="{ top: false, offsetY: true }"
+                    :key="seatList[idx1][idx2]"
                     :items="userList"
                     item-text="name"
                     item-value="id"
                     dense
                     outlined
                     @change="selSeat(idx1,idx2)"
-                ></v-select>
+                ></v-text-field>
             </v-col>
         </v-row>
   </v-container>
@@ -150,29 +148,30 @@ export default {
 
         },
         selRowCnt(){
-            // console.log(this.rowCnt)
             this.seatList = [];
-            for(let i=0;i<this.rowCnt;i++){
-                this.seatList.push(this.colList)
-            }
-            console.log(this.seatList)
-            
-        },
-        selColCnt(){
-            // console.log(this.colCnt)
             this.colList = []
             for(let i=0;i<this.colCnt;i++){
-                this.colList.push(0)
+                this.$set(this.colList,i,0)
             }
-            this.seatList = []
             for(let i=0;i<this.rowCnt;i++){
-                this.seatList.push(this.colList)
+                this.$set(this.seatList,i,this.colList)
+            }
+            console.log(this.seatList)
+        },
+        selColCnt(){
+            this.seatList = [];
+            this.colList = []
+            for(let i=0;i<this.colCnt;i++){
+                this.$set(this.colList,i,0)
+            }
+            for(let i=0;i<this.rowCnt;i++){
+                this.$set(this.seatList,i,this.colList)
             }
             console.log(this.seatList)
         },
         selSeat(idx1,idx2){
             console.log(idx1,idx2)
-            console.log(this.seatList[idx1,idx2])
+            console.log(this.seatList[idx1][idx2])
             console.log(this.seatList)
         }
     }
