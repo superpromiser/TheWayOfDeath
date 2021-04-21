@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row class="justify-center align-center z-index-2 banner-custom position-relative">
+        <v-row class="justify-center align-center z-index-2 banner-custom">
             <v-icon size="70" @click="$router.go(-1)" class="position-absolute put-align-center" style="top:50%; left:20px">
                 mdi-chevron-left
             </v-icon>
