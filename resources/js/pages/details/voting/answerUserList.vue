@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <v-container class="mt-10">
         <v-banner v-for="answer in answerUsers" :key="answer.id">
             {{answer.user.name}}
         </v-banner>
-    </div>
+    </v-container>
 </template>
 
 <script>
