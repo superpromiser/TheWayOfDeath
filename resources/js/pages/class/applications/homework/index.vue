@@ -1,6 +1,6 @@
 <template>
-    <v-container>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
+    <v-container class="pa-0">
+        <v-banner class="z-index-2" color="white" sticky elevation="20">
             <v-row>
                 <v-col cols="12" class="justify-space-between d-flex ma-0 align-center">
                     <a @click="$router.go(-1)">
@@ -35,7 +35,7 @@
             </v-row>
         </v-banner>
         <!-- <v-divider class="thick-border"></v-divider> -->
-        <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+        <v-container v-if="contentList.length" class="pa-5" v-for="content in contentList" :key="content.id" >
             <v-row class="pa-0 mt-1">
                 <HomeworkPost :content="content"></HomeworkPost>
                 <FooterPost :footerInfo='content'></FooterPost>

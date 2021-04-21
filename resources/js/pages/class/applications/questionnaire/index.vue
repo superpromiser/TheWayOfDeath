@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0">
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
+        <v-banner class=" z-index-2" color="white" sticky elevation="20">
             <v-row>
                 <v-col cols="12" class="justify-space-between d-flex ma-0 align-center">
                     <a @click="$router.go(-1)">
