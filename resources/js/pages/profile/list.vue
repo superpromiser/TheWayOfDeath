@@ -100,7 +100,7 @@
         </v-row>
         <v-divider light class=" thick-border"></v-divider>
         <v-row class="ma-0">
-            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
+            <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('schoolshare')">
                 <div class="d-flex align-center">
                     <v-icon color="#7879ff">
                         mdi-book-outline
@@ -613,6 +613,9 @@ export default {
                     break;
                 case 'myshare':
                     this.$router.push({name: 'profile.myshare'});
+                    break;
+                case 'schoolshare':
+                    this.$router.push({name: 'profile.schoolshare'});
                     break;
             }
         },

@@ -1,5 +1,53 @@
 <template>
-    <v-container>
+    <v-container v-if="$isMobile()" class="pa-0">
+        <v-row class="ma-0 bg-secondary justify-center position-relative" >
+            <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                mdi-chevron-left
+            </v-icon>
+            <p class="mb-0 font-size-0-95 font-weight-bold py-4">个人分享</p>
+        </v-row>
+        <v-container v-if="contentList.length" v-for="content in contentList" :key="content.id" >
+            <v-row class="pa-0 mt-1">
+                <SharePost :content="content"></SharePost>
+                <FooterPost :footerInfo='content'></FooterPost>
+            </v-row>
+        </v-container>
+        <InfiniteLoading 
+            class="pb-3 w-100"
+            @infinite="infiniteHandler"
+        >   
+            <div slot="spinner">
+                <v-row class="pa-3 ma-3 d-flex justify-center align-center" >
+                    <v-progress-circular
+                        indeterminate
+                        color="#49d29e"
+                    ></v-progress-circular>
+                </v-row>
+            </div>
+            <div slot="no-more" class="pa-3 ma-3 text-center d-flex align-center justify-center">
+                <v-chip
+                class="ma-2"
+                color="#49d29e"
+                outlined
+                pill
+                >
+                没有更多数据
+                <v-icon right>
+                    mdi-cancel 
+                </v-icon>
+                </v-chip>
+            </div>
+            <div slot="no-results" class="position-relative row m-0 p-2 h-50 d-flex justify-content-center align-items-center">
+                <div class="w-100 text-center p-5 m-5 mt-10">
+                    <v-icon size="70" color="grey darken-1">
+                        mdi-magnify
+                    </v-icon>
+                    <h5>资料不存在</h5>
+                </div>
+            </div>
+        </InfiniteLoading>
+    </v-container>
+    <v-container v-else>
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
             <v-row class="pa-0 mt-1">
                 <SharePost :content="content"></SharePost>
