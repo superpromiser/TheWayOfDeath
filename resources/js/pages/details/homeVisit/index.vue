@@ -1,65 +1,33 @@
 <template>
     <v-container>
-        <v-container class="px-10 z-index-2 banner-custom">
-            <v-row>
-                <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                    <a @click="$router.go(-1)">
-                        <v-icon size="70" class="left-24p">
-                            mdi-chevron-left
-                        </v-icon>
-                    </a>
-                </v-col>
-                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.homeVisit}}</h2>
-                </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <!-- <v-btn
-                        text
-                        color="primary"
-                        @click="templateList"
-                    >
-                        可用模板 0， 草稿 0
-                    </v-btn>
-                    <v-btn
-                        dark
-                        tile
-                        color="#49d29e"
-                        class="mx-2"
-                        :loading="isSubmit"
-                        @click="submit"
-                    >
-                        {{lang.submit}}
-                    </v-btn>
-                    <v-btn
-                        dark
-                        tile
-                        color="#F19861"
-                        :loading="isDraft"
-                        @click="saveDraft"
-                    >
-                        {{lang.saveDraft}}
-                    </v-btn> -->
-                </v-col>
-            </v-row>
-        </v-container>
-        <v-col  cols="12" class="pl-10 pt-0">
-            <v-banner>
-                <span v-for="(name,idx) in studentInfo" :key="idx" class="ml-2">
-                    <v-chip>{{name}}</v-chip>
-                </span>
-            </v-banner>
-        </v-col>
-        <v-col  cols="12" class="pl-10 pt-0">
-            <v-row class="ma-0 " v-for="(item, i) in description" :key="i">
-                <v-col class="px-5  hover-cursor-point" cols="12" v-for="(data, j) in item" :key="`${i}-${j}`">
-                    <p class="textMain" v-if="j==0">{{i+1}}.{{data.title}}</p>
-                    <p v-else @click="selAnswer(item,i,j,`${i}-${j}`)">
-                        <span v-if="item[0].type == 'single'" :class="{active:answerData.indexOf(`${i}-${j}`) > -1}">{{data.title}}</span>
-                        <span v-if="item[0].type == 'multi'" :class="{active:multiAnswerArr.indexOf(`${i}-${j}`) > -1}">{{data.title}}</span>
-                    </p>
-                </v-col>
-            </v-row>
-        </v-col>
+        <v-row class="justify-center align-center z-index-2 banner-custom ">
+            <v-icon size="70" @click="$router.go(-1)" class="position-absolute put-align-center" style="top:50%; left:20px">
+                mdi-chevron-left
+            </v-icon>
+            <h2 class="py-7">{{lang.homeVisit}}</h2>
+        </v-row>
+        <v-row class="pl-10 mt-5 ma-0">
+            <v-col cols="12">
+                <p class="text-wrap mb-0"><read-more more-str="全文" :text="contentDataDetail.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+            </v-col>
+            <v-col cols="12" v-if="checkIfAttachExist(contentDataDetail)">
+                <AttachItemViewer :items="contentDataDetail" />
+            </v-col>
+            <v-col cols="12">
+                <v-chip v-for="(name,idx) in studentInfo" :key="idx" class="ml-2">@{{name}}</v-chip>
+            </v-col>
+            <v-col cols="12">
+                <v-row class="ma-0 " v-for="(item, i) in description" :key="i">
+                    <v-col class="px-5  hover-cursor-point" cols="12" v-for="(data, j) in item" :key="`${i}-${j}`">
+                        <p v-if="j==0" class="textMain mb-0" >{{i+1}}.{{data.title}}</p>
+                        <p v-else class="mb-0" @click="selAnswer(item,i,j,`${i}-${j}`)">
+                            <span v-if="item[0].type == 'single'" :class="{active:answerData.indexOf(`${i}-${j}`) > -1}">{{data.title}}</span>
+                            <span v-if="item[0].type == 'multi'" :class="{active:multiAnswerArr.indexOf(`${i}-${j}`) > -1}">{{data.title}}</span>
+                        </p>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -77,7 +45,8 @@ export default {
         studentInfo:[],
         description:[],
         answerData:[],
-        multiAnswerArr:[]
+        multiAnswerArr:[],
+        contentDataDetail: {},
     }),
 
     computed:{
@@ -102,6 +71,7 @@ export default {
         console.log(this.studentInfo)
         this.description = this.contentData.home_visit.description
         console.log(this.description)
+        this.contentDataDetail = this.contentData.home_visit.content;
     },
     methods:{
         selAnswer(item,i,j,key){

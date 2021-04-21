@@ -29,7 +29,7 @@
             </v-row>
         </div>
         <div v-if="answerUserShow == false">
-            <v-row>
+            <v-row class="ma-0 px-5 px-md-10 mt-5">
                 <v-col cols="12">
                     <p class="mb-0 d-flex align-center"> 
                         <!-- {{index + 1}}.   -->
