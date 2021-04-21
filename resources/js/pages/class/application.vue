@@ -198,11 +198,11 @@ export default {
         ]
   }),
   created(){
-      getDashboardData().then(res=>{
-          console.log(res.data)
-      }).catch(err=>{
-          console.log(err.response)
-      })
+    //   getDashboardData().then(res=>{
+    //       console.log(res.data)
+    //   }).catch(err=>{
+    //       console.log(err.response)
+    //   })
   },
   methods:{
     selectedPost(){

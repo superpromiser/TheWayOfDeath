@@ -1,19 +1,20 @@
 <template>
-    <v-banner>
+    <v-container class="px-10 z-index-2 banner-custom">
         <v-row>
-            <v-col>
-                
-                <div class="text-center">
-                    <a @click="$router.go(-1)" class="float-left">
-                        <v-icon size="70">
-                            mdi-chevron-left
-                        </v-icon>
-                    </a>
-                    <span style="font-size:30px;line-height:2">{{title}}</span> 
-                </div>
+            <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class=" left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+            </v-col>
+            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                <h2>{{title}}</h2>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-center justify-end">
             </v-col>
         </v-row>
-    </v-banner>
+    </v-container>
 </template>
 
 <script>

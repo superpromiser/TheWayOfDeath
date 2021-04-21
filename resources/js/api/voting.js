@@ -20,10 +20,16 @@ function getTemplateList(payload){
     return axios.get('/api/v1/voting/template',{params:payload});
 }
 
+function createTemplate(payload){
+    return axios.post('/api/v1/voting/template',payload)
+}
+
+
 export{
     getVoting,
     createVoting,
     updateVoting,
     deleteVoting,
     getTemplateList,
+    createTemplate,
 }

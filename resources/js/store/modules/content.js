@@ -8,7 +8,8 @@ export const state = {
     statData: null,
     scoringData: null,
     postNew:false,
-    postDetail:null
+    postDetail:null,
+    postTempData:null,
 }
 
 // getters
@@ -19,7 +20,8 @@ export const getters = {
     statData: state => state.statData,
     scoringData: state => state.scoringData,
     postNew: state => state.postNew,
-    postDetail:state=> state.postDetail
+    postDetail:state=> state.postDetail,
+    postTempData:state=> state.postTempData,
 }
 
 // mutations
@@ -44,6 +46,9 @@ export const mutations = {
     },
     [types.STORE_POST_DETAIL] (state, payload){
         state.postDetail = payload
+    },
+    [types.STORE_POST_TEMPDATA] (state, payload){
+        state.postTempData = payload
     },
     
 }
@@ -70,5 +75,8 @@ export const actions = {
     },
     storePostDetail({commit},payload) {
         commit(types.STORE_POST_DETAIL, payload)
+    },
+    storePostTempData({commit},payload) {
+        commit(types.STORE_POST_TEMPDATA, payload)
     },
 }

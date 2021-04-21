@@ -8,4 +8,8 @@ class VotingTemp extends Model
 {
     //
     protected $guarded = [];
+
+    protected $casts = [
+        'content' => 'array'
+    ];
 }

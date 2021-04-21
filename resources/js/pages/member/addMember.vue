@@ -1,8 +1,8 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
         <RouterBack title="邀请成员"></RouterBack>
-        <v-banner>
-            <v-row space-between>
+        <div class="px-10">
+            <v-row space-between class="pa-5">
                 <v-col cols="6">
                     <span>角色</span> 
                 </v-col>
@@ -27,9 +27,8 @@
                     </v-radio-group>
                 </v-col>
             </v-row>
-        </v-banner>
-        <v-banner>
-            <v-row space-between @click="inviteMember" class="hover-cursor-point">
+            <v-divider light class="thick-border"></v-divider>
+            <v-row space-between @click="inviteMember" class="pa-5 hover-cursor-point">
                 <v-col>
                     <span>邀请成员</span> 
                 </v-col>
@@ -39,22 +38,24 @@
                     </v-icon>
                 </v-col>
             </v-row>
-        </v-banner>
-        <div class="divider" style="height:2rem;padding-left:22px;">
-            从其他群主邀请
+            <!-- <v-divider light class="thick-border"></v-divider> -->
+            <div class="category">
+                从其他群主邀请
+            </div>
+            <div v-for="lesson in mySchoolData" :key="lesson.lessonId" v-if="lesson.lessonId != currentPath.params.lessonId">
+                <v-row space-between  @click="selLesson(lesson)" class="hover-cursor-point pa-5">
+                    <v-col>
+                        <span>{{lesson.lessonName}}</span> 
+                    </v-col>
+                    <v-col>
+                        <v-icon class="float-right">
+                            mdi-chevron-right
+                        </v-icon>
+                    </v-col>
+                </v-row>
+                <v-divider light class="thick-border"></v-divider>
+            </div>
         </div>
-        <v-banner v-for="lesson in mySchoolData" :key="lesson.lessonId" class="hover-cursor-point" v-if="lesson.lessonId != currentPath.params.lessonId">
-            <v-row space-between  @click="selLesson(lesson)">
-                <v-col>
-                    <span>{{lesson.lessonName}}</span> 
-                </v-col>
-                <v-col>
-                    <v-icon class="float-right">
-                        mdi-chevron-right
-                    </v-icon>
-                </v-col>
-            </v-row>
-        </v-banner>
       
   </v-container>
 </template>

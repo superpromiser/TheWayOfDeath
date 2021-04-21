@@ -99,7 +99,7 @@ class VotingController extends Controller
     {
         $this->validate($request, [
             'schoolId' => 'required',
-            'title' => 'required',
+            'tempType' => 'required',
             'tempTitle' => 'required',
             'description' => 'required',
             'imgUrl' => 'required',
@@ -107,7 +107,7 @@ class VotingController extends Controller
         ]);
         $userId = Auth::user()->id;
         VotingTemp::create([
-            'title' => $request->title,
+            'tempType' => $request->tempType,
             'tempTitle' => $request->tempTitle,
             'description' => $request->description,
             'imgUrl' => $request->imgUrl,

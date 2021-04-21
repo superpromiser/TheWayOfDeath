@@ -10,7 +10,7 @@
                 </a>
             </v-col>
             <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                <h2>邀请成员</h2>
+                <h2>移除成员</h2>
             </v-col>
             <v-col cols="12" md="4" class="d-flex align-center justify-end">
               <v-text-field
@@ -68,7 +68,7 @@
 
 <script>
 import { getSchoolMemberList} from "~/api/user";
-import {getAllGroupMember,addGroupMember} from '~/api/group';
+import {addGroupMember} from '~/api/group';
 import lang from "~/helper/lang.json";
 export default {
   data: () => ({
@@ -89,51 +89,27 @@ export default {
         })
     }
   },
-  async created() {
+  created() {
     let lessonId = ''
-    let lessonMembers = []
-    let groupMembers = []
     if(this.currentPath.query.otherLesson){
         lessonId = this.currentPath.query.otherLesson
     }else{
         lessonId = this.currentPath.params.lessonId
     }
-    await getSchoolMemberList({
+    getSchoolMemberList({
       schoolId:this.currentPath.params.schoolId,
       lessonId: lessonId,
       roleId: this.currentPath.query.roleId
-    }).then(res => {
-      lessonMembers = res.data;
     })
-    .catch(err => {
-      console.log(err.response);
-    });
-    await getAllGroupMember({
-      schoolId:this.currentPath.params.schoolId,
-      lessonId:this.currentPath.params.lessonId
-    }).then(res=>{
-      groupMembers = res.data
-    })
-    console.log("lessonMemebers",lessonMembers)
-    console.log("groupMembers",groupMembers)
-    lessonMembers.map(lessonMember=>{
-      groupMembers.map(groupMember=>{
-        // debugger
-        console.log("lessonMember.id",lessonMember.id)
-        console.log('gradeMember',groupMember.memberId)
-        if(lessonMember.id == groupMember.memberId){
-          console.log('lessonMember.id == groupMember.memberId',lessonMember.id)
-          let index = lessonMembers.indexOf(lessonMember)
-          if(index > -1){
-            lessonMembers.splice(index,1)
-          }
-        }
+      .then(res => {
+        res.data.map(user => {
+          this.$set(user, "checkbox", false);
+        });
+        this.userList = res.data;
       })
-    })
-    this.userList = lessonMembers
-    this.userList.map(user => {
-      this.$set(user, "checkbox", false);
-    });
+      .catch(err => {
+        console.log(err.response);
+      });
   },
   methods: {
     selectAll() {
@@ -162,7 +138,7 @@ export default {
     submit() {
         this.userList.map(user => {
             if (user.checkbox == true) {
-            this.selected.push(user.id);
+            this.selected.push(user);
             }
         });
         this.isSubmit = true

@@ -206,7 +206,7 @@ class PostController extends Controller
                     break;
             }
         }
-        return $albumData
+        return $albumData;
     }
 
     public function deletePost(Request $request)

@@ -21,7 +21,7 @@ export const STORE_CHOOSEABLE_SCHOOL_TREE = 'STORE_CHOOSEABLE_SCHOOL_TREE'
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
 
-//questionnaire.js
+//post
 export const STORE_SINGLE_DATA = 'STORE_SINGLE_DATA'
 export const STORE_MULTI_DATA = 'STORE_MULTI_DATA'
 export const STORE_QA_DATA = 'STORE_QA_DATA'
@@ -29,7 +29,7 @@ export const STORE_STAT_DATA = 'STORE_STAT_DATA'
 export const STORE_SCORING_DATA = 'STORE_SCORING_DATA'
 export const STORE_POST_NEW = 'STORE_POST_NEW'
 export const STORE_POST_DETAIL = 'STORE_POST_DETAIL'
-
+export const STORE_POST_TEMPDATA = 'STORE_POST_TEMPDATA'
 //chat
 export const STORE_USERS = 'STORE_USERS'
 export const STORE_CONTACTLIST = 'STORE_CONTACTLIST'

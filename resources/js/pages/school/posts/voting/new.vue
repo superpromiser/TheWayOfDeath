@@ -331,7 +331,7 @@
                 </v-col>
             </v-row>
             <div v-for="index in initialCnt" :key="index" class="mt-3">
-                <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :index="index" :ref="index" @contentData="loadContentData"/>
+                <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :item="votingData.content[index-1]" :index="index" :ref="index" @contentData="loadContentData"/>
                 <v-divider></v-divider>
             </div>
             <v-btn color="primary" text @click="addContent" class="mt-10">
@@ -426,6 +426,7 @@ export default {
 
     computed: {
         ...mapGetters({
+            tempData:'content/postTempData'
         }),
         currentPath(){
            return this.$route
@@ -433,6 +434,33 @@ export default {
     },
     created(){
         this.votingData.schoolId = this.currentPath.params.schoolId
+        console.log(this.tempData)
+        if(this.tempData != null){
+            console.log("JSON.parse(this.tempData)",JSON.parse(this.tempData))
+            this.votingData.content = JSON.parse(this.tempData)
+
+        }
+        // console.log("this.tempData",JSON.parse(this.votingData.content))
+    },
+    // watch:{
+    //     currentPath:{
+    //         handler(val){
+    //             console.log(val)
+    //             if(val.query.tempData){
+    //                 console.log("JSON.parse(val.query.tempData)",JSON.parse(val.query.tempData))
+    //                 this.votingData.content = JSON.parse(val.query.tempData)
+    //             }
+    //         },
+    //         deep:true
+    //     }
+    // },
+    watch:{
+        currentPath:{
+            handler(val){
+                console.log('posts.voting',val)
+            },
+            deep:true
+        }
     },
     methods: {
         selectedLesson(val){

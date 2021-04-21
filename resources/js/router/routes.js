@@ -223,6 +223,7 @@ export default [
   //class member  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/invite',name:'classSpace.inviteMember',component:page('member/inviteMember.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/remove',name:'classSpace.removeMember',component:page('member/removeMember.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/:userId/profile',name:'classSpace.memProfile',component:page('member/memProfile.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/appliMember',name:'classSpace.appliMember',component:page('member/application.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/club',name:'classSpace.club',component:page('member/club.vue')},

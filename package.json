@@ -25,6 +25,8 @@
     "js-cookie": "^2.2.0",
     "js-pinyin": "^0.1.9",
     "laravel-echo": "^1.10.0",
+    "md5": "^2.3.0",
+    "moment": "^2.29.1",
     "popper.js": "^1.15.0",
     "pusher-js": "^7.0.3",
     "sweetalert2": "^8.10.0",

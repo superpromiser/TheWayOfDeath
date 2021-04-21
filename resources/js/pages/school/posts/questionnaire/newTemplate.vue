@@ -1,29 +1,32 @@
 <template>
   <v-container class="pa-0">
       <div v-if="templateNew == true">
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-          <div class="d-flex align-center">
-              <v-avatar
-                  class="ma-3 ml-3"
-                  size="50"
-                  tile
-              >
-                  <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
-              </v-avatar>
-              <h2>{{lang.questionnaire}}模板</h2>
-          </div>
-          <template v-slot:actions>
-            <v-btn
-                dark
-                color="#49d29e"
-                class="mr-md-8"
-                :loading="isSubmit"
-                @click="submit"
-            >
-                {{lang.submit}}
-            </v-btn>
-          </template>
-        </v-banner>
+        <div class="px-10 mb-10 z-index-2 banner-custom" color="white" sticky elevation="20">
+           <v-row>
+              <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                  <a @click="$router.go(-1)">
+                      <v-icon size="70" class=" left-24p">
+                          mdi-chevron-left
+                      </v-icon>
+                  </a>
+              </v-col>
+              <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                  <h2>{{lang.questionnaire}}模板</h2>
+              </v-col>
+              <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                  <v-btn
+                      tile
+                      dark
+                      color="green lighten-1"
+                      class="mx-2"
+                      :loading="isSubmit"
+                      @click="submit"
+                  >
+                      {{lang.submit}}
+                  </v-btn>
+              </v-col>
+          </v-row>
+        </div>
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" md="4">

@@ -1,49 +1,15 @@
 <template>
-    <v-container>
-        <!-- <v-banner>
-            <v-row justify-space-between>
-                <v-col cols="6" class="pa-5">
-                    <span>头像</span>
-                </v-col>
-                <v-col cols="6">
-                    <v-icon class="float-right">
-                        mdi-chevron-right
-                    </v-icon>
-                </v-col>
-            </v-row>
-        </v-banner>
-        <v-banner>
-            <v-row>
-                <v-col cols="9">
-                    小组名称
-                </v-col>
-                <v-col cols="3">
-                    <v-text-field class="member-chk" label="place holder" style="height:33px;"></v-text-field>
-                </v-col>
-            </v-row>
-        </v-banner>
-        <v-banner>
-            <v-row>
-                <v-col cols="6">
-                    邀请成员
-                </v-col>
-                <v-col cols="6">
-                    <v-icon class="float-right">
-                        mdi-chevron-right
-                    </v-icon>
-                </v-col>
-            </v-row>
-        </v-banner> -->
+    <v-container class="pa-0">
         <RouterBack title="小组"></RouterBack>
-        <v-banner>
-            <v-row>
-                <v-col cols="6">
+        <div class="px-10">
+            <v-row class="py-5">
+                <v-col cols="4">
                     小组名称
                 </v-col>
-                <v-col cols="3">
-                    <v-text-field class="member-chk" label="place holder" style="height:33px;" v-model="clubName"></v-text-field>
+                <v-col cols="4">
+                    <v-text-field class="member-chk" label="请输入俱乐部名称" hide-details dense v-model="clubName"></v-text-field>
                 </v-col>
-                <v-col cols="3">
+                <v-col cols="4">
                     <v-btn
                         tile
                         dark
@@ -56,28 +22,30 @@
                     </v-btn>
                 </v-col>
             </v-row>
-        </v-banner>
-        <v-banner v-for="club in clubList" :key="club.id">
-            <v-row @click="addMember(club)"  class="hover-cursor-point">
-                <v-col cols="3">
-                    {{club.clubName}}
-                </v-col>
-                <v-col cols="6">
+            <v-divider light class="thick-border"></v-divider>
+            <div v-for="club in clubList" :key="club.id">
+                <v-row @click="addMember(club)"  class="hover-cursor-point py-3">
+                    <v-col cols="3">
+                        {{club.clubName}}
+                    </v-col>
+                    <v-col cols="6">
 
-                </v-col>
-                <v-col cols="3">
-                    <v-btn
-                        tile
-                        dark
-                        color="primary lighten-1"
-                        class="mx-2 float-right"
-                        @click="removeClub(club)"
-                    >
-                        删除群组
-                    </v-btn>
-                </v-col>
-            </v-row>
-        </v-banner>
+                    </v-col>
+                    <v-col cols="3">
+                        <v-btn
+                            tile
+                            dark
+                            color="primary lighten-1"
+                            class="mx-2 float-right"
+                            @click="removeClub(club)"
+                        >
+                            删除群组
+                        </v-btn>
+                    </v-col>
+                </v-row>
+                <v-divider light class="thick-border"></v-divider>
+            </div>
+        </div>
     </v-container>
 </template>
 
