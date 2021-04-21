@@ -571,6 +571,14 @@ class UserController extends Controller
                                     $path = $imgUrl->path;
                                     array_push($imageFileList, $path);
                                 }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
                             }
                         } else if ($content->type == 'multi') {
                             $postingData = $content->multiContentDataArr;
@@ -580,6 +588,14 @@ class UserController extends Controller
                                     $path = $imgUrl->path;
                                     array_push($imageFileList, $path);
                                 }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
                             }
                         } else if ($content->type == 'qa') {
                             $postingData = $content->qaContentDataArr;
@@ -588,6 +604,14 @@ class UserController extends Controller
                                 foreach ($imgUrls as $imgUrl) {
                                     $path = $imgUrl->path;
                                     array_push($imageFileList, $path);
+                                }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
                                 }
                             }
                         } else if ($content->type == 'score') {
@@ -599,6 +623,14 @@ class UserController extends Controller
                                     foreach ($imgUrls as $imgUrl) {
                                         $path = $imgUrl->path;
                                         array_push($imageFileList, $path);
+                                    }
+                                    $videoUrls = $questionItem->videoUrl;
+                                    foreach ($videoUrls as $videoUrl) {
+                                        array_push($videoFileList, $videoUrl);
+                                    }
+                                    $otherUrls = $questionItem->otherUrl;
+                                    foreach ($otherUrls as $otherUrl) {
+                                        array_push($otherFileList, $otherUrl);
                                     }
                                 }
                             }
@@ -616,6 +648,14 @@ class UserController extends Controller
                                     $path = $imgUrl->path;
                                     array_push($imageFileList, $path);
                                 }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
                             }
                         } else if ($content->type == 'multi') {
                             $postingData = $content->multiContentDataArr;
@@ -625,6 +665,14 @@ class UserController extends Controller
                                     $path = $imgUrl->path;
                                     array_push($imageFileList, $path);
                                 }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
+                                }
                             }
                         } else if ($content->type == 'qa') {
                             $postingData = $content->qaContentDataArr;
@@ -633,6 +681,14 @@ class UserController extends Controller
                                 foreach ($imgUrls as $imgUrl) {
                                     $path = $imgUrl->path;
                                     array_push($imageFileList, $path);
+                                }
+                                $videoUrls = $questionItem->videoUrl;
+                                foreach ($videoUrls as $videoUrl) {
+                                    array_push($videoFileList, $videoUrl);
+                                }
+                                $otherUrls = $questionItem->otherUrl;
+                                foreach ($otherUrls as $otherUrl) {
+                                    array_push($otherFileList, $otherUrl);
                                 }
                             }
                         } else if ($content->type == 'score') {
@@ -644,6 +700,14 @@ class UserController extends Controller
                                     foreach ($imgUrls as $imgUrl) {
                                         $path = $imgUrl->path;
                                         array_push($imageFileList, $path);
+                                    }
+                                    $videoUrls = $questionItem->videoUrl;
+                                    foreach ($videoUrls as $videoUrl) {
+                                        array_push($videoFileList, $videoUrl);
+                                    }
+                                    $otherUrls = $questionItem->otherUrl;
+                                    foreach ($otherUrls as $otherUrl) {
+                                        array_push($otherFileList, $otherUrl);
                                     }
                                 }
                             }
@@ -658,6 +722,14 @@ class UserController extends Controller
                             $path = $imgUrl->path;
                             array_push($imageFileList, $path);
                         }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
                     }
                     break;
                 case 13:    //voting
@@ -667,6 +739,14 @@ class UserController extends Controller
                         foreach ($imgUrls as $imgUrl) {
                             $path = $imgUrl->path;
                             array_push($imageFileList, $path);
+                        }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
                         }
                     }
                     break;
@@ -678,32 +758,66 @@ class UserController extends Controller
                             $path = $imgUrl->path;
                             array_push($imageFileList, $path);
                         }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
                     }
                     break;
                 case 6:     //bulletinBoards
                     $contentData = json_decode($post->bulletinBoards->content);
+                    $imgUrls = $contentData->imgUrl;
+                    foreach ($imgUrls as $imgUrl) {
+                        $path = $imgUrl->path;
+                        array_push($imageFileList, $path);
+                    }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
+                    break;
+                case 23:    //shares
+                    $contentData = json_decode($post->shares->content);
                     foreach ($contentData as $questionItem) {
                         $imgUrls = $questionItem->imgUrl;
                         foreach ($imgUrls as $imgUrl) {
                             $path = $imgUrl->path;
                             array_push($imageFileList, $path);
                         }
-                    }
-                    break;
-                case 23:    //shares
-                    $contentData = json_decode($post->shares->content);
-                    $imgUrls = $contentData->imgUrl;
-                    foreach ($imgUrls as $imgUrl) {
-                        $path = $imgUrl->path;
-                        array_push($imageFileList, $path);
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
                     }
                     break;
                 case 8:     //safestudy
                     $contentData = json_decode($post->safestudy->content);
-                    $imgUrls = $contentData->imgUrl;
-                    foreach ($imgUrls as $imgUrl) {
-                        $path = $imgUrl->path;
-                        array_push($imageFileList, $path);
+                    foreach ($contentData as $questionItem) {
+                        $imgUrls = $questionItem->imgUrl;
+                        foreach ($imgUrls as $imgUrl) {
+                            $path = $imgUrl->path;
+                            array_push($imageFileList, $path);
+                        }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
                     }
                     break;
                 case 7:     //repair data
@@ -713,6 +827,14 @@ class UserController extends Controller
                         $path = $imgUrl->path;
                         array_push($imageFileList, $path);
                     }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
                     break;
                 case 11:    //schoolstory
                     $contentData = json_decode($post->schoolstory->content);
@@ -721,13 +843,31 @@ class UserController extends Controller
                         $path = $imgUrl->path;
                         array_push($imageFileList, $path);
                     }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
                     break;
                 case 24:    //regnames
                     $contentData = json_decode($post->regnames->content);
-                    $imgUrls = $contentData->imgUrl;
-                    foreach ($imgUrls as $imgUrl) {
-                        $path = $imgUrl->path;
-                        array_push($imageFileList, $path);
+                    foreach ($contentData as $questionItem) {
+                        $imgUrls = $questionItem->imgUrl;
+                        foreach ($imgUrls as $imgUrl) {
+                            $path = $imgUrl->path;
+                            array_push($imageFileList, $path);
+                        }
+                        $videoUrls = $questionItem->videoUrl;
+                        foreach ($videoUrls as $videoUrl) {
+                            array_push($videoFileList, $videoUrl);
+                        }
+                        $otherUrls = $questionItem->otherUrl;
+                        foreach ($otherUrls as $otherUrl) {
+                            array_push($otherFileList, $otherUrl);
+                        }
                     }
                     break;
                 case 16:    //homeVisit
@@ -737,6 +877,14 @@ class UserController extends Controller
                         $path = $imgUrl->path;
                         array_push($imageFileList, $path);
                     }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
                     break;
                 case 17:    //notifications
                     $contentData = json_decode($post->notifications->description);
@@ -744,6 +892,14 @@ class UserController extends Controller
                     foreach ($imgUrls as $imgUrl) {
                         $path = $imgUrl->path;
                         array_push($imageFileList, $path);
+                    }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
                     }
                     break;
                 case 25:    //classstory
@@ -753,6 +909,14 @@ class UserController extends Controller
                         $path = $imgUrl->path;
                         array_push($imageFileList, $path);
                     }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
                     break;
                 case 26:    //interclassstory
                     $contentData = json_decode($post->interclassstory->content);
@@ -761,12 +925,25 @@ class UserController extends Controller
                         $path = $imgUrl->path;
                         array_push($imageFileList, $path);
                     }
+                    $videoUrls = $contentData->videoUrl;
+                    foreach ($videoUrls as $videoUrl) {
+                        array_push($videoFileList, $videoUrl);
+                    }
+                    $otherUrls = $contentData->otherUrl;
+                    foreach ($otherUrls as $otherUrl) {
+                        array_push($otherFileList, $otherUrl);
+                    }
                     break;
                 
                 default:
                     break;
             }
         }
-        return $imageFileList;
+
+        return response()->json([
+            'imageFileList' => $imageFileList,
+            'videoFileList' => $videoFileList,
+            'otherFileList' => $otherFileList,
+        ]);
     }
 }
