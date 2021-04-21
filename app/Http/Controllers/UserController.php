@@ -277,7 +277,7 @@ class UserController extends Controller
         } else if ($request->isActived == 0) {
             $isActived = $request->isActived;
             $data = User::where('id', $userId)->update(['isActived' => 0]);
-        }
+        } 
         return $data;
     }
 
@@ -514,6 +514,12 @@ class UserController extends Controller
         } else if ($request->status) {
             $status = $request->status;
             $data = User::where('id', $userId)->update(['status' => $status]);
+        } else if ($request->wechat) {
+            $wechat = $request->wechat;
+            $data = User::where('id', $userId)->update(['wechat' => $wechat]);
+        } else if ($request->qq) {
+            $qq = $request->qq;
+            $data = User::where('id', $userId)->update(['qq' => $qq]);
         }
         return response()->json([
             'msg' => "ok",

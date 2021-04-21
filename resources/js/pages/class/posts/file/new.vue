@@ -118,7 +118,7 @@
                     color="primary"
                     outlined
                 >
-                    影片档案
+                    文件
                     <v-icon right>
                         mdi-file 
                     </v-icon>
@@ -132,7 +132,7 @@
             </v-col>
             <v-col v-else-if="noFile" cols="12" class="d-flex justify-center align-center">
                 <v-chip class="ma-2" color="#F19861" outlined pill >
-                    没有视频数据
+                    没有文件数据
                     <v-icon right> mdi-cancel  </v-icon>
                 </v-chip>
             </v-col>

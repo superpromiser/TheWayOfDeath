@@ -6,14 +6,26 @@
                     <v-icon size="45" class="ma-3 mx-auto" color="#999999">
                         mdi-qqchat
                     </v-icon>
-                    <p>WechatId: {{notSetQQ? 'asdf': 'asdf'}}</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolor quod autem ab ipsa ratione cumque perspiciatis praesentium quaerat natus.</p>
-                    <v-btn dark color="#49d29e">
-                        {{notSetQQ? 'asdf': 'asdf'}}
+                    <p>QQ号: {{notSetQQ? '未设置QQ号': user.qq}}</p>
+                    <v-btn dark color="#49d29e" @click="openDialog">
+                        {{notSetQQ? '新注册': '更新'}}
                     </v-btn>
                 </div>
             </v-col>
         </v-row>
+        <v-dialog v-model="qqDialog" @click:outside="closeDialog" width="100%" max-width="500px">
+            <v-card>
+                <v-card-text class="pt-5">
+                    <v-text-field solo hide-details v-model="qq"></v-text-field>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="#49d29e" dark @click="submit" :loading="isLoading"> 
+                        保存
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-container>
 </template>
 
@@ -24,7 +36,10 @@ import lang from '~/helper/lang.json'
 export default {    
     data: ()=> ({
         lang,
-        notSetQQ: false
+        notSetQQ: false,
+        qqDialog: false,
+        qq: '',
+        isLoading: false,
     }),
 
     computed:{
@@ -37,7 +52,37 @@ export default {
         if(this.user.qq == null){
             this.notSetQQ = true;
         }
+        else{
+            this.qq = this.user.qq
+        }
     },
+
+    methods:{
+        openDialog(){
+            this.qq = this.user.qq;
+            this.qqDialog = true;
+        },
+        closeDialog(){
+            
+        },
+        async submit(){
+            this.isLoading = true;
+            let payload = {
+                userId: this.user.id,
+                qq: this.qq
+            }
+            await updateProfile(payload)
+            .then((res) => {
+                this.user.qq = this.qq;
+                this.notSetQQ = false
+            }).catch((err) => {
+                
+            });
+            this.qq = '';
+            this.qqDialog = false;
+            this.isLoading = false;
+        }
+    }
 }
 </script>
 
