@@ -105,22 +105,23 @@
             {{content.repairdata.repairType}}
             </p>
         </div>
-        <v-col cols="12" class="pt-0">
-            <v-row>
-                <v-col cols="12">
-                <p class="text-wrap"><read-more more-str="全文" :text="description.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
-                </v-col>
-                <v-col cols="12" v-if="checkIfAttachExist(description)">
-                <AttachItemViewer :items="description" />
-                </v-col>
-            </v-row>
-        </v-col>
         <div class="d-flex align-center">
             <p class="text-wrap mb-0">
             <strong>发布时间:</strong>
             {{TimeViewSam(content.repairdata.deadline)}}
             </p>
         </div>
+        <v-col cols="12" class="pt-0">
+            <v-row>
+                <v-col cols="12" class="pl-0">
+                  <p class="text-wrap"><read-more more-str="全文" :text="description.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                </v-col>
+                <v-col cols="12" class="pl-0" v-if="checkIfAttachExist(description)">
+                  <AttachItemViewer :items="description" />
+                </v-col>
+            </v-row>
+        </v-col>
+        
     </v-col>
    
   </v-container>
