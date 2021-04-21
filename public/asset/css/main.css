@@ -1239,3 +1239,7 @@ a {
 .primary-font-color .v-list-item__content .v-list-item__title{
     color: #7879ff;
 }
+
+.put-align-center{
+    transform: translateY(-50%);
+}
