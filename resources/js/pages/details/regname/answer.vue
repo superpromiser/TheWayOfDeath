@@ -1,29 +1,12 @@
 <template>
     <v-container>
-        <v-row class="align-center ma-0">
-            <v-col cols="12" md="6">
-                <v-row class="ma-0 align-center justify-center justify-md-start">
-                    <a @click="$router.go(-1)" class="float-left">
-                        <v-icon size="70">
-                            mdi-chevron-left
-                        </v-icon>
-                    </a>
-                    <v-avatar class="ma-3 school-card-avatar" tile >
-                        <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" ></v-img>
-                    </v-avatar>
-                    <p class="font-weight-black fs-15 mb-3"> {{lang.regname}}  </p>
-                </v-row>
-            </v-col>
-            <v-col cols="12" md="6">
-                <v-row class="ma-0 align-center justify-center justify-md-end" >
-                    <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
-                    <p class="mb-0 mr-8" v-if="contentData !== null">{{TimeView(contentData.created_at)}}</p>
-                    <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
-                    <p class="mb-0" v-if="contentData !== null">{{contentData.users.name}}</p>
-                </v-row>
-            </v-col>
+        <v-row class="justify-center align-center z-index-2 banner-custom position-relative">
+            <v-icon size="70" @click="$router.go(-1)" class="position-absolute put-align-center" style="top:50%; left:20px">
+                mdi-chevron-left
+            </v-icon>
+            <h2 class="py-7">{{lang.regname}}</h2>
         </v-row>
-        <v-row class="ma-0">
+        <v-row class="pl-10 pt-0">
             <v-col cols="12" class="text-center">
                 <h1>{{regNameData.title}}</h1>
             </v-col>
