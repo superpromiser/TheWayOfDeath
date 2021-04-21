@@ -34,7 +34,13 @@
             </v-col>
         </v-row>
     </v-container>
-    <div class="px-10">
+    <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+      <v-progress-circular
+          indeterminate
+          color="primary"
+      ></v-progress-circular>
+    </div>
+    <div v-else class="px-10">
       <v-row class="py-5">
         <v-col>
           <v-checkbox
@@ -77,7 +83,8 @@ export default {
     lang,
     isSubmit: false,
     selected: [],
-    search:''
+    search:'',
+    isLoading:false,
   }),
   computed: {
     currentPath() {
@@ -93,6 +100,7 @@ export default {
     let lessonId = ''
     let lessonMembers = []
     let groupMembers = []
+    this.isLoading = true
     if(this.currentPath.query.otherLesson){
         lessonId = this.currentPath.query.otherLesson
     }else{
@@ -114,26 +122,36 @@ export default {
     }).then(res=>{
       groupMembers = res.data
     })
-    console.log("lessonMemebers",lessonMembers)
-    console.log("groupMembers",groupMembers)
+    let newLessonMembers = JSON.parse(JSON.stringify(lessonMembers))
+    // let newLessonMembers = lessonMembers.map(mem=>{
+    //   return mem.id
+    // })
     lessonMembers.map(lessonMember=>{
       groupMembers.map(groupMember=>{
-        // debugger
-        console.log("lessonMember.id",lessonMember.id)
-        console.log('gradeMember',groupMember.memberId)
         if(lessonMember.id == groupMember.memberId){
           console.log('lessonMember.id == groupMember.memberId',lessonMember.id)
-          let index = lessonMembers.indexOf(lessonMember)
-          if(index > -1){
-            lessonMembers.splice(index,1)
-          }
+          newLessonMembers.map(news=>{
+            if(news.id == lessonMember.id){
+              let index = newLessonMembers.indexOf(news)
+              console.log(index,lessonMember)
+              if(index > -1){
+                newLessonMembers.splice(index,1)
+              }
+            }
+          })
+          // let index = newLessonMembers.indexOf(lessonMember)
+          // console.log(index,lessonMember)
+          // if(index > -1){
+          //   newLessonMembers.splice(index,1)
+          // }
         }
       })
     })
-    this.userList = lessonMembers
+    this.userList = newLessonMembers
     this.userList.map(user => {
       this.$set(user, "checkbox", false);
     });
+    this.isLoading = false
   },
   methods: {
     selectAll() {

@@ -1,7 +1,13 @@
 <template>
     <v-container class="pa-0">
         <RouterBack title="小组"></RouterBack>
-        <div class="px-10">
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </div>
+        <div v-else class="px-10">
             <v-row class="py-5">
                 <v-col cols="4">
                     小组名称
@@ -59,7 +65,8 @@ export default {
     data:()=>({
         isSubmit:false,
         clubName:'',
-        clubList:[]
+        clubList:[],
+        isLoading:false
     }),
     computed:{
         currentPath(){
@@ -67,11 +74,14 @@ export default {
         }
     },
     async created(){
+        this.isLoading = true
         await getClub({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
             console.log(res.data)
             this.clubList = res.data
+            this.isLoading = false
         }).catch(err=>{
             console.log(err.response)
+            this.isLoading = false
         })
     },
     methods:{

@@ -25,7 +25,13 @@
                 </v-col>
             </v-row>
         </v-container>
-        <div class="px-10">
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </div>
+        <div v-else class="px-10">
             <v-row class="py-3">
                 <v-col cols="6" md="8">申请人信息</v-col>
                 <v-col cols="6" md="4">邀请人</v-col>
@@ -81,7 +87,7 @@
 </template>
 
 <script>
-import {updateGroupMember,deleteGroupMember} from '~/api/group';
+import {getPendingGroupMember,updateGroupMember,deleteGroupMember} from '~/api/group';
 import RouterBack from '~/components/routerBack'
 export default {
     components:{
@@ -91,7 +97,8 @@ export default {
         userList:[],
         isAllow:false,
         isDeny:false,
-        search:''
+        search:'',
+        isLoading:false,
     }),
     computed:{
         currentPath(){
@@ -104,11 +111,14 @@ export default {
         }
     },
     async created(){
-        await getGroupMember({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+        this.isLoading = true
+        await getPendingGroupMember({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
             console.log(res.data)
             this.userList = res.data
+            this.isLoading = false
         }).catch(err=>{
             console.log(err.response)
+            this.isLoading = false
         })
     },
     methods:{
@@ -130,7 +140,7 @@ export default {
         deny(member){
             // this.isDeny = true
             let userList = []
-            userList.push(member)
+            userList.push(member.id)
             deleteGroupMember({userList:userList}).then(res=>{
                 this.isDeny = false
                 let index = this.userList.indexOf(member)

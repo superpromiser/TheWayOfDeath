@@ -34,7 +34,7 @@ function updateGroupMember(payload){
 }
 
 function deleteGroupMember(payload){
-    return axios.delete('/api/v1/groupMember',payload)
+    return axios.delete('/api/v1/groupMember',{data:payload})
 }
 
 function getStudentIdUser(payload){

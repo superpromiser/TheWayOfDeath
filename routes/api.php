@@ -300,6 +300,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('groupMember', 'GroupController@addGroupMember');
     Route::put('groupMember', 'GroupController@updateGroupMember');
     Route::delete('groupMember', 'GroupController@deleteGroupMember');
+    Route::post('studentIdUser', 'GroupController@createStudentId');
 
     //club
     Route::get('club', 'ClubController@getClub');

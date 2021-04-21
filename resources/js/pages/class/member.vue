@@ -56,10 +56,11 @@
         </v-col>
         <v-col></v-col>
       </v-row>
-      <v-row v-if="isLoading">
-        <v-col>
-          {{lang.noData}}
-        </v-col>
+      <v-row v-if="isLoading" class="d-flex justify-center align-center py-16">
+        <v-progress-circular
+            indeterminate
+            color="primary"
+        ></v-progress-circular>
       </v-row>
       <v-row v-else>
         <v-col cols=12>

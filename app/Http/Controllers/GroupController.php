@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Group;
-
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
@@ -25,7 +25,7 @@ class GroupController extends Controller
             'schoolId' => 'required',
             'lessonId' => 'required'
         ]);
-        return Group::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'status' => 'allow'])->with('members:id,name')->get();
+        return Group::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'status' => 'allow'])->with('members:id,name,gender,phoneNumber')->get();
     }
 
     public function getAllGroupMember(Request $request)
@@ -64,7 +64,7 @@ class GroupController extends Controller
 
         $members = $request->userList;
         foreach ($members as $member) {
-            Group::where('memberId', $member)->delete();
+            Group::where('id', $member)->delete();
         }
     }
 
@@ -76,5 +76,19 @@ class GroupController extends Controller
         return Group::where('id', $request->id)->update([
             'status' => 'allow'
         ]);
+    }
+
+    public function createStudentId(Request $request)
+    {
+        $this->validate($request, [
+            'userList' => 'required'
+        ]);
+        $userList = $request->userList;
+        foreach ($userList as $user) {
+            User::where('id', $user['id'])->update([
+                'studentId' => $user['studentId']
+            ]);
+        }
+        return;
     }
 }

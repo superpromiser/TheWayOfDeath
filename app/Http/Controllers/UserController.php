@@ -277,7 +277,7 @@ class UserController extends Controller
         } else if ($request->isActived == 0) {
             $isActived = $request->isActived;
             $data = User::where('id', $userId)->update(['isActived' => 0]);
-        } 
+        }
         return $data;
     }
 
@@ -389,15 +389,20 @@ class UserController extends Controller
 
     public function getLessonUserList(Request $request)
     {
+        $lessonId = $request->lessonId;
         if (Auth::user()->roleId == 2) {
-            $schoolId = Auth::user()->schoolId;
-            return User::select('id', 'name', 'lessonId', 'avatar')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
+            if ($lessonId) {
+                return User::select('id', 'name', 'lessonId', 'avatar', 'studentId')->where(['lessonId' => $lessonId, 'roleId' => 5])->get();
+            } else {
+                $schoolId = Auth::user()->schoolId;
+                return User::select('id', 'name', 'lessonId', 'avatar')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
+            }
         } else {
             $lessonId = Auth::user()->lessonId;
             if ($request->lessonId) {
                 $lessonId = $request->lessonId;
             }
-            return User::select('id', 'name', 'lessonId', 'avatar')->where(['lessonId' => $lessonId, 'roleId' => 5])->get();
+            return User::select('id', 'name', 'lessonId', 'avatar', 'studentId')->where(['lessonId' => $lessonId, 'roleId' => 5])->get();
         }
     }
 
@@ -539,7 +544,7 @@ class UserController extends Controller
     public function getMyFile()
     {
         $userId = Auth::user()->id;
-        $posts = Post::whereIn('contentId', [1,2,3,6,7,8,11,12,13,16,17,23,24,25,26])
+        $posts = Post::whereIn('contentId', [1, 2, 3, 6, 7, 8, 11, 12, 13, 16, 17, 23, 24, 25, 26])
             ->where('userId', $userId)
             ->with([
                 'questionnaires:postId,content', //1, 12
@@ -940,7 +945,7 @@ class UserController extends Controller
                         array_push($otherFileList, $otherUrl);
                     }
                     break;
-                
+
                 default:
                     break;
             }

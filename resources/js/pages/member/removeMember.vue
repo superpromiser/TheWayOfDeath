@@ -34,7 +34,13 @@
             </v-col>
         </v-row>
     </v-container>
-    <div class="px-10">
+    <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+        <v-progress-circular
+            indeterminate
+            color="primary"
+        ></v-progress-circular>
+    </div>
+    <div v-else class="px-10">
       <v-row class="py-5">
         <v-col>
           <v-checkbox
@@ -52,13 +58,13 @@
           <v-col cols="12" md="4">
             <v-checkbox
               v-model="user.checkbox"
-              :label="user.name"
+              :label="user.members.name"
               class="member-chk"
               @click="selectMem(user)"
             ></v-checkbox>
           </v-col>
-          <v-col cols="12" md="4"> 性别：{{ transGender(user.gender) }} </v-col>
-          <v-col cols="12" md="4"> 手机号码：{{ pnEncrypt(user.phoneNumber) }} </v-col>
+          <v-col cols="12" md="4"> 性别：{{ transGender(user.members.gender) }} </v-col>
+          <v-col cols="12" md="4"> 手机号码：{{ pnEncrypt(user.members.phoneNumber) }} </v-col>
         </v-row>
         <v-divider light class="thick-border"></v-divider>
       </div>
@@ -67,8 +73,7 @@
 </template>
 
 <script>
-import { getSchoolMemberList} from "~/api/user";
-import {addGroupMember} from '~/api/group';
+import {getAllowGroupMember,deleteGroupMember} from '~/api/group';
 import lang from "~/helper/lang.json";
 export default {
   data: () => ({
@@ -77,7 +82,8 @@ export default {
     lang,
     isSubmit: false,
     selected: [],
-    search:''
+    search:'',
+    isLoading:false,
   }),
   computed: {
     currentPath() {
@@ -85,30 +91,32 @@ export default {
     },
     filteredList(){
         return this.userList.filter(user=>{
-          return user.name.toLowerCase().includes(this.search.toLowerCase())
+          return user.members.name.toLowerCase().includes(this.search.toLowerCase())
         })
     }
   },
-  created() {
+  async created() {
     let lessonId = ''
+    this.isLoading = true
     if(this.currentPath.query.otherLesson){
         lessonId = this.currentPath.query.otherLesson
     }else{
         lessonId = this.currentPath.params.lessonId
     }
-    getSchoolMemberList({
+    await getAllowGroupMember({
       schoolId:this.currentPath.params.schoolId,
       lessonId: lessonId,
-      roleId: this.currentPath.query.roleId
     })
       .then(res => {
         res.data.map(user => {
           this.$set(user, "checkbox", false);
         });
         this.userList = res.data;
+        this.isLoading = false
       })
       .catch(err => {
         console.log(err.response);
+        this.isLoading = false
       });
   },
   methods: {
@@ -138,12 +146,12 @@ export default {
     submit() {
         this.userList.map(user => {
             if (user.checkbox == true) {
-            this.selected.push(user);
+            this.selected.push(user.id);
             }
         });
         this.isSubmit = true
         console.log(this.selected);
-        addGroupMember({
+        deleteGroupMember({
             schoolId: this.currentPath.params.schoolId,
             lessonId: this.currentPath.params.lessonId,
             userList: this.selected
