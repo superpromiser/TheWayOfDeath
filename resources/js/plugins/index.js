@@ -12,5 +12,6 @@ import './fragment'
 import './quickmenu'
 import './snackbar'
 import './webcam'
+import './baidu'
 
 import 'bootstrap'

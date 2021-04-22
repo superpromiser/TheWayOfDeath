@@ -29,7 +29,6 @@
         </baidu-map>
       </v-col>
     </v-row>
-      
   </v-container>
 </template>
 
@@ -37,7 +36,6 @@
 import {authTokenGet, getData} from '~/api/fence'
 import {mapGetters,} from 'vuex'
 export default {
-
   data:()=>({
     alarm:'',
     fenceData:{
@@ -97,6 +95,13 @@ export default {
   },
 
   methods:{
+    handler ({BMap, map}) {
+      console.log(BMap, map)
+      this.center.lng = 116.404
+      this.center.lat = 39.915
+      this.zoom = 15
+    },
+
     addPoint(e){
         if(!this.isAdding){
             return;
@@ -291,8 +296,9 @@ export default {
 </script>
 
 <style>
+
 .map {
-  width: 100%;
-  height: 78vh;
-}
+    width: 100%;
+    height: 78vh;
+  }
 </style>
