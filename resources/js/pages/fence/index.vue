@@ -1,9 +1,49 @@
 <template>
-  <v-container>
+  <v-container class="pa-0">
+    <v-container class="px-10 z-index-2 banner-custom">
+      <v-row>
+        <v-col cols="6" md="4" class="d-flex align-center position-relative">
+          <a @click="$router.go(-1)">
+            <v-icon size="70" class=" left-24p">
+                mdi-chevron-left
+            </v-icon>
+          </a>
+        </v-col>
+        <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+          <h2>地图</h2>
+        </v-col>
+        <v-col cols="12" md="4" class="d-flex align-center justify-end">
+          <!-- <v-btn
+            text
+            color="primary"
+            @click="selContent('template')"
+          >
+              可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
+          </v-btn> -->
+          <v-btn
+              tile
+              dark
+              color="#49d29e"
+              class="mx-2"
+              @click="addFence"
+          >
+              add
+          </v-btn>
+          <v-btn
+              tile
+              dark
+              color="#F19861"
+              @click="saveFence"
+          >
+              save
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
     <v-row>
       <v-col cols="3">
         <div v-for="user in userDeviceList" :key="user.imei">
-          <v-row class="hover-cursor-point pa-3" @click="selDevice(device)">
+          <v-row class="hover-cursor-point pa-3" :class="{'selDevice':user.active}" @click="selDevice(user)">
             <v-col>
               {{user.imei}}
             </v-col>
@@ -34,7 +74,7 @@
 </template>
 
 <script>
-import {authTokenGet, getData} from '~/api/fence'
+import {authTokenGet, getData,getFence,createFence,deleteFence} from '~/api/fence'
 import {mapGetters,} from 'vuex'
 export default {
 
@@ -97,12 +137,27 @@ export default {
   },
 
   methods:{
+    addFence(){
+      this.isAdding = true
+    },
     addPoint(e){
         if(!this.isAdding){
             return;
         }
         const {lng,lat} = e.Ag;
         this.addPolygonPoint(lng,lat)
+    },
+    addPolygonPoint (lng,lat) {
+        this.polygonPath.push({lng: lng, lat: lat})
+    },
+    addNewPolygon(){
+        this.isAdding = !this.isAdding
+        if(this.isAdding == false){
+            this.allPolygonPath.push(this.polygonPath)
+        }
+    },
+    saveFence(){
+      console.log(this.allPolygonPath)
     },
     drawNewpolygon(e){
         this.fenceModal = true
@@ -223,68 +278,86 @@ export default {
       })
 
     },
-    
-    async getDeviceLocationList(){
-      if(this.accessToken == undefined){
-        this.getAccessTokenFunc()
-      }
-      var md5 = require('md5');
-      var moment= require('moment') 
-      let paramPut = {}
-      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
-      this.user_pwd_md5 = md5(this.userPass)
 
-      paramPut.method = 'jimi.device.location.get'
-      paramPut.timestamp = this.time
-      paramPut.app_key = this.appKey
-      paramPut.sign_method = this.sign_method
-      paramPut.v = this.v
-      paramPut.format = this.format
-      paramPut.access_token = this.accessToken
-      paramPut.imeis = this.imeiStr
-      paramPut.map_type='BAIDU'
-      let ordered = {}
-      Object.keys(paramPut).sort().forEach(function (key){
-          ordered[key] = paramPut[key]
-      })
-      let str = Object.keys(ordered).map(function(key){
-          return "" + key + ordered[key]
-      }).join("")
-      let md5Secret = md5 (this.appSecret + str + this.appSecret)
-      let upper = md5Secret.toUpperCase()
-      await getData({
-        sign:upper,
-        timestamp:this.time,
-        v:this.v,
-        app_key:this.appKey,
-        method:"jimi.device.location.get",
-        format:this.format,
-        sign_method:this.sign_method,
-        access_token:this.accessToken,
-        imeis:this.imeiStr,
-        map_type:'BAIDU'
-      }).then(res=>{
-        console.log('deviceLocationList',res)
-        this.deviceLocationList = res.data.result
-        this.userlng = res.data.result[0].lng
-        this.userlat = res.data.result[0].lat
-        this.centerLng = res.data.result[0].lng
-        this.centerLat = res.data.result[0].lat
-      }).catch(err=>{
-        console.log(err.response)
-        this.getAccessTokenFunc()
-        this.getDeviceLocationList()
-      })
-    },
     selDevice(device){
       for(let i=0;i<this.userDeviceList.length;i++){
           delete this.userDeviceList[i].active
       }
       this.$set(device,'active',true)
       this.imeiStr = device.imei
-      this.realTracking(device)
-      // this.getDeviceLocationList(this.imeiStr)
+      // this.realTracking()
+      this.getFenceData();
+      this.getDeviceLocationList()
     },
+    realTracking(){
+      this.getDeviceLocationList()
+      let self = this
+      clearInterval(this.fenceCheckFlag)
+      this.fenceCheckFlag = setInterval(function(){self.getDeviceLocationList()}, 20000);
+    },
+    async getDeviceLocationList(){
+        if(this.accessToken == undefined){
+            this.getAccessTokenFunc();
+        }
+        var md5 = require('md5');
+        var moment= require('moment') 
+        let paramPut = {}
+        this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
+        this.user_pwd_md5 = md5(this.userPass)
+
+        paramPut.method = 'jimi.device.location.get'
+        paramPut.timestamp = this.time
+        paramPut.app_key = this.appKey
+        paramPut.sign_method = this.sign_method
+        paramPut.v = this.v
+        paramPut.format = this.format
+        paramPut.access_token = this.accessToken
+        paramPut.imeis = this.imeiStr
+        paramPut.map_type='BAIDU'
+        let ordered = {}
+        Object.keys(paramPut).sort().forEach(function (key){
+            ordered[key] = paramPut[key]
+        })
+        let str = Object.keys(ordered).map(function(key){
+            return "" + key + ordered[key]
+        }).join("")
+        let md5Secret = md5 (this.appSecret + str + this.appSecret)
+        let upper = md5Secret.toUpperCase()
+        this.isLoading = true
+        await getData({
+            sign:upper,
+            timestamp:this.time,
+            v:this.v,
+            app_key:this.appKey,
+            method:"jimi.device.location.get",
+            format:this.format,
+            sign_method:this.sign_method,
+            access_token:this.accessToken,
+            imeis:this.imeiStr,
+            map_type:'BAIDU'
+        }).then(res=>{
+            console.log('deviceLocationList',res)
+            this.deviceLocationList = res.data.result
+            this.userlng = res.data.result[0].lng
+            this.userlat = res.data.result[0].lat
+            this.centerLng = res.data.result[0].lng
+            this.centerLat = res.data.result[0].lat
+            // this.getDeviceFence()
+            // this.fetchHole()
+            this.isLoading = false
+        }).catch(err=>{
+            console.log('error',err)
+            this.getAccessTokenFunc()
+            this.isLoading = false
+        })
+    },
+
+    async getFenceData(){
+      console.log(this.imeiStr)
+    }
+
+
+
   }
 
 }
@@ -294,5 +367,9 @@ export default {
 .map {
   width: 100%;
   height: 78vh;
+}
+.selDevice{
+  background-color: #7879FF;
+  color:#ffffff;
 }
 </style>
