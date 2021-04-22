@@ -1287,10 +1287,11 @@ a {
 .contact-alphabet.active::after{
     content: attr(data-before);
     position: absolute;
-    left: -73px;
+    left: -60px;
     color: white;
     font-size: 40px;
     top: -23px;
+    transform: translateX(-50%);
 }
 
 .font-size-0-70{

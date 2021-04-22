@@ -1,6 +1,6 @@
 <template>
     <v-card class="mx-auto position-relative" tile elevation="0"> 
-     <v-list class="pa-0">
+     <v-list class="pa-0" id="UP-go">
         <div class="w-100">
             <v-list-item v-ripple @click="openAddUser">
                 <v-list-item-icon class="my-2">
@@ -37,7 +37,7 @@
         :key="i"
         v-else
       >
-        <div class="w-100 bg-secondary pl-4 py-1" :id="`${userGroup.letter}-go`">
+        <div class="w-100 bg-secondary pl-4 py-1" :id="userGroup.letter=='#'? 'hash-go' : `${userGroup.letter}-go`">
             <p class="mb-0 font-size-0-8 font-color-gray">{{userGroup.letter}}</p>
         </div>
         <div  v-for="(user, j) in userGroup.data" :key="j">
@@ -56,11 +56,11 @@
         </div>
       </div>
     </v-list>
-    <div class="position-fixed put-align-center text-center" style="right: 0px; top: 50%">
+    <div class="position-fixed put-align-center text-center" style="right: 10px; top: 50%">
         <div @touchmove.passive="moveParentAlphabet" @touchstart="startTouchParent" @touchend="endTouchParent"
             class="" v-for="alphabet in alphabetList" :key="alphabet.alphabet" style="touch-action: none;">
-            <p  class="mb-0 font-size-0-70 contact-alphabet" 
-                >{{alphabet.alphabet}}</p>
+            <p v-if="alphabet.alphabet == 'UP'" class="mb-0 font-size-0-70 contact-alphabet">&#8593;</p>
+            <p v-else class="mb-0 font-size-0-70 contact-alphabet" >{{alphabet.alphabet}}</p>
         </div>
     </div>
     <v-dialog
@@ -452,9 +452,20 @@ export default {
     watch:{
         character:{
             handler(val){
-                let el = document.getElementById(`${val}-go`);
-                if(val !== null && el!==null){
-                    this.$vuetify.goTo(`#${val}-go`, this.contactListNavOptions);
+                if(val == "↑"){
+                    this.$vuetify.goTo('#UP-go', this.contactListNavOptions);
+                }
+                else if(val == "#"){
+                    let el = document.getElementById('hash-go');
+                    if(el!==null){
+                        this.$vuetify.goTo('#hash-go', this.contactListNavOptions);
+                    }
+                }
+                else{
+                    let el = document.getElementById(`${val}-go`);
+                    if(val !== null && el!==null){
+                        this.$vuetify.goTo(`#${val}-go`, this.contactListNavOptions);
+                    }
                 }
             },
             deep: true
@@ -666,7 +677,12 @@ export default {
             }
             this.character = el.childNodes[0].data;
             $(el).addClass('active');
-            $(el).attr('data-before',this.character);
+            if(this.character == 'UP'){
+                $(el).attr('data-before',`\\2191`);
+            }
+            else{
+                $(el).attr('data-before',this.character);
+            }
         }
     }
 }
