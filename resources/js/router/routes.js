@@ -322,5 +322,9 @@ export default [
   {
     path:'/fence',name:'fence.index',component:page('fence/index.vue')
   },
+
+  //test
+  {path:'/testWeather',name:'api.tests',component:page('testApi/weather.vue')},
+
   { path: '*', component: page('errors/404.vue') }
 ]
