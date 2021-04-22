@@ -56,7 +56,7 @@
         </div>
       </div>
     </v-list>
-    <div class="position-fixed put-align-center text-center" style="right: 10px; top: 50%">
+    <div class="position-fixed put-align-center text-center pa-1" style="right: 10px; top: 50%">
         <div @touchmove.passive="moveParentAlphabet" @touchstart="startTouchParent" @touchend="endTouchParent"
             class="" v-for="alphabet in alphabetList" :key="alphabet.alphabet" style="touch-action: none;">
             <p v-if="alphabet.alphabet == 'UP'" class="mb-0 font-size-0-70 contact-alphabet">&#8593;</p>
