@@ -16,7 +16,6 @@
                 single-line
                 v-model="phoneNumber"
                 label="帐号"
-                :rules="[rules.required]"
               ></v-text-field>
               <p class="mb-0">密码</p>
               <v-text-field
@@ -27,7 +26,6 @@
                 name="password"
                 label="请输入登录密码"
                 hint="至少8个字符"
-                :rules="[rules.required, rules.min]"
                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show1 ? 'text' : 'password'"
                 @click:append="show1 = !show1"
@@ -37,7 +35,6 @@
                 label="已阅读并同意《用户服务协议》和《隐私》"
                 type="checkbox"
                 color="#7879ff"
-                :rules="[rules.required]"
               >
                 <template v-slot:label>
                   <div @click.stop="">
@@ -323,7 +320,7 @@ export default {
     phoneNumber : '',
     password : '',
     show1 : false,
-    agreeTerms : true,
+    agreeTerms : false,
     remember : false,
     rules : {
       required: value => !!value || '必需的。',
@@ -349,6 +346,18 @@ export default {
 
   methods: {
     async login(){
+      if(this.phoneNumber.trim() == ''){
+        return this.$snackbar.showMessage({content: '电话号码字段为空', color: 'error'});
+      }
+      if(/^\d*$/.test(this.phoneNumber) == false){
+        return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+      }
+      if(this.password.trim() == ''){
+        return this.$snackbar.showMessage({content: '密码输入字段为空', color: 'error'});
+      }
+      if(this.agreeTerms == false){
+        return this.$snackbar.showMessage({content: '您必须同意《用户服务协议》和《隐私》才能使用此服务。', color: 'error'})
+      }
       this.isLogging = true;
       let payload = {
         phoneNumber : this.phoneNumber,
