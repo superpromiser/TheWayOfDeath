@@ -43,9 +43,9 @@
             </v-col>
         </v-row>
     </v-container>
-    <v-container v-else>
+    <v-container v-else class="pa-0">
         <v-container class="px-10 z-index-2 banner-custom">
-            <v-row>
+            <v-row >
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
                     <a @click="$router.go(-1)">
                         <v-icon size="70" class="left-24p">
@@ -68,9 +68,9 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-row class="mt-1 align-center">
+        <v-row class="mt-1 pa-0 align-center mx-7 ma-0">
             <v-col cols="6">
-                <p class="">发布时间</p>
+                <p class="mb-0">发布时间</p>
             </v-col>
             <v-col cols="6">
                 <v-datetime-picker 
@@ -82,9 +82,9 @@
             </v-col>
         </v-row>
         <v-divider light></v-divider>
-        <v-row class="mt-1 align-center">
+        <v-row class="mt-1 align-center mx-7 ma-0">
             <v-col cols="6">
-                <p class="">课代表</p>
+                <p class="mb-0">课代表</p>
             </v-col>
             <v-col cols="6">
                 <v-select
@@ -94,16 +94,18 @@
                     item-value="id"
                     solo
                     v-model="homeworkData.monitorName"
+                    hide-details
                 ></v-select>
             </v-col>
         </v-row>
         <v-divider light></v-divider>
-        <v-row class="mt-1 ">
+        <v-row class="mt-1 mx-7 ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12">
-                <p class="">家长评价提示</p>
+                <p class="mb-0">家长评价提示</p>
                 <v-switch
                     v-model="homeworkData.parentCheck"
                     inset
+                    class="mt-0 pt-0"
                 ></v-switch>
             </v-col>
         </v-row>

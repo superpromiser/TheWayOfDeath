@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
         <RouterBack title="发布"></RouterBack>
         <v-row v-for="(itemGroup, i) in contentItemList" :key="i" class="ma-0">
             <v-col cols="12">
@@ -112,13 +112,13 @@ export default {
                         path : "posts.Chomevisit"
                     },
                     {
-                        color : "#EB5846",
+                        color : "#C95384",
                         title : "班级动态",
                         imgUrl : "/asset/img/newIcon/班级动态.png",
                         path : "posts.classStory"
                     },
                     {
-                        color : "#EB5846",
+                        color : "#C95384",
                         title : "班际动态",
                         imgUrl : "/asset/img/newIcon/班际动态.png",
                         path : "posts.interClassStory"
@@ -130,7 +130,7 @@ export default {
                 icon : "mdi-calendar-month-outline",
                 items : [
                     {
-                        color : "red accent-3",
+                        color : "#C95384",
                         title : "通知",
                         imgUrl : "/asset/img/icon/通知 拷贝.png",
                         path : "posts.Cnotification"
