@@ -76,6 +76,10 @@ export default {
                 }
                 else if(val.name=="mo.newPost"){
                     this.isNewPost = true;
+                    let btnList = document.getElementsByClassName('mo-bottom-nav-btn-item');
+                    for(let i = 0; i < btnList.length; i++){
+                        btnList[i].classList.remove('v-btn--active');
+                    }
                 }
                 else{
                     this.isNewPost = false;
