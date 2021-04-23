@@ -1,14 +1,10 @@
 <template>
-    <v-card
-    class="mx-auto"
-    tile
-  > 
-     <v-list class="pa-0">
-      <v-subheader>操作</v-subheader>
-      <div class="w-100">
+    <v-card class="mx-auto position-relative" tile elevation="0"> 
+     <v-list class="pa-0" id="UP-go">
+        <div class="w-100">
             <v-list-item v-ripple @click="openAddUser">
                 <v-list-item-icon class="my-2">
-                    <v-avatar size="50" color="#49d29e" tile>
+                    <v-avatar size="50" color="#49d29e" class="rounded-lg">
                         <v-icon dark> mdi-plus </v-icon>
                     </v-avatar>
                 </v-list-item-icon>
@@ -16,9 +12,10 @@
                     <v-list-item-title>新的朋友</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>  
+            <v-divider inset></v-divider>
             <v-list-item v-ripple @click="openAddGroup">
                 <v-list-item-icon class="my-2">
-                    <v-avatar size="50" color="#49d29e" tile>
+                    <v-avatar size="50" color="#49d29e" class="rounded-lg">
                         <v-icon dark> mdi-account-group </v-icon>
                     </v-avatar>
                 </v-list-item-icon>
@@ -28,38 +25,44 @@
             </v-list-item>  
       </div>
      </v-list>
-    <v-list class="pa-0">
-      <v-subheader>联系人</v-subheader>
-      <div class="w-100 pa-5 d-flex justify-center" v-if="isGettingContactList">  
-          <v-progress-circular
-            indeterminate
-            color="#7879ff"
-            ></v-progress-circular>
-      </div>
+    <v-list class="pa-0 pb-16">
+        <div class="w-100 pa-5 d-flex justify-center" v-if="isGettingContactList">  
+            <v-progress-circular
+                indeterminate
+                color="#7879ff"
+                ></v-progress-circular>
+        </div>
       <div class="w-100"
         v-for="(userGroup, i) in addressedUsers"
         :key="i"
         v-else
       >
-        <div class="w-100 text-center mo-glow-bg">
-            {{userGroup.letter}}
+        <div class="w-100 bg-secondary pl-4 py-1" :id="userGroup.letter=='#'? 'hash-go' : `${userGroup.letter}-go`">
+            <p class="mb-0 font-size-0-8 font-color-gray">{{userGroup.letter}}</p>
         </div>
-        <v-list-item
-            v-for="(user, j) in userGroup.data" :key="j" v-ripple
-        >   
-            <v-list-item-icon class="my-2">
-                <v-avatar size="50" color="#49d29e" >
-                    <v-img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user.name[0]" class="chat-user-avatar"></v-img>
-                    <span dark v-else class="white--text headline"> {{user.name[0]}}</span>
-                </v-avatar>
-            </v-list-item-icon>
-            <v-list-item-content>
-                <v-list-item-title>{{user.name}}</v-list-item-title>
-            </v-list-item-content>
-            <!-- <v-divider light></v-divider> -->
-        </v-list-item>
+        <div  v-for="(user, j) in userGroup.data" :key="j">
+            <v-list-item v-ripple >   
+                <v-list-item-icon class="my-2">
+                    <v-avatar size="50" color="#49d29e" class="rounded-lg">
+                        <v-img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user.name[0]" class="chat-user-avatar"></v-img>
+                        <span dark v-else class="white--text headline"> {{user.name[0]}}</span>
+                    </v-avatar>
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-list-item-title>{{user.name}}</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+            <v-divider inset v-if="(userGroup.data.length-1)!==j"></v-divider>
+        </div>
       </div>
     </v-list>
+    <div class="position-fixed put-align-center text-center pa-1" style="right: 10px; top: 50%">
+        <div @touchmove.passive="moveParentAlphabet" @touchstart="startTouchParent" @touchend="endTouchParent"
+            class="" v-for="alphabet in alphabetList" :key="alphabet.alphabet" style="touch-action: none;">
+            <p v-if="alphabet.alphabet == 'UP'" class="mb-0 font-size-0-70 contact-alphabet">&#8593;</p>
+            <p v-else class="mb-0 font-size-0-70 contact-alphabet" >{{alphabet.alphabet}}</p>
+        </div>
+    </div>
     <v-dialog
         v-model="addUserDialog"
         fullscreen
@@ -267,6 +270,127 @@ export default {
         postSuccess : false,
         users: [],
         isCreatingNewGroup: false,
+        alphabetList: [
+                {
+                    alphabet:'UP', 
+                    touched: false
+                },
+                {
+                    alphabet:'A', 
+                    touched: false
+                },
+                {
+                    alphabet:'B', 
+                    touched: false
+                },
+                {
+                    alphabet:'C',
+                    touched: false
+                },
+                {
+                    alphabet:'D',
+                    touched: false
+                },
+                {
+                    alphabet:'E',
+                    touched: false
+                },
+                {
+                    alphabet:'F',
+                    touched: false
+                },
+                {
+                    alphabet:'G',
+                    touched: false
+                },
+                {
+                    alphabet:'H',
+                    touched: false
+                },
+                {
+                    alphabet:'I', 
+                    touched: false
+                },
+                {
+                    alphabet:'J', 
+                    touched: false
+                },
+                {
+                    alphabet:'K', 
+                    touched: false
+                },
+                {
+                    alphabet:'L', 
+                    touched: false
+                },
+                {
+                    alphabet:'M', 
+                    touched: false
+                },
+                {
+                    alphabet:'N', 
+                    touched: false
+                },
+                {
+                    alphabet:'O', 
+                    touched: false
+                },
+                {
+                    alphabet:'P', 
+                    touched: false
+                },
+                {
+                    alphabet:'Q', 
+                    touched: false
+                },
+                {
+                    alphabet:'R', 
+                    touched: false
+                },
+                {
+                    alphabet:'S', 
+                    touched: false
+                },
+                {
+                    alphabet:'T', 
+                    touched: false
+                },
+                {
+                    alphabet:'U', 
+                    touched: false
+                },
+                {
+                    alphabet:'V', 
+                    touched: false
+                },
+                {
+                    alphabet:'W', 
+                    touched: false
+                },
+                {
+                    alphabet:'X', 
+                    touched: false
+                },
+                {
+                    alphabet:'Y', 
+                    touched: false
+                },
+                {
+                    alphabet:'Z', 
+                    touched: false
+                },
+                {
+                    alphabet:'#', 
+                    touched: false
+                },
+            ],
+        isMovedParentAlphabet: false,
+        character: null,
+        contactListNavOptions: {
+            duration: 500,
+            offset: 48,
+            easing: 'easeInOutCubic',
+        }
     }),
 
     async created(){
@@ -323,6 +447,29 @@ export default {
         }
         this.model = this.chatGroupList.length;
         console.log("this.contactList", this.contactList);
+    },
+
+    watch:{
+        character:{
+            handler(val){
+                if(val == "↑"){
+                    this.$vuetify.goTo('#UP-go', this.contactListNavOptions);
+                }
+                else if(val == "#"){
+                    let el = document.getElementById('hash-go');
+                    if(el!==null){
+                        this.$vuetify.goTo('#hash-go', this.contactListNavOptions);
+                    }
+                }
+                else{
+                    let el = document.getElementById(`${val}-go`);
+                    if(val !== null && el!==null){
+                        this.$vuetify.goTo(`#${val}-go`, this.contactListNavOptions);
+                    }
+                }
+            },
+            deep: true
+        }
     },
 
     
@@ -394,13 +541,11 @@ export default {
         async addUserToContact(){
             this.isAdding = true;
             if(this.willAddToContactUser.contactId == null){
-                this.errorMessage = "请选择将添加到联系人的用户";
-                this.postFailed = true;
+                return this.$snackbar.showMessage({content: '请选择将添加到联系人的用户', color: 'error'})
             }
             await addUserToContact(this.willAddToContactUser)
             .then((res) => {
-                this.successMessage = "成功添加到地址簿。"
-                this.postSuccess = true;
+                this.$snackbar.showMessage({content: '成功添加到地址簿。', color :'success'})
                 let addedContact = res.data.addedToContactUser[0];
                 this.contactList.unshift(addedContact);
                 this.isNoContactList = false;
@@ -408,12 +553,10 @@ export default {
                 this.addUserDialog = false;
             }).catch((err) => {
                 if(err.response.status == 409){
-                    this.errorMessage = "您已经将该用户添加为联系人";
-                    this.postFailed = true;
+                    this.$snackbar.showMessage({content: '您已经将该用户添加为联系人', color: 'error'})
                 }
                 else{
-                    this.errorMessage = "出问题了";
-                    this.postFailed = true;
+                    this.$snackbar.showMessage({content: '出问题了', color: 'error'})
                 }
             });
             this.isAdding = false;
@@ -479,6 +622,67 @@ export default {
         closeAddGroup(){
             this.createNewGroupDialog = false;
 
+        },
+        startTouchAlphabet(alphabet){
+            console.log("start child")
+            alphabet.touched = true;
+        },
+
+        endTouchAlphabet(alphabet){
+            console.log("end child")
+            alphabet.touched = false;
+        },
+
+        moveChildAlphabet(alphabet){
+            console.log("move child", alphabet.alphabet, alphabet.touched)
+            if (this.isMovedParentAlphabet == true){
+                alphabet.touched = true;
+            }
+        },
+
+        startParentAlphabet(){
+            console.log("start parent")
+            this.isMovedParentAlphabet = true;
+        },
+        endParentAlphabet(){
+            console.log("end parent")
+            this.isMovedParentAlphabet = false;
+        },
+        startTouchParent(e){
+            let p = e.touches[0];
+            let el = document.elementFromPoint(p.clientX, p.clientY);
+            let childList =$('.contact-alphabet');
+            for(let i = 0; i < childList.length ; i++){
+                $(childList[i]).removeClass('active');
+            }
+            this.character = el.childNodes[0].data;
+            $(el).addClass('active');
+            $(el).attr('data-before',this.character);
+        },
+
+        endTouchParent(e){
+            let childList =$('.contact-alphabet');
+            for(let i = 0; i < childList.length ; i++){
+                $(childList[i]).removeClass('active');
+            }
+            this.character = null;
+        },
+
+        moveParentAlphabet(e){
+            let p = e.touches[0];
+            let el = document.elementFromPoint(p.clientX, p.clientY);
+            let childList =$('.contact-alphabet');
+            for(let i = 0; i < childList.length ; i++){
+                $(childList[i]).removeClass('active');
+            }
+            this.character = el.childNodes[0].data;
+            $(el).addClass('active');
+            if(this.character == 'UP'){
+                $(el).attr('data-before',`\\2191`);
+            }
+            else{
+                $(el).attr('data-before',this.character);
+            }
         }
     }
 }

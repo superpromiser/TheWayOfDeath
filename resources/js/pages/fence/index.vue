@@ -79,6 +79,7 @@
         </baidu-map>
       </v-col>
     </v-row>
+<<<<<<< HEAD
     <!-- fence modal -->
     <v-row justify="center">
       <v-dialog
@@ -248,6 +249,8 @@
         </v-card>
       </v-dialog>
     </v-row>
+=======
+>>>>>>> b7f8f5e4b13fd4763bd12668dffe2b6652cc8004
   </v-container>
 </template>
 
@@ -257,7 +260,6 @@ import lang from '~/helper/lang.json'
 import {mapGetters,} from 'vuex'
 import axios from 'axios'
 export default {
-
   data:()=>({
     alarm:'',
     fenceData:{
@@ -332,6 +334,13 @@ export default {
   },
 
   methods:{
+    handler ({BMap, map}) {
+      console.log(BMap, map)
+      this.center.lng = 116.404
+      this.center.lat = 39.915
+      this.zoom = 15
+    },
+
     addFence(){
       this.isAdding = true
     },
@@ -762,10 +771,12 @@ export default {
 </script>
 
 <style>
+
 .map {
-  width: 100%;
-  height: 78vh;
-}
+    width: 100%;
+    height: 78vh;
+  }
+  
 .selDevice{
   background-color: #7879FF;
   color:#ffffff;

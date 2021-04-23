@@ -1203,6 +1203,7 @@ a {
 
 .mo-chat-nav-active {
     font-size: 1.125rem !important;
+    color: #333333!important
 }
 
 .banner-custom {
@@ -1249,4 +1250,50 @@ a {
     .vjs-custom-skin > .video-js .vjs-big-play-button {
         font-size: 1.5em;
     }
+}
+
+.cus-divider{
+    width: 100%;
+    height: 5px;
+    background: #E0E0E0!important;
+}
+
+.mo-select-white-bg .v-input__control .v-input__slot {
+    box-shadow: none !important;
+    background: #ffffff !important;
+}
+
+.contact-alphabet{
+    /* transition: all ease 0.5s; */
+}
+.contact-alphabet.active{
+    background: #49d29e;
+    border-radius: 50%;
+    color: white;
+    position: relative;
+}
+.contact-alphabet.active::before{
+    content: '';
+    position: absolute;
+    left: -93px;
+    width: 65px;
+    height: 65px;
+    background-color: #b4b4b4;
+    border-radius: 50%;
+    border-top-right-radius: 0;
+    margin-top: -25px;
+    transform: rotate(45deg);
+}
+.contact-alphabet.active::after{
+    content: attr(data-before);
+    position: absolute;
+    left: -60px;
+    color: white;
+    font-size: 40px;
+    top: -23px;
+    transform: translateX(-50%);
+}
+
+.font-size-0-70{
+    font-size: 0.7rem;
 }

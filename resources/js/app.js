@@ -8,7 +8,7 @@ import common from './helper/common'
 import snackbarPlugin from '~/plugins/snackbar';
 import '@mdi/font/css/materialdesignicons.css'
 import zhHans from 'vuetify/es5/locale/zh-Hans'
-import BaiduMap from 'vue-baidu-map'
+
 Vue.mixin(common)
 
 import '~/plugins'
@@ -18,10 +18,7 @@ Vue.use(Vuetify);
 
 Vue.use(snackbarPlugin, { store })
 
-Vue.use(BaiduMap, {
-  /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */
-  ak: 'g7jEzA3TobDaY6a5tSyDbOEGYW3ErTgB'
-})
+
 import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');

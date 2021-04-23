@@ -2,7 +2,7 @@
   <v-container class="pa-0">
     <v-container v-if="$isMobile()" class="pa-0" >
       <v-row class="ma-0">
-        <v-col cols="12" class="d-flex align-center bg-secondary py-2" v-touch="{
+        <v-col cols="12" class="d-flex align-center bg-secondary py-1" v-touch="{
           left: () => swipe('Left'),
           right: () => swipe('Right'),
         }">
@@ -49,11 +49,11 @@
           </v-btn>
           </transition>
         </v-col>
-        <v-col cols="12" class="" >
-          <carousel v-if="isSchoolSpace" :key="bannerKey" class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplaySpeed="5000">
+        <v-col cols="12" class="py-2" >
+          <carousel v-if="isSchoolSpace" :key="bannerKey" class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplay="true" :autoplaySpeed="3500">
             <img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img"  @click="showDetailSchoolStory(story)" />
           </carousel>
-          <carousel v-else class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplaySpeed="5000">
+          <carousel v-else class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true" :autoplay="true" :autoplaySpeed="3500">
             <img :src="`${baseUrl}${story.classstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img" @click="showDetailClassStory(story)" />
           </carousel>
         </v-col>
@@ -161,7 +161,7 @@
           <p class="mb-0 ml-4 font-size-0-75">学校要闻</p>
         </v-col>
       </v-row>
-      <v-divider class="thick-border" light></v-divider>
+      <div class="cus-divider"></div>
       <v-row class="ma-0 pt-1" v-touch="{
         left: () => swipe('Left'),
         right: () => swipe('Right'),
