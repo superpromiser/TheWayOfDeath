@@ -1,5 +1,40 @@
 <template>
     <v-container class="pa-0 pb-16">
+        <v-container class="pa-0 bg-secondary position-sticky-top-0">
+            <v-row class="ma-0">
+                <v-col cols="12" class="d-flex align-center justify-space-between py-1">
+                    <transition name="page" mode="out-in">
+                        <v-text-field
+                            v-if="isSearching" key="1"
+                            solo
+                            clearable
+                            class="mo-select-gray-bg"
+                            v-model="searchKeyword"
+                            label="请输入您的搜索词"
+                            append-icon="mdi-check"
+                            @click:append="onSearch"
+                            prepend-inner-icon="mdi-magnify"
+                            hide-details
+                            color="#7879ff"
+                            dense 
+                        ></v-text-field>
+                        <p v-else key="2" class="mb-0 font-color-gray-heavy" style="padding: 7px 12px"> {{selectedSchoolItem.label}}</p>
+                    </transition>
+                    <transition name="page" mode="out-in">
+                    <v-btn icon v-if="isSearching" key="3" class="ml-3" @click="onFalseSearching">
+                        <v-icon>
+                        mdi-close
+                        </v-icon>
+                    </v-btn>
+                    <v-btn icon plain v-else key="4" class="ml-3" @click="isSearching = true">
+                        <v-icon size="30">
+                        mdi-magnify
+                        </v-icon>
+                    </v-btn>
+                    </transition>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container class="pa-0" v-for="(selectItems, i) in selectItemGroup" :key="i">
             <v-row class="ma-0">
                 <v-col cols="12">
@@ -333,10 +368,17 @@ export default {
                     },
                 ],
             },
-        ]
+        ],
+
+        isSearching: false,
+        searchKeyword: '',
     }),
 
     created(){
+        console.log("this.selectedSchoolItem", this.selectedSchoolItem);
+        if(this.selectedSchoolItem == null){
+            return this.$router.push({name: 'home'});
+        }
         if(this.isSchoolSpace == true){
             this.selectItemGroup = this.schoolContentItemList;
         }
@@ -376,6 +418,13 @@ export default {
                     this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
                 }
             }
+        },
+
+        onSearch(){
+        },
+        onFalseSearching(){
+            this.isSearching = false;
+            this.searchKeyword = '';
         },
     }
 

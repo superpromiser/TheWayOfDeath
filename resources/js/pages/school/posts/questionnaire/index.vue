@@ -1,13 +1,14 @@
 <template>
   <v-container class="ma-0 pa-0" v-if="$isMobile()">
-      <v-container v-if="postNew == true">
-        <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
-                <v-avatar class="" >
-                    <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/问卷.png`" alt="postItem" width="48" height="48" ></v-img>
-                </v-avatar>
-                <h2 class="ml-3">{{lang.questionnaire}}</h2>
-            </v-col>
+      <v-container v-if="postNew == true" class="pa-0">
+        <v-row class="ma-0 bg-secondary justify-center position-relative position-sticky-top-0" >
+            <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                mdi-chevron-left
+            </v-icon>
+            <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.questionnaire}}</p>
+            <v-btn @click="navToPreview" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                保存
+            </v-btn>
         </v-row>
         <v-row class="ma-0 mo-glow">
               <v-col cols="12" sm="6" md="4">
@@ -1083,6 +1084,10 @@ export default {
           this.newQuestionnaireData.viewList = this.returnSchoolTree(this.currentPath.params.schoolId).filter(function(el){return el.lessonId !== undefined && el.lessonId !== null}).slice()
         }
       })
+    },
+
+    navToPreview(){
+
     }
 
   }

@@ -2,7 +2,7 @@
   <v-container class="pa-0">
     <v-container v-if="$isMobile()" class="pa-0" >
       <v-row class="ma-0">
-        <v-col cols="12" class="d-flex align-center bg-secondary py-1" v-touch="{
+        <v-col cols="12" class="d-flex align-center bg-secondary py-1 position-sticky-top-0" v-touch="{
           left: () => swipe('Left'),
           right: () => swipe('Right'),
         }">
@@ -50,10 +50,10 @@
           </transition>
         </v-col>
         <v-col cols="12" class="py-2" >
-          <carousel v-if="isSchoolSpace" :key="bannerKey" class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplay="true" :autoplaySpeed="3500">
+          <carousel v-if="isSchoolSpace" :key="bannerKey" class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplay="true" :autoplaySpeed="1500">
             <img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img"  @click="showDetailSchoolStory(story)" />
           </carousel>
-          <carousel v-else class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true" :autoplay="true" :autoplaySpeed="3500">
+          <carousel v-else class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true" :autoplay="true" :autoplaySpeed="1500">
             <img :src="`${baseUrl}${story.classstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img" @click="showDetailClassStory(story)" />
           </carousel>
         </v-col>
@@ -76,7 +76,7 @@
               </v-col>
             </carousel>
             <carousel class="mb-3" v-else-if="chooseableItemGroup.length > 0" :key="carouselKey" :nav="false" :items="5" :loop="false" :dots="false">
-              <v-col class="pa-0 d-flex justify-center" v-for="(chooseableItem, i) in chooseableItemGroup" :key="i">
+              <v-col class="pa-0 d-flex justify-center" v-for="(chooseableItem, i) in chooseableItemGroup" :key="i" @click="selectItem(chooseableItem)">
                 <v-sheet tile class=" d-flex justify-center align-center">
                   <div class="text-center">
                     <v-img :src="`${baseUrl}${chooseableItem.imgUrl}`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>

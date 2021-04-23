@@ -1,7 +1,7 @@
 <template>
     <div class="position-fixed mo-bottom-nav-con">
         <v-bottom-navigation
-            v-model="value"
+            :value="value"
             :input-value="active"
             color="#7879ff"
             grow
@@ -27,10 +27,10 @@
             </v-btn>
         </v-bottom-navigation>
 
-        <v-btn v-if="isNewPost" fab dark depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff" @click="$router.go(-1)" >
+        <v-btn v-if="isNewPost" :ripple="false" fab dark depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff" @click="$router.go(-1)" >
             <v-icon> mdi-minus </v-icon>
         </v-btn>
-        <v-btn v-else fab dark depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff" @click="navToNewPost" >
+        <v-btn v-else fab dark :ripple="false" depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff" @click="navToNewPost" >
             <v-icon> mdi-plus </v-icon>
         </v-btn>
     </div>
@@ -43,11 +43,25 @@ export default {
         ...mapGetters({
             isSchoolSpace: 'mo/isSchoolSpace',
             selectedSchoolItem: 'mo/selectedSchoolItem',
-            user: 'auth/user'
+            user: 'auth/user',
+            value: 'mo/value',
+            isNewPost: 'mo/isNewPost'
         }),
+        // value: {
+        //     get() {
+        //         return this.$store.state.mo.value;
+        //     },
+        //     set(value) {
+        //             this.$store.dispatch('mo/onMoBottomNavValue', {
+        //             value: value,
+        //         })
+        //     }
+        // },
+
         currentPath(){
             return this.$route
-        }
+        },
+        
 
     },
     watch:{
@@ -58,35 +72,11 @@ export default {
         },
         currentPath:{
             handler(val){
-                if(val.name === "home"){
-                    this.value = 0
-                    this.isNewPost = false;
-                }
-                else if(val.name=="chatMobile" || val.name=="mochat.news" || val.name=="mochat.detail" || val.name=="mochat.contact"){
-                    this.value = 1
-                    this.isNewPost = false;
-                }
-                else if(val.name=="circle"){
-                    this.value = 2
-                    this.isNewPost = false;
-                }
-                else if(val.name=="profile.list"){
-                    this.value = 3
-                    this.isNewPost = false;
-                }
-                else if(val.name=="mo.newPost"){
-                    this.isNewPost = true;
+                if(val.name!=="home" && val.name!=="chatMobile" && val.name!=="mochat.news" && val.name!=="mochat.detail" && val.name!=="mochat.contact" && val.name!=="circle" && val.name!=="profile.list"){
                     let btnList = document.getElementsByClassName('mo-bottom-nav-btn-item');
                     for(let i = 0; i < btnList.length; i++){
                         btnList[i].classList.remove('v-btn--active');
-                    }
-                }
-                else{
-                    this.isNewPost = false;
-                    // this.value = -1
-                    let btnList = document.getElementsByClassName('mo-bottom-nav-btn-item');
-                    for(let i = 0; i < btnList.length; i++){
-                        btnList[i].classList.remove('v-btn--active');
+                        $(btnList[i]).removeClass('v-btn--active');
                     }
                 }
             },
@@ -96,9 +86,7 @@ export default {
     data: ()=> ({
         active: true,
         sheet: false,
-        value: 0,
         baseUrl: window.Laravel.base_url,
-        isNewPost: false,
     }),
 
     
@@ -139,19 +127,49 @@ export default {
             }
         },
         navToFirst(){
-            this.$router.push({name: "home"})
+            if(this.currentPath.name == 'home'){
+                return
+            }
+            else{
+                this.$store.dispatch('mo/onMoBottomNavValue', 0);
+                this.$router.push({name: "home"})
+            }
         },
         navToSecond(){
-            this.$router.push({name: "mochat.news"})
+            if(this.currentPath.name == 'mochat.news'){
+                return
+            }
+            else{
+                this.$store.dispatch('mo/onMoBottomNavValue', 1);
+                this.$router.push({name: "mochat.news"})
+            }
         },
         navToThird(){
-            this.$router.push({name: "circle"})
+            if(this.currentPath.name == 'circle'){
+                return
+            }
+            else{
+                this.$store.dispatch('mo/onMoBottomNavValue', 2);
+                this.$router.push({name: "circle"})
+            }
         },
         navToFourth(){
-            this.$router.push({name:"profile.list"})
+            if(this.currentPath.name == 'profile.list'){
+                return
+            }
+            else{
+                this.$store.dispatch('mo/onMoBottomNavValue', 3);
+                this.$router.push({name:"profile.list"})
+            }
         },
         navToNewPost(){
-            this.$router.push({name:"mo.newPost"})
+            if(this.currentPath.name == 'mo.newPost'){
+                return
+            }
+            else{
+                this.$store.dispatch('mo/onMoBottomNavValue', -1);
+                this.$router.push({name:"mo.newPost"})
+            }
         }
     }
 }
