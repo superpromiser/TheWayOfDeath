@@ -398,6 +398,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('interClassStory', 'InterClassStoryController@createInterClassStory');
     Route::put('interClassStory', 'InterClassStoryController@updateInterClassStory');
     Route::delete('interClassStory', 'InterClassStoryController@deleteInterClassStory');
+
+    //fence
+    Route::get('fence', 'FenceController@getFenceData');
+    Route::post('fence', 'FenceController@createFenceData');
+    Route::put('fence', 'FenceController@updateFenceData');
+    Route::delete('fence', 'FenceController@deleteFenceData');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {
