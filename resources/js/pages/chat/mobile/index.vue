@@ -20,7 +20,7 @@
                 prepend-inner-icon="mdi-magnify"
                 hide-details
             ></v-text-field>
-            <v-tabs v-model="moChatTab" color="#666666" v-else background-color="#fffff">
+            <v-tabs class="mo-chat-contact-tab" v-model="moChatTab" color="#666666" v-else background-color="#fffff">
                 <v-tab @click="navToChatNews" :ripple="false" active-class="mo-chat-nav-active">消息</v-tab>
                 <v-tab @click="navToChatContact" :ripple="false" active-class="mo-chat-nav-active"> 联系人</v-tab>
             </v-tabs>

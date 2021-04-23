@@ -3,11 +3,38 @@
     left: () => swipe('Left'),
     right: () => swipe('Right'),
   }" v-if="isSchoolSpace">
-    <v-row class="ma-0 bg-secondary justify-center position-sticky-top-0" >
-      <p class="mb-0 font-size-0-95 font-weight-bold py-4">圈子</p>
-      <v-icon class="position-absolute put-align-center" style="right: 12px; top:50%">
-          mdi-magnify
-      </v-icon>
+    <v-row class="ma-0 pa-0 position-sticky-top-0" >
+      <v-col cols="12" class="d-flex align-center bg-secondary py-1 position-relative">
+          <transition name="page" mode="out-in">
+            <v-text-field
+              v-if="isSearching" key="1"
+              solo
+              clearable
+              class="mo-select-gray-bg"
+              v-model="searchKeyword"
+              label="请输入您的搜索词"
+              append-icon="mdi-check"
+              @click:append="onSearch"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+              color="#7879ff"
+              dense 
+            ></v-text-field>
+            <p v-else key="2" class="mx-auto mb-0 font-color-gray-heavy" style="padding:7px;">圈子</p>
+          </transition>
+          <transition name="page" mode="out-in">
+          <v-btn icon v-if="isSearching" key="3" class="ml-3" @click="onFalseSearching">
+            <v-icon>
+              mdi-close
+            </v-icon>
+          </v-btn>
+          <v-btn icon plain v-else key="4" class="position-absolute put-align-center " style="right:16px; top:50%;" @click="isSearching = true">
+            <v-icon size="30">
+              mdi-magnify
+            </v-icon>
+          </v-btn>
+          </transition>
+        </v-col>
     </v-row>
     <v-row class="ma-0">
       <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
@@ -260,6 +287,10 @@ export default {
       },
       contentList: [],
       lang,
+
+      isSearching: false,
+      searchKeyword: '',
+
       //infinit loading
       pageOfContent: 1,
       lastPageOfContent: 0,
@@ -281,6 +312,12 @@ export default {
     },
 
     methods:{
+      onSearch(){
+      },
+      onFalseSearching(){
+        this.isSearching = false;
+        this.searchKeyword = '';
+      },
       swipe (direction) {
         if(direction == "Left"){
           this.$router.push({name: 'profile.list'});

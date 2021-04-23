@@ -19,7 +19,7 @@
     <v-main v-else class="bg-white">
       <child />
     </v-main>
-    <MoBottomNav v-if="$isMobile()" />
+    <MoBottomNav v-if="$isMobile() && !isPostOrDetail" />
     <Snackbar></Snackbar>
   </v-app>
 </template>
@@ -34,6 +34,55 @@ import Drawer from '~/components/Drawer'
 export default {
   name: 'MainLayout',
 
+  data: ()=> ({
+    isPostOrDetail: false,
+  }),
+
+  computed:{
+    currentPath(){
+      return this.$route
+    }
+  },
+
+  watch:{
+    currentPath:{
+      handler(val){
+        if ((val.path.includes('post')&&val.path.includes('schoolSpace')) || (val.path.includes('post')&&val.path.includes('classSpace')) || (val.path.includes('detail')&&val.path.includes('schoolSpace'))){
+          this.isPostOrDetail = true;
+        }
+        else{
+          this.isPostOrDetail = false;
+        }
+        
+        if(val.name === "home"){
+          this.$store.dispatch('mo/onMoBottomNavValue', 0);
+          this.$store.dispatch('mo/onMoBottomNavIsNewPost', false);
+        }
+        else if(val.name=="chatMobile" || val.name=="mochat.news" || val.name=="mochat.detail" || val.name=="mochat.contact"){
+          this.$store.dispatch('mo/onMoBottomNavValue', 1);
+          this.$store.dispatch('mo/onMoBottomNavIsNewPost', false);
+        }
+        else if(val.name=="circle"){
+          this.$store.dispatch('mo/onMoBottomNavValue', 2);
+          this.$store.dispatch('mo/onMoBottomNavIsNewPost', false);
+        }
+        else if(val.name=="profile.list"){
+          this.$store.dispatch('mo/onMoBottomNavValue', 3);
+          this.$store.dispatch('mo/onMoBottomNavIsNewPost', false);
+        }
+        else if(val.name=="mo.newPost"){
+          this.$store.dispatch('mo/onMoBottomNavValue', -1);
+          this.$store.dispatch('mo/onMoBottomNavIsNewPost', true);
+        }
+        else{
+          this.$store.dispatch('mo/onMoBottomNavValue', -1);
+          this.$store.dispatch('mo/onMoBottomNavIsNewPost', false);
+        }
+      },
+      deep: true
+    }
+  },
+  
   components: {
     LoggedNavbar,
     LoggedFooter,

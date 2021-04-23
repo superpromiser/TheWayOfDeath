@@ -10,6 +10,10 @@ export const state = {
 
   schoolStoryList : null,
   classStoryList : null,
+
+  //moBottomNav
+  value: 0,
+  isNewPost: false,
 }
 
 // getters
@@ -23,6 +27,9 @@ export const getters = {
 
   schoolStoryList: state => state.schoolStoryList,
   classStoryList: state => state.classStoryList,
+
+  value: state => state.value,
+  isNewPost: state => state.isNewPost,
 }
 
 // mutations
@@ -51,6 +58,12 @@ export const mutations = {
     [types.CLASS_STORY_LIST] (state,  classStoryList ) {
         state.classStoryList = classStoryList
     },
+    [types.MO_BOTTOM_NAV_VALUE] (state,  value ) {
+        state.value = value
+    },
+    [types.IS_NEW_POST] (state,  isNewPost ) {
+        state.isNewPost = isNewPost
+    },
 }
 
 // actions
@@ -78,5 +91,11 @@ export const actions = {
     },
     onClassStoryList ({ commit }, payload) {
         commit(types.CLASS_STORY_LIST, payload)
+    },
+    onMoBottomNavValue ({ commit }, payload) {
+        commit(types.MO_BOTTOM_NAV_VALUE, payload)
+    },
+    onMoBottomNavIsNewPost ({ commit }, payload) {
+        commit(types.IS_NEW_POST, payload)
     },
 }
