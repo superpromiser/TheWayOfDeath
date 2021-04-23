@@ -27,15 +27,25 @@
               class="mx-2"
               @click="addFence"
           >
-              add
+              <span v-if="isAdding == false">添加</span>
+              <span v-else>加...</span> 
           </v-btn>
           <v-btn
               tile
               dark
+              class="mx-2"
               color="#F19861"
-              @click="saveFence"
+              @click="familyModal = true"
           >
-              save
+              亲情号码
+          </v-btn>
+          <v-btn
+              tile
+              dark
+              color="#7879FF"
+              @click="trackModal = true"
+          >
+              轨迹回放
           </v-btn>
         </v-col>
       </v-row>
@@ -57,7 +67,7 @@
               <bm-polygon :path="polygonPathData.location" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" @click="selPolygon(polygonPathData,i)" :editing="true" @lineupdate="updatePolygonPath"/>
           </div>
           <bm-polygon :path="polygonPath" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="true" @lineupdate="updatePolygonPath"/>
-          
+          <bm-polyline :path="trackPath" stroke-color="red" :stroke-opacity="0.5" :stroke-weight="2"></bm-polyline>
           <bm-marker :position="{lng: userlng, lat: userlat}" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
               <!-- <bm-label content="Tiananmen" :labelStyle="{color: 'red', fontSize : '24px'}" :offset="{width: -35, height: 30}"/> -->
           </bm-marker>
@@ -69,20 +79,204 @@
         </baidu-map>
       </v-col>
     </v-row>
-      
+    <!-- fence modal -->
+    <v-row justify="center">
+      <v-dialog
+        v-model="fenceModal"
+        persistent
+        max-width="600px"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="headline">添加围栏</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                
+                <v-col cols="12">
+                  <v-text-field
+                    label="围栏名称*"
+                    required
+                    v-model="fenceData.fenceName"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="围栏类型*"
+                    v-model="fenceData.fenceType"
+                    required
+                  ></v-text-field>
+                </v-col>
+                
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="fenceModal = false"
+            >
+              关闭
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              :loading="isSaving"
+              @click="saveFence"
+            >
+              保存
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+    <!-- phoneNumber modal -->
+    <v-row justify="center">
+      <v-dialog
+        v-model="familyModal"
+        persistent
+        max-width="600px"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="headline">亲情号码</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                
+                <v-col cols="12">
+                  <v-text-field
+                    label="号码1*"
+                    required
+                    v-model="familyData.phone1"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="号码2*"
+                    v-model="familyData.phone2"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="号码3*"
+                    v-model="familyData.phone3"
+                    required
+                  ></v-text-field>
+                </v-col>
+                
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="familyModal = false"
+            >
+              关闭
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              :loading="isSaving"
+              @click="instructionSend"
+            >
+              保存
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+      <!-- trackModal  -->
+      <v-row justify="center">
+      <v-dialog
+        v-model="trackModal"
+        persistent
+        max-width="600px"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="headline">亲情号码</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="6">
+                  <v-datetime-picker 
+                      label="开始时间" 
+                      v-model="trackData.begin_time"
+                      :okText='lang.ok'
+                      :clearText='lang.cancel'
+                  > </v-datetime-picker>
+                </v-col>
+                <v-col cols="6">
+                  <v-datetime-picker 
+                      label="最后期限" 
+                      v-model="trackData.end_time"
+                      :okText='lang.ok'
+                      :clearText='lang.cancel'
+                  > </v-datetime-picker>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="trackModal = false"
+            >
+              关闭
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              :loading="isSaving"
+              @click="getDeviceTrack"
+            >
+              保存
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-import {authTokenGet, getData,getFence,createFence,deleteFence} from '~/api/fence'
+import {getData,getFence,createFence,deleteFence} from '~/api/fence'
+import lang from '~/helper/lang.json'
 import {mapGetters,} from 'vuex'
+import axios from 'axios'
 export default {
 
   data:()=>({
     alarm:'',
     fenceData:{
         fenceName:'',
-        fenceType:'水库'
+        fenceType:'',
+        location:[],
+        imei:'',
+    },
+    lang,
+    familyModal:false,
+    familyData:{
+      phone1:'',
+      phone2:'',
+      phone3:'',
+    },
+    trackModal:false,
+    trackData:{
+      begin_time:'',
+      end_time:''
     },
     allPolygonPath:[],
     polygonPath: [],
@@ -118,6 +312,7 @@ export default {
     fenceModal:false,
     fenceCheckFlag:null,
     realTrackingFlag:false,
+    trackPath:[],
     baseUrl:window.Laravel.base_url,
   }),
   
@@ -150,18 +345,27 @@ export default {
     addPolygonPoint (lng,lat) {
         this.polygonPath.push({lng: lng, lat: lat})
     },
-    addNewPolygon(){
-        this.isAdding = !this.isAdding
-        if(this.isAdding == false){
-            this.allPolygonPath.push(this.polygonPath)
-        }
-    },
-    saveFence(){
-      console.log(this.allPolygonPath)
+    
+    async saveFence(){
+      this.fenceData.imei = this.imeiStr
+      this.fenceData.location = this.polygonPath
+      console.log(this.fenceData)
+      this.isSaving = true
+      await createFence(this.fenceData).then(res=>{
+        console.log(res.data)
+        this.isSaving = false
+        this.allPolygonPath.push(res.data)
+        this.fenceModal = false
+      }).catch(err=>{
+        console.log(err.response)
+        this.isSaving = false
+      })
     },
     drawNewpolygon(e){
+        if(this.polygonPath.length < 3){
+          return
+        }
         this.fenceModal = true
-        this.isAdding = false
     },
     selPolygon(fence,i){
         for(let i=0;i<this.allPolygonPath.length;i++){
@@ -204,7 +408,7 @@ export default {
       let method = 'jimi.oauth.token.get'
       let sign = this.generateSign(method)
       this.isLoading = true
-      await authTokenGet({
+      await getData({
           sign:sign,
           timestamp:this.time,
           v:this.v,
@@ -269,6 +473,7 @@ export default {
         target:this.user_id
       }).then(res=>{
         this.userDeviceList = res.data.result
+        this.selDevice(res.data.result[0])
         console.log('this.userDeviceList',this.userDeviceList)
       }).catch(err=>{
         console.log(err.response)
@@ -354,8 +559,201 @@ export default {
 
     async getFenceData(){
       console.log(this.imeiStr)
-    }
+      await getFence({imei:this.imeiStr}).then(res=>{
+        this.allPolygonPath = res.data
+      }).catch(err=>{
+        console.log(err.response)
+      })
+    },
 
+    getInstructionList(){
+      var md5 = require('md5');
+      var moment= require('moment') 
+      let paramPut = {}
+      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
+      this.user_pwd_md5 = md5(this.userPass)
+
+      paramPut.method = 'jimi.open.instruction.list'
+      paramPut.timestamp = this.time
+      paramPut.app_key = this.appKey
+      paramPut.sign_method = this.sign_method
+      paramPut.v = this.v
+      paramPut.format = this.format
+      paramPut.access_token = this.accessToken
+      paramPut.imei = this.imeiStr
+      let ordered = {}
+      Object.keys(paramPut).sort().forEach(function (key){
+          ordered[key] = paramPut[key]
+      })
+      let str = Object.keys(ordered).map(function(key){
+          return "" + key + ordered[key]
+      }).join("")
+      let md5Secret = md5 (this.appSecret + str + this.appSecret)
+      let upper = md5Secret.toUpperCase()
+      getData({
+        sign:upper,
+        timestamp:this.time,
+        v:this.v,
+        app_key:this.appKey,
+        method:"jimi.open.instruction.list",
+        format:this.format,
+        sign_method:this.sign_method,
+        access_token:this.accessToken,
+        imei:this.imeiStr,
+      }).then(res=>{
+        console.log(res.data)
+      }).catch(err=>{
+        console.log(err.response)
+      })
+    },
+
+    instructionSend(){
+      var md5 = require('md5');
+      var moment= require('moment') 
+      let paramPut = {}
+      let inst_param_json = '{"inst_id":"149","inst_template":"FN&&A&&{0}&&{1}&&{2}&&{3}&&{4}&&{5}##","params":["名称1","' + this.familyData.phone1 + '","名称2","'+ this.familyData.phone2 +'","名称3","' + this.familyData.phone3 + '"],"is_cover":false}'
+      // let inst_param_json = '{"inst_id":"149","inst_template":"FN&&A&&{0}&&{1}&&{2}&&{3}&&{4}&&{5}##","params":["名称1","15640052113","名称2","15640052116","名称3","15640052117"],"is_cover":false}'
+      console.log(inst_param_json)
+      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
+      this.user_pwd_md5 = md5(this.userPass)
+
+      paramPut.method = 'jimi.open.instruction.send'
+      paramPut.timestamp = this.time
+      paramPut.app_key = this.appKey
+      paramPut.sign_method = this.sign_method
+      paramPut.v = this.v
+      paramPut.format = this.format
+      paramPut.access_token = this.accessToken
+      paramPut.imei = this.imeiStr
+      paramPut.inst_param_json = inst_param_json
+      let ordered = {}
+      Object.keys(paramPut).sort().forEach(function (key){
+          ordered[key] = paramPut[key]
+      })
+      let str = Object.keys(ordered).map(function(key){
+          return "" + key + ordered[key]
+      }).join("")
+      let md5Secret = md5 (this.appSecret + str + this.appSecret)
+      let upper = md5Secret.toUpperCase()
+
+      axios.post('https://cors-anywhere.herokuapp.com/http://open.aichezaixian.com/route/rest',null,{params:{
+        sign:upper,
+        timestamp:this.time,
+        v:this.v,
+        app_key:this.appKey,
+        method:"jimi.open.instruction.send",
+        format:this.format,
+        sign_method:this.sign_method,
+        access_token:this.accessToken,
+        imei:this.imeiStr,
+        inst_param_json:inst_param_json
+      }}).then(res=>{
+        console.log(res.data)
+        this.familyModal = false
+      }).catch(err=>{
+        console.log(err.response)
+        this.familyModal = false
+      })
+    },
+
+    instructionResult(){
+      var md5 = require('md5');
+      var moment= require('moment') 
+      let paramPut = {}
+      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
+      this.user_pwd_md5 = md5(this.userPass)
+
+      paramPut.method = 'jimi.open.instruction.result'
+      paramPut.timestamp = this.time
+      paramPut.app_key = this.appKey
+      paramPut.sign_method = this.sign_method
+      paramPut.v = this.v
+      paramPut.format = this.format
+      paramPut.access_token = this.accessToken
+      paramPut.imei = this.imeiStr
+      let ordered = {}
+      Object.keys(paramPut).sort().forEach(function (key){
+          ordered[key] = paramPut[key]
+      })
+      let str = Object.keys(ordered).map(function(key){
+          return "" + key + ordered[key]
+      }).join("")
+      let md5Secret = md5 (this.appSecret + str + this.appSecret)
+      let upper = md5Secret.toUpperCase()
+      getData({
+        sign:upper,
+        timestamp:this.time,
+        v:this.v,
+        app_key:this.appKey,
+        method:"jimi.open.instruction.result",
+        format:this.format,
+        sign_method:this.sign_method,
+        access_token:this.accessToken,
+        imei:this.imeiStr,
+      }).then(res=>{
+        console.log(res.data)
+      }).catch(err=>{
+        console.log(err.response)
+      })
+    },
+    
+    getDeviceTrack(){
+      console.log(this.trackData)
+      console.log(this.TimeViewSam(this.trackData.begin_time))
+      var md5 = require('md5');
+      var moment= require('moment') 
+      let paramPut = {}
+      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"))
+      this.user_pwd_md5 = md5(this.userPass)
+
+      paramPut.method = 'jimi.device.track.list'
+      paramPut.timestamp = this.time
+      paramPut.app_key = this.appKey
+      paramPut.sign_method = this.sign_method
+      paramPut.v = this.v
+      paramPut.format = this.format
+      paramPut.access_token = this.accessToken
+      paramPut.imei = this.imeiStr
+      paramPut.begin_time = this.TimeViewSam(this.trackData.begin_time)
+      paramPut.end_time = this.TimeViewSam(this.trackData.end_time)
+      paramPut.map_type = 'BAIDU'
+      let ordered = {}
+      Object.keys(paramPut).sort().forEach(function (key){
+          ordered[key] = paramPut[key]
+      })
+      let str = Object.keys(ordered).map(function(key){
+          return "" + key + ordered[key]
+      }).join("")
+      let md5Secret = md5 (this.appSecret + str + this.appSecret)
+      let upper = md5Secret.toUpperCase()
+      getData({
+        sign:upper,
+        timestamp:this.time,
+        v:this.v,
+        app_key:this.appKey,
+        method:"jimi.device.track.list",
+        format:this.format,
+        sign_method:this.sign_method,
+        access_token:this.accessToken,
+        imei:this.imeiStr,
+        begin_time:this.TimeViewSam(this.trackData.begin_time),
+        end_time:this.TimeViewSam(this.trackData.end_time),
+        map_type:'BAIDU'
+      }).then(res=>{
+        console.log(res.data)
+        res.data.result.map(data=>{
+          let el = {}
+          el.lng = data.lng
+          el.lat = data.lat
+          this.trackPath.push(el)
+          this.trackModal = false
+        })
+        // this.trackPath = res.data
+        console.log(this.trackPath)
+      }).catch(err=>{
+        console.log(err.response)
+      })
+    }
 
 
   }
