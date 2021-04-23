@@ -320,7 +320,7 @@ export default {
     phoneNumber : '',
     password : '',
     show1 : false,
-    agreeTerms : false,
+    agreeTerms : true,
     remember : false,
     rules : {
       required: value => !!value || '必需的。',

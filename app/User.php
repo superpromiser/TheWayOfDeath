@@ -46,7 +46,8 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
         'classItem',
         'wechat',
         'qq',
-        'studentId'
+        'studentId',
+        'groupArr'
     ];
 
     /**
@@ -65,6 +66,7 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'groupArr' => 'array'
     ];
 
     /**
