@@ -28,7 +28,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <v-divider light class="thick-border"></v-divider>
+        <div class="cus-divider"></div>
         <v-row class="ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('phoneNumber')">
                 <div class="d-flex align-center">
@@ -42,7 +42,7 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <v-divider light class="thick-border"></v-divider>
+        <div class="cus-divider"></div>
         <v-row class="ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('wechat')">
                 <div class="d-flex align-center">
@@ -98,7 +98,7 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <v-divider light class=" thick-border"></v-divider>
+        <div class="cus-divider"></div>
         <v-row class="ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('schoolshare')">
                 <div class="d-flex align-center">
@@ -126,7 +126,7 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <v-divider light class=" thick-border"></v-divider>
+        <div class="cus-divider"></div>
         <v-row class="ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
@@ -147,7 +147,7 @@
                     <v-icon color="#eb5846">
                         mdi-logout
                     </v-icon>
-                    <p class="mb-0 font-size-0-75 ml-3">登出</p>
+                    <p class="mb-0 font-size-0-75 ml-3">退出</p>
                 </div>
                 <v-icon>
                     mdi-chevron-right

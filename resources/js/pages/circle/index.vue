@@ -3,6 +3,12 @@
     left: () => swipe('Left'),
     right: () => swipe('Right'),
   }" v-if="isSchoolSpace">
+    <v-row class="ma-0 bg-secondary justify-center position-sticky-top-0" >
+      <p class="mb-0 font-size-0-95 font-weight-bold py-4">圈子</p>
+      <v-icon class="position-absolute put-align-center" style="right: 12px; top:50%">
+          mdi-magnify
+      </v-icon>
+    </v-row>
     <v-row class="ma-0">
       <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
         <v-row class="pa-0 ma-0" v-if="content.contentId == 1 && content.questionnaires">
@@ -98,6 +104,12 @@
     left: () => swipe('Left'),
     right: () => swipe('Right'),
   }">
+    <v-row class="ma-0 bg-secondary justify-center position-sticky-top-0" >
+      <p class="mb-0 font-size-0-95 font-weight-bold py-4">圈子</p>
+      <v-icon class="position-absolute put-align-center" style="right: 12px; top:50%">
+          mdi-magnify
+      </v-icon>
+    </v-row>
     <v-row class="ma-0">
       <v-container  v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id">
         <v-row class="pa-0 ma-0" v-if="content.contentId == 12 && content.questionnaires">

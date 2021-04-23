@@ -26,7 +26,11 @@
                 <v-icon>mdi-account</v-icon>
             </v-btn>
         </v-bottom-navigation>
-        <v-btn fab dark depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff" @click="navToNewPost" >
+
+        <v-btn v-if="isNewPost" fab dark depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff" @click="$router.go(-1)" >
+            <v-icon> mdi-minus </v-icon>
+        </v-btn>
+        <v-btn v-else fab dark depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff" @click="navToNewPost" >
             <v-icon> mdi-plus </v-icon>
         </v-btn>
     </div>
@@ -56,17 +60,29 @@ export default {
             handler(val){
                 if(val.name === "home"){
                     this.value = 0
+                    this.isNewPost = false;
                 }
                 else if(val.name=="chatMobile" || val.name=="mochat.news" || val.name=="mochat.detail" || val.name=="mochat.contact"){
                     this.value = 1
+                    this.isNewPost = false;
                 }
                 else if(val.name=="circle"){
                     this.value = 2
+                    this.isNewPost = false;
                 }
                 else if(val.name=="profile.list"){
                     this.value = 3
+                    this.isNewPost = false;
+                }
+                else if(val.name=="mo.newPost"){
+                    this.isNewPost = true;
+                    let btnList = document.getElementsByClassName('mo-bottom-nav-btn-item');
+                    for(let i = 0; i < btnList.length; i++){
+                        btnList[i].classList.remove('v-btn--active');
+                    }
                 }
                 else{
+                    this.isNewPost = false;
                     // this.value = -1
                     let btnList = document.getElementsByClassName('mo-bottom-nav-btn-item');
                     for(let i = 0; i < btnList.length; i++){
@@ -82,6 +98,7 @@ export default {
         sheet: false,
         value: 0,
         baseUrl: window.Laravel.base_url,
+        isNewPost: false,
     }),
 
     
