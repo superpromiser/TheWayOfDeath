@@ -168,6 +168,7 @@ export default [
   {path:'/schoolSpace/:schoolId/application/announcement',name:'schoolSpace.applications.announcement',component:page('school/applications/announcement/index.vue')},
   {path:'/schoolSpace/:schoolId/application/share',name:'schoolSpace.applications.share',component:page('school/applications/share/index.vue')},
   {path:'/schoolSpace/:schoolId/application/regName',name:'schoolSpace.applications.regname',component:page('school/applications/regName/index.vue')},
+  {path:'/schoolSpace/:schoolId/application/homeVisit',name:'schoolSpace.applications.homeVisit',component:page('school/applications/homeVisit/index.vue')},
   {path:'/schoolSpace/:schoolId/application/homework',name:'schoolSpace.applications.homework',component:page('school/applications/homework/index.vue')},
   {path:'/schoolSpace/:schoolId/application/bulletinboard',name:'schoolSpace.applications.bulletinboard',component:page('school/applications/bulletinboard/index.vue')},
   {path:'/schoolSpace/:schoolId/application/shiftMng',name:'schoolSpace.applications.shiftMng',component:page('school/applications/shiftMng/index.vue')},
