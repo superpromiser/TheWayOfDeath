@@ -79,7 +79,6 @@
         </baidu-map>
       </v-col>
     </v-row>
-<<<<<<< HEAD
     <!-- fence modal -->
     <v-row justify="center">
       <v-dialog
@@ -249,8 +248,6 @@
         </v-card>
       </v-dialog>
     </v-row>
-=======
->>>>>>> b7f8f5e4b13fd4763bd12668dffe2b6652cc8004
   </v-container>
 </template>
 

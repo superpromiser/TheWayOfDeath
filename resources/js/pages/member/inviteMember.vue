@@ -104,7 +104,7 @@ export default {
     if(this.currentPath.query.otherLesson){
         lessonId = this.currentPath.query.otherLesson
     }else{
-        lessonId = this.currentPath.params.lessonId
+        // lessonId = this.currentPath.params.lessonId
     }
     await getSchoolMemberList({
       schoolId:this.currentPath.params.schoolId,

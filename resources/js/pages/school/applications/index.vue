@@ -170,7 +170,7 @@ export default {
                         color : "#DA7042",
                         title : "家访",//가정방문
                         imgUrl : "/asset/img/newIcon/家访.png",
-                        path : "posts.homevisit"
+                        path : "schoolSpace.applications.homevisit"
                     },
                     {
                         color : "#7180EA",

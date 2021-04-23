@@ -1,25 +1,18 @@
 <template>
-    <v-container>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
+    <v-container class="pa-0">
+        <v-container class="banner-custom mb-10 z-index-2">
             <v-row>
-                <v-col cols="12" class="justify-space-between d-flex ma-0 align-center">
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
                     <a @click="$router.go(-1)">
                         <v-icon size="70">
                             mdi-chevron-left
                         </v-icon>
                     </a>
-                <!-- </v-col>
-                <v-col> -->
-                    <!-- <v-avatar
-                        class="ma-3 ml-3"
-                        size="50"
-                        tile
-                    >
-                        <v-img :src="`${baseUrl}/asset/img/newIcon/问卷.png`" alt="postItem" ></v-img>
-                    </v-avatar> -->
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
                     <h2>{{lang.announcement}}</h2>
-                <!-- </v-col>
-                <v-col> -->
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
                         tile
                         color="success"
@@ -33,10 +26,10 @@
                     </v-btn>
                 </v-col>
             </v-row>
-        </v-banner>
+        </v-container>
         <!-- <v-divider class="thick-border"></v-divider> -->
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
-            <v-row class="pa-0 mt-1">
+            <v-row class="px-5 mt-1">
                 <AnouncementPost :content="content"></AnouncementPost>
                 <FooterPost :footerInfo='content'></FooterPost>
             </v-row>
