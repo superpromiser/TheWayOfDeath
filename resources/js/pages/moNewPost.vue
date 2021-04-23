@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-0 pb-12">
+    <v-container class="pa-0 pb-16">
         <v-container class="pa-0" v-for="(selectItems, i) in selectItemGroup" :key="i">
             <v-row class="ma-0">
                 <v-col cols="12">
@@ -10,7 +10,7 @@
                     <p class="font-size-0-75 pt-1 mb-0">{{item.title}}</p>
                 </v-col>
             </v-row >
-            <v-divider class="thick-border" light></v-divider>
+            <div class="cus-divider"></div>
         </v-container>
     </v-container>
 </template>
