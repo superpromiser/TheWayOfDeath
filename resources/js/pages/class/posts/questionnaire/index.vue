@@ -23,7 +23,7 @@
                   <v-text-field
                       color="#7879ff"
                       v-model="newQuestionnaireData.description"
-                      label="说明（选填）"
+                      label="说明"
                       hide-details
                       class="mt-0 pt-0"
                   ></v-text-field>
@@ -34,7 +34,7 @@
                   md="4"
                   >
                   <v-datetime-picker 
-                      label="最后期限" 
+                      label="截止时间" 
                       v-model="newQuestionnaireData.deadline"
                       :okText='lang.ok'
                       :clearText='lang.cancel'
@@ -359,7 +359,7 @@
                     <v-text-field
                         solo
                         v-model="newQuestionnaireData.description"
-                        label="说明（选填）"
+                        label="说明"
                         hide-details
                     ></v-text-field>
                 </v-col>
@@ -369,7 +369,7 @@
                     md="4"
                     >
                     <v-datetime-picker 
-                      label="最后期限" 
+                      label="截止时间" 
                       v-model="newQuestionnaireData.deadline"
                       :okText='lang.ok'
                       :clearText='lang.cancel'

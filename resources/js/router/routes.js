@@ -24,6 +24,9 @@ export default [
   //circle
   { path: '/circle', name: 'circle', component: page('circle/index.vue') },
 
+  //mo post preview
+  { path: '/schoolSpace/:schoolId/post/:contentType/preview',name: 'schoolPost.preview', component: page('preview.vue') },
+
   //chat mobile
   { path: '/chat/mobile', name: 'chatMobile', component: page('chat/mobile/index.vue'),
       children : [

@@ -14,6 +14,9 @@ export const state = {
   //moBottomNav
   value: 0,
   isNewPost: false,
+
+  //preview
+  previewData: null,
 }
 
 // getters
@@ -30,6 +33,8 @@ export const getters = {
 
   value: state => state.value,
   isNewPost: state => state.isNewPost,
+
+  previewData: state => state.previewData,
 }
 
 // mutations
@@ -64,6 +69,9 @@ export const mutations = {
     [types.IS_NEW_POST] (state,  isNewPost ) {
         state.isNewPost = isNewPost
     },
+    [types.PREVIEW_DATA] (state,  previewData ) {
+        state.previewData = previewData
+    },
 }
 
 // actions
@@ -97,5 +105,8 @@ export const actions = {
     },
     onMoBottomNavIsNewPost ({ commit }, payload) {
         commit(types.IS_NEW_POST, payload)
+    },
+    onPreviewData ({ commit }, payload) {
+        commit(types.PREVIEW_DATA, payload)
     },
 }

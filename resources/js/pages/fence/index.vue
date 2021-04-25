@@ -218,7 +218,7 @@
                 </v-col>
                 <v-col cols="6">
                   <v-datetime-picker 
-                      label="最后期限" 
+                      label="截止时间" 
                       v-model="trackData.end_time"
                       :okText='lang.ok'
                       :clearText='lang.cancel'

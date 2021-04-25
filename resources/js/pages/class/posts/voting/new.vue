@@ -59,7 +59,7 @@
                         v-model="votingData.deadline"
                         prepend-inner-icon="mdi-calendar"
                         readonly
-                        label="最后期限"
+                        label="截止时间"
                         v-bind="attrs"
                         v-on="on"
                         hide-details
