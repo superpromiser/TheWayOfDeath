@@ -1255,7 +1255,7 @@ a {
 
 .cus-divider{
     width: 100%;
-    height: 5px;
+    height: 8px;
     background: #E0E0E0!important;
 }
 
@@ -1344,4 +1344,8 @@ a {
     .theme--light.v-text-field > .v-input__control > .v-input__slot:before{
         border-color: rgba(0, 0, 0, 0.22)!important;
     }
+}
+
+.pb-10-px{
+    padding-bottom: 10px!important;
 }
