@@ -52,5 +52,7 @@
     "requireDeadline": "截止时间不能为空",
     "requireMember": "参与人员不能为空",
     "requireContent": "内容不能为空",
-    "requireDeadlineOrder": "截止时间不能早于当前时间"
+    "requireDeadlineOrder": "截止时间不能早于当前时间",
+    "requireVotingType": "请指定投票格式",
+    "requireVotingMax": "请选择每人投票上限"
 }
