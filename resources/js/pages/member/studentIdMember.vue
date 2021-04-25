@@ -57,8 +57,7 @@
 </template>
 
 <script>
-import {getLessonUserList} from '~/api/user';
-import {createStudentIdUser} from '~/api/group'
+import {createStudentIdUser,getAllGroupMember} from '~/api/group'
 import lang from '~/helper/lang.json'
 export default {
     data:()=>({
@@ -76,11 +75,12 @@ export default {
     },
     created(){
         this.isLoading = true
-        getLessonUserList({
+        getAllGroupMember({
+            schoolId:this.currentPath.params.schoolId,
             lessonId:this.currentPath.params.lessonId,
         }).then(res=>{
             console.log(res.data)
-            this.userList = res.data 
+            this.userList = res.data.students 
             this.isLoading = false
         }).catch(err=>{
             console.log(err.response)

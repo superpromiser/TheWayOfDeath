@@ -111,35 +111,34 @@
         </v-row>
     </v-container>
     <v-container class="pa-0" v-else>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <v-avatar
-                    class="ma-3 ml-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/请假.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>请假</h2>
-            </div>
-            <template v-slot:actions>
-            <v-btn
-                dark
-                color="#49d29e"
-                class="mr-md-8"
-                tile
-                :loading="isLoading"
-                @click="postVacationData"
-            >
-                提交
-            </v-btn>
-            </template>
-        </v-banner>
+        <v-container class="banner-custom mb-10 z-index-2">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>请假</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        tile
+                        color="success"
+                        class="mr-5"
+                        :loading="isLoading"
+                        @click="postVacationData"
+                        >
+                        <v-icon left>
+                            mdi-book-plus 
+                        </v-icon>
+                        提交
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" class="d-flex justify-space-between align-center">

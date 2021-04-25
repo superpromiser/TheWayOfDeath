@@ -70,127 +70,337 @@ export default {
     data: () => ({
         currentSchoolId : -1,
         isPostItem:false,
+        // contentItemList : [
+        //     {
+        //         title : "基础沟通",
+        //         icon : "mdi-message-text",
+        //         items : [
+        //             {
+        //                 color : "#98BB3A",
+        //                 title : "问卷",
+        //                 imgUrl : "/asset/img/newIcon/问卷.png",
+        //                 path : "posts.Cquestionnaire"
+        //             },
+        //             {
+        //                 color : "#C95384",
+        //                 title : "投票",
+        //                 imgUrl : "/asset/img/newIcon/投票.png",
+        //                 path : "posts.Cvoting"
+        //             },
+        //         ],
+        //     },
+        //     {
+        //         title : "家校互动",
+        //         icon : "mdi-nfc-tap",
+        //         items : [
+        //             {
+        //                 color : "#DA7042",
+        //                 title : "作业",
+        //                 imgUrl : "/asset/img/newIcon/作业.png",
+        //                 path : "posts.Chomework"
+        //             },
+        //             // {
+        //             //     color : "#E4BC16",
+        //             //     title : "习题",
+        //             //     imgUrl : "/asset/img/newIcon/习题.png",
+        //             //     path : "something"
+        //             // },
+        //             {
+        //                 color : "#DA7042",
+        //                 title : "家访",
+        //                 imgUrl : "/asset/img/newIcon/家访.png",
+        //                 path : "posts.Chomevisit"
+        //             },
+        //             {
+        //                 color : "#C95384",
+        //                 title : "班级动态",
+        //                 imgUrl : "/asset/img/newIcon/班级动态.png",
+        //                 path : "posts.classStory"
+        //             },
+        //             {
+        //                 color : "#C95384",
+        //                 title : "班际动态",
+        //                 imgUrl : "/asset/img/newIcon/班际动态.png",
+        //                 path : "posts.interClassStory"
+        //             },
+        //         ],
+        //     },
+        //     {
+        //         title : "移动办公",
+        //         icon : "mdi-calendar-month-outline",
+        //         items : [
+        //             {
+        //                 color : "#C95384",
+        //                 title : "通知",
+        //                 imgUrl : "/asset/img/icon/通知 拷贝.png",
+        //                 path : "posts.Cnotification"
+        //             },
+        //         ],
+        //     },
+        //     {
+        //         title : "数字德育",
+        //         icon : "mdi-calendar-month-outline",
+        //         items : [
+        //             {
+        //                 color : "lime darken-4",
+        //                 title : "评价",
+        //                 imgUrl : "/asset/img/icon/评价.png",
+        //                 path : "posts.Cevaluation"
+        //             },
+        //             {
+        //                 color : "lime darken-4",
+        //                 title : "表彰",
+        //                 imgUrl : "/asset/img/icon/表彰.png",
+        //                 path : "posts.Crecognition"
+        //             },
+        //         ],
+        //     },
+        //     {
+        //         title : "工具",
+        //         icon : "mdi-calendar-month-outline",
+        //         items : [
+        //             // {
+        //             //     color : "indigo accent-2",
+        //             //     title : "课表",
+        //             //     imgUrl : "/asset/img/icon/组 29.png",
+        //             //     path : "something"
+        //             // },
+        //             {
+        //                 color : "#3EBBE8",
+        //                 title : "相册",
+        //                 imgUrl : "/asset/img/newIcon/相册.png",
+        //                 path : "posts.Calbum"
+        //             },
+        //             {
+        //                 color : "indigo accent-2",
+        //                 title : "文件",
+        //                 imgUrl : "/asset/img/icon/文件.png",
+        //                 path : "posts.Cfile"
+        //             },
+        //         ],
+        //     },
+        //     // {
+        //     //     title : "校园安全",
+        //     //     icon : "mdi-safe",
+        //     //     items : [
+        //     //         {
+        //     //             color : "indigo accent-2",
+        //     //             title : "访客管理",
+        //     //             imgUrl : "/asset/img/icon/组 29.png",
+        //     //             path : "manageGuests"
+        //     //         },
+        //     //     ],
+        //     // },
+        // ]
         contentItemList : [
             {
-                title : "基础沟通",
-                icon : "mdi-message-text",
-                items : [
+                title:"智能考勤",//지능출근
+                icon:"mdi-calendar-month-outline",
+                items:[
                     {
-                        color : "#98BB3A",
-                        title : "问卷",
-                        imgUrl : "/asset/img/newIcon/问卷.png",
-                        path : "posts.Cquestionnaire"
+                        color:"#3EBBE8",
+                        title:"课程维护",//수업유지
+                        imgUrl:"/asset/img/newIcon/tools.png",
+                        path:"admin.schedule"
                     },
                     {
-                        color : "#C95384",
-                        title : "投票",
-                        imgUrl : "/asset/img/newIcon/投票.png",
-                        path : "posts.Cvoting"
+                        color:"#3EBBE8",
+                        title:"请假单",//휴가신청
+                        imgUrl:"/asset/img/newIcon/颜色填充 2.png",
+                        path:"posts.vocation"
                     },
-                ],
+                    {
+                        color:"#3EBBE8",
+                        title:"请假审批",//휴가심사
+                        imgUrl:"/asset/img/newIcon/审批.png",
+                        path:"posts.vocation"
+                    },
+                    {
+                        color:"#3EBBE8",
+                        title:"考勤",//출근
+                        imgUrl:"/asset/img/newIcon/考勤.png",
+                        path:"posts.attendance"
+                    },
+                    {
+                        color:"#3EBBE8",
+                        title:"课程表",//시간표
+                        imgUrl:"/asset/img/newIcon/calendar.png",
+                        path:"admin.scheduleClass"
+                    },
+                ]
             },
             {
-                title : "家校互动",
-                icon : "mdi-nfc-tap",
-                items : [
+                title:"基础沟通",//기초의사소통
+                icon:"mdi-message-text",
+                items:[
                     {
-                        color : "#DA7042",
-                        title : "作业",
-                        imgUrl : "/asset/img/newIcon/作业.png",
-                        path : "posts.Chomework"
+                        color:"#B673E0",
+                        title:"通讯录",//주소록
+                        imgUrl:"/asset/img/newIcon/address book.png",
+                        path:"classSpace.member"
+                    },
+                    {
+                        color:"#B673E0",
+                        title:"文件",//문건
+                        imgUrl:"/asset/img/newIcon/paper clip.png",
+                        path:"posts.Cfile"
                     },
                     // {
-                    //     color : "#E4BC16",
-                    //     title : "习题",
-                    //     imgUrl : "/asset/img/newIcon/习题.png",
-                    //     path : "something"
+                    //     color:"#B673E0",
+                    //     title:"话题",//화제
+                    //     imgUrl:"/asset/img/newIcon/话题.png",
+                    //     path:"posts."
                     // },
                     {
-                        color : "#DA7042",
-                        title : "家访",
-                        imgUrl : "/asset/img/newIcon/家访.png",
-                        path : "posts.Chomevisit"
+                        color:"#B673E0",
+                        title:"分享",//공유
+                        imgUrl:"/asset/img/newIcon/图层 3.png",
+                        path:"posts.share"
                     },
                     {
-                        color : "#C95384",
-                        title : "班级动态",
-                        imgUrl : "/asset/img/newIcon/班级动态.png",
-                        path : "posts.classStory"
+                        color:"#B673E0",
+                        title:"问卷",//설문
+                        imgUrl:"/asset/img/newIcon/颜色填充 1.png",
+                        path:"posts.questionnaire"
                     },
                     {
-                        color : "#C95384",
-                        title : "班际动态",
-                        imgUrl : "/asset/img/newIcon/班际动态.png",
-                        path : "posts.interClassStory"
-                    },
-                ],
-            },
-            {
-                title : "移动办公",
-                icon : "mdi-calendar-month-outline",
-                items : [
-                    {
-                        color : "#C95384",
-                        title : "通知",
-                        imgUrl : "/asset/img/icon/通知 拷贝.png",
-                        path : "posts.Cnotification"
-                    },
-                ],
-            },
-            {
-                title : "数字德育",
-                icon : "mdi-calendar-month-outline",
-                items : [
-                    {
-                        color : "lime darken-4",
-                        title : "评价",
-                        imgUrl : "/asset/img/icon/评价.png",
-                        path : "posts.Cevaluation"
+                        color:"#B673E0",
+                        title:"投票",//투표
+                        imgUrl:"/asset/img/newIcon/graph chart 3.png",
+                        path:"posts.voting"
                     },
                     {
-                        color : "lime darken-4",
-                        title : "表彰",
-                        imgUrl : "/asset/img/icon/表彰.png",
-                        path : "posts.Crecognition"
-                    },
-                ],
-            },
-            {
-                title : "工具",
-                icon : "mdi-calendar-month-outline",
-                items : [
-                    // {
-                    //     color : "indigo accent-2",
-                    //     title : "课表",
-                    //     imgUrl : "/asset/img/icon/组 29.png",
-                    //     path : "something"
-                    // },
-                    {
-                        color : "#3EBBE8",
-                        title : "相册",
-                        imgUrl : "/asset/img/newIcon/相册.png",
-                        path : "posts.Calbum"
+                        color:"#B673E0",
+                        title:"报名",//이름등록
+                        imgUrl:"/asset/img/newIcon/Shape 18.png",
+                        path:"posts.regname"
                     },
                     {
-                        color : "indigo accent-2",
-                        title : "文件",
-                        imgUrl : "/asset/img/icon/文件.png",
-                        path : "posts.Cfile"
+                        color:"#B673E0",
+                        title:"短信",//통보문
+                        imgUrl:"/asset/img/newIcon/短信.png",
+                        path:"posts.sms"
                     },
-                ],
+                ]
             },
             // {
-            //     title : "校园安全",
-            //     icon : "mdi-safe",
-            //     items : [
+            //     title:"校园安全",//교내안전
+            //     icon:"mdi-account-cog-outline",
+            //     items:[
             //         {
-            //             color : "indigo accent-2",
-            //             title : "访客管理",
-            //             imgUrl : "/asset/img/icon/组 29.png",
-            //             path : "manageGuests"
+            //             color:"#98BB3A",
+            //             title:"访客管理",//방문자관리
+            //             imgUrl:"/asset/img/newIcon/图层 1.png",
+            //             path:"posts."
             //         },
-            //     ],
+            //         {
+            //             color:"#98BB3A",
+            //             title:"归程队",//귀한팀관리
+            //             imgUrl:"/asset/img/newIcon/排队数.png",
+            //             path:"posts."
+            //         },
+            //         {
+            //             color:"#98BB3A",
+            //             title:"打卡管理",//카드긋기
+            //             imgUrl:"/asset/img/newIcon/打卡.png",
+            //             path:"posts."
+            //         },
+            //         {
+            //             color:"#98BB3A",
+            //             title:"交接班",//교대반관리
+            //             imgUrl:"/asset/img/newIcon/交接班.png",
+            //             path:"posts."
+            //         },
+            //         {
+            //             color:"#98BB3A",
+            //             title:"维修工单",//수리공
+            //             imgUrl:"/asset/img/newIcon/维修.png",
+            //             path:"posts."
+            //         },
+            //         {
+            //             color:"#98BB3A",
+            //             title:"请假放行",//휴가항행
+            //             imgUrl:"/asset/img/newIcon/图层 2.png",
+            //             path:"posts."
+            //         },
+            //     ]
             // },
+            {
+                title:"校园文化",//
+                icon:"mdi-lifebuoy",
+                items:[
+                    // {
+                    //     color:"#C95384",
+                    //     title:"学生风采",//학생풍모
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts.",
+
+                    // },
+                    // {
+                    //     color:"#C95384",
+                    //     title:"教师风采",//교사풍모
+                    //     imgUrl:"/asset/img/newIcon/教师 (1).png",
+                    //     path:"posts.",
+
+                    // },
+                    {
+                        color:"#C95384",
+                        title:"学校动态",//학교동태
+                        imgUrl:"/asset/img/newIcon/hourglass.png",
+                        path:"posts.schoolStory",
+
+                    },
+                    // {
+                    //     color:"#C95384",
+                    //     title:"班级动态",//학급동태
+                    //     imgUrl:"/asset/img/newIcon/班级动态 (1).png",
+                    //     path:"posts.classStory",
+
+                    // },
+                    // {
+                    //     color:"#C95384",
+                    //     title:"班际动态",//학급별동태
+                    //     imgUrl:"/asset/img/newIcon/动态.png",
+                    //     path:"posts.interClassStory",
+                    // },
+                ]
+            },
+            {
+                title:"家校互动",
+                icon:"mdi-nfc-tap",
+                items:[
+                    // {
+                    //     color:"#E4BC16",
+                    //     title:"作业",//숙제
+                    //     imgUrl:"/asset/img/newIcon/open book 2.png",
+                    //     path:"posts.homework"
+                    // },
+                    {
+                        color:"#E4BC16",
+                        title:"公告",//공시
+                        imgUrl:"/asset/img/newIcon/megaphone 2.png",
+                        path:"posts.announcement"
+                    }
+                ]
+            },
+            {
+                title:"工具",
+                icon:"mdi-hammer-wrench",
+                items:[
+                    {
+                        color:"#DA7042",
+                        title:"我的",//프로필
+                        imgUrl:"/asset/img/newIcon/我 的.png",
+                        path:"profile.list"
+                    },
+                    // {
+                    //     color:"#DA7042",
+                    //     title:"话题",//화제
+                    //     imgUrl:"/asset/img/newIcon/相册 (1).png",
+                    //     path:"posts."
+                    // }
+                ]
+            }
         ]
     }),
     methods:{

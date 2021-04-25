@@ -2,8 +2,14 @@
   <v-container v-if="$isMobile()">
     <v-row>
       <v-col cols="12" class="d-flex">
-        <v-avatar>
-          <v-img :src="`${baseUrl}/asset/img/appIcon/校园安全/维修工单.png`" alt="postItem" ></v-img>
+        <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="60" class="ma-5">
+            <span class="white--text headline">{{users.name[0]}}</span>
+        </v-avatar>
+        <v-avatar v-else
+          class="ma-5"
+          size="60"
+        >
+          <v-img :src="content.users.avatar"></v-img>
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
           <div class="d-flex align-center mb-auto">
@@ -51,9 +57,15 @@
   </v-container>
   <v-container v-else>
     <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail">
-      <v-avatar class="ma-3 school-card-avatar" tile >
-        <v-img :src="`${baseUrl}/asset/img/newIcon/维修工单.png`" alt="postItem" ></v-img>
-      </v-avatar>
+      <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="60" class="ma-5">
+            <span class="white--text headline">{{users.name[0]}}</span>
+        </v-avatar>
+        <v-avatar v-else
+          class="ma-5"
+          size="60"
+        >
+          <v-img :src="content.users.avatar"></v-img>
+        </v-avatar>
       <div>
         <div class="d-flex align-center mb-3">
           <p class="font-weight-black fs-15 mb-0"> 维修工单  </p>

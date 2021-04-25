@@ -4,6 +4,11 @@
         <v-col cols="12" class="d-flex align-center ">
             <v-row class="ma-0">
                 <v-col cols="12" class="d-flex align-center">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
                     <h2 class="mx-auto">
                         学期
                     </h2>

@@ -34,7 +34,80 @@ class GroupController extends Controller
             'schoolId' => 'required',
             'lessonId' => 'required'
         ]);
-        return Group::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->with('members:id,name')->get();
+        // return Group::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->with('members:id,name')->get();
+        $userList['teacher'] = User::where(['schoolId' => $request->schoolId, 'roleId' => 3])->get();
+        $result['teachers'] = array();
+        foreach ($userList['teacher'] as $user) {
+            $groupArr = $user->groupArr;
+            foreach ($groupArr as $groupId) {
+                if ($groupId == $request->lessonId) {
+                    array_push($result['teachers'], $user);
+                }
+            }
+        }
+        $userList['parent'] = User::where(['schoolId' => $request->schoolId, 'roleId' => 4])->get();
+        $result['parents'] = array();
+        foreach ($userList['parent'] as $parent) {
+            $groupArr = $parent->groupArr;
+            foreach ($groupArr as $groupId) {
+                if ($groupId == $request->lessonId) {
+                    array_push($result['parents'], $parent);
+                }
+            }
+        }
+        $userList['student'] = User::where(['schoolId' => $request->schoolId, 'roleId' => 5])->get();
+        $result['students'] = array();
+        foreach ($userList['student'] as $student) {
+            $groupArr = $student->groupArr;
+            foreach ($groupArr as $groupId) {
+                if ($groupId == $request->lessonId) {
+                    array_push($result['students'], $student);
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function getGroupMember(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required',
+            'lessonId' => 'required'
+        ]);
+        $userList = User::where(['schoolId' => $request->schoolId])->whereIn('roleId', [3, 4, 5])->get();
+        $result = array();
+        foreach ($userList as $user) {
+            $groupArr = $user->groupArr;
+            foreach ($groupArr as $groupId) {
+                if ($groupId == $request->lessonId) {
+                    array_push($result, $user);
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function getCanGroupMember(Request $request)
+    {
+        $this->validate($request, [
+            'roleId' => 'required',
+            'schoolId' => 'required',
+            'groupId' => 'required'
+        ]);
+        $groupId = (int)$request->groupId;
+        $result = array();
+        if ($request->lessonId) {
+            $userList = User::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'roleId' => $request->roleId])->get();
+        } else {
+            $userList = User::where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
+        }
+        foreach ($userList as $user) {
+            $groupArr = $user->groupArr;
+            if (($key = array_search($groupId, $groupArr)) == false) {
+                array_push($result, $user);
+            }
+        }
+        return $result;
     }
 
     public function addGroupMember(Request $request)
@@ -44,15 +117,26 @@ class GroupController extends Controller
             'lessonId' => 'required'
         ]);
         $userId = Auth::user()->id;
+        $roleId = Auth::user()->roleId;
         $members = $request->userList;
-        foreach ($members as $member) {
-            Group::create([
-                'schoolId' => $request->schoolId,
-                'lessonId' => $request->lessonId,
-                'memberId' => $member,
-                'userId' => $userId
-            ]);
-        };
+        if ($roleId == 2) {
+            $userList = User::whereIn('id', $members)->get();
+            foreach ($userList as $user) {
+                $groupArr = $user->groupArr;
+                array_push($groupArr, $request->lessonId);
+                $user->groupArr = array_values($groupArr);
+                $user->update();
+            }
+        } else {
+            foreach ($members as $memberId) {
+                Group::create([
+                    'schoolId' => $request->schoolId,
+                    'lessonId' => $request->lessonId,
+                    'memberId' => $memberId,
+                    'userId' => $userId
+                ]);
+            }
+        }
         return true;
     }
 
@@ -64,18 +148,36 @@ class GroupController extends Controller
 
         $members = $request->userList;
         foreach ($members as $member) {
-            Group::where('id', $member)->delete();
+            $user = User::where('id', $member)->first();
+            $groupArr = $user->groupArr;
+            if (($key = array_search($request->lessonId, $groupArr)) !== false) {
+                unset($groupArr[$key]);
+                $user->groupArr = array_values($groupArr);
+                $user->update();
+            }
         }
+    }
+
+    public function denyGroupMember(Request $request)
+    {
+        $this->validate($request, [
+            'memberId' => 'required'
+        ]);
+        $id = $request->memberId;
+        Group::where('id', $id)->delete();
     }
 
     public function updateGroupMember(Request $request)
     {
         $this->validate($request, [
-            'id' => 'required'
+            'member' => 'required'
         ]);
-        return Group::where('id', $request->id)->update([
-            'status' => 'allow'
-        ]);
+        Group::where('id', $request->member['id'])->delete();
+        $user = User::where('id', $request->member['memberId'])->first();
+        $groupArr = $user->groupArr;
+        array_push($groupArr, $request->member['lessonId']);
+        $user->groupArr = array_values($groupArr);
+        return $user->update();
     }
 
     public function createStudentId(Request $request)

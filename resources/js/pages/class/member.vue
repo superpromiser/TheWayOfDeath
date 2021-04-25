@@ -153,7 +153,8 @@
 
 <script>
 import lang from '~/helper/lang.json'
-import {getUserByRole} from '~/api/user'
+
+import {getAllGroupMember} from '~/api/group'
 export default {
   data:() => ({
     lang,
@@ -167,7 +168,7 @@ export default {
   },
   async created(){
     this.isLoading = true
-    await getUserByRole({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+    await getAllGroupMember({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
       this.isLoading = false
       console.log(res.data)
       this.userList = res.data

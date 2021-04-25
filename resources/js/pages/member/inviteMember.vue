@@ -73,8 +73,7 @@
 </template>
 
 <script>
-import { getSchoolMemberList} from "~/api/user";
-import {getAllGroupMember,addGroupMember} from '~/api/group';
+import {getCanGroupMember,addGroupMember} from '~/api/group';
 import lang from "~/helper/lang.json";
 export default {
   data: () => ({
@@ -97,61 +96,23 @@ export default {
     }
   },
   async created() {
-    let lessonId = ''
-    let lessonMembers = []
-    let groupMembers = []
+    let lessonId = null
     this.isLoading = true
     if(this.currentPath.query.otherLesson){
         lessonId = this.currentPath.query.otherLesson
-    }else{
-        // lessonId = this.currentPath.params.lessonId
     }
-    await getSchoolMemberList({
-      schoolId:this.currentPath.params.schoolId,
-      lessonId: lessonId,
-      roleId: this.currentPath.query.roleId
-    }).then(res => {
-      lessonMembers = res.data;
+    await getCanGroupMember({schoolId:this.currentPath.params.schoolId,lessonId:lessonId,roleId:this.currentPath.query.roleId,groupId:this.currentPath.params.lessonId}).then(res=>{
+      console.log(res.data)
+      this.userList = res.data
+      this.isLoading = false
+    }).catch(err=>{
+      console.log(err.response)
+      this.isLoading = false
     })
-    .catch(err => {
-      console.log(err.response);
-    });
-    await getAllGroupMember({
-      schoolId:this.currentPath.params.schoolId,
-      lessonId:this.currentPath.params.lessonId
-    }).then(res=>{
-      groupMembers = res.data
-    })
-    let newLessonMembers = JSON.parse(JSON.stringify(lessonMembers))
-    // let newLessonMembers = lessonMembers.map(mem=>{
-    //   return mem.id
-    // })
-    lessonMembers.map(lessonMember=>{
-      groupMembers.map(groupMember=>{
-        if(lessonMember.id == groupMember.memberId){
-          console.log('lessonMember.id == groupMember.memberId',lessonMember.id)
-          newLessonMembers.map(news=>{
-            if(news.id == lessonMember.id){
-              let index = newLessonMembers.indexOf(news)
-              console.log(index,lessonMember)
-              if(index > -1){
-                newLessonMembers.splice(index,1)
-              }
-            }
-          })
-          // let index = newLessonMembers.indexOf(lessonMember)
-          // console.log(index,lessonMember)
-          // if(index > -1){
-          //   newLessonMembers.splice(index,1)
-          // }
-        }
-      })
-    })
-    this.userList = newLessonMembers
+    
     this.userList.map(user => {
       this.$set(user, "checkbox", false);
     });
-    this.isLoading = false
   },
   methods: {
     selectAll() {

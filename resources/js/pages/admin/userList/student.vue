@@ -23,6 +23,7 @@
               <v-spacer></v-spacer>
               <v-dialog
               v-model="dialog"
+              persistent
               max-width="500px"
               >
                 <template v-slot:activator="{ on, attrs }" class="align-center">
@@ -168,7 +169,7 @@
                             <img v-else-if="editedItem.avatar !== '/'" :src="editedItem.avatar" alt="" style="width:127px; height: 127px;">
                         </v-col>
                         <v-col cols="12" md="8" sm="6">
-                            <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传学校图片" />
+                            <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传图片" />
                         </v-col>
                       </v-row>
                       <v-row>

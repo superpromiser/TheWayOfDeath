@@ -58,13 +58,13 @@
           <v-col cols="12" md="4">
             <v-checkbox
               v-model="user.checkbox"
-              :label="user.members.name"
+              :label="user.name"
               class="member-chk"
               @click="selectMem(user)"
             ></v-checkbox>
           </v-col>
-          <v-col cols="12" md="4"> 性别：{{ transGender(user.members.gender) }} </v-col>
-          <v-col cols="12" md="4"> 手机号码：{{ pnEncrypt(user.members.phoneNumber) }} </v-col>
+          <v-col cols="12" md="4"> 性别：{{ transGender(user.gender) }} </v-col>
+          <v-col cols="12" md="4"> 手机号码：{{ pnEncrypt(user.phoneNumber) }} </v-col>
         </v-row>
         <v-divider light class="thick-border"></v-divider>
       </div>
@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import {getAllowGroupMember,deleteGroupMember} from '~/api/group';
+import {getGroupMember,deleteGroupMember} from '~/api/group';
 import lang from "~/helper/lang.json";
 export default {
   data: () => ({
@@ -91,23 +91,24 @@ export default {
     },
     filteredList(){
         return this.userList.filter(user=>{
-          return user.members.name.toLowerCase().includes(this.search.toLowerCase())
+          return user.name.toLowerCase().includes(this.search.toLowerCase())
         })
     }
   },
   async created() {
     let lessonId = ''
     this.isLoading = true
-    if(this.currentPath.query.otherLesson){
-        lessonId = this.currentPath.query.otherLesson
-    }else{
-        lessonId = this.currentPath.params.lessonId
-    }
-    await getAllowGroupMember({
+    // if(this.currentPath.query.otherLesson){
+    //     lessonId = this.currentPath.query.otherLesson
+    // }else{
+    //     lessonId = this.currentPath.params.lessonId
+    // }
+    await getGroupMember({
       schoolId:this.currentPath.params.schoolId,
-      lessonId: lessonId,
+      lessonId: this.currentPath.params.lessonId,
     })
       .then(res => {
+        console.log(res.data)
         res.data.map(user => {
           this.$set(user, "checkbox", false);
         });

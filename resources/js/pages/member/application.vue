@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import {getPendingGroupMember,updateGroupMember,deleteGroupMember} from '~/api/group';
+import {getPendingGroupMember,updateGroupMember,denyGroupMember} from '~/api/group';
 import RouterBack from '~/components/routerBack'
 export default {
     components:{
@@ -125,7 +125,7 @@ export default {
         async allow(member){
             // this.isAllow = true
             console.log('allow',member)
-            await updateGroupMember({id:member.id}).then(res=>{
+            await updateGroupMember({member:member}).then(res=>{
                 this.isAllow = false
                 let index = this.userList.indexOf(member)
                 console.log(index)
@@ -139,9 +139,9 @@ export default {
         },
         deny(member){
             // this.isDeny = true
-            let userList = []
-            userList.push(member.id)
-            deleteGroupMember({userList:userList}).then(res=>{
+            // let userList = []
+            // userList.push(member.id)
+            denyGroupMember({memberId:member.id}).then(res=>{
                 this.isDeny = false
                 let index = this.userList.indexOf(member)
                 console.log(index)
