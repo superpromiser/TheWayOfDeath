@@ -41,21 +41,11 @@
                     <h2>{{lang.bulletin}}</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn
+                    <!-- <v-btn
                         text
                         color="primary"
                     >
                         可用模板 0， 草稿 0
-                    </v-btn>
-                    <v-btn
-                        dark
-                        tile
-                        color="#49d29e"
-                        @click="publishcampusData"
-                        :loading="isCreating"
-                        class="mx-2"
-                    >
-                        {{lang.submit}}
                     </v-btn>
                     <v-btn
                         tile
@@ -65,6 +55,16 @@
                         @click="saveDraft"
                     >
                         {{lang.saveDraft}}
+                    </v-btn> -->
+                    <v-btn
+                        dark
+                        tile
+                        color="#49d29e"
+                        @click="publishcampusData"
+                        :loading="isCreating"
+                        class="mx-2"
+                    >
+                        {{lang.submit}}
                     </v-btn>
                 </v-col>
             </v-row>

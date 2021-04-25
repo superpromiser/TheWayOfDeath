@@ -84,12 +84,12 @@
                     <h2>{{lang.homeVisit}}</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn
+                    <!-- <v-btn
                         text
                         color="primary"
                     >
                         可用模板 0， 草稿 0
-                    </v-btn>
+                    </v-btn> -->
                     <v-btn
                         dark
                         color="#49d29e"
@@ -100,7 +100,7 @@
                     >
                         提交
                     </v-btn>
-                    <v-btn
+                    <!-- <v-btn
                         tile
                         dark
                         color="#F19861"
@@ -108,7 +108,7 @@
                         @click="saveDraft"
                     >
                         {{lang.saveDraft}}
-                    </v-btn>
+                    </v-btn> -->
                 </v-col>
             </v-row>
         </v-container>

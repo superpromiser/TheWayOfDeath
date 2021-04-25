@@ -22,7 +22,7 @@ class AnouncementController extends Controller
                 'views',
                 'comments',
                 'anouncements',
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')
             ->paginate(5);

@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
         <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
             <v-row>
                 <v-col cols="12" class="justify-space-between d-flex ma-0 align-center">
@@ -8,7 +8,7 @@
                             mdi-chevron-left
                         </v-icon>
                     </a>
-                    <h2>接班管理</h2>
+                    <h2>交接班管理</h2>
                     <v-btn
                         tile
                         color="success"
@@ -24,7 +24,7 @@
             </v-row>
         </v-banner>
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
-            <v-row class="pa-0 mt-1">
+            <v-row class="px-5 mt-1">
                 <ShfitMngPost :content="content"></ShfitMngPost>
                 <FooterPost :footerInfo='content'></FooterPost>
             </v-row>
