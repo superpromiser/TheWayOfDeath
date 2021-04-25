@@ -22,7 +22,7 @@ class SmsController extends Controller
                 'views',
                 'comments',
                 'sms',
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')
             ->paginate(5);
