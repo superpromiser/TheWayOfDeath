@@ -22,7 +22,7 @@ class PostController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'questionnaires',
                 'votings',
                 'sms',

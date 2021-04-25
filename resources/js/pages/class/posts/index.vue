@@ -161,22 +161,22 @@ export default {
                     // },
                 ]
             },
-            {
-                title:"校园安全",//교내안전
-                icon:"mdi-account-cog-outline",
-                items:[
+            // {
+            //     title:"校园安全",//교내안전
+            //     icon:"mdi-account-cog-outline",
+            //     items:[
                     // {
                     //     color:"#98BB3A",
                     //     title:"访客管理",//방문자관리
                     //     imgUrl:"/asset/img/newIcon/图层 1.png",
                     //     path:"posts."
                     // },
-                    {
-                        color:"#98BB3A",
-                        title:"归程队",//귀한팀관리
-                        imgUrl:"/asset/img/newIcon/排队数.png",
-                        path:"classSpace.returnTeam"
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"归程队",//귀한팀관리
+                    //     imgUrl:"/asset/img/newIcon/排队数.png",
+                    //     path:"classSpace.returnTeam"
+                    // },
                     // {
                     //     color:"#98BB3A",
                     //     title:"打卡管理",//카드긋기
@@ -201,8 +201,8 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/图层 2.png",
                     //     path:"posts."
                     // },
-                ]
-            },
+            //     ]
+            // },
             {
                 title:"校园文化",//
                 icon:"mdi-lifebuoy",
@@ -261,10 +261,10 @@ export default {
                     // }
                 ]
             },
-            {
-                title:"工具",
-                icon:"mdi-hammer-wrench",
-                items:[
+            // {
+            //     title:"工具",
+            //     icon:"mdi-hammer-wrench",
+            //     items:[
                     // {
                     //     color:"#DA7042",
                     //     title:"我的",//프로필
@@ -277,8 +277,8 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/相册 (1).png",
                     //     path:"posts."
                     // }
-                ]
-            }
+            //     ]
+            // }
         ]
     }),
     methods:{

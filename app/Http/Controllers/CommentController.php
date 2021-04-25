@@ -9,16 +9,18 @@ use App\Comment;
 class CommentController extends Controller
 {
     //
-    public function createComment(Request $request){
-        $this->validate($request,[
-            'text'=>'required',
-            'postId'=>'required'
+    public function createComment(Request $request)
+    {
+        $this->validate($request, [
+            'text' => 'required',
+            'postId' => 'required'
         ]);
         $userId = Auth::user()->id;
-        return Comment::create([
-            'comments'=>$request->text,
-            'userId'=>$userId,
-            'postId'=>$request->postId
-        ]);
+        $commentId = Comment::create([
+            'comments' => $request->text,
+            'userId' => $userId,
+            'postId' => $request->postId
+        ])->id;
+        return Comment::where('id', $commentId)->with('users:id,name')->first();
     }
 }

@@ -88,6 +88,7 @@ export default {
         description:null,
         status:'',
         isIncomplete:false,
+        isCancelPost:false,
         isComplete:false
     }),
     computed:{

@@ -1,13 +1,22 @@
 <template>
-  <v-container class="">
-    <v-row v-for="(comment,index) in content.comments" :key="index">
-      <v-col>
-          {{comment.comments}}
-          {{TimeView(comment.created_at)}}
-      </v-col>
-    </v-row>
-    <v-row style="position: sticky;bottom: 0;">
-      <v-col>
+  <v-container class="px-10">
+    <div>
+      <div v-for="(comment,index) in content.comments" :key="index">
+        <v-row class="py-2">
+          <v-col cols="12" lg="1" md="2" sm="2">
+              {{comment.users.name}}
+          </v-col>
+          <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap">{{comment.comments}}</v-col>
+          <v-col cols="12" lg="2" md="2" sm="4">
+            {{TimeView(comment.created_at)}}
+            <v-icon color="#FF5722" @click="remove(comment)" :loading="isDeleting">mdi-trash-can-outline</v-icon>
+          </v-col>
+        </v-row>
+        <v-divider class="thick-border" light></v-divider>
+      </div>
+    </div>
+    <v-row>
+      <v-col md="2">
         <v-btn
             fab
             small
@@ -22,7 +31,7 @@
           发送 / shift+
         </div>
       </v-col>
-      <v-col>
+      <v-col md="10">
         <v-textarea solo name="input-7-4" :label="lang.contentPlace"
             @keydown.enter.exact.prevent @keyup.enter.exact="submit" @keydown.enter.shift.exact="newline" v-model="commentText"
         ></v-textarea>
@@ -47,12 +56,13 @@ export default {
     })
   },
   mounted(){
-    //console.log(this.content)
+    console.log(this.content)
   },
   data:() => ({
     lang,
     emoStatus:false,
     commentText:'',
+    isDeleting:false,
   }),
   methods:{
     toggleEmo(){
@@ -76,12 +86,15 @@ export default {
         return;
       }
       addComment({text:this.commentText,postId:this.content.id}).then(res=>{
-        //console.log(res)
+        console.log(res)
         this.content.comments.unshift(res.data)
       }).catch(err=>{
         //console.log(err.response)
       })
       this.commentText = ''
+    },
+    remove(comment){
+      console.log(comment)
     }
   }
 };

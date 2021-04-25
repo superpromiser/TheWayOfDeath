@@ -213,7 +213,7 @@ export default {
                         color:"#E4BC16",
                         title:"作业",//숙제
                         imgUrl:"/asset/img/newIcon/open book 2.png",
-                        path:"posts.Chomework"
+                        path:"classSpace.applications.homework"
                     },
                     // {
                     //     color:"#E4BC16",

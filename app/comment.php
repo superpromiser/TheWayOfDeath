@@ -9,7 +9,8 @@ class Comment extends Model
     //
     protected $guarded = [];
 
-    public function users(){
-        return $this->hasOne(User::class,'userId');
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'userId');
     }
 }

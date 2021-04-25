@@ -221,6 +221,11 @@
         }).catch(err=>{
           //console.log(err)
         })
+        getGradeInfo({id:1}).then(res=>{
+          this.gradeInfo = res.data
+        }).catch(err=>{
+          console.log(err.response)
+        })
         this.isLoadingClassData = false;
         getSchoolInfo().then(res=>{
           this.schoolInfo = res.data
