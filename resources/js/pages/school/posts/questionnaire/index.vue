@@ -1,6 +1,6 @@
 <template>
   <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
-      <v-container v-if="postNew == true" class="pa-0 h-100 bg-gray-light-dark mb-16">
+      <v-container v-if="postNew == true" class="pt-0 px-0 h-100 bg-gray-light-dark mb-16 pb-10-px">
         <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
             <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                 mdi-chevron-left
@@ -42,7 +42,7 @@
                       :clearText='lang.cancel'
                   > </v-datetime-picker>
               </v-col>
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12" sm="6" md="4" class="pb-0">
                   <v-select
                       color="#7879ff"
                       multiple
@@ -110,7 +110,7 @@
         </v-row>
         <div class="cus-divider"></div>
         <!--  View Datas  -->
-        <v-row class="ma-0 mo-glow ">
+        <v-row class="ma-0 mo-glow bg-white">
             <!--  View Datas  -->
             <v-col cols="12" v-for="(data, index) in newQuestionnaireData.content" :key="index">
             <!--  single Datas  -->
@@ -143,19 +143,19 @@
                 <v-col v-if="checkIfAttachExist(data.singleContentDataArr[0])">
                 <AttachItemViewer :items="data.singleContentDataArr[0]" />
                 </v-col>
-                <v-col class="pl-6 pa-0" cols="12" v-for="(singleData, singleDataIndex) in data.singleContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
-                <div class="d-flex align-center cursor-pointer"> 
-                  <v-chip
-                    class="mr-2"
-                    color="success"
-                    outlined
-                    small
-                  >
-                    <strong>{{alphabet[singleDataIndex-1]}}</strong>
-                  </v-chip>
-                  <p class="mb-0 text-wrap"> {{singleData.text}}</p>
-                </div>
-                <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
+                <v-col class="pl-6 pt-0" cols="12" v-for="(singleData, singleDataIndex) in data.singleContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
+                  <div class="d-flex align-center cursor-pointer"> 
+                    <v-chip
+                      class="mr-2"
+                      color="success"
+                      outlined
+                      small
+                    >
+                      <strong>{{alphabet[singleDataIndex-1]}}</strong>
+                    </v-chip>
+                    <p class="mb-0 text-wrap"> {{singleData.text}}</p>
+                  </div>
+                  <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
                 </v-col>
             </v-row>
             <!--  multi Datas  -->
@@ -188,7 +188,7 @@
                 <v-col v-if="checkIfAttachExist(data.multiContentDataArr[0])">
                 <AttachItemViewer :items="data.multiContentDataArr[0]" />
                 </v-col>
-                <v-col class="pl-6 pa-0" cols="12" v-for="(multiData, singleDataIndex) in data.multiContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
+                <v-col class="pl-6 pt-0" cols="12" v-for="(multiData, singleDataIndex) in data.multiContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
                 <div class="d-flex align-center cursor-pointer"> 
                   <v-chip
                     class="mr-2"
@@ -299,13 +299,14 @@
             </v-row>
             </v-col>
         </v-row>
+        <div class="cus-divider"></div>
         <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
           <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
             <div class="text-center px-2">
               <v-icon>mdi-buffer</v-icon>
               <p class="mb-0 font-color-gray-dark">模板</p>
             </div>
-            <v-btn color="#7879ff" class="submit-mo-post-btn" dark large> 确认发布 </v-btn>
+            <v-btn color="#7879ff" class="submit-mo-post-btn" dark large @click="submit" :loading="isSubmit"> 确认发布 </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -981,9 +982,7 @@ export default {
       this.newQuestionnaireData.deadline = this.TimeView(this.newQuestionnaireData.deadline)
       this.isSubmit = true
       await createQuestionnaire(this.newQuestionnaireData).then(res => {
-        //console.log(res)
-        this.isSuccessed = true;
-        // this.newQuestionnaireData = null
+        this.$store.dispatch('mo/onPreviewData', null);
         if(this.$isMobile()){
           this.$router.push({name:'home'})
         }

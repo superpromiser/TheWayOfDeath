@@ -1,5 +1,12 @@
 <template>
-  <div :style="{
+  <div v-if="$isMobile()" :style="{
+    width: `${percent}%`,
+    height: height,
+    opacity: show ? 1 : 0,
+    'background-color': canSuccess ? colorMo : failedColor
+  }" class="progress"
+  />
+  <div v-else :style="{
     width: `${percent}%`,
     height: height,
     opacity: show ? 1 : 0,
@@ -18,6 +25,7 @@ export default {
     duration: 3000,
     height: '2px',
     color: '#77b6ff',
+    colorMo: '#7879ff',
     failedColor: 'red'
   }),
 

@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-0 h-100 bg-gray-light-dark">
+    <v-container class="pa-0 h-100 bg-gray-light-dark pb-16">
         <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
             <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                 mdi-chevron-left
@@ -8,7 +8,7 @@
         </v-row>
 
         <!----questionnaire preview----->
-        <v-container v-if="previewData.type == 'questionnaire'" class="pa-0 bg-white mt-2">
+        <v-container v-if="previewData.type == 'questionnaire'" class="pa-0 bg-white mt-2 mb-3">
             <v-row class="ma-0">
               <v-col cols="12" class="d-flex justify-center align-center ">
                   <h3>{{previewData.data.title}}</h3>
@@ -145,17 +145,18 @@
 
         <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
           <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
-            <v-btn color="#7879ff" class="submit-mo-post-btn" block dark large> 确认发布 </v-btn>
+            <v-btn color="#7879ff" class="submit-mo-post-btn" block dark large @click="submit" :loading="isSubmit"> 确认发布 </v-btn>
           </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 import lang from '~/helper/lang.json';
 import AttachItemViewer from '~/components/attachItemViewer';
 
+import { createQuestionnaire } from '~/api/questionnaire';
 export default {
 
     components:{
@@ -173,12 +174,34 @@ export default {
         baseUrl: window.Laravel.base_url,
         alphabet:['A','B','C','D','E','F','G','H','J','K','L','M','N',
                 'O','P','Q','R','S','T','U','V','W','X','Y','Z' ],
+        isSubmit: false,
+
     }),
 
     created(){
         console.log("this.previewData", this.previewData);
         if(this.previewData == null){
             return this.$router.go(-1);
+        }
+    },
+
+    methods:{
+        async submit(){
+            if(this.previewData.type == 'questionnaire'){
+                this.previewData.data.deadline = this.TimeView(this.previewData.data.deadline)
+                this.isSubmit = true
+                await createQuestionnaire(this.previewData.data).then(res => {
+                    if(this.$isMobile()){
+                        this.$router.push({name:'home'})
+                    }
+                    else{
+                        this.$router.push({name:'schoolSpace.news'})
+                    }
+                }).catch(err=>{
+                    console.log(err)
+                })
+                this.isSubmit = false
+            }
         }
     }
 }
