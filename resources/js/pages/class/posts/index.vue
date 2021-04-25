@@ -70,128 +70,6 @@ export default {
     data: () => ({
         currentSchoolId : -1,
         isPostItem:false,
-        // contentItemList : [
-        //     {
-        //         title : "基础沟通",
-        //         icon : "mdi-message-text",
-        //         items : [
-        //             {
-        //                 color : "#98BB3A",
-        //                 title : "问卷",
-        //                 imgUrl : "/asset/img/newIcon/问卷.png",
-        //                 path : "posts.Cquestionnaire"
-        //             },
-        //             {
-        //                 color : "#C95384",
-        //                 title : "投票",
-        //                 imgUrl : "/asset/img/newIcon/投票.png",
-        //                 path : "posts.Cvoting"
-        //             },
-        //         ],
-        //     },
-        //     {
-        //         title : "家校互动",
-        //         icon : "mdi-nfc-tap",
-        //         items : [
-        //             {
-        //                 color : "#DA7042",
-        //                 title : "作业",
-        //                 imgUrl : "/asset/img/newIcon/作业.png",
-        //                 path : "posts.Chomework"
-        //             },
-        //             // {
-        //             //     color : "#E4BC16",
-        //             //     title : "习题",
-        //             //     imgUrl : "/asset/img/newIcon/习题.png",
-        //             //     path : "something"
-        //             // },
-        //             {
-        //                 color : "#DA7042",
-        //                 title : "家访",
-        //                 imgUrl : "/asset/img/newIcon/家访.png",
-        //                 path : "posts.Chomevisit"
-        //             },
-        //             {
-        //                 color : "#C95384",
-        //                 title : "班级动态",
-        //                 imgUrl : "/asset/img/newIcon/班级动态.png",
-        //                 path : "posts.classStory"
-        //             },
-        //             {
-        //                 color : "#C95384",
-        //                 title : "班际动态",
-        //                 imgUrl : "/asset/img/newIcon/班际动态.png",
-        //                 path : "posts.interClassStory"
-        //             },
-        //         ],
-        //     },
-        //     {
-        //         title : "移动办公",
-        //         icon : "mdi-calendar-month-outline",
-        //         items : [
-        //             {
-        //                 color : "#C95384",
-        //                 title : "通知",
-        //                 imgUrl : "/asset/img/icon/通知 拷贝.png",
-        //                 path : "posts.Cnotification"
-        //             },
-        //         ],
-        //     },
-        //     {
-        //         title : "数字德育",
-        //         icon : "mdi-calendar-month-outline",
-        //         items : [
-        //             {
-        //                 color : "lime darken-4",
-        //                 title : "评价",
-        //                 imgUrl : "/asset/img/icon/评价.png",
-        //                 path : "posts.Cevaluation"
-        //             },
-        //             {
-        //                 color : "lime darken-4",
-        //                 title : "表彰",
-        //                 imgUrl : "/asset/img/icon/表彰.png",
-        //                 path : "posts.Crecognition"
-        //             },
-        //         ],
-        //     },
-        //     {
-        //         title : "工具",
-        //         icon : "mdi-calendar-month-outline",
-        //         items : [
-        //             // {
-        //             //     color : "indigo accent-2",
-        //             //     title : "课表",
-        //             //     imgUrl : "/asset/img/icon/组 29.png",
-        //             //     path : "something"
-        //             // },
-        //             {
-        //                 color : "#3EBBE8",
-        //                 title : "相册",
-        //                 imgUrl : "/asset/img/newIcon/相册.png",
-        //                 path : "posts.Calbum"
-        //             },
-        //             {
-        //                 color : "indigo accent-2",
-        //                 title : "文件",
-        //                 imgUrl : "/asset/img/icon/文件.png",
-        //                 path : "posts.Cfile"
-        //             },
-        //         ],
-        //     },
-        //     // {
-        //     //     title : "校园安全",
-        //     //     icon : "mdi-safe",
-        //     //     items : [
-        //     //         {
-        //     //             color : "indigo accent-2",
-        //     //             title : "访客管理",
-        //     //             imgUrl : "/asset/img/icon/组 29.png",
-        //     //             path : "manageGuests"
-        //     //         },
-        //     //     ],
-        //     // },
-        // ]
         contentItemList : [
             {
                 title:"智能考勤",//지능출근
@@ -203,18 +81,18 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/tools.png",
                     //     path:"admin.schedule"
                     // },
-                    // {
-                    //     color:"#3EBBE8",
-                    //     title:"请假单",//휴가신청
-                    //     imgUrl:"/asset/img/newIcon/颜色填充 2.png",
-                    //     path:"posts.vocation"
-                    // },
                     {
                         color:"#3EBBE8",
-                        title:"请假审批",//휴가심사
-                        imgUrl:"/asset/img/newIcon/审批.png",
+                        title:"请假单",//휴가신청
+                        imgUrl:"/asset/img/newIcon/颜色填充 2.png",
                         path:"posts.vocation"
                     },
+                    // {
+                    //     color:"#3EBBE8",
+                    //     title:"请假审批",//휴가심사
+                    //     imgUrl:"/asset/img/newIcon/审批.png",
+                    //     path:"posts.vocation"
+                    // },
                     {
                         color:"#3EBBE8",
                         title:"考勤",//출근

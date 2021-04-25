@@ -22,7 +22,7 @@ class InterClassStoryController extends Controller
                 'views',
                 'comments',
                 'interclassstory',
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')
             ->paginate(5);
