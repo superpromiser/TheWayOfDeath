@@ -1,8 +1,14 @@
 <template>
     <v-container>
         <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail">
-            <v-avatar class="ma-3 school-card-avatar" tile >
-              <v-img :src="`${baseUrl}/asset/img/newIcon/作业.png`" alt="postItem" ></v-img>
+            <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="60" class="ma-5">
+                <span class="white--text headline">{{users.name[0]}}</span>
+            </v-avatar>
+            <v-avatar v-else
+              class="ma-5"
+              size="60"
+            >
+              <v-img :src="content.users.avatar"></v-img>
             </v-avatar>
             <div>
               <p class="font-weight-black fs-15 mb-3"> {{homeworkData.homeworkType}}  </p>

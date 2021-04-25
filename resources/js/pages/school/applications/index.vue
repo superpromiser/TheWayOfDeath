@@ -60,7 +60,7 @@ export default {
         isPostItem:false,
         contentItemList : [
             {
-                title:"",
+                title:"智能考勤",
                 icon:"mdi-calendar-month-outline",
                 items:[
                     // {
@@ -96,7 +96,7 @@ export default {
                 ]
             },
             {
-                title:"",
+                title:"基础沟通",
                 icon:"mdi-message-text",
                 items:[
                     // {
@@ -150,7 +150,7 @@ export default {
                 ]
             },
             {
-                title:"",
+                title:"校园安全",
                 icon:"mdi-account-cog-outline",
                 items:[
                     // {
@@ -192,7 +192,7 @@ export default {
                 ]
             },
             {
-                title:"",
+                title:"校园文化",
                 icon:"mdi-lifebuoy",
                 items:[
                     // {
@@ -231,7 +231,7 @@ export default {
                 ]
             },
             {
-                title:"",
+                title:"家校互动",
                 icon:"mdi-nfc-tap",
                 items:[
                     // {
@@ -249,7 +249,7 @@ export default {
                 ]
             },
             {
-                title:"",
+                title:"工具",
                 icon:"mdi-hammer-wrench",
                 items:[
                     // {

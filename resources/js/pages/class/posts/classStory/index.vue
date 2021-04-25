@@ -66,9 +66,9 @@
           <h2>{{ lang.classStory }}</h2>
         </v-col>
         <v-col cols="12" md="4" class="d-flex align-center justify-end">
-          <v-btn text color="primary" @click="tempList">
+          <!-- <v-btn text color="primary" @click="tempList">
             可用模板 0， 草稿 0
-          </v-btn>
+          </v-btn> -->
           <v-btn
             dark
             tile
@@ -79,7 +79,7 @@
           >
             {{ lang.submit }}
           </v-btn>
-          <v-btn
+          <!-- <v-btn
             dark
             tile
             color="#F19861"
@@ -87,7 +87,7 @@
             @click="saveDraft"
           >
             {{ lang.saveDraft }}
-          </v-btn>
+          </v-btn> -->
         </v-col>
       </v-row>
     </v-container>
@@ -95,7 +95,6 @@
       <QuestionItem
         :Label="lang.contentPlaceFirst"
         :emoji="true"
-        :contact="true"
         ref="child"
         @contentData="loadContentData"
       ></QuestionItem>

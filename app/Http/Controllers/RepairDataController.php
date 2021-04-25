@@ -28,7 +28,7 @@ class RepairDataController extends Controller
                 'repairdata' => function ($q) use ($status, $deadline, $userId) {
                     $q->where(['status' => $status])->whereDate('deadline', $deadline);
                 },
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')
             ->paginate(5);

@@ -156,7 +156,7 @@
                     <h2>{{lang.announcement}}</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn
+                    <!-- <v-btn
                         text
                         color="primary"
                     >
@@ -171,7 +171,7 @@
                         :loading="isCreating"
                     >
                         提交
-                    </v-btn>
+                    </v-btn> -->
                     <v-btn
                         tile
                         dark

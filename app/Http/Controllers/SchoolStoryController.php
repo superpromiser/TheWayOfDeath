@@ -21,7 +21,7 @@ class SchoolStoryController extends Controller
                 'views',
                 'comments',
                 'schoolstory',
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')
             ->paginate(5);
@@ -42,7 +42,7 @@ class SchoolStoryController extends Controller
             ])
             ->orderBy('created_at', 'desc')
             ->get();
-        
+
         $schoolStory =  Post::where(['schoolId' => $request->schoolId,  'contentId' => 11])
             ->with([
                 'schoolstory',
@@ -54,7 +54,7 @@ class SchoolStoryController extends Controller
         return response()->json([
             'classStory' => $classStory,
             'schoolStory' => $schoolStory
-        ], 200); 
+        ], 200);
         // return response()->json([
         //     'classStory' => "c",
         //     'schoolStory' => "s"

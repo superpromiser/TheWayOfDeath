@@ -43,7 +43,7 @@
             </v-row>
             <v-row class="ma-0">
                 <v-col cols="12" class="mb-16">
-                    <QuestionItem Label="作业内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                    <QuestionItem Label="作业内容" :emoji="true"  ref="child" @contentData="loadContentData"></QuestionItem>
                 </v-col>
             </v-row>
         </v-container>
@@ -67,13 +67,13 @@
                         <h2>{{lang.homework}}</h2>
                     </v-col>
                     <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                        <v-btn
+                        <!-- <v-btn
                             text
                             color="primary"
                             @click="templateList"
                         >
                             可用模板 0， 草稿 0
-                        </v-btn>
+                        </v-btn> -->
                         <v-btn
                             dark
                             tile
@@ -84,7 +84,7 @@
                         >
                             {{lang.submit}}
                         </v-btn>
-                        <v-btn
+                        <!-- <v-btn
                             dark
                             tile
                             color="#F19861"
@@ -92,7 +92,7 @@
                             @click="saveDraft"
                         >
                             {{lang.saveDraft}}
-                        </v-btn>
+                        </v-btn> -->
                     </v-col>
                 </v-row>
             </v-container>
@@ -147,7 +147,7 @@
                     </v-col>
                 </v-row>
                 <v-divider light></v-divider>
-                <QuestionItem Label="作业内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                <QuestionItem Label="作业内容" :emoji="true"  ref="child" @contentData="loadContentData"></QuestionItem>
                 <v-row>
                     <v-col cols="8" md="10"></v-col>
                     <v-col cols="4" class="justify-end" md="2">

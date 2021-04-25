@@ -339,13 +339,13 @@
                  <h2>{{lang.questionnaire}}</h2>
               </v-col>
               <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                <v-btn
+                <!-- <v-btn
                   text
                   color="primary"
                   @click="selContent('template')"
                 >
                     可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
-                </v-btn>
+                </v-btn> -->
                 <v-btn
                     tile
                     dark
@@ -356,7 +356,7 @@
                 >
                     {{lang.submit}}
                 </v-btn>
-                <v-btn
+                <!-- <v-btn
                     tile
                     dark
                     color="#F19861"
@@ -364,7 +364,7 @@
                     @click="saveDraft"
                 >
                     {{lang.saveDraft}}
-                </v-btn>
+                </v-btn> -->
               </v-col>
             </v-row>
             <!-- <div class="d-flex align-center justify-space-between">
