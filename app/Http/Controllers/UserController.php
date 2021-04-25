@@ -36,6 +36,7 @@ class UserController extends Controller
         $staffData['familyAddress'] = json_encode($request->familyAddress);
         $staffData['residenceAddress'] = json_encode($request->residenceAddress);
         $groupArr = array();
+        array_push($groupArr, 0);
         array_push($groupArr, $request->lessonId);
         $staffData['groupArr'] = $groupArr;
         $manager = User::create($staffData);
@@ -99,6 +100,7 @@ class UserController extends Controller
         $studentData['roleId'] = 5;
         $studentData['familyAddress'] = json_encode($request->familyAddress);
         $groupArr = array();
+        array_push($groupArr, 0);
         array_push($groupArr, $request->lessonId);
         $studentData['groupArr'] = $groupArr;
         $student = User::create($studentData);

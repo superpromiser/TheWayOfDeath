@@ -22,7 +22,15 @@ function getAllowGroupMember(payload){
 }
 
 function getAllGroupMember(payload){
-    return axios.get('/api/v1/groupMember',{params:payload});
+    return axios.get('/api/v1/allGroupMember',{params:payload});
+}
+
+function getGroupMember(payload){
+    return axios.get('/api/v1/groupMember',{params:payload})
+}
+
+function getCanGroupMember(payload){
+    return axios.get('/api/v1/canGroupMember',{params:payload})
 }
 
 function addGroupMember(payload){
@@ -35,6 +43,10 @@ function updateGroupMember(payload){
 
 function deleteGroupMember(payload){
     return axios.delete('/api/v1/groupMember',{data:payload})
+}
+
+function denyGroupMember(payload){
+    return axios.delete('/api/v1/denyGroupMember',{data:payload});
 }
 
 function getStudentIdUser(payload){
@@ -64,9 +76,12 @@ export{
     getPendingGroupMember,
     getAllowGroupMember,
     getAllGroupMember,
+    getGroupMember,
+    getCanGroupMember,
     addGroupMember,
     updateGroupMember,
     deleteGroupMember,
+    denyGroupMember,
     getSeatData,
     createSeatData,
     updateSeatData,

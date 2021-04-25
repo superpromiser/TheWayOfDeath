@@ -296,10 +296,13 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     //group
     Route::get('pendingGroupMember', 'GroupController@getPendingGroupMember');
     Route::get('allowGroupMember', 'GroupController@getAllowGroupMember');
-    Route::get('groupMember', 'GroupController@getAllGroupMember');
+    Route::get('allGroupMember', 'GroupController@getAllGroupMember');
+    Route::get('groupMember', 'GroupController@getGroupMember');
+    Route::get('canGroupMember', 'GroupController@getCanGroupMember');
     Route::post('groupMember', 'GroupController@addGroupMember');
     Route::put('groupMember', 'GroupController@updateGroupMember');
     Route::delete('groupMember', 'GroupController@deleteGroupMember');
+    Route::delete('denyGroupMember', 'GroupController@denyGroupMember');
     Route::post('studentIdUser', 'GroupController@createStudentId');
 
     //club
