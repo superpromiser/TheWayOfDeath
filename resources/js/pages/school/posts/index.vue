@@ -70,30 +70,30 @@ export default {
                         imgUrl:"/asset/img/newIcon/tools.png",
                         path:"admin.schedule"
                     },
-                    {
-                        color:"#3EBBE8",
-                        title:"请假单",//휴가신청
-                        imgUrl:"/asset/img/newIcon/颜色填充 2.png",
-                        path:"posts.vocation"
-                    },
-                    {
-                        color:"#3EBBE8",
-                        title:"请假审批",//휴가심사
-                        imgUrl:"/asset/img/newIcon/审批.png",
-                        path:"posts.vocation"
-                    },
+                    // {
+                    //     color:"#3EBBE8",
+                    //     title:"请假单",//휴가신청
+                    //     imgUrl:"/asset/img/newIcon/颜色填充 2.png",
+                    //     path:"posts.vocation"
+                    // },
+                    // {
+                    //     color:"#3EBBE8",
+                    //     title:"请假审批",//휴가심사
+                    //     imgUrl:"/asset/img/newIcon/审批.png",
+                    //     path:"posts.vocation"
+                    // },
                     {
                         color:"#3EBBE8",
                         title:"考勤",//출근
                         imgUrl:"/asset/img/newIcon/考勤.png",
                         path:"posts.attendance"
                     },
-                    {
-                        color:"#3EBBE8",
-                        title:"课程表",//시간표
-                        imgUrl:"/asset/img/newIcon/calendar.png",
-                        path:"admin.scheduleClass"
-                    },
+                    // {
+                    //     color:"#3EBBE8",
+                    //     title:"课程表",//시간표
+                    //     imgUrl:"/asset/img/newIcon/calendar.png",
+                    //     path:"admin.scheduleClass"
+                    // },
                 ]
             },
             {
@@ -150,48 +150,48 @@ export default {
                     },
                 ]
             },
-            // {
-            //     title:"校园安全",//교내안전
-            //     icon:"mdi-account-cog-outline",
-            //     items:[
-            //         {
-            //             color:"#98BB3A",
-            //             title:"访客管理",//방문자관리
-            //             imgUrl:"/asset/img/newIcon/图层 1.png",
-            //             path:"posts."
-            //         },
-            //         {
-            //             color:"#98BB3A",
-            //             title:"归程队",//귀한팀관리
-            //             imgUrl:"/asset/img/newIcon/排队数.png",
-            //             path:"posts."
-            //         },
-            //         {
-            //             color:"#98BB3A",
-            //             title:"打卡管理",//카드긋기
-            //             imgUrl:"/asset/img/newIcon/打卡.png",
-            //             path:"posts."
-            //         },
-            //         {
-            //             color:"#98BB3A",
-            //             title:"交接班",//교대반관리
-            //             imgUrl:"/asset/img/newIcon/交接班.png",
-            //             path:"posts."
-            //         },
-            //         {
-            //             color:"#98BB3A",
-            //             title:"维修工单",//수리공
-            //             imgUrl:"/asset/img/newIcon/维修.png",
-            //             path:"posts."
-            //         },
-            //         {
-            //             color:"#98BB3A",
-            //             title:"请假放行",//휴가항행
-            //             imgUrl:"/asset/img/newIcon/图层 2.png",
-            //             path:"posts."
-            //         },
-            //     ]
-            // },
+            {
+                title:"校园安全",//교내안전
+                icon:"mdi-account-cog-outline",
+                items:[
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"访客管理",//방문자관리
+                    //     imgUrl:"/asset/img/newIcon/图层 1.png",
+                    //     path:"posts."
+                    // },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"归程队",//귀한팀관리
+                    //     imgUrl:"/asset/img/newIcon/排队数.png",
+                    //     path:"posts."
+                    // },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"打卡管理",//카드긋기
+                    //     imgUrl:"/asset/img/newIcon/打卡.png",
+                    //     path:"posts."
+                    // },
+                    {
+                        color:"#98BB3A",
+                        title:"交接班",//교대반관리
+                        imgUrl:"/asset/img/newIcon/交接班.png",
+                        path:"posts.shift"
+                    },
+                    {
+                        color:"#98BB3A",
+                        title:"维修工单",//수리공
+                        imgUrl:"/asset/img/newIcon/维修.png",
+                        path:"posts.repair"
+                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"请假放行",//휴가항행
+                    //     imgUrl:"/asset/img/newIcon/图层 2.png",
+                    //     path:"posts."
+                    // },
+                ]
+            },
             {
                 title:"校园文化",//
                 icon:"mdi-lifebuoy",
@@ -254,12 +254,12 @@ export default {
                 title:"工具",
                 icon:"mdi-hammer-wrench",
                 items:[
-                    {
-                        color:"#DA7042",
-                        title:"我的",//프로필
-                        imgUrl:"/asset/img/newIcon/我 的.png",
-                        path:"settings.profile"
-                    },
+                    // {
+                    //     color:"#DA7042",
+                    //     title:"我的",//프로필
+                    //     imgUrl:"/asset/img/newIcon/我 的.png",
+                    //     path:"profile.list"
+                    // },
                     // {
                     //     color:"#DA7042",
                     //     title:"话题",//화제

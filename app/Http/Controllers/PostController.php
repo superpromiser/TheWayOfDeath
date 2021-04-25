@@ -38,7 +38,7 @@ class PostController extends Controller
                 },
                 'schoolstory',
                 'regnames',
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')
             ->paginate(5);
@@ -67,7 +67,7 @@ class PostController extends Controller
                 'homeworkResult.homework',
                 'classstory',
                 'interclassstory',
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')
             ->paginate(5);
@@ -211,7 +211,7 @@ class PostController extends Controller
         }
         return $albumData;
     }
-    
+
     public function getClassFile(Request $request)
     {
         $this->validate($request, [
@@ -393,7 +393,6 @@ class PostController extends Controller
             'fileData' => $fileData,
             'videoData' => $videoData
         ], 200);
-        
     }
 
     public function deletePost(Request $request)

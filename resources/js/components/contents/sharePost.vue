@@ -2,8 +2,14 @@
   <v-container v-if="$isMobile()">
     <v-row>
       <v-col cols="12" class="d-flex" @click="showDetail(content)">
-        <v-avatar>
-          <v-img :src="`${baseUrl}/asset/img/appIcon/基础沟通/短信.png`" alt="postItem" ></v-img>
+        <v-avatar v-if="users.name !== '' && users.avatar == '/'" color="primary" size="60" class="ma-5">
+            <span class="white--text headline">{{users.name[0]}}</span>
+        </v-avatar>
+        <v-avatar v-else
+          class="ma-5"
+          size="60"
+        >
+          <v-img :src="users.avatar"></v-img>
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
           <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.share}}  </p>
@@ -20,8 +26,14 @@
   </v-container>
   <v-container v-else>
     <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
-      <v-avatar class="ma-3 school-card-avatar" tile >
-        <v-img :src="`${baseUrl}/asset/img/newIcon/分享.png`" alt="postItem" ></v-img>
+      <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="60" class="ma-5">
+          <span class="white--text headline">{{users.name[0]}}</span>
+      </v-avatar>
+      <v-avatar v-else
+        class="ma-5"
+        size="60"
+      >
+        <v-img :src="content.users.avatar"></v-img>
       </v-avatar>
       <div>
         <p class="font-weight-black fs-15 mb-3"> {{lang.share}}  </p>
@@ -84,6 +96,7 @@ export default {
     }),
     created(){
       this.shareData = JSON.parse(this.content.shares.content);
+      console.log(this.content)
     },
     methods:{
 
