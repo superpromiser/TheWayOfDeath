@@ -1,7 +1,7 @@
 <template>
-  <v-container class="ma-0 pa-0" v-if="$isMobile()">
-      <v-container v-if="postNew == true" class="pa-0">
-        <v-row class="ma-0 bg-secondary justify-center position-relative position-sticky-top-0" >
+  <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+      <v-container v-if="postNew == true" class="pa-0 h-100 bg-gray-light-dark mb-16">
+        <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
             <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                 mdi-chevron-left
             </v-icon>
@@ -10,7 +10,8 @@
                 保存
             </v-btn>
         </v-row>
-        <v-row class="ma-0 mo-glow">
+        <div class="cus-divider"></div>
+        <v-row class="ma-0 mo-glow bg-white">
               <v-col cols="12" sm="6" md="4">
                   <v-text-field
                       color="#7879ff"
@@ -24,7 +25,7 @@
                   <v-text-field
                       color="#7879ff"
                       v-model="newQuestionnaireData.description"
-                      label="说明（选填）"
+                      label="说明"
                       hide-details
                       class="mt-0 pt-0"
                   ></v-text-field>
@@ -35,7 +36,7 @@
                   md="4"
                   >
                   <v-datetime-picker 
-                      label="最后期限" 
+                      label="截止时间" 
                       v-model="newQuestionnaireData.deadline"
                       :okText='lang.ok'
                       :clearText='lang.cancel'
@@ -58,236 +59,257 @@
                   ></v-select>
               </v-col>
           </v-row>
-          <v-row class="ma-0 mo-glow ">
-              <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
-                  <span class="">匿名问卷</span>
-                  <v-switch
-                      v-model="newQuestionnaireData.questionnaireFlag"
-                      color="#7879ff"
-                      hide-details
-                      class="pt-0 mt-0"
-                  ></v-switch>
-              </v-col>
-              <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
-                  <span class="">答卷人可见结果</span>
-                  <v-switch
-                      v-model="newQuestionnaireData.resultFlag"
-                      color="#7879ff"
-                      hide-details
-                      class="pt-0 mt-0"
-                  ></v-switch>
-              </v-col>
-              <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
-                  <span class="">外部人员可作答</span>
-                  <v-switch
-                      v-model="newQuestionnaireData.answerFlag"
-                      color="#7879ff"
-                      hide-details
-                      class="pt-0 mt-0"
-                  ></v-switch>
-              </v-col>
-          </v-row>
-          <v-row class="ma-0 mo-glow position-sticky-top-0 bg-white" >
-              <v-col cols="12" class="d-flex align-center justify-space-between">
-                <v-btn text color="#7879ff" @click="selContent('single')">
-                  <v-icon left color="#7879ff">mdi-plus</v-icon>单选题
-                </v-btn>
-                <v-btn text color="#7879ff" @click="selContent('multi')">
-                  <v-icon left color="#7879ff">mdi-plus</v-icon>多选题
-                </v-btn>
-                <v-btn text color="#7879ff" @click="selContent('question')">
-                  <v-icon left color="#7879ff">mdi-plus</v-icon>问答题
-                </v-btn>
-              </v-col>
-              <v-col cols="12" class="d-flex align-center justify-space-between">
-                <v-btn text color="#7879ff" @click="selContent('scoring')">
-                  <v-icon left color="#7879ff">mdi-plus</v-icon>评分题
-                </v-btn>
-              </v-col>
-          </v-row>
-          <!--  View Datas  -->
-          <v-row class="ma-0 mo-glow mb-10 pb-16">
-            <!--  View Divider  -->
-            <v-col cols="12" class="text-center">
-              <h2>预览</h2>
-              <v-divider></v-divider>
+        <div class="cus-divider"></div>
+        <v-row class="ma-0 mo-glow bg-white">
+            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
+                <span class="">匿名问卷</span>
+                <v-switch
+                    v-model="newQuestionnaireData.questionnaireFlag"
+                    color="#7879ff"
+                    hide-details
+                    class="pt-0 mt-0"
+                ></v-switch>
             </v-col>
+            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
+                <span class="">答卷人可见结果</span>
+                <v-switch
+                    v-model="newQuestionnaireData.resultFlag"
+                    color="#7879ff"
+                    hide-details
+                    class="pt-0 mt-0"
+                ></v-switch>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
+                <span class="">外部人员可作答</span>
+                <v-switch
+                    v-model="newQuestionnaireData.answerFlag"
+                    color="#7879ff"
+                    hide-details
+                    class="pt-0 mt-0"
+                ></v-switch>
+            </v-col>
+        </v-row>
+        <div class="cus-divider"></div>
+        <v-row class="ma-0 mo-glow bg-white" >
+            <v-col cols="12" class="d-flex align-center justify-space-between">
+              <v-btn text color="#7879ff" @click="selContent('single')">
+                <v-icon left color="#7879ff">mdi-plus</v-icon>单选题
+              </v-btn>
+              <v-btn text color="#7879ff" @click="selContent('multi')">
+                <v-icon left color="#7879ff">mdi-plus</v-icon>多选题
+              </v-btn>
+              <v-btn text color="#7879ff" @click="selContent('question')">
+                <v-icon left color="#7879ff">mdi-plus</v-icon>问答题
+              </v-btn>
+            </v-col>
+            <v-col cols="12" class="d-flex align-center justify-space-between">
+              <v-btn text color="#7879ff" @click="selContent('scoring')">
+                <v-icon left color="#7879ff">mdi-plus</v-icon>评分题
+              </v-btn>
+            </v-col>
+        </v-row>
+        <div class="cus-divider"></div>
+        <!--  View Datas  -->
+        <v-row class="ma-0 mo-glow ">
             <!--  View Datas  -->
             <v-col cols="12" v-for="(data, index) in newQuestionnaireData.content" :key="index">
-              <!--  single Datas  -->
-              <v-row v-if="data.type == 'single'">
+            <!--  single Datas  -->
+            <v-row v-if="data.type == 'single'">
                 <v-col cols="12">
-                  <p class="mb-0 d-flex align-center"> 
+                <p class="mb-0 d-flex align-center"> 
                     {{index + 1}}.  
                     <v-chip class="ma-2" color="success" outlined >
-                      <strong>单选题</strong>
+                    <strong>单选题</strong>
                     </v-chip>
                     <v-btn icon color="green" class="" @click="pushUp(index)" :disabled="index == 0"  >
-                      <v-icon>mdi-arrow-up-bold</v-icon>
+                    <v-icon>mdi-arrow-up-bold</v-icon>
                     </v-btn>
                     <v-btn icon color="green" class="" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)" >
-                      <v-icon>mdi-arrow-down-bold</v-icon>
+                    <v-icon>mdi-arrow-down-bold</v-icon>
                     </v-btn>
                     <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)" >
-                      <v-icon dark>
+                    <v-icon dark>
                         mdi-pencil
-                      </v-icon>
+                    </v-icon>
                     </v-btn>
                     <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)" >
-                      <v-icon dark>
+                    <v-icon dark>
                         mdi-trash-can-outline
-                      </v-icon>
+                    </v-icon>
                     </v-btn>
-                  </p>
-                  <p class="text-wrap pl-3 mb-0 pa-0 ">{{ data.singleContentDataArr[0].text }}</p>
+                </p>
+                <p class="text-wrap pl-3 mb-0 pa-0 ">{{ data.singleContentDataArr[0].text }}</p>
                 </v-col>
                 <v-col v-if="checkIfAttachExist(data.singleContentDataArr[0])">
-                  <AttachItemViewer :items="data.singleContentDataArr[0]" />
+                <AttachItemViewer :items="data.singleContentDataArr[0]" />
                 </v-col>
                 <v-col class="pl-6 pa-0" cols="12" v-for="(singleData, singleDataIndex) in data.singleContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
-                  <div> 
+                <div class="d-flex align-center cursor-pointer"> 
+                  <v-chip
+                    class="mr-2"
+                    color="success"
+                    outlined
+                    small
+                  >
                     <strong>{{alphabet[singleDataIndex-1]}}</strong>
-                    <p class="mb-0 text-wrap"> {{singleData.text}}</p>
-                  </div>
-                  <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
+                  </v-chip>
+                  <p class="mb-0 text-wrap"> {{singleData.text}}</p>
+                </div>
+                <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
                 </v-col>
-              </v-row>
-              <!--  multi Datas  -->
-              <v-row v-if="data.type == 'multi'">
+            </v-row>
+            <!--  multi Datas  -->
+            <v-row v-if="data.type == 'multi'">
                 <v-col cols="12">
-                  <p class="mb-0 d-flex align-center"> 
+                <p class="mb-0 d-flex align-center"> 
                     {{index + 1}}.  
                     <v-chip class="ma-2" color="success" outlined >
-                      <strong>多选题</strong>
+                    <strong>多选题</strong>
                     </v-chip>
                     <v-btn icon color="green" class="" @click="pushUp(index)" :disabled="index == 0">
-                      <v-icon>mdi-arrow-up-bold</v-icon>
+                    <v-icon>mdi-arrow-up-bold</v-icon>
                     </v-btn>
                     <v-btn icon color="green" class="" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)">
-                      <v-icon>mdi-arrow-down-bold</v-icon>
+                    <v-icon>mdi-arrow-down-bold</v-icon>
                     </v-btn>
                     <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)" >
-                      <v-icon dark>
+                    <v-icon dark>
                         mdi-pencil
-                      </v-icon>
+                    </v-icon>
                     </v-btn>
                     <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)" >
-                      <v-icon dark>
+                    <v-icon dark>
                         mdi-trash-can-outline
-                      </v-icon>
+                    </v-icon>
                     </v-btn>
-                  </p>
-                  <p class="text-wrap pl-3 mb-0  ">{{ data.multiContentDataArr[0].text }}</p>
+                </p>
+                <p class="text-wrap pl-3 mb-0  ">{{ data.multiContentDataArr[0].text }}</p>
                 </v-col>
                 <v-col v-if="checkIfAttachExist(data.multiContentDataArr[0])">
-                  <AttachItemViewer :items="data.multiContentDataArr[0]" />
+                <AttachItemViewer :items="data.multiContentDataArr[0]" />
                 </v-col>
                 <v-col class="pl-6 pa-0" cols="12" v-for="(multiData, singleDataIndex) in data.multiContentDataArr" :key="singleDataIndex" v-if="singleDataIndex !== 0">
-                  <div> 
+                <div class="d-flex align-center cursor-pointer"> 
+                  <v-chip
+                    class="mr-2"
+                    color="success"
+                    outlined
+                    small
+                  >
                     <strong>{{alphabet[singleDataIndex-1]}}</strong>
-                    <p class="mb-0 text-wrap "> {{multiData.text}}</p>
-                  </div>
-                  <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
+                  </v-chip>
+                  <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                </div>
+
+                <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                 </v-col>
-              </v-row>
-              <!--  qa Datas  -->
-              <v-row v-if="data.type == 'qa'">
+            </v-row>
+            <!--  qa Datas  -->
+            <v-row v-if="data.type == 'qa'">
                 <v-col cols="12">
-                  <p class="mb-0 d-flex align-center"> 
+                <p class="mb-0 d-flex align-center"> 
                     {{index + 1}}.  
                     <v-chip class="ma-2" color="success" outlined >
-                      <strong>问答题</strong>
+                    <strong>问答题</strong>
                     </v-chip>
                     <v-btn icon color="green" class="" @click="pushUp(index)" :disabled="index == 0">
-                      <v-icon>mdi-arrow-up-bold</v-icon>
+                    <v-icon>mdi-arrow-up-bold</v-icon>
                     </v-btn>
                     <v-btn icon color="green" class="" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)">
-                      <v-icon>mdi-arrow-down-bold</v-icon>
+                    <v-icon>mdi-arrow-down-bold</v-icon>
                     </v-btn>
                     <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
-                      <v-icon dark>
+                    <v-icon dark>
                         mdi-pencil
-                      </v-icon>
+                    </v-icon>
                     </v-btn>
                     <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)">
-                      <v-icon dark>
+                    <v-icon dark>
                         mdi-trash-can-outline
-                      </v-icon>
+                    </v-icon>
                     </v-btn>
-                  </p>
-                  <p class="text-wrap pl-3 mb-0">{{ data.qaContentDataArr[0].text }}</p>
+                </p>
+                <p class="text-wrap pl-3 mb-0">{{ data.qaContentDataArr[0].text }}</p>
                 </v-col>
                 <v-col v-if="checkIfAttachExist(data.qaContentDataArr[0])">
-                  <AttachItemViewer :items="data.qaContentDataArr[0]" />
+                <AttachItemViewer :items="data.qaContentDataArr[0]" />
                 </v-col>
-              </v-row>
-              <!--  statistics Datas  -->
-              <v-row v-if="data.type == 'stat'">
+            </v-row>
+            <!--  statistics Datas  -->
+            <v-row v-if="data.type == 'stat'">
                 <v-col cols="12">
-                  <p class="mb-0 d-flex align-center"> 
+                <p class="mb-0 d-flex align-center"> 
                     {{index + 1}}.  
                     <v-chip class="ma-2" color="success" outlined >
-                      <strong>统计题</strong>
+                    <strong>统计题</strong>
                     </v-chip>
                     <v-btn icon color="green" class="" @click="pushUp(index)" :disabled="index == 0">
-                      <v-icon>mdi-arrow-up-bold</v-icon>
+                    <v-icon>mdi-arrow-up-bold</v-icon>
                     </v-btn>
                     <v-btn icon color="green" class="" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)" >
-                      <v-icon>mdi-arrow-down-bold</v-icon>
+                    <v-icon>mdi-arrow-down-bold</v-icon>
                     </v-btn>
                     <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
-                      <v-icon dark>
+                    <v-icon dark>
                         mdi-pencil
-                      </v-icon>
+                    </v-icon>
                     </v-btn>
                     <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)">
-                      <v-icon dark>
+                    <v-icon dark>
                         mdi-trash-can-outline
-                      </v-icon>
+                    </v-icon>
                     </v-btn>
-                  </p>
-                  <p class="text-wrap pl-3 mb-0">{{ data.statDataArr[0].contentData[0].text }}</p>
+                </p>
+                <p class="text-wrap pl-3 mb-0">{{ data.statDataArr[0].contentData[0].text }}</p>
                 </v-col>
                 <v-col v-if="checkIfAttachExist(data.statDataArr[0].contentData[0])">
-                  <AttachItemViewer :items="data.statDataArr[0].contentData[0]" />
+                <AttachItemViewer :items="data.statDataArr[0].contentData[0]" />
                 </v-col>
-              </v-row>
-              <!--  score Datas  -->
-              <v-row v-if="data.type == 'score'">
+            </v-row>
+            <!--  score Datas  -->
+            <v-row v-if="data.type == 'score'">
                 <v-col cols="12">
-                  <p class="mb-0 d-flex align-center"> 
-                    {{index + 1}}.  
-                    <v-chip class="ma-2" color="success" outlined >
-                      <strong>评分题</strong>
-                    </v-chip>
-                    <v-btn icon color="green" class="" @click="pushUp(index)" :disabled="index == 0">
-                      <v-icon>mdi-arrow-up-bold</v-icon>
-                    </v-btn>
-                    <v-btn icon color="green" class="" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)">
-                      <v-icon>mdi-arrow-down-bold</v-icon>
-                    </v-btn>
-                    <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
-                      <v-icon dark>
-                        mdi-pencil
-                      </v-icon>
-                    </v-btn>
-                    <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)">
-                      <v-icon dark>
-                        mdi-trash-can-outline
-                      </v-icon>
-                    </v-btn>
-                  </p>
-                  <p class="text-wrap pl-3 mb-0 ">{{ data.scoringDataArr[0].contentData[0].text }}</p>
+                    <p class="mb-0 d-flex align-center"> 
+                        {{index + 1}}.  
+                        <v-chip class="ma-2" color="success" outlined >
+                        <strong>评分题</strong>
+                        </v-chip>
+                        <v-btn icon color="green" class="" @click="pushUp(index)" :disabled="index == 0">
+                        <v-icon>mdi-arrow-up-bold</v-icon>
+                        </v-btn>
+                        <v-btn icon color="green" class="" @click="pushDown(index)" :disabled="index == (newQuestionnaireData.content.length-1)">
+                        <v-icon>mdi-arrow-down-bold</v-icon>
+                        </v-btn>
+                        <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
+                        <v-icon dark>
+                            mdi-pencil
+                        </v-icon>
+                        </v-btn>
+                        <v-btn fab dark x-small color="error" class="mx-2" @click="deleteContent( index)">
+                        <v-icon dark>
+                            mdi-trash-can-outline
+                        </v-icon>
+                        </v-btn>
+                    </p>
+                    <p class="text-wrap pl-3 mb-0 ">{{ data.scoringDataArr[0].contentData[0].text }}</p>
+                    </v-col>
+                    <v-col v-if="checkIfAttachExist(data.scoringDataArr[0].contentData[0])">
+                    <AttachItemViewer :items="data.scoringDataArr[0].contentData[0]" />
                 </v-col>
-                <v-col v-if="checkIfAttachExist(data.scoringDataArr[0].contentData[0])">
-                  <AttachItemViewer :items="data.scoringDataArr[0].contentData[0]" />
-                </v-col>
-              </v-row>
+            </v-row>
             </v-col>
-          </v-row>
-          <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
+        </v-row>
+        <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
+          <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
+            <div class="text-center px-2">
+              <v-icon>mdi-buffer</v-icon>
+              <p class="mb-0 font-color-gray-dark">模板</p>
+            </div>
+            <v-btn color="#7879ff" class="submit-mo-post-btn" dark large> 确认发布 </v-btn>
+          </v-col>
+        </v-row>
       </v-container>
-      <div v-else>
+      <div v-else class="h-100">
         <keep-alive>
           <router-view @contentData="saveContent" :type="'post'"></router-view>
         </keep-alive>
@@ -460,60 +482,17 @@
                     <v-text-field
                         solo
                         v-model="newQuestionnaireData.description"
-                        label="说明（选填）"
+                        label="说明"
                         hide-details
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                     <v-datetime-picker 
-                      label="最后期限" 
+                      label="截止时间" 
                       v-model="newQuestionnaireData.deadline"
                       :okText='lang.ok'
                       :clearText='lang.cancel'
                     > </v-datetime-picker>
-                    <!-- <v-menu
-                        ref="menu"
-                        v-model="menu"
-                        :close-on-content-click="false"
-                        :return-value.sync="newQuestionnaireData.deadline"
-                        transition="scale-transition"
-                        offset-y
-                        min-width="auto"
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                            solo
-                            v-model="newQuestionnaireData.deadline"
-                            prepend-icon="mdi-calendar"
-                            readonly
-                            v-bind="attrs"
-                            v-on="on"
-                            hide-details
-                        ></v-text-field>
-                        </template>
-                        <v-date-picker
-                        v-model="newQuestionnaireData.deadline"
-                        no-title
-                        scrollable
-                        locale="zh-cn"
-                        >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            text
-                            color="primary"
-                            @click="menu = false"
-                        >
-                            {{lang.cancel}}
-                        </v-btn>
-                        <v-btn
-                            text
-                            color="primary"
-                            @click="$refs.menu.save(date)"
-                        >
-                            {{lang.ok}}
-                        </v-btn>
-                        </v-date-picker>
-                    </v-menu> -->
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                     <v-select
@@ -880,7 +859,9 @@ export default {
         return this.$route;
       },
       ...mapGetters({
-        user: 'auth/user'
+        user: 'auth/user',
+        selectedSchoolItem: 'mo/selectedSchoolItem',
+        previewData: 'mo/previewData',
       }),
 
       selectAllItems () {
@@ -912,6 +893,12 @@ export default {
   },
 
   created(){
+    if(this.selectedSchoolItem == null){
+      return this.$router.push({name: 'home'});
+    }
+    if(this.previewData !== null){
+      this.newQuestionnaireData = this.previewData.data
+    }
     console.log("222", this.user);
     this.newQuestionnaireData.schoolId = this.currentPath.params.schoolId;
     if(this.currentPath.name == 'posts.questionnaire'){
@@ -972,22 +959,22 @@ export default {
       console.log("!", this.newQuestionnaireData)
       let dateNow = new Date();
       if(this.newQuestionnaireData.title.trim() == ''){
-        return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
+        return this.$snackbar.showMessage({content: this.lang.questionnaire+this.lang.requireTitle, color: "error"})
       }
       if(this.newQuestionnaireData.description.trim() == ''){
-        return this.$snackbar.showMessage({content: "说明（选填）字段为空。", color: "error"})
+        return this.$snackbar.showMessage({content: this.lang.questionnaire+this.lang.requireDescription, color: "error"})
       }
       if(this.newQuestionnaireData.deadline == ""){
-        return this.$snackbar.showMessage({content: "输入截止日期。", color: "error"})
+        return this.$snackbar.showMessage({content: this.lang.requireDeadline, color: "error"})
       }
       if( dateNow > this.newQuestionnaireData.deadline){
-        return this.$snackbar.showMessage({content: "截止日期应晚于当前时间。", color: "error"})
+        return this.$snackbar.showMessage({content: this.lang.requireDeadlineOrder, color: "error"})
       }
       if(this.newQuestionnaireData.viewList.length == 0){
-        return this.$snackbar.showMessage({content: "请选择一个班级。", color: "error"})
+        return this.$snackbar.showMessage({content: this.lang.requireMember, color: "error"})
       }
       if(this.newQuestionnaireData.content.length == 0){
-        return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})
+        return this.$snackbar.showMessage({content: this.lang.questionnaire+this.lang.requireContent, color: "error"})
       }
       
       
@@ -1087,8 +1074,34 @@ export default {
     },
 
     navToPreview(){
-
-    }
+      let dateNow = new Date();
+      if(this.newQuestionnaireData.title.trim() == ''){
+        return this.$snackbar.showMessage({content: this.lang.questionnaire+this.lang.requireTitle, color: "error"})
+      }
+      if(this.newQuestionnaireData.description.trim() == ''){
+        return this.$snackbar.showMessage({content: this.lang.questionnaire+this.lang.requireDescription, color: "error"})
+      }
+      if(this.newQuestionnaireData.deadline == ""){
+        return this.$snackbar.showMessage({content: this.lang.requireDeadline, color: "error"})
+      }
+      if( dateNow > this.newQuestionnaireData.deadline){
+        return this.$snackbar.showMessage({content: this.lang.requireDeadlineOrder, color: "error"})
+      }
+      if(this.newQuestionnaireData.viewList.length == 0){
+        return this.$snackbar.showMessage({content: this.lang.requireMember, color: "error"})
+      }
+      if(this.newQuestionnaireData.content.length == 0){
+        return this.$snackbar.showMessage({content: this.lang.questionnaire+this.lang.requireContent, color: "error"})
+      }
+      let previewData = {
+        title: this.lang.questionnaire,
+        data: this.newQuestionnaireData,
+        type: 'questionnaire'
+      }
+      this.$store.dispatch('mo/onPreviewData', previewData);
+      console.log("this.selectedSchoolItem", this.selectedSchoolItem)
+      this.$router.push({name: 'schoolPost.preview', params: {schoolId: this.selectedSchoolItem.schoolId, contentType: 'questionnaire'}});
+    },
 
   }
 }

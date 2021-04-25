@@ -46,5 +46,11 @@
     "schoolStory":"学校动态",
     "classStory":"班级动态",
     "interClassStory":"班际动态",
-    "shiftMng":"交接班管理"
+    "shiftMng":"交接班管理",
+    "requireTitle": "标题不能为空",
+    "requireDescription": "说明不能为空",
+    "requireDeadline": "截止时间不能为空",
+    "requireMember": "参与人员不能为空",
+    "requireContent": "内容不能为空",
+    "requireDeadlineOrder": "截止时间不能早于当前时间"
 }

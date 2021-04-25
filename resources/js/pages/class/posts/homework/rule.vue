@@ -3,7 +3,7 @@
         <v-row class="ma-0 align-center">
             <v-col cols="12">
                 <v-datetime-picker 
-                    label="最后期限" 
+                    label="截止时间" 
                     v-model="testTime"
                     :okText='lang.ok'
                     :clearText='lang.cancel'

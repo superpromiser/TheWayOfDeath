@@ -1,28 +1,35 @@
 <template>
-    <v-container v-if="$isMobile()" >
-        <v-row>
+    <v-container v-if="$isMobile()" class="bg-white">
+        <v-row class="ma-0">
             <!-- {{index}} -->
-            <v-textarea
-                class="mo-glow-v-text mt-0 pt-0"
-                clearable
-                auto-grow
-                color="#7879ff"
-                clear-icon="mdi-close-circle"
-                :label="Label"
-                value=""
-                v-model="contentData.text"
-                hide-details
-                rows="1"
-            ></v-textarea>
+            <v-col cols="12" class="pa-0">
+                <p class="mb-0 font-size-0-8 font-color-gray-dark">{{Label}}</p> 
+            </v-col>
+            <v-col cols="12" class="pa-0">
+                <v-textarea
+                    class="v-textarea-cus-border mt-0 pt-0"
+                    clearable
+                    auto-grow
+                    color="#7879ff"
+                    clear-icon="mdi-close-circle"
+                    value=""
+                    v-model="contentData.text"
+                    hide-details
+                    rows="4"
+                    solo
+                    
+                ></v-textarea>
+            </v-col>
         </v-row>
-        <v-row class="mt-5">
+        <v-row class="ma-0 mt-1">
             <v-btn
                 fab
                 x-small
-                class="ma-2 mo-glow"
+                class="bg-white mx-1"
                 :loading="isImageSelecting"
                 @click="clickUploadImageBtn"
                 style="color:#7879ff;"
+                elevation="0"
             >
               <v-icon>mdi-file-image-outline</v-icon>
             </v-btn>
@@ -36,10 +43,11 @@
             <v-btn
                 fab
                 x-small
-                class="ma-2 mo-glow"
+                class="bg-white mx-1"
                 :loading="isVideoSelecting"
                 @click="clickUploadVideoBtn"
                 style="color:#7879ff;"
+                elevation="0"
             >
               <v-icon>mdi-video</v-icon>
             </v-btn>
@@ -53,10 +61,11 @@
             <v-btn
                 fab
                 x-small
-                class="ma-2 mo-glow"
+                class="bg-white mx-1"
                 :loading="isFileSelecting"
                 @click="clickUploadFileBtn"
                 style="color:#7879ff;"
+                elevation="0"
             >
               <v-icon>mdi-file-upload</v-icon>
             </v-btn>
@@ -71,10 +80,11 @@
                 v-if="contact"
                 fab
                 x-small
-                class="ma-2 mo-glow"
+                class="bg-white mx-1"
                 :loading="isUserSeleciting"
                 @click="selectUser"
                 style="color:#7879ff;"
+                elevation="0"
             >
                 <v-icon>mdi-id-card</v-icon>
             </v-btn>
@@ -82,9 +92,10 @@
                 v-if="emoji"
                 fab
                 x-small
-                class="ma-2 mo-glow"
+                class="bg-white mx-1"
                 @click="toggleEmo"
                 style="color:#7879ff;"
+                elevation="0"
             >
                 <v-icon>mdi-emoticon-excited-outline</v-icon>
             </v-btn>
@@ -92,11 +103,11 @@
                      class="w-90-i" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
         </v-row>
         <!--  IMAGE VIEWER  -->
-        <v-row>
-            <v-col v-for="(imgUrl, index) in contentData.imgUrl" :key="index" cols="12" sm="4" md="3" lg="2" class="position-relative">
+        <v-row class="ma-0">
+            <v-col v-for="(imgUrl, index) in contentData.imgUrl" :key="index" cols="12" sm="4" md="3" lg="2" class="position-relative py-1">
                 <v-btn
                     icon
-                    class="position-absolute remove-uploaded-item-icon "
+                    class="position-absolute remove-uploaded-item-icon mr-2"
                     @click="removeUploadItem('image', index)"
                     :loading="imgUrl.isDeleting"
                     color="pink"
@@ -108,7 +119,7 @@
         </v-row>
         <!--  VIDEO VIEWER  -->
         <v-row class="ma-0">
-            <v-col v-for="(video, index) in contentData.videoUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative mo-glow pa-0 mt-5">
+            <v-col v-for="(video, index) in contentData.videoUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative py-1">
                 <v-card
                     class="d-flex align-center mo-glow-bg"
                     flat
@@ -133,7 +144,7 @@
         </v-row>
         <!--  FILE VIEWER  -->
         <v-row class="ma-0">
-            <v-col v-for="(other, index) in contentData.otherUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative pa-0 mo-glow mt-5">
+            <v-col v-for="(other, index) in contentData.otherUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative py-1 ">
                 <v-card
                     class="d-flex align-center mo-glow-bg"
                     flat
@@ -402,9 +413,7 @@ export default {
             this.emoStatus = false;
         },
         clickUploadImageBtn() {
-            this.isImageSelecting = true
             window.addEventListener('focus', () => {
-                this.isImageSelecting = false
             }, { once: true })
             this.$refs.imageUploader.click()
         },
@@ -450,9 +459,7 @@ export default {
             
         },
         clickUploadVideoBtn() {
-            this.isVideoSelecting = true
             window.addEventListener('focus', () => {
-                this.isVideoSelecting = false
             }, { once: true })
             this.$refs.videoUploader.click()
         },
@@ -479,9 +486,7 @@ export default {
             this.$refs.videoUploader.value = ''
         },
         clickUploadFileBtn() {
-            this.isFileSelecting = true
             window.addEventListener('focus', () => {
-                this.isFileSelecting = false
             }, { once: true })
             this.$refs.fileUploader.click()
         },

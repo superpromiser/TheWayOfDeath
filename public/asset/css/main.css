@@ -124,7 +124,7 @@ a {
 }
 
 .bg-white {
-    background: white;
+    background: white!important;
 }
 
 .post-item-card-avatar {
@@ -1309,4 +1309,39 @@ a {
 
 .font-color-gray-heavy{
     color:#333333;
+}
+
+.position-sticky-bottom-0{
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+}
+
+.submit-mo-post-btn{
+    width: calc(100% - 55px);
+}
+
+.font-color-gray-dark{
+    color: #757575;
+}
+
+.bg-gray-light-dark{
+    background: #E0E0E0!important;
+}
+
+.position-fixed-bottom-0{
+    position: fixed;
+    bottom: 0px;
+    z-index: 2;
+}
+
+.v-textarea-cus-border .v-input__control .v-input__slot{
+    box-shadow: none!important;
+    border: 1px solid #E0E0E0;
+}
+
+@media (max-width: 600px) {
+    .theme--light.v-text-field > .v-input__control > .v-input__slot:before{
+        border-color: rgba(0, 0, 0, 0.22)!important;
+    }
 }

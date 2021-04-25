@@ -47,7 +47,7 @@
                     <v-text-field
                         solo
                         v-model="newTemplateData.description"
-                        label="说明（选填）"
+                        label="说明"
                         hide-details
                     ></v-text-field>
                 </v-col>

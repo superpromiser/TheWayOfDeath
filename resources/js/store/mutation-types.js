@@ -48,6 +48,7 @@ export const SCHOOL_STORY_LIST = 'SCHOOL_STORY_LIST'
 export const CLASS_STORY_LIST = 'CLASS_STORY_LIST'
 export const MO_BOTTOM_NAV_VALUE = 'MO_BOTTOM_NAV_VALUE'
 export const IS_NEW_POST = 'IS_NEW_POST'
+export const PREVIEW_DATA = 'PREVIEW_DATA'
 
 //alarm
 export const STORE_ALARM_DATA = 'STORE_ALARM_DATA'
