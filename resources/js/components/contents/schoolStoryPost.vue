@@ -6,7 +6,6 @@
             <span class="white--text headline">{{users.name[0]}}</span>
         </v-avatar>
         <v-avatar v-else
-          class="ma-5"
           size="60"
         >
           <v-img :src="content.users.avatar"></v-img>

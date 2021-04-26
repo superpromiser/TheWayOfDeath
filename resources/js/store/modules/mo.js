@@ -1,3 +1,4 @@
+import { faLaptopHouse } from '@fortawesome/free-solid-svg-icons'
 import * as types from '../mutation-types'
 // state
 export const state = {
@@ -17,6 +18,13 @@ export const state = {
 
   //preview
   previewData: null,
+
+  //publish type == spec
+  publishContent: null,
+  publishSpecUserList: null,
+
+  //back without select any user on mobile member select page
+  backWithoutSelect: false,
 }
 
 // getters
@@ -35,6 +43,11 @@ export const getters = {
   isNewPost: state => state.isNewPost,
 
   previewData: state => state.previewData,
+  
+  publishContent: state => state.publishContent,
+  publishSpecUserList: state => state.publishSpecUserList,
+
+  backWithoutSelect: state => state.backWithoutSelect,
 }
 
 // mutations
@@ -72,6 +85,15 @@ export const mutations = {
     [types.PREVIEW_DATA] (state,  previewData ) {
         state.previewData = previewData
     },
+    [types.PUBLISH_CONTENT] (state,  publishContent ) {
+        state.publishContent = publishContent
+    },
+    [types.PUBLISH_SPEC_USER_LIST] (state,  publishSpecUserList ) {
+        state.publishSpecUserList = publishSpecUserList
+    },
+    [types.BACK_WITHOUT_SELECT] (state,  backWithoutSelect ) {
+        state.backWithoutSelect = backWithoutSelect
+    },
 }
 
 // actions
@@ -108,5 +130,14 @@ export const actions = {
     },
     onPreviewData ({ commit }, payload) {
         commit(types.PREVIEW_DATA, payload)
+    },
+    onPublishContent ({ commit }, payload) {
+        commit(types.PUBLISH_CONTENT, payload)
+    },
+    onPublishSpecUserList ({ commit }, payload) {
+        commit(types.PUBLISH_SPEC_USER_LIST, payload)
+    },
+    onBackWithoutSelect ({ commit }, payload) {
+        commit(types.BACK_WITHOUT_SELECT, payload)
     },
 }

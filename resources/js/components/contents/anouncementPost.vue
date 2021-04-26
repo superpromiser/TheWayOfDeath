@@ -4,13 +4,12 @@
         <v-col cols="12" class="d-flex">
           <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="60" class="ma-5">
             <span class="white--text headline">{{users.name[0]}}</span>
-        </v-avatar>
-        <v-avatar v-else
-          class="ma-5"
-          size="60"
-        >
-          <v-img :src="content.users.avatar"></v-img>
-        </v-avatar>
+          </v-avatar>
+          <v-avatar v-else
+            size="60"
+          >
+            <v-img :src="content.users.avatar"></v-img>
+          </v-avatar>
           <div class="ml-2 d-flex flex-column">
             <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.announcement}}  </p>
             <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>

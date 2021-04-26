@@ -24,6 +24,9 @@ export default [
   //circle
   { path: '/circle', name: 'circle', component: page('circle/index.vue') },
 
+  //selectuser
+  { path: '/member/select', name: 'member.selectMo', component: page('member/moChooseMember.vue') },
+
   //mo post preview
   { path: '/schoolSpace/:schoolId/post/:contentType/preview',name: 'schoolPost.preview', component: page('preview.vue') },
 

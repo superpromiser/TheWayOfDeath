@@ -1389,3 +1389,13 @@ a {
     color: white !important;
     background-color: #646464 !important;
 }
+.v-textarea-px-0.v-textarea .v-input__control .v-input__slot{
+    padding: 0px!important;
+}
+.box-shadow-none{
+    box-shadow: none!important;
+}
+.publish-type-menu{
+    top: 657px!important;
+    background: #E0E0E0;
+}

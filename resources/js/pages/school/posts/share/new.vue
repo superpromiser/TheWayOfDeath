@@ -14,22 +14,92 @@
             <v-row class="ma-0 text-area-without-nav-bottom" @click="$refs.textarea.focus()" style="">
                 <v-col cols="12">
                     <v-textarea
-                        class="v-textarea-cus-border-0 mt-0 pt-0"
+                        class="v-textarea-cus-border-0 v-textarea-px-0 mt-0 pt-0"
                         auto-grow
                         color="#7879ff"
                         clear-icon="mdi-close-circle"
                         label="輸入内容"
-                        v-model="contentData.text"
+                        v-model="shareData.content[0].text"
                         hide-details
                         rows="5"
                         solo
                         ref="textarea"
                     ></v-textarea>
                 </v-col>
+                <v-col cols="12" class="pa-0 pb-16">
+                    <v-container class="pa-0 pb-16">
+                        <!--  IMAGE VIEWER  -->
+                        <v-row class="ma-0">
+                            <v-col v-for="(imgUrl, index) in shareData.content[0].imgUrl" :key="index" cols="12" sm="4" md="3" lg="2" class="position-relative py-1">
+                                <v-btn
+                                    icon
+                                    class="position-absolute remove-uploaded-item-icon mr-2"
+                                    @click="removeUploadItem('image', index)"
+                                    :loading="imgUrl.isDeleting"
+                                    color="pink"
+                                    >
+                                    <v-icon size="25">mdi-trash-can-outline</v-icon>
+                                </v-btn>
+                                <v-img :src="`${baseUrl}${imgUrl.path}`" alt="upload image" class="uploaded-image" ></v-img>
+                            </v-col>
+                        </v-row>
+                        <!--  VIDEO VIEWER  -->
+                        <v-row class="ma-0">
+                            <v-col v-for="(video, index) in shareData.content[0].videoUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative py-1">
+                                <v-card
+                                    class="d-flex align-center mo-glow-bg"
+                                    flat
+                                    tile
+                                >
+                                    <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                                    <div class="font-size-0-75">
+                                        <div><span><strong>{{video.fileOriName}}</strong></span></div>
+                                        <div>{{video.fileSize}}</div>
+                                    </div>
+                                    <v-btn
+                                        icon
+                                        class="ml-auto mo-glow mr-2"
+                                        @click="removeUploadItem('video', index)"
+                                        :loading="video.isDeleting"
+                                        style="color:#ff264c;"
+                                        >
+                                        <v-icon size="25">mdi-trash-can-outline</v-icon>
+                                    </v-btn>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                        <!--  FILE VIEWER  -->
+                        <v-row class="ma-0">
+                            <v-col v-for="(other, index) in shareData.content[0].otherUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative py-1 ">
+                                <v-card
+                                    class="d-flex align-center mo-glow-bg"
+                                    flat
+                                    tile
+                                >
+                                    <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
+                                    <div class="font-size-0-75">
+                                        <div><span><strong>{{other.fileOriName}}</strong></span></div>
+                                        <div>{{other.fileSize}}</div>
+                                    </div>
+                                    <v-btn
+                                        icon
+                                        style="color:#ff264c;"
+                                        class="ml-auto mo-glow mr-2"
+                                        @click="removeUploadItem('other', index)"
+                                        :loading="other.isDeleting"
+                                        >
+                                        <v-icon size="25">mdi-trash-can-outline</v-icon>
+                                    </v-btn>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-col>
             </v-row>
             <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-gray-light-dark">
                 <v-col cols="2" @click="clickUploadImageBtn" class="d-flex justify-center align-center py-1" v-ripple>
-                    <v-icon size="30">mdi-file-image-outline</v-icon>
+                    <v-progress-circular v-if="isImageSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
+                    <v-icon v-else size="30">mdi-file-image-outline</v-icon>
                 </v-col>
                 <input
                     ref="imageUploader"
@@ -45,7 +115,8 @@
                     <p class="mb-0" style="font-size: 25px; color:#676767; font-weight: bold">#</p>
                 </v-col>
                 <v-col @click="clickUploadVideoBtn" cols="2" class="d-flex justify-center align-center py-1" v-ripple>
-                    <v-icon size="30">mdi-play-box-outline </v-icon>
+                    <v-progress-circular v-if="isVideoSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
+                    <v-icon v-else size="30">mdi-play-box-outline </v-icon>
                 </v-col>
                 <input
                     ref="videoUploader"
@@ -58,7 +129,8 @@
                     <v-icon size="30">mdi-emoticon-excited-outline</v-icon>
                 </v-col>
                 <v-col @click="clickUploadFileBtn" cols="2" class="d-flex justify-center align-center py-1" v-ripple>
-                    <v-icon size="30">mdi-folder-outline</v-icon>
+                    <v-progress-circular v-if="isFileSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
+                    <v-icon v-else size="30">mdi-folder-outline</v-icon>
                 </v-col>
                 <input
                     ref="fileUploader"
@@ -68,73 +140,21 @@
                     @change="onFileFileChanged"
                 >
                 <v-btn rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="top: -45px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>
-                <v-btn rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="top: -45px; right: 12px;"> <v-icon left>mdi-earth</v-icon>公开</v-btn>
-            </v-row>
 
-            <!--  IMAGE VIEWER  -->
-            <v-row class="ma-0">
-                <v-col v-for="(imgUrl, index) in contentData.imgUrl" :key="index" cols="12" sm="4" md="3" lg="2" class="position-relative py-1">
-                    <v-btn
-                        icon
-                        class="position-absolute remove-uploaded-item-icon mr-2"
-                        @click="removeUploadItem('image', index)"
-                        :loading="imgUrl.isDeleting"
-                        color="pink"
-                        >
-                        <v-icon size="25">mdi-trash-can-outline</v-icon>
-                    </v-btn>
-                    <v-img :src="`${baseUrl}${imgUrl.path}`" alt="upload image" class="uploaded-image" ></v-img>
-                </v-col>
-            </v-row>
-            <!--  VIDEO VIEWER  -->
-            <v-row class="ma-0">
-                <v-col v-for="(video, index) in contentData.videoUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative py-1">
-                    <v-card
-                        class="d-flex align-center mo-glow-bg"
-                        flat
-                        tile
-                    >
-                        <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
-                        <div class="font-size-0-75">
-                            <div><span><strong>{{video.fileOriName}}</strong></span></div>
-                            <div>{{video.fileSize}}</div>
-                        </div>
-                        <v-btn
-                            icon
-                            class="ml-auto mo-glow mr-2"
-                            @click="removeUploadItem('video', index)"
-                            :loading="video.isDeleting"
-                            style="color:#ff264c;"
-                            >
-                            <v-icon size="25">mdi-trash-can-outline</v-icon>
+                <v-menu top offset-y :close-on-content-click="true" content-class="box-shadow-none publish-type-menu" tile min-width="90">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn v-bind="attrs" v-on="on" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="top: -45px; right: 12px;"> <v-icon left>mdi-earth</v-icon>
+                            {{shareData.publishType=="pub"? '公开' : shareData.publishType=="pvt"? '私密' : publishSpecUserList == null ? '部分看见' : `部分看见(${publishSpecUserList.length})`}}
                         </v-btn>
-                    </v-card>
-                </v-col>
-            </v-row>
-            <!--  FILE VIEWER  -->
-            <v-row class="ma-0">
-                <v-col v-for="(other, index) in contentData.otherUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative py-1 ">
-                    <v-card
-                        class="d-flex align-center mo-glow-bg"
-                        flat
-                        tile
-                    >
-                        <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
-                        <div class="font-size-0-75">
-                            <div><span><strong>{{other.fileOriName}}</strong></span></div>
-                            <div>{{other.fileSize}}</div>
-                        </div>
-                        <v-btn
-                            icon
-                            style="color:#ff264c;"
-                            class="ml-auto mo-glow mr-2"
-                            @click="removeUploadItem('other', index)"
-                            :loading="other.isDeleting"
-                            >
-                            <v-icon size="25">mdi-trash-can-outline</v-icon>
-                        </v-btn>
-                    </v-card>
-                </v-col>
+                    </template>
+                    <div class="pa-3">
+                        <v-radio-group class="mt-0 pt-0" v-model="shareData.publishType" @change="selectPublishType" mandatory dense hide-details >
+                            <v-radio name="shareData.publishType" color="#7879ff" label="公开" value="pub" ></v-radio>
+                            <v-radio name="shareData.publishType" color="#7879ff" label="私密" value="pvt" ></v-radio>
+                            <v-radio name="shareData.publishType" color="#7879ff" label="部分看见" value="spec" ></v-radio>
+                        </v-radio-group>
+                    </div>
+                </v-menu>
             </v-row>
         </v-container>
   </v-container>
@@ -211,7 +231,7 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {createShare} from '~/api/share'
-import quickMenu from '~/components/quickMenu'
+import { mapGetters } from 'vuex'
 
 //mo
 import {uploadImage, uploadVideo, uploadOther, deleteFile} from '~/api/upload'
@@ -223,7 +243,6 @@ let emojiIndex = new EmojiIndex(emojiData);
 export default {
     components:{
         QuestionItem,
-        quickMenu,
         //mo
         Picker,
     },
@@ -247,7 +266,15 @@ export default {
         requiredText:false,
         shareData:{
             schoolId:null,
-            content:[]
+            content:[
+                {
+                    text:'',
+                    imgUrl:[],
+                    otherUrl:[],
+                    videoUrl:[]
+                },
+            ],
+            publishType: 'pub'
         },
         isSuccessed:false,
         contentData:{
@@ -255,14 +282,30 @@ export default {
             imgUrl:[],
             otherUrl:[],
             videoUrl:[]
-        }
+        },
+
+        publishTypeRadio: null,
+
     }),
     computed:{
         currentPath(){
             return this.$route
-        }
+        },
+        ...mapGetters({
+            publishContent: 'mo/publishContent',
+            publishSpecUserList: 'mo/publishSpecUserList',
+            backWithoutSelect: 'mo/backWithoutSelect'
+        }),
     },
     created(){
+        console.log(this.publishContent);
+        console.log(this.publishSpecUserList);
+        if(this.publishContent !== null){
+            this.shareData = this.publishContent;
+        }
+        if(this.backWithoutSelect == true){
+            this.shareData.publishType = 'pub';
+        }
         this.shareData.schoolId = this.currentPath.params.schoolId
     },
     methods:{
@@ -270,26 +313,32 @@ export default {
 
         },
         async submit(){
-            this.$refs.child.emitData()
-            if(this.shareData.content.length == 0){
-                return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
-            }
             console.log(this.shareData)
-            this.isSubmit = true
-            await createShare(this.shareData).then(res=>{
-                console.log(res)
-                this.isSubmit = false
-                this.isSuccessed = true;
-                if(this.$isMobile()){
+            if(this.$isMobile()){
+                if(this.shareData.content[0].text.trim() == ''){
+                    return this.$snackbar.showMessage({content: this.lang.share+this.lang.requireContent, color: "error"})
+                }
+                this.isSubmit = true
+                await createShare(this.shareData).then(res=>{
+                    this.$store.dispatch('mo/onPublishContent', null);
+                    this.$store.dispatch('mo/onPublishSpecUserList', null);
                     this.$router.push({name:'home'})
-                }
-                else{
-                    this.$router.push({name:'schoolSpace.news'})
-                }
-            }).catch(err=>{
-                //console.log(err.response)
+                }).catch(err=>{
+                })
                 this.isSubmit = false
-            })
+            }
+            else{
+                this.$refs.child.emitData()
+                if(this.shareData.content.length == 0){
+                    return this.$snackbar.showMessage({content: this.lang.share+this.lang.requireContent, color: "error"})
+                }
+                this.isSubmit = true
+                await createShare(this.shareData).then(res=>{
+                    this.$router.push({name:'schoolSpace.news'})
+                }).catch(err=>{
+                })
+                this.isSubmit = false
+            }
         },
 
         loadContentData(data){
@@ -321,7 +370,7 @@ export default {
                         path : `/uploads/image/${res.data}`,
                         isDeleting : false,
                     }
-                    this.contentData.imgUrl.push(imgObj);
+                    this.shareData.content[0].imgUrl.push(imgObj);
                     this.isImageSelecting = false
                     this.selectedImageFile = null
                 }).catch((err) => {
@@ -351,7 +400,7 @@ export default {
                     let url = `/uploads/video/${res.data.fileName}`
                     this.$set(res.data,'imgUrl',url)
                     this.$set(res.data,'isDeleting',false)
-                    this.contentData.videoUrl.push(res.data);
+                    this.shareData.content[0].videoUrl.push(res.data);
                     this.isVideoSelecting = false
                 }).catch((err) => {
                     //console.log(err);
@@ -378,7 +427,7 @@ export default {
                     let url = `/uploads/other/${res.data.fileName}`;
                     this.$set(res.data,'imgUrl',url)
                     this.$set(res.data,'isDeleting',false)
-                    this.contentData.otherUrl.push(res.data);
+                    this.shareData.content[0].otherUrl.push(res.data);
                     this.isFileSelecting = false
                 }).catch((err) => {
                     //console.log(err);
@@ -392,19 +441,19 @@ export default {
         async removeUploadItem(type, index){
             switch (type) {
                 case "image":
-                    this.deleteItem = this.contentData.imgUrl[index];
+                    this.deleteItem = this.shareData.content[0].imgUrl[index];
                     await this.deleteFileFromServer('image');
-                    this.contentData.imgUrl.splice(index, 1)
+                    this.shareData.content[0].imgUrl.splice(index, 1)
                     break;
                 case "video":
-                    this.deleteItem = this.contentData.videoUrl[index];
+                    this.deleteItem = this.shareData.content[0].videoUrl[index];
                     await this.deleteFileFromServer('video');
-                    this.contentData.videoUrl.splice(index, 1)
+                    this.shareData.content[0].videoUrl.splice(index, 1)
                     break;
                 case "other":
-                    this.deleteItem = this.contentData.otherUrl[index];
+                    this.deleteItem = this.shareData.content[0].otherUrl[index];
                     await this.deleteFileFromServer('other');
-                    this.contentData.otherUrl.splice(index, 1)
+                    this.shareData.content[0].otherUrl.splice(index, 1)
                     break;
             }
             // this.deleteItem = null;
@@ -427,6 +476,24 @@ export default {
                 this.deleteItem.isDeleting = false;
             });
 
+        },
+
+        selectPublishType( val ){
+            console.log(val);
+            if(val == 'spec'){
+                if(this.shareData.content[0].text.trim() == ''){
+                    this.shareData.publishType = null;
+                    return this.$snackbar.showMessage({content: this.lang.share+this.lang.requireContent, color: "error"})
+                }
+                this.$store.dispatch('mo/onPublishContent', this.shareData);
+                this.$store.dispatch('mo/onBackWithoutSelect', false);
+                this.$router.push({name: 'member.selectMo'});
+            }
+            else{
+                if(this.publishSpecUserList !== null){
+                    this.$store.dispatch('mo/onPublishSpecUserList', null);
+                }
+            }
         },
     }
 }
