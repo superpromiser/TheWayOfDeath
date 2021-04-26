@@ -59,10 +59,10 @@ export default {
         currentSchoolId : -1,
         isPostItem:false,
         contentItemList : [
-            {
-                title:"智能考勤",
-                icon:"mdi-calendar-month-outline",
-                items:[
+            // {
+                // title:"智能考勤",
+                // icon:"mdi-calendar-month-outline",
+                // items:[
                     // {
                     //     color:"#3EBBE8",
                     //     title:"课程维护",//수업유지
@@ -81,20 +81,20 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/审批.png",
                     //     path:"posts."
                     // },
-                    {
-                        color:"#3EBBE8",
-                        title:"考勤",//출근
-                        imgUrl:"/asset/img/newIcon/考勤.png",
-                        path:"posts."
-                    },
+                    // {
+                    //     color:"#3EBBE8",
+                    //     title:"考勤",//출근
+                    //     imgUrl:"/asset/img/newIcon/考勤.png",
+                    //     path:"posts."
+                    // },
                     // {
                     //     color:"#3EBBE8",
                     //     title:"课程表",//시간표
                     //     imgUrl:"/asset/img/newIcon/calendar.png",
                     //     path:"posts."
                     // },
-                ]
-            },
+            //     ]
+            // },
             {
                 title:"基础沟通",
                 icon:"mdi-message-text",
