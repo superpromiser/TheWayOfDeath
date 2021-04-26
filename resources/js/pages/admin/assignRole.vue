@@ -26,7 +26,7 @@
                             scrollable
                             >
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+                                    <v-btn color="#7879ff" dark class="mb-2" v-bind="attrs" v-on="on">
                                     添加
                                     </v-btn>
                                 </template>

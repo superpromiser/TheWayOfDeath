@@ -23,11 +23,12 @@
               <v-spacer></v-spacer>
               <v-dialog
               v-model="dialog"
+              persistent
               max-width="500px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                  color="primary"
+                  color="#7879ff"
                   dark
                   class="mb-2"
                   v-bind="attrs"

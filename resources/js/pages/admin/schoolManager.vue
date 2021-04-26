@@ -24,10 +24,11 @@
               <v-dialog
               v-model="dialog"
               max-width="500px"
+              persistent
               >
                 <template v-slot:activator="{ on, attrs }" class="align-center">
                   <v-btn
-                  color="primary"
+                  color="#7879ff"
                   dark
                   class="ml-2"
                   v-bind="attrs"
@@ -37,7 +38,7 @@
                   </v-btn>
                   <router-link :to="{path:`/admin/school`}">
                     <v-btn
-                      color="indigo"
+                      color="#f19861"
                       dark
                     >
                       返回学校列表

@@ -94,7 +94,7 @@
                 
                 <v-btn
                     dark
-                    color="#49d29e"
+                    color="#7879ff"
                     tile
                     class="ml-4"
                     large

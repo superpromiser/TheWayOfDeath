@@ -61,7 +61,7 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
                       :dark="attendanceDate !== ''"
-                      color="purple lighten-1"
+                      color="#f19861"
                       tile
                       class="ml-4"
                       large
@@ -244,7 +244,7 @@
               </v-dialog>
                 <v-btn
                     dark
-                    color="#49d29e"
+                    color="#7879ff"
                     tile
                     class="ml-4"
                     large

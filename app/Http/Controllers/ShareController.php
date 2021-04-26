@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Share;
 use App\Post;
-
+use App\Template;
 use Illuminate\Support\Facades\Auth;
 
 class ShareController extends Controller
@@ -62,5 +62,16 @@ class ShareController extends Controller
         return response()->json([
             'msg' => 'ok'
         ], 200);
+    }
+
+    public function getTempCnt(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required',
+        ]);
+        $userId = Auth::user()->id;
+        $result['draftCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'tempType' => 2])->count();
+        $result['templateCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'tempType' => 1])->count();
+        return $result;
     }
 }

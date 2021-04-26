@@ -88,7 +88,7 @@
             to="/admin/grade"
             v-if="user.role.roleName == 'admin'"
             >
-            <v-list-item-title class="ml-9">创建年级</v-list-item-title>
+            <v-list-item-title class="ml-9">年级</v-list-item-title>
             <v-list-item-icon>
               <v-icon>mdi-medal</v-icon>
             </v-list-item-icon>
@@ -153,7 +153,7 @@
               
             </v-list-group>
           </v-list>
-          <v-list-item
+          <!-- <v-list-item
             active-class="sub-header-active"
             link
             to="/admin/stream"
@@ -174,7 +174,7 @@
             <v-list-item-icon>
               <v-icon>mdi-sd</v-icon>
             </v-list-item-icon>
-          </v-list-item>
+          </v-list-item> -->
           <v-list-item
             active-class="sub-header-active"
             link

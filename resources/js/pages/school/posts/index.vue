@@ -1,7 +1,7 @@
 <template>
     <v-container class="pa-0">
         <RouterBack title="发布"></RouterBack>
-        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" class="ma-0">
+        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" class="ma-0 px-6">
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"
@@ -60,16 +60,16 @@ export default {
         currentSchoolId : -1,
         isPostItem:false,
         contentItemList : [
-            {
-                title:"智能考勤",//지능출근
-                icon:"mdi-calendar-month-outline",
-                items:[
-                    {
-                        color:"#3EBBE8",
-                        title:"课程维护",//수업유지
-                        imgUrl:"/asset/img/newIcon/tools.png",
-                        path:"admin.schedule"
-                    },
+            // {
+            //     title:"智能考勤",//지능출근
+            //     icon:"mdi-calendar-month-outline",
+            //     items:[
+            //         {
+            //             color:"#3EBBE8",
+            //             title:"课程维护",//수업유지
+            //             imgUrl:"/asset/img/newIcon/tools.png",
+            //             path:"admin.schedule"
+            //         },
                     // {
                     //     color:"#3EBBE8",
                     //     title:"请假单",//휴가신청
@@ -82,20 +82,20 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/审批.png",
                     //     path:"posts.vocation"
                     // },
-                    {
-                        color:"#3EBBE8",
-                        title:"考勤",//출근
-                        imgUrl:"/asset/img/newIcon/考勤.png",
-                        path:"posts.attendance"
-                    },
+                    // {
+                    //     color:"#3EBBE8",
+                    //     title:"考勤",//출근
+                    //     imgUrl:"/asset/img/newIcon/考勤.png",
+                    //     path:"posts.attendance"
+                    // },
                     // {
                     //     color:"#3EBBE8",
                     //     title:"课程表",//시간표
                     //     imgUrl:"/asset/img/newIcon/calendar.png",
                     //     path:"admin.scheduleClass"
                     // },
-                ]
-            },
+            //     ]
+            // },
             {
                 title:"基础沟通",//기초의사소통
                 icon:"mdi-message-text",

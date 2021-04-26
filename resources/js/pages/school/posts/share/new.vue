@@ -159,79 +159,86 @@
         </v-container>
   </v-container>
     <v-container class="pa-0" v-else>
-        <v-container class="px-10 z-index-2 banner-custom">
-            <v-row>
-                <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                    <a @click="$router.go(-1)">
-                        <v-icon size="70" class="left-24p">
-                            mdi-chevron-left
-                        </v-icon>
-                    </a>
-                </v-col>
-                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.share}}</h2>
-                </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <!-- <v-btn
-                        text
-                        color="primary"
-                        @click="selContent('template')"
-                    >
-                        可用模板 0， 草稿 0
-                    </v-btn> -->
+        <div v-if="isPosting == true">
+            <v-container class="px-10 z-index-2 banner-custom">
+                <v-row>
+                    <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                        <a @click="$router.go(-1)">
+                            <v-icon size="70" class="left-24p">
+                                mdi-chevron-left
+                            </v-icon>
+                        </a>
+                    </v-col>
+                    <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                        <h2>{{lang.share}}</h2>
+                    </v-col>
+                    <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                        <v-btn
+                            text
+                            color="#999999"
+                            @click="templateList()"
+                        >
+                            可用模板 {{templateCnt}}， 草稿 {{draftCnt}}
+                        </v-btn>
+                        
+                        <v-btn
+                            dark
+                            tile
+                            color="#F19861"
+                            :loading="isDraft"
+                            @click="saveDraft"
+                        >
+                            {{lang.saveDraft}}
+                        </v-btn>
 
-                    <v-btn
-                        dark
-                        tile
-                        color="#49d29e"
-                        class="mx-2"
-                        :loading="isSubmit"
-                        @click="submit"
-                    >
-                        {{lang.submit}}
-                    </v-btn>
+                        <v-btn
+                            dark
+                            tile
+                            color="#7879ff"
+                            class="mx-2"
+                            :loading="isSubmit"
+                            @click="submit"
+                        >
+                            {{lang.submit}}
+                        </v-btn>
 
-                    <!-- <v-btn
-                        dark
-                        tile
-                        color="#F19861"
-                        :loading="isDraft"
-                        @click="saveDraft"
-                    >
-                        {{lang.saveDraft}}
-                    </v-btn> -->
-                </v-col>
-            </v-row>
-        </v-container>
-        <v-container class="pa-10">
-            <QuestionItem Label="分享内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
-        </v-container>
-        <v-snackbar
+                    </v-col>
+                </v-row>
+            </v-container>
+            <v-container class="pa-10">
+                <QuestionItem Label="分享内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+            </v-container>
+            <v-snackbar
+                timeout="3000"
+                v-model="requiredText"
+                color="error"
+                absolute
+                top
+                >
+                {{lang.requiredText}}
+            </v-snackbar>
+            <v-snackbar
             timeout="3000"
-            v-model="requiredText"
-            color="error"
-            absolute
-            top
-            >
-            {{lang.requiredText}}
-        </v-snackbar>
-        <v-snackbar
-        timeout="3000"
-            v-model="isSuccessed"
-            color="success"
-            absolute
-            top
-            >
-            {{lang.successText}}
-        </v-snackbar>
+                v-model="isSuccessed"
+                color="success"
+                absolute
+                top
+                >
+                {{lang.successText}}
+            </v-snackbar>
+        </div>
+        <div v-else>
+            <router-view></router-view>
+        </div>
   </v-container>
 </template>
 
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createShare} from '~/api/share'
 import { mapGetters } from 'vuex'
+import {createShare,getTemplateCnt} from '~/api/share'
+import quickMenu from '~/components/quickMenu'
 
 //mo
 import {uploadImage, uploadVideo, uploadOther, deleteFile} from '~/api/upload'
@@ -286,6 +293,9 @@ export default {
 
         publishTypeRadio: null,
 
+        isPosting:false,
+        draftCnt:0,
+        templateCnt:0,
     }),
     computed:{
         currentPath(){
@@ -297,6 +307,16 @@ export default {
             backWithoutSelect: 'mo/backWithoutSelect'
         }),
     },
+    watch:{
+        currentPath:{
+            handler(val){
+                if(val.name == 'posts.share'){
+                    this.isPosting = true
+                }
+            },
+            deeper:true
+        }
+    },
     created(){
         console.log(this.publishContent);
         console.log(this.publishSpecUserList);
@@ -307,11 +327,27 @@ export default {
             this.shareData.publishType = 'pub';
         }
         this.shareData.schoolId = this.currentPath.params.schoolId
+        if(this.currentPath.name == 'posts.share'){
+            this.isPosting = true
+        }
+        getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
+            console.log(res.data)
+            this.templateCnt = res.data.templateCnt
+            this.draftCnt = res.data.draftCnt
+        }).catch(err=>{
+            console.log(err.response)
+        })
     },
     methods:{
         saveDraft(){
 
         },
+
+        templateList(){
+            this.$router.push({name:"share.templateList"})
+            this.isPosting = false
+        },
+
         async submit(){
             console.log(this.shareData)
             if(this.$isMobile()){
