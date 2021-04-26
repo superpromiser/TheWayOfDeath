@@ -59,6 +59,7 @@
         <v-btn
           depressed
           color="#7879FF"
+          dark
           @click="searchAction"
           class="float-right mt-3 text-light"
         >

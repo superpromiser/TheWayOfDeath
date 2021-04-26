@@ -20,11 +20,12 @@
 
                     <v-dialog
                     v-model="dialog"
+                    persistent
                     max-width="500px"
                     >
                         <template v-slot:activator="{ on, attrs }">
                         <v-btn
-                        color="primary"
+                        color="#7879ff"
                         dark
                         tile
                         class="mb-2"
@@ -122,7 +123,7 @@
                     </v-dialog>
 
                     <v-btn
-                        color="green accent-4"
+                        color="#f19861"
                         dark
                         class="mb-2 ml-2"
                         tile
@@ -135,7 +136,7 @@
                         修改
                     </v-btn>
                     <v-btn
-                        color="orange accent-4"
+                        color="#f19861 accent-4"
                         dark
                         class="mb-2 ml-2"
                         tile

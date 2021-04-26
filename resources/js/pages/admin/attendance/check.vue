@@ -73,7 +73,7 @@
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                  color="primary"
+                  color="#7879ff"
                   dark
                   tile
                   class="mb-2 mr-4"
@@ -198,7 +198,7 @@
                 </v-card>
               </v-dialog>
               <v-btn
-                color="success"
+                color="#f19861"
                 dark
                 tile
                 class="mb-2"
