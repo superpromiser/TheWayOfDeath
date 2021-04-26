@@ -1,7 +1,7 @@
 <template>
     <v-container class="pa-0">
         <RouterBack title="发布"></RouterBack>
-        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" class="ma-0">
+        <v-row v-for="(itemGroup, i) in contentItemList" :key="i" class="ma-0 px-6">
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"

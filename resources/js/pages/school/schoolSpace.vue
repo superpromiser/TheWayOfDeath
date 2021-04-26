@@ -1,14 +1,15 @@
 <template>
     <v-container class="pa-0">
         <v-container class="d-flex align-center pa-0 pt-5 school-tab-bar">
-            <v-tabs>
+            <v-tabs color="#7879ff">
                 <v-tab :to="{name:'schoolSpace.news'}">最新</v-tab>
                 <v-tab :to="{name:'schoolSpace.application'}">应用</v-tab>
                 <!-- <v-tab :to="{name:'schoolSpace.member'}">成员</v-tab> -->
             </v-tabs>
             <v-btn
                 tile
-                color="success"
+                color="#7879ff"
+                dark
                 class="mr-5"
                 @click="post"
                 >

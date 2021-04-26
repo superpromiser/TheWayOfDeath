@@ -17,6 +17,13 @@ class CreateTemplatesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('contentId');
             $table->unsignedBigInteger('userId');
+            $table->char('tempTitle');
+            $table->char('description');
+            // $table->char('imgUrl');
+            $table->tinyInteger('tempType');
+            $table->longText('content');
+            $table->tinyInteger('schoolId');
+            $table->tinyInteger('lessonId')->default('0');
             $table->foreign('contentId')->references('id')->on('contents')->onDelete('cascade');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
