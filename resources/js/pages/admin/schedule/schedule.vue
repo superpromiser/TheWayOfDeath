@@ -12,7 +12,7 @@
                     <h2 class="mx-auto">
                         学期
                     </h2>
-                    <v-btn tile dark color="#49d29e" :loading="isAddingSession" @click="openAddSessionDialog" >
+                    <v-btn tile dark color="#7879ff" :loading="isAddingSession" @click="openAddSessionDialog" >
                         加学期
                     </v-btn>
                 </v-col>
@@ -134,11 +134,12 @@
 
                 <v-dialog
                 v-model="dialog"
+                persistent
                 max-width="500px"
                 >
                     <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                    color="primary"
+                    color="#7879FF"
                     dark
                     tile
                     class="mb-2"
@@ -322,7 +323,7 @@
                 </v-dialog>
 
                 <v-btn
-                    color="green accent-4"
+                    color="#f19861"
                     dark
                     class="mb-2 ml-2"
                     tile
@@ -335,7 +336,7 @@
                     修改
                 </v-btn>
                 <v-btn
-                    color="orange accent-4"
+                    color="#f19861"
                     dark
                     class="mb-2 ml-2"
                     tile

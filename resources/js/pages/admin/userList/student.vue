@@ -28,7 +28,7 @@
               >
                 <template v-slot:activator="{ on, attrs }" class="align-center">
                   <v-btn
-                  color="primary"
+                  color="#7879ff"
                   dark
                   class="ml-2"
                   v-bind="attrs"
@@ -353,7 +353,7 @@ export default {
       { text: '家长姓名', value: 'fatherName', sortable: false },
       { text: '家长电话', value: 'fatherPhone', sortable: false },
       { text: '家长身份', value: 'fatherJob', sortable: false },
-      { text: '学校地址', value: 'familyAddress', sortable: false },
+      { text: '家庭地址', value: 'familyAddress', sortable: false },
       { text: '操作', value: 'actions', sortable: false },
     ],
     genderItems:[
