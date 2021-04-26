@@ -250,10 +250,10 @@ export default {
                     }
                 ]
             },
-            {
-                title:"工具",
-                icon:"mdi-hammer-wrench",
-                items:[
+            // {
+            //     title:"工具",
+            //     icon:"mdi-hammer-wrench",
+            //     items:[
                     // {
                     //     color:"#DA7042",
                     //     title:"我的",//프로필
@@ -266,8 +266,8 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/相册 (1).png",
                     //     path:"posts."
                     // }
-                ]
-            }
+            //     ]
+            // }
         ]
     }),
 

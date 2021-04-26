@@ -300,6 +300,8 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/questionnaire',name:'classSpace.applications.quesitonnaire',component:page('class/applications/questionnaire/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/voting',name:'classSpace.applications.voting',component:page('class/applications/voting/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/homework',name:'classSpace.applications.homework',component:page('class/applications/homework/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/classStory',name:'classSpace.applications.classStory',component:page('class/applications/classStory/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/interClassStory',name:'classSpace.applications.interClassStory',component:page('class/applications/interClassStory/index.vue')},
 
   //manage guest
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests/index.vue')},

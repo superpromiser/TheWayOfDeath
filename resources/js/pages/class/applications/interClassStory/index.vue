@@ -8,18 +8,7 @@
                             mdi-chevron-left
                         </v-icon>
                     </a>
-                <!-- </v-col>
-                <v-col> -->
-                    <!-- <v-avatar
-                        class="ma-3 ml-3"
-                        size="50"
-                        tile
-                    >
-                        <v-img :src="`${baseUrl}/asset/img/newIcon/问卷.png`" alt="postItem" ></v-img>
-                    </v-avatar> -->
-                    <h2>{{lang.voting}}</h2>
-                <!-- </v-col>
-                <v-col> -->
+                    <h2>{{lang.interClassStory}}</h2>
                     <v-btn
                         tile
                         color="success"
@@ -34,10 +23,9 @@
                 </v-col>
             </v-row>
         </v-banner>
-        <!-- <v-divider class="thick-border"></v-divider> -->
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
             <v-row class="px-5 mt-1">
-                <VotingPost :content="content"></VotingPost>
+                <InterClassStoryPost :content="content"></InterClassStoryPost>
                 <FooterPost :footerInfo='content'></FooterPost>
             </v-row>
         </v-container>
@@ -124,14 +112,14 @@
 
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
-import {getVoting} from '~/api/voting';
-import VotingPost from '~/components/contents/votingPost'
+import {getInterClassStory} from '~/api/interClassStory';
+import InterClassStoryPost from '~/components/contents/interClassStoryPost'
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
 export default {
     components:{
         InfiniteLoading,
-        VotingPost,
+        InterClassStoryPost,
         FooterPost
     },
     data:()=>({
@@ -158,8 +146,9 @@ export default {
                 timeOut = 1000;
             }
             let vm = this;
-            await getVoting({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId})
+            await getInterClassStory({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId})
             .then(res=>{
+                console.log("res.dat",res.data)
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
                     $state.complete();
                     return;
@@ -180,7 +169,7 @@ export default {
             this.isLoadingContents = false;
         },
         post(){
-            this.$router.push({name:"posts.Cvoting"})
+            this.$router.push({name:"posts.schoolStory"})
         }
     }
 }

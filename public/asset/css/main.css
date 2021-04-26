@@ -2,43 +2,42 @@
 ::-webkit-scrollbar {
     height: 5px;
     width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     /* box-shadow: inset 0 0 5px grey;  */
     /* border-radius: 10px; */
-  
-  }
-  
-  ::-webkit-scrollbar-thumb:hover ::-webkit-scrollbar{
+}
+
+::-webkit-scrollbar-thumb:hover ::-webkit-scrollbar {
     width: 5px;
     cursor: pointer;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #A3A3A3; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #a3a3a3;
     border-radius: 5px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover{
-    background: #A3A3A3; 
-    width:5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #a3a3a3;
+    width: 5px;
     cursor: pointer;
-  }
+}
 
-  ::-moz-selection { /* Code for Firefox */
+::-moz-selection {
+    /* Code for Firefox */
     color: white;
     background: #7879ff;
-  }
-  
-  ::selection {
+}
+
+::selection {
     color: white;
     background: #7879ff;
-  }
-
+}
 
 html {
     overflow-y: auto !important;
@@ -124,7 +123,7 @@ a {
 }
 
 .bg-white {
-    background: white!important;
+    background: white !important;
 }
 
 .post-item-card-avatar {
@@ -175,7 +174,6 @@ a {
         height: 30px;
     }
 }
-
 
 .school-space-tab-bar-outter {
     height: calc(100% - 72px);
@@ -824,12 +822,20 @@ a {
     background-color: #7879ff !important;
     border-color: #7879ff !important;
 }
+.drawer-bg {
+    background-color: #5c59bf !important;
+    border-color: #5c59bf !important;
+}
 .header-active {
     color: white !important;
 }
 .sub-header-active {
     color: white !important;
-    background-color: #333333 !important;
+    background-color: #646464 !important;
+}
+.custom-header-active {
+    color: white !important;
+    background-color: #646464 !important;
 }
 .mo-bottom-nav {
     align-items: center;
@@ -1203,8 +1209,8 @@ a {
 
 .mo-chat-nav-active {
     font-size: 1.125rem !important;
-    color: #333333!important;
-    font-weight: bold!important;
+    color: #333333 !important;
+    font-weight: bold !important;
 }
 
 .banner-custom {
@@ -1214,19 +1220,19 @@ a {
     box-shadow: 0px 0px 15px #a2a2a2;
 }
 
-.bg-primary{
-    background: #7879ff!important;
-}   
+.bg-primary {
+    background: #7879ff !important;
+}
 
-.font-size-0-95{
+.font-size-0-95 {
     font-size: 0.95rem;
 }
 
-.font-color-gray{
-    color:#999999;
+.font-color-gray {
+    color: #999999;
 }
 
-.primary-font-color{
+.primary-font-color {
     color: #7879ff;
 }
 /* 
@@ -1234,18 +1240,17 @@ a {
     background: #474747;
 } */
 
-.font-color-white{
-    color: white!important;
+.font-color-white {
+    color: white !important;
 }
 
-.primary-font-color .v-list-item__content .v-list-item__title{
+.primary-font-color .v-list-item__content .v-list-item__title {
     color: #7879ff;
 }
 
-.put-align-center{
+.put-align-center {
     transform: translateY(-50%);
 }
-
 
 @media (max-width: 600px) {
     .vjs-custom-skin > .video-js .vjs-big-play-button {
@@ -1253,10 +1258,10 @@ a {
     }
 }
 
-.cus-divider{
+.cus-divider {
     width: 100%;
     height: 8px;
-    background: #E0E0E0!important;
+    background: #e0e0e0 !important;
 }
 
 .mo-select-white-bg .v-input__control .v-input__slot {
@@ -1264,17 +1269,17 @@ a {
     background: #ffffff !important;
 }
 
-.contact-alphabet{
+.contact-alphabet {
     /* transition: all ease 0.5s; */
 }
-.contact-alphabet.active{
+.contact-alphabet.active {
     background: #49d29e;
     border-radius: 50%;
     color: white;
     position: relative;
 }
-.contact-alphabet.active::before{
-    content: '';
+.contact-alphabet.active::before {
+    content: "";
     position: absolute;
     left: -93px;
     width: 65px;
@@ -1285,7 +1290,7 @@ a {
     margin-top: -25px;
     transform: rotate(45deg);
 }
-.contact-alphabet.active::after{
+.contact-alphabet.active::after {
     content: attr(data-before);
     position: absolute;
     left: -60px;
@@ -1295,54 +1300,58 @@ a {
     transform: translateX(-50%);
 }
 
-.font-size-0-70{
+.font-size-0-70 {
     font-size: 0.7rem;
 }
 
-.v-tabs.mo-chat-contact-tab .v-tabs-bar .v-slide-group__wrapper .v-slide-group__content.v-tabs-bar__content .v-tabs-slider-wrapper{
-    height: 0px!important;
+.v-tabs.mo-chat-contact-tab
+    .v-tabs-bar
+    .v-slide-group__wrapper
+    .v-slide-group__content.v-tabs-bar__content
+    .v-tabs-slider-wrapper {
+    height: 0px !important;
 }
 
-.v-tab--active.mo-chat-nav-active.v-tab:not(:focus)::before{
-    opacity: 0!important;
+.v-tab--active.mo-chat-nav-active.v-tab:not(:focus)::before {
+    opacity: 0 !important;
 }
 
-.font-color-gray-heavy{
-    color:#333333;
+.font-color-gray-heavy {
+    color: #333333;
 }
 
-.position-sticky-bottom-0{
+.position-sticky-bottom-0 {
     position: sticky;
     bottom: 0;
     z-index: 2;
 }
 
-.submit-mo-post-btn{
+.submit-mo-post-btn {
     width: calc(100% - 55px);
 }
 
-.font-color-gray-dark{
+.font-color-gray-dark {
     color: #757575;
 }
 
-.bg-gray-light-dark{
-    background: #E0E0E0!important;
+.bg-gray-light-dark {
+    background: #e0e0e0 !important;
 }
 
-.position-fixed-bottom-0{
+.position-fixed-bottom-0 {
     position: fixed;
     bottom: 0px;
     z-index: 2;
 }
 
-.v-textarea-cus-border .v-input__control .v-input__slot{
-    box-shadow: none!important;
-    border: 1px solid #E0E0E0;
+.v-textarea-cus-border .v-input__control .v-input__slot {
+    box-shadow: none !important;
+    border: 1px solid #e0e0e0;
 }
 
 @media (max-width: 600px) {
-    .theme--light.v-text-field > .v-input__control > .v-input__slot:before{
-        border-color: rgba(0, 0, 0, 0.22)!important;
+    .theme--light.v-text-field > .v-input__control > .v-input__slot:before {
+        border-color: rgba(0, 0, 0, 0.22) !important;
     }
 }
 
@@ -1371,4 +1380,12 @@ a {
 
 .text-area-without-nav-bottom{
     height: calc(100vh - 130px);
+}
+
+.custom-header.custom-header-active.v-list-item--active::before {
+    opacity: 0 !important;
+}
+.custom-header.custom-header-active.v-list-item--active {
+    color: white !important;
+    background-color: #646464 !important;
 }

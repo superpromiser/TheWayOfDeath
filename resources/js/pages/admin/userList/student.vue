@@ -62,7 +62,7 @@
                                 v-model="editedItem.password"
                                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                                 :type="show1 ? 'text' : 'password'"
-                                label="使用密码"
+                                label="密码"
                                 @click:append="show1 = !show1"
                             ></v-text-field>
                         </v-col>
@@ -343,7 +343,7 @@ export default {
         min: v => v.length >= 8 || 'Min 8 characters',
     },
     headers: [
-      { text: '号码', value: 'id', align: 'start', },
+      { text: '序号', value: 'id', align: 'start', },
       { text: '人员姓名', value: 'name', sortable: false },
       { text: '用户头像', value: 'avatar', sortable: false },
       { text: '电话号码', value: 'phoneNumber' },

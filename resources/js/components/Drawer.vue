@@ -5,7 +5,7 @@
     @input="changedStatusToggle"
     app
     dark
-    class="primary-bg"
+    class="drawer-bg"
     :permanent="!$vuetify.breakpoint.smAndDown"
   > 
     <template v-slot:prepend>
@@ -260,7 +260,8 @@
           <v-list-item-title>{{school.schoolName}}</v-list-item-title>
         </template>
         <v-list-item
-          active-class="sub-header-active"
+          :class="{'custom-header-active':activeSchool && school.id == currentPath.params.schoolId}"
+          class="custom-header"
           link
           :to="{name:'schoolSpace',params:{schoolId:school.id}}"
           >
@@ -278,9 +279,10 @@
                 <v-list-item-title class="ml-9">{{grade.gradeName}}</v-list-item-title>
               </template>
               <v-list-item
-                active-class="sub-header-active"
+                :class="{'custom-header-active':activeLesson && lesson.id == currentPath.params.lessonId}"
                 v-for="(lesson, index) in grade.lessons" :key="index"
                 link
+                class="custom-header"
                 :to="{name:'classSpace',params:{schoolId:school.id,gradeId:grade.id,lessonId:lesson.id}}"
                 >
                 <v-list-item-title class="ml-16">{{lesson.lessonName}}</v-list-item-title>
@@ -347,6 +349,8 @@ export default {
     classData : null,
     classItemList : [],
     mySchoolList:[],
+    activeSchool:false,
+    activeLesson:false
   }),
 
   computed: {
@@ -372,10 +376,28 @@ export default {
     }
     // ...mapActions(['toggledrawer/turnDrawer'])
   },
-  
+  watch:{
+    currentPath:{
+      handler(val){
+        this.activeSchool = false
+        this.activeLesson = false
+        let path = val.path.split('/')
+        if(path[1] == 'schoolSpace'){
+          this.activeSchool = true
+        }else if(path[1] == 'classSpace'){
+          this.activeLesson = true
+        }
+      },
+      deeper:true
+    }
+  },
   created() {
-    
-    console.log("this.user",this.user)
+    let path = this.currentPath.path.split('/')
+    if(path[1] == 'schoolSpace'){
+      this.activeSchool = true
+    }else if(path[1] == 'classSpace'){
+      this.activeLesson = true
+    }
     if(this.user.roleId !== 1){
       this.schoolData.map(schoolItem=>{
         console.log(schoolItem)

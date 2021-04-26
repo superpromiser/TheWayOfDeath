@@ -192,6 +192,7 @@ export default {
   }),
 
   async created(){
+    console.log(this.currentPath)
     // this.isLoadingContents = true;
     // await getSchoolPost().then(res=>{
     //   //console.log('success',res)

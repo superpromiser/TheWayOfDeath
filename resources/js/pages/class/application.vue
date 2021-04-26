@@ -43,12 +43,12 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/tools.png",
                     //     path:"admin.schedule"
                     // },
-                    {
-                        color:"#3EBBE8",
-                        title:"请假单",//휴가신청
-                        imgUrl:"/asset/img/newIcon/颜色填充 2.png",
-                        path:"posts.vocation"
-                    },
+                    // {
+                    //     color:"#3EBBE8",
+                    //     title:"请假单",//휴가신청
+                    //     imgUrl:"/asset/img/newIcon/颜色填充 2.png",
+                    //     path:"posts.vocation"
+                    // },
                     {
                         color:"#3EBBE8",
                         title:"请假审批",//휴가심사
@@ -77,13 +77,13 @@ export default {
                         color:"#B673E0",
                         title:"通讯录",//주소록
                         imgUrl:"/asset/img/newIcon/address book.png",
-                        path:"schoolSpace.member"
+                        path:"classSpace.member"
                     },
                     {
                         color:"#B673E0",
                         title:"文件",//문건
                         imgUrl:"/asset/img/newIcon/paper clip.png",
-                        path:"posts."
+                        path:"posts.Cfile"
                     },
                     // {
                     //     color:"#B673E0",
@@ -101,13 +101,13 @@ export default {
                         color:"#B673E0",
                         title:"问卷",//설문
                         imgUrl:"/asset/img/newIcon/颜色填充 1.png",
-                        path:"posts.Cquestionnaire"
+                        path:"classSpace.applications.quesitonnaire"
                     },
                     {
                         color:"#B673E0",
                         title:"投票",//투표
                         imgUrl:"/asset/img/newIcon/graph chart 3.png",
-                        path:"posts.Cvoting"
+                        path:"classSpace.applications.voting"
                     },
                     // {
                     //     color:"#B673E0",
@@ -131,7 +131,7 @@ export default {
                         color:"#98BB3A",
                         title:"访客管理",//방문자관리
                         imgUrl:"/asset/img/newIcon/图层 1.png",
-                        path:"posts."
+                        path:"classSpace.manageGuests"
                     },
                     {
                         color:"#98BB3A",
@@ -194,14 +194,14 @@ export default {
                         color:"#C95384",
                         title:"班级动态",//학급동태
                         imgUrl:"/asset/img/newIcon/班级动态 (1).png",
-                        path:"posts.classStory",
+                        path:"classSpace.applications.classStory",
 
                     },
                     {
                         color:"#C95384",
                         title:"班际动态",//학급별동태
                         imgUrl:"/asset/img/newIcon/动态.png",
-                        path:"posts.interClassStory",
+                        path:"classSpace.applications.interClassStory",
                     },
                 ]
             },
@@ -213,7 +213,7 @@ export default {
                         color:"#E4BC16",
                         title:"作业",//숙제
                         imgUrl:"/asset/img/newIcon/open book 2.png",
-                        path:"posts.Chomework"
+                        path:"classSpace.applications.homework"
                     },
                     // {
                     //     color:"#E4BC16",
