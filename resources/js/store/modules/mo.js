@@ -25,6 +25,9 @@ export const state = {
 
   //back without select any user on mobile member select page
   backWithoutSelect: false,
+  //back with change button
+  clickedChange: false, //new post page
+  backWithChange: false, //select memeber page
 }
 
 // getters
@@ -48,6 +51,8 @@ export const getters = {
   publishSpecUserList: state => state.publishSpecUserList,
 
   backWithoutSelect: state => state.backWithoutSelect,
+  clickedChange: state => state.clickedChange,
+  backWithChange: state => state.backWithChange,
 }
 
 // mutations
@@ -94,6 +99,12 @@ export const mutations = {
     [types.BACK_WITHOUT_SELECT] (state,  backWithoutSelect ) {
         state.backWithoutSelect = backWithoutSelect
     },
+    [types.CLICKED_CHANGE] (state,  clickedChange ) {
+        state.clickedChange = clickedChange
+    },
+    [types.BACK_WITH_CHANGE] (state,  backWithChange ) {
+        state.backWithChange = backWithChange
+    },
 }
 
 // actions
@@ -139,5 +150,11 @@ export const actions = {
     },
     onBackWithoutSelect ({ commit }, payload) {
         commit(types.BACK_WITHOUT_SELECT, payload)
+    },
+    onClickedChange ({ commit }, payload) {
+        commit(types.CLICKED_CHANGE, payload)
+    },
+    onBackWithChange ({ commit }, payload) {
+        commit(types.BACK_WITH_CHANGE, payload)
     },
 }

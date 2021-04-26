@@ -63,6 +63,8 @@ export default {
             currentUser: 'auth/user',
             usersStore: 'chat/usersStore',
             addressedUsersStore: 'chat/addressedUsersStore',
+            publishSpecUserList: 'mo/publishSpecUserList',
+            clickedChange: 'mo/clickedChange'
         }),
     },
 
@@ -74,7 +76,6 @@ export default {
         isSearching: false,
         searchKeyword: '',
         alphabetList: [
-                
                 {
                     alphabet:'A', 
                     touched: false
@@ -214,6 +215,9 @@ export default {
                 console.log(err);
             });
             this.isGettingUserList = false;
+        }
+        if(this.publishSpecUserList !== null){
+            this.selectedUserList = this.publishSpecUserList
         }
     },
 
@@ -374,7 +378,13 @@ export default {
             }
         },
         backWithOutSelect(){
-            this.$store.dispatch('mo/onBackWithoutSelect', true);
+            console.log("!!!!!!!!!!!!!!!", this.clickedChange);
+            if(this.clickedChange==true){
+                this.$store.dispatch('mo/onBackWithChange', true);
+            }
+            else{
+                this.$store.dispatch('mo/onBackWithoutSelect', true);
+            }
             this.$router.go(-1);
         }
     },

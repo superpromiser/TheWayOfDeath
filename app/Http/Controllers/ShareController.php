@@ -53,11 +53,23 @@ class ShareController extends Controller
             'userId' => $userId,
             'schoolId' => $request->schoolId
         ])->id;
-        Share::create([
-            'content' => $shareData,
-            'postId' => $postId,
-            'schoolId' => $request->schoolId
-        ]);
+        if($request->publishType == 'spec'){
+            Share::create([
+                'content' => $shareData,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'publishType' => $request->publishType,
+                'specUsers' => $request->specUsers,
+            ]);
+        }
+        else{
+            Share::create([
+                'content' => $shareData,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'publishType' => $request->publishType,
+            ]);
+        }
 
         return response()->json([
             'msg' => 'ok'
