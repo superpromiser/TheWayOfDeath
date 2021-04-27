@@ -894,7 +894,7 @@ export default {
   },
 
   created(){
-    if(this.selectedSchoolItem == null){
+    if( this.$isMobile() && this.selectedSchoolItem == null){
       return this.$router.push({name: 'home'});
     }
     if(this.previewData !== null){

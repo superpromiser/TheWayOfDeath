@@ -59,7 +59,7 @@
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
                         depressed
-                        color="primary"
+                        color="#7879ff"
                         @click="submit"
                         :loading="isSubmit"
                         >

@@ -17,11 +17,11 @@ class CreateTemplatesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('contentId');
             $table->unsignedBigInteger('userId');
-            $table->char('tempTitle');
-            $table->char('description');
+            $table->char('tempTitle')->nullable();
+            $table->char('description')->nullable();
             // $table->char('imgUrl');
             $table->tinyInteger('tempType');
-            $table->longText('content');
+            $table->json('content')->nullable();
             $table->tinyInteger('schoolId');
             $table->tinyInteger('lessonId')->default('0');
             $table->foreign('contentId')->references('id')->on('contents')->onDelete('cascade');

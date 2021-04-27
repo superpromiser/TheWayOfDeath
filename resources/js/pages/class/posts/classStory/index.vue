@@ -66,20 +66,11 @@
           <h2>{{ lang.classStory }}</h2>
         </v-col>
         <v-col cols="12" md="4" class="d-flex align-center justify-end">
-          <!-- <v-btn text color="primary" @click="tempList">
+          <v-btn text color="#999999" @click="tempList">
             可用模板 0， 草稿 0
-          </v-btn> -->
-          <v-btn
-            dark
-            tile
-            color="#49d29e"
-            class="mx-2"
-            :loading="isSubmit"
-            @click="submit"
-          >
-            {{ lang.submit }}
           </v-btn>
-          <!-- <v-btn
+          
+          <v-btn
             dark
             tile
             color="#F19861"
@@ -87,7 +78,17 @@
             @click="saveDraft"
           >
             {{ lang.saveDraft }}
-          </v-btn> -->
+          </v-btn>
+          <v-btn
+            dark
+            tile
+            color="#7879ff"
+            class="mx-2"
+            :loading="isSubmit"
+            @click="submit"
+          >
+            {{ lang.submit }}
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>

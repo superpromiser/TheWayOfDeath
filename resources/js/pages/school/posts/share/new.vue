@@ -206,7 +206,7 @@
                 </v-row>
             </v-container>
             <v-container class="pa-10">
-                <QuestionItem Label="分享内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                <QuestionItem Label="分享内容" :emoji="true" :contact="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
             <v-snackbar
                 timeout="3000"
@@ -312,6 +312,10 @@ export default {
             handler(val){
                 if(val.name == 'posts.share'){
                     this.isPosting = true
+                }
+                if(val.query.tempData){
+                    console.log(JSON.parse(val.query.tempData))
+                    this.shareData.content = JSON.parse(val.query.tempData)
                 }
             },
             deeper:true

@@ -127,20 +127,10 @@
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
                         text
-                        color="primary"
+                        color="#999999"
                         @click="tempList"
                     >
                         可用模板 0， 草稿 0
-                    </v-btn>
-                    <v-btn
-                        dark
-                        tile
-                        color="#49d29e"
-                        @click="publishVotingData"
-                        :loading="isCreating"
-                        class="mx-2"
-                    >
-                        提交
                     </v-btn>
                     <v-btn
                         tile
@@ -151,6 +141,17 @@
                     >
                         {{lang.saveDraft}}
                     </v-btn>
+                    <v-btn
+                        dark
+                        tile
+                        color="#7879ff"
+                        @click="publishVotingData"
+                        :loading="isCreating"
+                        class="mx-2"
+                    >
+                        提交
+                    </v-btn>
+                    
                 </v-col>
             </v-row>
             <!-- <div class="d-flex align-center w-50 justify-space-between">

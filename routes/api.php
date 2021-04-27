@@ -315,6 +315,9 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('share', 'ShareController@getShare');
     Route::post('share', 'ShareController@createShare');
     Route::get('shareTempCnt', 'ShareController@getTempCnt');
+    Route::get('shareTemp', 'ShareController@getTempList');
+    Route::post('shareTemp', 'ShareController@createTemp');
+    Route::delete('shareTemp', 'ShareController@deleteTemp');
 
     //regname
     Route::get('regname', 'RegnameController@getRegname');
