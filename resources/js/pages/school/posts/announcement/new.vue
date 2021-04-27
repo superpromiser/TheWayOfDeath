@@ -159,22 +159,13 @@
                     <h2>{{lang.announcement}}</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <!-- <v-btn
+                    <v-btn
                         text
-                        color="primary"
+                        color="#999999"
                     >
                         可用模板 0， 草稿 0
                     </v-btn>
-                    <v-btn
-                        dark
-                        color="#49d29e"
-                        @click="publishcampusData"
-                        tile
-                        class="mx-2"
-                        :loading="isCreating"
-                    >
-                        提交
-                    </v-btn> -->
+                    
                     <v-btn
                         tile
                         dark
@@ -183,6 +174,16 @@
                         @click="saveDraft"
                     >
                         {{lang.saveDraft}}
+                    </v-btn>
+                    <v-btn
+                        dark
+                        color="#7879ff"
+                        @click="publishcampusData"
+                        tile
+                        class="mx-2"
+                        :loading="isCreating"
+                    >
+                        提交
                     </v-btn>
                 </v-col>
             </v-row>

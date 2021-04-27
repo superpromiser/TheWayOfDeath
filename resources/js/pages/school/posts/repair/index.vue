@@ -91,8 +91,32 @@
                     <h2>维修工单</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn dark tile color="#49d29e" @click="submit" :loading="isSubmit">
-                        确定
+                    <v-btn
+                        text
+                        color="#999999"
+                        @click="tempList"
+                    >
+                        可用模板 0， 草稿 0
+                    </v-btn>
+                   
+                    <v-btn
+                        tile
+                        dark
+                        color="#F19861"
+                        :loading="isDraft"
+                        @click="draft"
+                    >
+                        {{lang.saveDraft}}
+                    </v-btn>
+                     <v-btn
+                        dark
+                        tile
+                        color="#7879ff"
+                        @click="submit"
+                        :loading="isSubmit"
+                        class="mx-2"
+                    >
+                        提交
                     </v-btn>
                 </v-col>
             </v-row>
@@ -202,6 +226,7 @@ export default {
             '其他'
         ],
         isSubmit:false,
+        isDraft:false,
         lang,
         viewList:null,
         baseUrl: window.Laravel.base_url,
@@ -253,6 +278,9 @@ export default {
             })
         },
         draft(){
+
+        },
+        tempList(){
 
         },
         selectedLesson(val){

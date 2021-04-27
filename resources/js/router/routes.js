@@ -153,6 +153,7 @@ export default [
       {path:'templateList',name:"share.templateList", component:page('school/posts/share/templateList.vue')}
     ]
   },
+  {path:'/schoolSpace/:schoolId/post/share/newTemplate',name:'share.newTemplate',component:page('school/posts/share/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/bulletinboard', name:'posts.bulletinboard', component:page('school/posts/bulletinboard/new.vue')},
   {path:'/schoolSpace/:schoolId/post/homevisit', name:'posts.homevisit', component:page('school/posts/homevisit/new.vue')},
   {path:'/schoolSpace/:schoolId/post/regname', name:'posts.regname', component:page('school/posts/regname/new.vue')},

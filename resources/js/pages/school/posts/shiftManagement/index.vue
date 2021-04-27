@@ -77,24 +77,15 @@
                     <h2>{{lang.shiftMng}}</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <!-- <v-btn
+                    <v-btn
                         text
-                        color="primary"
+                        color="#999999"
                         @click="tempList"
                     >
                         可用模板 0， 草稿 0
-                    </v-btn> -->
-                    <v-btn
-                        dark
-                        tile
-                        color="#49d29e"
-                        @click="submit"
-                        :loading="isSubmit"
-                        class="mx-2"
-                    >
-                        提交
                     </v-btn>
-                    <!-- <v-btn
+                   
+                    <v-btn
                         tile
                         dark
                         color="#F19861"
@@ -102,7 +93,17 @@
                         @click="draft"
                     >
                         {{lang.saveDraft}}
-                    </v-btn> -->
+                    </v-btn>
+                     <v-btn
+                        dark
+                        tile
+                        color="#7879ff"
+                        @click="submit"
+                        :loading="isSubmit"
+                        class="mx-2"
+                    >
+                        提交
+                    </v-btn>
                 </v-col>
             </v-row>
         </v-container>

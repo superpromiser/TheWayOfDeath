@@ -25,11 +25,11 @@ function getTempList(payload){
 }
 
 function createTemp(payload){
-    return axios.get('/api/v1/shareTemp',payload)
+    return axios.post('/api/v1/shareTemp',payload)
 }
 
 function deleteTemp(payload){
-    return axios.delte('/api/v1/shareTemp',{data:payload})
+    return axios.delete('/api/v1/shareTemp',{data:payload})
 }
 
 export{

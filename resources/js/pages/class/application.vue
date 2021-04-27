@@ -73,12 +73,12 @@ export default {
                 title:"基础沟通",//기초의사소통
                 icon:"mdi-message-text",
                 items:[
-                    {
-                        color:"#B673E0",
-                        title:"通讯录",//주소록
-                        imgUrl:"/asset/img/newIcon/address book.png",
-                        path:"classSpace.member"
-                    },
+                    // {
+                    //     color:"#B673E0",
+                    //     title:"通讯录",//주소록
+                    //     imgUrl:"/asset/img/newIcon/address book.png",
+                    //     path:"classSpace.member"
+                    // },
                     {
                         color:"#B673E0",
                         title:"文件",//문건
@@ -127,12 +127,12 @@ export default {
                 title:"校园安全",//교내안전
                 icon:"mdi-account-cog-outline",
                 items:[
-                    {
-                        color:"#98BB3A",
-                        title:"访客管理",//방문자관리
-                        imgUrl:"/asset/img/newIcon/图层 1.png",
-                        path:"classSpace.manageGuests"
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"访客管理",//방문자관리
+                    //     imgUrl:"/asset/img/newIcon/图层 1.png",
+                    //     path:"classSpace.manageGuests"
+                    // },
                     {
                         color:"#98BB3A",
                         title:"归程队",//귀한팀관리

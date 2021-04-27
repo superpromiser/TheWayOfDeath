@@ -86,4 +86,32 @@ class ShareController extends Controller
         $result['templateCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'tempType' => 1])->count();
         return $result;
     }
+
+    public function getTempList(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required'
+        ]);
+        $userId = Auth::user()->id;
+        return Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId,])->get();
+    }
+
+    public function createTemp(Request $request)
+    {
+        $userId = Auth::user()->id;
+        Template::create([
+            'contentId' => 23,
+            'userId' => $userId,
+            'tempTitle' => $request->title,
+            'description' => $request->description,
+            'content' => $request->content,
+            'schoolId' => $request->schoolId,
+            'tempType' => $request->tempType
+        ]);
+        return true;
+    }
+
+    public function deleteTemp(Request $request)
+    {
+    }
 }

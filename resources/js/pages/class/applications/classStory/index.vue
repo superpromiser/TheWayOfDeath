@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0">
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
+        <v-container class="banner-custom z-index-2" color="white" sticky elevation="20">
             <v-row>
                 <v-col cols="12" class="justify-space-between d-flex ma-0 align-center">
                     <a @click="$router.go(-1)">
@@ -11,7 +11,8 @@
                     <h2>{{lang.classStory}}</h2>
                     <v-btn
                         tile
-                        color="success"
+                        color="#7879ff"
+                        dark
                         class="mr-5"
                         @click="post"
                         >
@@ -22,7 +23,7 @@
                     </v-btn>
                 </v-col>
             </v-row>
-        </v-banner>
+        </v-container>
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
             <v-row class="px-5 mt-1">
                 <ClassStroyPost :content="content"></ClassStroyPost>

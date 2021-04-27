@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0">
-        <v-container class="banner-custom mb-10 z-index-2">
+        <v-container class="banner-custom z-index-2">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
                     <a @click="$router.go(-1)">
@@ -15,7 +15,8 @@
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
                         tile
-                        color="success"
+                        color="#7879ff"
+                        dark
                         class="mr-5"
                         @click="post"
                         >

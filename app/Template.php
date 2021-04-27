@@ -9,11 +9,7 @@ class Template extends Model
     //
     protected $guarded = [];
 
-    public function users(){
-        return $this->belongsTo(User::class,'userId');
-    }
-
-    public function questionnaire(){
-        return $this->hasMany(QuestionnaireTemp::class,'tempId');
-    }
+    protected $casts = [
+        'content' => 'array'
+    ];
 }
