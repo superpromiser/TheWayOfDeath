@@ -38,7 +38,6 @@ class RepairDataController extends Controller
     {
         $this->validate($request, [
             'userName' => 'required',
-            'viewListId' => 'required',
             'viewListName' => 'required',
             'repairType' => 'required',
             'content' => 'required',
@@ -48,12 +47,12 @@ class RepairDataController extends Controller
         $postId = Post::create([
             'userId' => $userId,
             'contentId' => 7,
-            'schoolId' => $request->schoolId
+            'schoolId' => $request->schoolId,
+            'classId' => $request->lessonId
         ])->id;
         return RepairData::create([
             'userName' => $request->userName,
             'userId' => $userId,
-            'viewListId' => $request->viewListId,
             'viewListName' => $request->viewListName,
             'repairType' => $request->repairType,
             'content' => json_encode($request->content),

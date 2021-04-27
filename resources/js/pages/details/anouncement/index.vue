@@ -7,10 +7,13 @@
         <h2 class="py-7">{{lang.announcement}}</h2>
       </v-row>
       <v-row class="pl-10 pt-0">
-        <v-col cols="12" >
-          <div class="vhtmlShow" v-html="contentData.anouncements.content"></div>
-        </v-col>
-      </v-row>
+            <v-col cols="12">
+                <p class="text-wrap"><read-more more-str="全文" :text="contentData.anouncements.content[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+            </v-col>
+            <v-col cols="12" v-if="checkIfAttachExist(contentData.anouncements.content[0])">
+                <AttachItemViewer :items="contentData.anouncements.content[0]" />
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 

@@ -246,6 +246,9 @@ export default [
   },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share/newTemplate',name:'share.CnewTemplate',component:page('class/posts/share/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.CregName',component:page('class/posts/regname/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.Cshare',component:page('class/posts/share/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement',name:'posts.Cannouncement',component:page('class/posts/announcement/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/safeStudy',name:'posts.CsafeStudy',component:page('class/posts/safeStudy/index.vue')},
   //class member  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/invite',name:'classSpace.inviteMember',component:page('member/inviteMember.vue')},

@@ -41,7 +41,8 @@ class AnouncementController extends Controller
         $postId = Post::create([
             'contentId' => 5,
             'userId' => $userId,
-            'schoolId' => $request->schoolId
+            'schoolId' => $request->schoolId,
+            'classId' => $request->lessonId,
         ])->id;
         return Anouncement::create([
             'title' => $request->title,
@@ -50,6 +51,7 @@ class AnouncementController extends Controller
             'scopeFlag' => $request->scopeFlag,
             'content' => json_encode($request->content),
             'schoolId' => $request->schoolId,
+            'lessonId' => $request->lessonId,
             'postId' => $postId,
             'userId' => $userId,
 

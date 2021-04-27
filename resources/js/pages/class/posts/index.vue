@@ -187,13 +187,13 @@ export default {
                         color:"#E4BC16",
                         title:"分享",//공유
                         imgUrl:"/asset/img/newIcon/分享.png",
-                        path:"posts.share"
+                        path:"posts.Cshare"
                     },
                     {
                         color:"#E4BC16",
                         title:"公告",//공시
                         imgUrl:"/asset/img/newIcon/megaphone 2.png",
-                        path:"posts.announcement"
+                        path:"posts.Cannouncement"
                     },
                     {
                         color:"#E4BC16",
@@ -235,7 +235,7 @@ export default {
                         color:"#98BB3A",
                         title:"安全教育",//안전교육
                         imgUrl:"/asset/img/newIcon/安全教育.png",
-                        path:"posts.safeStudy"
+                        path:"posts.CsafeStudy"
                     },
                 ]
             },
@@ -329,7 +329,7 @@ export default {
                         color:"#B673E0",
                         title:"分享",//공유
                         imgUrl:"/asset/img/newIcon/图层 3.png",
-                        path:"posts.share"
+                        path:"posts.Cshare"
                     },
                     {
                         color:"#B673E0",
@@ -347,7 +347,7 @@ export default {
                         color:"#B673E0",
                         title:"报名",//이름등록
                         imgUrl:"/asset/img/newIcon/Shape 18.png",
-                        path:"posts.regname"
+                        path:"posts.CregName"
                     },
                 ]
             },
@@ -360,13 +360,13 @@ export default {
                         color:"#E4BC16",
                         title:"分享",//공유
                         imgUrl:"/asset/img/newIcon/分享.png",
-                        path:"posts.share"
+                        path:"posts.Cshare"
                     },
                     {
                         color:"#E4BC16",
                         title:"公告",//공시
                         imgUrl:"/asset/img/newIcon/megaphone 2.png",
-                        path:"posts.announcement"
+                        path:"posts.Cannouncement"
                     },
                     {
                         color:"#E4BC16",
@@ -408,7 +408,7 @@ export default {
                         color:"#98BB3A",
                         title:"安全教育",//안전교육
                         imgUrl:"/asset/img/newIcon/安全教育.png",
-                        path:"posts.safeStudy"
+                        path:"posts.CsafeStudy"
                     },
                 ]
             },
@@ -502,7 +502,7 @@ export default {
                         color:"#B673E0",
                         title:"分享",//공유
                         imgUrl:"/asset/img/newIcon/图层 3.png",
-                        path:"posts.share"
+                        path:"posts.Cshare"
                     },
                     {
                         color:"#B673E0",
@@ -520,7 +520,7 @@ export default {
                         color:"#B673E0",
                         title:"报名",//이름등록
                         imgUrl:"/asset/img/newIcon/Shape 18.png",
-                        path:"posts.regname"
+                        path:"posts.CregName"
                     },
                 ]
             },
@@ -533,13 +533,13 @@ export default {
                         color:"#E4BC16",
                         title:"分享",//공유
                         imgUrl:"/asset/img/newIcon/分享.png",
-                        path:"posts.share"
+                        path:"posts.Cshare"
                     },
                     {
                         color:"#E4BC16",
                         title:"公告",//공시
                         imgUrl:"/asset/img/newIcon/megaphone 2.png",
-                        path:"posts.announcement"
+                        path:"posts.Cannouncement"
                     },
                     {
                         color:"#E4BC16",
@@ -581,7 +581,7 @@ export default {
                         color:"#98BB3A",
                         title:"安全教育",//안전교육
                         imgUrl:"/asset/img/newIcon/安全教育.png",
-                        path:"posts.safeStudy"
+                        path:"posts.CsafeStudy"
                     },
                 ]
             },
@@ -675,7 +675,7 @@ export default {
                         color:"#B673E0",
                         title:"分享",//공유
                         imgUrl:"/asset/img/newIcon/图层 3.png",
-                        path:"posts.share"
+                        path:"posts.Cshare"
                     },
                     // {
                     //     color:"#B673E0",
@@ -706,7 +706,7 @@ export default {
                         color:"#E4BC16",
                         title:"分享",//공유
                         imgUrl:"/asset/img/newIcon/分享.png",
-                        path:"posts.share"
+                        path:"posts.Cshare"
                     },
                     // {
                     //     color:"#E4BC16",
@@ -848,7 +848,7 @@ export default {
                         color:"#B673E0",
                         title:"分享",//공유
                         imgUrl:"/asset/img/newIcon/图层 3.png",
-                        path:"posts.share"
+                        path:"posts.Cshare"
                     },
                     // {
                     //     color:"#B673E0",
@@ -879,7 +879,7 @@ export default {
                         color:"#E4BC16",
                         title:"分享",//공유
                         imgUrl:"/asset/img/newIcon/分享.png",
-                        path:"posts.share"
+                        path:"posts.Cshare"
                     },
                     // {
                     //     color:"#E4BC16",

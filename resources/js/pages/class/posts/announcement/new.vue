@@ -1,40 +1,47 @@
 <template>
     <v-container class="pa-0">
-        <v-banner class=" mb-10" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <v-avatar
-                    class="ma-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/公告 拷贝.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>{{lang.announcement}}</h2>
-            </div>
-            <template v-slot:actions>
-            <v-btn
-                text
-                color="primary"
-            >
-                可用模板 0， 草稿 0
-            </v-btn>
-            <v-btn
-                dark
-                color="#49d29e"
-                @click="publishcampusData"
-                tile
-                class="mr-md-8"
-                :loading="isCreating"
-            >
-                提交
-            </v-btn>
-            </template>
-        </v-banner>
+         <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>{{lang.announcement}}</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        text
+                        color="#999999"
+                    >
+                        可用模板 0， 草稿 0
+                    </v-btn>
+                    
+                    <v-btn
+                        tile
+                        dark
+                        color="#F19861"
+                        :loading="isDraft"
+                        @click="saveDraft"
+                    >
+                        {{lang.saveDraft}}
+                    </v-btn>
+                    <v-btn
+                        dark
+                        color="#7879ff"
+                        @click="publishcampusData"
+                        tile
+                        class="mx-2"
+                        :loading="isCreating"
+                    >
+                        提交
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" md="4">
@@ -159,7 +166,7 @@
                     ></v-switch>
                 </v-col>
                 <v-col cols="12">
-                    <vue-editor v-model="announcementData.content" placeholder="公告内容"></vue-editor>
+                    <QuestionItem Label="分享内容" :emoji="true" :contact="true" :item="announcementData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
                 </v-col>
             </v-row>
             
@@ -214,11 +221,14 @@ export default {
             signName:'',
             viewList:[],
             scopeFlag:false,
-            content:''
+            content:[],
+            schoolId:null,
+            lessonId:null,
         },
         newSignFlag:false,
         newSignName:'',
         isCreating:false,
+        isDraft:false
     }),
 
     computed: {
@@ -231,13 +241,17 @@ export default {
     },
 
     created() {
-        
+        this.announcementData.schoolId = this.currentPath.params.schoolId
+        this.announcementData.lessonId = this.currentPath.params.lessonId
     },
 
     methods: {
         selectedLesson(val){
             //console.log(val)
         },  
+        saveDraft(){
+
+        },
         loadContentData(data){
             if(data.text === ''){
                 this.requiredText = true
@@ -257,11 +271,21 @@ export default {
         },
 
         async publishcampusData(){
+            this.$refs.child.emitData()
+            if(this.announcementData.content.length == 0){
+                    return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireContent, color: "error"})
+                }
+            if(this.announcementData.title.trim() == ''){
+                    return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireTitle, color: "error"})
+            }
+            if(this.announcementData.viewList.length == 0){
+                    return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireMember, color: "error"})
+            }
             this.isCreating = true
             //console.log("announcementData", this.announcementData);
             await createAnouncement(this.announcementData).then(res=>{
                 //console.log(res)
-                this.$router.push({name:'schoolSpace.news'})
+                this.$router.push({name:'classSpace.news'})
             }).catch(err=>{
                 this.isCreating = false
                 //console.log(err.response)

@@ -21,6 +21,7 @@ class CreateAnouncementsTable extends Migration
             $table->boolean('scopeFlag');
             $table->LONGTEXT('content');
             $table->tinyInteger('schoolId');
+            $table->tinyInteger('lessonId')->nullable();
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
