@@ -20,6 +20,7 @@ class CreateSharesTable extends Migration
             $table->json('specUsers')->nullable();
             $table->unsignedBigInteger('postId');
             $table->tinyInteger('schoolId');
+            $table->tinyInteger('lessonId')->nullable();
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });

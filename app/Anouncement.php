@@ -8,4 +8,9 @@ class Anouncement extends Model
 {
     //
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'userId');
+    }
 }

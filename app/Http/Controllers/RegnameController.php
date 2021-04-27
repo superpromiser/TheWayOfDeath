@@ -44,7 +44,8 @@ class RegnameController extends Controller
         $postId = Post::create([
             'contentId' => 24,
             'userId' => $userId,
-            'schoolId' => $request->schoolId
+            'schoolId' => $request->schoolId,
+            'classId' => $request->lessonId,
         ])->id;
 
         Regname::create([
@@ -56,7 +57,8 @@ class RegnameController extends Controller
             'checkFlag' => $request->checkFlag,
             'content' => $shareData,
             'postId' => $postId,
-            'schoolId' => $request->schoolId
+            'schoolId' => $request->schoolId,
+            'lessonId' => $request->lessonId
         ]);
 
         return response()->json([

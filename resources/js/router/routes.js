@@ -239,7 +239,13 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/file', name:'posts.Cfile', component:page('class/posts/file/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/classStory', name:'posts.classStory', component:page('class/posts/classStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/interClassStory', name:'posts.interClassStory', component:page('class/posts/interClassStory/index.vue')},
-  
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share', name:'posts.Cshare', component:page('class/posts/share/new.vue'),
+    children:[
+      {path:'templateList',name:"share.CtemplateList", component:page('class/posts/share/templateList.vue')}
+    ]
+  },
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share/newTemplate',name:'share.CnewTemplate',component:page('class/posts/share/newTemplate.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.CregName',component:page('class/posts/regname/new.vue')},
   //class member  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/invite',name:'classSpace.inviteMember',component:page('member/inviteMember.vue')},

@@ -91,7 +91,7 @@ class TabletController extends Controller
         }
 
         $announcementData = array();
-        $allAnounceData = Anouncement::where('schoolId', $schoolId)->get();
+        $allAnounceData = Anouncement::where('schoolId', $schoolId)->with('users:id,name,avatar')->get();
         foreach ($allAnounceData as $data) {
             $lessonArr = json_decode($data->viewList);
             foreach ($lessonArr as $lesson) {
