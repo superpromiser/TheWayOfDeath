@@ -348,6 +348,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('onlineTeacherCheck', 'HomeworkResultController@getOnlineTeacherCheck');
     //tabelt
     Route::get('tablet/dashboard', 'TabletController@getDashboardData');
+    Route::get('tablet/lessonSchedule', 'TabletController@getLessonTimeTable');
 
     //alarm
     Route::get('alarm', 'AlarmController@getAlarm');

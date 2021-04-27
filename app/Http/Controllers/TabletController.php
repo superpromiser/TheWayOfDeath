@@ -14,6 +14,7 @@ use App\Post;
 use App\Anouncement;
 use App\Attendance;
 use App\ClassStory;
+use App\ScheduleSetting;
 use App\SchoolStory;
 
 class TabletController extends Controller
@@ -35,18 +36,6 @@ class TabletController extends Controller
         $schoolId = Auth::user()->schoolId;
         $lessonId = Auth::user()->lessonId;
         $scheduleData = json_decode(ScheduleClass::where(['schoolId' => $schoolId, 'lessonId' => $lessonId])->first()->scheduleData);
-        // $lessonName = Lesson::where('id', $lessonId)->first()->lessonName;
-        // $mySchoolScheduleTeacherData = ScheduleTeacher::where(['schoolId' => $schoolId])->get();
-
-        // $scheduleTeacherDataArr = array();
-        // foreach ($mySchoolScheduleTeacherData as $key => $scheduleTeacherData) {
-        //     $lessonArr = $scheduleTeacherData->lessons;
-        //     foreach ($lessonArr as $key => $lesson) {
-        //         if ($lesson == $lessonName) {
-        //             array_push($scheduleTeacherDataArr, $scheduleTeacherData);
-        //         }
-        //     }
-        // }
         $lastSession = Session::latest('id')->first();
         $subjectData = Subject::select('subjectOrderName', 'subjectOrderType', 'startTime', 'endTime')->where('sessionId', $lastSession->id)->get();
         $subjectArr = array();
@@ -60,18 +49,11 @@ class TabletController extends Controller
         $todaySchedule = array();
         foreach ($scheduleData as $key => $oneDaySchedule) {
             $schedule['name'] = $oneDaySchedule->$weekday;
-            // if ($schedule['id'] == -1) {
-            //     $schedule['name'] = '自习';
-            // } else {
-            //     $schedule['name'] = ScheduleTeacher::where('id', $schedule['id'])->first()->subjectName;
-            // }
             array_push($todaySchedule, $schedule);
         }
         for ($i = 0; $i < count($subjectArr); $i++) {
-            // $subjectArr[$i]['id'] = $todaySchedule[$i]['id'];
             $subjectArr[$i]['name'] = $todaySchedule[$i]['name'];
         }
-        // $result = array_merge($subjectArr, $todaySchedule);
         $posts = Post::whereIn('contentId', [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
             ->where('classId', $lessonId)
             ->with([
@@ -88,118 +70,6 @@ class TabletController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         $albumData = array();
-        // foreach ($posts as $post) {
-        //     switch ($post->contentId) {
-        //         case 12:
-        //             $contentData = json_decode($post->questionnaires->content);
-        //             foreach ($contentData as $content) {
-        //                 if ($content->type == 'single') {
-        //                     $postingData = $content->singleContentDataArr;
-        //                     foreach ($postingData as $questionItem) {
-        //                         $imgUrls = $questionItem->imgUrl;
-        //                         foreach ($imgUrls as $imgUrl) {
-        //                             $path = $imgUrl->path;
-        //                             array_push($albumData, $path);
-        //                         }
-        //                     }
-        //                 } else if ($content->type == 'multi') {
-        //                     $postingData = $content->multiContentDataArr;
-        //                     foreach ($postingData as $questionItem) {
-        //                         $imgUrls = $questionItem->imgUrl;
-        //                         foreach ($imgUrls as $imgUrl) {
-        //                             $path = $imgUrl->path;
-        //                             array_push($albumData, $path);
-        //                         }
-        //                     }
-        //                 } else if ($content->type == 'qa') {
-        //                     $postingData = $content->qaContentDataArr;
-        //                     foreach ($postingData as $questionItem) {
-        //                         $imgUrls = $questionItem->imgUrl;
-        //                         foreach ($imgUrls as $imgUrl) {
-        //                             $path = $imgUrl->path;
-        //                             array_push($albumData, $path);
-        //                         }
-        //                     }
-        //                 } else if ($content->type == 'score') {
-        //                     $postingData = $content->scoringDataArr;
-        //                     foreach ($postingData as $contentData) {
-        //                         $post = $contentData->contentData;
-        //                         foreach ($post as $questionItem) {
-        //                             $imgUrls = $questionItem->imgUrl;
-        //                             foreach ($imgUrls as $imgUrl) {
-        //                                 $path = $imgUrl->path;
-        //                                 array_push($albumData, $path);
-        //                             }
-        //                         }
-        //                     }
-        //                 }
-        //             }
-        //             break;
-        //         case 13:
-        //             $contentData = json_decode($post->votings->content);
-        //             foreach ($contentData as $questionItem) {
-        //                 $imgUrls = $questionItem->imgUrl;
-        //                 foreach ($imgUrls as $imgUrl) {
-        //                     $path = $imgUrl->path;
-        //                     array_push($albumData, $path);
-        //                 }
-        //             }
-        //             break;
-        //         case 14:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             $contentData = json_decode($post->homework->content);
-        //             $imgUrls = $contentData->imgUrl;
-        //             foreach ($imgUrls as $imgUrl) {
-        //                 $path = $imgUrl->path;
-        //                 array_push($albumData, $path);
-        //             }
-        //             break;
-        //         case 15:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             break;
-        //         case 16:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             $contentData = json_decode($post->homeVisit->content);
-        //             $imgUrls = $contentData->imgUrl;
-        //             foreach ($imgUrls as $imgUrl) {
-        //                 $path = $imgUrl->path;
-        //                 array_push($albumData, $path);
-        //             }
-        //             break;
-        //         case 17:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             $contentData = json_decode($post->notifications->description);
-        //             $imgUrls = $contentData->imgUrl;
-        //             foreach ($imgUrls as $imgUrl) {
-        //                 $path = $imgUrl->path;
-        //                 array_push($albumData, $path);
-        //             }
-        //             break;
-        //         case 18:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             $contentData = json_decode($post->evaluations->selMedalList);
-        //             break;
-        //         case 19:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             $contentData = $post->recognitions->imgUrl;
-        //             break;
-        //         case 20:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             break;
-        //         case 21:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             break;
-        //         case 22:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             break;
-        //         case 23:
-        //             // array_push($tempData, $post->questionniare->content);
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        // }
-
         $schoolStoryData = array();
         $schoolStory = SchoolStory::select('content')->where('schoolId', $schoolId)->get();
         foreach ($schoolStory as $content) {
@@ -221,7 +91,7 @@ class TabletController extends Controller
         }
 
         $announcementData = array();
-        $allAnounceData = Anouncement::where('schoolId', $schoolId)->get();
+        $allAnounceData = Anouncement::where('schoolId', $schoolId)->with('users:id,name,avatar')->get();
         foreach ($allAnounceData as $data) {
             $lessonArr = json_decode($data->viewList);
             foreach ($lessonArr as $lesson) {
@@ -245,28 +115,7 @@ class TabletController extends Controller
     public function getLessonTimeTable(Request $request)
     {
         $lessonId = Auth::user()->lessonId;
-        $lessonName = Lesson::where('id', $lessonId)->first->lessonName;
-        $scheduleData = ScheduleClass::where('lessonId', $lessonId)->first()->scheduleData;
-        $schoolId = Auth::user()->schoolId;
-        $scheduleTeachers = ScheduleTeacher::where('schoolId', $schoolId)->get();
-        foreach ($scheduleData as $scheduleOrder) {
-            $scheduleOrder = json_decode($scheduleOrder);
-            $monId = $scheduleOrder['mon'];
-            $tueId = $scheduleOrder['tue'];
-            $wedId = $scheduleOrder['wed'];
-            $thuId = $scheduleOrder['thu'];
-            $friId = $scheduleOrder['fri'];
-            $satId = $scheduleOrder['sat'];
-            $sunId = $scheduleOrder['sun'];
-        }
-        // $scheduleLessons = array();
-        // foreach ($scheduleTeachers as $schedule) {
-        //     $lessons = $schedule->lessons;
-        //     foreach ($lessons as $lesson) {
-        //         if ($lesson == $lessonName) {
-        //             array_push($schedulelessons, $schedule);
-        //         }
-        //     }
-        // }
+        $schedule = ScheduleClass::where('lessonId', $lessonId)->first()->scheduleData;
+        return $schedule;
     }
 }

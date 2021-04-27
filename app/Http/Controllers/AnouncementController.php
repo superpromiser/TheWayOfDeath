@@ -51,6 +51,7 @@ class AnouncementController extends Controller
             'content' => json_encode($request->content),
             'schoolId' => $request->schoolId,
             'postId' => $postId,
+            'userId' => $userId,
 
         ]);
     }

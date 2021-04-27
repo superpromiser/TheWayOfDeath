@@ -39,6 +39,14 @@
           <HomeworkResultPost :content="content"></HomeworkResultPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row> -->
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 23 && content.shares">
+          <SharePost :content='content'></SharePost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 24 && content.regnames">
+          <RegnamePost :content='content'></RegnamePost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 25 && content.classstory">
           <ClassStoryPost :content="content"></ClassStoryPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
@@ -144,6 +152,8 @@ import HomeworkPost from '~/components/contents/homeworkPost'
 import EvaluationPost from '~/components/contents/evaluationPost'
 import RecognitionPost from '~/components/contents/recognitionPost'
 import HomeworkResultPost from '~/components/contents/homeworkResultPost'
+import SharePost from '~/components/contents/sharePost'
+import RegnamePost from '~/components/contents/regnamePost'
 import ClassStoryPost from '~/components/contents/classStoryPost'
 import InterClassStoryPost from '~/components/contents/interClassStoryPost'
 export default {
@@ -157,6 +167,8 @@ export default {
     EvaluationPost,
     RecognitionPost,
     HomeworkResultPost,
+    SharePost,
+    RegnamePost,
     ClassStoryPost,
     InterClassStoryPost,
     InfiniteLoading,

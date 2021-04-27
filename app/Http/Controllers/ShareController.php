@@ -51,22 +51,24 @@ class ShareController extends Controller
         $postId = Post::create([
             'contentId' => 23,
             'userId' => $userId,
-            'schoolId' => $request->schoolId
+            'schoolId' => $request->schoolId,
+            'classId' => $request->lessonId
         ])->id;
-        if($request->publishType == 'spec'){
+        if ($request->publishType == 'spec') {
             Share::create([
                 'content' => $shareData,
                 'postId' => $postId,
                 'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
                 'publishType' => $request->publishType,
                 'specUsers' => $request->specUsers,
             ]);
-        }
-        else{
+        } else {
             Share::create([
                 'content' => $shareData,
                 'postId' => $postId,
                 'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
                 'publishType' => $request->publishType,
             ]);
         }
