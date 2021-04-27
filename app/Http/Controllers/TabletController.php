@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\scheduleClass;
+use App\ScheduleClass;
 use App\ScheduleTeacher;
 use App\Lesson;
 use App\Session;
@@ -34,7 +34,7 @@ class TabletController extends Controller
         $weekday = $weekMap[$dayOfTheWeek];
         $schoolId = Auth::user()->schoolId;
         $lessonId = Auth::user()->lessonId;
-        $scheduleData = json_decode(scheduleClass::where(['schoolId' => $schoolId, 'lessonId' => $lessonId])->first()->scheduleData);
+        $scheduleData = json_decode(ScheduleClass::where(['schoolId' => $schoolId, 'lessonId' => $lessonId])->first()->scheduleData);
         // $lessonName = Lesson::where('id', $lessonId)->first()->lessonName;
         // $mySchoolScheduleTeacherData = ScheduleTeacher::where(['schoolId' => $schoolId])->get();
 
@@ -246,7 +246,7 @@ class TabletController extends Controller
     {
         $lessonId = Auth::user()->lessonId;
         $lessonName = Lesson::where('id', $lessonId)->first->lessonName;
-        $scheduleData = scheduleClass::where('lessonId', $lessonId)->first()->scheduleData;
+        $scheduleData = ScheduleClass::where('lessonId', $lessonId)->first()->scheduleData;
         $schoolId = Auth::user()->schoolId;
         $scheduleTeachers = ScheduleTeacher::where('schoolId', $schoolId)->get();
         foreach ($scheduleData as $scheduleOrder) {

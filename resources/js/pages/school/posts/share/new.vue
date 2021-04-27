@@ -2,7 +2,7 @@
     <v-container v-if="$isMobile()"  class="ma-0 pa-0 h-100">
         <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
             <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
-                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                <v-icon @click="navToBackCustom" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
                 <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.share}}</p>
@@ -584,6 +584,15 @@ export default {
         changeSelectedUserList(){
             this.$store.dispatch('mo/onClickedChange', true);
             this.$router.push({name: 'member.selectMo'});
+        },
+
+        navToBackCustom(){
+            this.$store.dispatch('mo/onPublishContent', null);
+            this.$store.dispatch('mo/onPublishSpecUserList', null);
+            this.$store.dispatch('mo/onBackWithoutSelect', false);
+            this.$store.dispatch('mo/onClickedChange', false);
+            this.$store.dispatch('mo/onBackWithChange', false);
+            this.$router.go(-1);
         }
     }
 }
