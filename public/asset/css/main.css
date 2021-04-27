@@ -1403,3 +1403,9 @@ a {
     top: 630px!important;
     background: #E0E0E0;
 }
+.opened-setting-pell{
+    bottom: 70px;
+}
+.closed-setting-pell{
+    bottom: 20px;
+}
