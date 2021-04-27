@@ -47,7 +47,12 @@ export default {
   watch:{
     currentPath:{
       handler(val){
-        if ((val.path.includes('post')&&val.path.includes('schoolSpace')) || (val.path.includes('post')&&val.path.includes('classSpace')) || (val.path.includes('detail')&&val.path.includes('schoolSpace'))||(val.path.includes('member')&&val.path.includes('select'))){
+        if ((val.path.includes('post')&&val.path.includes('schoolSpace')) || 
+          (val.path.includes('post')&&val.path.includes('classSpace')) || 
+          (val.path.includes('detail')&&val.path.includes('schoolSpace')) ||
+          (val.path.includes('member')&&val.path.includes('select')) ||
+          (val.path.includes('texteditor'))
+          ){
           this.isPostOrDetail = true;
         }
         else{
