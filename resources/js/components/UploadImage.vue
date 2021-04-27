@@ -8,6 +8,8 @@
         :loading="isUploading"
         hide-details
         :solo="solo"
+        prepend-icon=""
+        append-icon="mdi-paperclip"
     ></v-file-input>
     <v-file-input
         v-else

@@ -2,8 +2,8 @@
   <v-container v-if="$isMobile()">
     <v-row>
       <v-col cols="12" class="d-flex">
-        <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="60" class="ma-5">
-            <span class="white--text headline">{{users.name[0]}}</span>
+        <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="48">
+            <span class="white--text headline">{{content.users.name[0]}}</span>
         </v-avatar>
         <v-avatar v-else
           size="48"
