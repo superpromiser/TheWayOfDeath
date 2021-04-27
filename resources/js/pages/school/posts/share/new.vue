@@ -125,9 +125,10 @@
                     accept="video/*"
                     @change="onVideoFileChanged"
                 >
-                <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple>
+                <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple @click="toggleEmo">
                     <v-icon size="30">mdi-emoticon-excited-outline</v-icon>
                 </v-col>
+                <Picker class="position-absolute" style="bottom:50px; left:50%; transform:translateX(-50%)" v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
                 <v-col @click="clickUploadFileBtn" cols="2" class="d-flex justify-center align-center py-1" v-ripple>
                     <v-progress-circular v-if="isFileSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
                     <v-icon v-else size="30">mdi-folder-outline</v-icon>
@@ -141,18 +142,19 @@
                 >
                 <v-btn rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="top: -45px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>
 
-                <v-menu top offset-y :close-on-content-click="true" content-class="box-shadow-none publish-type-menu" tile min-width="90">
+                <v-menu top offset-y :close-on-content-click="true" :content-class="publishSpecUserList !== null&&publishSpecUserList.length > 0 ? 'box-shadow-none publish-type-menu-with-btn': 'box-shadow-none publish-type-menu'" tile min-width="90">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn v-bind="attrs" v-on="on" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="top: -45px; right: 12px;"> <v-icon left>mdi-earth</v-icon>
                             {{shareData.publishType=="pub"? '公开' : shareData.publishType=="pvt"? '私密' : publishSpecUserList == null ? '部分看见' : `部分看见(${publishSpecUserList.length})`}}
                         </v-btn>
                     </template>
-                    <div class="pa-3">
+                    <div class="pa-3 text-right">
                         <v-radio-group class="mt-0 pt-0" v-model="shareData.publishType" @change="selectPublishType" mandatory dense hide-details >
                             <v-radio name="shareData.publishType" color="#7879ff" label="公开" value="pub" ></v-radio>
                             <v-radio name="shareData.publishType" color="#7879ff" label="私密" value="pvt" ></v-radio>
                             <v-radio name="shareData.publishType" color="#7879ff" label="部分看见" value="spec" ></v-radio>
                         </v-radio-group>
+                        <v-btn v-if="publishSpecUserList !== null&&publishSpecUserList.length > 0" elevation="0" small text color="#49d29e" @click="changeSelectedUserList">重选名单</v-btn>
                     </div>
                 </v-menu>
             </v-row>
@@ -258,6 +260,7 @@ export default {
         //mo
         emojiIndex: emojiIndex,
         emojisOutput: "",
+        emoStatus:false,
         selectedImageFile: null,
         selectedVideoFile: null,
         selectedFile: null,
@@ -304,7 +307,9 @@ export default {
         ...mapGetters({
             publishContent: 'mo/publishContent',
             publishSpecUserList: 'mo/publishSpecUserList',
-            backWithoutSelect: 'mo/backWithoutSelect'
+            backWithoutSelect: 'mo/backWithoutSelect',
+            backWithChange: 'mo/backWithChange',
+            clickedChange: 'mo/clickedChange',
         }),
     },
     watch:{
@@ -330,17 +335,17 @@ export default {
         if(this.backWithoutSelect == true){
             this.shareData.publishType = 'pub';
         }
-        this.shareData.schoolId = this.currentPath.params.schoolId
         if(this.currentPath.name == 'posts.share'){
             this.isPosting = true
         }
-        getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
-            console.log(res.data)
-            this.templateCnt = res.data.templateCnt
-            this.draftCnt = res.data.draftCnt
-        }).catch(err=>{
-            console.log(err.response)
-        })
+        this.shareData.schoolId = this.currentPath.params.schoolId;
+        // getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
+        //     console.log(res.data)
+        //     this.templateCnt = res.data.templateCnt
+        //     this.draftCnt = res.data.draftCnt
+        // }).catch(err=>{
+        //     console.log(err.response)
+        // })
     },
     methods:{
         saveDraft(){
@@ -358,10 +363,17 @@ export default {
                 if(this.shareData.content[0].text.trim() == ''){
                     return this.$snackbar.showMessage({content: this.lang.share+this.lang.requireContent, color: "error"})
                 }
+                if(this.shareData.publishType == 'spec'){
+                    this.$set(this.shareData, 'specUsers', this.publishSpecUserList);
+                }
+                console.log("MO", this.shareData);
                 this.isSubmit = true
                 await createShare(this.shareData).then(res=>{
                     this.$store.dispatch('mo/onPublishContent', null);
                     this.$store.dispatch('mo/onPublishSpecUserList', null);
+                    this.$store.dispatch('mo/onBackWithoutSelect', false);
+                    this.$store.dispatch('mo/onClickedChange', false);
+                    this.$store.dispatch('mo/onBackWithChange', false);
                     this.$router.push({name:'home'})
                 }).catch(err=>{
                 })
@@ -390,6 +402,36 @@ export default {
         },
         something(){
 
+        },
+
+
+        //Emoji
+        showEmoji(emoji) {
+            this.emojisOutput = this.emojisOutput + emoji.native;
+        },
+
+        outSidePicker(){
+            this.emoStatus = false;
+        },
+        clickUploadImageBtn() {
+            window.addEventListener('focus', () => {
+            }, { once: true })
+            this.$refs.imageUploader.click()
+        },
+
+        onInput(e){
+            if(!e){
+                return false;
+            }
+            if(!this.shareData.content[0].text){
+                this.shareData.content[0].text = e.native
+            }else{
+                this.shareData.content[0].text = this.shareData.content[0].text + e.native
+            }
+        },
+
+        toggleEmo(){
+            this.emoStatus = ! this.emoStatus
         },
 
         clickUploadImageBtn() {
@@ -533,12 +575,20 @@ export default {
                 if(this.publishSpecUserList !== null){
                     this.$store.dispatch('mo/onPublishSpecUserList', null);
                 }
+                if(this.clickedChange == true){
+                    this.$store.dispatch('mo/onClickedChange', false);
+                }
             }
         },
+
+        changeSelectedUserList(){
+            this.$store.dispatch('mo/onClickedChange', true);
+            this.$router.push({name: 'member.selectMo'});
+        }
     }
 }
 </script>
 
 <style>
-
+    
 </style>
