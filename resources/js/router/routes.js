@@ -24,6 +24,9 @@ export default [
   //circle
   { path: '/circle', name: 'circle', component: page('circle/index.vue') },
 
+  //texteditor
+  { path: '/texteditor', name: 'texteditor', component: page('texteditor/index.vue') },
+
   //selectuser
   { path: '/member/select', name: 'member.selectMo', component: page('member/moChooseMember.vue') },
 

@@ -39,6 +39,18 @@
                 <v-col cols="12">
                     <v-row class="ma-0 mo-glow">
                         <v-col cols="12" class="pa-0">
+                            <v-textarea
+                                class="v-textarea-cus-border-0 v-textarea-px-0 mt-0 pt-0"
+                                auto-grow
+                                color="#7879ff"
+                                clear-icon="mdi-close-circle"
+                                label="輸入内容"
+                                v-model="campusData.content"
+                                hide-details
+                                rows="5"
+                                solo
+                                ref="textarea"
+                            ></v-textarea>
                             <vue-editor v-model="campusData.content" placeholder="公告内容"></vue-editor>
                         </v-col>
                     </v-row>
