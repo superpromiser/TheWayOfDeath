@@ -17,6 +17,7 @@ class CreateSafeStudiesTable extends Migration
             $table->id();
             $table->LONGTEXT('content');
             $table->tinyInteger('schoolId');
+            $table->tinyInteger('lessonId')->nullable();
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('postId');

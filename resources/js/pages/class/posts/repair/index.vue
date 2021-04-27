@@ -210,6 +210,7 @@ export default {
             content:null,
             deadline:'',
             schoolId:'',
+            lessonId:null
         },
         itemList:[
             '设备维修',
@@ -234,6 +235,7 @@ export default {
     created(){
         this.repairData.userName = this.user.name
         this.repairData.schoolId = this.currentPath.params.schoolId
+        this.repairData.lessonId = this.currentPath.params.lessonId
     },
     methods:{
         loadContentData(data){

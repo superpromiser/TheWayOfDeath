@@ -18,7 +18,6 @@ class CreateRepairDataTable extends Migration
             $table->char('userName');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
-            $table->char('viewListId');
             $table->char('viewListName');
             $table->char('repairType');
             $table->longText('content');

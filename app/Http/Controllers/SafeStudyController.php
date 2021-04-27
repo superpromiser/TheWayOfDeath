@@ -37,13 +37,15 @@ class SafeStudyController extends Controller
         $postId = Post::create([
             'contentId' => 8,
             'userId' => $userId,
-            'schoolId' => $request->schoolId
+            'schoolId' => $request->schoolId,
+            'classId' => $request->lessonId
         ])->id;
         return SafeStudy::create([
             'content' => $shareData,
             'postId' => $postId,
             'userId' => $userId,
-            'schoolId' => $request->schoolId
+            'schoolId' => $request->schoolId,
+            'lessonId' => $request->lessonId
         ]);
     }
 

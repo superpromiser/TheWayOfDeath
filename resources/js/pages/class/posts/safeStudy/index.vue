@@ -135,6 +135,7 @@ export default {
     },
     created(){
         this.shareData.schoolId = this.currentPath.params.schoolId
+        this.shareData.lessonId = this.currentPath.params.lessonId
     },
     methods:{
         saveDraft(){
@@ -155,7 +156,7 @@ export default {
                     this.$router.push({name:'home'})
                 }
                 else{
-                    this.$router.push({name:'schoolSpace.news'})
+                    this.$router.push({name:'classSpace.news'})
                 }
             }).catch(err=>{
                 //console.log(err.response)

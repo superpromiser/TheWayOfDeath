@@ -2,7 +2,15 @@
   <v-container class="school-space-tab-bar-outter px-lg-10">
     <v-row class="pa-3">
       <v-container  v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id">
-        <v-row class="pa-0 mt-1" v-if="content.contentId == 12 && content.questionnaires">
+        <v-row class="pa-0 mt-1" v-if="content.contentId == 5 && content.anouncements">
+          <AnouncementPost :content="content"></AnouncementPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 8 && content.safestudy">
+          <SafeStudyPost :content='content'></SafeStudyPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 12 && content.questionnaires">
           <QusetionnairePost :content="content"></QusetionnairePost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
@@ -146,6 +154,7 @@ import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
 import QusetionnairePost from '~/components/contents/questionnairePost'
 import VotingPost from '~/components/contents/votingPost';
+import AnouncementPost from '~/components/contents/anouncementPost'
 import NotificationPost from '~/components/contents/notificationPost'
 import HomeVisitPost from '~/components/contents/homeVisitPost'
 import HomeworkPost from '~/components/contents/homeworkPost'
@@ -156,16 +165,19 @@ import SharePost from '~/components/contents/sharePost'
 import RegnamePost from '~/components/contents/regnamePost'
 import ClassStoryPost from '~/components/contents/classStoryPost'
 import InterClassStoryPost from '~/components/contents/interClassStoryPost'
+import SafeStudyPost from '~/components/contents/safeStudyPost'
 export default {
   components :{
     QusetionnairePost,
     VotingPost,
+    AnouncementPost,
     FooterPost,
     NotificationPost,
     HomeVisitPost,
     HomeworkPost,
     EvaluationPost,
     RecognitionPost,
+    SafeStudyPost,
     HomeworkResultPost,
     SharePost,
     RegnamePost,

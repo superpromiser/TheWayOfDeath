@@ -312,7 +312,7 @@
                     ></v-switch>
                 </v-col>
                 <v-col cols="12">
-                    <vue-editor v-model="announcementData.content" placeholder="公告内容"></vue-editor>
+                    <QuestionItem Label="分享内容" :emoji="true" :contact="true" :item="announcementData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
                 </v-col>
             </v-row>
             
@@ -370,7 +370,7 @@ export default {
             signName:'',
             viewList:[],
             scopeFlag:false,
-            content:'',
+            content:[],
             schoolId:null,
         },
         newSignFlag:false,
@@ -419,6 +419,16 @@ export default {
         },
 
         async publishcampusData(){
+            this.$refs.child.emitData()
+            if(this.announcementData.content.length == 0){
+                    return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireContent, color: "error"})
+                }
+            if(this.announcementData.title.trim() == ''){
+                    return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireTitle, color: "error"})
+            }
+            if(this.announcementData.viewList.length == 0){
+                    return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireMember, color: "error"})
+            }
             this.isCreating = true
             //console.log("announcementData", this.announcementData);
             await createAnouncement(this.announcementData).then(res=>{
