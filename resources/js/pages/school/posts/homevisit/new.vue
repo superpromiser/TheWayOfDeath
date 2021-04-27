@@ -1,74 +1,77 @@
 <template>
-    <v-container v-if="$isMobile()">
-        <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
-                <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/appIcon/others/家访.png`" alt="postItem" width="48" height="48" ></v-img>
-                </v-avatar>
-                <h2 class="ml-3">{{lang.homeVisit}}</h2>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0 mo-glow mb-16">
-            <v-col cols="12" sm="6" md="4">
-                <v-select
-                    class="mo-glow-v-select mt-0 pt-0"
-                    color="#7879ff"
-                    multiple
-                    small-chips
-                    :items="userInfoItem"
-                    :menu-props="{ top: false, offsetY: true }"
-                    item-text="name"
-                    item-value="name"
-                    @change="selectedLesson"
-                    label="班级"
-                    hide-details
-                    v-model="visitData.userInfo"
-                ></v-select>
-            </v-col>
-            <v-col cols="12" sm="6" md="4" class="d-flex justify-space-between align-center">
-                <v-datetime-picker 
-                    label="开始时间" 
-                    v-model="visitData.deadline"
-                    :okText='lang.ok'
-                    :clearText='lang.cancel'
-                > </v-datetime-picker>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-                <v-btn block large class="mo-glow" @click="openDetailDialog" style="height:48px!important;">
-                    <v-icon>
-                        mdi-eye
-                    </v-icon>家访内容
+    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
+        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.homeVisit}}</p>
+                <v-btn @click="publishcampusData" :loading="isCreating" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
                 </v-btn>
-            </v-col>
-            <v-col cols="12" >
-                <QuestionItem :Label="lang.contentPlace" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
-            </v-col>
-        </v-row>
-        <v-dialog v-model="detailDialog" max-width="900px" style="background:white!important">
-            <v-container class="pa-0">
-                <v-card>
-                    <v-card-title class="headline grey lighten-2">
-                        上门拜访详情
-                    </v-card-title>
-                
-                    <v-row class="ma-0" v-for="(item, i) in visitData.description" :key="i">
-                        <v-col class="px-5 " cols="12" v-for="(data, j) in item" :key="j">
-                            <p :class="{textMain: j==0}">{{data.title}}</p>
-                        </v-col>
-                    </v-row>
-                </v-card>
-            </v-container>            
-        </v-dialog>
-        <v-snackbar
-            timeout="3000"
-            v-model="requiredText"
-            color="error"
-            absolute
-            top
-            >
-            {{lang.requiredText}}
-        </v-snackbar>
-        <quick-menu @clickDraft="something" @clickPublish="publishcampusData" :isPublishing="isCreating"></quick-menu>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0 mo-glow mb-16">
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        class="mo-glow-v-select mt-0 pt-0"
+                        color="#7879ff"
+                        multiple
+                        small-chips
+                        :items="userInfoItem"
+                        :menu-props="{ top: false, offsetY: true }"
+                        item-text="name"
+                        item-value="name"
+                        @change="selectedLesson"
+                        label="班级"
+                        hide-details
+                        v-model="visitData.userInfo"
+                    ></v-select>
+                </v-col>
+                <v-col cols="12" sm="6" md="4" class="d-flex justify-space-between align-center">
+                    <v-datetime-picker 
+                        label="开始时间" 
+                        v-model="visitData.deadline"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    > </v-datetime-picker>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-btn block large class="mo-glow" @click="openDetailDialog" style="height:48px!important;">
+                        <v-icon>
+                            mdi-eye
+                        </v-icon>家访内容
+                    </v-btn>
+                </v-col>
+                <v-col cols="12" >
+                    <QuestionItem :Label="lang.contentPlace" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                </v-col>
+            </v-row>
+            <v-dialog v-model="detailDialog" max-width="900px" style="background:white!important">
+                <v-container class="pa-0">
+                    <v-card>
+                        <v-card-title class="headline grey lighten-2">
+                            上门拜访详情
+                        </v-card-title>
+                    
+                        <v-row class="ma-0" v-for="(item, i) in visitData.description" :key="i">
+                            <v-col class="px-5 " cols="12" v-for="(data, j) in item" :key="j">
+                                <p :class="{textMain: j==0}">{{data.title}}</p>
+                            </v-col>
+                        </v-row>
+                    </v-card>
+                </v-container>            
+            </v-dialog>
+            <v-snackbar
+                timeout="3000"
+                v-model="requiredText"
+                color="error"
+                absolute
+                top
+                >
+                {{lang.requiredText}}
+            </v-snackbar>
+        </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">

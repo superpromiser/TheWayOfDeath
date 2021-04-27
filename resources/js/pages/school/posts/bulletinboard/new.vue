@@ -1,31 +1,34 @@
 <template>
-    <v-container v-if="$isMobile()">
-        <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
-                <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/appIcon/others/布告栏.png`" alt="postItem" width="48" height="48" ></v-img>
-                </v-avatar>
-                <h2 class="ml-3">{{lang.bulletin}}</h2>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0 mo-glow">
-            <v-col cols="12" sm="6" md="4">
-                <v-select
-                    color="#7879ff"
-                    class="mo-glow-v-select mt-0 pt-0"
-                    :items="typeItem"
-                    :menu-props="{ top: false, offsetY: true }"
-                    item-text="label"
-                    v-model="bulletinboardData.type"
-                    label="栏目"
-                    hide-details
-                ></v-select>
-            </v-col>
-            <v-col cols="12" sm="6" md="4" class="mb-16">
-                <QuestionItem class="" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
-            </v-col>
-        </v-row>
-        <quick-menu @clickDraft="something" @clickPublish="publishcampusData" :isPublishing="isCreating"></quick-menu>
+    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
+        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.bulletin}}</p>
+                <v-btn @click="publishcampusData" :loading="isCreating" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0 mo-glow">
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        color="#7879ff"
+                        class="mo-glow-v-select mt-0 pt-0"
+                        :items="typeItem"
+                        :menu-props="{ top: false, offsetY: true }"
+                        item-text="label"
+                        v-model="bulletinboardData.type"
+                        label="栏目"
+                        hide-details
+                    ></v-select>
+                </v-col>
+                <v-col cols="12" sm="6" md="4" class="mb-16">
+                    <QuestionItem class="" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+                </v-col>
+            </v-row>
+        </v-container>
     </v-container>
     <v-container v-else class="pa-0">
         <v-container class="px-10 z-index-2 banner-custom">

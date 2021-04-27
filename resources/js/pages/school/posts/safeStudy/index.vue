@@ -1,37 +1,40 @@
 <template>
-    <v-container v-if="$isMobile()">
-        <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
-                <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/appIcon/校园安全/闸机.png`" alt="postItem" width="48" height="48" ></v-img>
-                </v-avatar>
-                <h2 class="ml-3">{{lang.safeStudy}}</h2>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0 mo-glow">
-            <v-col cols="12">
-                <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
-            </v-col>
-        </v-row>
-        <v-snackbar
+    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
+        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.safeStudy}}</p>
+                <v-btn @click="submit" :loading="isSubmit" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0 mo-glow">
+                <v-col cols="12">
+                    <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                </v-col>
+            </v-row>
+            <v-snackbar
+                timeout="3000"
+                v-model="requiredText"
+                color="error"
+                absolute
+                top
+                >
+                {{lang.requiredText}}
+            </v-snackbar>
+            <v-snackbar
             timeout="3000"
-            v-model="requiredText"
-            color="error"
-            absolute
-            top
-            >
-            {{lang.requiredText}}
-        </v-snackbar>
-        <v-snackbar
-        timeout="3000"
-            v-model="isSuccessed"
-            color="success"
-            absolute
-            top
-            >
-            {{lang.successText}}
-        </v-snackbar>
-        <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
+                v-model="isSuccessed"
+                color="success"
+                absolute
+                top
+                >
+                {{lang.successText}}
+            </v-snackbar>
+        </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
