@@ -60,6 +60,7 @@
                     <v-btn
                         depressed
                         color="#7879ff"
+                        dark
                         @click="submit"
                         :loading="isSubmit"
                         >
