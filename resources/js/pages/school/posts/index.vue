@@ -1,6 +1,7 @@
 <template>
     <v-container class="pa-0">
         <RouterBack title="发布"></RouterBack>
+        {{user.role}}
         <div v-if="user.roleId == 1">
             <v-row v-for="(itemGroup, i) in adminItem" :key="i" class="ma-0 px-6">
                 <v-col cols="12">

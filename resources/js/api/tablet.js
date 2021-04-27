@@ -5,7 +5,7 @@ function getDashboardData(payload){
 }
 
 function getLessonSchedule(payload){
-    return axios.get('/api/v1/table/getLessonSchedule',{params:payload})
+    return axios.get('/api/v1/tablet/lessonSchedule',{params:payload})
 }
 
 export{
