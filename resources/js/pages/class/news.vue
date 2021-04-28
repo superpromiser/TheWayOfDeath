@@ -43,6 +43,10 @@
           <RecognitionPost :content="content"></RecognitionPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 20 && content.vacations">
+          <RecognitionPost :content="content"></RecognitionPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
         <!-- <v-row class="pa-0 mt-1" v-else-if="content.contentId == 22 && content.homework_result">
           <HomeworkResultPost :content="content"></HomeworkResultPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>

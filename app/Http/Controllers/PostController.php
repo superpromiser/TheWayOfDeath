@@ -71,6 +71,7 @@ class PostController extends Controller
                 'regnames',
                 'classstory',
                 'interclassstory',
+                'vacations',
                 'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')

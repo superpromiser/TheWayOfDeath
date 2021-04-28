@@ -128,4 +128,9 @@ class Post extends Model
     {
         return $this->hasOne(InterClassStory::class, 'postId');
     }
+
+    public function vacations()
+    {
+        return $this->hasOne(Vacation::class, 'postId');
+    }
 }

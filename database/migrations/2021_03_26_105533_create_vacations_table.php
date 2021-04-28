@@ -26,8 +26,12 @@ class CreateVacationsTable extends Migration
             $table->char('status')->default('pending');
             $table->unsignedBigInteger('postId');
             $table->unsignedBigInteger('studentId');
+            $table->unsignedBigInteger('schoolId');
+            $table->unsignedBigInteger('lessonId');
             $table->unsignedBigInteger('teacherId');
             $table->foreign('studentId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('schoolId')->references('id')->on('schools')->onDelete('cascade');
+            $table->foreign('lessonId')->references('id')->on('lessons')->onDelete('cascade');
             $table->foreign('teacherId')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
