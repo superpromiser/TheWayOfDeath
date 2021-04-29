@@ -675,10 +675,10 @@ export default {
         if(this.editedItem.phoneNumber.trim() == ''){
           return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
         }
-        if(/^\d*$/.test(this.phoneNumber) == false){
+        if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
           return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
         }
-        if(this.phoneNumber.length !== 11 ){
+        if(this.editedItem.phoneNumber.length !== 11 ){
           return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
         }
         //password
@@ -773,10 +773,10 @@ export default {
             if(this.editedItem.phoneNumber.trim() == ''){
               return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
             }
-            if(/^\d*$/.test(this.phoneNumber) == false){
+            if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
               return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
             }
-            if(this.phoneNumber.length !== 11 ){
+            if(this.editedItem.phoneNumber.length !== 11 ){
               return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
             }
             //password
