@@ -25,6 +25,7 @@
               v-model="dialog"
               persistent
               max-width="500px"
+              eager
               >
                 <template v-slot:activator="{ on, attrs }" class="align-center">
                   <v-btn
@@ -54,6 +55,7 @@
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.phoneNumber"
+                            class="max-length-11-staff-input"
                             label="电话号码"
                             :counter="11"
                             ></v-text-field>
@@ -87,6 +89,7 @@
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.cardNum"
+                            class="max-length-18-staff-input"
                             label="身份证号"
                             :counter="18"
                             ></v-text-field>
@@ -149,6 +152,7 @@
                             <v-col cols="12" sm="6" md="4">
                                 <v-text-field
                                     v-model="editedItem.fatherPhone"
+                                    class="max-length-11-staff-input-father-phone"
                                     label="家长电话"
                                 ></v-text-field>
                             </v-col>
@@ -522,6 +526,15 @@ export default {
     ...mapGetters({
         user : 'auth/user'
     }),
+  },
+
+  mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    var ele_11_father_phone = $('.max-length-11-staff-input-father-phone')
+    var ele_18 = $('.max-length-18-staff-input')
+    ele_11.find('input').attr("maxlength","11")
+    ele_11_father_phone.find('input').attr("maxlength","11")
+    ele_18.find('input').attr("maxlength","18")
   },
 
     async created(){
