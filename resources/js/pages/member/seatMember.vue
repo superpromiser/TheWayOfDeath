@@ -1,27 +1,33 @@
 <template>
     <v-container class="pa-0">
-        <v-banner class="z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center justify-space-between">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <p class="mb-0">座位</p>
-                <v-btn
-                    tile
-                    dark
-                    color="#49d29e"
-                    :loading="isSubmit"
-                    @click="submit"
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>座位</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                     <v-btn
+                        dark
+                        tile
+                        color="#7879ff"
+                        @click="submit"
+                        :loading="isSubmit"
                     >
-                    {{ lang.submit }}
-                </v-btn>
-            </div>  
-        </v-banner>
-        <v-row  class="ma-5">
-            <v-col cols="6">
-                
+                        提交
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-row class="px-10 mt-5">
+            <v-col cols="6" class="d-flex align-center">
+                座位
             </v-col>
             <v-col cols=6>
                 <v-row>
@@ -29,6 +35,7 @@
                         <v-select
                             :items="items"
                             v-model="rowCnt"
+                            hide-details
                             dense
                             @change="selRowCnt"
                             :menu-props="{ top: false, offsetY: true }"
@@ -38,6 +45,7 @@
                     <v-col cols="6">
                         <v-select
                             :items="items"
+                            hide-details
                             v-model="colCnt"
                             :menu-props="{ top: false, offsetY: true }"
                             dense
@@ -48,9 +56,9 @@
                 </v-row>
             </v-col>
         </v-row>
-        <v-row class="px-5" v-for="(row, idx1) in seatList" :key="`row${idx1}`">
+        <v-row class="px-10" v-for="(row, idx1) in seatList" :key="`row${idx1}`">
             <v-col v-for="(col, idx2) in row" :key="`colum${idx2}`">
-                <v-text-field
+                <v-select
                     v-model="seatList[idx1][idx2]"
                     :key="seatList[idx1][idx2]"
                     :items="userList"
@@ -59,7 +67,7 @@
                     dense
                     outlined
                     @change="selSeat(idx1,idx2)"
-                ></v-text-field>
+                ></v-select>
             </v-col>
         </v-row>
   </v-container>

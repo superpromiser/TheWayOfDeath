@@ -89,6 +89,7 @@
                         tile
                         dark
                         color="#F19861"
+                        class="mx-2"
                         :loading="isDraft"
                         @click="draft"
                     >
@@ -100,60 +101,79 @@
                         color="#7879ff"
                         @click="submit"
                         :loading="isSubmit"
-                        class="mx-2"
                     >
                         提交
                     </v-btn>
                 </v-col>
             </v-row>
         </v-container>
-        <v-container class="pa-10">
-            <v-row class="ma-0 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <p class="mb-0" >姓名 </p>
-                    <p class="mb-0" >{{shiftData.prevName}} </p>
+        <v-container class="px-10">
+            <v-row class="hover-cursor-point d-flex py-3">
+                <v-col cols="6" class="d-flex align-center">
+                    姓名
+                </v-col>
+                <v-col cols="6" class="text-right">
+                    <v-text-field
+                        solo
+                        v-model="shiftData.prevName"
+                        value="shiftData.prevName"
+                        readonly
+                        dense
+                        hide-details
+                    ></v-text-field>
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <p class="mb-0 w-100"  >交接人姓名 </p>
+            <!-- <div class="cus-divider"></div> -->
+            <v-row class="hover-cursor-point py-3">
+                <v-col cols="6" class="d-flex align-center">
+                    交接人姓名
+                </v-col>
+                <v-col cols="6" class="">
                     <v-select
                         :items="employeeList"
                         v-model="employeeObj"
+                        solo
+                        dense
                         item-text="name"
                         return-object
+                        hide-details
+                        class="mt-0 pt-0"
                         :menu-props="{ top: false, offsetY: true }"
                     ></v-select>
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <v-row>
-                        <v-col cols="6">
-                            <p class="mb-0"  >交接时间</p>
-                        </v-col>
-                        <v-col cols="6">
-                            <v-datetime-picker 
-                                label="交接时间" 
-                                v-model="shiftData.scheduleDate"
-                                :okText='lang.ok'
-                                :clearText='lang.cancel'
-                            ></v-datetime-picker>
-                        </v-col>
-                    </v-row>
+            <!-- <div class="cus-divider"></div> -->
+            <v-row class="hover-cursor-point py-3">
+                <v-col cols="6" class="d-flex align-center">
+                    交接时间
+                </v-col>
+                <v-col cols="6">
+                    <v-datetime-picker 
+                        label="交接时间" 
+                        v-model="shiftData.scheduleDate"
+                        hide-details
+                        dense
+                        class="mt-0 pt-0"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    ></v-datetime-picker>
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point" @click="$refs.shiftItemList.focus()">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <p class="mb-0"  >交接物品 </p>
+            <!-- <div class="cus-divider"></div> -->
+            <v-row class="hover-cursor-point py-3" @click="$refs.shiftItemList.focus()">
+                <v-col cols="6" class="d-flex align-center">
+                    交接物品
+                </v-col>
+                <v-col cols="6">
+                    
                     <v-textarea
                         solo
                         v-model="shiftData.itemList"
-                        class="pl-5"
                         ref="shiftItemList"
+                        label="交接物品"
                     ></v-textarea>
                 </v-col>
             </v-row>

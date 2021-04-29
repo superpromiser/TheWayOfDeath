@@ -1,6 +1,8 @@
 <template>
   <v-container class="px-10">
-    <div>
+    <div style="    height: 283px;
+    overflow-y: auto;
+    overflow-x: hidden;">
       <div v-for="(comment,index) in content.comments" :key="index">
         <v-row class="py-2">
           <v-col cols="12" lg="1" md="2" sm="2">
