@@ -10,7 +10,7 @@
                 tile
                 color="#7879ff"
                 dark
-                class="mr-5"
+                class="mr-9"
                 @click="post"
                 >
                 <v-icon left>

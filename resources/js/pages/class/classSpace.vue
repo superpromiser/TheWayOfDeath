@@ -9,7 +9,7 @@
             <v-btn
                 tile
                 color="#7879ff"
-                class="mr-5"
+                class="mr-9"
                 dark
                 @click="post"
                 >
