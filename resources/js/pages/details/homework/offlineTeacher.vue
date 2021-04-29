@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -16,7 +16,7 @@
                     <v-btn
                         dark
                         tile
-                        color="#F19861"
+                        color="#7879ff"
                         @click="submit"
                         :disabled="alreadyAnswer"
                         :loading="isSubmit"

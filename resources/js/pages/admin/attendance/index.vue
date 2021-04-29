@@ -24,11 +24,10 @@
 
                 <div class="d-flex align-center">
                     <p class="mb-0 mr-5">考勤日期</p>
-                    <!-- <v-menu
-                        ref="menu"
+                    <v-menu
                         v-model="menu"
                         :close-on-content-click="false"
-                        :return-value.sync="attendanceDate"
+                        :nudge-right="40"
                         transition="scale-transition"
                         offset-y
                         min-width="auto"
@@ -48,46 +47,8 @@
                             v-model="attendanceDate"
                             no-title
                             scrollable
+                            @input="selDate"
                             locale="zh-cn"
-                            @input="menu = false"
-                        >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            text
-                            color="primary"
-                            @click="menu = false"
-                        >
-                            {{lang.cancel}}
-                        </v-btn>
-                        <v-btn
-                            text
-                            color="primary"
-                            @click="selDate"
-                        >
-                            {{lang.ok}}
-                        </v-btn>
-                        </v-date-picker>
-                    </v-menu> -->
-                    <v-menu
-                        v-model="menu"
-                        :close-on-content-click="false"
-                        :nudge-right="40"
-                        transition="scale-transition"
-                        offset-y
-                        min-width="auto"
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                            v-model="attendanceDate"
-                            prepend-icon="mdi-calendar"
-                            readonly
-                            v-bind="attrs"
-                            v-on="on"
-                        ></v-text-field>
-                        </template>
-                        <v-date-picker
-                        v-model="attendanceDate"
-                        @input="selDate"
                         ></v-date-picker>
                     </v-menu>
                 </div>

@@ -1,21 +1,27 @@
 <template>
-  <v-container>
-    <v-row>
+  <v-container class="pa-0">
+     <v-container class="px-10 z-index-2 banner-custom">
+        <v-row>
+            <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class="left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+            </v-col>
+            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                <h2>学期</h2>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                <v-btn tile dark color="#7879ff" :loading="isAddingSession" @click="openAddSessionDialog" >
+                    加学期
+                </v-btn>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-row class="pa-0 mt-5">
         <v-col cols="12" class="d-flex align-center ">
             <v-row class="ma-0">
-                <v-col cols="12" class="d-flex align-center">
-                    <a @click="$router.go(-1)">
-                        <v-icon size="70">
-                            mdi-chevron-left
-                        </v-icon>
-                    </a>
-                    <h2 class="mx-auto">
-                        学期
-                    </h2>
-                    <v-btn tile dark color="#7879ff" :loading="isAddingSession" @click="openAddSessionDialog" >
-                        加学期
-                    </v-btn>
-                </v-col>
                 <v-col cols="12" sm="9" md="6" class="mx-auto">
                     <v-row v-if="isLoadingSessionData" class="ma-0 align-center justify-center" >
                         <v-progress-circular

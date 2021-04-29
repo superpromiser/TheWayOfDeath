@@ -22,7 +22,7 @@
     </div>
     <v-container>
       <v-row class="my-10 d-flex align-center ">
-        <v-btn large rounded dark color="#49d29e" @click="addQaContent">{{lang.submit}}</v-btn>
+        <v-btn large rounded dark color="#7879ff" @click="addQaContent">{{lang.submit}}</v-btn>
       </v-row>
     </v-container>
   </v-container>

@@ -78,7 +78,7 @@ export default {
                 this.contentItemList = this.teacherItem
                 break;
             case 4:
-                this.contentItemList = this.teacherItem
+                this.contentItemList = this.parentItem
                 break;
             case 5:
                 this.contentItemList = this.studentItem
@@ -95,10 +95,10 @@ export default {
             
         ],
         adminItem:[
-            {
-                title:"智能考勤",//지능출근
-                icon:"mdi-calendar-month-outline",
-                items:[
+            // {
+            //     title:"智能考勤",//지능출근
+            //     icon:"mdi-calendar-month-outline",
+            //     items:[
                     // {
                     //     color:"#3EBBE8",
                     //     title:"课程维护",//수업유지
@@ -129,8 +129,8 @@ export default {
             //             imgUrl:"/asset/img/newIcon/calendar.png",
             //             path:"admin.scheduleClass"
             //         },
-                ]
-            },
+            //     ]
+            // },
             {
                 title:"基础沟通",//기초의사소통
                 icon:"mdi-message-text",
@@ -196,12 +196,12 @@ export default {
                         imgUrl:"/asset/img/newIcon/megaphone 2.png",
                         path:"posts.Cannouncement"
                     },
-                    {
-                        color:"#E4BC16",
-                        title:"作业",//숙제
-                        imgUrl:"/asset/img/newIcon/open book 2.png",
-                        path:"posts.Chomework"
-                    },
+                    // {
+                    //     color:"#E4BC16",
+                    //     title:"作业",//숙제
+                    //     imgUrl:"/asset/img/newIcon/open book 2.png",
+                    //     path:"posts.Chomework"
+                    // },
                 ]
             },
             {
@@ -268,9 +268,9 @@ export default {
             },
         ],
         managerItem:[
-            {
-                title:"智能考勤",//지능출근
-                icon:"mdi-calendar-month-outline",
+            // {
+            //     title:"智能考勤",//지능출근
+            //     icon:"mdi-calendar-month-outline",
                 // items:[
                     // {
                     //     color:"#3EBBE8",
@@ -303,7 +303,7 @@ export default {
             //             path:"admin.scheduleClass"
             //         },
             //     ]
-            },
+            // },
             {
                 title:"基础沟通",//기초의사소통
                 icon:"mdi-message-text",
@@ -369,12 +369,12 @@ export default {
                         imgUrl:"/asset/img/newIcon/megaphone 2.png",
                         path:"posts.Cannouncement"
                     },
-                    {
-                        color:"#E4BC16",
-                        title:"作业",//숙제
-                        imgUrl:"/asset/img/newIcon/open book 2.png",
-                        path:"posts.Chomework"
-                    },
+                    // {
+                    //     color:"#E4BC16",
+                    //     title:"作业",//숙제
+                    //     imgUrl:"/asset/img/newIcon/open book 2.png",
+                    //     path:"posts.Chomework"
+                    // },
                 ]
             },
             {
@@ -614,10 +614,10 @@ export default {
             },
         ],
         parentItem:[
-            {
-                title:"智能考勤",//지능출근
-                icon:"mdi-calendar-month-outline",
-                items:[
+            // {
+                // title:"智能考勤",//지능출근
+                // icon:"mdi-calendar-month-outline",
+                // items:[
                     // {
                     //     color:"#3EBBE8",
                     //     title:"课程维护",//수업유지
@@ -648,8 +648,8 @@ export default {
             //             imgUrl:"/asset/img/newIcon/calendar.png",
             //             path:"admin.scheduleClass"
             //         },
-                ]
-            },
+            //     ]
+            // },
             {
                 title:"基础沟通",//기초의사소통
                 icon:"mdi-message-text",
@@ -723,10 +723,10 @@ export default {
                     // },
                 ]
             },
-            {
-                title:"校园安全",//교내안전
-                icon:"mdi-account-cog-outline",
-                items:[
+            // {
+            //     title:"校园安全",//교내안전
+            //     icon:"mdi-account-cog-outline",
+            //     items:[
                     // {
                     //     color:"#98BB3A",
                     //     title:"访客管理",//방문자관리
@@ -757,12 +757,12 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/安全教育.png",
                     //     path:"posts.safeStudy"
                     // },
-                ]
-            },
-            {
-                title:"校园文化",//
-                icon:"mdi-lifebuoy",
-                items:[
+            //     ]
+            // },
+            // {
+            //     title:"校园文化",//
+            //     icon:"mdi-lifebuoy",
+            //     items:[
                     // {
                     //     color:"#C95384",
                     //     title:"班级动态",//학급동태
@@ -783,8 +783,8 @@ export default {
                     //     path:"posts.Crecognition",
 
                     // },
-                ]
-            },
+            //     ]
+            // },
         ],
         studentItem:[
             {
@@ -932,10 +932,10 @@ export default {
                     // },
                 ]
             },
-            {
-                title:"校园文化",//
-                icon:"mdi-lifebuoy",
-                items:[
+            // {
+            //     title:"校园文化",//
+            //     icon:"mdi-lifebuoy",
+            //     items:[
                     // {
                     //     color:"#C95384",
                     //     title:"班级动态",//학급동태
@@ -956,8 +956,8 @@ export default {
                     //     path:"posts.Crecognition",
 
                     // },
-                ]
-            },
+            //     ]
+            // },
         ]
     }),
     methods:{

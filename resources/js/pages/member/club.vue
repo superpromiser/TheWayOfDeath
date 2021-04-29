@@ -86,20 +86,21 @@ export default {
     },
     methods:{
         async submit(){
-            if(this.clubName == ''){
+            // if(this.clubName == ''){
                 
-                return;
-            }
-            this.isSubmit = true
-            await createClub({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId,clubName:this.clubName}).then(res=>{
-                console.log(res.data)
-                this.isSubmit = false
-                this.clubList.push(res.data)
-                this.clubName = ''
-            }).catch(err=>{
-                console.log(err.response)
-                this.isSubmit = false
-            })
+            //     return;
+            // }
+            // this.isSubmit = true
+            // await createClub({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId,clubName:this.clubName}).then(res=>{
+            //     console.log(res.data)
+            //     this.isSubmit = false
+            //     this.clubList.push(res.data)
+            //     this.clubName = ''
+            // }).catch(err=>{
+            //     console.log(err.response)
+            //     this.isSubmit = false
+            // })
+            this.$router.push({name:'member.newClub'})
         },
         async removeClub(club){
             await deleteClub({id:club.id}).then(res=>{

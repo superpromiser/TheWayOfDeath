@@ -38,7 +38,7 @@
                     {{lang.addOption}}
                 </v-btn>
                 
-                <v-btn large rounded dark color="#49d29e" @click="addSingleContent">{{lang.submit}}</v-btn>
+                <v-btn large rounded dark color="#7879ff" @click="addSingleContent">{{lang.submit}}</v-btn>
             </v-row>
         </v-container>
         <v-snackbar

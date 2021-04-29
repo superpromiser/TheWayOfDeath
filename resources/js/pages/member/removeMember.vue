@@ -25,7 +25,7 @@
               <v-btn
                 tile
                 dark
-                color="#49d29e"
+                color="#7879ff"
                 :loading="isSubmit"
                 @click="submit"
               >

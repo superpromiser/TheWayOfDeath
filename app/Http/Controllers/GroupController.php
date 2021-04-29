@@ -74,13 +74,25 @@ class GroupController extends Controller
             'schoolId' => 'required',
             'lessonId' => 'required'
         ]);
-        $userList = User::where(['schoolId' => $request->schoolId])->whereIn('roleId', [3, 4, 5])->get();
         $result = array();
-        foreach ($userList as $user) {
-            $groupArr = $user->groupArr;
-            foreach ($groupArr as $groupId) {
-                if ($groupId == $request->lessonId) {
-                    array_push($result, $user);
+        if ($request->roleId) {
+            $userList = User::where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
+            foreach ($userList as $user) {
+                $groupArr = $user->groupArr;
+                foreach ($groupArr as $groupId) {
+                    if ($groupId == $request->lessonId) {
+                        array_push($result, $user);
+                    }
+                }
+            }
+        } else {
+            $userList = User::where(['schoolId' => $request->schoolId])->get();
+            foreach ($userList as $user) {
+                $groupArr = $user->groupArr;
+                foreach ($groupArr as $groupId) {
+                    if ($groupId == $request->lessonId) {
+                        array_push($result, $user);
+                    }
                 }
             }
         }

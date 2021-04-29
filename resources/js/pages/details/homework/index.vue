@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
         <div v-if="showDetail == false">
             <v-container class="px-10 z-index-2 banner-custom">
                 <v-row>
@@ -17,7 +17,7 @@
                         <v-btn
                             dark
                             tile
-                            color="#F19861"
+                            color="#7879ff"
                             @click="viewDetail"
                         >
                             查看详情

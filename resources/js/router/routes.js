@@ -260,6 +260,8 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/:userId/profile',name:'classSpace.memProfile',component:page('member/memProfile.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/appliMember',name:'classSpace.appliMember',component:page('member/application.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/club',name:'classSpace.club',component:page('member/club.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/club/new',name:'member.newClub',component:page('member/newClub.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/contact',name:'classSpace.contact',component:page('member/contacts.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/seatMember',name:'classSpace.seatMember',component:page('member/seatMember.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/studentIdMember',name:'classSpace.studentIdMember',component:page('member/studentIdMember.vue')},
 
