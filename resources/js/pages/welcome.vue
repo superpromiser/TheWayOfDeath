@@ -11,7 +11,7 @@
             <v-form v-model="isFormValid" @submit.prevent="login">
               <p class="mb-0">帐号</p>
               <v-text-field
-                class="pt-0 mt-0"
+                class="pt-0 mt-0 max-length-11-staff-input-mo"
                 color="#7879ff"
                 single-line
                 v-model="phoneNumber"
@@ -164,6 +164,7 @@
                           v-model="phoneNumber"
                           label="帐号"
                           color="#7879ff"
+                          class="max-length-11-staff-input"
                           prepend-inner-icon="mdi-phone"
                           :rules="[rules.required]"
                           :counter="11"
@@ -337,6 +338,13 @@ export default {
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.',
 
   }),
+
+  mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    var ele_11_mo = $('.max-length-11-staff-input-mo')
+    ele_11.find('input').attr("maxlength","11")
+    ele_11_mo.find('input').attr("maxlength","11")
+  },
 
   computed: {
     ...mapGetters({
