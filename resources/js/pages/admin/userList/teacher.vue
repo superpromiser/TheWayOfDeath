@@ -314,7 +314,7 @@ import cityListJson from '!!raw-loader!../cityLaw.txt';
 import UploadImage from '~/components/UploadImage';
 import { getSchoolTree } from '~/api/school'
 import { createStaff, updateStaff, getStaff, deleteUser } from '~/api/user'
-
+import lang from '~/helper/lang.json'
 export default {
   components:{
     UploadImage,
@@ -331,6 +331,7 @@ export default {
         maxlength: v=> v.length >11 || 'maxlength',
         minlength: v=>v.length<11 || 'minlength'
     },
+    lang,
     headers: [
       { text: '序号', value: 'id', align: 'start', },
       { text: '人员姓名', value: 'name', sortable: false },
@@ -640,6 +641,59 @@ export default {
       },
 
       async save () {
+        if(this.editedItem.name.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+        }
+        //phone number
+        if(this.editedItem.phoneNumber.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.   phoneNumber) == false){
+          return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+        }
+        if(this.phoneNumber.length != 11 ){
+          return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+        }
+        //password
+        if(this.editedItem.password.trim() == '' || this.editedItem.password.length < 8){
+          return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+        }
+        //gender
+        if(this.editedItem.gender == null){
+          return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
+        }
+        //nation
+        if(this.editedItem.nation == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
+        }
+        //cardnumber
+        if(this.editedItem.cardNum.trim() == '' || this.editedItem.length != 18){
+          return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.cardNum) == false){
+          return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+        }
+        //lessonId
+        if(this.editedItem.lessonId == null){
+          return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
+        }
+        
+        //family address
+        if(this.editedItem.familyAddress.city == null || 
+          this.editedItem.familyAddress.province == null ||
+          this.editedItem.familyAddress.region == null ||
+          this.editedItem.familyAddress.detail.trim() == '' 
+          ){
+          return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+        }
+        //residenceAddress
+        if(this.editedItem.residenceAddress.city == null || 
+          this.editedItem.residenceAddress.province == null ||
+          this.editedItem.residenceAddress.region == null ||
+          this.editedItem.residenceAddress.detail.trim() == '' 
+          ){
+          return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+        }
         //update schoolManagerData
         if (this.editedIndex > -1) {
           this.isCreatingSchool = true;
@@ -665,6 +719,8 @@ export default {
         //save schoolManagerData
         else {
             //console.log("this.editedItem", this.editedItem);
+            
+            
             this.editedItem.roleId = 3;
             this.isCreatingSchool = true;
             await createStaff(this.editedItem)
