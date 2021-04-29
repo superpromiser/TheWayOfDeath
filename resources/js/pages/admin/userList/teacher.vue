@@ -6,7 +6,7 @@
           :headers="headers"
           :items="schoolManagerData"
           :loading="isLoadingSchoolData"
-          loading-text="正在要求学习资料... 等一下"
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -25,6 +25,7 @@
               v-model="dialog"
               persistent
               max-width="500px"
+              eager
               >
                 <template v-slot:activator="{ on, attrs }" class="align-center">
                   <v-btn
@@ -54,6 +55,8 @@
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.phoneNumber"
+                            class="max-length-11-staff-input"
+                            :counter="11"
                             label="电话号码"
                             ></v-text-field>
                         </v-col>
@@ -77,21 +80,29 @@
                             ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                            <v-text-field
+                            <!-- <v-text-field
                             v-model="editedItem.nation"
                             label="民族"
-                            ></v-text-field>
+                            ></v-text-field> -->
+                            <v-autocomplete
+                              v-model="editedItem.nation"
+                              :items="nationItem"
+                              label="民族"
+                            ></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
+                            class="max-length-18-staff-input"
                             v-model="editedItem.cardNum"
                             label="身份证号"
+                            :counter="18"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-select
                                 :menu-props="{ top: false, offsetY: true }"
                                 :items="classSelectionItem"
+                                v-model="editedItem.lessonId"
                                 item-text="lessonName"
                                 item-value="lessonId"
                                 @change="selectedLesson"
@@ -108,7 +119,7 @@
                             <img v-else-if="editedItem.avatar !== '/'" :src="editedItem.avatar" alt="" style="width:127px; height: 127px;">
                         </v-col>
                         <v-col cols="12" md="8" sm="6">
-                            <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传图片" />
+                            <UploadImage @upImgUrl="upImgUrl" v-model="editedItem.avatar" @clearedImg="clearedImg" uploadLabel="上传图片" />
                         </v-col>
                       </v-row>
                       <v-row>
@@ -301,13 +312,18 @@ import cityListJson from '!!raw-loader!../cityLaw.txt';
 import UploadImage from '~/components/UploadImage';
 import { getSchoolTree } from '~/api/school'
 import { createStaff, updateStaff, getStaff, deleteUser } from '~/api/user'
-
+import lang from '~/helper/lang.json'
 export default {
   components:{
     UploadImage,
     
   },
-
+  mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    var ele_18 = $('.max-length-18-staff-input')
+    ele_11.find('input').attr("maxlength","11")
+    ele_18.find('input').attr("maxlength","18")
+  },
   data: () => ({
     dialog: false,
     dialogDelete: false,
@@ -315,8 +331,10 @@ export default {
     show1: false,
     rules: {
         required: value => !!value || 'Required.',
-        min: v => v.length >= 8 || 'Min 8 characters',
+        maxlength: v=> v.length >11 || 'maxlength',
+        minlength: v=>v.length<11 || 'minlength'
     },
+    lang,
     headers: [
       { text: '序号', value: 'id', align: 'start', },
       { text: '人员姓名', value: 'name', sortable: false },
@@ -340,6 +358,66 @@ export default {
         },
         
     ],
+    nationItem:[
+      '汉族',
+      '蒙古族',
+      '回族',
+      '藏族',
+      '维吾尔族',
+      '苗族',
+      '彝族',
+      '壮族',
+      '布依族',
+      '朝鲜族',
+      '满族',
+      '侗族',
+      '瑶族',
+      '白族',
+      '土家族',
+      '哈尼族',
+      '哈萨克族',
+      '傣族',
+      '黎族',
+      '傈僳族',
+      '佤族',
+      '畲族',
+      '高山族',
+      '拉祜族',
+      '水族',
+      '东乡族',
+      '纳西族',
+      '景颇族',
+      '柯尔克孜族',
+      '土族',
+      '达斡尔族',
+      '仫佬族',
+      '羌族',
+      '布朗族',
+      '撒拉族',
+      '毛南族',
+      '仡佬族',
+      '锡伯族',
+      '阿昌族',
+      '普米族',
+      '塔吉克族',
+      '怒族',
+      '乌孜别克族',
+      '俄罗斯族',
+      '鄂温克族',
+      '德昂族',
+      '保安族',
+      '裕固族',
+      '京族',
+      '塔塔尔族',
+      '独龙族',
+      '鄂伦春族',
+      '赫哲族',
+      '门巴族',
+      '珞巴族',
+      '基诺族',
+      '其他',
+      '外国血统中国籍人士'
+    ],
     schoolManagerData: [],
     schoolManagerListRaw : [],
     editedIndex: -1,
@@ -350,6 +428,10 @@ export default {
         gender:null,
         nation : '',
         cardNum : '',
+        lessonId:null,
+        avatar:'/',
+        gradeId:null,
+        roleId:null,
         familyAddress : {
             province : null,
             city : null, 
@@ -362,10 +444,6 @@ export default {
             region : null,
             detail : '',
         },
-        avatar : '/',
-        roleId : null,
-        lessonId : null,
-        gradeId : null,
     },
       
     defaultItem: {
@@ -375,6 +453,10 @@ export default {
         gender:null,
         nation : '',
         cardNum : '',
+        lessonId:null,
+        avatar:'/',
+        gradeId:null,
+        roleId:null,
         familyAddress : {
             province : null,
             city : null, 
@@ -387,10 +469,6 @@ export default {
             region : null,
             detail : '',
         },
-        avatar : '/',
-        roleId : null,
-        lessonId : null,
-        gradeId : null,
     },
     provinceListJsonArr:[],
     madeJsonFromString : [],
@@ -410,7 +488,7 @@ export default {
 
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? '新增学校' : '编辑学校'
+      return this.editedIndex === -1 ? '新增老师' : '编辑老师'
     },
     currentPath(){
         return this.$route
@@ -418,6 +496,13 @@ export default {
     ...mapGetters({
         user : 'auth/user'
     }),
+  },
+
+   mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    var ele_18 = $('.max-length-18-staff-input')
+    ele_11.find('input').attr("maxlength","11")
+    ele_18.find('input').attr("maxlength","18")
   },
 
     async created(){
@@ -566,6 +651,59 @@ export default {
       },
 
       async save () {
+        if(this.editedItem.name.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+        }
+        //phone number
+        if(this.editedItem.phoneNumber.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
+          return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+        }
+        if(this.editedItem.phoneNumber.length != 11 ){
+          return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+        }
+        //password
+        if(this.editedItem.password.trim() == '' || this.editedItem.password.length < 8){
+          return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+        }
+        //gender
+        if(this.editedItem.gender == null){
+          return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
+        }
+        //nation
+        if(this.editedItem.nation == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
+        }
+        //cardnumber
+        if(this.editedItem.cardNum.trim() == '' || this.editedItem.length != 18){
+          return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.cardNum) == false){
+          return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+        }
+        //lessonId
+        if(this.editedItem.lessonId == null){
+          return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
+        }
+        
+        //family address
+        if(this.editedItem.familyAddress.city == null || 
+          this.editedItem.familyAddress.province == null ||
+          this.editedItem.familyAddress.region == null ||
+          this.editedItem.familyAddress.detail.trim() == '' 
+          ){
+          return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+        }
+        //residenceAddress
+        if(this.editedItem.residenceAddress.city == null || 
+          this.editedItem.residenceAddress.province == null ||
+          this.editedItem.residenceAddress.region == null ||
+          this.editedItem.residenceAddress.detail.trim() == '' 
+          ){
+          return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+        }
         //update schoolManagerData
         if (this.editedIndex > -1) {
           this.isCreatingSchool = true;
@@ -591,6 +729,8 @@ export default {
         //save schoolManagerData
         else {
             //console.log("this.editedItem", this.editedItem);
+            
+            
             this.editedItem.roleId = 3;
             this.isCreatingSchool = true;
             await createStaff(this.editedItem)
@@ -610,6 +750,8 @@ export default {
                 this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
                 this.editedItem.residenceAddress = this.convertAddress(JSON.stringify(this.editedItem.residenceAddress))
                 this.schoolManagerData.push(this.editedItem);
+                this.editedItem = this.defaultItem
+                this.clearedImg()
             }).catch((err) => {
                 //console.log(err)
                 this.isCreatingSchool = false;

@@ -32,7 +32,7 @@
         </div>
         <v-divider></v-divider>
     </v-col>
-    <v-col cols="12" class="pt-2" v-else>
+    <v-col cols="12" class="pt-2 px-10" v-else>
         <div class="d-flex align-center justify-end mb-5">
             <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
                 <p class="mb-0 mr-8" v-if="footerInfo.views.length > 0">{{footerInfo.views.length}}人</p>
@@ -47,7 +47,7 @@
             </v-btn>
             <span>{{footerInfo.comments.length > 0 ? footerInfo.comments.length : 0}}</span>
         </div>
-        <v-divider></v-divider>
+        <v-divider class="thick-border" light></v-divider>
     </v-col>
 </template>
 

@@ -6,7 +6,7 @@
           :headers="headers"
           :items="schoolManagerData"
           :loading="isLoadingSchoolData"
-          loading-text="正在要求学习资料... 等一下"
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -25,6 +25,7 @@
               v-model="dialog"
               max-width="500px"
               persistent
+              eager
               >
                 <template v-slot:activator="{ on, attrs }" class="align-center">
                   <v-btn
@@ -62,6 +63,8 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
+                            class="max-length-11-staff-input"
+                            :counter="11"
                             v-model="editedItem.phoneNumber"
                             label="手机号码"
                             ></v-text-field>
@@ -93,7 +96,9 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
+                            class="max-length-18-staff-input"
                             v-model="editedItem.cardNum"
+                            :counter="18"
                             label="身份证号"
                             ></v-text-field>
                         </v-col>
@@ -323,8 +328,8 @@ export default {
       { text: '性別', value: 'gender', sortable: false },
       { text: '民族', value: 'nation', sortable: false },
       { text: '身份证号', value: 'cardNum'},
-      { text: '学校地址', value: 'familyAddress', sortable: false },
-      { text: '学校地址', value: 'residenceAddress', sortable: false },
+      { text: '户籍地址', value: 'familyAddress', sortable: false },
+      { text: '家庭地址', value: 'residenceAddress', sortable: false },
       { text: '操作', value: 'actions', sortable: false },
     ],
     genderItems:[
@@ -405,6 +410,13 @@ export default {
     currentPath(){
         return this.$route
     },
+  },
+
+  mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    var ele_18 = $('.max-length-18-staff-input')
+    ele_11.find('input').attr("maxlength","11")
+    ele_18.find('input').attr("maxlength","18")
   },
 
     async created(){
@@ -528,6 +540,62 @@ export default {
       async save () {
         //update schoolManagerData
         if (this.editedIndex > -1) {
+        
+          if(this.editedItem.name.trim() == ''){
+            return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+          }
+          //phone number
+          if(this.editedItem.phoneNumber.trim() == ''){
+            return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
+          }
+          if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
+            return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+          }
+          if(this.editedItem.phoneNumber.length !== 11 ){
+            return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+          }
+          //password
+          if(this.editedItem.password.trim() == ''){
+            return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+          }
+          //gender
+          if(this.editedItem.gender == null){
+            return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
+          }
+          //nation
+          if(this.editedItem.nation == ''){
+            return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
+          }
+          //cardnumber
+          if(this.editedItem.cardNum.trim() == ''){
+            return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
+          }
+          if(/^\d*$/.test(this.cardNum) == false){
+            return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+          }
+          if(this.cardNum.length !== 18 ){
+            return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+          }
+          //lessonId
+          if(this.editedItem.lessonId == null){
+            return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
+          }
+          //residence address
+          if(this.editedItem.residenceAddress.city == null || 
+            this.editedItem.residenceAddress.province == null ||
+            this.editedItem.residenceAddress.region == null ||
+            this.editedItem.residenceAddress.detail.trim() == '' 
+            ){
+            return this.$snackbar.showMessage({content: this.lang.requireResidenceAddress, color: "error"})
+          }
+          //family address
+          if(this.editedItem.familyAddress.city == null || 
+            this.editedItem.familyAddress.province == null ||
+            this.editedItem.familyAddress.region == null ||
+            this.editedItem.familyAddress.detail.trim() == '' 
+            ){
+            return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+          }
           this.isCreatingSchool = true;
           await updateSchoolManager(this.editedItem)
           .then((res) => {
@@ -551,6 +619,63 @@ export default {
         //save schoolManagerData
         else {
             //console.log("this.editedItem", this.editedItem);
+
+            if(this.editedItem.name.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+            }
+            //phone number
+            if(this.editedItem.phoneNumber.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
+            }
+            if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+            }
+            if(this.editedItem.phoneNumber.length !== 11 ){
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+            }
+            //password
+            if(this.editedItem.password.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+            }
+            //gender
+            if(this.editedItem.gender == null){
+              return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
+            }
+            //nation
+            if(this.editedItem.nation == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
+            }
+            //cardnumber
+            if(this.editedItem.cardNum.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
+            }
+            if(/^\d*$/.test(this.cardNum) == false){
+              return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+            }
+            if(this.cardNum.length !== 18 ){
+              return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+            }
+            //lessonId
+            if(this.editedItem.lessonId == null){
+              return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
+            }
+            //residence address
+            if(this.editedItem.residenceAddress.city == null || 
+              this.editedItem.residenceAddress.province == null ||
+              this.editedItem.residenceAddress.region == null ||
+              this.editedItem.residenceAddress.detail.trim() == '' 
+              ){
+              return this.$snackbar.showMessage({content: this.lang.requireResidenceAddress, color: "error"})
+            }
+            //family address
+            if(this.editedItem.familyAddress.city == null || 
+              this.editedItem.familyAddress.province == null ||
+              this.editedItem.familyAddress.region == null ||
+              this.editedItem.familyAddress.detail.trim() == '' 
+              ){
+              return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+            }
+
             this.isCreatingSchool = true;
             let payload = {
                 managerData : this.editedItem,

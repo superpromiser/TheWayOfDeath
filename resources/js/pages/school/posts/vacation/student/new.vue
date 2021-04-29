@@ -126,7 +126,7 @@
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
                         tile
-                        color="success"
+                        color="#7879ff"
                         class="mr-5"
                         :loading="isLoading"
                         @click="postVacationData"

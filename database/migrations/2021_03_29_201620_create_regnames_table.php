@@ -23,7 +23,7 @@ class CreateRegnamesTable extends Migration
             $table->boolean('checkFlag');
             $table->LONGTEXT('content');
             $table->tinyInteger('schoolId');
-            $table->tinyInteger('lessonId');
+            $table->tinyInteger('lessonId')->nullable();
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();

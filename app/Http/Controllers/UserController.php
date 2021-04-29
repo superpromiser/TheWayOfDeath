@@ -89,6 +89,7 @@ class UserController extends Controller
         $studentData['schoolId'] = $schoolId;
         $studentData['gradeId'] = $request->gradeId;
         $studentData['lessonId'] = $request->lessonId;
+        $studentData['nation'] = $request->nation;
         $studentData['gender'] = $request->gender;
         $studentData['cardNum'] = $request->cardNum;
         $studentData['imei'] = $request->imei;

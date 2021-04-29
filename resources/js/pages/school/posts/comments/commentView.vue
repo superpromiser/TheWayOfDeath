@@ -1,6 +1,8 @@
 <template>
   <v-container class="px-10">
-    <div>
+    <div style="    height: 283px;
+    overflow-y: auto;
+    overflow-x: hidden;">
       <div v-for="(comment,index) in content.comments" :key="index">
         <v-row class="py-2">
           <v-col cols="12" lg="1" md="2" sm="2">
@@ -9,10 +11,10 @@
           <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap">{{comment.comments}}</v-col>
           <v-col cols="12" lg="2" md="2" sm="4">
             {{TimeView(comment.created_at)}}
-            <v-icon color="#FF5722" @click="remove(comment)" :loading="isDeleting">mdi-trash-can-outline</v-icon>
+            <v-icon color="#FF5722" @click="remove(comment)" :loading="comment.isDeleting">mdi-trash-can-outline</v-icon>
           </v-col>
         </v-row>
-        <v-divider class="thick-border" light></v-divider>
+        <v-divider></v-divider>
       </div>
     </div>
     <v-row>
@@ -43,7 +45,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import { Picker } from 'emoji-mart-vue'
-import {addComment} from '~/api/post'
+import {addComment,deleteComment} from '~/api/post'
 import {mapGetters} from 'vuex'
 export default {
   components:{
@@ -53,6 +55,11 @@ export default {
   computed:{
     ...mapGetters({
       content:'content/postDetail'
+    })
+  },
+  created(){
+    this.content.comments.map(comment=>{
+      this.$set(comment,'isDeleting',false)
     })
   },
   mounted(){
@@ -93,8 +100,21 @@ export default {
       })
       this.commentText = ''
     },
-    remove(comment){
+    async remove(comment){
       console.log(comment)
+      comment.isDeleting = true
+      await deleteComment({id:comment.id}).then(res=>{
+        let index = this.content.comments.indexOf(comment)
+        if(index > -1){
+          this.content.comments.splice(index,1)
+        }
+        comment.isDeleting = false
+        console.log(res.data)
+      }).catch(err=>{
+        console.log(err.response)
+        comment.isDeleting = false
+      })
+
     }
   }
 };

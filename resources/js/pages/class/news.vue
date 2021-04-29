@@ -1,5 +1,5 @@
 <template>
-  <v-container class="school-space-tab-bar-outter px-lg-10">
+  <v-container class="school-space-tab-bar-outter">
     <v-row class="pa-3">
       <v-container  v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id">
         <v-row class="pa-0 mt-1" v-if="content.contentId == 5 && content.anouncements">
@@ -41,6 +41,10 @@
         </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 19 && content.recognitions">
           <RecognitionPost :content="content"></RecognitionPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 20 && content.vacations">
+          <VacationPost :content="content"></VacationPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
         <!-- <v-row class="pa-0 mt-1" v-else-if="content.contentId == 22 && content.homework_result">

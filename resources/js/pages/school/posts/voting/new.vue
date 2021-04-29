@@ -62,7 +62,7 @@
                         :menu-props="{ top: false, offsetY: true }"
                         item-value="value"
                         v-model="votingData.maxVote"
-                        label="每人投票上限"
+                        label="每人选择上限"
                         hide-details
                     ></v-select>
                 </v-col>
@@ -241,7 +241,7 @@
                         :menu-props="{ top: false, offsetY: true }"
                         item-value="value"
                         v-model="votingData.maxVote"
-                        label="每人投票上限"
+                        label="每人选择上限"
                         hide-details
                     ></v-select>
                 </v-col>

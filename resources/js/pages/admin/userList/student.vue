@@ -6,7 +6,7 @@
           :headers="headers"
           :items="schoolManagerData"
           :loading="isLoadingSchoolData"
-          loading-text="正在要求学习资料... 等一下"
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -25,6 +25,7 @@
               v-model="dialog"
               persistent
               max-width="500px"
+              eager
               >
                 <template v-slot:activator="{ on, attrs }" class="align-center">
                   <v-btn
@@ -54,7 +55,9 @@
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.phoneNumber"
+                            class="max-length-11-staff-input"
                             label="电话号码"
+                            :counter="11"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
@@ -77,15 +80,18 @@
                             ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                            <v-text-field
-                            v-model="editedItem.nation"
-                            label="民族"
-                            ></v-text-field>
+                            <v-autocomplete
+                              v-model="editedItem.nation"
+                              :items="nationItem"
+                              label="民族"
+                            ></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.cardNum"
+                            class="max-length-18-staff-input"
                             label="身份证号"
+                            :counter="18"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
@@ -117,7 +123,7 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
                                       v-model="editItem.birthday"
-                                      label="生日"
+                                      label="出生日期"
                                       prepend-icon="mdi-calendar"
                                       readonly
                                       v-bind="attrs"
@@ -146,6 +152,7 @@
                             <v-col cols="12" sm="6" md="4">
                                 <v-text-field
                                     v-model="editedItem.fatherPhone"
+                                    class="max-length-11-staff-input-father-phone"
                                     label="家长电话"
                                 ></v-text-field>
                             </v-col>
@@ -320,7 +327,7 @@
 </template>
 
 <script>
-
+import lang from '~/helper/lang.json';
 import { mapGetters } from 'vuex'
 import cityListJson from '!!raw-loader!../cityLaw.txt';
 import UploadImage from '~/components/UploadImage';
@@ -334,6 +341,7 @@ export default {
   },
 
   data: () => ({
+    lang,
     dialog: false,
     dialogDelete: false,
     indroduceDialog : false,
@@ -393,6 +401,7 @@ export default {
         password:'',
         gender:null,
         cardNum : '',
+        nation : '',
         familyAddress : {
             province : null,
             city : null, 
@@ -416,6 +425,7 @@ export default {
         password:'',
         gender:null,
         cardNum : '',
+        nation : '',
         familyAddress : {
             province : null,
             city : null, 
@@ -443,12 +453,72 @@ export default {
     schoolIntroduceData : '',
     schoolId : null,
     managerSchoolData : {},
-    classSelectionItem : []
+    classSelectionItem : [],
+    nationItem:[
+      '汉族',
+      '蒙古族',
+      '回族',
+      '藏族',
+      '维吾尔族',
+      '苗族',
+      '彝族',
+      '壮族',
+      '布依族',
+      '朝鲜族',
+      '满族',
+      '侗族',
+      '瑶族',
+      '白族',
+      '土家族',
+      '哈尼族',
+      '哈萨克族',
+      '傣族',
+      '黎族',
+      '傈僳族',
+      '佤族',
+      '畲族',
+      '高山族',
+      '拉祜族',
+      '水族',
+      '东乡族',
+      '纳西族',
+      '景颇族',
+      '柯尔克孜族',
+      '土族',
+      '达斡尔族',
+      '仫佬族',
+      '羌族',
+      '布朗族',
+      '撒拉族',
+      '毛南族',
+      '仡佬族',
+      '锡伯族',
+      '阿昌族',
+      '普米族',
+      '塔吉克族',
+      '怒族',
+      '乌孜别克族',
+      '俄罗斯族',
+      '鄂温克族',
+      '德昂族',
+      '保安族',
+      '裕固族',
+      '京族',
+      '塔塔尔族',
+      '独龙族',
+      '鄂伦春族',
+      '赫哲族',
+      '门巴族',
+      '珞巴族',
+      '基诺族',
+      '其他',
+      '外国血统中国籍人士'
+    ],
   }),
 
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? '新增学校' : '编辑学校'
+      return this.editedIndex === -1 ? '新增学生' : '编辑学生'
     },
     currentPath(){
         return this.$route
@@ -456,6 +526,15 @@ export default {
     ...mapGetters({
         user : 'auth/user'
     }),
+  },
+
+  mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    var ele_11_father_phone = $('.max-length-11-staff-input-father-phone')
+    var ele_18 = $('.max-length-18-staff-input')
+    ele_11.find('input').attr("maxlength","11")
+    ele_11_father_phone.find('input').attr("maxlength","11")
+    ele_18.find('input').attr("maxlength","18")
   },
 
     async created(){
@@ -601,6 +680,82 @@ export default {
       },
 
       async save () {
+        //name
+        if(this.editedItem.name.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+        }
+        //phone number
+        if(this.editedItem.phoneNumber.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        if(this.editedItem.phoneNumber.length !== 11 ){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        //password
+        if(this.editedItem.password.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+        }
+        //gender
+        if(this.editedItem.gender == null){
+          return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
+        }
+        //nation
+        if(this.editedItem.nation == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
+        }
+        //cardnumber
+        if(this.editedItem.cardNum.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.cardNum) == false){
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+        }
+        if(this.cardNum.length !== 18 ){
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+        }
+        //lessonId
+        if(this.editedItem.lessonId == null){
+          return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
+        }
+        //imei
+        if(this.editedItem.imei.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireImei, color: "error"})
+        }
+        //birthday
+        if(this.editedItem.birthday.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireBirthday, color: "error"})
+        }
+        //father infos
+        if(this.editedItem.fatherName.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireFatherName, color: "error"})
+        }
+        if(this.editedItem.fatherJob == null){
+          return this.$snackbar.showMessage({content: this.lang.requireFatherJob, color: "error"})
+        }
+        if(this.editedItem.fatherPhone.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireFatherPhone, color: "error"})
+        }
+        if(/^\d*$/.test(this.fatherPhone) == false){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        if(this.fatherPhone.length !== 11 ){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        //family address
+        if(this.editedItem.familyAddress.city == null || 
+          this.editedItem.familyAddress.province == null ||
+          this.editedItem.familyAddress.region == null ||
+          this.editedItem.familyAddress.detail.trim() == '' 
+          ){
+          return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+        }
+        //introduce
+        if(this.editedItem.introduce.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireIntroduce, color: "error"})
+        }
         //update schoolManagerData
         if (this.editedIndex > -1) {
           this.isCreatingSchool = true;
@@ -623,7 +778,83 @@ export default {
         } 
         //save schoolManagerData
         else {
-            //console.log("this.editedItem", this.editedItem);
+            //name
+            if(this.editedItem.name.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+            }
+            //phone number
+            if(this.editedItem.phoneNumber.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
+            }
+            if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+            }
+            if(this.editedItem.phoneNumber.length !== 11 ){
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+            }
+            //password
+            if(this.editedItem.password.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+            }
+            //gender
+            if(this.editedItem.gender == null){
+              return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
+            }
+            //nation
+            if(this.editedItem.nation == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
+            }
+            //cardnumber
+            if(this.editedItem.cardNum.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
+            }
+            if(/^\d*$/.test(this.cardNum) == false){
+              return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+            }
+            if(this.cardNum.length !== 18 ){
+              return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+            }
+            //lessonId
+            if(this.editedItem.lessonId == null){
+              return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
+            }
+            //imei
+            if(this.editedItem.imei.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireImei, color: "error"})
+            }
+            //birthday
+            if(this.editedItem.birthday.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireBirthday, color: "error"})
+            }
+            //father infos
+            if(this.editedItem.fatherName.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireFatherName, color: "error"})
+            }
+            if(this.editedItem.fatherJob == null){
+              return this.$snackbar.showMessage({content: this.lang.requireFatherJob, color: "error"})
+            }
+            if(this.editedItem.fatherPhone.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireFatherPhone, color: "error"})
+            }
+            if(/^\d*$/.test(this.fatherPhone) == false){
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+            }
+            if(this.fatherPhone.length !== 11 ){
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+            }
+            //family address
+            if(this.editedItem.familyAddress.city == null || 
+              this.editedItem.familyAddress.province == null ||
+              this.editedItem.familyAddress.region == null ||
+              this.editedItem.familyAddress.detail.trim() == '' 
+              ){
+              return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+            }
+            //introduce
+            if(this.editedItem.introduce.trim() == ''){
+              return this.$snackbar.showMessage({content: this.lang.requireIntroduce, color: "error"})
+            }
+
             this.isCreatingSchool = true;
             await createStudent(this.editedItem)
             .then((res) => {

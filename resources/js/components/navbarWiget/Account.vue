@@ -38,7 +38,7 @@
         class="mb-2 mt-2"
       />
       <v-list-item class="nav-v-list-item" @click="logout">
-        <v-list-item-title >登出</v-list-item-title>
+        <v-list-item-title >退出</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>

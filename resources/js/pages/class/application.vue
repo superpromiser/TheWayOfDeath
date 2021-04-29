@@ -4,7 +4,7 @@
           <v-col cols="12">
               <v-chip
                   class="ma-2 px-5"
-                  color="primary"
+                  color="#7879ff"
                   outlined
               >
                   <v-icon left>

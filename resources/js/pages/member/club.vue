@@ -13,13 +13,13 @@
                     小组名称
                 </v-col>
                 <v-col cols="4">
-                    <v-text-field class="member-chk" label="请输入俱乐部名称" hide-details dense v-model="clubName"></v-text-field>
+                    <!-- <v-text-field class="member-chk" label="请输入俱乐部名称" hide-details dense v-model="clubName"></v-text-field> -->
                 </v-col>
                 <v-col cols="4">
                     <v-btn
                         tile
                         dark
-                        color="#49d29e"
+                        color="#7879ff"
                         class="mx-2 float-right"
                         :loading="isSubmit"
                         @click="submit"

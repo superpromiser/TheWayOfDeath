@@ -138,7 +138,7 @@
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <v-row>
                         <v-col cols="6">
-                            <p class="mb-0"  >发布位置</p>
+                            <p class="mb-0">发布位置</p>
                         </v-col>
                         <v-col cols="6">
                            <v-text-field

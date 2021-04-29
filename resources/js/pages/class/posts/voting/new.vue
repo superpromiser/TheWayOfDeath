@@ -98,7 +98,7 @@
                     :menu-props="{ top: false, offsetY: true }"
                     item-value="value"
                     v-model="votingData.maxVote"
-                    label="调查范围"
+                    label="每人选择上限"
                     hide-details
                 ></v-select>
             </v-col>
@@ -278,7 +278,7 @@
                         item-value="value"
                         v-model="votingData.maxVote"
                         :menu-props="{ top: false, offsetY: true }"
-                        label="调查范围"
+                        label="每人选择上限"
                         hide-details
                     ></v-select>
                 </v-col>
