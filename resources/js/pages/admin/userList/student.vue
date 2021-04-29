@@ -667,6 +667,82 @@ export default {
       },
 
       async save () {
+        //name
+        if(this.editedItem.name.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+        }
+        //phone number
+        if(this.editedItem.phoneNumber.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.phoneNumber) == false){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        if(this.phoneNumber.length !== 11 ){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        //password
+        if(this.editedItem.password.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+        }
+        //gender
+        if(this.editedItem.gender == null){
+          return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
+        }
+        //nation
+        if(this.editedItem.nation == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
+        }
+        //cardnumber
+        if(this.editedItem.cardNum.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.cardNum) == false){
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+        }
+        if(this.cardNum.length !== 18 ){
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+        }
+        //lessonId
+        if(this.editedItem.lessonId == null){
+          return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
+        }
+        //imei
+        if(this.editedItem.imei.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireImei, color: "error"})
+        }
+        //birthday
+        if(this.editedItem.birthday.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireBirthday, color: "error"})
+        }
+        //father infos
+        if(this.editedItem.fatherName.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireFatherName, color: "error"})
+        }
+        if(this.editedItem.fatherJob == null){
+          return this.$snackbar.showMessage({content: this.lang.requireFatherJob, color: "error"})
+        }
+        if(this.editedItem.fatherPhone.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireFatherPhone, color: "error"})
+        }
+        if(/^\d*$/.test(this.fatherPhone) == false){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        if(this.fatherPhone.length !== 11 ){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        //family address
+        if(this.editedItem.familyAddress.city == null || 
+          this.editedItem.familyAddress.province == null ||
+          this.editedItem.familyAddress.region == null ||
+          this.editedItem.familyAddress.detail.trim() == '' 
+          ){
+          return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+        }
+        //introduce
+        if(this.editedItem.introduce.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireIntroduce, color: "error"})
+        }
         //update schoolManagerData
         if (this.editedIndex > -1) {
           this.isCreatingSchool = true;
@@ -689,7 +765,6 @@ export default {
         } 
         //save schoolManagerData
         else {
-            console.log("this.editedItem", this.editedItem);
             //name
             if(this.editedItem.name.trim() == ''){
               return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
@@ -699,10 +774,10 @@ export default {
               return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
             }
             if(/^\d*$/.test(this.phoneNumber) == false){
-              return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
             }
-            if(this.phoneNumber.length > 11 ){
-              return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+            if(this.phoneNumber.length !== 11 ){
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
             }
             //password
             if(this.editedItem.password.trim() == ''){
@@ -721,10 +796,10 @@ export default {
               return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
             }
             if(/^\d*$/.test(this.cardNum) == false){
-              return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+              return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
             }
-            if(this.phoneNumber.length > 18 ){
-              return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+            if(this.cardNum.length !== 18 ){
+              return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
             }
             //lessonId
             if(this.editedItem.lessonId == null){
@@ -749,10 +824,10 @@ export default {
               return this.$snackbar.showMessage({content: this.lang.requireFatherPhone, color: "error"})
             }
             if(/^\d*$/.test(this.fatherPhone) == false){
-              return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
             }
-            if(this.fatherPhone.length > 11 ){
-              return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+            if(this.fatherPhone.length !== 11 ){
+              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
             }
             //family address
             if(this.editedItem.familyAddress.city == null || 
@@ -766,9 +841,6 @@ export default {
             if(this.editedItem.introduce.trim() == ''){
               return this.$snackbar.showMessage({content: this.lang.requireIntroduce, color: "error"})
             }
-            
-
-
 
             this.isCreatingSchool = true;
             await createStudent(this.editedItem)
