@@ -56,7 +56,6 @@
                             v-model="editedItem.phoneNumber"
                             :rules="[rules.required]"
                             type="number"
-                            maxlength="11"
                             :counter="11"
                             label="电话号码"
                             ></v-text-field>
@@ -92,13 +91,13 @@
                             ></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                            <v-text-field
+                            <!-- <v-text-field
                             v-model="editedItem.cardNum"
                             label="身份证号"
                             :rules="[rules.required]"
                             :counter="18"
                             type="number"
-                            ></v-text-field>
+                            ></v-text-field> -->
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-select

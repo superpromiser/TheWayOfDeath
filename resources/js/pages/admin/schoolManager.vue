@@ -323,8 +323,8 @@ export default {
       { text: '性別', value: 'gender', sortable: false },
       { text: '民族', value: 'nation', sortable: false },
       { text: '身份证号', value: 'cardNum'},
-      { text: '学校地址', value: 'familyAddress', sortable: false },
-      { text: '学校地址', value: 'residenceAddress', sortable: false },
+      { text: '户籍地址', value: 'familyAddress', sortable: false },
+      { text: '家庭地址', value: 'residenceAddress', sortable: false },
       { text: '操作', value: 'actions', sortable: false },
     ],
     genderItems:[
