@@ -55,6 +55,7 @@
                             <v-text-field
                             v-model="editedItem.phoneNumber"
                             :rules="[rules.required]"
+                            class="max-length-11-staff-input"
                             type="number"
                             :counter="11"
                             label="电话号码"
@@ -91,13 +92,14 @@
                             ></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                            <!-- <v-text-field
+                            <v-text-field
                             v-model="editedItem.cardNum"
                             label="身份证号"
                             :rules="[rules.required]"
                             :counter="18"
+                            class="max-length-18-staff-input"
                             type="number"
-                            ></v-text-field> -->
+                            ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-select
@@ -319,7 +321,12 @@ export default {
     UploadImage,
     
   },
-
+  mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    var ele_18 = $('.max-length-18-staff-input')
+    ele_11.find('input').attr("maxlength","11")
+    ele_18.find('input').attr("maxlength","18")
+  },
   data: () => ({
     dialog: false,
     dialogDelete: false,
