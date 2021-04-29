@@ -54,6 +54,9 @@
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.phoneNumber"
+                            :rules="[rules.required]"
+                            type="number"
+                            :counter="11"
                             label="电话号码"
                             ></v-text-field>
                         </v-col>
@@ -77,21 +80,32 @@
                             ></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
-                            <v-text-field
+                            <!-- <v-text-field
                             v-model="editedItem.nation"
                             label="民族"
-                            ></v-text-field>
+                            ></v-text-field> -->
+                            <v-autocomplete
+                              v-model="editedItem.nation"
+                              :items="nationItem"
+                              dense
+                              filled
+                              label="民族"
+                            ></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.cardNum"
                             label="身份证号"
+                            :rules="[rules.required]"
+                            :counter="18"
+                            type="number"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-select
                                 :menu-props="{ top: false, offsetY: true }"
                                 :items="classSelectionItem"
+                                v-model="editedItem.lessonId"
                                 item-text="lessonName"
                                 item-value="lessonId"
                                 @change="selectedLesson"
@@ -315,7 +329,6 @@ export default {
     show1: false,
     rules: {
         required: value => !!value || 'Required.',
-        min: v => v.length >= 8 || 'Min 8 characters',
     },
     headers: [
       { text: '序号', value: 'id', align: 'start', },
@@ -340,6 +353,66 @@ export default {
         },
         
     ],
+    nationItem:[
+      '汉族',
+      '蒙古族',
+      '回族',
+      '藏族',
+      '维吾尔族',
+      '苗族',
+      '彝族',
+      '壮族',
+      '布依族',
+      '朝鲜族',
+      '满族',
+      '侗族',
+      '瑶族',
+      '白族',
+      '土家族',
+      '哈尼族',
+      '哈萨克族',
+      '傣族',
+      '黎族',
+      '傈僳族',
+      '佤族',
+      '畲族',
+      '高山族',
+      '拉祜族',
+      '水族',
+      '东乡族',
+      '纳西族',
+      '景颇族',
+      '柯尔克孜族',
+      '土族',
+      '达斡尔族',
+      '仫佬族',
+      '羌族',
+      '布朗族',
+      '撒拉族',
+      '毛南族',
+      '仡佬族',
+      '锡伯族',
+      '阿昌族',
+      '普米族',
+      '塔吉克族',
+      '怒族',
+      '乌孜别克族',
+      '俄罗斯族',
+      '鄂温克族',
+      '德昂族',
+      '保安族',
+      '裕固族',
+      '京族',
+      '塔塔尔族',
+      '独龙族',
+      '鄂伦春族',
+      '赫哲族',
+      '门巴族',
+      '珞巴族',
+      '基诺族',
+      '其他',
+      '外国血统中国籍人士'
+    ],
     schoolManagerData: [],
     schoolManagerListRaw : [],
     editedIndex: -1,
@@ -350,6 +423,10 @@ export default {
         gender:null,
         nation : '',
         cardNum : '',
+        lessonId:null,
+        avatar:'/',
+        gradeId:null,
+        roleId:null,
         familyAddress : {
             province : null,
             city : null, 
@@ -362,10 +439,6 @@ export default {
             region : null,
             detail : '',
         },
-        avatar : '/',
-        roleId : null,
-        lessonId : null,
-        gradeId : null,
     },
       
     defaultItem: {
@@ -375,6 +448,10 @@ export default {
         gender:null,
         nation : '',
         cardNum : '',
+        lessonId:null,
+        avatar:'/',
+        gradeId:null,
+        roleId:null,
         familyAddress : {
             province : null,
             city : null, 
@@ -387,10 +464,6 @@ export default {
             region : null,
             detail : '',
         },
-        avatar : '/',
-        roleId : null,
-        lessonId : null,
-        gradeId : null,
     },
     provinceListJsonArr:[],
     madeJsonFromString : [],

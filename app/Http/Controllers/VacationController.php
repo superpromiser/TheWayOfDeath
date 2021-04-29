@@ -56,6 +56,8 @@ class VacationController extends Controller
             'schoolId' => $request->schoolId,
             'classId' => $request->lessonId
         ])->id;
+        $schoolId = $request->schoolId;
+        $lessonId = $request->lessonId;
 
         return Vacation::create([
             'studentName' => $request->studentName,
