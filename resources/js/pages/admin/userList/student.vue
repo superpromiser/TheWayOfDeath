@@ -514,7 +514,7 @@ export default {
 
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? '新增学校' : '编辑学校'
+      return this.editedIndex === -1 ? '新增学生' : '编辑学生'
     },
     currentPath(){
         return this.$route
