@@ -1409,3 +1409,15 @@ a {
 .closed-setting-pell{
     bottom: 20px;
 }
+
+span.mo-text-editor-setting-chip.v-chip.v-size--default{
+    border-radius: 50%!important;
+    font-size: 14px!important;
+    height: 50px!important;
+    width: 50px!important;
+    padding: 0!important;
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important;
+    background: white!important;
+}

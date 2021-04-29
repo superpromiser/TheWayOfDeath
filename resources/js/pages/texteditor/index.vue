@@ -24,10 +24,99 @@
             </v-btn>
         </v-btn-toggle>
         <v-bottom-sheet v-model="pellSetting">
-            <v-sheet height="200px">
-                <div class="py-3">
-                This is a bottom sheet using the controlled by v-model instead of activator
-                </div>
+            <v-sheet class="py-3">
+                <v-container>
+                    <v-item-group class="row ma-0">
+                        <v-item class="col col-50 d-flex justify-center align-center">
+                            <p class="mb-0 font-color-gray-heavy">字号</p>
+                        </v-item>
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
+                            <div>
+                                <div>
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                        <v-icon size="18">mdi-format-color-text</v-icon> 
+                                    </v-chip>
+                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">小</p>
+                                </div>
+                            </div>
+                        </v-item>
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
+                            <div>
+                                <div>
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                        <v-icon size="23">mdi-format-color-text</v-icon> 
+                                    </v-chip>
+                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">默认</p>
+                                </div>
+                            </div>
+                        </v-item>
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
+                            <div>
+                                <div>
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                        <v-icon size="30">mdi-format-color-text</v-icon> 
+                                    </v-chip>
+                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">大</p>
+                                </div>
+                            </div>
+                        </v-item>
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
+                            <div>
+                                <div>
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                        <v-icon size="40">mdi-format-color-text</v-icon> 
+                                    </v-chip>
+                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">特大</p>
+                                </div>
+                            </div>
+                        </v-item>
+                    </v-item-group>
+                    <v-item-group class="row ma-0">
+                        <v-item class="col col-50 d-flex justify-center align-center">
+                            <p class="mb-0 font-color-gray-heavy">字色</p>
+                        </v-item>
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
+                            <div>
+                                <div>
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                        <v-icon size="30" color="#222222">mdi-circle</v-icon> 
+                                    </v-chip>
+                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">小</p>
+                                </div>
+                            </div>
+                        </v-item>
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
+                            <div>
+                                <div>
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                        <v-icon size="30" color="#7879ff">mdi-circle</v-icon> 
+                                    </v-chip>
+                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">默认</p>
+                                </div>
+                            </div>
+                        </v-item>
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
+                            <div>
+                                <div>
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                        <v-icon size="30" color="#3989fc">mdi-circle</v-icon> 
+                                    </v-chip>
+                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">大</p>
+                                </div>
+                            </div>
+                        </v-item>
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
+                            <div>
+                                <div>
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                        <v-icon size="30" color="#49d29e">mdi-circle</v-icon> 
+                                    </v-chip>
+                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">特大</p>
+                                </div>
+                            </div>
+                        </v-item>
+                    </v-item-group>
+                </v-container>
             </v-sheet>
         </v-bottom-sheet>
     </v-container>
@@ -276,6 +365,10 @@ export default {
         toggleImageFile(){
 
         },
+
+        openKeyBoard(){
+
+        }
     }
 }
 </script>
