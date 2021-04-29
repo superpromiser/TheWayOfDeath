@@ -35,7 +35,7 @@
       nav
     > 
       <v-list-item v-if="alarmData == null || alarmData.length == 0">
-        no alarm
+        通知
       </v-list-item>
       <v-list-item
         v-else

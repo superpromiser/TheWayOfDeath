@@ -1,8 +1,22 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>会员资料</h2>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-banner>
             <v-row justify-space-between>
-                <v-col cols="6" class="pa-5">
+                <v-col cols="6" class="d-flex align-center">
                     <span>头像</span>
                 </v-col>
                 <v-col cols="6">
