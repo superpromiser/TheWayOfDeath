@@ -23,4 +23,11 @@ class CommentController extends Controller
         ])->id;
         return Comment::where('id', $commentId)->with('users:id,name')->first();
     }
+
+    public function deleteComment(Request $request){
+        $this->validate($request, [
+            'id'=>'required'
+        ]);
+        return Comment::where('id',$request->id)->delete();
+    }
 }

@@ -2,82 +2,82 @@
     <v-container class="pa-0">
         <!-- {{contentData}} -->
         <RouterBack title='评论'></RouterBack>
-        <div v-if='contentData.contentId == 1' class="px-5">
+        <div v-if='contentData.contentId == 1'>
             <QuestionnairePost :content='contentData'></QuestionnairePost>
         </div>
-        <div v-else-if='contentData.contentId == 2' class="px-5">
+        <div v-else-if='contentData.contentId == 2'>
             <VotingPost :content='contentData'></VotingPost>
         </div>
-        <div v-else-if='contentData.contentId == 3' class="px-5">
+        <div v-else-if='contentData.contentId == 3'>
             <SmsPost :content='contentData'></SmsPost>
         </div>
-        <div v-else-if='contentData.contentId == 4' class="px-5">
+        <div v-else-if='contentData.contentId == 4'>
             <CampusPost :content='contentData'></CampusPost>
         </div>
-        <div v-else-if='contentData.contentId == 5' class="px-5">
+        <div v-else-if='contentData.contentId == 5'>
             <AnouncementPost :content='contentData'></AnouncementPost>
         </div>
-        <div v-else-if='contentData.contentId == 6' class="px-5">
+        <div v-else-if='contentData.contentId == 6'>
             <BulletinBoardPost :content='contentData'></BulletinBoardPost>
         </div>
-        <div v-else-if='contentData.contentId == 7' class="px-5">
+        <div v-else-if='contentData.contentId == 7'>
             <RepaireDataPost :content='contentData'></RepaireDataPost>
         </div>
-        <div v-else-if='contentData.contentId == 8' class="px-5">
+        <div v-else-if='contentData.contentId == 8'>
             <SafeStudyPost :content='contentData'></SafeStudyPost>
         </div>
-        <div v-else-if='contentData.contentId == 9' class="px-5">
+        <div v-else-if='contentData.contentId == 9'>
             <ShiftMngPost :content='contentData'></ShiftMngPost>
         </div>
-        <div v-else-if='contentData.contentId == 10' class="px-5">
+        <div v-else-if='contentData.contentId == 10'>
             <HomeVisitPost :content='contentData'></HomeVisitPost>
         </div>
-        <div v-else-if='contentData.contentId == 11' class="px-5">
+        <div v-else-if='contentData.contentId == 11'>
             <SchoolStoryPost :content='contentData'></SchoolStoryPost>
         </div>
-        <div v-else-if='contentData.contentId == 12' class="px-5">
+        <div v-else-if='contentData.contentId == 12'>
             <QuestionnairePost :content='contentData'></QuestionnairePost>
         </div>
-        <div v-else-if='contentData.contentId == 13' class="px-5">
+        <div v-else-if='contentData.contentId == 13'>
             <VotingPost :content='contentData'></VotingPost>
         </div>
-        <div v-else-if='contentData.contentId == 14' class="px-5">
+        <div v-else-if='contentData.contentId == 14'>
             <HomeworkPost :content='contentData'></HomeworkPost>
         </div>
-        <div v-else-if='contentData.contentId == 15' class="px-5">
+        <div v-else-if='contentData.contentId == 15'>
             <SmsPost :content='contentData'></SmsPost>
         </div>
-        <div v-else-if='contentData.contentId == 16' class="px-5">
+        <div v-else-if='contentData.contentId == 16'>
             <HomeVisitPost :content='contentData'></HomeVisitPost>
         </div>
-        <div v-else-if='contentData.contentId == 17' class="px-5">
+        <div v-else-if='contentData.contentId == 17'>
             <NotificationPost :content='contentData'></NotificationPost>
         </div>
-        <div v-else-if='contentData.contentId == 18' class="px-5">
+        <div v-else-if='contentData.contentId == 18'>
             <EvaluationPost :content='contentData'></EvaluationPost>
         </div>
-        <div v-else-if='contentData.contentId == 19' class="px-5">
+        <div v-else-if='contentData.contentId == 19'>
             <RecognitionPost :content='contentData'></RecognitionPost>
         </div>
-        <div v-else-if='contentData.contentId == 20' class="px-5">
+        <div v-else-if='contentData.contentId == 20'>
             <NotificationPost :content='contentData'></NotificationPost>
         </div>
-        <div v-else-if='contentData.contentId == 21' class="px-5">
+        <div v-else-if='contentData.contentId == 21'>
             <SafeStudyPost :content='contentData'></SafeStudyPost>
         </div>
-        <div v-else-if='contentData.contentId == 22' class="px-5">
+        <div v-else-if='contentData.contentId == 22'>
             <NotificationPost :content='contentData'></NotificationPost>
         </div>
-        <div v-else-if='contentData.contentId == 23' class="px-5">
+        <div v-else-if='contentData.contentId == 23'>
             <SharePost :content='contentData'></SharePost>
         </div>
-        <div v-else-if='contentData.contentId == 24' class="px-5">
+        <div v-else-if='contentData.contentId == 24'>
             <RegNamePost :content='contentData'></RegNamePost>
         </div>
-        <div v-else-if='contentData.contentId == 25' class="px-5">
+        <div v-else-if='contentData.contentId == 25'>
             <ClassStoryPost :content='contentData'></ClassStoryPost>
         </div>
-        <div v-else-if='contentData.contentId == 26' class="px-5">
+        <div v-else-if='contentData.contentId == 26'>
             <InterClassStoryPost :content='contentData'></InterClassStoryPost>
         </div>
         <FooterPost :footerInfo='contentData'></FooterPost>

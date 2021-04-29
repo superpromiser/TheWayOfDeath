@@ -23,11 +23,16 @@ function addComment(payload){
     return axios.post('/api/v1/comment',payload)
 }
 
+function deleteComment(payload){
+    return axios.delete('/api/v1/comment',{data:payload})
+}
+
 export{
     getSchoolPost,
     getClassPost,
     addLike,
     removeLike,
     addViewUsers,
-    addComment
+    addComment,
+    deleteComment
 }

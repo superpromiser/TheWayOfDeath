@@ -25,6 +25,7 @@
               v-model="dialog"
               persistent
               max-width="500px"
+              eager
               >
                 <template v-slot:activator="{ on, attrs }" class="align-center">
                   <v-btn
@@ -54,9 +55,7 @@
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                             v-model="editedItem.phoneNumber"
-                            :rules="[rules.required]"
                             class="max-length-11-staff-input"
-                            type="number"
                             :counter="11"
                             label="电话号码"
                             ></v-text-field>
@@ -93,12 +92,10 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
+                            class="max-length-18-staff-input"
                             v-model="editedItem.cardNum"
                             label="身份证号"
-                            :rules="[rules.required]"
                             :counter="18"
-                            class="max-length-18-staff-input"
-                            type="number"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
@@ -491,7 +488,7 @@ export default {
 
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? '新增学校' : '编辑学校'
+      return this.editedIndex === -1 ? '新增老师' : '编辑老师'
     },
     currentPath(){
         return this.$route
@@ -499,6 +496,13 @@ export default {
     ...mapGetters({
         user : 'auth/user'
     }),
+  },
+
+   mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    var ele_18 = $('.max-length-18-staff-input')
+    ele_11.find('input').attr("maxlength","11")
+    ele_18.find('input').attr("maxlength","18")
   },
 
     async created(){
@@ -654,10 +658,10 @@ export default {
         if(this.editedItem.phoneNumber.trim() == ''){
           return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
         }
-        if(/^\d*$/.test(this.   phoneNumber) == false){
+        if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
           return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
         }
-        if(this.phoneNumber.length != 11 ){
+        if(this.editedItem.phoneNumber.length != 11 ){
           return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
         }
         //password

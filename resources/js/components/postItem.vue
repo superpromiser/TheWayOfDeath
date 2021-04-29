@@ -27,7 +27,7 @@
                             large
                             @click="selectItem"
                         >
-                            发布
+                            {{btnTxt}}
                         </v-btn>
                     </v-card-actions>
                 </div>
@@ -48,7 +48,11 @@ export default {
         item : {
             type : Object,
             required : true
-        }
+        },
+        btnTxt:{
+            type:String,
+            required:true,
+        } 
     },
     computed: {
         ...mapGetters({
