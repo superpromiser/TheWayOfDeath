@@ -59,12 +59,13 @@
             </v-row>
             <v-row class="d-flex justify-end px-md-13 px-5 mx-0 my-10">
                 <v-btn
-                        dark
-                        color="deep-purple accent-3"
+                        :dark="!alreadyAnswer"
+                        color="#7879ff"
                         tile
                         :loading="isSubmit"
                         :disabled="alreadyAnswer"
                         @click="submit"
+                        class="mr-5"
                     > 
                         {{lang.submit}}
                 </v-btn>
@@ -205,7 +206,7 @@ export default {
 
         answerUsers(){
             if(this.answerDataList.length == 0){
-                return this.$snackbar.showMessage({content: this.lang.noData, color: 'error'})
+                return this.$snackbar.showMessage({content: "请投票", color: 'error'})
             }
             this.answerUserShow = true
             this.$router.push({name:'details.votingUsers'});

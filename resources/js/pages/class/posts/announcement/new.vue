@@ -61,7 +61,7 @@
                             <v-text-field
                                 solo
                                 v-model="announcementData.signName"
-                                label="公告标题"
+                                label="落款名称"
                                 hide-details
                                 readonly
                                 v-bind="attrs"
@@ -69,7 +69,7 @@
                             ></v-text-field>
                         </template>
                         <v-card >
-                            <v-card-title>公告标题</v-card-title>
+                            <v-card-title>落款名称</v-card-title>
                             <v-list>
                                 <v-list-item-group
                                     v-model="indexOfSignName"
