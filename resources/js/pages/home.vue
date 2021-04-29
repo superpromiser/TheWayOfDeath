@@ -225,8 +225,6 @@
                 <v-icon class="mr-2">mdi-phone-hangup</v-icon>
                 <span><strong>{{schoolItem.phoneNum}}</strong></span>
               </div>
-
-              <div>{{schoolItem.introduce}}</div>
             </v-card-text>
           </v-card>
         </v-col>

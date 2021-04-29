@@ -6,7 +6,7 @@
           :headers="headers"
           :items="schoolManagerData"
           :loading="isLoadingSchoolData"
-          loading-text="正在要求学习资料... 等一下"
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -25,6 +25,7 @@
               v-model="dialog"
               persistent
               max-width="500px"
+              eager
               >
                 <template v-slot:activator="{ on, attrs }" class="align-center">
                   <v-btn
@@ -53,6 +54,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
+                            class="max-length-11-staff-input"
                             v-model="editedItem.phoneNumber"
                             label="电话号码"
                             :counter="11"
@@ -86,6 +88,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="4" >
                             <v-text-field
+                            class="max-length-18-staff-input"
                             v-model="editedItem.cardNum"
                             label="身份证号"
                             :counter="18"
@@ -321,6 +324,13 @@ export default {
         required: value => !!value || 'Required.',
         min: v => v.length >= 8 || 'Min 8 characters',
     },
+    phoneRules: [
+        value => (value || '').length !== 11 || this.lang.requireCorrectPhoneNumber,
+        value => {
+          const pattern = /^\d*$/
+          return pattern.test(value) || this.lang.requireCorrectPhoneNumber
+        },
+      ],
     headers: [
       { text: '序号', value: 'id', align: 'start', },
       { text: '人员姓名', value: 'name', sortable: false },
@@ -470,8 +480,16 @@ export default {
       '其他',
       '外国血统中国籍人士'
     ],
+    maxLengthItem: [],
   }),
 
+  mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    var ele_18 = $('.max-length-18-staff-input')
+    ele_11.find('input').attr("maxlength","11")
+    ele_18.find('input').attr("maxlength","18")
+  },
+    
   computed: {
     formTitle () {
       return this.editedIndex === -1 ? '新增家长' : '编辑家长'

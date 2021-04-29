@@ -6,7 +6,7 @@
           :headers="headers"
           :items="schoolManagerData"
           :loading="isLoadingSchoolData"
-          loading-text="正在要求学习资料... 等一下"
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
