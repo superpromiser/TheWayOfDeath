@@ -54,5 +54,24 @@
     "requireContent": "内容不能为空",
     "requireDeadlineOrder": "截止时间不能早于当前时间",
     "requireVotingType": "请指定投票格式",
-    "requireVotingMax": "请选择每人投票上限"
+    "requireVotingMax": "请选择每人投票上限",
+    
+
+    "requireName": "姓名不能为空",
+    "requirePhoneNumber": "电话号码不能为空",
+    "requirePassword": "密码不能为空",
+    "requireGender": "性别不能为空",
+    "requireNation": "民族不能为空",
+    "requireCardNumber": "身份证号不能为空",
+    "requireLessonId": "班级不能为空",
+    "requireImei": "IMEI不能为空",
+    "requireBirthday": "出生日期不能为空",
+    "requireFatherName": "家长姓名不能为空",
+    "requireFatherPhone": "家长电话不能为空",
+    "requireFatherJob": "家长身份不能为空",
+    "requireAvatar": "头像不能为空",
+    "requireFamilyAddress": "家庭住址不能为空",
+    "requireIntroduce": "个人介绍不能为空"
+
+    
 }
