@@ -56,6 +56,7 @@
                             v-model="editedItem.phoneNumber"
                             :rules="[rules.required]"
                             type="number"
+                            maxlength="11"
                             :counter="11"
                             label="电话号码"
                             ></v-text-field>
@@ -87,8 +88,6 @@
                             <v-autocomplete
                               v-model="editedItem.nation"
                               :items="nationItem"
-                              dense
-                              filled
                               label="民族"
                             ></v-autocomplete>
                         </v-col>
@@ -122,7 +121,7 @@
                             <img v-else-if="editedItem.avatar !== '/'" :src="editedItem.avatar" alt="" style="width:127px; height: 127px;">
                         </v-col>
                         <v-col cols="12" md="8" sm="6">
-                            <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" uploadLabel="上传图片" />
+                            <UploadImage @upImgUrl="upImgUrl" v-model="editedItem.avatar" @clearedImg="clearedImg" uploadLabel="上传图片" />
                         </v-col>
                       </v-row>
                       <v-row>
@@ -329,6 +328,8 @@ export default {
     show1: false,
     rules: {
         required: value => !!value || 'Required.',
+        maxlength: v=> v.length >11 || 'maxlength',
+        minlength: v=>v.length<11 || 'minlength'
     },
     headers: [
       { text: '序号', value: 'id', align: 'start', },
@@ -683,6 +684,8 @@ export default {
                 this.editedItem.familyAddress = this.convertAddress(JSON.stringify(this.editedItem.familyAddress))
                 this.editedItem.residenceAddress = this.convertAddress(JSON.stringify(this.editedItem.residenceAddress))
                 this.schoolManagerData.push(this.editedItem);
+                this.editedItem = this.defaultItem
+                this.clearedImg()
             }).catch((err) => {
                 //console.log(err)
                 this.isCreatingSchool = false;
