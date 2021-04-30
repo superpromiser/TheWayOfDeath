@@ -1,10 +1,8 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="4">
-        <p>
-          开姶日期
-        </p>
+    <v-row class="my-3">
+      <v-col cols="4" class="d-flex align-center">
+        开姶日期
         <v-menu
           v-model="startMenu"
           :close-on-content-click="false"
@@ -14,44 +12,50 @@
           min-width="auto"
         >
           <template v-slot:activator="{ on, attrs }">
-          <v-text-field
-              v-model="startDate"
-              prepend-icon="mdi-calendar"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-          ></v-text-field>
+            <v-text-field
+                v-model="startDate"
+                prepend-icon="mdi-calendar"
+                readonly
+                solo
+                hide-details
+                v-bind="attrs"
+                v-on="on"
+            ></v-text-field>
           </template>
           <v-date-picker
-          v-model="startDate"
-          @input="selStartDate"
+            no-title
+            scrollable
+            v-model="startDate"
+            @input="selStartDate"
           ></v-date-picker>
         </v-menu>
       </v-col>
-      <v-col cols="4">
-        <p>
-          结東日期
-        </p>
+      <v-col cols="4" class="d-flex align-center">
+        结東日期
         <v-menu
           v-model="endMenu"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
         >
           <template v-slot:activator="{ on, attrs }">
-          <v-text-field
-              v-model="endDate"
-              prepend-icon="mdi-calendar"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-          ></v-text-field>
+            <v-text-field
+                v-model="endDate"
+                prepend-icon="mdi-calendar"
+                readonly
+                hide-details
+                solo
+                v-bind="attrs"
+                v-on="on"
+            ></v-text-field>
           </template>
           <v-date-picker
-          v-model="endDate"
-          @input="selEndDate"
+            v-model="endDate"
+              no-title
+              scrollable
+            @input="selEndDate"
           ></v-date-picker>
         </v-menu>
       </v-col>
@@ -61,7 +65,7 @@
           color="#7879FF"
           dark
           @click="searchAction"
-          class="float-right mt-3 text-light"
+          class="float-right text-light"
         >
           査洵
         </v-btn>
@@ -72,14 +76,15 @@
       :headers="headers"
       :items="desserts"
       :loading="isLoading"
+      loading-text="正在下载..."
       item-key="name"
       class="elevation-1"
     >
       <template v-slot:[`item.actions`]="{ item }">
-        <span @click="detail(item)" class="text-primary hover-cursor-point">立即查若</span>
+        <span @click="detail(item)" class="text-primary hover-cursor-point">立即查看</span>
       </template>
       <template v-slot:no-data>
-        <p>没有学习资料</p>
+        <p>没有统计信息</p>
       </template>
     </v-data-table>
     <v-row justify="center">
@@ -119,7 +124,7 @@
             <span class="text-primary hover-cursor-point" v-if='item.remark'>{{item.remark}}</span>
           </template>
           <template v-slot:no-data>
-            <p>没有学习资料</p>
+            <p>没有统计信息</p>
           </template>
         </v-data-table>
       </v-dialog>

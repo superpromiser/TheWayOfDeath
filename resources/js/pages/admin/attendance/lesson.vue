@@ -1,26 +1,18 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12">
-        <v-data-table
-          :headers="headers"
-          :items="attendanceData"
-          :loading="isLoadingSchoolData"
-          loading-text="等一下..."
-          sort-by="calories"
-          class="elevation-1"
-        >
-          <template v-slot:top>
-            <v-toolbar
-                flat
-            >
-                <v-toolbar-title><strong>课堂考勤</strong></v-toolbar-title>
-                <v-divider
-                class="mx-4"
-                inset
-                vertical
-                ></v-divider>
-                <v-spacer></v-spacer>
+  <v-container class="pa-0">
+    <!-- <v-container class="px-10 z-index-2 banner-custom">
+        <v-row>
+            <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class="left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+            </v-col>
+            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                <h2>课堂考勤</h2>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-center justify-end">
                 <div class="d-flex align-center">
                     <p class="mb-0 mr-5">考勤日期</p>
                     <v-menu
@@ -53,6 +45,90 @@
                         </v-date-picker>
                     </v-menu>
                 </div>
+                <v-btn
+                  :dark="attendanceDate !== ''"
+                  color="#f19861"
+                  tile
+                  class="ml-4"
+                  large
+                  :disabled="attendanceDate == ''"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  新增考勤
+                <v-icon right>
+                    mdi-plus
+                </v-icon>
+                </v-btn>
+                <v-btn
+                    dark
+                    color="#7879ff"
+                    tile
+                    class="ml-4"
+                    large
+                >
+                    导出
+                    <v-icon right>
+                        mdi-export 
+                    </v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+    </v-container> -->
+    <v-row>
+      <v-col cols="12">
+        <v-data-table
+          :headers="headers"
+          :items="attendanceData"
+          :loading="isLoadingSchoolData"
+          loading-text="正在下载..."
+          sort-by="calories"
+          class="elevation-1"
+        >
+          <template v-slot:top>
+            <v-toolbar
+                flat
+            >
+              
+              <v-toolbar-title><strong>课堂考勤</strong></v-toolbar-title>
+              <v-divider
+                class="mx-4"
+                inset
+                vertical
+              ></v-divider>
+              <v-spacer></v-spacer>
+              <div class="d-flex align-center">
+                  <p class="mb-0 mr-5">考勤日期</p>
+                  <v-menu
+                      ref="menu"
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      :return-value.sync="attendanceDate"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                  >
+                      <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                          solo
+                          v-model="attendanceDate"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          hide-details
+                      ></v-text-field>
+                      </template>
+                      <v-date-picker
+                          v-model="attendanceDate"
+                          no-title
+                          scrollable
+                          @change="onSelectAttendanceDate"
+                          locale="zh-cn"
+                      >
+                      </v-date-picker>
+                  </v-menu>
+              </div>
                 
                 <v-dialog
                   v-model="dialog"
@@ -315,7 +391,7 @@
               </v-icon>
           </template>
           <template v-slot:no-data>
-            <p>没有学习资料</p>
+            <p>没有课堂考勤信息</p>
           </template>
         </v-data-table>
       </v-col>

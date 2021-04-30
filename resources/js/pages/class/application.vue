@@ -68,12 +68,12 @@ export default {
             title:"基础沟通",//기초의사소통
             icon:"mdi-message-text",
             items:[
-                {
-                    color:"#B673E0",
-                    title:"通讯录",//주소록
-                    imgUrl:"/asset/img/newIcon/address book.png",
-                    path:"schoolSpace.member"
-                },
+                // {
+                //     color:"#B673E0",
+                //     title:"通讯录",//주소록
+                //     imgUrl:"/asset/img/newIcon/address book.png",
+                //     path:"schoolSpace.member"
+                // },
                 // {
                 //     color:"#B673E0",
                 //     title:"文件",//문건
@@ -241,12 +241,12 @@ export default {
             title:"基础沟通",//기초의사소통
             icon:"mdi-message-text",
             items:[
-                {
-                    color:"#B673E0",
-                    title:"通讯录",//주소록
-                    imgUrl:"/asset/img/newIcon/address book.png",
-                    path:"schoolSpace.member"
-                },
+                // {
+                //     color:"#B673E0",
+                //     title:"通讯录",//주소록
+                //     imgUrl:"/asset/img/newIcon/address book.png",
+                //     path:"schoolSpace.member"
+                // },
                 // {
                 //     color:"#B673E0",
                 //     title:"文件",//문건
@@ -414,12 +414,12 @@ export default {
             title:"基础沟通",//기초의사소통
             icon:"mdi-message-text",
             items:[
-                {
-                    color:"#B673E0",
-                    title:"通讯录",//주소록
-                    imgUrl:"/asset/img/newIcon/address book.png",
-                    path:"schoolSpace.member"
-                },
+                // {
+                //     color:"#B673E0",
+                //     title:"通讯录",//주소록
+                //     imgUrl:"/asset/img/newIcon/address book.png",
+                //     path:"schoolSpace.member"
+                // },
                 // {
                 //     color:"#B673E0",
                 //     title:"文件",//문건

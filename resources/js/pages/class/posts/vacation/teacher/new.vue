@@ -1,12 +1,28 @@
 <template>
-  <v-container>
+  <v-container class="pa-0">
+    <v-container class="px-10 z-index-2 banner-custom">
+        <v-row>
+            <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class="left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+            </v-col>
+            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                <h2>请假审批</h2>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-center justify-end">
+            </v-col>
+        </v-row>
+    </v-container>
     <v-row>
       <v-col cols="12">
         <v-data-table
           :headers="headers"
           :items="vacationData"
           :loading="isLoadingSchoolData"
-          loading-text="等一下..."
+          loading-text="正在下载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -14,7 +30,7 @@
             <v-toolbar
                 flat
             >
-                <v-toolbar-title><strong>请假审批</strong></v-toolbar-title>
+                <!-- <v-toolbar-title><strong>请假审批</strong></v-toolbar-title> -->
                 <v-divider
                 class="mx-4"
                 inset
@@ -106,7 +122,7 @@
 
           </template>
           <template v-slot:no-data>
-            <p>没有学习资料</p>
+            <p>没有请假申请信息</p>
           </template>
         </v-data-table>
       </v-col>
