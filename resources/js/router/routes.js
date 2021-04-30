@@ -267,8 +267,8 @@ export default [
 
   //vacation
   // {path:'/schoolspace/:id/post/vacation/student', name:'posts.vacationStudent', component:page('school/posts/vacation/student/new.vue')},
-  {path:'/admin/vacation/teacher', name:'posts.vacationTeacher', component:page('school/posts/vacation/teacher/new.vue')},
-  {path:'/admin/vacation/teacher/:vId/reply', name:'posts.vacationTeacherReply', component:page('school/posts/vacation/teacher/reply.vue')},
+  {path:'/admin/vacation/teacher', name:'posts.vacationTeacher', component:page('class/posts/vacation/teacher/new.vue')},
+  {path:'/admin/vacation/teacher/:vId/reply', name:'posts.vacationTeacherReply', component:page('class/posts/vacation/teacher/reply.vue')},
 
   //attendance
   {path:'/admin/attendance/index', name:'posts.attendance', component:page('admin/attendance/index.vue')},

@@ -392,6 +392,7 @@ export default {
     }
   },
   created() {
+    console.log("this.schoolData",this.schoolData)
     let path = this.currentPath.path.split('/')
     if(path[1] == 'schoolSpace'){
       this.activeSchool = true

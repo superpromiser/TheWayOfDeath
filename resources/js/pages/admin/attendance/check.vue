@@ -73,7 +73,7 @@
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                  color="#7879ff"
+                  color="#f19861"
                   dark
                   tile
                   class="mb-2 mr-4"
@@ -198,7 +198,7 @@
                 </v-card>
               </v-dialog>
               <v-btn
-                color="#f19861"
+                color="#7879ff"
                 dark
                 tile
                 class="mb-2"
@@ -250,7 +250,7 @@
               </v-icon>
           </template>
           <template v-slot:no-data>
-            <p>没有学习资料</p>
+            <p>没有晨午检记录</p>
           </template>
         </v-data-table>
       </v-col>

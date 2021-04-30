@@ -133,44 +133,46 @@
         </v-row>
     </v-container>
     <v-container class="pa-0" v-else>
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-            <div class="d-flex align-center">
-                <v-avatar
-                    class="ma-3 ml-3"
-                    size="50"
-                    tile
-                >
-                    <v-img :src="`${baseUrl}/asset/img/icon/请假.png`" alt="postItem" ></v-img>
-                </v-avatar>
-                <h2>请假单审批</h2>
-            </div>
-            <template v-slot:actions>
-            <v-btn
-                dark
-                color="#49d29e"
-                class="mr-md-8"
-                tile
-                @click="allowVacation"
-            >
-                <v-icon left>
-                    mdi-check-decagram-outline 
-                </v-icon>
-                通过
-            </v-btn>
-            <v-btn
-                dark
-                color="error"
-                class="mr-8"
-                tile
-                @click="denyVacation"
-            >
-                <v-icon left>
-                    mdi-hand-left
-                </v-icon>
-                驳回
-            </v-btn>
-            </template>
-        </v-banner>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>请假单审批</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        dark
+                        color="#f19861"
+                        class="mx-2"
+                        tile
+                        @click="denyVacation"
+                    >
+                        <v-icon left>
+                            mdi-hand-left
+                        </v-icon>
+                        驳回
+                    </v-btn>
+                    <v-btn
+                        dark
+                        color="#7879ff"
+                        class=""
+                        tile
+                        @click="allowVacation"
+                    >
+                        <v-icon left>
+                            mdi-check-decagram-outline 
+                        </v-icon>
+                        通过
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container class="pa-10">
             <v-row>
                 <v-col cols="12" sm="6" class="d-flex justify-space-between align-center">

@@ -1,28 +1,86 @@
 <template>
-  <v-container>
-    <v-row>
+  <v-container class="pa-0">
+    <v-container class="px-10 z-index-2 banner-custom">
+        <v-row>
+            <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class="left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+            </v-col>
+            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                <h2>进离校</h2>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                <div class="d-flex align-center">
+                    <p class="mb-0">考勤日期</p>
+                    <v-menu
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            solo
+                            v-model="attendanceDate"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            hide-details
+                        ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="attendanceDate"
+                            no-title
+                            scrollable
+                            @input="selDate"
+                            locale="zh-cn"
+                        ></v-date-picker>
+                    </v-menu>
+                </div>
+                <v-btn
+                    dark
+                    color="#7879ff"
+                    tile
+                    large
+                    class="mx-1"
+                >
+                    导出
+                    <v-icon right>
+                        mdi-export 
+                    </v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-row class="px-10 mt-5">
       <v-col cols="12">
         <v-data-table
           :headers="headers"
           :items="attendanceData"
           :loading="isLoadingSchoolData"
-          loading-text="等一下..."
+          loading-text="正在下载..."
           sort-by="calories"
           class="elevation-1"
         >
-          <template v-slot:top>
+          <!-- <template v-slot:top>
             <v-toolbar
                 flat
-            >
-                <v-toolbar-title><strong>进离校</strong></v-toolbar-title>
+            > -->
+                <!-- <v-toolbar-title><strong>进离校</strong></v-toolbar-title>
                 <v-divider
                 class="mx-4"
                 inset
                 vertical
                 ></v-divider>
-                <v-spacer></v-spacer>
+                <v-spacer></v-spacer>24 -->
 
-                <div class="d-flex align-center">
+                <!-- <div class="d-flex align-center">
                     <p class="mb-0 mr-5">考勤日期</p>
                     <v-menu
                         v-model="menu"
@@ -66,7 +124,7 @@
                     </v-icon>
                 </v-btn>
             </v-toolbar>
-          </template>
+          </template> -->
           <template v-slot:[`item.other`]="{ item }">
             <div v-if="item.other == null"> - </div>
             <div v-else> 
@@ -79,7 +137,7 @@
             </div>
           </template>
           <template v-slot:no-data>
-            <p>没有学习资料</p>
+            <p>没有进离校记录</p>
           </template>
         </v-data-table>
       </v-col>

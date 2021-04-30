@@ -24,7 +24,7 @@
                     <v-spacer></v-spacer>
 
                     <v-btn
-                        color="green accent-4"
+                        color="#f19861"
                         dark
                         class="mb-2 ml-2"
                         tile
@@ -37,19 +37,22 @@
                         修改
                     </v-btn>
                     <v-btn
-                        color="orange accent-4"
+                        color="#7879ff"
                         dark
                         class="mb-2 ml-2"
                         tile
                         v-if="isEditable == true"
-                        @click="isEditable = !isEditable"
+                        :loading="isLoadingNewData"
+                        @click="onSubmit"
                         >
                         <v-icon left>
                             mdi-alert-circle-outline
                         </v-icon>
-                        无法修改
+                        <!-- 无法修改 -->
+                        <!-- {{lang.submit}} -->
+                        保存
                     </v-btn>
-                    <v-btn
+                    <!-- <v-btn
                         color="#49d29e"
                         dark
                         class="mb-2 ml-2"
@@ -58,7 +61,7 @@
                         @click="onSubmit"
                         >
                         {{lang.submit}}
-                    </v-btn>
+                    </v-btn> -->
                 </v-toolbar>
             </template>
 
@@ -316,6 +319,7 @@ export default {
         async onSubmit(){
             this.isLoadingNewData = true;
             console.log(this.scheduleData);
+
             if(this.isCreatMode == true){
                 let payload = {
                     classSchedule: this.scheduleData
@@ -323,8 +327,9 @@ export default {
                 await createScheduleClass(payload)
                 .then((res) => {
                     console.log(res)
+                    this.isEditable = false
                 }).catch((err) => {
-                    
+                    this.isEditable = false                    
                 });
             }
             else{
@@ -335,8 +340,9 @@ export default {
                 await updateScheduleClass(payload)
                 .then((res) => {
                     console.log(res);
+                    this.isEditable = false
                 }).catch((err) => {
-                    
+                    this.isEditable = false
                 });
             }
             this.isLoadingNewData = false;

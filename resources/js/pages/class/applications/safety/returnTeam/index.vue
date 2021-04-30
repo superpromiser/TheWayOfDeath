@@ -1,6 +1,31 @@
 <template>
     <v-container class="pa-0">
-        <v-banner>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>归程队管理</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn dark color="#3989ff" link :to="{name: 'classSpace.remainReturnTeam'}">
+                        历史留堂
+                    </v-btn>
+                    <v-btn dark class="mx-2" color="#feb31a" link :to="{name: 'classSpace.detailReturnTeam', params:{ teamData: remainTeam}}">
+                        发布留堂信息
+                    </v-btn>
+                    <v-btn dark color="#7879ff" link :to="{name: 'classSpace.newReturnTeam'}">
+                        新建归程队
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+        <!-- <v-banner>
             <v-row class="ma-0">
                 <v-col>
                     <div class="text-center d-flex justify-space-between align-center">
@@ -24,7 +49,7 @@
                     </div>
                 </v-col>
             </v-row>
-        </v-banner>
+        </v-banner> -->
         <v-container v-if="isLoading" class="d-flex align-center justify-center">
             <v-progress-circular
                 indeterminate
