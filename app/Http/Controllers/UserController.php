@@ -33,6 +33,9 @@ class UserController extends Controller
         $staffData['nation'] = $request->nation;
         $staffData['cardNum'] = $request->cardNum;
         $staffData['roleId'] = $request->roleId;
+        if($request->roleId == 4){
+            $staffData['status'] = "上课中";
+        }
         $staffData['familyAddress'] = json_encode($request->familyAddress);
         $staffData['residenceAddress'] = json_encode($request->residenceAddress);
         $groupArr = array();
@@ -97,6 +100,7 @@ class UserController extends Controller
         $studentData['fatherPhone'] = $request->fatherPhone;
         $studentData['fatherJob'] = $request->fatherJob;
         $studentData['introduce'] = $request->introduce;
+        $studentData['status'] = "上课中";
         $studentData['birthday'] = new DateTime($request->birthday);
         $studentData['roleId'] = 5;
         $studentData['familyAddress'] = json_encode($request->familyAddress);

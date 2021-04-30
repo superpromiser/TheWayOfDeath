@@ -316,7 +316,7 @@ export default {
       },
       {
         title : "分享",
-        imgUrl : "/asset/img/appIcon/基础沟通/分享.png",
+        imgUrl : "/asset/img/appIcon/基础沟通/share.png",
         path : "posts.share"
       },
       {

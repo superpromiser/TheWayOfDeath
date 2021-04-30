@@ -34,7 +34,7 @@
                             <div>
                                 <div>
                                     <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
-                                        <v-icon size="18">mdi-format-color-text</v-icon> 
+                                        <v-icon size="18" color="#222222">mdi-format-color-text</v-icon> 
                                     </v-chip>
                                     <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">小</p>
                                 </div>
@@ -44,7 +44,7 @@
                             <div>
                                 <div>
                                     <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
-                                        <v-icon size="23">mdi-format-color-text</v-icon> 
+                                        <v-icon size="23" color="#222222">mdi-format-color-text</v-icon> 
                                     </v-chip>
                                     <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">默认</p>
                                 </div>
@@ -54,7 +54,7 @@
                             <div>
                                 <div>
                                     <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
-                                        <v-icon size="30">mdi-format-color-text</v-icon> 
+                                        <v-icon size="30" color="#222222">mdi-format-color-text</v-icon> 
                                     </v-chip>
                                     <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">大</p>
                                 </div>
@@ -64,7 +64,7 @@
                             <div>
                                 <div>
                                     <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
-                                        <v-icon size="40">mdi-format-color-text</v-icon> 
+                                        <v-icon size="40" color="#222222">mdi-format-color-text</v-icon> 
                                     </v-chip>
                                     <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">特大</p>
                                 </div>
@@ -78,44 +78,101 @@
                         <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
                             <div>
                                 <div>
-                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                    <v-chip active-class="black--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                         <v-icon size="30" color="#222222">mdi-circle</v-icon> 
                                     </v-chip>
-                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">小</p>
                                 </div>
                             </div>
                         </v-item>
                         <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
                             <div>
                                 <div>
-                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                    <v-chip active-class="purple--text accent-2" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                         <v-icon size="30" color="#7879ff">mdi-circle</v-icon> 
                                     </v-chip>
-                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">默认</p>
                                 </div>
                             </div>
                         </v-item>
                         <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
                             <div>
                                 <div>
-                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
-                                        <v-icon size="30" color="#3989fc">mdi-circle</v-icon> 
+                                    <v-chip active-class="orange--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                        <v-icon size="30" color="#EB5846">mdi-circle</v-icon> 
                                     </v-chip>
-                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">大</p>
                                 </div>
                             </div>
                         </v-item>
                         <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
                             <div>
                                 <div>
-                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                    <v-chip active-class="green--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                         <v-icon size="30" color="#49d29e">mdi-circle</v-icon> 
                                     </v-chip>
-                                    <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">特大</p>
                                 </div>
                             </div>
                         </v-item>
                     </v-item-group>
+                    <v-row class="ma-0">
+                        <v-item-group multiple class="col-8 row ma-0 pr-0">
+                            <v-item v-slot="{ active, toggle }" class="col col-3 d-flex justify-center align-center text-center">
+                                <div>
+                                    <div>
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                            <v-icon size="24" color="#222222">mdi-format-bold</v-icon> 
+                                        </v-chip>
+                                    </div>
+                                </div>
+                            </v-item>
+                            <v-item v-slot="{ active, toggle }" class="col col-3 d-flex justify-center align-center text-center">
+                                <div>
+                                    <div>
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                            <v-icon size="24" color="#222222">mdi-format-italic</v-icon> 
+                                        </v-chip>
+                                    </div>
+                                </div>
+                            </v-item>
+                            <v-item v-slot="{ active, toggle }" class="col col-3 d-flex justify-center align-center text-center">
+                                <div>
+                                    <div>
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                            <v-icon size="24" color="#222222">mdi-format-underline</v-icon> 
+                                        </v-chip>
+                                    </div>
+                                </div>
+                            </v-item>
+                            <v-item v-slot="{ active, toggle }" class="col col-3 d-flex justify-center align-center text-center">
+                                <div>
+                                    <div>
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                            <v-icon size="24" color="#222222">mdi-format-strikethrough-variant</v-icon> 
+                                        </v-chip>
+                                    </div>
+                                </div>
+                            </v-item>
+                        </v-item-group>
+                        <v-item-group class="col-4 row ma-0 pl-0">
+                            <v-item v-slot="{ active, toggle }" class="col col-6 d-flex justify-center align-center text-center">
+                                <div>
+                                    <div>
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                            <v-icon size="24" color="#222222">mdi-format-list-bulleted-square</v-icon> 
+                                        </v-chip>
+                                    </div>
+                                </div>
+                            </v-item>
+                            <v-item v-slot="{ active, toggle }" class="col col-6 d-flex justify-center align-center text-center">
+                                <div>
+                                    <div>
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                            <v-icon size="24" color="#222222">mdi-format-list-numbered</v-icon> 
+                                        </v-chip>
+                                    </div>
+                                </div>
+                            </v-item>                    
+
+                        </v-item-group>
+                    </v-row>
                 </v-container>
             </v-sheet>
         </v-bottom-sheet>

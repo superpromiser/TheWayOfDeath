@@ -532,27 +532,7 @@ export default {
         onSelectStatus(val){
             let payload = {
                 userId: this.user.id,
-                status : null,
-            }
-            switch (val) {
-                case '在办公室':
-                    payload.status = 1;
-                    break;
-                case '上课中':
-                    payload.status = 2;
-                    break;
-                case '会议中':
-                    payload.status = 3;
-                    break;
-                case '待客中':
-                    payload.status = 4;
-                    break;
-                case '忙碌中':
-                    payload.status = 5;
-                    break;
-                case '外出中':
-                    payload.status = 6;
-                    break;
+                status : val,
             }
             updateProfile(payload)
             .then((res) => {

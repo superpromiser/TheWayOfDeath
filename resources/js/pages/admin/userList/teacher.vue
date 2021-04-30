@@ -651,6 +651,7 @@ export default {
       },
 
       async save () {
+        console.log("this.editedItem", this.editedItem);
         if(this.editedItem.name.trim() == ''){
           return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
         }
@@ -659,10 +660,10 @@ export default {
           return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
         }
         if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
-          return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectPhoneNumber, color: 'error'});
         }
         if(this.editedItem.phoneNumber.length != 11 ){
-          return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectPhoneNumber, color: 'error'});
         }
         //password
         if(this.editedItem.password.trim() == '' || this.editedItem.password.length < 8){
@@ -677,11 +678,15 @@ export default {
           return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
         }
         //cardnumber
-        if(this.editedItem.cardNum.trim() == '' || this.editedItem.length != 18){
+        if(this.editedItem.cardNum.trim() == '' ){
           return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
         }
-        if(/^\d*$/.test(this.cardNum) == false){
-          return this.$snackbar.showMessage({content: '请输入正确的电话号码', color: 'error'});
+        if(/^\d*$/.test(this.editedItem.cardNum) == false){
+          console.log(/^\d*$/.test(this.editedItem.cardNum));
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+        }
+        if(this.editedItem.cardNum.length !== 18){
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'})
         }
         //lessonId
         if(this.editedItem.lessonId == null){

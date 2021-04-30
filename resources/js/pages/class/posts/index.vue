@@ -187,7 +187,7 @@ export default {
                     {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"posts.Cshare"
                     },
                     {
@@ -360,7 +360,7 @@ export default {
                     {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"posts.Cshare"
                     },
                     {
@@ -533,7 +533,7 @@ export default {
                     {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"posts.Cshare"
                     },
                     {
@@ -706,7 +706,7 @@ export default {
                     {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"posts.Cshare"
                     },
                     // {
@@ -879,7 +879,7 @@ export default {
                     {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"posts.Cshare"
                     },
                     // {

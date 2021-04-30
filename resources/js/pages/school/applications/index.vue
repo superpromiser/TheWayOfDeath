@@ -117,7 +117,7 @@ export default {
                      {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"schoolSpace.applications.share"
                     },
                     {
@@ -141,7 +141,7 @@ export default {
                     {
                         color:"#98BB3A",
                         title:"交接班",//교대반관리
-                        imgUrl:"/asset/img/newIcon/交接班.png",
+                        imgUrl:"/asset/img/newIcon/shiftMng.png",
                         path:"schoolSpace.applications.shiftMng"
                     },
                     {
@@ -232,7 +232,7 @@ export default {
                      {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"schoolSpace.applications.share"
                     },
                     {
@@ -256,7 +256,7 @@ export default {
                     {
                         color:"#98BB3A",
                         title:"交接班",//교대반관리
-                        imgUrl:"/asset/img/newIcon/交接班.png",
+                        imgUrl:"/asset/img/newIcon/shiftMng.png",
                         path:"schoolSpace.applications.shiftMng"
                     },
                     {
@@ -347,7 +347,7 @@ export default {
                      {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"schoolSpace.applications.share"
                     },
                     {
@@ -371,7 +371,7 @@ export default {
                     {
                         color:"#98BB3A",
                         title:"交接班",//교대반관리
-                        imgUrl:"/asset/img/newIcon/交接班.png",
+                        imgUrl:"/asset/img/newIcon/shiftMng.png",
                         path:"schoolSpace.applications.shiftMng"
                     },
                     {
@@ -462,7 +462,7 @@ export default {
                      {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"schoolSpace.applications.share"
                     },
                     {
@@ -486,7 +486,7 @@ export default {
                     {
                         color:"#98BB3A",
                         title:"交接班",//교대반관리
-                        imgUrl:"/asset/img/newIcon/交接班.png",
+                        imgUrl:"/asset/img/newIcon/shiftMng.png",
                         path:"schoolSpace.applications.shiftMng"
                     },
                     {
@@ -577,7 +577,7 @@ export default {
                      {
                         color:"#E4BC16",
                         title:"分享",//공유
-                        imgUrl:"/asset/img/newIcon/分享.png",
+                        imgUrl:"/asset/img/newIcon/share.png",
                         path:"schoolSpace.applications.share"
                     },
                     {
@@ -601,7 +601,7 @@ export default {
                     {
                         color:"#98BB3A",
                         title:"交接班",//교대반관리
-                        imgUrl:"/asset/img/newIcon/交接班.png",
+                        imgUrl:"/asset/img/newIcon/shiftMng.png",
                         path:"posts.shift"
                     },
                     {
