@@ -9,24 +9,26 @@
             <h3>HTML output:</h3>
             <pre id="html-output"></pre>
         </div> -->
-        <v-btn-toggle
-            v-model="toggle_none" style="right: 15px;"
-            background-color="#E0E0E0" class="rounded-lg position-fixed" :class="isOpenSetting? 'opened-setting-pell': 'closed-setting-pell'"
-        >
-            <v-btn v-if="pellSetting" @click="openKeyBoard">
-                <v-icon size="22">mdi-format-underline</v-icon>
-            </v-btn>
-            <v-btn v-else @click="pellSettingTrue">
-                <v-icon size="22">mdi-format-underline</v-icon>
-            </v-btn>
-            <v-btn @click="toggleImageFile">
-                <v-icon size="22">mdi-file-image-outline</v-icon>
-            </v-btn>
-        </v-btn-toggle>
-        <v-bottom-sheet v-model="pellSetting">
-            <v-sheet class="py-3">
+
+        <div id="push-popup-bottom-nav" class="push-popup-bottom-nav">
+            <!-- <span onclick="openNav()" style="position:absolute; top: -30px; right: 0px; color: red;">open</span> -->
+            <v-btn-toggle
+                v-model="toggle_none" style="position:absolute; right: 12px;  top: -60px; "
+                background-color="#E0E0E0" class="rounded-lg"
+            >
+                <v-btn v-if="pellSetting" @click="closeBottomNav">
+                    <v-icon size="22">mdi-keyboard-outline</v-icon>
+                </v-btn>
+                <v-btn v-else @click="pellSettingTrue">
+                    <v-icon size="22">mdi-format-underline</v-icon>
+                </v-btn>
+                <v-btn @click="toggleImageFile">
+                    <v-icon size="22">mdi-file-image-outline</v-icon>
+                </v-btn>
+            </v-btn-toggle>
+            <v-sheet class="py-3" color="#E0E0E0">
                 <v-container>
-                    <v-item-group class="row ma-0">
+                    <v-item-group mandatory class="row ma-0" v-model="selectedFontSize">
                         <v-item class="col col-50 d-flex justify-center align-center">
                             <p class="mb-0 font-color-gray-heavy">字号</p>
                         </v-item>
@@ -71,7 +73,7 @@
                             </div>
                         </v-item>
                     </v-item-group>
-                    <v-item-group class="row ma-0">
+                    <v-item-group mandatory class="row ma-0" v-model="selectedFontColor">
                         <v-item class="col col-50 d-flex justify-center align-center">
                             <p class="mb-0 font-color-gray-heavy">字色</p>
                         </v-item>
@@ -113,7 +115,7 @@
                         </v-item>
                     </v-item-group>
                     <v-row class="ma-0">
-                        <v-item-group multiple class="col-8 row ma-0 pr-0">
+                        <v-item-group multiple class="col-8 row ma-0 pr-0" v-model="selectedFontStyle">
                             <v-item v-slot="{ active, toggle }" class="col col-3 d-flex justify-center align-center text-center">
                                 <div>
                                     <div>
@@ -151,7 +153,7 @@
                                 </div>
                             </v-item>
                         </v-item-group>
-                        <v-item-group class="col-4 row ma-0 pl-0">
+                        <v-item-group class="col-4 row ma-0 pl-0" v-model="selectedFontOrderStyle">
                             <v-item v-slot="{ active, toggle }" class="col col-6 d-flex justify-center align-center text-center">
                                 <div>
                                     <div>
@@ -175,7 +177,7 @@
                     </v-row>
                 </v-container>
             </v-sheet>
-        </v-bottom-sheet>
+        </div>
     </v-container>
 </template>
 
@@ -315,6 +317,11 @@ export default {
         toggle_none: null,
         isOpenSetting: false,
         pellSetting: false,
+
+        selectedFontSize: 2,
+        selectedFontColor: 1,
+        selectedFontStyle: [],
+        selectedFontOrderStyle: [],
     }),
 
     mounted(){
@@ -417,6 +424,7 @@ export default {
 
         pellSettingTrue(){
             this.pellSetting = true;
+            document.getElementById("push-popup-bottom-nav").style.height = "318px";
         },
 
         toggleImageFile(){
@@ -425,7 +433,23 @@ export default {
 
         openKeyBoard(){
 
-        }
+        },
+
+        openBottomNav() {
+            
+            console.log(document.getElementById('push-popup-bottom-nav'))
+            // document.getElementById("main").style.marginBottom = "250px";
+        },
+        
+        closeBottomNav() {
+            this.pellSetting = false;
+            document.getElementById("push-popup-bottom-nav").style.height = "0";
+            console.log(this.selectedFontSize)
+            console.log(this.selectedFontColor)
+            console.log(this.selectedFontStyle)
+            console.log(this.selectedFontOrderStyle)
+            // document.getElementById("main").style.marginBottom = "0";
+        },
     }
 }
 </script>
