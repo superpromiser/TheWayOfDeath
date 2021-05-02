@@ -3,7 +3,7 @@
       <v-row>
         <v-col cols="12" class="d-flex" @click="showDetail(content)">
           <v-avatar>
-            <v-img :src="`${baseUrl}/asset/img/appIcon/others/布告栏.png`" alt="postItem" ></v-img>
+            <v-img :src="`${baseUrl}/asset/img/appIcon/others/bulletinboard.png`" alt="postItem" ></v-img>
           </v-avatar>
           <div class="ml-2 d-flex flex-column">
             <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color">{{lang.bulletin}} ▪ {{bulletinBoardData.type}} </p>
