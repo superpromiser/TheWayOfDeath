@@ -648,63 +648,63 @@ export default {
       },
 
       async save () {
+        if(this.editedItem.name.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+        }
+        //phone number
+        if(this.editedItem.phoneNumber.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        if(this.editedItem.phoneNumber.length !== 11 ){
+          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+        }
+        //password
+        if(this.editedItem.password.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+        }
+        //gender
+        if(this.editedItem.gender == null){
+          return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
+        }
+        //nation
+        if(this.editedItem.nation == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
+        }
+        //cardnumber
+        if(this.editedItem.cardNum.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
+        }
+        if(/^\d*$/.test(this.editedItem.cardNum) == false){
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+        }
+        if(this.editedItem.cardNum.length !== 18 ){
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
+        }
+        //lessonId
+        if(this.editedItem.lessonId == null){
+          return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
+        }
+        //residence address
+        if(this.editedItem.residenceAddress.city == null || 
+          this.editedItem.residenceAddress.province == null ||
+          this.editedItem.residenceAddress.region == null ||
+          this.editedItem.residenceAddress.detail.trim() == '' 
+          ){
+          return this.$snackbar.showMessage({content: this.lang.requireResidenceAddress, color: "error"})
+        }
+        //family address
+        if(this.editedItem.familyAddress.city == null || 
+          this.editedItem.familyAddress.province == null ||
+          this.editedItem.familyAddress.region == null ||
+          this.editedItem.familyAddress.detail.trim() == '' 
+          ){
+          return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+        }
         //update schoolManagerData
         if (this.editedIndex > -1) {
-          if(this.editedItem.name.trim() == ''){
-            return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
-          }
-          //phone number
-          if(this.editedItem.phoneNumber.trim() == ''){
-            return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
-          }
-          if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
-            return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
-          }
-          if(this.editedItem.phoneNumber.length !== 11 ){
-            return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
-          }
-          //password
-          if(this.editedItem.password.trim() == ''){
-            return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
-          }
-          //gender
-          if(this.editedItem.gender == null){
-            return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
-          }
-          //nation
-          if(this.editedItem.nation == ''){
-            return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
-          }
-          //cardnumber
-          if(this.editedItem.cardNum.trim() == ''){
-            return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
-          }
-          if(/^\d*$/.test(this.cardNum) == false){
-            return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
-          }
-          if(this.cardNum.length !== 18 ){
-            return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
-          }
-          //lessonId
-          if(this.editedItem.lessonId == null){
-            return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
-          }
-          //residence address
-          if(this.editedItem.residenceAddress.city == null || 
-            this.editedItem.residenceAddress.province == null ||
-            this.editedItem.residenceAddress.region == null ||
-            this.editedItem.residenceAddress.detail.trim() == '' 
-            ){
-            return this.$snackbar.showMessage({content: this.lang.requireResidenceAddress, color: "error"})
-          }
-          //family address
-          if(this.editedItem.familyAddress.city == null || 
-            this.editedItem.familyAddress.province == null ||
-            this.editedItem.familyAddress.region == null ||
-            this.editedItem.familyAddress.detail.trim() == '' 
-            ){
-            return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
-          }
           this.isCreatingSchool = true;
           await updateStaff(this.editedItem)
           .then((res) => {
@@ -727,63 +727,7 @@ export default {
         } 
         //save schoolManagerData
         else {
-            if(this.editedItem.name.trim() == ''){
-              return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
-            }
-            //phone number
-            if(this.editedItem.phoneNumber.trim() == ''){
-              return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
-            }
-            if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
-              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
-            }
-            if(this.editedItem.phoneNumber.length !== 11 ){
-              return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
-            }
-            //password
-            if(this.editedItem.password.trim() == ''){
-              return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
-            }
-            //gender
-            if(this.editedItem.gender == null){
-              return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
-            }
-            //nation
-            if(this.editedItem.nation == ''){
-              return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
-            }
-            //cardnumber
-            if(this.editedItem.cardNum.trim() == ''){
-              return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
-            }
-            if(/^\d*$/.test(this.cardNum) == false){
-              return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
-            }
-            if(this.cardNum.length !== 18 ){
-              return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
-            }
-            //lessonId
-            if(this.editedItem.lessonId == null){
-              return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
-            }
-            //residence address
-            if(this.editedItem.residenceAddress.city == null || 
-              this.editedItem.residenceAddress.province == null ||
-              this.editedItem.residenceAddress.region == null ||
-              this.editedItem.residenceAddress.detail.trim() == '' 
-              ){
-              return this.$snackbar.showMessage({content: this.lang.requireResidenceAddress, color: "error"})
-            }
-            //family address
-            if(this.editedItem.familyAddress.city == null || 
-              this.editedItem.familyAddress.province == null ||
-              this.editedItem.familyAddress.region == null ||
-              this.editedItem.familyAddress.detail.trim() == '' 
-              ){
-              return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
-            }
             this.editedItem.roleId = 4;
-
             this.isCreatingSchool = true;
             await createStaff(this.editedItem)
             .then((res) => {

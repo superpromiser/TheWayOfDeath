@@ -101,7 +101,7 @@ export default {
                     {
                         color : "#E4BC16",
                         title : "分享",//공유
-                        imgUrl : "/asset/img/appIcon/基础沟通/分享.png",
+                        imgUrl : "/asset/img/appIcon/基础沟通/share.png",
                         path : "posts.share"
                     },
                     {
@@ -229,7 +229,7 @@ export default {
                     {
                         color : "#98BB3A",
                         title : "交接班管理",//Shift management
-                        imgUrl : "/asset/img/appIcon/校园安全/交接班.png",
+                        imgUrl : "/asset/img/appIcon/校园安全/shiftMng.png",
                         path : "posts.shift"
                     },
                     {
