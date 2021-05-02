@@ -98,7 +98,15 @@
                             :counter="18"
                             ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4" >
+                        <v-col cols="12" sm="6" md="4">
+                          <v-checkbox
+                            v-model="isBanzi"
+                            label="班主任"
+                            color="#7879ff"
+                            hide-details
+                          ></v-checkbox>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4" v-if="isBanzi == true">
                             <v-select
                                 :menu-props="{ top: false, offsetY: true }"
                                 :items="classSelectionItem"
@@ -329,6 +337,7 @@ export default {
     dialogDelete: false,
     indroduceDialog : false,
     show1: false,
+    isBanzi:false,
     rules: {
         required: value => !!value || 'Required.',
         maxlength: v=> v.length >11 || 'maxlength',
@@ -545,7 +554,7 @@ export default {
       getStaff()
       .then((res) => {
         res.data.map( x => {
-            if(x.roleId == 3){
+            if(x.roleId == 3 || x.roleId == 7){
                 this.schoolManagerData.push(x);
             }
         })
@@ -689,7 +698,7 @@ export default {
           return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'})
         }
         //lessonId
-        if(this.editedItem.lessonId == null){
+        if(this.editedItem.lessonId == null && this.isBanzi == true){
           return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
         }
         
@@ -735,8 +744,12 @@ export default {
         else {
             //console.log("this.editedItem", this.editedItem);
             
+            if(this.isBanzi == false){
+              this.editedItem.roleId = 3;  
+            }else{
+              this.editedItem.roleId = 7
+            }
             
-            this.editedItem.roleId = 3;
             this.isCreatingSchool = true;
             await createStaff(this.editedItem)
             .then((res) => {

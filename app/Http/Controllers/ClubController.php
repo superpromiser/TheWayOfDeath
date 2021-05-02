@@ -23,19 +23,25 @@ class ClubController extends Controller
     public function createClub(Request $request){
         $this->validate($request,[
             'schoolId'=>'required',
-            'clubName'=>'required'
+            'lessonId'=>'required',
+            'clubName'=>'required',
+            'members'=>'required',
         ]);
         $userId = Auth::user()->id;
         $lessonId = 0;
         if($request->lessonId){
             $lessonId = $request->lessonId;
         }
-        return Club::create([
-            'schoolId'=>$request->schoolId,
-            'lessonId'=>$lessonId,
-            'userId'=>$userId,
-            'clubName'=>$request->clubName
-        ]);
+        foreach($request->members as $memberId){
+            Club::create([
+                'schoolId'=>$request->schoolId,
+                'lessonId'=>$lessonId,
+                'userId'=>$userId,
+                'clubName'=>$request->clubName,
+                'memberId'=>$memberId,
+            ]);
+        }
+        return 1;
     }
 
     public function updateClub(Request $request){

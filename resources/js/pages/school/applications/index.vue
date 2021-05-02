@@ -73,6 +73,9 @@ export default {
             default:
                 this.contentItemList = this.studentItem
                 break;
+            case 7:
+                this.contentItemList = this.teacherItem;
+                break;
         }
 
     },

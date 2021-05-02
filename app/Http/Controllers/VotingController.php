@@ -69,6 +69,7 @@ class VotingController extends Controller
             'userId' => $userId,
             'schoolId' => $request->schoolId,
             'classId' => $classId,
+            'viewList'=>$request->viewList,
         ])->id;
         $data = Voting::create([
             'votingType' => $votingType,

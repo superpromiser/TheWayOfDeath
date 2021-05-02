@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\ScheduleTeacher;
 use Illuminate\Support\Facades\Auth;
-
+use App\ScheduleSetting;
 class ScheduleTeacherController extends Controller
 {
     public function getScheduleTeacher(Request $request){
@@ -69,5 +69,10 @@ class ScheduleTeacherController extends Controller
             'userId'=>$userId,
             'schoolId'=>$schoolId
         ])->delete();
+    }
+
+    public function getScheduleData(){
+        $schoolId = Auth::user()->schoolId;
+        return ScheduleSetting::where('schoolId',$schoolId)->get();
     }
 }

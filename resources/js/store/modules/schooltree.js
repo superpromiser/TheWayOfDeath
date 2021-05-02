@@ -24,8 +24,9 @@ export const mutations = {
     },
     [types.STORE_SCHOOL_DATA] (state,  schoolData ) {
         state.schoolData = schoolData
-        Cookies.set('schoolData', schoolData, { expires:  365 })
-    },
+        console.log('mutations',schoolData)
+        Cookies.set('schoolData', schoolData, { expires:  365000 })
+    },  
     [types.STORE_MEMBER_DATA] (state,  memberData ) {
         state.memberData = memberData
         Cookies.set('memberData', memberData, { expires:  365 })

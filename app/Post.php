@@ -133,4 +133,8 @@ class Post extends Model
     {
         return $this->hasOne(Vacation::class, 'postId');
     }
+
+    protected $casts = [
+        'viewList'=>'array'
+    ];
 }

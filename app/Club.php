@@ -8,4 +8,7 @@ class Club extends Model
 {
     //
     protected $guarded = [];
+    // protected $casts = [
+    //     'clubMembers' => 'array'
+    // ];
 }
