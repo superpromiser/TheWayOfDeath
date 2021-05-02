@@ -1419,5 +1419,16 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default{
     display: flex!important;
     align-items: center!important;
     justify-content: center!important;
-    background: white!important;
+    background: #E0E0E0!important;
+}
+
+.push-popup-bottom-nav{
+    height: 0; 
+    width: 100%; 
+    position: fixed; 
+    z-index: 1; 
+    bottom: 0;
+    left: 0;
+    background-color: #111; 
+    transition: 0.5s; 
 }

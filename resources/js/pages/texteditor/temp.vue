@@ -1,19 +1,17 @@
 <template>
     <v-container fluid class="bg-secondary">
-        <div id="editor" class="pell">
-            <div contenteditable="true" class="pell-content-cus" @input="onInputContent" @keydown="onKeyDownContent"></div>
-        </div>
+        <div id="editor" class="pell"></div>
         <div style="margin-top:20px;">
             <h3>Text output:</h3>
             <div id="text-output"></div>
         </div>
         <div style="margin-top:20px;">
             <h3>HTML output:</h3>
-            <p>sss</p>
-            <small>sss</small>
             <pre id="html-output"></pre>
         </div>
+
         <div id="push-popup-bottom-nav" class="push-popup-bottom-nav">
+            <!-- <span onclick="openNav()" style="position:absolute; top: -30px; right: 0px; color: red;">open</span> -->
             <v-btn-toggle
                 v-model="toggle_none" style="position:absolute; right: 12px;  top: -60px; "
                 background-color="#E0E0E0" class="rounded-lg"
@@ -34,40 +32,40 @@
                         <v-item class="col col-50 d-flex justify-center align-center">
                             <p class="mb-0 font-color-gray-heavy">字号</p>
                         </v-item>
-                        <v-item v-slot="{ active }" class="col col-50 d-flex justify-center align-center text-center">
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
                             <div>
                                 <div>
-                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('h6', 'fontsize', 1)">
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                         <v-icon size="18" color="#222222">mdi-format-color-text</v-icon> 
                                     </v-chip>
                                     <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">小</p>
                                 </div>
                             </div>
                         </v-item>
-                        <v-item v-slot="{ active }" class="col col-50 d-flex justify-center align-center text-center">
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
                             <div>
                                 <div>
-                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('p', 'fontsize', 2)">
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                         <v-icon size="23" color="#222222">mdi-format-color-text</v-icon> 
                                     </v-chip>
                                     <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">默认</p>
                                 </div>
                             </div>
                         </v-item>
-                        <v-item v-slot="{ active }" class="col col-50 d-flex justify-center align-center text-center">
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
                             <div>
                                 <div>
-                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('h2', 'fontsize', 3)">
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                         <v-icon size="30" color="#222222">mdi-format-color-text</v-icon> 
                                     </v-chip>
                                     <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">大</p>
                                 </div>
                             </div>
                         </v-item>
-                        <v-item v-slot="{ active }" class="col col-50 d-flex justify-center align-center text-center">
+                        <v-item v-slot="{ active, toggle }" class="col col-50 d-flex justify-center align-center text-center">
                             <div>
                                 <div>
-                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('h1', 'fontsize', 4)">
+                                    <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                         <v-icon size="40" color="#222222">mdi-format-color-text</v-icon> 
                                     </v-chip>
                                     <p class="mb-0 pt-2 font-size-0-70 font-color-gray-heavy">特大</p>
@@ -118,37 +116,37 @@
                     </v-item-group>
                     <v-row class="ma-0">
                         <v-item-group multiple class="col-8 row ma-0 pr-0" v-model="selectedFontStyle">
-                            <v-item v-slot="{ active }" class="col col-3 d-flex justify-center align-center text-center">
+                            <v-item v-slot="{ active, toggle }" class="col col-3 d-flex justify-center align-center text-center">
                                 <div>
                                     <div>
-                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('bold', 'fontstyle', 1)">
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                             <v-icon size="24" color="#222222">mdi-format-bold</v-icon> 
                                         </v-chip>
                                     </div>
                                 </div>
                             </v-item>
-                            <v-item v-slot="{ active }" class="col col-3 d-flex justify-center align-center text-center">
+                            <v-item v-slot="{ active, toggle }" class="col col-3 d-flex justify-center align-center text-center">
                                 <div>
                                     <div>
-                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('italic', 'fontstyle', 2)">
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                             <v-icon size="24" color="#222222">mdi-format-italic</v-icon> 
                                         </v-chip>
                                     </div>
                                 </div>
                             </v-item>
-                            <v-item v-slot="{ active }" class="col col-3 d-flex justify-center align-center text-center">
+                            <v-item v-slot="{ active, toggle }" class="col col-3 d-flex justify-center align-center text-center">
                                 <div>
                                     <div>
-                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('underline', 'fontstyle', 3)">
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                             <v-icon size="24" color="#222222">mdi-format-underline</v-icon> 
                                         </v-chip>
                                     </div>
                                 </div>
                             </v-item>
-                            <v-item v-slot="{ active }" class="col col-3 d-flex justify-center align-center text-center">
+                            <v-item v-slot="{ active, toggle }" class="col col-3 d-flex justify-center align-center text-center">
                                 <div>
                                     <div>
-                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('strikeThrough', 'fontstyle', 4)">
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
                                             <v-icon size="24" color="#222222">mdi-format-strikethrough-variant</v-icon> 
                                         </v-chip>
                                     </div>
@@ -156,20 +154,20 @@
                             </v-item>
                         </v-item-group>
                         <v-item-group class="col-4 row ma-0 pl-0" v-model="selectedFontOrderStyle">
-                            <v-item v-slot="{ active }" class="col col-6 d-flex justify-center align-center text-center">
+                            <v-item v-slot="{ active, toggle }" class="col col-6 d-flex justify-center align-center text-center">
                                 <div>
                                     <div>
-                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('insertOrderedList', 'fontorderstyle', 1)">
-                                            <v-icon size="24" color="#222222">mdi-format-list-numbered</v-icon> 
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                            <v-icon size="24" color="#222222">mdi-format-list-bulleted-square</v-icon> 
                                         </v-chip>
                                     </div>
                                 </div>
                             </v-item>
-                            <v-item v-slot="{ active }" class="col col-6 d-flex justify-center align-center text-center">
+                            <v-item v-slot="{ active, toggle }" class="col col-6 d-flex justify-center align-center text-center">
                                 <div>
                                     <div>
-                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="onClickPellButton('insertUnorderedList', 'fontorderstyle', 2)">
-                                            <v-icon size="24" color="#222222">mdi-format-list-bulleted-square</v-icon> 
+                                        <v-chip active-class="purple--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
+                                            <v-icon size="24" color="#222222">mdi-format-list-numbered</v-icon> 
                                         </v-chip>
                                     </div>
                                 </div>
@@ -182,22 +180,13 @@
         </div>
     </v-container>
 </template>
+
 <script>
-var _extends = Object.assign || function (target) { 
-    for (var i = 1; i < arguments.length; i++) { 
-        var source = arguments[i]; 
-        
-        for (var key in source) {
-            if (Object.prototype.hasOwnProperty.call(source, key)) { 
-                target[key] = source[key];
-            } 
-        } 
-    } 
-    return target; 
-};
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 var exec = function exec(command) {
-    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    return document.execCommand(command, false, value);
+  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  return document.execCommand(command, false, value);
 };
 export default {
     data: ()=> ({
@@ -317,13 +306,14 @@ export default {
                 }
             }
         },
+
         defaultClasses: {
             actionbar: 'pell-actionbar',
             button: 'pell-button',
             content: 'pell-content',
             selected: 'pell-button-selected'
         },
-        
+
         toggle_none: null,
         isOpenSetting: false,
         pellSetting: false,
@@ -331,10 +321,10 @@ export default {
         selectedFontSize: 2,
         selectedFontColor: 1,
         selectedFontStyle: [],
-        selectedFontOrderStyle: null,
+        selectedFontOrderStyle: [],
     }),
+
     mounted(){
-        // cuscontent = document.getElementById
         this.init(
             {   
                 element: document.getElementById('editor'),
@@ -346,6 +336,7 @@ export default {
             }
         );
     },
+
     methods:{
         addEventListener(parent, type, listener) {
             return parent.addEventListener(type, listener);
@@ -366,6 +357,7 @@ export default {
         //     var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
         //     return document.execCommand(command, false, value);
         // },
+
         init(settings){
             var actions = settings.actions ? settings.actions.map( action => {
                 if (typeof action === 'string') return this.defaultActions[action];
@@ -374,38 +366,61 @@ export default {
             }) : Object.keys(this.defaultActions).map( action => {
                 return this.defaultActions[action];
             });
+
             var classes = _extends({}, this.defaultClasses, settings.classes);
+
             var defaultParagraphSeparator = settings[this.defaultParagraphSeparatorString] || 'div';
-            // var actionbar = this.createElement('div');
-            // actionbar.className = classes.actionbar;
-            // this.appendChild(settings.element, actionbar);
-            // let content = document.getElementsByClassName('pell-content-cus')[0];
-            // for(let i = 0; i < actions.length ; i++){
-            //     var button = this.createElement('button');
-            //     button.className = classes.button;
-            //     button.innerHTML = actions[i].icon;
-            //     button.title = actions[i].title;
-            //     button.setAttribute('type', 'button');
-            //     button.onclick = function () {
-            //         return actions[i].result() && content.focus();
-            //     };
-            //     if (actions[i].state) {
-            //     var handler = function handler() {
-            //         console.log("actions[i].state()", actions[i].state());
-            //         return button.classList[actions[i].state() ? 'add' : 'remove'](classes.selected);
-            //     };
-            //     this.addEventListener(content, 'keyup', handler);
-            //     this.addEventListener(content, 'mouseup', handler);
-            //     this.addEventListener(button, 'click', handler);
-            //     }
-            //     this.appendChild(actionbar, button);
-            // }
+
+            var actionbar = this.createElement('div');
+            actionbar.className = classes.actionbar;
+            this.appendChild(settings.element, actionbar);
+
+            var content = settings.element.content = this.createElement('div');
+            content.contentEditable = true;
+            content.className = classes.content;
+            content.oninput = function (_ref) {
+                var firstChild = _ref.target.firstChild;
+
+                if (firstChild && firstChild.nodeType === 3) exec(this.formatBlock, '<' + defaultParagraphSeparator + '>');else if (content.innerHTML === '<br>') content.innerHTML = '';
+                settings.onChange(content.innerHTML);
+            };
+            content.onkeydown = function (event) {
+                if (event.key === 'Enter' && document.queryCommandValue(this.formatBlock) === 'blockquote') {
+                setTimeout(function () {
+                    return exec(this.formatBlock, '<' + defaultParagraphSeparator + '>');
+                }, 0);
+                }
+            };
+            this.appendChild(settings.element, content);
+
+            for(let i = 0; i < actions.length ; i++){
+                var button = this.createElement('button');
+                button.className = classes.button;
+                button.innerHTML = actions[i].icon;
+                button.title = actions[i].title;
+                button.setAttribute('type', 'button');
+                button.onclick = function () {
+                    console.log("actions[i].result()", actions[i].result());
+                    return actions[i].result() && content.focus();
+                };
+
+                if (actions[i].state) {
+                var handler = function handler() {
+                    return button.classList[actions[i].state() ? 'add' : 'remove'](classes.selected);
+                };
+                this.addEventListener(content, 'keyup', handler);
+                this.addEventListener(content, 'mouseup', handler);
+                this.addEventListener(button, 'click', handler);
+                }
+
+                this.appendChild(actionbar, button);
+            }
+
             if (settings.styleWithCSS) exec('styleWithCSS');
             exec(this.defaultParagraphSeparatorString, defaultParagraphSeparator);
+
             return settings.element;
         },
-
-        
 
 
         pellSettingTrue(){
@@ -436,95 +451,9 @@ export default {
             console.log(this.selectedFontOrderStyle)
             // document.getElementById("main").style.marginBottom = "0";
         },
-
-        onChangeCus: function (html) {
-            document.getElementById('text-output').innerHTML = html
-            document.getElementById('html-output').textContent = html
-        },
-
-        onInputContent(_ref){
-            let content = document.getElementsByClassName('pell-content-cus')[0];
-            var firstChild = _ref.target.firstChild;
-            if (firstChild && firstChild.nodeType === 3) exec(this.formatBlock, '<div>');else if (content.innerHTML === '<br>') content.innerHTML = '';
-            this.onChangeCus(content.innerHTML);
-        },
-
-        onKeyDownContent(event){
-            if (event.key === 'Enter' && document.queryCommandValue(this.formatBlock) === 'blockquote') {
-                setTimeout(function () {
-                    return exec(this.formatBlock, '<div>');
-                }, 0);
-            }
-        },
-        onClickPellButton(btnType, groupType, n){
-            if(groupType == 'fontsize'){
-                if(this.selectedFontSize == (n)){
-
-                }
-                else{
-                    this.selectedFontSize = n
-                }
-            }
-            if(groupType == 'fontstyle'){
-                if(this.selectedFontStyle.includes(n-1)){
-                    this.selectedFontStyle.splice(this.selectedFontStyle.indexOf(n-1), 1)
-                }
-                else{
-                    this.selectedFontStyle.push(n-1);
-                }
-            }
-            if(groupType == 'fontorderstyle'){
-                if(this.selectedFontOrderStyle == (n-1)){
-                    this.selectedFontOrderStyle = null;
-                }
-                else{
-                    this.selectedFontOrderStyle = n-1
-                }
-            }
-            let content = document.getElementsByClassName('pell-content-cus')[0];
-            if(
-                btnType == 'bold' ||
-                btnType == 'italic' ||
-                btnType == 'underline' ||
-                btnType == 'strikeThrough' ||
-                btnType == 'insertOrderedList' ||
-                btnType == 'insertUnorderedList' ||
-                btnType == 'insertHorizontalRule' 
-            ){
-                return exec(btnType)&&content.focus();
-                // return exec(btnType);
-            }
-            else if(
-                btnType == 'h1' ||
-                btnType == 'h2' ||
-                btnType == 'p' ||
-                btnType == 'blockquote' ||
-                btnType == 'pre' ||
-                btnType == 'h6'
-            ){
-                return exec('formatBlock', '<'+ btnType +'>')&&content.focus();
-                // return exec('formatBlock', '<'+ btnType +'>');
-            }
-        },
-
-        toggleFontOrderStyle(n){
-            if(this.selectedFontOrderStyle == (n-1)){
-                this.selectedFontOrderStyle = null
-            }else{
-                this.selectedFontOrderStyle = n-1;
-            }
-        }
     }
 }
 </script>
-
-    
-          
-            
-          
-    
-    
-  
     
 <style>
     .content {
@@ -533,27 +462,25 @@ export default {
         max-width: 600px;
         padding: 20px;
       }
+
       #html-output {
         white-space: pre-wrap;
       }
       .pell {
   border: 1px solid rgba(10, 10, 10, 0.1);
   box-sizing: border-box; }
+
 .pell-content {
   box-sizing: border-box;
   height: 300px;
   outline: 0;
   overflow-y: auto;
   padding: 10px; }
-.pell-content-cus {
-  box-sizing: border-box;
-  height: 300px;
-  outline: 0;
-  overflow-y: auto;
-  padding: 10px; }
+
 .pell-actionbar {
   background-color: #FFF;
   border-bottom: 1px solid rgba(10, 10, 10, 0.1); }
+
 .pell-button {
   background-color: transparent;
   border: none;
@@ -562,6 +489,8 @@ export default {
   outline: 0;
   width: 30px;
   vertical-align: bottom; }
+
 .pell-button-selected {
-  background-color: red; }
+  background-color: #F0F0F0; }
+
 </style>
