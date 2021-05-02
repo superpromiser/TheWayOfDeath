@@ -1,21 +1,6 @@
 <template>
     <v-container fluid class="bg-secondary">
         <div id="editor" class="pell">
-            <div class="pell-actionbar">
-                <button class="pell-button" @click="onClickPellButton('bold')" title="Bold" type="button"><b>B</b></button>
-                <button class="pell-button" @click="onClickPellButton('italic')" title="Italic" type="button"><i>I</i></button>
-                <button class="pell-button" @click="onClickPellButton('underline')" title="Underline" type="button"><u>U</u></button>
-                <button class="pell-button" @click="onClickPellButton('strikeThrough')" title="Strike-through" type="button"><strike>S</strike></button>
-                <button class="pell-button" @click="onClickPellButton('h1')" title="Heading 1" type="button"><b>H<sub>1</sub></b></button>
-                <button class="pell-button" @click="onClickPellButton('h2')" title="Heading 2" type="button"><b>H<sub>2</sub></b></button>
-                <button class="pell-button" @click="onClickPellButton('p')" title="Paragraph" type="button">¶</button>
-                <button class="pell-button" @click="onClickPellButton('h6')" title="Paragraph" type="button">s</button>
-                <button class="pell-button" @click="onClickPellButton('blockquote')" title="Quote" type="button">“ ”</button>
-                <button class="pell-button" @click="onClickPellButton('insertOrderedList')" title="Ordered List" type="button">#</button>
-                <button class="pell-button" @click="onClickPellButton('insertUnorderedList')" title="Unordered List" type="button">•</button>
-                <button class="pell-button" @click="onClickPellButton('pre')" title="Code" type="button">&lt;/&gt;</button>
-                <button class="pell-button" @click="onClickPellButton('insertHorizontalRule')" title="Horizontal Line" type="button">―</button>
-            </div>
             <div contenteditable="true" class="pell-content-cus" @input="onInputContent" @keydown="onKeyDownContent"></div>
         </div>
         <div style="margin-top:20px;">
