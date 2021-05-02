@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UserIdFieldToAnouncements extends Migration
+class AddFieldsToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class UserIdFieldToAnouncements extends Migration
      */
     public function up()
     {
-        Schema::table('anouncements', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
+            $table->char('subjectName')->nullable();
             //
-            $table->unsignedBigInteger('userId');
-            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -27,7 +26,7 @@ class UserIdFieldToAnouncements extends Migration
      */
     public function down()
     {
-        Schema::table('anouncements', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }

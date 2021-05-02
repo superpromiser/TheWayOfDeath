@@ -207,7 +207,7 @@ export default {
     },
     selMember(user){
       console.log(user)
-      this.$router.push({name:'schoolSpace.memProfile',params:{userId:user.id}});
+      this.$router.push({name:'classSpace.memProfile',params:{userId:user.id}});
     }
   }
 }

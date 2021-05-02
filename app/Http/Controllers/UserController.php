@@ -44,12 +44,12 @@ class UserController extends Controller
         $staffData['groupArr'] = $groupArr;
         $manager = User::create($staffData);
 
-        $memberData['schoolId'] = $schoolId;
-        $memberData['gradeId'] = $request->gradeId;
-        $memberData['lessonId'] = $request->lessonId;
-        $memberData['userId'] = $manager->id;
-        $memberData['userRoleId'] = $request->roleId;
-        $member = Member::create($memberData);
+        // $memberData['schoolId'] = $schoolId;
+        // $memberData['gradeId'] = $request->gradeId;
+        // $memberData['lessonId'] = $request->lessonId;
+        // $memberData['userId'] = $manager->id;
+        // $memberData['userRoleId'] = $request->roleId;
+        // $member = Member::create($memberData);
 
         return response()->json([
             'msg' => 1,
@@ -508,6 +508,15 @@ class UserController extends Controller
     public function upProfile(Request $request)
     {
         $userId = $request->userId;
+        if($request->application){
+            $data = User::where('id',$userId)->update([
+                'avatar'=>$request->avatar,
+                'name'=>$request->name,
+                'phoneNumber'=>$request->phoneNumber,
+                'status'=>$request->status,
+                'subjectName'=>$request->subjectName
+            ]);
+        }
         if ($request->userName && $request->avatar) {
             $avatar = $request->avatar;
             $userName = $request->userName;

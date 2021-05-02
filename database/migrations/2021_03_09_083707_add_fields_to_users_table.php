@@ -15,8 +15,8 @@ class AddFieldsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('schoolId')->default(0);
-            $table->unsignedBigInteger('gradeId')->default(0);
-            $table->unsignedBigInteger('lessonId')->default(0);
+            $table->unsignedBigInteger('gradeId')->nullable();
+            $table->unsignedBigInteger('lessonId')->nullable();
             $table->string('gender')->nullable();
             $table->string('nation')->nullable();
             $table->unsignedBigInteger('cardNum')->nullable()->unique();
@@ -32,6 +32,7 @@ class AddFieldsToUsersTable extends Migration
             $table->timestamp('statusTo')->nullable();
             $table->json('schoolItem')->nullable();
             $table->json('classItem')->nullable();
+            
         });
     }
 

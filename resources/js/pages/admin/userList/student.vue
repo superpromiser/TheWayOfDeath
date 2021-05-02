@@ -152,6 +152,7 @@
                             <v-col cols="12" sm="6" md="4">
                                 <v-text-field
                                     v-model="editedItem.fatherPhone"
+                                    counter="11"
                                     class="max-length-11-staff-input-father-phone"
                                     label="家长电话"
                                 ></v-text-field>
@@ -681,6 +682,7 @@ export default {
 
       async save () {
         //name
+        // debugger
         if(this.editedItem.name.trim() == ''){
           return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
         }
@@ -739,10 +741,10 @@ export default {
           return this.$snackbar.showMessage({content: this.lang.requireFatherPhone, color: "error"})
         }
         if(/^\d*$/.test(this.editedItem.fatherPhone) == false){
-          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectPhoneNumber, color: 'error'});
         }
         if(this.editedItem.fatherPhone.length !== 11 ){
-          return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectPhoneNumber, color: 'error'});
         }
         //family address
         if(this.editedItem.familyAddress.city == null || 

@@ -914,7 +914,9 @@ export default {
               break;
           case 5:
               this.contentItemList = this.studentItem
-              break; 
+              break;
+          case 7:
+              this.contentItemList = this.teacherItem 
       }
   },
   methods:{

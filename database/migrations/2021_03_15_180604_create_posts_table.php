@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('contentId');
             $table->TinyInteger('schoolId')->nullable();
             $table->TinyInteger('classId')->nullable();
+            
             $table->foreign('contentId')->references('id')->on('contents')->onDelete('cascade');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');

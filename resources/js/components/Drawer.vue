@@ -41,19 +41,20 @@
       <v-list-group
         active-class="header-active"
         prepend-icon="mdi-cog-outline"
-        v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3"
+        v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7"
       >
         <template v-slot:activator>
           <v-list-item-title v-if="user.roleId == 2">学校管理</v-list-item-title>
           <v-list-item-title v-else-if="user.roleId == 1">系统设置</v-list-item-title>
           <v-list-item-title v-else-if="user.roleId == 3">教授管理</v-list-item-title>
+          <v-list-item-title v-else-if="user.roleId == 7">教授管理</v-list-item-title>
         </template>
           <v-list-item
             active-class="sub-header-active"
 
             link
             to="/admin/userlist"
-            v-if="user.role.roleName == 'manager'"
+            v-if="user.role.id == 2"
             >
             <v-list-item-title class="ml-9">名单</v-list-item-title>
             <v-list-item-icon>
@@ -64,7 +65,7 @@
             active-class="sub-header-active"
             link
             to="/admin/assignRole"
-            v-if="user.role.roleName == 'admin'"
+            v-if="user.role.id == 1"
             >
             <v-list-item-title class="ml-9">角色</v-list-item-title>
             <v-list-item-icon>
@@ -75,7 +76,7 @@
             active-class="sub-header-active"
             link
             to="/admin/school"
-            v-if="user.role.roleName == 'admin'"
+            v-if="user.role.id == 1"
             >
             <v-list-item-title class="ml-9">学校</v-list-item-title>
             <v-list-item-icon>
@@ -86,7 +87,7 @@
             active-class="sub-header-active"
             link
             to="/admin/grade"
-            v-if="user.role.roleName == 'admin'"
+            v-if="user.roleid == 1"
             >
             <v-list-item-title class="ml-9">年级</v-list-item-title>
             <v-list-item-icon>
@@ -97,7 +98,7 @@
             active-class="sub-header-active"
             link
             to="/admin/class"
-            v-if="user.role.roleName == 'admin'"
+            v-if="user.role.id == 1"
             >
             <v-list-item-title class="ml-9">班级</v-list-item-title>
             <v-list-item-icon>
@@ -115,7 +116,7 @@
               <v-icon>mdi-calendar-month</v-icon>
             </v-list-item-icon>
           </v-list-item> -->
-          <v-list class="py-0" v-if="user.role.roleName == 'manager'">
+          <v-list class="py-0" v-if="user.role.id == 2">
             <v-list-group  active-class="header-active">
             <template v-slot:activator>
               <v-list-item-title class="ml-9">课程维护</v-list-item-title>
@@ -179,7 +180,7 @@
             active-class="sub-header-active"
             link
             to="/admin/schedule/class"
-            v-if="user.role.roleName == 'teacher'"
+            v-if="user.role.id == 3 || user.role.id == 7"
             >
             <v-list-item-title class="ml-9">课程表管理</v-list-item-title>
             <v-list-item-icon>
@@ -190,14 +191,14 @@
             active-class="sub-header-active"
             link
             to="/admin/vacation/teacher"
-            v-if="user.role.roleName == 'teacher'"
+            v-if="user.role.id == 3 || user.role.id == 7"
             >
             <v-list-item-title class="ml-9">请假审批</v-list-item-title>
             <v-list-item-icon>
               <v-icon>mdi-check-decagram </v-icon>
             </v-list-item-icon>
           </v-list-item>
-          <v-list class="py-0" v-if="user.role.roleName == 'manager' || user.role.roleName == 'teacher'">
+          <v-list class="py-0" v-if="user.role.id == 2 || user.role.id == 3 || user.role.id == 7">
             <v-list-group  active-class="header-active">
             <template v-slot:activator>
               <v-list-item-title class="ml-9">考勤</v-list-item-title>

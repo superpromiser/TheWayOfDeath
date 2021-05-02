@@ -11,7 +11,6 @@ export const state = {
 
   schoolStoryList : null,
   classStoryList : null,
-  classStoryLista : [],
 
   //moBottomNav
   value: 0,

@@ -35,7 +35,7 @@ class GroupController extends Controller
             'lessonId' => 'required'
         ]);
         // return Group::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->with('members:id,name')->get();
-        $userList['teacher'] = User::where(['schoolId' => $request->schoolId, 'roleId' => 3])->get();
+        $userList['teacher'] = User::where(['schoolId' => $request->schoolId])->whereIn('roleId',[3,7])->get();
         $result['teachers'] = array();
         foreach ($userList['teacher'] as $user) {
             $groupArr = $user->groupArr;
