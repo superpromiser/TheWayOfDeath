@@ -199,7 +199,7 @@ export default {
             //         {
             //             color : "#E4BC16",
             //             title : "话题",//화제
-            //             imgUrl : "/asset/img/newIcon/话题.png",
+            //             imgUrl : "/asset/img/newIcon/discussion.png",
             //             path : "something"
             //         },
             //     ],
@@ -217,7 +217,7 @@ export default {
             //         {
             //             color : "#7180EA",
             //             title : "话题",//화제
-            //             imgUrl : "/asset/img/newIcon/话题.png",
+            //             imgUrl : "/asset/img/newIcon/discussion.png",
             //             path : "something"
             //         },
             //     ],
@@ -327,7 +327,7 @@ export default {
                     {
                         color : "lime darken-4",
                         title : "表彰",
-                        imgUrl : "/asset/img/icon/表彰.png",
+                        imgUrl : "/asset/img/icon/recognition.png",
                         path : "posts.Crecognition"
                     },
                 ],

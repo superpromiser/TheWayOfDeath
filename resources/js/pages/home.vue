@@ -393,7 +393,7 @@ export default {
       },
       {
         title : "表彰",
-        imgUrl : "/asset/img/icon/表彰.png",
+        imgUrl : "/asset/img/icon/recognition.png",
         path : "posts.Crecognition"
       },
       {
