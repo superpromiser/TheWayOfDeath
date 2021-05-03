@@ -988,10 +988,10 @@ class UserController extends Controller
     {
         $user = Auth::user();
         if($user->id == 2){
-            $userList = User::where('schoolId', $user->schoolId)->where('roleId', 5)->load('role')->get();
+            $userList = User::where('schoolId', $user->schoolId)->where('roleId', 5)->with('role')->get();
         }
         else if($user->id == 7 || $user->id == 4 || $user->id == 5){
-            $userList = User::where('schoolId', $user->schoolId)->where('lessonId', $user->lessonId)->load('role')->where('roleId', 5)->get();
+            $userList = User::where('schoolId', $user->schoolId)->where('lessonId', $user->lessonId)->with('role')->where('roleId', 5)->get();
         }
         else{
             $userList = [];

@@ -172,6 +172,15 @@ export default{
                 return '女'
             }
         },
+        transFatherJob(str){
+            if(str == 'farmer'){
+                return '农民'
+            }else if(str == 'worker'){
+                return '工人'
+            }else if(str == 'developer'){
+                return '开发商'
+            }
+        },
         pnEncrypt(num){
             let enNum = ''
             // for(let i=0;i<num.length;i++){

@@ -21,13 +21,13 @@ export default {
             '电话号码': 'phoneNumber',
             'IMEI': 'imei',
             '角色': 'role.name',
-            //'性別': 'gender',
+            '性別': 'gender',
             '民族': 'nation',
             '身份证号': 'cardNum',
-            //'出生日期': 'birthday',
+            '出生日期': 'birthday',
             '家长姓名': 'fatherName',
             '家长电话': 'fatherPhone',
-            // '家长身份': 'fatherJob',
+            '家长身份': 'fatherJob',
             '家庭地址': 'familyAddress',
             '个人介绍': 'introduce',
 
@@ -122,7 +122,9 @@ export default {
                 if(this.userList[i].residenceAddress !== null){
                     this.userList[i].residenceAddress = this.convertAddress(this.userList[i].residenceAddress)
                 }
-                // this.userList[i].gender = 
+                this.userList[i].gender = this.transGender(this.userList[i].gender);
+                this.userList[i].fatherJob = this.transFatherJob(this.userList[i].fatherJob);
+                this.userList[i].birthday = this.TimeViewYMD(this.userList[i].birthday);
             }
             console.log("this.userList", this.userList)
             this.json_data = this.userList;
