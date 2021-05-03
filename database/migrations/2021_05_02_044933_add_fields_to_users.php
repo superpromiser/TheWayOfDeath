@@ -15,6 +15,7 @@ class AddFieldsToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->char('subjectName')->nullable();
+            $table->json('children')->nullable();
             //
         });
     }

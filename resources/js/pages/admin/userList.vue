@@ -23,6 +23,11 @@
                 >
                     <v-icon class="mr-2">mdi-file-account</v-icon>学生
                 </v-tab>
+                <v-tab
+                    to="/admin/userlist/excelImport"
+                >
+                    <v-icon class="mr-2">mdi-microsoft-excel</v-icon>学生
+                </v-tab>
             </v-tabs>
         </v-row>
         <transition name="fade" mode="out-in">
