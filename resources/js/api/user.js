@@ -72,6 +72,10 @@ function getMyFile(){
     return axios.get('/api/v1/user/profile/myfile')
 }
 
+function getUserListExcel() {
+    return axios.get('/api/v1/users/excel/import')
+}
+
 
 export{
     createStaff,
@@ -93,6 +97,6 @@ export{
     addGroupMember,
     getEmployeeList,
     getMyFile,
-    
+    getUserListExcel,
 
 }

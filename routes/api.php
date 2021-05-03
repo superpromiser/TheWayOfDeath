@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('studentBylessonId', 'UserController@getstudentBylessonId')->name('getstudentBylessonId');
 
     Route::get('users', 'UserController@readUser')->name('readUser');
+    Route::get('users/excel/import', 'UserController@excelImport')->name('excelImport');
     Route::get('users/status', 'UserController@getStatus')->name('getStatus');
     Route::put('users', 'UserController@updateUser')->name('updateUser');
     Route::delete('users', 'UserController@deleteUser')->name('deleteUser');
