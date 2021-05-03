@@ -38,7 +38,7 @@ class UsersImport implements ToModel, WithHeadingRow
              'nation'=>$row['国籍'],
              'cardNum'=>$row['身份证号码'],
              'familyAddress'=>$row['家庭地址'],
-             'residenceAddres'=>$row['现住址'],
+             'residenceAddress'=>$row['现住址'],
              'children'=>$row['子女'],
              'introduce'=>$row['简介'],
              'bithday'=>$row['生日'],

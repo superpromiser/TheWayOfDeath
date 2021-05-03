@@ -15,7 +15,7 @@ class UserImportController extends Controller
     public function store(Request $request){
         $file = $request->file('file')->store('import');
         // Excel::import(new UsersImport, $file);
-        (new UsersImport)->import($file);
+        // (new UsersImport)->import($file);
         $import = new UsersImport;
         $import->import($file);
         return true;
