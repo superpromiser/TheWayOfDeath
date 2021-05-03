@@ -41,25 +41,25 @@ export default {
                 // {
                 //     color:"#3EBBE8",
                 //     title:"请假单",//휴가신청
-                //     imgUrl:"/asset/img/newIcon/颜色填充 2.png",
+                //     imgUrl:"/asset/img/newIcon/vocationRequest.png",
                 //     path:"posts.vocation"
                 // },
                 {
                     color:"#3EBBE8",
                     title:"请假审批",//휴가심사
-                    imgUrl:"/asset/img/newIcon/审批.png",
+                    imgUrl:"/asset/img/newIcon/vocationReply.png",
                     path:"posts.vocation"
                 },
                 {
                     color:"#3EBBE8",
                     title:"考勤",//출근
-                    imgUrl:"/asset/img/newIcon/考勤.png",
+                    imgUrl:"/asset/img/newIcon/attendance.png",
                     path:"posts.attendance"
                 },
         //         {
         //             color:"#3EBBE8",
         //             title:"课程表",//시간표
-        //             imgUrl:"/asset/img/newIcon/calendar.png",
+        //             imgUrl:"/asset/img/newIcon/scheduleClass.png",
         //             path:"admin.scheduleClass"
         //         },
             ]
@@ -71,43 +71,43 @@ export default {
                 // {
                 //     color:"#B673E0",
                 //     title:"通讯录",//주소록
-                //     imgUrl:"/asset/img/newIcon/address book.png",
+                //     imgUrl:"/asset/img/newIcon/member.png",
                 //     path:"schoolSpace.member"
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"文件",//문건
-                //     imgUrl:"/asset/img/newIcon/paper clip.png",
+                //     imgUrl:"/asset/img/newIcon/file.png",
                 //     path:"posts."
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"话题",//화제
-                //     imgUrl:"/asset/img/newIcon/话题.png",
+                //     imgUrl:"/asset/img/newIcon/discussion.png",
                 //     path:"posts."
                 // },
                 {
                     color:"#B673E0",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/图层 3.png",
+                    imgUrl:"/asset/img/newIcon/share1.png",
                     path:"posts.share"
                 },
                 {
                     color:"#B673E0",
                     title:"问卷",//설문
-                    imgUrl:"/asset/img/newIcon/颜色填充 1.png",
+                    imgUrl:"/asset/img/newIcon/questionnaire.png",
                     path:"posts.Cquestionnaire"
                 },
                 {
                     color:"#B673E0",
                     title:"投票",//투표
-                    imgUrl:"/asset/img/newIcon/graph chart 3.png",
+                    imgUrl:"/asset/img/newIcon/voting.png",
                     path:"posts.Cvoting"
                 },
                 {
                     color:"#B673E0",
                     title:"报名",//이름등록
-                    imgUrl:"/asset/img/newIcon/Shape 18.png",
+                    imgUrl:"/asset/img/newIcon/regName.png",
                     path:"posts.regname"
                 },
             ]
@@ -120,19 +120,19 @@ export default {
                 {
                     color:"#E4BC16",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/share.png",
+                    imgUrl:"/asset/img/newIcon/share2.png",
                     path:"posts.share"
                 },
                 {
                     color:"#E4BC16",
                     title:"公告",//공시
-                    imgUrl:"/asset/img/newIcon/megaphone 2.png",
+                    imgUrl:"/asset/img/newIcon/announcement.png",
                     path:"posts.announcement"
                 },
                 {
                     color:"#E4BC16",
                     title:"作业",//숙제
-                    imgUrl:"/asset/img/newIcon/open book 2.png",
+                    imgUrl:"/asset/img/newIcon/homework.png",
                     path:"posts.Chomework"
                 },
             ]
@@ -144,31 +144,31 @@ export default {
                 // {
                 //     color:"#98BB3A",
                 //     title:"访客管理",//방문자관리
-                //     imgUrl:"/asset/img/newIcon/图层 1.png",
+                //     imgUrl:"/asset/img/newIcon/manageGuests.png",
                 //     path:"posts."
                 // },
                 // {
                 //     color:"#98BB3A",
                 //     title:"归程队",//귀한팀관리
-                //     imgUrl:"/asset/img/newIcon/排队数.png",
+                //     imgUrl:"/asset/img/newIcon/returnTeam.png",
                 //     path:"classSpace.returnTeam"
                 // },
                 {
                     color:"#98BB3A",
                     title:"打卡管理",//카드긋기
-                    imgUrl:"/asset/img/newIcon/打卡.png",
+                    imgUrl:"/asset/img/newIcon/cardcheck.png",
                     path:"posts."
                 },
                 {
                     color:"#98BB3A",
                     title:"维修工单",//수리공
-                    imgUrl:"/asset/img/newIcon/维修.png",
+                    imgUrl:"/asset/img/newIcon/repair.png",
                     path:"posts.repair"
                 },
                 {
                     color:"#98BB3A",
                     title:"安全教育",//안전교육
-                    imgUrl:"/asset/img/newIcon/安全教育.png",
+                    imgUrl:"/asset/img/newIcon/safeStudy.png",
                     path:"posts.safeStudy"
                 },
             ]
@@ -180,20 +180,20 @@ export default {
                 {
                     color:"#C95384",
                     title:"班级动态",//학급동태
-                    imgUrl:"/asset/img/newIcon/班级动态 (1).png",
+                    imgUrl:"/asset/img/newIcon/classStory.png",
                     path:"posts.classStory",
 
                 },
                 {
                     color:"#C95384",
                     title:"班际动态",//학급별동태
-                    imgUrl:"/asset/img/newIcon/动态.png",
+                    imgUrl:"/asset/img/newIcon/interClassStory.png",
                     path:"posts.interClassStory",
                 },
                 {
                     color:"#C95384",
                     title:"表彰",//영예표창
-                    imgUrl:"/asset/img/newIcon/表彰.png",
+                    imgUrl:"/asset/img/newIcon/recognition.png",
                     path:"posts.Crecognition",
 
                 },
@@ -208,31 +208,31 @@ export default {
                 // {
                 //     color:"#3EBBE8",
                 //     title:"课程维护",//수업유지
-                //     imgUrl:"/asset/img/newIcon/tools.png",
+                //     imgUrl:"/asset/img/newIcon/schedule.png",
                 //     path:"admin.schedule"
                 // },
                 // {
                 //     color:"#3EBBE8",
                 //     title:"请假单",//휴가신청
-                //     imgUrl:"/asset/img/newIcon/颜色填充 2.png",
+                //     imgUrl:"/asset/img/newIcon/vocationRequest.png",
                 //     path:"posts.vocation"
                 // },
                 {
                     color:"#3EBBE8",
                     title:"请假审批",//휴가심사
-                    imgUrl:"/asset/img/newIcon/审批.png",
+                    imgUrl:"/asset/img/newIcon/vocationReply.png",
                     path:"posts.vocation"
                 },
                 {
                     color:"#3EBBE8",
                     title:"考勤",//출근
-                    imgUrl:"/asset/img/newIcon/考勤.png",
+                    imgUrl:"/asset/img/newIcon/attendance.png",
                     path:"posts.attendance"
                 },
         //         {
         //             color:"#3EBBE8",
         //             title:"课程表",//시간표
-        //             imgUrl:"/asset/img/newIcon/calendar.png",
+        //             imgUrl:"/asset/img/newIcon/scheduleClass.png",
         //             path:"admin.scheduleClass"
         //         },
             ]
@@ -244,43 +244,43 @@ export default {
                 // {
                 //     color:"#B673E0",
                 //     title:"通讯录",//주소록
-                //     imgUrl:"/asset/img/newIcon/address book.png",
+                //     imgUrl:"/asset/img/newIcon/member.png",
                 //     path:"schoolSpace.member"
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"文件",//문건
-                //     imgUrl:"/asset/img/newIcon/paper clip.png",
+                //     imgUrl:"/asset/img/newIcon/file.png",
                 //     path:"posts."
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"话题",//화제
-                //     imgUrl:"/asset/img/newIcon/话题.png",
+                //     imgUrl:"/asset/img/newIcon/discussion.png",
                 //     path:"posts."
                 // },
                 {
                     color:"#B673E0",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/图层 3.png",
+                    imgUrl:"/asset/img/newIcon/share1.png",
                     path:"posts.share"
                 },
                 {
                     color:"#B673E0",
                     title:"问卷",//설문
-                    imgUrl:"/asset/img/newIcon/颜色填充 1.png",
+                    imgUrl:"/asset/img/newIcon/questionnaire.png",
                     path:"posts.Cquestionnaire"
                 },
                 {
                     color:"#B673E0",
                     title:"投票",//투표
-                    imgUrl:"/asset/img/newIcon/graph chart 3.png",
+                    imgUrl:"/asset/img/newIcon/voting.png",
                     path:"posts.Cvoting"
                 },
                 {
                     color:"#B673E0",
                     title:"报名",//이름등록
-                    imgUrl:"/asset/img/newIcon/Shape 18.png",
+                    imgUrl:"/asset/img/newIcon/regName.png",
                     path:"posts.regname"
                 },
             ]
@@ -293,19 +293,19 @@ export default {
                 {
                     color:"#E4BC16",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/share.png",
+                    imgUrl:"/asset/img/newIcon/share2.png",
                     path:"posts.share"
                 },
                 {
                     color:"#E4BC16",
                     title:"公告",//공시
-                    imgUrl:"/asset/img/newIcon/megaphone 2.png",
+                    imgUrl:"/asset/img/newIcon/announcement.png",
                     path:"posts.announcement"
                 },
                 {
                     color:"#E4BC16",
                     title:"作业",//숙제
-                    imgUrl:"/asset/img/newIcon/open book 2.png",
+                    imgUrl:"/asset/img/newIcon/homework.png",
                     path:"posts.Chomework"
                 },
             ]
@@ -317,31 +317,31 @@ export default {
                 {
                     color:"#98BB3A",
                     title:"访客管理",//방문자관리
-                    imgUrl:"/asset/img/newIcon/图层 1.png",
+                    imgUrl:"/asset/img/newIcon/manageGuests.png",
                     path:"posts."
                 },
                 {
                     color:"#98BB3A",
                     title:"归程队",//귀한팀관리
-                    imgUrl:"/asset/img/newIcon/排队数.png",
+                    imgUrl:"/asset/img/newIcon/returnTeam.png",
                     path:"classSpace.returnTeam"
                 },
                 {
                     color:"#98BB3A",
                     title:"打卡管理",//카드긋기
-                    imgUrl:"/asset/img/newIcon/打卡.png",
+                    imgUrl:"/asset/img/newIcon/cardcheck.png",
                     path:"posts."
                 },
                 {
                     color:"#98BB3A",
                     title:"维修工单",//수리공
-                    imgUrl:"/asset/img/newIcon/维修.png",
+                    imgUrl:"/asset/img/newIcon/repair.png",
                     path:"posts.repair"
                 },
                 {
                     color:"#98BB3A",
                     title:"安全教育",//안전교육
-                    imgUrl:"/asset/img/newIcon/安全教育.png",
+                    imgUrl:"/asset/img/newIcon/safeStudy.png",
                     path:"posts.safeStudy"
                 },
             ]
@@ -353,20 +353,20 @@ export default {
                 {
                     color:"#C95384",
                     title:"班级动态",//학급동태
-                    imgUrl:"/asset/img/newIcon/班级动态 (1).png",
+                    imgUrl:"/asset/img/newIcon/classStory.png",
                     path:"posts.classStory",
 
                 },
                 {
                     color:"#C95384",
                     title:"班际动态",//학급별동태
-                    imgUrl:"/asset/img/newIcon/动态.png",
+                    imgUrl:"/asset/img/newIcon/interClassStory.png",
                     path:"posts.interClassStory",
                 },
                 {
                     color:"#C95384",
                     title:"表彰",//영예표창
-                    imgUrl:"/asset/img/newIcon/表彰.png",
+                    imgUrl:"/asset/img/newIcon/recognition.png",
                     path:"posts.Crecognition",
 
                 },
@@ -381,31 +381,31 @@ export default {
                 // {
                 //     color:"#3EBBE8",
                 //     title:"课程维护",//수업유지
-                //     imgUrl:"/asset/img/newIcon/tools.png",
+                //     imgUrl:"/asset/img/newIcon/schedule.png",
                 //     path:"admin.schedule"
                 // },
                 // {
                 //     color:"#3EBBE8",
                 //     title:"请假单",//휴가신청
-                //     imgUrl:"/asset/img/newIcon/颜色填充 2.png",
+                //     imgUrl:"/asset/img/newIcon/vocationRequest.png",
                 //     path:"posts.vocation"
                 // },
                 {
                     color:"#3EBBE8",
                     title:"请假审批",//휴가심사
-                    imgUrl:"/asset/img/newIcon/审批.png",
+                    imgUrl:"/asset/img/newIcon/vocationReply.png",
                     path:"posts.vocation"
                 },
                 {
                     color:"#3EBBE8",
                     title:"考勤",//출근
-                    imgUrl:"/asset/img/newIcon/考勤.png",
+                    imgUrl:"/asset/img/newIcon/attendance.png",
                     path:"posts.attendance"
                 },
                 {
                     color:"#3EBBE8",
                     title:"课程表",//시간표
-                    imgUrl:"/asset/img/newIcon/calendar.png",
+                    imgUrl:"/asset/img/newIcon/scheduleClass.png",
                     path:"admin.scheduleClass"
                 },
             ]
@@ -417,43 +417,43 @@ export default {
                 // {
                 //     color:"#B673E0",
                 //     title:"通讯录",//주소록
-                //     imgUrl:"/asset/img/newIcon/address book.png",
+                //     imgUrl:"/asset/img/newIcon/member.png",
                 //     path:"schoolSpace.member"
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"文件",//문건
-                //     imgUrl:"/asset/img/newIcon/paper clip.png",
+                //     imgUrl:"/asset/img/newIcon/file.png",
                 //     path:"posts."
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"话题",//화제
-                //     imgUrl:"/asset/img/newIcon/话题.png",
+                //     imgUrl:"/asset/img/newIcon/discussion.png",
                 //     path:"posts."
                 // },
                 {
                     color:"#B673E0",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/图层 3.png",
+                    imgUrl:"/asset/img/newIcon/share1.png",
                     path:"posts.share"
                 },
                 {
                     color:"#B673E0",
                     title:"问卷",//설문
-                    imgUrl:"/asset/img/newIcon/颜色填充 1.png",
+                    imgUrl:"/asset/img/newIcon/questionnaire.png",
                     path:"posts.Cquestionnaire"
                 },
                 {
                     color:"#B673E0",
                     title:"投票",//투표
-                    imgUrl:"/asset/img/newIcon/graph chart 3.png",
+                    imgUrl:"/asset/img/newIcon/voting.png",
                     path:"posts.Cvoting"
                 },
                 {
                     color:"#B673E0",
                     title:"报名",//이름등록
-                    imgUrl:"/asset/img/newIcon/Shape 18.png",
+                    imgUrl:"/asset/img/newIcon/regName.png",
                     path:"posts.regname"
                 },
             ]
@@ -466,19 +466,19 @@ export default {
                 {
                     color:"#E4BC16",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/share.png",
+                    imgUrl:"/asset/img/newIcon/share2.png",
                     path:"posts.share"
                 },
                 {
                     color:"#E4BC16",
                     title:"公告",//공시
-                    imgUrl:"/asset/img/newIcon/megaphone 2.png",
+                    imgUrl:"/asset/img/newIcon/announcement.png",
                     path:"posts.announcement"
                 },
                 {
                     color:"#E4BC16",
                     title:"作业",//숙제
-                    imgUrl:"/asset/img/newIcon/open book 2.png",
+                    imgUrl:"/asset/img/newIcon/homework.png",
                     path:"posts.Chomework"
                 },
             ]
@@ -490,31 +490,31 @@ export default {
                 {
                     color:"#98BB3A",
                     title:"访客管理",//방문자관리
-                    imgUrl:"/asset/img/newIcon/图层 1.png",
+                    imgUrl:"/asset/img/newIcon/manageGuests.png",
                     path:"posts."
                 },
                 {
                     color:"#98BB3A",
                     title:"归程队",//귀한팀관리
-                    imgUrl:"/asset/img/newIcon/排队数.png",
+                    imgUrl:"/asset/img/newIcon/returnTeam.png",
                     path:"classSpace.returnTeam"
                 },
                 {
                     color:"#98BB3A",
                     title:"打卡管理",//카드긋기
-                    imgUrl:"/asset/img/newIcon/打卡.png",
+                    imgUrl:"/asset/img/newIcon/cardcheck.png",
                     path:"posts."
                 },
                 {
                     color:"#98BB3A",
                     title:"维修工单",//수리공
-                    imgUrl:"/asset/img/newIcon/维修.png",
+                    imgUrl:"/asset/img/newIcon/repair.png",
                     path:"posts.repair"
                 },
                 {
                     color:"#98BB3A",
                     title:"安全教育",//안전교육
-                    imgUrl:"/asset/img/newIcon/安全教育.png",
+                    imgUrl:"/asset/img/newIcon/safeStudy.png",
                     path:"posts.safeStudy"
                 },
             ]
@@ -526,20 +526,20 @@ export default {
                 {
                     color:"#C95384",
                     title:"班级动态",//학급동태
-                    imgUrl:"/asset/img/newIcon/班级动态 (1).png",
+                    imgUrl:"/asset/img/newIcon/classStory.png",
                     path:"posts.classStory",
 
                 },
                 {
                     color:"#C95384",
                     title:"班际动态",//학급별동태
-                    imgUrl:"/asset/img/newIcon/动态.png",
+                    imgUrl:"/asset/img/newIcon/interClassStory.png",
                     path:"posts.interClassStory",
                 },
                 {
                     color:"#C95384",
                     title:"表彰",//영예표창
-                    imgUrl:"/asset/img/newIcon/表彰.png",
+                    imgUrl:"/asset/img/newIcon/recognition.png",
                     path:"posts.Crecognition",
 
                 },
@@ -554,31 +554,31 @@ export default {
                 // {
                 //     color:"#3EBBE8",
                 //     title:"课程维护",//수업유지
-                //     imgUrl:"/asset/img/newIcon/tools.png",
+                //     imgUrl:"/asset/img/newIcon/schedule.png",
                 //     path:"admin.schedule"
                 // },
                 // {
                 //     color:"#3EBBE8",
                 //     title:"请假单",//휴가신청
-                //     imgUrl:"/asset/img/newIcon/颜色填充 2.png",
+                //     imgUrl:"/asset/img/newIcon/vocationRequest.png",
                 //     path:"posts.vocation"
                 // },
                 // {
                 //     color:"#3EBBE8",
                 //     title:"请假审批",//휴가심사
-                //     imgUrl:"/asset/img/newIcon/审批.png",
+                //     imgUrl:"/asset/img/newIcon/vocationReply.png",
                 //     path:"posts.vocation"
                 // },
         //         {
         //             color:"#3EBBE8",
         //             title:"考勤",//출근
-        //             imgUrl:"/asset/img/newIcon/考勤.png",
+        //             imgUrl:"/asset/img/newIcon/attendance.png",
         //             path:"posts.attendance"
         //         },
                 {
                     color:"#3EBBE8",
                     title:"课程表",//시간표
-                    imgUrl:"/asset/img/newIcon/calendar.png",
+                    imgUrl:"/asset/img/newIcon/scheduleClass.png",
                     path:"admin.scheduleClass"
                 },
             ]
@@ -590,43 +590,43 @@ export default {
                 // {
                 //     color:"#B673E0",
                 //     title:"通讯录",//주소록
-                //     imgUrl:"/asset/img/newIcon/address book.png",
+                //     imgUrl:"/asset/img/newIcon/member.png",
                 //     path:"schoolSpace.member"
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"文件",//문건
-                //     imgUrl:"/asset/img/newIcon/paper clip.png",
+                //     imgUrl:"/asset/img/newIcon/file.png",
                 //     path:"posts."
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"话题",//화제
-                //     imgUrl:"/asset/img/newIcon/话题.png",
+                //     imgUrl:"/asset/img/newIcon/discussion.png",
                 //     path:"posts."
                 // },
                 {
                     color:"#B673E0",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/图层 3.png",
+                    imgUrl:"/asset/img/newIcon/share1.png",
                     path:"posts.share"
                 },
                 {
                     color:"#B673E0",
                     title:"问卷",//설문
-                    imgUrl:"/asset/img/newIcon/颜色填充 1.png",
+                    imgUrl:"/asset/img/newIcon/questionnaire.png",
                     path:"posts.Cquestionnaire"
                 },
                 {
                     color:"#B673E0",
                     title:"投票",//투표
-                    imgUrl:"/asset/img/newIcon/graph chart 3.png",
+                    imgUrl:"/asset/img/newIcon/voting.png",
                     path:"posts.Cvoting"
                 },
                 {
                     color:"#B673E0",
                     title:"报名",//이름등록
-                    imgUrl:"/asset/img/newIcon/Shape 18.png",
+                    imgUrl:"/asset/img/newIcon/regName.png",
                     path:"posts.regname"
                 },
             ]
@@ -639,19 +639,19 @@ export default {
                 {
                     color:"#E4BC16",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/share.png",
+                    imgUrl:"/asset/img/newIcon/share2.png",
                     path:"posts.share"
                 },
                 {
                     color:"#E4BC16",
                     title:"公告",//공시
-                    imgUrl:"/asset/img/newIcon/megaphone 2.png",
+                    imgUrl:"/asset/img/newIcon/announcement.png",
                     path:"posts.announcement"
                 },
                 {
                     color:"#E4BC16",
                     title:"作业",//숙제
-                    imgUrl:"/asset/img/newIcon/open book 2.png",
+                    imgUrl:"/asset/img/newIcon/homework.png",
                     path:"posts.Chomework"
                 },
             ]
@@ -663,31 +663,31 @@ export default {
                 // {
                 //     color:"#98BB3A",
                 //     title:"访客管理",//방문자관리
-                //     imgUrl:"/asset/img/newIcon/图层 1.png",
+                //     imgUrl:"/asset/img/newIcon/manageGuests.png",
                 //     path:"posts."
                 // },
                 {
                     color:"#98BB3A",
                     title:"归程队",//귀한팀관리
-                    imgUrl:"/asset/img/newIcon/排队数.png",
+                    imgUrl:"/asset/img/newIcon/returnTeam.png",
                     path:"classSpace.returnTeam"
                 },
                 {
                     color:"#98BB3A",
                     title:"打卡管理",//카드긋기
-                    imgUrl:"/asset/img/newIcon/打卡.png",
+                    imgUrl:"/asset/img/newIcon/cardcheck.png",
                     path:"posts."
                 },
                 {
                     color:"#98BB3A",
                     title:"维修工单",//수리공
-                    imgUrl:"/asset/img/newIcon/维修.png",
+                    imgUrl:"/asset/img/newIcon/repair.png",
                     path:"posts.repair"
                 },
                 {
                     color:"#98BB3A",
                     title:"安全教育",//안전교육
-                    imgUrl:"/asset/img/newIcon/安全教育.png",
+                    imgUrl:"/asset/img/newIcon/safeStudy.png",
                     path:"posts.safeStudy"
                 },
             ]
@@ -699,20 +699,20 @@ export default {
                 {
                     color:"#C95384",
                     title:"班级动态",//학급동태
-                    imgUrl:"/asset/img/newIcon/班级动态 (1).png",
+                    imgUrl:"/asset/img/newIcon/classStory.png",
                     path:"posts.classStory",
 
                 },
                 {
                     color:"#C95384",
                     title:"班际动态",//학급별동태
-                    imgUrl:"/asset/img/newIcon/动态.png",
+                    imgUrl:"/asset/img/newIcon/interClassStory.png",
                     path:"posts.interClassStory",
                 },
                 {
                     color:"#C95384",
                     title:"表彰",//영예표창
-                    imgUrl:"/asset/img/newIcon/表彰.png",
+                    imgUrl:"/asset/img/newIcon/recognition.png",
                     path:"posts.Crecognition",
 
                 },
@@ -727,31 +727,31 @@ export default {
                 // {
                 //     color:"#3EBBE8",
                 //     title:"课程维护",//수업유지
-                //     imgUrl:"/asset/img/newIcon/tools.png",
+                //     imgUrl:"/asset/img/newIcon/schedule.png",
                 //     path:"admin.schedule"
                 // },
                 {
                     color:"#3EBBE8",
                     title:"请假单",//휴가신청
-                    imgUrl:"/asset/img/newIcon/颜色填充 2.png",
+                    imgUrl:"/asset/img/newIcon/vocationRequest.png",
                     path:"posts.vocation"
                 },
                 // {
                 //     color:"#3EBBE8",
                 //     title:"请假审批",//휴가심사
-                //     imgUrl:"/asset/img/newIcon/审批.png",
+                //     imgUrl:"/asset/img/newIcon/vocationReply.png",
                 //     path:"posts.vocation"
                 // },
         //         {
         //             color:"#3EBBE8",
         //             title:"考勤",//출근
-        //             imgUrl:"/asset/img/newIcon/考勤.png",
+        //             imgUrl:"/asset/img/newIcon/attendance.png",
         //             path:"posts.attendance"
         //         },
                 {
                     color:"#3EBBE8",
                     title:"课程表",//시간표
-                    imgUrl:"/asset/img/newIcon/calendar.png",
+                    imgUrl:"/asset/img/newIcon/scheduleClass.png",
                     path:"admin.scheduleClass"
                 },
             ]
@@ -763,43 +763,43 @@ export default {
                 // {
                 //     color:"#B673E0",
                 //     title:"通讯录",//주소록
-                //     imgUrl:"/asset/img/newIcon/address book.png",
+                //     imgUrl:"/asset/img/newIcon/member.png",
                 //     path:"schoolSpace.member"
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"文件",//문건
-                //     imgUrl:"/asset/img/newIcon/paper clip.png",
+                //     imgUrl:"/asset/img/newIcon/file.png",
                 //     path:"posts."
                 // },
                 // {
                 //     color:"#B673E0",
                 //     title:"话题",//화제
-                //     imgUrl:"/asset/img/newIcon/话题.png",
+                //     imgUrl:"/asset/img/newIcon/discussion.png",
                 //     path:"posts."
                 // },
                 {
                     color:"#B673E0",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/图层 3.png",
+                    imgUrl:"/asset/img/newIcon/share1.png",
                     path:"posts.share"
                 },
                 {
                     color:"#B673E0",
                     title:"问卷",//설문
-                    imgUrl:"/asset/img/newIcon/颜色填充 1.png",
+                    imgUrl:"/asset/img/newIcon/questionnaire.png",
                     path:"posts.Cquestionnaire"
                 },
                 {
                     color:"#B673E0",
                     title:"投票",//투표
-                    imgUrl:"/asset/img/newIcon/graph chart 3.png",
+                    imgUrl:"/asset/img/newIcon/voting.png",
                     path:"posts.Cvoting"
                 },
                 {
                     color:"#B673E0",
                     title:"报名",//이름등록
-                    imgUrl:"/asset/img/newIcon/Shape 18.png",
+                    imgUrl:"/asset/img/newIcon/regName.png",
                     path:"posts.regname"
                 },
             ]
@@ -812,19 +812,19 @@ export default {
                 {
                     color:"#E4BC16",
                     title:"分享",//공유
-                    imgUrl:"/asset/img/newIcon/share.png",
+                    imgUrl:"/asset/img/newIcon/share2.png",
                     path:"posts.share"
                 },
                 {
                     color:"#E4BC16",
                     title:"公告",//공시
-                    imgUrl:"/asset/img/newIcon/megaphone 2.png",
+                    imgUrl:"/asset/img/newIcon/announcement.png",
                     path:"posts.announcement"
                 },
                 {
                     color:"#E4BC16",
                     title:"作业",//숙제
-                    imgUrl:"/asset/img/newIcon/open book 2.png",
+                    imgUrl:"/asset/img/newIcon/homework.png",
                     path:"posts.Chomework"
                 },
             ]
@@ -836,31 +836,31 @@ export default {
                 // {
                 //     color:"#98BB3A",
                 //     title:"访客管理",//방문자관리
-                //     imgUrl:"/asset/img/newIcon/图层 1.png",
+                //     imgUrl:"/asset/img/newIcon/manageGuests.png",
                 //     path:"posts."
                 // },
                 {
                     color:"#98BB3A",
                     title:"归程队",//귀한팀관리
-                    imgUrl:"/asset/img/newIcon/排队数.png",
+                    imgUrl:"/asset/img/newIcon/returnTeam.png",
                     path:"classSpace.returnTeam"
                 },
                 {
                     color:"#98BB3A",
                     title:"打卡管理",//카드긋기
-                    imgUrl:"/asset/img/newIcon/打卡.png",
+                    imgUrl:"/asset/img/newIcon/cardcheck.png",
                     path:"posts."
                 },
                 {
                     color:"#98BB3A",
                     title:"维修工单",//수리공
-                    imgUrl:"/asset/img/newIcon/维修.png",
+                    imgUrl:"/asset/img/newIcon/repair.png",
                     path:"posts.repair"
                 },
                 {
                     color:"#98BB3A",
                     title:"安全教育",//안전교육
-                    imgUrl:"/asset/img/newIcon/安全教育.png",
+                    imgUrl:"/asset/img/newIcon/safeStudy.png",
                     path:"posts.safeStudy"
                 },
             ]
@@ -872,20 +872,20 @@ export default {
                 {
                     color:"#C95384",
                     title:"班级动态",//학급동태
-                    imgUrl:"/asset/img/newIcon/班级动态 (1).png",
+                    imgUrl:"/asset/img/newIcon/classStory.png",
                     path:"posts.classStory",
 
                 },
                 {
                     color:"#C95384",
                     title:"班际动态",//학급별동태
-                    imgUrl:"/asset/img/newIcon/动态.png",
+                    imgUrl:"/asset/img/newIcon/interClassStory.png",
                     path:"posts.interClassStory",
                 },
                 {
                     color:"#C95384",
                     title:"表彰",//영예표창
-                    imgUrl:"/asset/img/newIcon/表彰.png",
+                    imgUrl:"/asset/img/newIcon/recognition.png",
                     path:"posts.Crecognition",
 
                 },

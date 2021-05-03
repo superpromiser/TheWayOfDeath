@@ -26,6 +26,7 @@ export default [
 
   //texteditor
   { path: '/texteditor', name: 'texteditor', component: page('texteditor/index.vue') },
+  { path: '/excelTest', name: 'excelTest', component: page('excelTest.vue') },
 
   //selectuser
   { path: '/member/select', name: 'member.selectMo', component: page('member/moChooseMember.vue') },
@@ -176,7 +177,7 @@ export default [
 
   //school application
 
-  {path:'/schoolSpace/:schoolId/application/questionnaire',name:'schoolSpace.applications.quesitonnaire',component:page('school/applications/questionnaire/index.vue')},
+  {path:'/schoolSpace/:schoolId/application/questionnaire',name:'schoolSpace.applications.questionnaire',component:page('school/applications/questionnaire/index.vue')},
   {path:'/schoolSpace/:schoolId/application/voting',name:'schoolSpace.applications.voting',component:page('school/applications/voting/index.vue')},
   {path:'/schoolSpace/:schoolId/application/sms',name:'schoolSpace.applications.sms',component:page('school/applications/sms/index.vue')},
   {path:'/schoolSpace/:schoolId/application/campus',name:'schoolSpace.applications.campus',component:page('school/applications/campus/index.vue')},
@@ -321,7 +322,7 @@ export default [
   },
 
   //class application
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/questionnaire',name:'classSpace.applications.quesitonnaire',component:page('class/applications/questionnaire/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/questionnaire',name:'classSpace.applications.questionnaire',component:page('class/applications/questionnaire/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/voting',name:'classSpace.applications.voting',component:page('class/applications/voting/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/homework',name:'classSpace.applications.homework',component:page('class/applications/homework/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/classStory',name:'classSpace.applications.classStory',component:page('class/applications/classStory/index.vue')},

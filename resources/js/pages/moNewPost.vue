@@ -71,90 +71,90 @@ export default {
                     {
                         color : "#98BB3A",
                         title : "问卷",//설문조사
-                        imgUrl : "/asset/img/appIcon/基础沟通/问卷.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/问卷.png",
                         path : "posts.questionnaire"
                     },
                     {
                         color : "#C95384",
                         title : "投票",//투표
-                        imgUrl : "/asset/img/appIcon/基础沟通/投票.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/voting.png",
                         path : "posts.voting"
                     },
                     {
                         color : "#E4BC16",
                         title : "短信",//통보문
-                        imgUrl : "/asset/img/appIcon/基础沟通/短信.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/sms.png",
                         path : "posts.sms"
                     },
-                    {
-                        color : "#7180EA",
-                        title : "校园动态",//학원동태
-                        imgUrl : "/asset/img/appIcon/校园文化/校园动态.png",
-                        path : "posts.campus"
-                    },
+                    // {
+                    //     color : "#7180EA",
+                    //     title : "校园动态",//학원동태
+                    //     imgUrl : "/asset/img/appIcon/校园文化/校园动态.png",
+                    //     path : "posts.campus"
+                    // },
                     {
                         color : "#3FB8E3",
                         title : "公告",//공시
-                        imgUrl : "/asset/img/appIcon/家校互动/公告.png",
+                        imgUrl : "/asset/img/appIcon/homeSchool/announcement.png",
                         path : "posts.announcement"
                     },
                     {
                         color : "#E4BC16",
                         title : "分享",//공유
-                        imgUrl : "/asset/img/appIcon/基础沟通/share.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/share.png",
                         path : "posts.share"
                     },
                     {
                         color : "#C95384",
                         title : "报名",//이름등록
-                        imgUrl : "/asset/img/appIcon/基础沟通/报名.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/报名.png",
                         path : "posts.regname"
                     },
                     // {
                     //     color : "#B673E0",
                     //     title : "通讯录",//주소록
-                    //     imgUrl : "/asset/img/appIcon/基础沟通/通讯录.png",
+                    //     imgUrl : "/asset/img/appIcon/basicCommunity/通讯录.png",
                     //     path : "something"
                     // },
                 ],
             },
-            {
-                title : "校园文化",//교내문화
-                icon : "mdi-lifebuoy",
-                items : [
-                    // {
-                    //     color : "#B673E0",
-                    //     title : "考勤",//출근
-                    //     imgUrl : "/asset/img/appIcon/智能考勤/考勤.png",
-                    //     path : "something"
-                    // },
-                    // {
-                    //     color : "#DA7042",
-                    //     title : "作业",//숙제
-                    //     imgUrl : "/asset/img/appIcon/家校互动/作业.png",
-                    //     path : "posts.homework"
-                    // },
-                    // {
-                    //     color : "#3FB8E3",
-                    //     title : "班牌发布",//반표발포
-                    //     imgUrl : "/asset/img/newIcon/班牌发布.png",
-                    //     path : "something"
-                    // },
-                    {
-                        color : "#7180EA",
-                        title : "布告栏",//게시란
-                        imgUrl : "/asset/img/appIcon/others/布告栏.png",
-                        path : "posts.bulletinboard"
-                    },
-                    // {
-                    //     color : "#C95384",
-                    //     title : "学生风采",//학생풍채
-                    //     imgUrl : "/asset/img/newIcon/学生风采.png",
-                    //     path : "something"
-                    // },
+            // {
+            //     title : "校园文化",//교내문화
+            //     icon : "mdi-lifebuoy",
+            //     items : [
+            //         // {
+            //         //     color : "#B673E0",
+            //         //     title : "考勤",//출근
+            //         //     imgUrl : "/asset/img/appIcon/智能考勤/考勤.png",
+            //         //     path : "something"
+            //         // },
+            //         // {
+            //         //     color : "#DA7042",
+            //         //     title : "作业",//숙제
+            //         //     imgUrl : "/asset/img/appIcon/homeSchool/作业.png",
+            //         //     path : "posts.homework"
+            //         // },
+            //         // {
+            //         //     color : "#3FB8E3",
+            //         //     title : "班牌发布",//반표발포
+            //         //     imgUrl : "/asset/img/newIcon/班牌发布.png",
+            //         //     path : "something"
+            //         // },
+            //         // {
+            //         //     color : "#7180EA",
+            //         //     title : "布告栏",//게시란
+            //         //     imgUrl : "/asset/img/appIcon/others/bulletinboard.png",
+            //         //     path : "posts.bulletinboard"
+            //         // },
+            //         // {
+            //         //     color : "#C95384",
+            //         //     title : "学生风采",//학생풍채
+            //         //     imgUrl : "/asset/img/newIcon/学生风采.png",
+            //         //     path : "something"
+            //         // },
                     
-                ],
-            },
+            //     ],
+            // },
             {
                 title : "家校互动",//가교호상활동
                 icon : "mdi-nfc-tap",
@@ -177,12 +177,12 @@ export default {
                         imgUrl : "/asset/img/appIcon/others/家访.png",
                         path : "posts.homevisit"
                     },
-                    {
-                        color : "#7180EA",
-                        title : "学校动态",//학교동태
-                        imgUrl : "/asset/img/appIcon/校园文化/校园动态.png",
-                        path : "posts.schoolStory"
-                    },
+                    // {
+                    //     color : "#7180EA",
+                    //     title : "学校动态",//학교동태
+                    //     imgUrl : "/asset/img/appIcon/校园文化/校园动态.png",
+                    //     path : "posts.schoolStory"
+                    // },
                     
                 ],
             },
@@ -199,7 +199,7 @@ export default {
             //         {
             //             color : "#E4BC16",
             //             title : "话题",//화제
-            //             imgUrl : "/asset/img/newIcon/话题.png",
+            //             imgUrl : "/asset/img/newIcon/discussion.png",
             //             path : "something"
             //         },
             //     ],
@@ -217,7 +217,7 @@ export default {
             //         {
             //             color : "#7180EA",
             //             title : "话题",//화제
-            //             imgUrl : "/asset/img/newIcon/话题.png",
+            //             imgUrl : "/asset/img/newIcon/discussion.png",
             //             path : "something"
             //         },
             //     ],
@@ -255,13 +255,13 @@ export default {
                     {
                         color : "#98BB3A",
                         title : "问卷",
-                        imgUrl : "/asset/img/appIcon/基础沟通/问卷.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/问卷.png",
                         path : "posts.Cquestionnaire"
                     },
                     {
                         color : "#C95384",
                         title : "投票",
-                        imgUrl : "/asset/img/appIcon/基础沟通/投票.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/voting.png",
                         path : "posts.Cvoting"
                     },
                 ],
@@ -273,7 +273,7 @@ export default {
                     {
                         color : "#DA7042",
                         title : "作业",
-                        imgUrl : "/asset/img/appIcon/家校互动/作业.png",
+                        imgUrl : "/asset/img/appIcon/homeSchool/作业.png",
                         path : "posts.Chomework"
                     },
                     {
@@ -327,7 +327,7 @@ export default {
                     {
                         color : "lime darken-4",
                         title : "表彰",
-                        imgUrl : "/asset/img/icon/表彰.png",
+                        imgUrl : "/asset/img/icon/recognition.png",
                         path : "posts.Crecognition"
                     },
                 ],
@@ -351,7 +351,7 @@ export default {
                     {
                         color : "indigo accent-2",
                         title : "文件",
-                        imgUrl : "/asset/img/appIcon/基础沟通/文件.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/文件.png",
                         path : "file"
                     },
                 ],

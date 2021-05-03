@@ -9,8 +9,6 @@
         </div>
         <div style="margin-top:20px;">
             <h3>HTML output:</h3>
-            <p>sss</p>
-            <small>sss</small>
             <pre id="html-output"></pre>
         </div>
         <div id="push-popup-bottom-nav" class="push-popup-bottom-nav">

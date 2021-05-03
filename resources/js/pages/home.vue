@@ -69,7 +69,7 @@
               <v-col class="pa-0 d-flex justify-center">
                 <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
                   <div class="text-center">
-                    <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/others/addItem.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
                     <p class="font-size-0-75 pt-1 mb-0">添加</p>
                   </div>
                 </v-sheet>
@@ -87,7 +87,7 @@
               <v-col class="pa-0 d-flex justify-center">
                 <v-sheet tile class=" d-flex justify-center align-center" @click="openAddItemDialog">
                   <div class="text-center">
-                    <v-img :src="`${baseUrl}/asset/img/appIcon/others/全部.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
+                    <v-img :src="`${baseUrl}/asset/img/appIcon/others/addItem.png`" alt="postItem" width="50" height="50" class="mx-auto"></v-img>
                     <p class="font-size-0-75 pt-1 mb-0">添加</p>
                   </div>
                 </v-sheet>
@@ -291,39 +291,39 @@ export default {
     schoolSpaceItems:[
       {
         title : "问卷",
-        imgUrl : "/asset/img/appIcon/基础沟通/问卷.png",
+        imgUrl : "/asset/img/appIcon/basicCommunity/问卷.png",
         path : "posts.questionnaire"
       },
       {
         title : "投票",
-        imgUrl : "/asset/img/appIcon/基础沟通/投票.png",
+        imgUrl : "/asset/img/appIcon/basicCommunity/voting.png",
         path : "posts.voting"
       },
       {
         title : "短信",
-        imgUrl : "/asset/img/appIcon/基础沟通/短信.png",
+        imgUrl : "/asset/img/appIcon/basicCommunity/sms.png",
         path : "posts.sms"
       },
-      {
-        title : "校园动态",
-        imgUrl : "/asset/img/appIcon/校园文化/校园动态.png",
-        path : "posts.campus"
-      },
+      // {
+      //   title : "校园动态",
+      //   imgUrl : "/asset/img/appIcon/校园文化/校园动态.png",
+      //   path : "posts.campus"
+      // },
       {
         title : "公告",
-        imgUrl : "/asset/img/appIcon/家校互动/公告.png",
+        imgUrl : "/asset/img/appIcon/homeSchool/announcement.png",
         path : "posts.announcement"
       },
       {
         title : "分享",
-        imgUrl : "/asset/img/appIcon/基础沟通/share.png",
+        imgUrl : "/asset/img/appIcon/basicCommunity/share.png",
         path : "posts.share"
       },
-      {
-        title : "布告栏",
-        imgUrl : "/asset/img/appIcon/others/布告栏.png",
-        path : "posts.bulletinboard"
-      },
+      // {
+      //   title : "布告栏",
+      //   imgUrl : "/asset/img/appIcon/others/bulletinboard.png",
+      //   path : "posts.bulletinboard"
+      // },
       {
         title : "考勤",
         imgUrl : "/asset/img/appIcon/智能考勤/考勤.png",
@@ -331,12 +331,12 @@ export default {
       },
       {
         title : "作业",
-        imgUrl : "/asset/img/appIcon/家校互动/作业.png",
+        imgUrl : "/asset/img/appIcon/homeSchool/作业.png",
         path : "something"
       },
       {
         title : "通讯录",
-        imgUrl : "/asset/img/appIcon/基础沟通/通讯录.png",
+        imgUrl : "/asset/img/appIcon/basicCommunity/通讯录.png",
         path : "something"
       },
       {
@@ -346,7 +346,7 @@ export default {
       },
       {
         title : "报名",
-        imgUrl : "/asset/img/appIcon/基础沟通/报名.png",
+        imgUrl : "/asset/img/appIcon/basicCommunity/报名.png",
         path : "posts.regname"
       },
       {
@@ -358,17 +358,17 @@ export default {
     classSpaceItems:[
       {
         title : "问卷",
-        imgUrl : "/asset/img/appIcon/基础沟通/问卷.png",
+        imgUrl : "/asset/img/appIcon/basicCommunity/问卷.png",
         path : "posts.Cquestionnaire"
       },
       {
         title : "投票",
-        imgUrl : "/asset/img/appIcon/基础沟通/投票.png",
+        imgUrl : "/asset/img/appIcon/basicCommunity/voting.png",
         path : "posts.Cvoting"
       },
       {
         title : "作业",
-        imgUrl : "/asset/img/appIcon/家校互动/作业.png",
+        imgUrl : "/asset/img/appIcon/homeSchool/作业.png",
         path : "something"
       },
       {
@@ -393,7 +393,7 @@ export default {
       },
       {
         title : "表彰",
-        imgUrl : "/asset/img/icon/表彰.png",
+        imgUrl : "/asset/img/icon/recognition.png",
         path : "posts.Crecognition"
       },
       {
@@ -408,7 +408,7 @@ export default {
       },
       {
         title : "文件",
-        imgUrl : "/asset/img/appIcon/基础沟通/文件.png",
+        imgUrl : "/asset/img/appIcon/basicCommunity/文件.png",
         path : "file"
       },
     ],
