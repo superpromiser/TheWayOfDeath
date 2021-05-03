@@ -26,6 +26,7 @@ export default [
 
   //texteditor
   { path: '/texteditor', name: 'texteditor', component: page('texteditor/index.vue') },
+  { path: '/excelTest', name: 'excelTest', component: page('excelTest.vue') },
 
   //selectuser
   { path: '/member/select', name: 'member.selectMo', component: page('member/moChooseMember.vue') },

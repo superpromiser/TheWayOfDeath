@@ -13,4 +13,6 @@ import './quickmenu'
 import './snackbar'
 import './webcam'
 import './baidu'
+import './excel'
+
 import 'bootstrap'

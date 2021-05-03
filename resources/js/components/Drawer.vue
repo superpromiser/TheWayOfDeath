@@ -87,7 +87,7 @@
             active-class="sub-header-active"
             link
             to="/admin/grade"
-            v-if="user.roleid == 1"
+            v-if="user.role.id == 1"
             >
             <v-list-item-title class="ml-9">年级</v-list-item-title>
             <v-list-item-icon>
