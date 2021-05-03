@@ -84,6 +84,7 @@ export default [
       {path:'teacher', name:'userlist.teacher',component:page('admin/userList/teacher.vue')},
       {path:'parent', name:'userlist.parent',component:page('admin/userList/parent.vue')},
       {path:'student', name:'userlist.student',component:page('admin/userList/student.vue')},
+      {path:'excelImport', name:'userlist.excelImport',component:page('admin/userList/excelImport.vue')},
     ]
   },
   

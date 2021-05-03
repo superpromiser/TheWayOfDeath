@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('file/image', 'UploadController@imageUpload');
     Route::post('file/other', 'UploadController@otherUpload');
     Route::post('file/video', 'UploadController@videoUpload');
+    Route::post('file/excel','UserImportController@store');
     Route::delete('file', 'UploadController@deleteFile');
 
     //subject of manager

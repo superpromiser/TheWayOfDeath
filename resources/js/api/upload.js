@@ -9,6 +9,10 @@ function uploadVideo(payload){
 function uploadOther(payload){
     return axios.post('/api/v1/file/other', payload);
 }
+
+function uploadOtherForExcel(payload) {
+    return axios.post('/api/v1/file/excel',payload);
+}
 function deleteFile(payload){
     return axios.delete('/api/v1/file?fileName=' + payload);
     // return axios.delete( "/api/fileUpload/file?fileName=" + leagueImage, {headers: {"Authorization" : `Bearer ${token}`} },  )
@@ -18,6 +22,7 @@ export{
     uploadImage,
     uploadVideo,
     uploadOther,
+    uploadOtherForExcel,
     deleteFile,
   
 }
