@@ -296,7 +296,7 @@ export default {
                 //make modified return team data to useful...
                 this.$set(this.returnTeamData, "leader_id", this.returnTeamData.leader);
                 this.$set(this.returnTeamData, "teacher_id", this.returnTeamData.teacher);
-                console.log("this.returnTeamData",this.returnTeamData);
+                
                 if(this.todayReturnTeamArr == null){
                     let arr = [];
                     arr.push(this.returnTeamData);
