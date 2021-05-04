@@ -284,6 +284,7 @@ export default {
                 this.$store.dispatch('returnteam/storeReturnTeamName', '');
                 this.$store.dispatch('returnteam/storeReturnTeamAvatar', null);
                 this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
+                this.$store.dispatch('member/storeSelectedGroup', null);
                 if(this.todayReturnTeamArr == null){
                     let arr = [];
                     arr.push(this.returnTeamData);

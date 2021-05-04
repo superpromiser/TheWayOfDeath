@@ -40,8 +40,8 @@
             </v-chip>
         </v-container>
         <v-container v-else class="pa-0">
-            <v-row  v-if="returnTeam.name !==  '留堂成员'" class="ma-0 py-3 hover-cursor-point" v-ripple v-for="(returnTeam, i) in todayReturnTeamArr" :key="i" @click="navToDetail(returnTeam)">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
+            <v-row  v-if="returnTeam.name !==  '留堂成员'" class="ma-0 hover-cursor-point" v-ripple v-for="(returnTeam, i) in todayReturnTeamArr" :key="i" @click="navToDetail(returnTeam)">
+                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-6">
                     <div class="d-flex align-center">
                         <v-avatar size="50" :color="returnTeam.name == '' && returnTeam.avatar == null ? '#999999': '#49d29e'">
                             <v-img v-if="returnTeam.avatar !== null" :src="`${baseUrl}${returnTeam.avatar}`"> </v-img>
@@ -56,11 +56,11 @@
                         mdi-chevron-right
                     </v-icon>
                 </v-col>
-                <v-divider light></v-divider>
+                <div v-if="i<todayReturnTeamArr.length-1" class="cus-divider-light-gray-height"></div>
             </v-row>
             <v-divider v-if="remainTeam !== null" light class="thick-border"></v-divider>
-            <v-row  v-if="remainTeam !== null" class="ma-0 py-3 hover-cursor-point" v-ripple @click="navToDetail(remainTeam)">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
+            <v-row  v-if="remainTeam !== null" class="ma-0 hover-cursor-point" v-ripple @click="navToDetail(remainTeam)">
+                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-6">
                     <div class="d-flex align-center">
                         <v-avatar size="50" :color="remainTeam.name == '' && remainTeam.avatar == null ? '#999999': '#49d29e'">
                             <span  class="white--text headline">留</span>
