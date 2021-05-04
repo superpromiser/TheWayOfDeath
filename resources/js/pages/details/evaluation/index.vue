@@ -28,7 +28,7 @@
                 <v-col cols="12" sm="6" md="4" lg="3" v-for="user in evalutationData.userList" :key="user.id">
                     <v-card class="text-center">
                         <v-card-title class="d-flex justify-center">
-                            <v-avatar color="#49d29e" size="65" >
+                            <v-avatar color="#7879ff" size="65" >
                                 <img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user? user.name[0] : ''" />
                                 <span v-else class="white--text headline"> {{user? user.name[0] : ''}}</span>
                             </v-avatar>
@@ -84,7 +84,7 @@
                 
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn text color="#49d29e" @click="closeMedalDetailDialog">{{lang.cancel}}</v-btn>
+                    <v-btn text color="#7879ff" @click="closeMedalDetailDialog">{{lang.cancel}}</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>

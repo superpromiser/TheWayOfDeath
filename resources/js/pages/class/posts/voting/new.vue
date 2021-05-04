@@ -119,7 +119,7 @@
             
             <v-container>
                 <v-row class="my-10 d-flex align-center mx-0">
-                    <v-btn color="#49d29e" text @click="addContent" class="mr-auto mo-glow" >
+                    <v-btn color="#7879ff" text @click="addContent" class="mr-auto mo-glow" >
                         <v-icon>
                             mdi-plus
                         </v-icon>

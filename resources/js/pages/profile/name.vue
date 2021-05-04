@@ -5,14 +5,14 @@
                 mdi-chevron-left
             </v-icon>
             <p class="mb-0 font-size-0-95 font-weight-bold py-4">基本信息</p>
-            <v-btn @click="updateProfile" rounded :dark="isChanged" :disabled="!isChanged" :loading="isLoading" color="#49d29e" class="position-absolute put-align-center" style="right: 12px; top:50%">
+            <v-btn @click="updateProfile" rounded :dark="isChanged" :disabled="!isChanged" :loading="isLoading" color="#7879ff" class="position-absolute put-align-center" style="right: 12px; top:50%">
                 保存
             </v-btn>
         </v-row>
         <v-row class="ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="clickUploadImageBtn">
                 <p class="mb-0 font-size-0-75">用户头像</p>
-                <v-avatar color="#49d29e" size="60" class="rounded-lg"  >
+                <v-avatar color="#7879ff" size="60" class="rounded-lg"  >
                     <v-progress-circular v-if="isImageSelecting" indeterminate color="white" ></v-progress-circular>
                     <span v-else-if="user.avatar == '/'" class="white--text headline">{{user.name[0]}}</span>
                     <v-img v-else :src="`${baseUrl}${user.avatar}`"></v-img>

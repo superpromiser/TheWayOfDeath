@@ -4,7 +4,8 @@ export const state = {
   classGroupList: null,
   selectedGroup: null,
   selectedOne: null,
-  clubMembers:[]
+  clubMembers:[],
+  clubName:'',
 }
 
 // getters
@@ -13,6 +14,7 @@ export const getters = {
   selectedGroup: state => state.selectedGroup,
   selectedOne: state => state.selectedOne,
   clubMembers:  state=>state.clubMembers,
+  clubName: state=>state.clubName,
 }
 
 // mutations
@@ -29,6 +31,10 @@ export const mutations = {
     [types.STORE_CLUB_MEMBERS] (state, selUsers ) {
         state.clubMembers = selUsers
     },
+    [types.STORE_CLUB_NAME] (state, clubName ) {
+        state.clubName = clubName
+    },
+    
 }
 
 // actions
@@ -44,5 +50,8 @@ export const actions = {
     },
     storeClubMembers ({ commit }, payload) {
         commit(types.STORE_CLUB_MEMBERS, payload)
+    },
+    storeClubName ({ commit }, payload) {
+        commit(types.STORE_CLUB_NAME, payload)
     },
 }

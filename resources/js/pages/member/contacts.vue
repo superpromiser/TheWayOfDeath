@@ -46,7 +46,13 @@
             </v-col>
         </v-row>
         <v-divider light class="thick-border"></v-divider>
-        <div v-for="(user, index) in filteredList" :key="index">
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </div>
+        <div v-for="(user, index) in filteredList" :key="index" v-else>
             <v-row class="py-5 px-10 justify-space-between">
                 <v-col cols="12" md="4">
                     <v-checkbox
@@ -67,6 +73,7 @@
 <script>
 import {getGroupMember,deleteGroupMember} from '~/api/group';
 import lang from "~/helper/lang.json";
+import {mapGetters} from 'vuex';
 export default {
     data: () => ({
         checkAll: false,
@@ -85,9 +92,14 @@ export default {
             return this.userList.filter(user=>{
                 return user.name.toLowerCase().includes(this.search.toLowerCase())
             })
-        }
+        },
+        ...mapGetters({
+            selUsers:'member/clubMembers'
+        })
     },
     async created(){
+        console.log("------",this.selUsers)
+        this.isLoading = true
         await getGroupMember({
             schoolId:this.currentPath.params.schoolId,
             lessonId: this.currentPath.params.lessonId,
@@ -97,9 +109,15 @@ export default {
             console.log(res.data)
             res.data.map(user => {
                 this.$set(user, "checkbox", false);
+                this.selUsers.map(selUser=>{
+                    if(user.id == selUser.id){
+                        user.checkbox = true
+                    }
+                })
             });
             this.userList = res.data;
             this.isLoading = false
+            console.log('+++++++',this.userList)
         })
         .catch(err => {
             console.log(err.response);
@@ -111,22 +129,22 @@ export default {
             console.log(this.checkAll);
             if (this.checkAll == false) {
                 this.userList.map(user => {
-                user.checkbox = false;
+                    user.checkbox = false;
                 });
             } else {
                 this.userList.map(user => {
-                user.checkbox = true;
-                console.log(user.checkbox);
+                    user.checkbox = true;
+                    console.log(user.checkbox);
                 });
             }
         },
         selectMem(user) {
-            console.log(user.checkbox);
+            console.log(this.userList);
             this.checkAll = true;
             this.userList.map(user => {
                 if (user.checkbox == false) {
-                console.log(user.checkbox);
-                this.checkAll = false;
+                    console.log(user.checkbox);
+                    this.checkAll = false;
                 }
             });
         },

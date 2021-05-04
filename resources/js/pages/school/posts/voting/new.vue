@@ -183,7 +183,7 @@
                 <v-btn
                     dark
                     tile
-                    color="#49d29e"
+                    color="#7879ff"
                     @click="publishVotingData"
                     :loading="isCreating"
                     class="mr-8"

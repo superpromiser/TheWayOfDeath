@@ -5,7 +5,7 @@
                 mdi-chevron-left
             </v-icon>
             <p class="mb-0 font-size-0-95 font-weight-bold py-4">修改电话号码</p>
-            <v-btn @click="updateProfile" rounded :dark="isChanged" :disabled="!isChanged" :loading="isLoading" color="#49d29e" class="position-absolute put-align-center" style="right: 12px; top:50%">
+            <v-btn @click="updateProfile" rounded :dark="isChanged" :disabled="!isChanged" :loading="isLoading" color="#7879ff" class="position-absolute put-align-center" style="right: 12px; top:50%">
                 保存
             </v-btn>
         </v-row>

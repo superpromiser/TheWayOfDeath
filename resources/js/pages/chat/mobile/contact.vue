@@ -4,7 +4,7 @@
         <div class="w-100">
             <v-list-item v-ripple @click="openAddUser">
                 <v-list-item-icon class="my-2">
-                    <v-avatar size="50" color="#49d29e" class="rounded-lg">
+                    <v-avatar size="50" color="#7879ff" class="rounded-lg">
                         <v-icon dark> mdi-plus </v-icon>
                     </v-avatar>
                 </v-list-item-icon>
@@ -15,7 +15,7 @@
             <v-divider inset></v-divider>
             <v-list-item v-ripple @click="openAddGroup">
                 <v-list-item-icon class="my-2">
-                    <v-avatar size="50" color="#49d29e" class="rounded-lg">
+                    <v-avatar size="50" color="#7879ff" class="rounded-lg">
                         <v-icon dark> mdi-account-group </v-icon>
                     </v-avatar>
                 </v-list-item-icon>
@@ -43,7 +43,7 @@
         <div  v-for="(user, j) in userGroup.data" :key="j">
             <v-list-item v-ripple >   
                 <v-list-item-icon class="my-2">
-                    <v-avatar size="50" color="#49d29e" class="rounded-lg">
+                    <v-avatar size="50" color="#7879ff" class="rounded-lg">
                         <v-img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user.name[0]" class="chat-user-avatar"></v-img>
                         <span dark v-else class="white--text headline"> {{user.name[0]}}</span>
                     </v-avatar>

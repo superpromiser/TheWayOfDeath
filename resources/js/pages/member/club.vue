@@ -35,7 +35,8 @@
                         {{club.clubName}}
                     </v-col>
                     <v-col cols="6">
-
+                        <span v-for="member in club.members" :key="member">{{member}},</span>
+                        <span></span>
                     </v-col>
                     <v-col cols="3">
                         <v-btn
@@ -43,7 +44,7 @@
                             dark
                             color="primary lighten-1"
                             class="mx-2 float-right"
-                            @click="removeClub(club)"
+                            @click="editClub(club)"
                         >
                             删除群组
                         </v-btn>
@@ -102,8 +103,8 @@ export default {
             // })
             this.$router.push({name:'member.newClub'})
         },
-        async removeClub(club){
-            await deleteClub({id:club.id}).then(res=>{
+        editClub(club){
+            deleteClub({id:club.id}).then(res=>{
                 console.log(res.data)
                 let index = this.clubList.indexOf(club);
                 if(index > -1){
@@ -112,6 +113,14 @@ export default {
             }).catch(err=>{
                 console.log(err.response)
             })
+            let selUsers = []
+
+            club.member.map(member=>{
+                selUsers.push(member.user)
+            })
+            this.$store.dispatch('member/storeClubName',club.clubName);
+            this.$store.dispatch('member/storeClubMembers',selUsers);
+            this.$router.push({name:'member.newClub'})
         },
         addMember(club){
 

@@ -5,7 +5,7 @@
                 mdi-chevron-left
             </v-icon>
             <p class="mb-0 font-size-0-95 font-weight-bold py-4">修改密码</p>
-            <v-btn @click="updatePassword" dark :loading="isUpdatingPassword" rounded color="#49d29e" class="position-absolute put-align-center" style="right: 12px; top:50%">
+            <v-btn @click="updatePassword" dark :loading="isUpdatingPassword" rounded color="#7879ff" class="position-absolute put-align-center" style="right: 12px; top:50%">
                 保存
             </v-btn>
         </v-row>

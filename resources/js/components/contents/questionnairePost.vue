@@ -36,7 +36,7 @@
             </div>
             <div>
               <v-btn
-                color="#49d29e"
+                color="#7879ff"
                 outlined
                 rounded
                 small
@@ -106,7 +106,7 @@
             <div class="d-flex align-center">
               <p class="text-wrap mb-0">
                 <strong>截止时间:</strong>
-                {{content.questionnaires.deadline}}
+                {{TimeView(content.questionnaires.deadline)}}
               </p>
             </div>
             <div>

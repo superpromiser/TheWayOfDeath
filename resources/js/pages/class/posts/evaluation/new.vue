@@ -8,7 +8,7 @@
                 <h2 class="ml-3">{{lang.evaluation}}</h2>
             </v-col>
             <v-col cols="12" class="text-right position-sticky-top-0 bg-white">
-                <v-btn dark rounded color="#49d29e" @click="publishVotingData" :loading="isCreating" >
+                <v-btn dark rounded color="#7879ff" @click="publishVotingData" :loading="isCreating" >
                     {{lang.submit}}
                 </v-btn>
             </v-col>
@@ -104,7 +104,7 @@
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
                         dark
-                        color="#49d29e"
+                        color="#7879ff"
                         @click="publishVotingData"
                         :loading="isCreating"
                         tile

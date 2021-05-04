@@ -4,47 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Club;
+use App\ClubMember;
 use Illuminate\Support\Facades\Auth;
+
 class ClubController extends Controller
 {
     //
-    public function getClub(Request $request){
-        $this->validate($request,[
-            'schoolId'=>'required'
+    public function getClub(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required'
         ]);
         $userId = Auth::user()->id;
-        if($request->lessonId){
-            return Club::where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId])->get();
-        }else{
-            return Club::where(['schoolId'=>$request->schoolId,'lessonId'=>0])->get();
+        if ($request->lessonId) {
+            return Club::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->with('member.user')->get();
+        } else {
+            return Club::where(['schoolId' => $request->schoolId, 'lessonId' => 0])->get();
         }
     }
 
-    public function createClub(Request $request){
-        $this->validate($request,[
-            'schoolId'=>'required',
-            'lessonId'=>'required',
-            'clubName'=>'required',
-            'members'=>'required',
+    public function createClub(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required',
+            'lessonId' => 'required',
+            'clubName' => 'required',
+            'memberNames' => 'required',
+            'memberIds' => 'required',
         ]);
         $userId = Auth::user()->id;
         $lessonId = 0;
-        if($request->lessonId){
+        if ($request->lessonId) {
             $lessonId = $request->lessonId;
         }
-        foreach($request->members as $memberId){
-            Club::create([
-                'schoolId'=>$request->schoolId,
-                'lessonId'=>$lessonId,
-                'userId'=>$userId,
-                'clubName'=>$request->clubName,
-                'memberId'=>$memberId,
+        $clubId = Club::create([
+            'clubName' => $request->clubName,
+            'members' => $request->memberNames,
+            'schoolId' => $request->schoolId,
+            'lessonId' => $request->lessonId,
+            'userId' => $userId
+        ])->id;
+        foreach ($request->memberIds as $memberId) {
+            ClubMember::create([
+                'clubId' => $clubId,
+                'memberId' => $memberId
             ]);
         }
         return 1;
     }
 
-    public function updateClub(Request $request){
+    public function updateClub(Request $request)
+    {
         // $this->validate($request,[
         //     'schoolId'=>'required',
         //     'lessonId'=>'required',
@@ -54,10 +64,11 @@ class ClubController extends Controller
         // return Club::where(['schoolId'=>$request->schoolId,'lessonId'=>$request->lessonId,'lessonOrder'=>$request->lessonOrder])->update
     }
 
-    public function deleteClub(Request $request){
-        $this->validate($request,[
-            'id'=>'required'
+    public function deleteClub(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required'
         ]);
-        return Club::where('id',$request->id)->delete();
+        return Club::where('id', $request->id)->delete();
     }
 }

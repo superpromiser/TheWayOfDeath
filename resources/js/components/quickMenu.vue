@@ -34,7 +34,7 @@
             <v-icon dark>mdi-close</v-icon>
         </v-btn>
         
-        <v-btn elevation="0" v-else fab @click="toggleMenu" dark class="menu" color="#49d29e">
+        <v-btn elevation="0" v-else fab @click="toggleMenu" dark class="menu" color="#7879ff">
             <v-icon dark>mdi-menu</v-icon>
         </v-btn>
         

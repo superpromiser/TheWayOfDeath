@@ -23,7 +23,7 @@
                     <v-icon left> mdi-stop </v-icon>
                     停止相机
                 </v-btn>
-                <v-btn color="#49d29e" dark @click="onStart">
+                <v-btn color="#7879ff" dark @click="onStart">
                     <v-icon left> mdi-play </v-icon>
                     启动相机
                 </v-btn>

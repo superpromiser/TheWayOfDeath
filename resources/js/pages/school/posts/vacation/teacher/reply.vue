@@ -106,7 +106,7 @@
                 <v-btn small fab class="mo-glow mr-auto" style="color:#eb6846" @click="$router.go(-1)"><v-icon>mdi-undo-variant</v-icon></v-btn>
                 <v-btn
                     dark
-                    color="#49d29e"
+                    color="#7879ff"
                     rounded
                     @click="allowVacation"
                     class="mr-3 ml-auto"
@@ -147,7 +147,7 @@
             <template v-slot:actions>
             <v-btn
                 dark
-                color="#49d29e"
+                color="#7879ff"
                 class="mr-md-8"
                 tile
                 @click="allowVacation"

@@ -100,7 +100,7 @@
                 <v-btn small fab class="mo-glow ml-auto mr-3" style="color:#eb6846" @click="$router.go(-1)"><v-icon>mdi-undo-variant</v-icon></v-btn>
                 <v-btn
                     dark
-                    color="#49d29e"
+                    color="#7879ff"
                     rounded
                     :loading="isLoading"
                     @click="postVacationData"
