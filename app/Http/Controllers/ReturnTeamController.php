@@ -88,4 +88,19 @@ class ReturnTeamController extends Controller
         }
 
     }
+
+    public function updateReturnTeam(Request $request)
+    {
+        ReturnTeam::where('id', $request->id)->update([
+            'avatar' => $request->avatar,
+            'name' => $request->name,
+            'leaderId' => $request->leaderId,
+            'teacherId' => $request->teacherId,
+            'member' => $request->member,
+        ]);
+
+        return response()->json([
+            'msg' => 1,
+        ]);
+    }
 }

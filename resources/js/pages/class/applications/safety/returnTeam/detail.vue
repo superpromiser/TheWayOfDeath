@@ -60,11 +60,11 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple>
+            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple @click="navToAddTeacher">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <p class="mb-0"  >领队教师 </p>
                     <div class="d-flex align-center">
-                        <p v-if="teamData.teacher !== null" class="mb-0 secondary-text">ssss</p>
+                        <p class="mb-0 secondary-text">{{teamData.teacher_id.name}}</p>
                         <v-icon class="ml-4" color="#999999" size="40">
                             mdi-chevron-right
                         </v-icon>
@@ -130,6 +130,19 @@
                 </v-card>
             </v-dialog>
         </v-container>
+        <v-container class="pa-0" v-if="isRemainTeam == true">
+            <v-row class="ma-0 hover-cursor-point" v-ripple @click="navToAddMember">
+                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-6">
+                    <p class="mb-0 ml-4">留堂成员</p>
+                    <div class="d-flex align-center">
+                        <p class="mb-0"> something</p>
+                        <v-icon class="ml-4" color="#999999" size="40">
+                            mdi-chevron-right
+                        </v-icon>
+                    </div>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-container >
             <v-row class="ma-0 py-3">
                 <v-col cols="12" v-if="teamData.member.length == 0" class="d-flex align-center justify-start">
@@ -162,6 +175,7 @@
 import lang from '~/helper/lang.json'
 import {mapGetters} from 'vuex'
 import {uploadImage} from '~/api/upload'
+import {updateReturnTeam} from '~/api/returnteam'
 
 export default {
     data: ()=> ({
@@ -179,6 +193,7 @@ export default {
         isImageSelecting: false,
         selectedImageFile: null,
         isUpdating:false,
+
     }),
 
     computed: {
@@ -190,14 +205,24 @@ export default {
         }),
     },
     created(){
+
         if(this.currentPath.params.teamData == null || this.currentPath.params.teamData == undefined){
             return this.$router.push({name: 'classSpace.returnTeam'});
         }
+
         if(this.currentPath.params.teamData.name == '留堂成员'){
             this.isRemainTeam = true;
         }
+        
         this.teamData = this.currentPath.params.teamData;
-        console.log("this.teamData",this.teamData)
+        this.$set(this.teamData.teacher_id, 'checkbox', true)
+        this.teamData.member.map(member=>{
+            this.$set(member, 'checkbox', true);
+        });
+        this.$store.dispatch('member/storeSelectedTeacher', this.teamData.teacher_id);
+        this.$store.dispatch('member/storeSelectedGroup',this.teamData.member);
+        console.log("this.teamData",this.teamData);
+
     },
 
     methods:{
@@ -250,8 +275,31 @@ export default {
             this.$router.push({name: 'classSpace.addMemberName'})
         },
 
-        submit(){
+        navToAddTeacher(){
+            this.$store.dispatch('returnteam/storeReturnTeamName', this.teamData.name);
+            this.$store.dispatch('returnteam/storeReturnTeamAvatar', this.teamData.avatar);
+            this.$store.dispatch('returnteam/storeReturnTeamLeader', this.teamData.leader);
+            this.$router.push({name: 'classSpace.addTeacher'})
+        },
+
+        async submit(){
             console.log(this.teamData)
+            this.isUpdating = true;
+            await updateReturnTeam()
+            .then((res) => {
+                this.$store.dispatch('returnteam/storeReturnTeamName', '');
+                this.$store.dispatch('returnteam/storeReturnTeamAvatar', null);
+                this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
+                this.$store.dispatch('member/storeSelectedGroup', null);
+                this.$store.dispatch('member/storeSelectedTeacher', null);
+
+
+                this.$store.dispatch('member/storeSelectedGroup', []);
+                this.$router.push({name: 'classSpace.returnTeam'});
+            }).catch((err) => {
+                
+            });
+            this.isUpdating = false;
         }
     }
 }
