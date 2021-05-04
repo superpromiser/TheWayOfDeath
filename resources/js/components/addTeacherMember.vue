@@ -3,7 +3,7 @@
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                    <a @click="$router.go(-1)">
+                    <a @click="navToBack">
                         <v-icon size="70" class="left-24p">
                             mdi-chevron-left
                         </v-icon>
@@ -20,7 +20,7 @@
             </v-row>
         </v-container>
         <v-divider light></v-divider>
-        <v-container class="px-0">
+        <!-- <v-container class="px-0">
             <v-row class="ma-0 px-5" >
                 <v-col cols="12">
                 <v-checkbox
@@ -35,7 +35,7 @@
                 </v-col>
             </v-row>
             <v-divider class="thick-border"></v-divider>
-        </v-container>
+        </v-container> -->
         <v-container v-if="isLoading" class="d-flex justify-center align-center">
             <v-progress-circular
                 indeterminate
@@ -89,7 +89,7 @@ export default {
     props:{
         title:{
             type: String,
-            default: '成员选择',
+            default: '老师选拔',
             required: false
         },
 
@@ -100,16 +100,17 @@ export default {
         userList: [],
         lang,
         isSubmit: false,
-        selected: [],
         isLoading: false,
         noUser: false,
+        selectedTeacher: null,
     }),
     computed: {
         currentPath() {
             return this.$route;
         },
         ...mapGetters({
-            classGroupList: 'member/classGroupList'
+            teacherList: 'member/teacherList',
+            selectedTeacherData: 'member/selectedTeacher',
         })
     },
     async created() {
@@ -119,13 +120,13 @@ export default {
         }else{
             lessonId = this.currentPath.params.lessonId
         }
-        if(this.classGroupList == null){
+        if(this.teacherList == null){
 
             this.isLoading = true;
             await getSchoolMemberList({
                 schoolId:this.currentPath.params.schoolId,
                 lessonId: lessonId,
-                roleId: 5
+                roleId: 'teacher'
             })
             .then(res => {
                 if(res.data.length == 0){
@@ -133,10 +134,10 @@ export default {
                 }
                 else{
                     res.data.map(user => {
-                    this.$set(user, "checkbox", false);
+                        this.$set(user, "checkbox", false);
                     });
-                    this.$store.dispatch('member/storeClassGroupList', res.data);
-                    this.userList = this.classGroupList;
+                    this.$store.dispatch('member/storeTeacherList', res.data);
+                    this.userList = this.teacherList;
                 }
             })
             .catch(err => {
@@ -145,7 +146,7 @@ export default {
             this.isLoading = false;
         }
         else{
-            this.userList = this.classGroupList;
+            this.userList = this.teacherList;
         }
     },
     methods: {
@@ -162,33 +163,29 @@ export default {
                 });
             }
         },
-        selectMem(user) {
-            console.log(user.checkbox);
-            this.checkAll = true;
+        selectMem(selUser) {
             this.userList.map(user => {
-                if (user.checkbox == false) {
-                console.log(user.checkbox);
-                this.checkAll = false;
-                }
+                user.checkbox = false
             });
+            selUser.checkbox = true;
         },
         submit() {
             this.userList.map(user => {
                 if (user.checkbox == true) {
-                this.selected.push(user);
+                    this.selectedTeacher = user
                 }
             });
-            
-            console.log(this.selected);
-            if(this.selected.length == 0){
+            if(this.selectedTeacher == null){
                 return this.$snackbar.showMessage({content: "必须至少选择一个", color: "error"})
             }
-            this.$emit('onSelectMember', this.selected);
+            this.$emit('onSelectMember', this.selectedTeacher);
         },
         navToBack(){
-            this.userList.map(user => {
-                user.checkbox = false;
-            });
+            if(this.selectedTeacherData == null){
+                this.userList.map(user => {
+                    user.checkbox = false;
+                });
+            }
             this.$router.go(-1);
         }
     }

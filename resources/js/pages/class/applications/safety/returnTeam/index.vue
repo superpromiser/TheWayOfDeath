@@ -53,7 +53,7 @@
                         <p class="mb-0 ml-4"  >{{returnTeam.name}} </p>
                     </div>
                     <div class="d-flex align-center">
-                        <p class="mb-0"> {{convertTeamMember(returnTeam)}}</p>
+                        <p class="mb-0"> {{returnTeam.leader_id.name}} 和另外 {{returnTeam.member.length - 1}}个人</p>
                         <v-icon class="ml-4" color="#999999" size="40">
                             mdi-chevron-right
                         </v-icon>
@@ -148,9 +148,6 @@ export default {
         navToDetail(returnTeam){
             this.$router.push({name: 'classSpace.detailReturnTeam', params: {teamData: returnTeam}});
         },
-        convertTeamMember(returnTeam){
-            console.log("~~~~`",returnTeam);
-        }
     }
 }
 </script>
