@@ -1,7 +1,7 @@
 <template>
   <v-container class="text-center">
     <h1 class="my-4 primary--text">
-      Page Not Found 🤷‍♂️
+      找不到网页 🤷‍♂️
     </h1>
     <img :src="`${baseUrl}/asset/img/404Gif.gif`" alt="404" class="">
 
@@ -12,7 +12,7 @@
           color="light-green darken-1"
           dark
         >
-          Go Home
+          回家
         </v-btn>
       </router-link>
     </div>
