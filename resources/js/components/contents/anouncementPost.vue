@@ -129,6 +129,7 @@
 
 <script>
 import lang from '~/helper/lang.json'
+import {createReadCnt} from '~/api/alarm'
 export default {
     props:{
         content:{
@@ -142,6 +143,11 @@ export default {
     }),
     methods:{
       showDetail(content){
+        createReadCnt({postId:content.id}).then(res=>{
+          console.log(res.data)
+        }).catch(err=>{
+          console.log(err.response)
+        })
         this.$store.dispatch('content/storePostDetail',content)
         this.$router.push({name:'details.anouncement'});
       }

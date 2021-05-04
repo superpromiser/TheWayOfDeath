@@ -135,6 +135,7 @@ class Post extends Model
     }
 
     protected $casts = [
-        'viewList'=>'array'
+        'viewList' => 'array',
+        'readList' => 'array'
     ];
 }

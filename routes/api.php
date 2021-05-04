@@ -64,7 +64,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('file/image', 'UploadController@imageUpload');
     Route::post('file/other', 'UploadController@otherUpload');
     Route::post('file/video', 'UploadController@videoUpload');
-    Route::post('file/excel','UserImportController@store');
+    Route::post('file/excel', 'UserImportController@store');
     Route::delete('file', 'UploadController@deleteFile');
 
     //subject of manager
@@ -79,7 +79,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('manager/schedule/teacher', 'ScheduleTeacherController@createScheduleTeacher')->name('createScheduleTeacher');
     Route::put('manager/schedule/teacher', 'ScheduleTeacherController@updateScheduleTeacher')->name('updateScheduleTeacher');
     Route::delete('manager/schedule/teacher', 'ScheduleTeacherController@deleteScheduleTeacher')->name('deleteScheduleTeacher');
-    Route::get('/schoolSchedule','ScheduleTeacherController@getScheduleData');
+    Route::get('/schoolSchedule', 'ScheduleTeacherController@getScheduleData');
 
     //session of manager
     Route::get('manager/session', 'SessionController@getSession')->name('getSession');
@@ -414,6 +414,10 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('fence', 'FenceController@createFenceData');
     Route::put('fence', 'FenceController@updateFenceData');
     Route::delete('fence', 'FenceController@deleteFenceData');
+
+    //readCnt
+    Route::get('readCnt', 'PostController@getReadCnt');
+    Route::post('readCnt', 'PostController@createReadCnt');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {

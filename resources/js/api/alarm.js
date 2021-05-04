@@ -16,9 +16,19 @@ function deleteAlarm(payload){
     return axios.delete('/api/v1/alarm',{data:payload});
 }
 
+function getReadCnt(payload){
+    return axios.get('/api/v1/readCnt',{params:payload})
+}
+
+function createReadCnt(payload){
+    return axios.post('/api/v1/readCnt',payload)
+}
+
 export{
     getAlarm,
     createAlarm,
     updateAlarm,
     deleteAlarm,
+    getReadCnt,
+    createReadCnt
 }

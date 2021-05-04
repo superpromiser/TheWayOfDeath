@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Post;
 use App\Like;
 use Illuminate\Support\Facades\Auth;
@@ -51,9 +52,9 @@ class PostController extends Controller
         ]);
         // $userId = Auth::user()->id;
         $classId = $request->classId;
-        return Post::whereIn('contentId', [1,2,5, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26])
+        return Post::whereIn('contentId', [1, 2, 5, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26])
             ->where('classId', $classId)
-            ->orWhere('viewList','like', "%{$classId}%")
+            ->orWhere('viewList', 'like', "%{$classId}%")
             ->with([
                 'likes',
                 'views',
@@ -407,5 +408,34 @@ class PostController extends Controller
             'postId' => 'required'
         ]);
         return Post::where('id', $request->postId)->delete();
+    }
+
+    public function getReadCnt(Request $request)
+    {
+        $this->validate($request, [
+            'userList' => 'required'
+        ]);
+
+        return User::whereIn('id', $request->userList)->get();
+    }
+
+    public function createReadCnt(Request $request)
+    {
+        $this->validate($request, [
+            'postId' => 'required'
+        ]);
+        $post = Post::where('id', $request->postId)->first();
+        $readList = $post->readList;
+        $userId = Auth::user()->id;
+        if (is_null($readList)) {
+            $newArr = array();
+            array_push($newArr, $userId);
+            $post->readList = $newArr;
+        } else {
+            array_unique($readList, $userId);
+            $post->readList = $readList;
+        }
+        $post->update();
+        return true;
     }
 }
