@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function getRecognition(){
-    return axios.get('/api/v1/class/recognition');
+function getRecognition(payload){
+    return axios.get('/api/v1/class/recognition',{params:payload});
 }
 
 function createRecognition(payload){

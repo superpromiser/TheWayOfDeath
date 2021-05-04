@@ -43,6 +43,7 @@ class AnouncementController extends Controller
             'userId' => $userId,
             'schoolId' => $request->schoolId,
             'classId' => $request->lessonId,
+            'viewList' => $request->viewList,
         ])->id;
         return Anouncement::create([
             'title' => $request->title,

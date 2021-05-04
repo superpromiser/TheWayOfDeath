@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0">
-        <v-container class="banner-custom z-index-2" color="white" sticky elevation="20">
+        <v-container class="banner-custom mb-10 z-index-2" color="white" sticky elevation="20">
             <v-row>
                 <v-col cols="12" class="justify-space-between d-flex ma-0 align-center">
                     <a @click="$router.go(-1)">
@@ -17,7 +17,7 @@
                     >
                         <v-img :src="`${baseUrl}/asset/img/newIcon/问卷.png`" alt="postItem" ></v-img>
                     </v-avatar> -->
-                    <h2>{{lang.safeStudy}}</h2>
+                    <h2>表彰</h2>
                 <!-- </v-col>
                 <v-col> -->
                     <v-btn
@@ -35,10 +35,9 @@
                 </v-col>
             </v-row>
         </v-container>
-        <!-- <v-divider class="thick-border"></v-divider> -->
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
-            <v-row class="pa-0 mt-1">
-                <SafeStudyPost :content="content"></SafeStudyPost>
+            <v-row class="px-5 mt-1" v-if="content.recognitions">
+                <RecognitionPost :content="content"></RecognitionPost>
                 <FooterPost :footerInfo='content'></FooterPost>
             </v-row>
         </v-container>
@@ -125,14 +124,14 @@
 
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
-import {getSafeStudy} from '~/api/safeStudy';
-import SafeStudyPost from '~/components/contents/safeStudyPost'
+import {getRecognition} from '~/api/recognition';
+import RecognitionPost from '~/components/contents/recognitionPost.vue'
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
 export default {
     components:{
         InfiniteLoading,
-        SafeStudyPost,
+        RecognitionPost,
         FooterPost
     },
     data:()=>({
@@ -145,6 +144,27 @@ export default {
         contentList: [],
         baseUrl:window.Laravel.base_url,
         lang,
+        viewList:[
+            {
+                text:'已维修',
+                value:'done'
+            },
+            {
+                text:'已发布',
+                value:'progress'
+            },
+            {
+                text:'已完成',
+                value:'completed'
+            },
+            {
+                text:'已取消',
+                value:'cancel'
+            },
+        ],
+        viewType:'progress',
+        date:new Date().toISOString().substr(0, 10),
+        menu:false
     }),
     computed:{
         currentPath(){
@@ -159,8 +179,9 @@ export default {
                 timeOut = 1000;
             }
             let vm = this;
-            await getSafeStudy({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId})
+            await getRecognition({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,status:this.viewType,deadline:this.date,lessonId:this.currentPath.params.lessonId})
             .then(res=>{
+                console.log(res.data)
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
                     $state.complete();
                     return;
@@ -181,7 +202,21 @@ export default {
             this.isLoadingContents = false;
         },
         post(){
-            this.$router.push({name:"posts.CsafeStudy"})
+            this.$router.push({name:"posts.Crecognition"})
+        },
+        selViewType(){
+            console.log(this.viewType)
+            this.pageOfContent = 1;
+            this.lastPageOfContent = 0;
+            this.contentList = [];
+            this.infiniteHandler()
+        },
+        selDate(){
+            console.log(this.date)
+            this.pageOfContent = 1;
+            this.lastPageOfContent = 0;
+            this.contentList = [];
+            this.infiniteHandler()
         }
     }
 }

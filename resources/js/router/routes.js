@@ -333,6 +333,7 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/safeStudy',name:'classSpace.applications.safeStudy',component:page('class/applications/safeStudy/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/classStory',name:'classSpace.applications.classStory',component:page('class/applications/classStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/interClassStory',name:'classSpace.applications.interClassStory',component:page('class/applications/interClassStory/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/recognition',name:'classSpace.applications.recognition',component:page('class/applications/recognition/index.vue')},
 
   //manage guest
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests/index.vue')},

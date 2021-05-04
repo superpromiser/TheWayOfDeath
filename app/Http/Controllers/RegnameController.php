@@ -46,6 +46,7 @@ class RegnameController extends Controller
             'userId' => $userId,
             'schoolId' => $request->schoolId,
             'classId' => $request->lessonId,
+            'viewList' => $request->viewList,
         ])->id;
 
         Regname::create([

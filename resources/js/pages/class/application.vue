@@ -354,20 +354,20 @@ export default {
                     color:"#C95384",
                     title:"班级动态",//학급동태
                     imgUrl:"/asset/img/newIcon/classStory.png",
-                    path:"posts.classStory",
+                    path:"classSpace.applications.classStory",
 
                 },
                 {
                     color:"#C95384",
                     title:"班际动态",//학급별동태
                     imgUrl:"/asset/img/newIcon/interClassStory.png",
-                    path:"posts.interClassStory",
+                    path:"classSpace.applications.interClassStory",
                 },
                 {
                     color:"#C95384",
                     title:"表彰",//영예표창
                     imgUrl:"/asset/img/newIcon/recognition.png",
-                    path:"posts.Crecognition",
+                    path:"classSpace.applications.recognition",
 
                 },
             ]
