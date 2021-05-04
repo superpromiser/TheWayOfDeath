@@ -109,7 +109,8 @@ export default {
             return this.$route;
         },
         ...mapGetters({
-            teacherList: 'member/teacherList'
+            teacherList: 'member/teacherList',
+            selectedTeacherData: 'member/selectedTeacher',
         })
     },
     async created() {
@@ -164,7 +165,7 @@ export default {
         },
         selectMem(selUser) {
             this.userList.map(user => {
-                user.checkbox == false
+                user.checkbox = false
             });
             selUser.checkbox = true;
         },
@@ -180,9 +181,11 @@ export default {
             this.$emit('onSelectMember', this.selectedTeacher);
         },
         navToBack(){
-            this.userList.map(user => {
-                user.checkbox = false;
-            });
+            if(this.selectedTeacherData == null){
+                this.userList.map(user => {
+                    user.checkbox = false;
+                });
+            }
             this.$router.go(-1);
         }
     }

@@ -64,7 +64,7 @@
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <p class="mb-0"  >领队教师 </p>
                     <div class="d-flex align-center">
-                        <p v-if="returnTeamData.teacher !== null" class="mb-0 secondary-text">ssss</p>
+                        <p v-if="returnTeamData.teacher !== null" class="mb-0 secondary-text">{{returnTeamData.teacher.name}}</p>
                         <v-icon class="ml-4" color="#999999" size="40">
                             mdi-chevron-right
                         </v-icon>
@@ -265,6 +265,9 @@ export default {
             if(this.returnTeamData.name.trim() == '留堂成员'){
                 return this.$snackbar.showMessage({content: "请将该名称设置为其他名称", color: "error"})
             }
+            if(this.returnTeamData.teacher == null){
+                return this.$snackbar.showMessage({content: "选择负责返回团队的老师", color: "error"})
+            }
             if(this.returnTeamData.member.length == 0){
                 return this.$snackbar.showMessage({content: "请选择归程团队成员", color: "error"})
             }
@@ -274,6 +277,7 @@ export default {
             console.log(this.returnTeamData)
             let payload = Object.assign({}, this.returnTeamData);
             payload.leader = payload.leader.id;
+            payload.teacher = payload.teacher.id;
             let idArr = [];
             payload.member.map( member => {
                 idArr.push(member.id);
@@ -287,6 +291,7 @@ export default {
                 this.$store.dispatch('returnteam/storeReturnTeamAvatar', null);
                 this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
                 this.$store.dispatch('member/storeSelectedGroup', null);
+                this.$store.dispatch('member/storeSelectedTeacher', null);
                 if(this.todayReturnTeamArr == null){
                     let arr = [];
                     arr.push(this.returnTeamData);
