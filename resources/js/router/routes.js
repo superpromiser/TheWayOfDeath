@@ -341,6 +341,8 @@ export default [
 
   //addMember
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/addMember', name:'classSpace.addMemberName', component:page('class/addMember.vue')},
+  //addTeacher
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/addTeacher', name:'classSpace.addTeacher', component:page('class/addTeacher.vue')},
 
 
   //setting

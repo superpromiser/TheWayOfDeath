@@ -2,6 +2,8 @@ import * as types from '../mutation-types'
 // state
 export const state = {
   classGroupList: null,
+  teacherList:null,
+  selectedTeacher:null,
   selectedGroup: null,
   selectedOne: null,
   clubMembers:[],
@@ -11,6 +13,8 @@ export const state = {
 // getters
 export const getters = {
   classGroupList: state => state.classGroupList,
+  teacherList: state => state.teacherList,
+  selectedTeacher: state => state.selectedTeacher,
   selectedGroup: state => state.selectedGroup,
   selectedOne: state => state.selectedOne,
   clubMembers:  state=>state.clubMembers,
@@ -21,6 +25,12 @@ export const getters = {
 export const mutations = {
     [types.STORE_CLASS_GROUP_LIST] (state, classGroupList ) {
         state.classGroupList = classGroupList
+    },
+    [types.STORE_TEACHER_LIST] (state, teacherList ) {
+        state.teacherList = teacherList
+    },
+    [types.STORE_SELECTED_TEACHER] (state, selectedTeacher ) {
+        state.selectedTeacher = selectedTeacher
     },
     [types.STORE_SELECTED_GROUP] (state, selectedGroup ) {
         state.selectedGroup = selectedGroup
@@ -41,6 +51,12 @@ export const mutations = {
 export const actions = {
     storeClassGroupList ({ commit }, payload) {
         commit(types.STORE_CLASS_GROUP_LIST, payload)
+    },
+    storeTeacherList ({ commit }, payload) {
+        commit(types.STORE_TEACHER_LIST, payload)
+    },
+    storeSelectedTeacher ({ commit }, payload) {
+        commit(types.STORE_SELECTED_TEACHER, payload)
     },
     storeSelectedGroup ({ commit }, payload) {
         commit(types.STORE_SELECTED_GROUP, payload)

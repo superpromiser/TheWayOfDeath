@@ -60,7 +60,7 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple>
+            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple @click="navToAddTeacher">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <p class="mb-0"  >领队教师 </p>
                     <div class="d-flex align-center">
@@ -203,6 +203,7 @@ export default {
     computed:{
         ...mapGetters({
             selectedGroup: 'member/selectedGroup',
+            selectedTeacherData: 'member/selectedTeacher',
             returnTeamName: 'returnteam/name',
             returnTeamAvatar: 'returnteam/avatar',
             returnTeamLeader: 'returnteam/leader',
@@ -214,6 +215,7 @@ export default {
         this.returnTeamData.name = this.returnTeamName;
         this.returnTeamData.avatar = this.returnTeamAvatar;
         this.returnTeamData.leader = this.returnTeamLeader;
+        this.returnTeamData.teacher = this.selectedTeacherData;
 
         if(this.selectedGroup !== null){
             if(this.selectedGroup.length == 0){
@@ -308,6 +310,13 @@ export default {
             this.$store.dispatch('returnteam/storeReturnTeamAvatar', this.returnTeamData.avatar);
             this.$store.dispatch('returnteam/storeReturnTeamLeader', this.returnTeamData.leader);
             this.$router.push({name: 'classSpace.addMemberName'})
+        },
+
+        navToAddTeacher(){
+            this.$store.dispatch('returnteam/storeReturnTeamName', this.returnTeamData.name);
+            this.$store.dispatch('returnteam/storeReturnTeamAvatar', this.returnTeamData.avatar);
+            this.$store.dispatch('returnteam/storeReturnTeamLeader', this.returnTeamData.leader);
+            this.$router.push({name: 'classSpace.addTeacher'})
         },
 
         openSelectLeaderDialog(){
