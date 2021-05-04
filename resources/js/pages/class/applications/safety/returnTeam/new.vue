@@ -292,13 +292,18 @@ export default {
                 this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
                 this.$store.dispatch('member/storeSelectedGroup', null);
                 this.$store.dispatch('member/storeSelectedTeacher', null);
+
+                //make modified return team data to useful...
+                this.$set(this.returnTeamData, "leader_id", this.returnTeamData.leader);
+                this.$set(this.returnTeamData, "teacher_id", this.returnTeamData.teacher);
+                console.log("this.returnTeamData",this.returnTeamData);
                 if(this.todayReturnTeamArr == null){
                     let arr = [];
                     arr.push(this.returnTeamData);
                     this.$store.dispatch('returnteam/storeTodayReturnTeamArr', arr)
                 }
-                else{
-                    this.todayReturnTeamArr.push(this.returnTeamData);
+                else{ 
+                    this.todayReturnTeamArr.unshift(this.returnTeamData);
                     this.$store.dispatch('returnteam/storeTodayReturnTeamArr', this.todayReturnTeamArr)
                 }
                 this.$store.dispatch('member/storeSelectedGroup', []);

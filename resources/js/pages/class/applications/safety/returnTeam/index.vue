@@ -148,9 +148,6 @@ export default {
         navToDetail(returnTeam){
             this.$router.push({name: 'classSpace.detailReturnTeam', params: {teamData: returnTeam}});
         },
-        convertTeamMember(returnTeam){
-            console.log("~~~~`",returnTeam);
-        }
     }
 }
 </script>

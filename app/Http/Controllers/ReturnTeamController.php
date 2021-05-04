@@ -15,6 +15,7 @@ class ReturnTeamController extends Controller
         $this->validate($request, [
             'avatar' => 'required',
             'leader' => 'required',
+            'teacher' => 'required',
             'member' => 'required',
             'name' => 'required',
         ]);
@@ -22,54 +23,22 @@ class ReturnTeamController extends Controller
         $userId = Auth::user()->id;
         $lessonId = Auth::user()->lessonId;
         $schoolId = Auth::user()->schoolId;
-        $returnTeamArr = ReturnTeam::where([
-            ['userId', '=', $userId],
-            ['lessonId', '=', $lessonId],
-            ['name', '!=', '留堂成员'],
-            ['leaderId', '!=', null],
-        ])->whereDate('updated_at', Carbon::today())->first();
         
-        if ($returnTeamArr == null) {
-            $classMemeberArr = User::where([
-                'roleId' => 5,
-                'schoolId' => $schoolId,
-                'lessonId' => $lessonId,
-            ])->get();            
-            $classMemberIdArr = array();
-            foreach( $classMemeberArr as $key => $classMember ){
-                if( in_array( $classMember->id,  $request->member) ){
-                    
-                }
-                else{
-                    array_push($classMemberIdArr, $classMember->id);
-                }
-            }
+        //create remain team when first create of return team
+        $remainTeamData = ReturnTeam::where([
+            'lessonId' => $lessonId,
+            'schoolId' => $schoolId,
+            'name' => '留堂成员',
+        ])->whereDate('updated_at', Carbon::today())->first();
 
+        if ($remainTeamData == null) {
             $remainTeamData = ReturnTeam::create([
                 'userId' => $userId,
                 'lessonId' => $lessonId,
                 'schoolId' => $schoolId,
                 'name' => '留堂成员',
-                'member' => $classMemberIdArr
+                'member' => []
             ]);
-        }
-        else{
-
-            $remainTeamData = ReturnTeam::where([
-                'lessonId' => $lessonId,
-                'schoolId' => $schoolId,
-                'name' => '留堂成员',
-            ])->whereDate('updated_at', Carbon::today())->first();
-            
-            $test = $remainTeamData->member;
-            $memArr = $request->member;
-            foreach($request->member as $memberId){
-                if (($key = array_search($memberId, $test)) !== false) {
-                    unset($test[$key]);
-                }
-            }
-            $remainTeamData->member = array_values($test);
-            $remainTeamData->update();
         }
         
         $returnTeamData = ReturnTeam::create([
@@ -85,7 +54,6 @@ class ReturnTeamController extends Controller
 
         return response()->json([
             'msg' => 1,
-            'returnTeamData' => $returnTeamData,
         ]);
 
     }
