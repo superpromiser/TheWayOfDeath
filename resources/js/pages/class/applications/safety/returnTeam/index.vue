@@ -52,9 +52,12 @@
                         </v-avatar>
                         <p class="mb-0 ml-4"  >{{returnTeam.name}} </p>
                     </div>
-                    <v-icon class="ml-4" color="#999999" size="40">
-                        mdi-chevron-right
-                    </v-icon>
+                    <div class="d-flex align-center">
+                        <p class="mb-0"> {{convertTeamMember(returnTeam)}}</p>
+                        <v-icon class="ml-4" color="#999999" size="40">
+                            mdi-chevron-right
+                        </v-icon>
+                    </div>
                 </v-col>
                 <div v-if="i<todayReturnTeamArr.length-1" class="cus-divider-light-gray-height"></div>
             </v-row>
@@ -144,6 +147,9 @@ export default {
     methods:{
         navToDetail(returnTeam){
             this.$router.push({name: 'classSpace.detailReturnTeam', params: {teamData: returnTeam}});
+        },
+        convertTeamMember(returnTeam){
+            console.log("~~~~`",returnTeam);
         }
     }
 }
