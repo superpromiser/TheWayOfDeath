@@ -1,24 +1,24 @@
 <template>
     <v-container class="pa-0">
-        <v-banner>
-            <v-row class="ma-0">
-                <v-col>
-                    <div class="text-center d-flex justify-space-between align-center">
-                        <a @click="$router.go(-1)" class="float-left">
-                            <v-icon size="70">
-                                mdi-chevron-left
-                            </v-icon>
-                        </a>
-                        <span style="font-size:30px;line-height:2">新建归程队</span> 
-                        <div class="float-right">
-                            <v-btn dark color="#7879ff" @click="submit" :loading="isUpdating">
-                                新建归程队
-                            </v-btn>
-                        </div>
-                    </div>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>新建归程队</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn dark color="#7879ff" @click="submit" :loading="isUpdating">
+                        新建归程队
+                    </v-btn>
                 </v-col>
             </v-row>
-        </v-banner>
+        </v-container>
         <v-container v-if="isRemainTeam == false">
             <v-row class="ma-0 hover-cursor-point" v-ripple @click="clickUploadImageBtn">
                 <v-col cols="12" class="d-flex justify-space-between align-center">

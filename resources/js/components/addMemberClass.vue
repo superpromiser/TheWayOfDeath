@@ -71,14 +71,13 @@
                                 <p >{{user.name}}</p>
                                 <p class="mb-0">{{ pnEncrypt(user.phoneNumber) }}</p>
                             </div>
-                        </div>
-                    </template>
-                </v-checkbox>
-            </v-col>
-        </v-row>
-        <v-divider light class="thick-border"></v-divider>
+                        </template>
+                    </v-checkbox>
+                </v-col>
+            </v-row>
+            <v-divider v-if="index < userList.length - 1" light class="thick-border"></v-divider>
+        </v-container>
     </v-container>
-  </v-container>
 </template>
 
 <script>
@@ -182,6 +181,12 @@ export default {
             
             console.log(this.selected);
             this.$emit('onSelectMember', this.selected);
+        },
+        navToBack(){
+            this.userList.map(user => {
+                user.checkbox = false;
+            });
+            this.$router.go(-1);
         }
     }
 };
