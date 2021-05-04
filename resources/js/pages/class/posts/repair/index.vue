@@ -264,7 +264,7 @@ export default {
                     this.$router.push({name:'home'})
                 }
                 else{
-                    this.$router.push({name:'schoolSpace.news'})
+                    this.$router.push({name:'classSpace.news'})
                 }
             }).catch(err=>{
                 this.isSubmit = false

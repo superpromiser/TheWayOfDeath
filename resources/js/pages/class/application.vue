@@ -314,35 +314,35 @@ export default {
             title:"校园安全",//교내안전
             icon:"mdi-account-cog-outline",
             items:[
-                {
-                    color:"#98BB3A",
-                    title:"访客管理",//방문자관리
-                    imgUrl:"/asset/img/newIcon/manageGuests.png",
-                    path:"posts."
-                },
-                {
-                    color:"#98BB3A",
-                    title:"归程队",//귀한팀관리
-                    imgUrl:"/asset/img/newIcon/returnTeam.png",
-                    path:"classSpace.returnTeam"
-                },
-                {
-                    color:"#98BB3A",
-                    title:"打卡管理",//카드긋기
-                    imgUrl:"/asset/img/newIcon/cardcheck.png",
-                    path:"posts."
-                },
+                // {
+                //     color:"#98BB3A",
+                //     title:"访客管理",//방문자관리
+                //     imgUrl:"/asset/img/newIcon/manageGuests.png",
+                //     path:"classSpace.manageGuests"
+                // },
+                // {
+                //     color:"#98BB3A",
+                //     title:"归程队",//귀한팀관리
+                //     imgUrl:"/asset/img/newIcon/returnTeam.png",
+                //     path:"classSpace.returnTeam"
+                // },
+                // {
+                //     color:"#98BB3A",
+                //     title:"打卡管理",//카드긋기
+                //     imgUrl:"/asset/img/newIcon/cardcheck.png",
+                //     path:"posts."
+                // },
                 {
                     color:"#98BB3A",
                     title:"维修工单",//수리공
                     imgUrl:"/asset/img/newIcon/repair.png",
-                    path:"posts.repair"
+                    path:"classSpace.applications.repair"
                 },
                 {
                     color:"#98BB3A",
                     title:"安全教育",//안전교육
                     imgUrl:"/asset/img/newIcon/safeStudy.png",
-                    path:"posts.safeStudy"
+                    path:"classSpace.applications.safeStudy"
                 },
             ]
         },
