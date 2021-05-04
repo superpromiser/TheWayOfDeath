@@ -254,6 +254,7 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.Cshare',component:page('class/posts/share/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement',name:'posts.Cannouncement',component:page('class/posts/announcement/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/safeStudy',name:'posts.CsafeStudy',component:page('class/posts/safeStudy/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/repair',name:'posts.Crepair',component:page('class/posts/repair/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/vacation',name:'posts.Cvacation',component:page('class/posts/vacation/student/new.vue')},
   //class member  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
@@ -328,8 +329,11 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/regname',name:'classSpace.applications.regname',component:page('class/applications/regName/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/announcement',name:'classSpace.applications.announcement',component:page('class/applications/announcement/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/homework',name:'classSpace.applications.homework',component:page('class/applications/homework/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/repiar',name:'classSpace.applications.repair',component:page('class/applications/repair/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/safeStudy',name:'classSpace.applications.safeStudy',component:page('class/applications/safeStudy/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/classStory',name:'classSpace.applications.classStory',component:page('class/applications/classStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/interClassStory',name:'classSpace.applications.interClassStory',component:page('class/applications/interClassStory/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/recognition',name:'classSpace.applications.recognition',component:page('class/applications/recognition/index.vue')},
 
   //manage guest
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests/index.vue')},

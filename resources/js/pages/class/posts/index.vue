@@ -223,17 +223,17 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/returnTeam.png",
                     //     path:"classSpace.returnTeam"
                     // },
-                    {
-                        color:"#98BB3A",
-                        title:"打卡管理",//카드긋기
-                        imgUrl:"/asset/img/newIcon/cardcheck.png",
-                        path:"posts."
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"打卡管理",//카드긋기
+                    //     imgUrl:"/asset/img/newIcon/cardcheck.png",
+                    //     path:"posts."
+                    // },
                     {
                         color:"#98BB3A",
                         title:"维修工单",//수리공
                         imgUrl:"/asset/img/newIcon/repair.png",
-                        path:"posts.repair"
+                        path:"posts.Crepair"
                     },
                     {
                         color:"#98BB3A",
@@ -396,17 +396,17 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/returnTeam.png",
                     //     path:"classSpace.returnTeam"
                     // },
-                    {
-                        color:"#98BB3A",
-                        title:"打卡管理",//카드긋기
-                        imgUrl:"/asset/img/newIcon/cardcheck.png",
-                        path:"posts."
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"打卡管理",//카드긋기
+                    //     imgUrl:"/asset/img/newIcon/cardcheck.png",
+                    //     path:"posts."
+                    // },
                     {
                         color:"#98BB3A",
                         title:"维修工单",//수리공
                         imgUrl:"/asset/img/newIcon/repair.png",
-                        path:"posts.repair"
+                        path:"posts.Crepair"
                     },
                     {
                         color:"#98BB3A",
@@ -569,17 +569,17 @@ export default {
                         imgUrl:"/asset/img/newIcon/returnTeam.png",
                         path:"classSpace.returnTeam"
                     },
-                    {
-                        color:"#98BB3A",
-                        title:"打卡管理",//카드긋기
-                        imgUrl:"/asset/img/newIcon/cardcheck.png",
-                        path:"posts."
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"打卡管理",//카드긋기
+                    //     imgUrl:"/asset/img/newIcon/cardcheck.png",
+                    //     path:"posts."
+                    // },
                     {
                         color:"#98BB3A",
                         title:"维修工单",//수리공
                         imgUrl:"/asset/img/newIcon/repair.png",
-                        path:"posts.repair"
+                        path:"posts.Crepair"
                     },
                     {
                         color:"#98BB3A",
@@ -752,7 +752,7 @@ export default {
                     //     color:"#98BB3A",
                     //     title:"维修工单",//수리공
                     //     imgUrl:"/asset/img/newIcon/repair.png",
-                    //     path:"posts.repair"
+                    //     path:"posts.Crepair"
                     // },
                     // {
                     //     color:"#98BB3A",
@@ -925,7 +925,7 @@ export default {
                         color:"#98BB3A",
                         title:"维修工单",//수리공
                         imgUrl:"/asset/img/newIcon/repair.png",
-                        path:"posts.repair"
+                        path:"posts.Crepair"
                     },
                     // {
                     //     color:"#98BB3A",

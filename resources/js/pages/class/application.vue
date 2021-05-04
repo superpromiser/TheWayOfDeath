@@ -314,35 +314,35 @@ export default {
             title:"校园安全",//교내안전
             icon:"mdi-account-cog-outline",
             items:[
-                {
-                    color:"#98BB3A",
-                    title:"访客管理",//방문자관리
-                    imgUrl:"/asset/img/newIcon/manageGuests.png",
-                    path:"posts."
-                },
-                {
-                    color:"#98BB3A",
-                    title:"归程队",//귀한팀관리
-                    imgUrl:"/asset/img/newIcon/returnTeam.png",
-                    path:"classSpace.returnTeam"
-                },
-                {
-                    color:"#98BB3A",
-                    title:"打卡管理",//카드긋기
-                    imgUrl:"/asset/img/newIcon/cardcheck.png",
-                    path:"posts."
-                },
+                // {
+                //     color:"#98BB3A",
+                //     title:"访客管理",//방문자관리
+                //     imgUrl:"/asset/img/newIcon/manageGuests.png",
+                //     path:"classSpace.manageGuests"
+                // },
+                // {
+                //     color:"#98BB3A",
+                //     title:"归程队",//귀한팀관리
+                //     imgUrl:"/asset/img/newIcon/returnTeam.png",
+                //     path:"classSpace.returnTeam"
+                // },
+                // {
+                //     color:"#98BB3A",
+                //     title:"打卡管理",//카드긋기
+                //     imgUrl:"/asset/img/newIcon/cardcheck.png",
+                //     path:"posts."
+                // },
                 {
                     color:"#98BB3A",
                     title:"维修工单",//수리공
                     imgUrl:"/asset/img/newIcon/repair.png",
-                    path:"posts.repair"
+                    path:"classSpace.applications.repair"
                 },
                 {
                     color:"#98BB3A",
                     title:"安全教育",//안전교육
                     imgUrl:"/asset/img/newIcon/safeStudy.png",
-                    path:"posts.safeStudy"
+                    path:"classSpace.applications.safeStudy"
                 },
             ]
         },
@@ -354,20 +354,20 @@ export default {
                     color:"#C95384",
                     title:"班级动态",//학급동태
                     imgUrl:"/asset/img/newIcon/classStory.png",
-                    path:"posts.classStory",
+                    path:"classSpace.applications.classStory",
 
                 },
                 {
                     color:"#C95384",
                     title:"班际动态",//학급별동태
                     imgUrl:"/asset/img/newIcon/interClassStory.png",
-                    path:"posts.interClassStory",
+                    path:"classSpace.applications.interClassStory",
                 },
                 {
                     color:"#C95384",
                     title:"表彰",//영예표창
                     imgUrl:"/asset/img/newIcon/recognition.png",
-                    path:"posts.Crecognition",
+                    path:"classSpace.applications.recognition",
 
                 },
             ]
