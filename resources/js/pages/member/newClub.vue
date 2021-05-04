@@ -31,9 +31,7 @@
                 <v-text-field solo label="club name" hide-details dense v-model="clubName"></v-text-field>
             </v-col>
         </v-row>
-        <div class="px-10">
-            <v-divider light></v-divider>
-        </div>
+        <v-divider light></v-divider>
         <v-row @click="selStudent" class="hover-cursor-point px-10 py-5">
             <v-col cols="6">
                 student
@@ -44,11 +42,9 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <div class="px-10">
-            <v-divider light></v-divider>
-        </div>
-        <div v-if="clubMembers" v-for="member in clubMembers" :key="member.id" class="px-10">
-            <v-row class="py-2">
+        <v-divider light></v-divider>
+        <div v-for="member in clubMembers" :key="member.id">
+            <v-row class="py-2 px-10">
                 <v-col cols="12" md="4">
                     {{member.name}}
                 </v-col>
@@ -75,40 +71,48 @@ export default {
         isSubmit:false,
         lang,
     }),
-    computed:{
-        ...mapGetters({
-            clubMembers:'member/clubMembers'
-        })
-    },
     created(){
         this.newClub = true
-        console.log("this.clubMembers",this.clubMembers)
+        this.clubName = this.cName
+        console.log(this.clubMembers,"this.clubMembers")
     },
     computed:{
         currentPath(){
             return this.$route
-        }
+        },
+        ...mapGetters({
+            clubMembers:'member/clubMembers',
+            cName:'member/clubName'
+        })
     },
     methods:{
         selStudent(){
+            this.$store.dispatch('member/storeClubName',this.clubName);
             this.$router.push({name:"classSpace.contact"})
         },
         async submit(){
-            console.log(this.clubMembers)
+            // console.log(this.clubMembers)
+            // console.log('cName',this.cName)
+            // return
             if(this.clubName.trim() == ''){
                 return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
             }
             if(this.clubMembers.length == 0){
                 return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
             }
-            let members = [];
+            let memberNames = [];
             this.clubMembers.map(member=>{
-                members.push(member.id)
+                memberNames.push(member.name)
+            })
+            let memberIds = [];
+            this.clubMembers.map(member=>{
+                memberIds.push(member.id)
             })
             this.isSubmit = true
             await createClub({
                 clubName:this.clubName,
-                members:members,
+                memberNames:memberNames,
+                memberIds:memberIds,
                 schoolId:this.currentPath.params.schoolId,
                 lessonId:this.currentPath.params.lessonId
             }).then(res=>{

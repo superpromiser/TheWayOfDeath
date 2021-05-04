@@ -108,7 +108,7 @@
                             <div>
                                 <div>
                                     <v-chip active-class="green--text" class="mo-text-editor-setting-chip" :input-value="active" @click="toggle">
-                                        <v-icon size="30" color="#49d29e">mdi-circle</v-icon> 
+                                        <v-icon size="30" color="#7879ff">mdi-circle</v-icon> 
                                     </v-chip>
                                 </div>
                             </div>

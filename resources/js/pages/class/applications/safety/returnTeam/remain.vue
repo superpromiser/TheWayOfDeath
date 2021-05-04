@@ -25,7 +25,7 @@
                     v-model="checkAll"
                     label="全选"
                     @click="selectAll"
-                    color="#49d29e"
+                    color="#7879ff"
                     :disabled="noData || isLoading"
                 ></v-checkbox>
                 <v-spacer> </v-spacer>
@@ -93,7 +93,7 @@
                         <v-checkbox
                             v-model="remainTeam.checkbox"
                             @click="selectTeam"
-                            color="#49d29e"
+                            color="#7879ff"
                             hide-details
                             class="pt-0 mt-0 ml-3"
                         >
@@ -107,7 +107,7 @@
                     </v-row>
                     <v-row class="ma-0 justify-space-between align-center hover-cursor-point py-2" v-ripple @click="navToDetail(remainTeam)">
                         <div class="ml-3 d-flex align-center ">
-                            <v-avatar color="#49d29e" size="60" class="mr-3 " >
+                            <v-avatar color="#7879ff" size="60" class="mr-3 " >
                                 <span v-if="remainTeam.avatar == '/'" class="white--text headline">{{remainTeam.name[0]}}</span>
                                 <v-img v-else :src="`${baseUrl}${remainTeam.avatar}`"></v-img>
                             </v-avatar>

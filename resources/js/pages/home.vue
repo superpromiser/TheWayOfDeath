@@ -136,14 +136,14 @@
                   <v-spacer></v-spacer>
                   <v-btn
                       text
-                      color="#49d29e"
+                      color="#7879ff"
                       @click="closeAddItemDialog "
                   >
                       {{lang.cancel}}
                   </v-btn>
                   <v-btn
                       text
-                      color="#49d29e"
+                      color="#7879ff"
                       @click="saveSelectedItemGroup "
                   >
                       {{lang.ok}}

@@ -24,7 +24,7 @@
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <p class="mb-0" >头像 </p>
                     <div class="d-flex align-center">
-                        <v-avatar size="50" :color="teamData.name == '' && teamData.avatar == null ? '#999999': '#49d29e'">
+                        <v-avatar size="50" :color="teamData.name == '' && teamData.avatar == null ? '#999999': '#7879ff'">
                             <v-img v-if="teamData.avatar !== null" :src="`${baseUrl}${teamData.avatar}`"> </v-img>
                             <span v-else-if="teamData.name !== ''" class="white--text headline">{{teamData.name[0]}}</span>
                             <v-icon v-else dark >
@@ -142,7 +142,7 @@
                 </v-col>
                 <v-col v-else v-for="(user, i) in teamData.member" :key="i" cols="12" sm="6" md="4" lg="3" xl="2" >
                     <v-card class="text-center pt-4 position-relative">
-                        <v-avatar color="#49d29e" size="60" class="rounded-circle mx-auto"  >
+                        <v-avatar color="#7879ff" size="60" class="rounded-circle mx-auto"  >
                             <span v-if="user.avatar == '/'" class="white--text headline">{{user.name[0]}}</span>
                             <v-img v-else :src="`${baseUrl}${user.avatar}`"></v-img>
                         </v-avatar>

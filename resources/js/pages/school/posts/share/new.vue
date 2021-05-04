@@ -154,7 +154,7 @@
                             <v-radio name="shareData.publishType" color="#7879ff" label="私密" value="pvt" ></v-radio>
                             <v-radio name="shareData.publishType" color="#7879ff" label="部分看见" value="spec" ></v-radio>
                         </v-radio-group>
-                        <v-btn v-if="publishSpecUserList !== null&&publishSpecUserList.length > 0" elevation="0" small text color="#49d29e" @click="changeSelectedUserList">重选名单</v-btn>
+                        <v-btn v-if="publishSpecUserList !== null&&publishSpecUserList.length > 0" elevation="0" small text color="#7879ff" @click="changeSelectedUserList">重选名单</v-btn>
                     </div>
                 </v-menu>
             </v-row>

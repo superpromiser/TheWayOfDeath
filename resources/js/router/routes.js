@@ -324,6 +324,9 @@ export default [
   //class application
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/questionnaire',name:'classSpace.applications.questionnaire',component:page('class/applications/questionnaire/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/voting',name:'classSpace.applications.voting',component:page('class/applications/voting/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/share',name:'classSpace.applications.share',component:page('class/applications/share/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/regname',name:'classSpace.applications.regname',component:page('class/applications/regName/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/announcement',name:'classSpace.applications.announcement',component:page('class/applications/announcement/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/homework',name:'classSpace.applications.homework',component:page('class/applications/homework/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/classStory',name:'classSpace.applications.classStory',component:page('class/applications/classStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/interClassStory',name:'classSpace.applications.interClassStory',component:page('class/applications/interClassStory/index.vue')},

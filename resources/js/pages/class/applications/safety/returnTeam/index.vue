@@ -68,7 +68,7 @@
             <v-row  v-if="returnTeam.name !==  '留堂成员'" class="ma-0 py-3 hover-cursor-point" v-ripple v-for="(returnTeam, i) in todayReturnTeamArr" :key="i" @click="navToDetail(returnTeam)">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <div class="d-flex align-center">
-                        <v-avatar size="50" :color="returnTeam.name == '' && returnTeam.avatar == null ? '#999999': '#49d29e'">
+                        <v-avatar size="50" :color="returnTeam.name == '' && returnTeam.avatar == null ? '#999999': '#7879ff'">
                             <v-img v-if="returnTeam.avatar !== null" :src="`${baseUrl}${returnTeam.avatar}`"> </v-img>
                             <span v-else-if="returnTeam.name !== ''" class="white--text headline">{{returnTeam.name[0]}}</span>
                             <v-icon v-else dark >
@@ -87,7 +87,7 @@
             <v-row  v-if="remainTeam !== null" class="ma-0 py-3 hover-cursor-point" v-ripple @click="navToDetail(remainTeam)">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <div class="d-flex align-center">
-                        <v-avatar size="50" :color="remainTeam.name == '' && remainTeam.avatar == null ? '#999999': '#49d29e'">
+                        <v-avatar size="50" :color="remainTeam.name == '' && remainTeam.avatar == null ? '#999999': '#7879ff'">
                             <span  class="white--text headline">留</span>
                         </v-avatar>
                         <p class="mb-0 ml-4"  >{{remainTeam.name}} </p>

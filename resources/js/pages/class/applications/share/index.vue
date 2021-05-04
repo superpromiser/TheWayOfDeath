@@ -1,54 +1,42 @@
 <template>
-    <v-container v-if="$isMobile()" class="pa-0">
-        <v-row class="ma-0 bg-secondary justify-center position-relative" >
-            <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
-                mdi-chevron-left
-            </v-icon>
-            <p class="mb-0 font-size-0-95 font-weight-bold py-4">个人分享</p>
-        </v-row>
-        <v-container v-if="contentList.length" v-for="content in contentList" :key="content.id" >
-            <v-row class="pa-0 mt-1">
-                <SharePost :content="content"></SharePost>
-                <FooterPost :footerInfo='content'></FooterPost>
+    <v-container class="pa-0">
+        <v-container class="banner-custom z-index-2" color="white" sticky elevation="20">
+            <v-row>
+                <v-col cols="12" class="justify-space-between d-flex ma-0 align-center">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                <!-- </v-col>
+                <v-col> -->
+                    <!-- <v-avatar
+                        class="ma-3 ml-3"
+                        size="50"
+                        tile
+                    >
+                        <v-img :src="`${baseUrl}/asset/img/newIcon/问卷.png`" alt="postItem" ></v-img>
+                    </v-avatar> -->
+                    <h2>{{lang.share}}</h2>
+                <!-- </v-col>
+                <v-col> -->
+                    <v-btn
+                        tile
+                        color="#7879ff"
+                        dark
+                        class="mr-5"
+                        @click="post"
+                        >
+                        <v-icon left>
+                            mdi-book-plus 
+                        </v-icon>
+                        发布
+                    </v-btn>
+                </v-col>
             </v-row>
         </v-container>
-        <InfiniteLoading 
-            class="pb-3 w-100"
-            @infinite="infiniteHandler"
-        >   
-            <div slot="spinner">
-                <v-row class="pa-3 ma-3 d-flex justify-center align-center" >
-                    <v-progress-circular
-                        indeterminate
-                        color="#7879ff"
-                    ></v-progress-circular>
-                </v-row>
-            </div>
-            <div slot="no-more" class="pa-3 ma-3 text-center d-flex align-center justify-center">
-                <v-chip
-                class="ma-2"
-                color="#7879ff"
-                outlined
-                pill
-                >
-                没有更多数据
-                <v-icon right>
-                    mdi-cancel 
-                </v-icon>
-                </v-chip>
-            </div>
-            <div slot="no-results" class="position-relative row m-0 p-2 h-50 d-flex justify-content-center align-items-center">
-                <div class="w-100 text-center p-5 m-5 mt-10">
-                    <v-icon size="70" color="grey darken-1">
-                        mdi-magnify
-                    </v-icon>
-                    <h5>资料不存在</h5>
-                </div>
-            </div>
-        </InfiniteLoading>
-    </v-container>
-    <v-container v-else>
-        <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+        <!-- <v-divider class="thick-border"></v-divider> -->
+        <v-container v-if="contentList.length" class="px-5" v-for="content in contentList" :key="content.id" >
             <v-row class="pa-0 mt-1">
                 <SharePost :content="content"></SharePost>
                 <FooterPost :footerInfo='content'></FooterPost>
@@ -141,7 +129,6 @@ import {getShare} from '~/api/share';
 import SharePost from '~/components/contents/sharePost'
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
-import { mapGetters } from 'vuex'
 export default {
     components:{
         InfiniteLoading,
@@ -162,10 +149,7 @@ export default {
     computed:{
         currentPath(){
             return this.$route
-        },
-        ...mapGetters({
-            user: 'auth/user'
-        }),
+        }
     },
     methods:{
         async infiniteHandler($state){
@@ -175,7 +159,7 @@ export default {
                 timeOut = 1000;
             }
             let vm = this;
-            await getShare({page:this.pageOfContent,schoolId:this.user.schoolId, userId: this.user.id})
+            await getShare({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId})
             .then(res=>{
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
                     $state.complete();
@@ -197,7 +181,7 @@ export default {
             this.isLoadingContents = false;
         },
         post(){
-            this.$router.push({name:"posts.share"})
+            this.$router.push({name:"posts.Cshare"})
         }
     }
 }

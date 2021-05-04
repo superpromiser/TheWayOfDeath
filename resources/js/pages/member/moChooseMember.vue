@@ -26,10 +26,10 @@
                 </div>
                 <div  v-for="(user, j) in userGroup.data" :key="j">
                     <v-list-item v-ripple @click="pushUserToList(user.id)">   
-                        <v-icon v-if="selectedUserList.includes(user.id)" color="#49d29e" class="mr-3">mdi-check-circle</v-icon>
+                        <v-icon v-if="selectedUserList.includes(user.id)" color="#7879ff" class="mr-3">mdi-check-circle</v-icon>
                         <v-icon v-else class="mr-3">mdi-checkbox-blank-circle-outline</v-icon>
                         <v-list-item-icon class="my-2">
-                            <v-avatar size="50" color="#49d29e" class="rounded-lg">
+                            <v-avatar size="50" color="#7879ff" class="rounded-lg">
                                 <v-img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user.name[0]" class="chat-user-avatar"></v-img>
                                 <span dark v-else class="white--text headline"> {{user.name[0]}}</span>
                             </v-avatar>

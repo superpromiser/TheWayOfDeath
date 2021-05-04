@@ -18,10 +18,9 @@ class CreateClubsTable extends Migration
             $table->TinyInteger('schoolId');
             $table->TinyInteger('lessonId')->default(0);
             $table->char('clubName');
-            $table->unsignedBigInteger('memberId');
+            $table->json('members');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('memberId')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

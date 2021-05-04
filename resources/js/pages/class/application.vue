@@ -34,36 +34,36 @@ export default {
     lang,
     contentItemList : [],
     adminItem:[
-        {
-            title:"智能考勤",//지능출근
-            icon:"mdi-calendar-month-outline",
-            items:[
+        // {
+        //     title:"智能考勤",//지능출근
+        //     icon:"mdi-calendar-month-outline",
+        //     items:[
                 // {
                 //     color:"#3EBBE8",
                 //     title:"请假单",//휴가신청
                 //     imgUrl:"/asset/img/newIcon/vocationRequest.png",
                 //     path:"posts.vocation"
                 // },
-                {
-                    color:"#3EBBE8",
-                    title:"请假审批",//휴가심사
-                    imgUrl:"/asset/img/newIcon/vocationReply.png",
-                    path:"posts.vocation"
-                },
-                {
-                    color:"#3EBBE8",
-                    title:"考勤",//출근
-                    imgUrl:"/asset/img/newIcon/attendance.png",
-                    path:"posts.attendance"
-                },
+                // {
+                //     color:"#3EBBE8",
+                //     title:"请假审批",//휴가심사
+                //     imgUrl:"/asset/img/newIcon/vocationReply.png",
+                //     path:"posts.vocation"
+                // },
+                // {
+                //     color:"#3EBBE8",
+                //     title:"考勤",//출근
+                //     imgUrl:"/asset/img/newIcon/attendance.png",
+                //     path:"posts.attendance"
+                // },
         //         {
         //             color:"#3EBBE8",
         //             title:"课程表",//시간표
         //             imgUrl:"/asset/img/newIcon/scheduleClass.png",
         //             path:"admin.scheduleClass"
         //         },
-            ]
-        },
+        //     ]
+        // },
         {
             title:"基础沟通",//기초의사소통
             icon:"mdi-message-text",
@@ -201,10 +201,10 @@ export default {
         },
     ],
     managerItem:[
-        {
-            title:"智能考勤",//지능출근
-            icon:"mdi-calendar-month-outline",
-            items:[
+        // {
+        //     title:"智能考勤",//지능출근
+        //     icon:"mdi-calendar-month-outline",
+        //     items:[
                 // {
                 //     color:"#3EBBE8",
                 //     title:"课程维护",//수업유지
@@ -217,26 +217,26 @@ export default {
                 //     imgUrl:"/asset/img/newIcon/vocationRequest.png",
                 //     path:"posts.vocation"
                 // },
-                {
-                    color:"#3EBBE8",
-                    title:"请假审批",//휴가심사
-                    imgUrl:"/asset/img/newIcon/vocationReply.png",
-                    path:"posts.vocation"
-                },
-                {
-                    color:"#3EBBE8",
-                    title:"考勤",//출근
-                    imgUrl:"/asset/img/newIcon/attendance.png",
-                    path:"posts.attendance"
-                },
+                // {
+                //     color:"#3EBBE8",
+                //     title:"请假审批",//휴가심사
+                //     imgUrl:"/asset/img/newIcon/vocationReply.png",
+                //     path:"posts.vocation"
+                // },
+                // {
+                //     color:"#3EBBE8",
+                //     title:"考勤",//출근
+                //     imgUrl:"/asset/img/newIcon/attendance.png",
+                //     path:"posts.attendance"
+                // },
         //         {
         //             color:"#3EBBE8",
         //             title:"课程表",//시간표
         //             imgUrl:"/asset/img/newIcon/scheduleClass.png",
         //             path:"admin.scheduleClass"
         //         },
-            ]
-        },
+        //     ]
+        // },
         {
             title:"基础沟通",//기초의사소통
             icon:"mdi-message-text",
@@ -263,25 +263,25 @@ export default {
                     color:"#B673E0",
                     title:"分享",//공유
                     imgUrl:"/asset/img/newIcon/share1.png",
-                    path:"posts.share"
+                    path:"classSpace.applications.share"
                 },
                 {
                     color:"#B673E0",
                     title:"问卷",//설문
                     imgUrl:"/asset/img/newIcon/questionnaire.png",
-                    path:"posts.Cquestionnaire"
+                    path:"classSpace.applications.questionnaire"
                 },
                 {
                     color:"#B673E0",
                     title:"投票",//투표
                     imgUrl:"/asset/img/newIcon/voting.png",
-                    path:"posts.Cvoting"
+                    path:"classSpace.applications.voting"
                 },
                 {
                     color:"#B673E0",
                     title:"报名",//이름등록
                     imgUrl:"/asset/img/newIcon/regName.png",
-                    path:"posts.regname"
+                    path:"classSpace.applications.regname"
                 },
             ]
         },
@@ -294,19 +294,19 @@ export default {
                     color:"#E4BC16",
                     title:"分享",//공유
                     imgUrl:"/asset/img/newIcon/share2.png",
-                    path:"posts.share"
+                    path:"classSpace.applications.share"
                 },
                 {
                     color:"#E4BC16",
                     title:"公告",//공시
                     imgUrl:"/asset/img/newIcon/announcement.png",
-                    path:"posts.announcement"
+                    path:"classSpace.applications.announcement"
                 },
                 {
                     color:"#E4BC16",
                     title:"作业",//숙제
                     imgUrl:"/asset/img/newIcon/homework.png",
-                    path:"posts.Chomework"
+                    path:"classSpace.applications.homework"
                 },
             ]
         },

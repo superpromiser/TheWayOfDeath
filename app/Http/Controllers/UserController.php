@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\User;
+use App\Grade;
+use App\Lesson;
 use App\Permission;
 use App\Content;
 use App\UserRole;
@@ -22,25 +24,36 @@ class UserController extends Controller
     public function createStaff(Request $request)
     {
         $schoolId = Auth::user()->schoolId;
+        $mGradeId = Grade::orderBy('id', 'DESC')->first()->id;
+        if (is_null($request->lessonId)) {
+            $lessonId = Lesson::create([
+                'lessonName' => $request->name,
+                'imgUrl' => '/',
+                'schoolId' => $schoolId,
+                'gradeId' => $mGradeId
+            ])->id;
+        } else {
+            $lessonId = $request->lessonId;
+        }
         $staffData['name'] = $request->name;
         $staffData['phoneNumber'] = $request->phoneNumber;
         $staffData['password'] = bcrypt($request->password);
         $staffData['avatar'] = $request->avatar;
         $staffData['schoolId'] = $schoolId;
         $staffData['gradeId'] = $request->gradeId;
-        $staffData['lessonId'] = $request->lessonId;
+        $staffData['lessonId'] = $lessonId;
         $staffData['gender'] = $request->gender;
         $staffData['nation'] = $request->nation;
         $staffData['cardNum'] = $request->cardNum;
         $staffData['roleId'] = $request->roleId;
-        if($request->roleId == 4){
+        if ($request->roleId == 4) {
             $staffData['status'] = "上课中";
         }
         $staffData['familyAddress'] = json_encode($request->familyAddress);
         $staffData['residenceAddress'] = json_encode($request->residenceAddress);
         $groupArr = array();
         array_push($groupArr, 0);
-        array_push($groupArr, $request->lessonId);
+        array_push($groupArr, $lessonId);
         $staffData['groupArr'] = $groupArr;
         $manager = User::create($staffData);
 
@@ -508,13 +521,13 @@ class UserController extends Controller
     public function upProfile(Request $request)
     {
         $userId = $request->userId;
-        if($request->application){
-            $data = User::where('id',$userId)->update([
-                'avatar'=>$request->avatar,
-                'name'=>$request->name,
-                'phoneNumber'=>$request->phoneNumber,
-                'status'=>$request->status,
-                'subjectName'=>$request->subjectName
+        if ($request->application) {
+            $data = User::where('id', $userId)->update([
+                'avatar' => $request->avatar,
+                'name' => $request->name,
+                'phoneNumber' => $request->phoneNumber,
+                'status' => $request->status,
+                'subjectName' => $request->subjectName
             ]);
         }
         if ($request->userName && $request->avatar) {
@@ -987,13 +1000,11 @@ class UserController extends Controller
     public function excelImport()
     {
         $user = Auth::user();
-        if($user->id == 2){
+        if ($user->id == 2) {
             $userList = User::where('schoolId', $user->schoolId)->where('roleId', 5)->with('role')->get();
-        }
-        else if($user->id == 7 || $user->id == 4 || $user->id == 5){
+        } else if ($user->id == 7 || $user->id == 4 || $user->id == 5) {
             $userList = User::where('schoolId', $user->schoolId)->where('lessonId', $user->lessonId)->with('role')->where('roleId', 5)->get();
-        }
-        else{
+        } else {
             $userList = [];
         }
         return response()->json([

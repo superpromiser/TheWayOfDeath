@@ -3,7 +3,7 @@
         <v-row class="ma-0 pt-10"  @click="navToProfileItem('name')">
             <v-col cols="12" class="d-flex justify-space-between align-center pb-0">
                 <div class="d-flex align-center">
-                    <v-avatar color="#49d29e" size="60" class="rounded-lg"  >
+                    <v-avatar color="#7879ff" size="60" class="rounded-lg"  >
                         <span v-if="user.avatar == '/'" class="white--text headline">{{user.name[0]}}</span>
                         <v-img v-else :src="`${baseUrl}${user.avatar}`"></v-img>
                     </v-avatar>
@@ -46,7 +46,7 @@
         <v-row class="ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('wechat')">
                 <div class="d-flex align-center">
-                    <v-icon color="#49d29e">
+                    <v-icon color="#7879ff">
                         mdi-wechat 
                     </v-icon>
                     <p class="mb-0 font-size-0-75 ml-3">微信账号</p>
@@ -74,7 +74,7 @@
         <v-row class="ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('password')">
                 <div class="d-flex align-center">
-                    <v-icon color="#49d29e">
+                    <v-icon color="#7879ff">
                         mdi-lock-outline
                     </v-icon>
                     <p class="mb-0 font-size-0-75 ml-3">修改密码</p>
@@ -173,7 +173,7 @@
         <v-row class="ma-0 ">
             <v-col cols="12" class="d-flex justify-space-between align-center py-10 px-md-10" >
                 <div class="pro-user-avatar d-flex align-center">
-                    <v-avatar size="100" color="#49d29e" class="hover-cursor-point" @click="clickUploadImageBtn">
+                    <v-avatar size="100" color="#7879ff" class="hover-cursor-point" @click="clickUploadImageBtn">
                         <v-img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user.name[0]"></v-img>
                         <span dark v-else class="white--text headline"> {{user.name[0]}}</span>
                     </v-avatar>
@@ -316,14 +316,14 @@
                     <v-spacer></v-spacer>
                     <v-btn
                         text
-                        color="#49d29e"
+                        color="#7879ff"
                         @click="closeUpdateDialog "
                     >
                         {{lang.cancel}}
                     </v-btn>
                     <v-btn
                         text
-                        color="#49d29e"
+                        color="#7879ff"
                         @click="updateUserInfo "
                         :loading="isUpdating"
                     >

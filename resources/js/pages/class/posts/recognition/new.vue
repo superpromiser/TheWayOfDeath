@@ -164,7 +164,7 @@
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
                         dark
-                        color="#49d29e"
+                        color="#7879ff"
                         class="mr-md-8"
                         tile
                         :loading="isCreating"

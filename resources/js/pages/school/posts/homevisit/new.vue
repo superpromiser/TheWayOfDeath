@@ -95,7 +95,7 @@
                     </v-btn> -->
                     <v-btn
                         dark
-                        color="#49d29e"
+                        color="#7879ff"
                         :loading="isCreating"
                         @click="publishcampusData"
                         tile

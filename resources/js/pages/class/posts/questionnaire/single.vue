@@ -6,7 +6,7 @@
         </div>
         <v-container>
             <v-row class="my-10 d-flex align-center ">
-                <v-btn color="#49d29e" text @click="addContent" class="mr-auto mo-glow" >
+                <v-btn color="#7879ff" text @click="addContent" class="mr-auto mo-glow" >
                     <v-icon>
                         mdi-plus
                     </v-icon>
@@ -41,7 +41,7 @@
                     {{lang.addOption}}
                 </v-btn>
                 
-                <v-btn large rounded dark color="#49d29e" @click="addSingleContent">{{lang.submit}}</v-btn>
+                <v-btn large rounded dark color="#7879ff" @click="addSingleContent">{{lang.submit}}</v-btn>
             </v-row>
         </v-container>
         <v-snackbar

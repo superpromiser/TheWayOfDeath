@@ -11,7 +11,7 @@
             <v-btn
                 tile
                 dark
-                color="#49d29e"
+                color="#7879ff"
                 :loading="isSubmit"
                 @click="submit"
                 :disabled="noUser"
@@ -30,7 +30,7 @@
             class="member-chk"
             style="height:20px !important"
             @click="selectAll"
-            color="#49d29e"
+            color="#7879ff"
             :disabled="noUser || isLoading"
           ></v-checkbox>
         </v-col>
@@ -59,11 +59,11 @@
                     v-model="user.checkbox"
                     @click="selectMem(user)"
                     hide-details
-                    color="#49d29e"
+                    color="#7879ff"
                 >
                     <template v-slot:label>
                         <div class="d-flex">
-                            <v-avatar color="#49d29e" size="60" class="rounded-lg ml-3"  >
+                            <v-avatar color="#7879ff" size="60" class="rounded-lg ml-3"  >
                                 <span v-if="user.avatar == '/'" class="white--text headline">{{user.name[0]}}</span>
                                 <v-img v-else :src="`${baseUrl}${user.avatar}`"></v-img>
                             </v-avatar>

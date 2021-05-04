@@ -5,7 +5,7 @@
                 mdi-chevron-left
             </v-icon>
             <p class="mb-0 font-size-0-95 font-weight-bold py-4">修改QQ号</p>
-            <v-btn @click="updateProfile" rounded :dark="isChanged" :disabled="!isChanged" :loading="isLoading" color="#49d29e" class="position-absolute put-align-center" style="right: 12px; top:50%">
+            <v-btn @click="updateProfile" rounded :dark="isChanged" :disabled="!isChanged" :loading="isLoading" color="#7879ff" class="position-absolute put-align-center" style="right: 12px; top:50%">
                 保存
             </v-btn>
         </v-row>
@@ -23,7 +23,7 @@
                         mdi-qqchat
                     </v-icon>
                     <p>QQ号: {{notSetQQ? '未设置QQ号': user.qq}}</p>
-                    <v-btn dark color="#49d29e" @click="openDialog">
+                    <v-btn dark color="#7879ff" @click="openDialog">
                         {{notSetQQ? '新注册': '更新'}}
                     </v-btn>
                 </div>
@@ -36,7 +36,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn text color="#49d29e" dark @click="submit" :loading="isLoading"> 
+                    <v-btn text color="#7879ff" dark @click="submit" :loading="isLoading"> 
                         保存
                     </v-btn>
                 </v-card-actions>
