@@ -477,7 +477,6 @@ class UserController extends Controller
                 return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')
                             ->where([
                                 'schoolId' => $request->schoolId, 
-                                'lessonId' => $request->lessonId, 
                             ])
                             ->whereIn(
                                 'roleId',[3,7]

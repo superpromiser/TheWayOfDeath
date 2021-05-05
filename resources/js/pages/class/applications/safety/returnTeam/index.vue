@@ -136,17 +136,24 @@ export default {
             this.isLoading = false;
         }
         else{
-            this.todayReturnTeamArr.map(x=>{
-                if(x.name == '留堂成员'){
-                    this.remainTeam = x;
-                }
-            });
+            if(this.todayReturnTeamArr.length == 0){
+                this.noData = true;
+            }
+            else{
+                this.todayReturnTeamArr.map(x=>{
+                    if(x.name == '留堂成员'){
+                        this.remainTeam = x;
+                    }
+                });
+            }
         }
     },
 
     methods:{
         navToDetail(returnTeam){
-            this.$router.push({name: 'classSpace.detailReturnTeam', params: {teamData: returnTeam}});
+            this.$store.dispatch('returnteam/storeIsDetail', true);
+            this.$store.dispatch('returnteam/storeDetailData', returnTeam);
+            this.$router.push({name: 'classSpace.detailReturnTeam'});
         },
     }
 }

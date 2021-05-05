@@ -6,6 +6,9 @@ export const state = {
   leader: null,
   remainTeamArr: null,
   todayReturnTeamArr: null,
+  isDetail: false,
+  detailData: null,
+  
 }
 
 // getters
@@ -15,6 +18,8 @@ export const getters = {
   leader: state => state.leader,
   remainTeamArr: state => state.remainTeamArr,
   todayReturnTeamArr: state => state.todayReturnTeamArr,
+  isDetail: state => state.isDetail,
+  detailData: state => state.detailData,
 }
 
 // mutations
@@ -34,6 +39,12 @@ export const mutations = {
     [types.STORE_TODAY_RETURN_TEAM_ARR] (state, todayReturnTeamArr ) {
         state.todayReturnTeamArr = todayReturnTeamArr
     },
+    [types.STORE_IS_DETAIL] (state, isDetail ) {
+        state.isDetail = isDetail
+    },
+    [types.STORE_DETAIL_DATA] (state, detailData ) {
+        state.detailData = detailData
+    },
 }
 
 // actions
@@ -52,5 +63,11 @@ export const actions = {
     },
     storeTodayReturnTeamArr ({ commit }, payload) {
         commit(types.STORE_TODAY_RETURN_TEAM_ARR, payload)
+    },
+    storeIsDetail ({ commit }, payload) {
+        commit(types.STORE_IS_DETAIL, payload)
+    },
+    storeDetailData ({ commit }, payload) {
+        commit(types.STORE_DETAIL_DATA, payload)
     },
 }

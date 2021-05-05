@@ -3,7 +3,7 @@
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                    <a @click="$router.go(-1)">
+                    <a @click="navToBack">
                         <v-icon size="70" class="left-24p">
                             mdi-chevron-left
                         </v-icon>
@@ -95,7 +95,7 @@
                     </div>
                 </v-col>
             </v-row>
-            <v-divider light></v-divider>
+            <v-divider light class="thick-border"></v-divider>
             <v-dialog v-model="selectLeaderDialog" width="100%" max-width="500">
                 <v-card>
                     <v-card-title class="title"> 归程队组长 </v-card-title>
@@ -142,6 +142,7 @@
                     </div>
                 </v-col>
             </v-row>
+            <v-divider light class="thick-border"></v-divider>
         </v-container>
         <v-container >
             <v-row class="ma-0 py-3">
@@ -202,19 +203,20 @@ export default {
         },
         ...mapGetters({
             user: 'auth/user',
+            detailData: 'returnteam/detailData'
         }),
     },
     created(){
 
-        if(this.currentPath.params.teamData == null || this.currentPath.params.teamData == undefined){
+        if(this.detailData == null){
             return this.$router.push({name: 'classSpace.returnTeam'});
         }
 
-        if(this.currentPath.params.teamData.name == '留堂成员'){
+        if(this.detailData.name == '留堂成员'){
             this.isRemainTeam = true;
         }
         
-        this.teamData = this.currentPath.params.teamData;
+        this.teamData = this.detailData;
         this.$set(this.teamData.teacher_id, 'checkbox', true)
         this.teamData.member.map(member=>{
             this.$set(member, 'checkbox', true);
@@ -292,6 +294,9 @@ export default {
                 this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
                 this.$store.dispatch('member/storeSelectedGroup', null);
                 this.$store.dispatch('member/storeSelectedTeacher', null);
+                //detailData
+                this.$store.dispatch('returnteam/storeIsDetail', false);
+                this.$store.dispatch('returnteam/storeDetailData', null);
 
 
                 this.$store.dispatch('member/storeSelectedGroup', []);
@@ -300,6 +305,18 @@ export default {
                 
             });
             this.isUpdating = false;
+        },
+        navToBack(){
+            this.$store.dispatch('returnteam/storeReturnTeamName', '');
+            this.$store.dispatch('returnteam/storeReturnTeamAvatar', null);
+            this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
+            this.$store.dispatch('member/storeSelectedGroup', null);
+            this.$store.dispatch('member/storeSelectedTeacher', null);
+
+            this.$store.dispatch('returnteam/storeIsDetail', false);
+            this.$store.dispatch('returnteam/storeDetailData', null);
+            
+            this.$router.push({name: 'classSpace.returnTeam'});
         }
     }
 }
