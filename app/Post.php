@@ -134,6 +134,11 @@ class Post extends Model
         return $this->hasOne(Vacation::class, 'postId');
     }
 
+    public function returnteam()
+    {
+        return $this->hasOne(ReturnTeam::class, 'postId');
+    }
+
     protected $casts = [
         'viewList' => 'array',
         'readList' => 'array'

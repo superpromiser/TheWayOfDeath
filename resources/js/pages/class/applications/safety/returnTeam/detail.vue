@@ -10,7 +10,8 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>新建归程队</h2>
+                    <h2 v-if="isRemainTeam">剩余团队的详细信息</h2>
+                    <h2 v-else>退货团队的详细信息</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn dark color="#7879ff" @click="submit" :loading="isUpdating">
@@ -19,9 +20,9 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-container v-if="isRemainTeam == false">
+        <v-container v-if="isRemainTeam == false" class="pa-0">
             <v-row class="ma-0 hover-cursor-point" v-ripple @click="clickUploadImageBtn">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
+                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
                     <p class="mb-0" >头像 </p>
                     <div class="d-flex align-center">
                         <v-avatar size="50" :color="teamData.name == '' && teamData.avatar == null ? '#999999': '#7879ff'">
@@ -45,8 +46,8 @@
                 @change="onImageFileChanged"
             >
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple @click="$refs.returnTeamName.focus()">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
+            <v-row class="ma-0 py-2 hover-cursor-point" v-ripple @click="$refs.returnTeamName.focus()">
+                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
                     <p class="mb-0 w-100"  >归程队名称 </p>
                     <v-text-field
                         class="pt-0 mt-0"
@@ -60,8 +61,8 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple @click="navToAddTeacher">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
+            <v-row class="ma-0 py-2 hover-cursor-point" v-ripple @click="navToAddTeacher">
+                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
                     <p class="mb-0"  >领队教师 </p>
                     <div class="d-flex align-center">
                         <p class="mb-0 secondary-text">{{teamData.teacher_id.name}}</p>
@@ -72,8 +73,8 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple @click="navToAddMember">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
+            <v-row class="ma-0 py-2 hover-cursor-point" v-ripple @click="navToAddMember">
+                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
                     <p class="mb-0"  >归程队成员</p>
                     <div class="d-flex align-center">
                         <p v-if="teamData.member.length !== 0" class="mb-0 secondary-text">{{teamData.member.length}} 个已选择</p>
@@ -84,8 +85,8 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <v-row class="ma-0 py-3 hover-cursor-point" v-ripple @click="openSelectLeaderDialog">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
+            <v-row class="ma-0 py-2 hover-cursor-point" v-ripple @click="openSelectLeaderDialog">
+                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
                     <p class="mb-0"  >归程队组长 </p>
                     <div class="d-flex align-center">
                         <p class="mb-0 secondary-text">{{teamData.leader_id.name}}</p>
@@ -108,7 +109,7 @@
                             :menu-props="{ top: false, offsetY: true }"
                             item-text="name"
                             item-value="id"
-                            v-model="teamData.leader"
+                            v-model="teamData.leader_id"
                             hide-details
                             return-object
                             @change="onSelectLeader"
@@ -132,10 +133,10 @@
         </v-container>
         <v-container class="pa-0" v-if="isRemainTeam == true">
             <v-row class="ma-0 hover-cursor-point" v-ripple @click="navToAddMember">
-                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-6">
-                    <p class="mb-0 ml-4">留堂成员</p>
+                <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
+                    <p class="mb-0">留堂成员</p>
                     <div class="d-flex align-center">
-                        <p class="mb-0"> something</p>
+                        <p v-if="teamData.member.length !== 0" class="mb-0 secondary-text">{{teamData.member.length}} 个已选择</p>
                         <v-icon class="ml-4" color="#999999" size="40">
                             mdi-chevron-right
                         </v-icon>
@@ -144,8 +145,8 @@
             </v-row>
             <v-divider light class="thick-border"></v-divider>
         </v-container>
-        <v-container >
-            <v-row class="ma-0 py-3">
+        <v-container class="pa-0">
+            <v-row class="ma-0 py-2 pl-8 pr-8">
                 <v-col cols="12" v-if="teamData.member.length == 0" class="d-flex align-center justify-start">
                     <v-chip class="ma-2" color="primary" outlined pill >
                         没有人选择
@@ -203,7 +204,10 @@ export default {
         },
         ...mapGetters({
             user: 'auth/user',
-            detailData: 'returnteam/detailData'
+            detailData: 'returnteam/detailData',
+            selectedGroup: 'member/selectedGroup',
+            selectedTeacherData: 'member/selectedTeacher',
+            todayReturnTeamArr: 'returnteam/todayReturnTeamArr',
         }),
     },
     created(){
@@ -216,13 +220,23 @@ export default {
             this.isRemainTeam = true;
         }
         
-        this.teamData = this.detailData;
-        this.$set(this.teamData.teacher_id, 'checkbox', true)
-        this.teamData.member.map(member=>{
-            this.$set(member, 'checkbox', true);
-        });
-        this.$store.dispatch('member/storeSelectedTeacher', this.teamData.teacher_id);
-        this.$store.dispatch('member/storeSelectedGroup',this.teamData.member);
+        this.teamData = Object.assign( {}, this.detailData) ;
+        // this.$set(this.teamData.teacher_id, 'checkbox', true)
+        // this.teamData.member.map(member=>{
+        //     this.$set(member, 'checkbox', true);
+        // });
+        // this.$store.dispatch('member/storeSelectedTeacher', this.teamData.teacher_id);
+        // this.$store.dispatch('member/storeSelectedGroup',this.teamData.member);
+        if(this.selectedGroup !== null){
+            if(this.selectedGroup.length == 0){
+                this.teamData.leader = null;
+            }
+            this.teamData.member = this.selectedGroup
+        }
+        if(this.selectedTeacherData !== null){
+            this.teamData.teacher_id = this.selectedTeacherData
+            this.teamData.teacherId = this.teamData.teacher_id.id
+        }
         console.log("this.teamData",this.teamData);
 
     },
@@ -267,7 +281,8 @@ export default {
         },
 
         onSelectLeader(val){
-            this.teamData.leader = val;
+            this.teamData.leader_id = val;
+            console.log("this.teamData",this.teamData);
         },
 
         navToAddMember(){
@@ -285,22 +300,42 @@ export default {
         },
 
         async submit(){
-            console.log(this.teamData)
+            let payload = Object.assign({}, this.teamData);
+            let idArr = [];
+            payload.member.map(mem=>{
+                idArr.push(mem.id);
+            });
+            payload.member = idArr;
             this.isUpdating = true;
-            await updateReturnTeam()
+            console.log("payload", payload)
+            await updateReturnTeam(payload)
             .then((res) => {
-                this.$store.dispatch('returnteam/storeReturnTeamName', '');
-                this.$store.dispatch('returnteam/storeReturnTeamAvatar', null);
-                this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
-                this.$store.dispatch('member/storeSelectedGroup', null);
-                this.$store.dispatch('member/storeSelectedTeacher', null);
-                //detailData
-                this.$store.dispatch('returnteam/storeIsDetail', false);
-                this.$store.dispatch('returnteam/storeDetailData', null);
-
-
-                this.$store.dispatch('member/storeSelectedGroup', []);
-                this.$router.push({name: 'classSpace.returnTeam'});
+                if(res.data.msg == 1){
+                    this.$store.dispatch('returnteam/storeReturnTeamName', '');
+                    this.$store.dispatch('returnteam/storeReturnTeamAvatar', null);
+                    this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
+                    this.$store.dispatch('member/storeSelectedGroup', null);
+                    this.$store.dispatch('member/storeSelectedTeacher', null);
+                    //detailData
+                    this.$store.dispatch('returnteam/storeIsDetail', false);
+                    this.$store.dispatch('returnteam/storeDetailData', null);
+                    
+                    ///////////////////update TodayReturnArr///////////////////
+                    let clonedTodayReturnArr = JSON.parse(JSON.stringify(this.todayReturnTeamArr));
+                    for(let i = 0 ; i < clonedTodayReturnArr.length; i++){
+                        if(clonedTodayReturnArr[i].id == this.teamData.id){
+                            clonedTodayReturnArr[i] = this.teamData;
+                        }
+                    }
+                    this.$store.dispatch('returnteam/storeTodayReturnTeamArr', clonedTodayReturnArr);
+                    ///////////////////update TodayReturnArr///////////////////
+    
+                    this.$store.dispatch('member/storeSelectedGroup', null);
+                    this.$router.push({name: 'classSpace.returnTeam'});
+                }
+                else if(res.data.msg == 'aleardyExist'){
+                    return this.$snackbar.showMessage({content: "保留团队信息已存在", color: "error"})
+                }
             }).catch((err) => {
                 
             });

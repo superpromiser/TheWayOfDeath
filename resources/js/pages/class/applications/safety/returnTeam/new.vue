@@ -115,7 +115,7 @@
                 </v-expansion-panels>
             </v-row> -->
             <v-divider light class="thick-border"></v-divider>
-            <v-row class="ma-0 py-2 pl-10 pr-8">
+            <v-row class="ma-0 py-2 pl-8 pr-8">
                 <v-col cols="12" v-if="returnTeamData.member.length == 0" class="d-flex align-center justify-start">
                     <v-chip class="ma-2" color="primary" outlined pill >
                         没有人选择
@@ -202,6 +202,7 @@ export default {
 
     computed:{
         ...mapGetters({
+            user: 'auth/user',
             selectedGroup: 'member/selectedGroup',
             selectedTeacherData: 'member/selectedTeacher',
             returnTeamName: 'returnteam/name',
@@ -212,6 +213,7 @@ export default {
     },
 
     created(){
+        console.log("this.todayReturnTeamArr", this.todayReturnTeamArr);
         this.returnTeamData.name = this.returnTeamName;
         this.returnTeamData.avatar = this.returnTeamAvatar;
         this.returnTeamData.leader = this.returnTeamLeader;
@@ -297,16 +299,33 @@ export default {
                 this.$set(this.returnTeamData, "leader_id", this.returnTeamData.leader);
                 this.$set(this.returnTeamData, "teacher_id", this.returnTeamData.teacher);
                 
-                if(this.todayReturnTeamArr == null){
+                if(this.todayReturnTeamArr.length == 0){
                     let arr = [];
                     arr.push(this.returnTeamData);
+                    let remainTeam = {
+                        avatar: "/",
+                        checkbox: false,
+                        id: res.data.remainTeamId,
+                        isDelete: false,
+                        leaderId: null,
+                        leader_id: null,
+                        lessonId: this.user.lessonId,
+                        member: [],
+                        name: "留堂成员",
+                        postId: null,
+                        schoolId: this.user.schoolId,
+                        teacherId: null,
+                        teacher_id: null,
+                        userId: this.user.id
+                    }
+                    arr.push(remainTeam);
                     this.$store.dispatch('returnteam/storeTodayReturnTeamArr', arr)
                 }
                 else{ 
                     this.todayReturnTeamArr.unshift(this.returnTeamData);
                     this.$store.dispatch('returnteam/storeTodayReturnTeamArr', this.todayReturnTeamArr)
                 }
-                this.$store.dispatch('member/storeSelectedGroup', []);
+                this.$store.dispatch('member/storeSelectedGroup', null);
                 this.$router.push({name: 'classSpace.returnTeam'});
 
             }).catch((err) => {
@@ -343,6 +362,11 @@ export default {
         },
 
         navToBack(){
+            this.$store.dispatch('returnteam/storeReturnTeamName', '');
+            this.$store.dispatch('returnteam/storeReturnTeamAvatar', null);
+            this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
+            this.$store.dispatch('member/storeSelectedGroup', null);
+            this.$store.dispatch('member/storeSelectedTeacher', null);
             this.$router.push({name: 'classSpace.returnTeam'});
         }
     }

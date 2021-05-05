@@ -16,7 +16,6 @@ export default {
     },
     methods:{
         onSelectMember(selectedMemberList){
-            console.log("this.isDetail",this.isDetail);
             this.$store.dispatch('member/storeSelectedGroup', selectedMemberList);
             if(this.isDetail == true){
                 this.$router.push({name: 'classSpace.detailReturnTeam'});

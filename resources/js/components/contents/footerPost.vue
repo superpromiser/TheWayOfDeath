@@ -36,7 +36,7 @@
         <div class="d-flex align-center justify-end mb-5">
             <v-btn @click="showReadUsers" icon color="blue accent-3" :loading="isReadCnt" >
                 <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
-                <p class="mb-0 mr-8" v-if="footerInfo.readList.length > 0">{{footerInfo.readList.length}}人</p>
+                <p class="mb-0 mr-8" v-if="footerInfo.readList!==null&&footerInfo.readList.length > 0">{{footerInfo.readList.length}}人</p>
                 <p class="mb-0 mr-8" v-else>0人</p>
             </v-btn>
             <v-btn icon color="red accent-3" :loading="isLiking">

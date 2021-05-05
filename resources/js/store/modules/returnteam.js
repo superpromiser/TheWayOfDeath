@@ -8,7 +8,7 @@ export const state = {
   todayReturnTeamArr: null,
   isDetail: false,
   detailData: null,
-  
+  updatedDetailData: null,
 }
 
 // getters
@@ -20,6 +20,7 @@ export const getters = {
   todayReturnTeamArr: state => state.todayReturnTeamArr,
   isDetail: state => state.isDetail,
   detailData: state => state.detailData,
+  updatedDetailData: state => state.updatedDetailData,
 }
 
 // mutations
@@ -45,6 +46,9 @@ export const mutations = {
     [types.STORE_DETAIL_DATA] (state, detailData ) {
         state.detailData = detailData
     },
+    [types.STORE_UPDATED_DETAIL_DATA] (state, updatedDetailData ) {
+        state.updatedDetailData = updatedDetailData
+    },
 }
 
 // actions
@@ -69,5 +73,8 @@ export const actions = {
     },
     storeDetailData ({ commit }, payload) {
         commit(types.STORE_DETAIL_DATA, payload)
+    },
+    storeUpdatedDetailData ({ commit }, payload) {
+        commit(types.STORE_UPDATED_DETAIL_DATA, payload)
     },
 }

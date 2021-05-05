@@ -52,7 +52,7 @@ class PostController extends Controller
         ]);
         // $userId = Auth::user()->id;
         $classId = $request->classId;
-        return Post::whereIn('contentId', [1, 2, 5, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26])
+        return Post::whereIn('contentId', [1, 2, 5, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
             ->where('classId', $classId)
             ->orWhere('viewList', 'like', "%{$classId}%")
             ->with([
@@ -74,6 +74,7 @@ class PostController extends Controller
                 'classstory',
                 'interclassstory',
                 'vacations',
+                'returnteam',
                 'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')

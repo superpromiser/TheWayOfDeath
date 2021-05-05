@@ -102,6 +102,13 @@ export default {
           this.alarmData.push(alarm.guest);
           this.$store.dispatch('alarm/storeAlarm', this.alarmData);
         });
+      Echo.private('newReturnTeam.'+ this.user.id)
+        .listen('NewReturnTeam', (alarm) => {
+          console.log("!!!!!!!!!",alarm)
+          alarm.guest.content = JSON.parse(alarm.guest.content);
+          this.alarmData.push(alarm.guest);
+          this.$store.dispatch('alarm/storeAlarm', this.alarmData);
+        });
     },
 
     onClickAlarm(alarm){
