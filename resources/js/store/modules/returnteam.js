@@ -9,6 +9,7 @@ export const state = {
   isDetail: false,
   detailData: null,
   updatedDetailData: null,
+  isDetailView: false,
 }
 
 // getters
@@ -21,6 +22,7 @@ export const getters = {
   isDetail: state => state.isDetail,
   detailData: state => state.detailData,
   updatedDetailData: state => state.updatedDetailData,
+  isDetailView: state => state.isDetailView,
 }
 
 // mutations
@@ -49,6 +51,9 @@ export const mutations = {
     [types.STORE_UPDATED_DETAIL_DATA] (state, updatedDetailData ) {
         state.updatedDetailData = updatedDetailData
     },
+    [types.STORE_IS_DETAIL_VIEW] (state, isDetailView ) {
+        state.isDetailView = isDetailView
+    },
 }
 
 // actions
@@ -76,5 +81,8 @@ export const actions = {
     },
     storeUpdatedDetailData ({ commit }, payload) {
         commit(types.STORE_UPDATED_DETAIL_DATA, payload)
+    },
+    storeIsDetailView ({ commit }, payload) {
+        commit(types.STORE_IS_DETAIL_VIEW, payload)
     },
 }

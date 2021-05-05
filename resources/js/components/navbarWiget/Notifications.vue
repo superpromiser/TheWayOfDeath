@@ -65,7 +65,7 @@
 <script>
 import {mapGetters} from 'vuex';
 import AppBarItem from '../app/BarItem'
-import {getAlarm} from '~/api/alarm'
+import {getAlarm, deleteAlarm} from '~/api/alarm'
 
 export default {
   name: 'DefaultNotifications',
@@ -123,9 +123,30 @@ export default {
     onClickAlarm(alarm){
       console.log(alarm);
       if(alarm.type == 'NewReturnTeam'){
+        this.removeAlarm(alarm.id);
         this.$router.push({name: 'classSpace.returnTeam', params: {schoolId: this.user.schoolId, gradeId: this.user.gradeId, lessonId: this.user.lessonId}})
       }
-    }
+    },
+
+    removeAlarm(alarmId){
+      let payload = {
+        alarmId: alarmId
+      }
+      deleteAlarm(payload)
+      .then((res) => {
+        console.log("remove successfully alarm data!!!")
+      }).catch((err) => {
+        
+      });
+      for( let i = 0; i < this.alarmData.length; i++){
+        if(this.alarmData[i].id == alarmId){
+          this.alarmData.splice(i, 1);
+          return;
+        }
+      }
+      this.$store.dispatch('alarm/storeAlarm', this.alarmData);
+    },
+
   }
 }
 </script>

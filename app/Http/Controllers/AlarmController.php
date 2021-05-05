@@ -13,4 +13,9 @@ class AlarmController extends Controller
     {   
         return Alarm::where('userId', Auth::user()->id)->get();
     }
+
+    public function deleteAlarm(Request $request)
+    {
+        return Alarm::where('id', $request->alarmId)->delete();
+    }
 }

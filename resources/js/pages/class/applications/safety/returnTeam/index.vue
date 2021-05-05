@@ -12,7 +12,7 @@
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
                     <h2>归程队管理</h2>
                 </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                <v-col v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3" cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn dark color="#3989ff" link :to="{name: 'classSpace.remainReturnTeam'}">
                         历史留堂
                     </v-btn>
@@ -91,7 +91,7 @@ export default {
     computed:{
         ...mapGetters({
             todayReturnTeamArr: 'returnteam/todayReturnTeamArr',
-
+            user: 'auth/user'
         })
     },
 
@@ -116,7 +116,9 @@ export default {
                     if(returnTeam.name !== '留堂成员'){
                         todayTeamArr.push(returnTeam);
                     }
+                    console.log("!!!!!!!!!",this.isToday(returnTeam.updated_at))
                     if( returnTeam.name == '留堂成员' && (this.isToday(returnTeam.updated_at) == true)){
+                        console.log(this.isToday(returnTeam.updated_at))
                         todayTeamArr.push(returnTeam);
                         this.$set(returnTeam, "checkbox", false);
                         this.$set(returnTeam, "isDelete", false);

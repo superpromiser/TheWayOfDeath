@@ -86,9 +86,16 @@ class ReturnTeamController extends Controller
         // $id = $request->id;
         // $idArr = $request->idArr;
         if($request->id){
+            $postId = ReturnTeam::where('id', $request->id)->first()->postId;
+            Post::where('id', $postId)->delete();
             return ReturnTeam::where('id', $request->id)->delete();
         }   
         elseif($request->idArr){
+            $idArr = $request->idArr;
+            foreach ($idArr as $key => $value) {
+                $postId = ReturnTeam::where('id', $value)->first()->postId;
+                Post::where('id', $postId)->delete();
+            }
             return ReturnTeam::whereIn('id',$request->idArr)->delete();
         }
 

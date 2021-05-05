@@ -20,7 +20,7 @@
             </v-row>
         </v-container>
         <v-row class="ma-0">
-            <v-col cols="12" class="d-flex justify-space-between align-center">
+            <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-10">
                 <v-checkbox
                     v-model="checkAll"
                     label="全选"
@@ -89,31 +89,31 @@
         <v-row class="ma-0">
             <v-col cols="12" class="pa-0">
                 <v-container class="pa-0" v-for="(remainTeam, i) in remainTeamArr" :key="i">
-                    <v-row class="ma-0 justify-space-between align-center bg-secondary py-2">
+                    <v-row class="ma-0 justify-space-between align-center bg-secondary px-10 py-2">
                         <v-checkbox
                             v-model="remainTeam.checkbox"
                             @click="selectTeam"
                             color="#7879ff"
                             hide-details
-                            class="pt-0 mt-0 ml-3"
+                            class="pt-0 mt-0"
                         >
                             <template v-slot:label>
                                 <p class="mb-0"> {{TimeViewYMD(remainTeam.updated_at)}}</p>
                             </template>
                         </v-checkbox>
-                        <v-icon color="#333333" size="30" class="mr-3 hover-cursor-point" @click="openRemoveReturnTeamOneDialag(remainTeam, i)">
+                        <v-icon color="#333333" size="30" class="hover-cursor-point" @click="openRemoveReturnTeamOneDialag(remainTeam, i)">
                             mdi-trash-can-outline
                         </v-icon>
                     </v-row>
-                    <v-row class="ma-0 justify-space-between align-center hover-cursor-point py-2" v-ripple @click="navToDetail(remainTeam)">
-                        <div class="ml-3 d-flex align-center ">
+                    <v-row class="ma-0 justify-space-between align-center pl-10 pr-8 hover-cursor-point py-2" v-ripple @click="navToDetail(remainTeam)">
+                        <div class="d-flex align-center ">
                             <v-avatar color="#7879ff" size="60" class="mr-3 " >
                                 <span v-if="remainTeam.avatar == '/'" class="white--text headline">{{remainTeam.name[0]}}</span>
                                 <v-img v-else :src="`${baseUrl}${remainTeam.avatar}`"></v-img>
                             </v-avatar>
                             <p class="mb-0">{{remainTeam.name}}</p>
                         </div>
-                        <v-icon color="#999999" size="40" class="mr-3">
+                        <v-icon color="#999999" size="40" class="">
                             mdi-chevron-right
                         </v-icon>
                     </v-row>
@@ -242,6 +242,8 @@ export default {
                 team.checkbox = false
             });
             this.checkAll = false;
+            this.$store.dispatch('returnteam/storeIsDetailView', true);
+            this.$store.dispatch('returnteam/storeDetailData', returnTeam);
             this.$router.push({name: 'classSpace.detailReturnTeam', params: {teamData: returnTeam}});
         },
 
@@ -270,26 +272,32 @@ export default {
 
         async deleteTeamGroupConfirm(){
             let selectedRemainTeamIdArr = []
-            this.remainTeamArr.map(remainTeam => {
+            this.remainTeamArr.map((remainTeam, i) => {
                 if (remainTeam.checkbox == true){
                     selectedRemainTeamIdArr.push(remainTeam.id);
+                    this.remainTeamArr.splice(i, 1);
                 }
             });
-            this.isDeleteTeam = true;
-            let payload = {
-                idArr: selectedRemainTeamIdArr
-            }
-            await deleteReturnTeam(payload)
-            .then((res) => {
-                this.remainTeamArr.map((remainTeam, i) => {
-                    if( remainTeam.checkbox == true){
-                        this.remainTeamArr.splice(i, 1)
-                    }
-                })
-            }).catch((err) => {
+            
+            // for(let i = 0; i < this.remainTeamArr.length; i++){
+            //     console.log(i, this.remainTeamArr[i].checkbox)
+            //     if(this.remainTeamArr[i].checkbox == true){
+            //         console.log("i", i);
+            //         this.remainTeamArr.splice(i, 1);
+            //     }
+            // }
+            // this.isDeleteTeam = true;
+            // let payload = {
+            //     idArr: selectedRemainTeamIdArr
+            // }
+
+            // await deleteReturnTeam(payload)
+            // .then((res) => {
                 
-            });
-            this.isDeleteTeam = false;
+            // }).catch((err) => {
+                
+            // });
+            // this.isDeleteTeam = false;
             this.dialogDelete = false;
             if( this.remainTeamArr.length == 0 ){
                 this.noData = true;
