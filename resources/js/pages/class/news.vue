@@ -67,6 +67,10 @@
           <InterClassStoryPost :content="content"></InterClassStoryPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 27 && content.returnteam">
+          <ReturnTeam :content="content"></ReturnTeam>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
       </v-container>
       <InfiniteLoading 
           class="pb-3 w-100"
@@ -170,6 +174,7 @@ import RegnamePost from '~/components/contents/regnamePost'
 import ClassStoryPost from '~/components/contents/classStoryPost'
 import InterClassStoryPost from '~/components/contents/interClassStoryPost'
 import SafeStudyPost from '~/components/contents/safeStudyPost'
+import ReturnTeam from '~/components/contents/returnTeam'
 export default {
   components :{
     QusetionnairePost,
@@ -187,6 +192,7 @@ export default {
     RegnamePost,
     ClassStoryPost,
     InterClassStoryPost,
+    ReturnTeam,
     InfiniteLoading,
   },
 

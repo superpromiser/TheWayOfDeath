@@ -90,7 +90,8 @@ export default {
 
     computed:{
         ...mapGetters({
-            todayReturnTeamArr: 'returnteam/todayReturnTeamArr'
+            todayReturnTeamArr: 'returnteam/todayReturnTeamArr',
+
         })
     },
 
@@ -112,15 +113,18 @@ export default {
             .then((res) => {
                 console.log(res)
                 res.data.returnTeamArr.map(returnTeam=>{
-                    if(this.isToday(returnTeam.updated_at) == true){
+                    if(returnTeam.name !== '留堂成员'){
                         todayTeamArr.push(returnTeam);
-                        if(returnTeam.name == '留堂成员'){
-                            this.$set(returnTeam, "checkbox", false);
-                            this.$set(returnTeam, "isDelete", false);
-                            this.remainTeam = returnTeam;
-                        }
+                    }
+                    if( returnTeam.name == '留堂成员' && (this.isToday(returnTeam.updated_at) == true)){
+                        todayTeamArr.push(returnTeam);
+                        this.$set(returnTeam, "checkbox", false);
+                        this.$set(returnTeam, "isDelete", false);
+                        this.remainTeam = returnTeam;
                     }
                     if(returnTeam.name == '留堂成员'){
+                        this.$set(returnTeam, "checkbox", false);
+                        this.$set(returnTeam, "isDelete", false);
                         remainTeamArr.push(returnTeam);
                     }
                 });
@@ -136,17 +140,24 @@ export default {
             this.isLoading = false;
         }
         else{
-            this.todayReturnTeamArr.map(x=>{
-                if(x.name == '留堂成员'){
-                    this.remainTeam = x;
-                }
-            });
+            if(this.todayReturnTeamArr.length == 0){
+                this.noData = true;
+            }
+            else{
+                this.todayReturnTeamArr.map(x=>{
+                    if(x.name == '留堂成员'){
+                        this.remainTeam = x;
+                    }
+                });
+            }
         }
     },
 
     methods:{
         navToDetail(returnTeam){
-            this.$router.push({name: 'classSpace.detailReturnTeam', params: {teamData: returnTeam}});
+            this.$store.dispatch('returnteam/storeIsDetail', true);
+            this.$store.dispatch('returnteam/storeDetailData', returnTeam);
+            this.$router.push({name: 'classSpace.detailReturnTeam'});
         },
     }
 }

@@ -25,6 +25,8 @@ class CreateReturnTeamsTable extends Migration
             $table->foreign('teacherId')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('leaderId')->nullable();
             $table->foreign('leaderId')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('postId')->nullable();
+            $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->string('name');
             $table->string('avatar')->default('/');
             $table->json('member');

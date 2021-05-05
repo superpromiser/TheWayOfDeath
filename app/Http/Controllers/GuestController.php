@@ -71,7 +71,7 @@ class GuestController extends Controller
                 'meetingReason'=> $request->meetingReason,
             ]);
 
-
+            ///////////////////////////boradcasting New Guest///////////////////////////
             //make broadcasting data
             $broadcastingData['id'] = $guestData->id;
             $broadcastingData['name'] = $guestData->name;
@@ -94,6 +94,7 @@ class GuestController extends Controller
 
             //Emit Event and push notification to teacher of memeber
             broadcast(new NewGuest($alarm, $teacherData->id));
+            ///////////////////////////boradcasting New Guest///////////////////////////
             
             return response()->json([
                 'msg' => 1,
