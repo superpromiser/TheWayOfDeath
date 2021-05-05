@@ -1,6 +1,45 @@
 <template>
-    <v-container>
-        <v-col cols="12" class="d-flex align-cente">
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+      <v-container class="pt-0 px-0 h-100 bg-white">
+        <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+          <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+            mdi-chevron-left
+          </v-icon>
+          <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.homework}}</p>
+        </v-row>
+        <div class="cus-divider-light-gray-height"></div>
+        <v-row class="ma-0">
+          <v-col cols="12" class="pl-10 pt-0">
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>作业科目:</strong>
+                {{homeworkData.subjectName}}
+              </p>
+            </div>
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>作业类型:</strong>
+                {{homeworkData.homeworkType}}
+              </p>
+            </div>
+            <div class="d-flex align-center">
+              <p class="text-wrap mb-0">
+                <strong>作业内容:</strong>
+                {{homeworkData.content.text}}
+              </p>
+            </div>
+          </v-col>
+          <v-col cols="12" v-if="checkIfAttachExist(homeworkData.content)">
+            <AttachItemViewer :items="homeworkData.content" />
+          </v-col>
+        </v-row>
+        <div>
+            <router-view :contentData="contentData"></router-view>
+        </div>
+      </v-container>
+    </v-container>
+    <v-container v-else>
+        <v-col cols="12" class="d-flex align-center">
             <a @click="$router.go(-1)" class="float-left">
                 <v-icon size="70">
                     mdi-chevron-left

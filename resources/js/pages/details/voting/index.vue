@@ -1,5 +1,69 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()" >
+        <v-container class="pt-0 px-0 h-100 bg-white">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.voting}}</p>
+                <v-btn @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
+                    <v-icon right>
+                        mdi-chevron-right
+                    </v-icon>
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+
+            <div v-if="answerUserShow == false">
+                <v-row class="ma-0 px-5 px-md-10 mt-5">
+                    <v-col cols="12">
+                        <p class="mb-0 d-flex align-center"> 
+                            <!-- {{index + 1}}.   -->
+                            <v-chip class="ma-2" color="success" outlined >
+                                <strong v-if="contentData.votings.maxVote>1">多选</strong>
+                                <strong v-else>单选</strong>
+                            </v-chip>
+                        </p>
+                        <p class="text-wrap pl-3 mb-0">{{ content[0].text }}</p>
+                    </v-col>
+                    <v-col v-if="checkIfAttachExist(content[0])">
+                        <AttachItemViewer :items="content[0]" />
+                    </v-col>
+                    <v-col class="pl-6" cols="12" v-for="(multiData, multiDataIndex) in content" :key="multiDataIndex" v-if="multiDataIndex !== 0">
+                        <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiDataIndex)" :class="{active: answerData.indexOf(multiDataIndex) > -1}"> 
+                            <v-chip
+                            class="mr-2"
+                            color="success"
+                            outlined
+                            >
+                            <strong>{{alphabet[multiDataIndex-1]}}</strong>
+                            </v-chip>
+                            <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                        </div>
+                        <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
+                    </v-col>
+                </v-row>
+                <v-row class="d-flex justify-end px-md-13 px-5 mx-0 my-10">
+                    <v-btn
+                            :dark="!alreadyAnswer"
+                            color="#7879ff"
+                            tile
+                            :loading="isSubmit"
+                            :disabled="alreadyAnswer"
+                            @click="submit"
+                            class="mr-5"
+                        > 
+                            {{lang.submit}}
+                    </v-btn>
+                </v-row>
+            </div>
+            <div v-else>
+                <router-view :answerUsers="answerDataList"></router-view>
+            </div>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <div class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">

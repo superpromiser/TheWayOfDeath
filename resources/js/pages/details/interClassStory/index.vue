@@ -1,5 +1,24 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+        <v-container class="pt-0 px-0 h-100 bg-white">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.interClassStory}}</p>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0">
+                <v-col cols="12">
+                    <p class="text-wrap"><read-more more-str="全文" :text="schoolStory.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                </v-col>
+                <v-col cols="12" v-if="checkIfAttachExist(schoolStory)">
+                    <AttachItemViewer :items="schoolStory" />
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">

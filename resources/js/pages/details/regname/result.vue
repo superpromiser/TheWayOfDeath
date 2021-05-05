@@ -1,5 +1,104 @@
 <template>
-  <v-container>
+  <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()" >
+    <v-container class="pt-0 px-0 h-100 bg-white">
+      <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+        <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+          mdi-chevron-left
+        </v-icon>
+        <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.regname}}</p>
+      </v-row>
+      <div class="cus-divider-light-gray-height"></div>
+      <v-row class="ma-0">
+          <v-col cols="12" class="text-center">
+              <h1>{{regNameData.title}}</h1>
+          </v-col>
+          <v-col cols="12" >
+              <p class="text-wrap">{{regNameData.content[0].text}}</p>
+          </v-col>
+          <v-col cols="12" v-if="checkIfAttachExist(regNameData.content[0])">
+              <AttachItemViewer :items="regNameData.content[0]" />
+          </v-col>
+      </v-row>
+      <div class="cus-divider-light-gray-height"></div>
+      <v-row class="ma-0">
+        <v-col cols="12">
+          <v-data-table
+            :headers="headers"
+            :items="answerDataList"
+            sort-by="calories"
+            class="elevation-1"
+          >
+            <!-- <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>My CRUD</v-toolbar-title>
+                  <v-divider class="mx-4" inset vertical></v-divider>
+                  <v-spacer></v-spacer>
+                  <v-btn>something</v-btn>
+              </v-toolbar>
+            </template> -->
+            <template v-slot:[`item.avatar`]="{ item }">
+              <img v-if="item.avatar !== '/'" :src="`${baseUrl}${item.avatar}`" alt="ManagerAvatar" class="school-manager-img">
+              <v-avatar v-else size="120" color="primary" > 
+                <span> {{item.name[0]}} </span>
+              </v-avatar>
+            </template>
+            <template v-slot:[`item.phoneNumber`]="{ item }">
+              {{pnEncrypt(item.phoneNumber)}}
+            </template>
+            <template v-slot:[`item.familyAddress`]="{ item }">
+              {{convertAddress(item.familyAddress)}}
+            </template>
+            <template v-slot:[`item.fatherPhone`]="{ item }">
+              {{pnEncrypt(item.fatherPhone)}}
+            </template>
+            <!-- <template v-slot:[`item.birthday`]="{ item }">
+              {{TimeViewYMD(item.familyAddress)}}
+            </template> -->
+            <template v-slot:[`item.gender`]="{ item }">
+              {{transGender(item.gender)}}
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
+                <v-icon
+                    small
+                    class="mr-2"
+                    @click="allowItem(item)"
+                >
+                    mdi-pencil
+                </v-icon>
+                <v-icon
+                    small
+                    @click="denyItem(item)"
+                >
+                    mdi-delete
+                </v-icon>
+            </template>
+            <template v-slot:no-data>
+              没有数据
+            </template>
+          </v-data-table>
+          <!-- <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th v-for="(name,index) in regNameData.inputTypeList" :key="index">
+                    {{name}}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(answer, answerIdx) in answerDataList" :key="answerIdx">
+                  <td v-for="(item, itemIdx) in answer" :key="itemIdx">
+                    {{item}}
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table> -->
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-container>
+  <v-container v-else>
     <v-row class="justify-center align-center z-index-2 banner-custom">
         <v-icon size="70" @click="$router.go(-1)" class="position-absolute put-align-center" style="top:50%; left:20px">
             mdi-chevron-left

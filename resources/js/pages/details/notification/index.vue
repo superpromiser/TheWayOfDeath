@@ -1,5 +1,35 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()" >
+        <v-container class="pt-0 px-0 h-100 bg-white">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.notification}}</p>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0">
+                <v-col cols="12" class="">
+                    <p class="text-wrap mb-0">
+                        <strong>标题:</strong>
+                        {{contentData.notifications.title}}
+                    </p>
+                    <p class="text-wrap mb-0">
+                        <strong>公告标题:</strong>
+                        {{contentData.notifications.signName}}
+                    </p>
+                    <p class="text-wrap mb-0">
+                        <strong>描述:</strong>
+                        {{attachItem.text}}
+                    </p>
+                    <v-col cols="12" v-if="checkIfAttachExist(attachItem)">
+                        <AttachItemViewer :items="attachItem" />
+                    </v-col>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">

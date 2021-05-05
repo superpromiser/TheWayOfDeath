@@ -1,5 +1,42 @@
 <template>
-    <v-container>
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()" >
+        <v-container class="pt-0 px-0 h-100 bg-white">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.regname}}</p>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+
+            <v-row class="pl-10 pt-0">
+                <v-col cols="12" class="text-center">
+                    <h1>{{regNameData.title}}</h1>
+                </v-col>
+                <v-col cols="12" >
+                    <p class="text-wrap">{{regNameData.content[0].text}}</p>
+                </v-col>
+                <v-col cols="12" v-if="checkIfAttachExist(regNameData.content[0])">
+                    <AttachItemViewer :items="regNameData.content[0]" />
+                </v-col>
+            </v-row>
+            <v-divider light></v-divider>
+            <v-row class="ma-0 pt-10">
+                <v-col cols="12" class="text-center">
+                    <h2>- 报名 -</h2>
+                </v-col>
+                <v-col cols="12" sm="6" md="4" v-for="(item, i) in regNameData.inputTypeList" :key="i">
+                    <p>{{item}}:{{user[item]}}</p>
+                </v-col>
+                <v-col cols="12" class="text-right">
+                    <v-btn @click="submit" color="primary" tile :loading="isAnswering" :disabled="isAlreadyAnswer">
+                        {{lang.submit}}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-container>
+    <v-container v-else>
         <v-row class="justify-center align-center z-index-2 banner-custom">
             <v-icon size="70" @click="$router.go(-1)" class="position-absolute put-align-center" style="top:50%; left:20px">
                 mdi-chevron-left

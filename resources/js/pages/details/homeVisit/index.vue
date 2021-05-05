@@ -1,5 +1,38 @@
 <template>
-    <v-container>
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+        <v-container class="pt-0 px-0 h-100 bg-white">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.homeVisit}}</p>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0">
+                <v-col cols="12">
+                    <p class="text-wrap mb-0"><read-more more-str="全文" :text="contentDataDetail.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                </v-col>
+                <v-col cols="12" v-if="checkIfAttachExist(contentDataDetail)">
+                    <AttachItemViewer :items="contentDataDetail" />
+                </v-col>
+                <v-col cols="12">
+                    <v-chip v-for="(name,idx) in studentInfo" :key="idx" class="ml-2">@{{name}}</v-chip>
+                </v-col>
+                <v-col cols="12">
+                    <v-row class="ma-0 " v-for="(item, i) in description" :key="i">
+                        <v-col class="px-5  hover-cursor-point" cols="12" v-for="(data, j) in item" :key="`${i}-${j}`">
+                            <p v-if="j==0" class="textMain mb-0" >{{i+1}}.{{data.title}}</p>
+                            <p v-else class="mb-0" @click="selAnswer(item,i,j,`${i}-${j}`)">
+                                <span v-if="item[0].type == 'single'" :class="{active:answerData.indexOf(`${i}-${j}`) > -1}">{{data.title}}</span>
+                                <span v-if="item[0].type == 'multi'" :class="{active:multiAnswerArr.indexOf(`${i}-${j}`) > -1}">{{data.title}}</span>
+                            </p>
+                        </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-container>
+    <v-container v-else>
         <v-row class="justify-center align-center z-index-2 banner-custom ">
             <v-icon size="70" @click="$router.go(-1)" class="position-absolute put-align-center" style="top:50%; left:20px">
                 mdi-chevron-left
