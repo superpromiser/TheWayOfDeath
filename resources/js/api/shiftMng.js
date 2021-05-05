@@ -16,9 +16,29 @@ function deleteShifMng(payload){
     return axios.delete('/api/v1/shiftMng',payload)
 }
 
+function getTemplateCnt(payload){
+    return axios.get('/api/v1/shiftMng/templateCnt',{params:payload})
+}
+
+function getTemplateList(payloada){
+    return axios.get('/api/v1/shifMng/tempalte',{params:payload})
+}
+
+function createTemplate(payload){
+    return axios.post('/api/v1/shiftMng/template',payload)
+}
+
+function deleteTemplate(payload){
+    return axios.delete('/api/v1/template/',{data:payload})
+}
+
 export{
     getShiftMng,
     createShiftMng,
     updateShiftMng,
     deleteShifMng,
+    getTemplateCnt,
+    getTemplateList,
+    createTemplate,
+    deleteTemplate
 }

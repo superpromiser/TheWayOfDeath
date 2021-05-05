@@ -348,7 +348,9 @@ export default {
         }
     },
     async created(){
-        this.isPosting = true
+        if(this.currentPath.name == 'posts.voting'){
+            this.isPosting = true
+        }
         this.votingData.schoolId = this.currentPath.params.schoolId
         await getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
             this.draftCnt = res.data.draftCnt

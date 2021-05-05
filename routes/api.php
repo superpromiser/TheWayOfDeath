@@ -158,8 +158,8 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::delete('voting', 'VotingController@deleteVotingData');
     Route::get('voting/template', 'VotingController@getTemplate');
     Route::post('voting/template', 'VotingController@createTemplate');
-    Route::delete('voting/template','VotingController@deleteTemplate');
-    Route::get('voting/templateCnt','VotingController@getTemplateCnt');
+    Route::delete('voting/template', 'VotingController@deleteTemplate');
+    Route::get('voting/templateCnt', 'VotingController@getTemplateCnt');
     //sms
     Route::get('sms', 'SmsController@getSms');
     Route::post('sms', 'SmsController@createSms');
@@ -200,6 +200,11 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('anouncement', 'AnouncementController@createAnouncement');
     Route::put('anouncement', 'AnouncementController@updateAnouncement');
     Route::delete('anouncement', 'AnouncementController@deleteAnouncement');
+
+    Route::get('anouncement/templateCnt', 'AnouncementController@getTemplateCnt');
+    Route::get('anouncement/template', 'AnouncementController@getTemplateList');
+    Route::post('anouncement/template', 'AnouncementController@createTemplate');
+    Route::delete('anouncement/template', 'AnouncementController@deleteTemplate');
 
     //bulletinBoard
     Route::get('bulletinBoard', 'BulletinBoardController@getBulletinBoard');
@@ -331,10 +336,10 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('regname/answer', 'RegnameController@getAnswer');
     Route::put('regname/answer', 'RegnameController@updateAnswer');
 
-    Route::get('regname/templateCnt','RegnameController@getTemplateCnt');
-    Route::get('regname/template','RegnameController@getTemplateList');
-    Route::post('regname/template','RegnameController@createTemplate');
-    Route::delete('regname/template','RegnameController@deleteTemplate');
+    Route::get('regname/templateCnt', 'RegnameController@getTemplateCnt');
+    Route::get('regname/template', 'RegnameController@getTemplateList');
+    Route::post('regname/template', 'RegnameController@createTemplate');
+    Route::delete('regname/template', 'RegnameController@deleteTemplate');
     //seat
     Route::get('seat', 'SeatController@getSeatData');
     Route::post('seat', 'SeatController@createSeatData');

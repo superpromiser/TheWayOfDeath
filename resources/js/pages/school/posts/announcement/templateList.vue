@@ -10,7 +10,7 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.regname}}模板清单</h2>
+                    <h2>{{lang.announcement}}模板清单</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
@@ -70,7 +70,7 @@
 
 <script>
 import lang from '~/helper/lang.json'
-import {getTemplateList,deleteTemplate} from '~/api/regname'
+import {getTemplateList,deleteTemplate} from '~/api/anouncement'
 export default {
     data:()=>({
         lang,
@@ -98,12 +98,12 @@ export default {
     },
     methods:{
         submit(){
-            this.$router.push({name:'regname.newTemplate'})
+            this.$router.push({name:'anouncement.newTemplate'})
         },
         selTemp(tempData){
             // console.log("-=-=--==-=-=-=-",tempData)
             // return
-            this.$router.push({name:'posts.regname',query:{tempData:JSON.stringify(tempData.content)}})
+            this.$router.push({name:'posts.announcement',query:{tempData:JSON.stringify(tempData.content)}})
         },
         async delTemp(tempData){
             // console.log(tempData)

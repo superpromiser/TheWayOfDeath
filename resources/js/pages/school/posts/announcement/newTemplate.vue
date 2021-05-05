@@ -10,7 +10,7 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.regname}}模板清单</h2>
+                    <h2>{{lang.announcement}}模板清单</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import {createTemplate} from '~/api/regname'
+import {createTemplate} from '~/api/anouncement'
 import QuestionItem from '~/components/questionItem'
 import lang from '~/helper/lang.json'
 export default {
@@ -103,7 +103,7 @@ export default {
             await createTemplate(this.templateData).then(res=>{
                 console.log(res.data)
                 this.isSubmit = false
-                this.$router.push({name:'regname.templateList'})
+                this.$router.push({name:'anouncement.templateList'})
             }).catch(err=>{
                 console.log(err.response)
                 this.isSubmit = false
