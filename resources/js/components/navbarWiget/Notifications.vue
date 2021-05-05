@@ -34,11 +34,8 @@
       flat
       nav
     > 
-      <v-list-item v-if="alarmData == null || alarmData.length == 0">
-        通知
-      </v-list-item>
-      <v-list-item
-        v-else
+    <v-list-item
+        v-if="alarmData.length > 0"
         v-for="(alarm, i) in alarmData"
         :key="i"
         @click="onClickAlarm(alarm)"
@@ -50,13 +47,17 @@
         <v-list-item-content v-if="alarm.type == 'NewGuest'">
           <v-list-item-title>{{ alarm.content.memberName }} 来拜访 {{alarm.content.name}}</v-list-item-title>
         </v-list-item-content>
-        <v-list-item-avatar v-if="alarm.type == 'NewReturnTeam'">
-          <span>v</span>
+        <v-list-item-avatar color="#49d29e" class="rounded-lg" v-if="alarm.type == 'NewReturnTeam'">
+          <span>{{alarm.content.name[0]}}</span>
         </v-list-item-avatar>
         <v-list-item-content v-if="alarm.type == 'NewReturnTeam'">
-          <v-list-item-title>{{ alarm.content.memberName }} 来拜访 {{alarm.content.name}}</v-list-item-title>
+          <v-list-item-title>{{alarm.content.name}} - {{TimeViewYMD(alarm.created_at)}}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item v-else>
+        通知
+      </v-list-item>
+      
     </v-list>
   </v-menu>
 </template>
@@ -92,7 +93,9 @@ export default {
         res.data.map(alarm=>{
           alarm.content = JSON.parse(alarm.content);
         })
+        console.log(res.data);
         this.$store.dispatch('alarm/storeAlarm', res.data);
+        console.log("this.alarmData", this.alarmData)
       }).catch((err) => {
         console.log(err);
       });
@@ -119,7 +122,9 @@ export default {
 
     onClickAlarm(alarm){
       console.log(alarm);
-      
+      if(alarm.type == 'NewReturnTeam'){
+        this.$router.push({name: 'classSpace.returnTeam', params: {schoolId: this.user.schoolId, gradeId: this.user.gradeId, lessonId: this.user.lessonId}})
+      }
     }
   }
 }

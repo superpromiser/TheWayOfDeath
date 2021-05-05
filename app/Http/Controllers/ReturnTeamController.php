@@ -66,7 +66,7 @@ class ReturnTeamController extends Controller
     public function getReturnTeam()
     {
         $returnTeamArr = ReturnTeam::where([
-            'userId' => Auth::user()->id,
+            // 'userId' => Auth::user()->id,
             'lessonId' => Auth::user()->lessonId,
         ])->orderBy('created_at', 'desc')->get();
 
