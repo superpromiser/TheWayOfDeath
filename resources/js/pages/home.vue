@@ -338,7 +338,7 @@ export default {
       },
       {
         title:"学校动态",//학교동태
-        imgUrl:"/asset/img/appIcon/schoolSafety/schoolStory.png",
+        imgUrl:"/asset/img/appIcon/schoolStory/schoolStory.png",
         path:"posts.schoolStory",
       },
     ],
@@ -385,7 +385,7 @@ export default {
       },
       {
         title:"学校动态",//학교동태
-        imgUrl:"/asset/img/appIcon/schoolSafety/schoolStory.png",
+        imgUrl:"/asset/img/appIcon/schoolStory/schoolStory.png",
         path:"posts.schoolStory",
       },
     ],
@@ -432,7 +432,7 @@ export default {
       },
       {
         title:"学校动态",//학교동태
-        imgUrl:"/asset/img/appIcon/schoolSafety/schoolStory.png",
+        imgUrl:"/asset/img/appIcon/schoolStory/schoolStory.png",
         path:"posts.schoolStory",
       },
     ],
