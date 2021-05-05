@@ -152,7 +152,6 @@ class ReturnTeamController extends Controller
                             'returnTeamId' => $remainTeamData->id,
                             'content' => json_encode($broadcastingData),
                         ]);
-    
                         //Emit Event and push notification to parent of memeber
                         broadcast(new NewReturnTeam($alarm, $parent->id));
                     }

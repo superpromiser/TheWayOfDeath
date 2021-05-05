@@ -50,6 +50,12 @@
         <v-list-item-content v-if="alarm.type == 'NewGuest'">
           <v-list-item-title>{{ alarm.content.memberName }} 来拜访 {{alarm.content.name}}</v-list-item-title>
         </v-list-item-content>
+        <v-list-item-avatar v-if="alarm.type == 'NewReturnTeam'">
+          <span>v</span>
+        </v-list-item-avatar>
+        <v-list-item-content v-if="alarm.type == 'NewReturnTeam'">
+          <v-list-item-title>{{ alarm.content.memberName }} 来拜访 {{alarm.content.name}}</v-list-item-title>
+        </v-list-item-content>
       </v-list-item>
     </v-list>
   </v-menu>
@@ -105,14 +111,15 @@ export default {
       Echo.private('newReturnTeam.'+ this.user.id)
         .listen('NewReturnTeam', (alarm) => {
           console.log("!!!!!!!!!",alarm)
-          alarm.guest.content = JSON.parse(alarm.guest.content);
-          this.alarmData.push(alarm.guest);
+          alarm.returnTeam.content = JSON.parse(alarm.returnTeam.content);
+          this.alarmData.push(alarm.returnTeam);
           this.$store.dispatch('alarm/storeAlarm', this.alarmData);
         });
     },
 
     onClickAlarm(alarm){
       console.log(alarm);
+      
     }
   }
 }
