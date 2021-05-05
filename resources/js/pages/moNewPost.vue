@@ -71,7 +71,7 @@ export default {
                     {
                         color : "#98BB3A",
                         title : "问卷",//설문조사
-                        imgUrl : "/asset/img/appIcon/basicCommunity/问卷.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/questionnaire.png",
                         path : "posts.questionnaire"
                     },
                     {
@@ -125,7 +125,7 @@ export default {
             //         // {
             //         //     color : "#B673E0",
             //         //     title : "考勤",//출근
-            //         //     imgUrl : "/asset/img/appIcon/智能考勤/考勤.png",
+            //         //     imgUrl : "/asset/img/appIcon/attendance/考勤.png",
             //         //     path : "something"
             //         // },
             //         // {
@@ -193,7 +193,7 @@ export default {
             //         {
             //             color : "#98BB3A",
             //             title : "请假",//휴가
-            //             imgUrl : "/asset/img/appIcon/智能考勤/请假审批.png",
+            //             imgUrl : "/asset/img/appIcon/attendance/请假审批.png",
             //             path : "posts.vocation"
             //         },
             //         {
@@ -255,7 +255,7 @@ export default {
                     {
                         color : "#98BB3A",
                         title : "问卷",
-                        imgUrl : "/asset/img/appIcon/basicCommunity/问卷.png",
+                        imgUrl : "/asset/img/appIcon/basicCommunity/questionnaire.png",
                         path : "posts.Cquestionnaire"
                     },
                     {
@@ -339,7 +339,7 @@ export default {
                     {
                         color : "indigo accent-2",
                         title : "课表",
-                        imgUrl : "/asset/img/appIcon/智能考勤/课程表.png",
+                        imgUrl : "/asset/img/appIcon/attendance/课程表.png",
                         path : "something"
                     },
                     {
