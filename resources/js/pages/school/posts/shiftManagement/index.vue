@@ -82,7 +82,7 @@
                         color="#999999"
                         @click="tempList"
                     >
-                        可用模板 0， 草稿 0
+                        可用模板 {{templateCnt}}， 草稿 {{draftCnt}}
                     </v-btn>
                    
                     <v-btn
@@ -210,6 +210,10 @@ export default {
         employeeObj:null,
         isSubmit:false,
         isDraft:false,
+        tempalteCnt:0,
+        draftCnt:0,
+        isPosting:false,
+
     }),
 
     computed:{
@@ -225,6 +229,9 @@ export default {
         this.shiftData.prevName = this.user.name;
         this.shiftData.prevNameId = this.user.id;
         this.shiftData.schoolId = this.currentPath.params.schoolId
+        if(this.currentPath.name == 'posts.shift'){
+            this.isPosting = true
+        }
         await getEmployeeList().then(res=>{
             console.log("res.data",res.data)
             this.employeeList = res.data
@@ -262,7 +269,7 @@ export default {
             })
         },
         tempList(){
-
+            this.isPosting = false
         },
         draft(){
 
