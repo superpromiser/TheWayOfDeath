@@ -181,13 +181,13 @@ export default {
                     //     path:"posts.Crecognition",
 
                     // },
-                    {
-                        color:"#C95384",
-                        title:"教师风采",//교사풍모
-                        imgUrl:"/asset/img/newIcon/graduate.png",
-                        path:"posts.",
+                    // {
+                    //     color:"#C95384",
+                    //     title:"教师风采",//교사풍모
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts.",
 
-                    },
+                    // },
                     // {
                     //     color:"#C95384",
                     //     title:"表彰",//교사풍모
@@ -296,13 +296,13 @@ export default {
                     //     path:"posts.Crecognition",
 
                     // },
-                    {
-                        color:"#C95384",
-                        title:"教师风采",//교사풍모
-                        imgUrl:"/asset/img/newIcon/graduate.png",
-                        path:"posts.",
+                    // {
+                    //     color:"#C95384",
+                    //     title:"教师风采",//교사풍모
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts.",
 
-                    },
+                    // },
                     // {
                     //     color:"#C95384",
                     //     title:"表彰",//교사풍모
@@ -411,13 +411,13 @@ export default {
                     //     path:"posts.Crecognition",
 
                     // },
-                    {
-                        color:"#C95384",
-                        title:"教师风采",//교사풍모
-                        imgUrl:"/asset/img/newIcon/graduate.png",
-                        path:"posts.",
+                    // {
+                    //     color:"#C95384",
+                    //     title:"教师风采",//교사풍모
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts.",
 
-                    },
+                    // },
                     // {
                     //     color:"#C95384",
                     //     title:"表彰",//교사풍모
@@ -477,10 +477,10 @@ export default {
                     // }
                 ]
             },
-            {
-                title:"校园安全",//교내안전
-                icon:"mdi-account-cog-outline",
-                items:[
+            // {
+            //     title:"校园安全",//교내안전
+            //     icon:"mdi-account-cog-outline",
+            //     items:[
                     // {
                     //     color:"#98BB3A",
                     //     title:"访客管理",//방문자관리
@@ -505,12 +505,12 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/safeStudy.png",
                     //     path:"posts.safeStudy"
                     // },
-                ]
-            },
-            {
-                title:"校园文化",//
-                icon:"mdi-lifebuoy",
-                items:[
+            //     ]
+            // },
+            // {
+            //     title:"校园文化",//
+            //     icon:"mdi-lifebuoy",
+            //     items:[
                     
                     // {
                     //     color:"#C95384",
@@ -540,8 +540,8 @@ export default {
                     //     path:"posts.",
 
                     // },
-                ]
-            },
+        //         ]
+        //     },
         ],
         studentItem : [
             {
@@ -622,10 +622,10 @@ export default {
                     // },
                 ]
             },
-            {
-                title:"校园文化",//
-                icon:"mdi-lifebuoy",
-                items:[
+            // {
+            //     title:"校园文化",//
+            //     icon:"mdi-lifebuoy",
+            //     items:[
                     
                     // {
                     //     color:"#C95384",
@@ -655,8 +655,8 @@ export default {
                     //     path:"posts.",
 
                     // },
-                ]
-            },
+            //     ]
+            // },
         ],
         contentItemList:[],
     }),

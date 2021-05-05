@@ -103,145 +103,132 @@
         </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
-        <v-container class="px-10 z-index-2 banner-custom">
-            <v-row>
-                <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                    <a @click="$router.go(-1)">
-                        <v-icon size="70" class="left-24p">
-                            mdi-chevron-left
-                        </v-icon>
-                    </a>
-                </v-col>
-                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.regname}}</h2>
-                </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn
-                        text
-                        color="#999999"
-                        @click="selContent('template')"
-                    >
-                        可用模板 0， 草稿 0
-                    </v-btn>
-                    <v-btn
-                        dark
-                        tile
-                        color="#F19861"
-                        :loading="isDraft"
-                        @click="saveDraft"
-                    >
-                        {{lang.saveDraft}}
-                    </v-btn>
-                    <v-btn
-                        dark
-                        tile
-                        color="#7879ff"
-                        class="mx-2"
-                        :loading="isSubmit"
-                        @click="submit"
-                    >
-                        {{lang.submit}}
-                    </v-btn>
-                    
-                </v-col>
-            </v-row>
-        </v-container>
-        <v-container class="pa-10">
-            <v-row class="align-start">
-                <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                        solo
-                        v-model="regNameData.title"
-                        label="标题"
-                        hide-details
-                    ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-datetime-picker 
-                        label="开始时间" 
-                        v-model="regNameData.startTime"
-                        :okText='lang.ok'
-                        :clearText='lang.cancel'
-                    > </v-datetime-picker>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-datetime-picker 
-                        label="截止时间" 
-                        v-model="regNameData.endTime"
-                        :okText='lang.ok'
-                        :clearText='lang.cancel'
-                    > </v-datetime-picker>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-select
-                        solo
-                        multiple
-                        chips
-                        :menu-props="{ top: false, offsetY: true }"
-                        :items="inputTypeItem"
-                        item-text="label"
-                        item-value="value"
-                        @change="selectedInputType"
-                        label="报名信息可见"
-                        hide-details
-                    ></v-select>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <v-select
-                        solo
-                        multiple
-                        chips
-                        :menu-props="{ top: false, offsetY: true }"
-                        :items="returnSchoolTree(currentPath.params.schoolId)"
-                        item-text="lessonName"
-                        item-value="lessonId"
-                        @change="selectedLesson"
-                        label="可见范围"
-                        hide-details
-                    ></v-select>
-                </v-col>
-                <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around py-6">
-                    <span>是否需要审核</span>
-                    <v-switch
-                        v-model="regNameData.checkFlag"
-                        color="primary"
-                        hide-details
-                        inset
-                        class="pt-0 mt-0"
-                    ></v-switch>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12">
-                    <QuestionItem Label="报名内容" :emoji="false" :contact="false"  ref="child" @contentData="loadContentData"></QuestionItem>
-                </v-col>
-            </v-row>
-        </v-container>
-        <v-snackbar
-            timeout="3000"
-            v-model="requiredText"
-            color="error"
-            absolute
-            top
-            >
-            {{lang.requiredText}}
-        </v-snackbar>
-        <v-snackbar
-        timeout="3000"
-            v-model="isSuccessed"
-            color="success"
-            absolute
-            top
-            >
-            {{lang.successText}}
-        </v-snackbar>
+        <div v-if="isPosting == true">
+            <v-container class="px-10 z-index-2 banner-custom">
+                <v-row>
+                    <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                        <a @click="$router.go(-1)">
+                            <v-icon size="70" class="left-24p">
+                                mdi-chevron-left
+                            </v-icon>
+                        </a>
+                    </v-col>
+                    <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                        <h2>{{lang.regname}}</h2>
+                    </v-col>
+                    <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                        <v-btn
+                            text
+                            color="#999999"
+                            @click="tempList('template')"
+                        >
+                            可用模板 {{templateCnt}}， 草稿 {{draftCnt}}
+                        </v-btn>
+                        <v-btn
+                            dark
+                            tile
+                            color="#F19861"
+                            :loading="isDraft"
+                            @click="saveDraft"
+                        >
+                            {{lang.saveDraft}}
+                        </v-btn>
+                        <v-btn
+                            dark
+                            tile
+                            color="#7879ff"
+                            class="mx-2"
+                            :loading="isSubmit"
+                            @click="submit"
+                        >
+                            {{lang.submit}}
+                        </v-btn>
+                        
+                    </v-col>
+                </v-row>
+            </v-container>
+            <v-container class="pa-10">
+                <v-row class="align-start">
+                    <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                            solo
+                            v-model="regNameData.title"
+                            label="标题"
+                            hide-details
+                        ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                        <v-datetime-picker 
+                            label="开始时间" 
+                            v-model="regNameData.startTime"
+                            :okText='lang.ok'
+                            :clearText='lang.cancel'
+                        > </v-datetime-picker>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                        <v-datetime-picker 
+                            label="截止时间" 
+                            v-model="regNameData.endTime"
+                            :okText='lang.ok'
+                            :clearText='lang.cancel'
+                        > </v-datetime-picker>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                        <v-select
+                            solo
+                            multiple
+                            chips
+                            :menu-props="{ top: false, offsetY: true }"
+                            :items="inputTypeItem"
+                            item-text="label"
+                            item-value="value"
+                            @change="selectedInputType"
+                            label="报名信息可见"
+                            hide-details
+                        ></v-select>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                        <v-select
+                            solo
+                            multiple
+                            chips
+                            :menu-props="{ top: false, offsetY: true }"
+                            :items="returnSchoolTree(currentPath.params.schoolId)"
+                            item-text="lessonName"
+                            item-value="lessonId"
+                            @change="selectedLesson"
+                            label="可见范围"
+                            hide-details
+                        ></v-select>
+                    </v-col>
+                    <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around py-6">
+                        <span>是否需要审核</span>
+                        <v-switch
+                            v-model="regNameData.checkFlag"
+                            color="primary"
+                            hide-details
+                            inset
+                            class="pt-0 mt-0"
+                        ></v-switch>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="12">
+                        <QuestionItem Label="报名内容" :emoji="false" :contact="false"  ref="child" @contentData="loadContentData"></QuestionItem>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </div>
+        <div v-else>
+            <router-view></router-view>
+        </div>
   </v-container>
 </template>
 
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createRegname} from '~/api/regname'
+import {createRegname,getTemplateCnt} from '~/api/regname'
 import quickMenu from '~/components/quickMenu'
 
 export default {
@@ -365,15 +352,37 @@ export default {
             //     value: "homeRegPlace"
             // },
 
-        ]
+        ],
+        isPosting:false,
+        draftCnt:0,
+        templateCnt:0,
     }),
     computed:{
         currentPath(){
             return this.$route
         }
     },
+    watch:{
+        currentPath:{
+            handler(val){
+                if(val.query.tempData){
+                    this.isPosting = true
+                    console.log("JSON.parse(val.query.tempData)",JSON.parse(val.query.tempData))
+                    this.regNameData.content = JSON.parse(val.query.tempData)
+                }
+            },
+            deeper:true
+        }
+    },
     created(){
+        getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
+            this.draftCnt = res.data.draftCnt
+            this.templateCnt = res.data.templateCnt
+        })
         this.regNameData.schoolId = this.currentPath.params.schoolId
+        if(this.currentPath.name == 'posts.regname'){
+            this.isPosting = true
+        }
     },
     methods:{
         saveDraft(){
@@ -418,8 +427,9 @@ export default {
             this.regNameData.inputTypeList = val;
         },
 
-        something(){
-
+        tempList(){
+            this.isPosting = false
+            this.$router.push({name:'regname.templateList'})
         }
     }
 }

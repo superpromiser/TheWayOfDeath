@@ -46,8 +46,8 @@
         <template v-slot:activator>
           <v-list-item-title v-if="user.roleId == 2">学校管理</v-list-item-title>
           <v-list-item-title v-else-if="user.roleId == 1">系统设置</v-list-item-title>
-          <v-list-item-title v-else-if="user.roleId == 3">教授管理</v-list-item-title>
-          <v-list-item-title v-else-if="user.roleId == 7">教授管理</v-list-item-title>
+          <v-list-item-title v-else-if="user.roleId == 3">考勤管理</v-list-item-title>
+          <v-list-item-title v-else-if="user.roleId == 7">考勤管理</v-list-item-title>
         </template>
           <v-list-item
             active-class="sub-header-active"
@@ -176,7 +176,7 @@
               <v-icon>mdi-sd</v-icon>
             </v-list-item-icon>
           </v-list-item> -->
-          <v-list-item
+          <!-- <v-list-item
             active-class="sub-header-active"
             link
             to="/admin/schedule/class"
@@ -186,8 +186,8 @@
             <v-list-item-icon>
               <v-icon>mdi-calendar-month</v-icon>
             </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
+          </v-list-item> -->
+          <!-- <v-list-item
             active-class="sub-header-active"
             link
             to="/admin/vacation/teacher"
@@ -197,12 +197,12 @@
             <v-list-item-icon>
               <v-icon>mdi-check-decagram </v-icon>
             </v-list-item-icon>
-          </v-list-item>
+          </v-list-item> -->
           <v-list class="py-0" v-if="user.role.id == 2 || user.role.id == 3 || user.role.id == 7">
-            <v-list-group  active-class="header-active">
-            <template v-slot:activator>
+            <!-- <v-list-group  active-class="header-active"> -->
+            <!-- <template v-slot:activator>
               <v-list-item-title class="ml-9">考勤</v-list-item-title>
-            </template>
+            </template> -->
               <v-list-item
                 active-class="sub-header-active"
                 link
@@ -253,7 +253,7 @@
                   <v-icon>mdi-hexagon-slice-4  </v-icon>
                 </v-list-item-icon>
               </v-list-item>
-            </v-list-group>
+            <!-- </v-list-group> -->
           </v-list>
       </v-list-group>
       <v-list-group active-class="header-active" prepend-icon="mdi-school" v-for="(school, indexOfSchool) in mySchoolList" :key="indexOfSchool">

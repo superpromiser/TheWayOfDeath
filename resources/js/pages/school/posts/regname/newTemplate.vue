@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import {createTemp} from '~/api/share'
+import {createTemplate} from '~/api/regname'
 import QuestionItem from '~/components/questionItem'
 import lang from '~/helper/lang.json'
 export default {
@@ -100,10 +100,10 @@ export default {
                 return this.$snackbar.showMessage({content: this.lang.share + this.lang.requireContent, color: 'error'})
             }
             this.isSubmit = true
-            await createTemp(this.templateData).then(res=>{
+            await createTemplate(this.templateData).then(res=>{
                 console.log(res.data)
                 this.isSubmit = false
-                this.$router.push({name:'share.templateList'})
+                this.$router.push({name:'regname.templateList'})
             }).catch(err=>{
                 console.log(err.response)
                 this.isSubmit = false

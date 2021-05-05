@@ -16,8 +16,8 @@ function deleteQuestionnaire(payload){
     return axios.delete('/api/v1/questionnaire',{data: payload})
 }
 
-function getQuestionnaireTemp(){
-    return axios.get('/api/v1/questionnaireTemp');
+function getQuestionnaireTemp(payload){
+    return axios.get('/api/v1/questionnaireTemp',{params:payload});
 }
 
 function createQuestionnaireTemp(payload){
@@ -32,10 +32,9 @@ function deleteQuestionnaireTemp(payload){
     return axios.delete('/api/v1/questionnaireTemp',{data:payload})
 }
 
-function getQuestionnaireTempCnt(){
-    return axios.get('/api/v1/questionnaireTempCnt');
+function getQuestionnaireTempCnt(payload){
+    return axios.get('/api/v1/questionnaireTempCnt',{params:payload});
 }
-
 
 export{
     getQuestionnaire,

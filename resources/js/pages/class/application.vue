@@ -153,12 +153,12 @@ export default {
                 //     imgUrl:"/asset/img/newIcon/returnTeam.png",
                 //     path:"classSpace.returnTeam"
                 // },
-                {
-                    color:"#98BB3A",
-                    title:"打卡管理",//카드긋기
-                    imgUrl:"/asset/img/newIcon/cardcheck.png",
-                    path:"posts."
-                },
+                // {
+                //     color:"#98BB3A",
+                //     title:"打卡管理",//카드긋기
+                //     imgUrl:"/asset/img/newIcon/cardcheck.png",
+                //     path:"posts."
+                // },
                 {
                     color:"#98BB3A",
                     title:"维修工单",//수리공
@@ -396,12 +396,12 @@ export default {
                     imgUrl:"/asset/img/newIcon/vocationReply.png",
                     path:"posts.vocation"
                 },
-                {
-                    color:"#3EBBE8",
-                    title:"考勤",//출근
-                    imgUrl:"/asset/img/newIcon/attendance.png",
-                    path:"posts.attendance"
-                },
+                // {
+                //     color:"#3EBBE8",
+                //     title:"考勤",//출근
+                //     imgUrl:"/asset/img/newIcon/attendance.png",
+                //     path:"posts.attendance"
+                // },
                 {
                     color:"#3EBBE8",
                     title:"课程表",//시간표

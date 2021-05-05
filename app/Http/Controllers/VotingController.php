@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Voting;
 use App\VotingTemp;
+use App\Template;
 use Illuminate\Support\Facades\Auth;
 
 class VotingController extends Controller
@@ -98,31 +99,58 @@ class VotingController extends Controller
 
     public function createTemplate(Request $request)
     {
-        $this->validate($request, [
-            'schoolId' => 'required',
-            'tempType' => 'required',
-            'tempTitle' => 'required',
-            'description' => 'required',
-            'imgUrl' => 'required',
-            'content' => 'required'
-        ]);
         $userId = Auth::user()->id;
-        VotingTemp::create([
-            'tempType' => $request->tempType,
+        if($request->lessonId){
+            $contentId = 13;
+        }else{
+            $contentId = 2;
+        }
+        Template::create([
+            'contentId' => $contentId,
+            'userId' => $userId,
             'tempTitle' => $request->tempTitle,
             'description' => $request->description,
-            'imgUrl' => $request->imgUrl,
-            'content' => json_encode($request->content),
-            'userId' => $userId,
+            'content' => $request->content,
             'schoolId' => $request->schoolId,
-            'lessonId' => $request->lessonId
+            'tempType' => $request->tempType,
+            'lessonId'=>$request->lessonId
         ]);
+        return true;
     }
-    public function getTemplateList(Request $request)
+    public function getTemplate(Request $request)
     {
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
-        return VotingTemp::where('schoolId', $request->schoolId)->get();
+        $userId = Auth::user()->id;
+        if($request->lessonId){
+            $contentId = 13;
+        }else{
+            $contentId = 2;
+        }
+        return Template::where(['contentId' => $contentId, 'userId' => $userId, 'schoolId' => $request->schoolId,'lessonId'=>$request->lessonId])->get();
+        
+    }
+
+    public function deleteTemplate(Request $request){
+        $this->validate($request,[
+            'id'=>'required'
+        ]);
+        return Template::where('id',$request->id)->delete();
+    }
+
+    public function getTemplateCnt(Request $request){
+        $this->validate($request, [
+            'schoolId' => 'required',
+        ]);
+        if($request->lessonId){
+            $contentId = 13;
+        }else{
+            $contentId = 2;
+        }
+        $userId = Auth::user()->id;
+        $result['draftCnt'] = Template::where(['contentId' => $contentId, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 2])->count();
+        $result['templateCnt'] = Template::where(['contentId' => $contentId, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 1])->count();
+        return $result;
     }
 }

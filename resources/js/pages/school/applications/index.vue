@@ -180,13 +180,13 @@ export default {
                     //     path:"posts.posts.Crecognition",
 
                     // },
-                    {
-                        color:"#C95384",
-                        title:"教师风采",//교사풍모
-                        imgUrl:"/asset/img/newIcon/graduate.png",
-                        path:"posts.",
+                    // {
+                    //     color:"#C95384",
+                    //     title:"教师风采",//교사풍모
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts.",
 
-                    },
+                    // },
                     // {
                     //     color:"#C95384",
                     //     title:"表彰",//교사풍모
@@ -295,13 +295,13 @@ export default {
                     //     path:"posts.posts.Crecognition",
 
                     // },
-                    {
-                        color:"#C95384",
-                        title:"教师风采",//교사풍모
-                        imgUrl:"/asset/img/newIcon/graduate.png",
-                        path:"posts.",
+                    // {
+                    //     color:"#C95384",
+                    //     title:"教师风采",//교사풍모
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts.",
 
-                    },
+                    // },
                     // {
                     //     color:"#C95384",
                     //     title:"表彰",//교사풍모
@@ -410,13 +410,13 @@ export default {
                     //     path:"posts.posts.Crecognition",
 
                     // },
-                    {
-                        color:"#C95384",
-                        title:"教师风采",//교사풍모
-                        imgUrl:"/asset/img/newIcon/graduate.png",
-                        path:"posts.",
+                    // {
+                    //     color:"#C95384",
+                    //     title:"教师风采",//교사풍모
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts.",
 
-                    },
+                    // },
                     // {
                     //     color:"#C95384",
                     //     title:"表彰",//교사풍모
@@ -525,13 +525,13 @@ export default {
                     //     path:"posts.posts.Crecognition",
 
                     // },
-                    {
-                        color:"#C95384",
-                        title:"教师风采",//교사풍모
-                        imgUrl:"/asset/img/newIcon/graduate.png",
-                        path:"posts.",
+                    // {
+                    //     color:"#C95384",
+                    //     title:"教师风采",//교사풍모
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts.",
 
-                    },
+                    // },
                     // {
                     //     color:"#C95384",
                     //     title:"表彰",//교사풍모
@@ -640,13 +640,13 @@ export default {
                     //     path:"posts.posts.Crecognition",
 
                     // },
-                    {
-                        color:"#C95384",
-                        title:"教师风采",//교사풍모
-                        imgUrl:"/asset/img/newIcon/graduate.png",
-                        path:"posts.",
+                    // {
+                    //     color:"#C95384",
+                    //     title:"教师风采",//교사풍모
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts.",
 
-                    },
+                    // },
                     // {
                     //     color:"#C95384",
                     //     title:"表彰",//교사풍모

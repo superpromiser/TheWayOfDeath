@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
         <v-container class="px-10 z-index-2 mb-15 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -16,7 +16,7 @@
                     <v-btn
                         tile
                         dark
-                        color="green lighten-1"
+                        color="#7879ff"
                         class="mx-2"
                         :loading="isSubmit"
                         @click="submit"
@@ -35,14 +35,6 @@
                         label="模板名称"
                     ></v-text-field>
                 </v-col>
-                <!-- <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                        solo
-                        v-model="newTemplateData.title"
-                        label="标题"
-                        hide-details
-                    ></v-text-field>
-                </v-col> -->
                 <v-col cols="12" sm="6" md="4">
                     <v-text-field
                         solo
@@ -50,9 +42,6 @@
                         label="说明"
                         hide-details
                     ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                    <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" :solo="true" uploadLabel="模板封面" />
                 </v-col>
                 <v-col cols="12" v-for="index in initialCnt" :key="index" class="mt-3">
                     <QuestionItem class="" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>

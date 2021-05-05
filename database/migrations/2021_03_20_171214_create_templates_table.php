@@ -23,7 +23,7 @@ class CreateTemplatesTable extends Migration
             $table->tinyInteger('tempType');
             $table->json('content')->nullable();
             $table->tinyInteger('schoolId');
-            $table->tinyInteger('lessonId')->default('0');
+            $table->tinyInteger('lessonId')->nullable();
             $table->foreign('contentId')->references('id')->on('contents')->onDelete('cascade');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

@@ -26,7 +26,13 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-row class="px-5">
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </div>
+        <v-row v-else class="px-10">
             <v-col cols="4" sm="6" md="4" v-for="tempData in tempList" :key="tempData.id">
                 <v-card
                     class="mx-auto"
@@ -46,14 +52,14 @@
                             color="#7879ff"
                             @click="selTemp(tempData)"
                         >
-                            Learn More
+                            选项
                         </v-btn>
                         <v-btn
                             text
                             color="#f19861"
                             @click="delTemp(tempData)"
                         >
-                            Learn More
+                            删除
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -70,19 +76,24 @@ export default {
         lang,
         isSubmit:false,
         tempList:[],
+        isDelete:false,
+        isLoading:false,
     }),
     computed:{
         currentPath(){
             return this.$route
         }
     },
-    created(){
+    async created(){
         // this.$router.push({name:'posts.share'})
+        this.isLoading = true
         getTempList({schoolId:this.currentPath.params.schoolId}).then(res=>{
             console.log(res.data)
             this.tempList = res.data
+            this.isLoading = false
         }).catch(err=>{
             console.log(err.response)
+            this.isLoading = false
         })
     },
     methods:{
@@ -93,8 +104,21 @@ export default {
         selTemp(tempData){
             this.$router.push({name:'posts.share',query:{tempData:JSON.stringify(tempData.content)}})
         },
-        delTemp(){
-
+        async delTemp(tempData){
+            // console.log(tempData)
+            // return
+            this.isDelete = true
+            await deleteTemp({id:tempData.id}).then(res=>{
+                console.log(res.data)
+                this.isDelete = false
+                let index = this.tempList.indexOf(tempData)
+                if(index > -1){
+                    this.tempList.splice(index,1)
+                }
+            }).catch(err=>{
+                console.log(err.response)
+                this.isDelete = false
+            })
         }
     }
 }

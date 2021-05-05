@@ -460,12 +460,12 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/vocationRequest.png",
                     //     path:"posts.vocation"
                     // },
-                    // {
-                    //     color:"#3EBBE8",
-                    //     title:"请假审批",//휴가심사
-                    //     imgUrl:"/asset/img/newIcon/vocationReply.png",
-                    //     path:"posts.vocation"
-                    // },
+                    {
+                        color:"#3EBBE8",
+                        title:"请假审批",//휴가심사
+                        imgUrl:"/asset/img/newIcon/vocationReply.png",
+                        path:"posts.vocation"
+                    },
             //         {
             //             color:"#3EBBE8",
             //             title:"考勤",//출근

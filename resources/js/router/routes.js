@@ -147,8 +147,11 @@ export default [
       {path:'scoring',name:'questionnaireTemplate.scoring',component:page('school/posts/questionnaire/scoring.vue')}
     ]
   },
-  {path:'/schoolSpace/:schoolId/post/voting', name:'posts.voting', component:page('school/posts/voting/new.vue')},
-  {path:'/schoolSpace/:schoolId/post/voting/templateList', name:'voting.tempList', component:page('school/posts/voting/templateList.vue')},
+  {path:'/schoolSpace/:schoolId/post/voting', name:'posts.voting', component:page('school/posts/voting/new.vue'),
+    children:[
+      {path:'templateList', name:'voting.tempList', component:page('school/posts/voting/templateList.vue')}
+    ]
+  },
   {path:'/schoolSpace/:schoolId/post/voting/newTemplate', name:'voting.newTemp', component:page('school/posts/voting/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/sms', name:'posts.sms', component:page('school/posts/sms/new.vue')},
   {path:'/schoolSpace/:schoolId/post/campus', name:'posts.campus', component:page('school/posts/campus/new.vue')},
@@ -161,7 +164,12 @@ export default [
   {path:'/schoolSpace/:schoolId/post/share/newTemplate',name:'share.newTemplate',component:page('school/posts/share/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/bulletinboard', name:'posts.bulletinboard', component:page('school/posts/bulletinboard/new.vue')},
   {path:'/schoolSpace/:schoolId/post/homevisit', name:'posts.homevisit', component:page('school/posts/homevisit/new.vue')},
-  {path:'/schoolSpace/:schoolId/post/regname', name:'posts.regname', component:page('school/posts/regname/new.vue')},
+  {path:'/schoolSpace/:schoolId/post/regname', name:'posts.regname', component:page('school/posts/regname/new.vue'),
+    children:[
+      {path:'templateList',name:'regname.templateList',component:page('school/posts/regname/templateList.vue')}
+    ]
+  },
+  {path:'/schoolSpace/:schoolId/post/regname/newTemplate',name:'regname.newTemplate',component:page('school/posts/regname/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/vacation', name:'posts.vocation', component:page('school/posts/vacation/student/new.vue')},
   {path:'/schoolSpace/:schoolId/post/homework', name:'posts.homework', component:page('school/posts/homework/index.vue'),
     children:[
@@ -231,6 +239,8 @@ export default [
     ]
   },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/voting', name:'posts.Cvoting', component:page('class/posts/voting/new.vue')},
+  {path:'/schoolSpace/:schoolId/post/voting/templateList', name:'Cvoting.tempList', component:page('class/posts/voting/templateList.vue')},
+  {path:'/schoolSpace/:schoolId/post/voting/newTemplate', name:'Cvoting.newTemp', component:page('class/posts/voting/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/homework', name:'posts.Chomework', component:page('class/posts/homework/index.vue'),
     children:[
       {path:'setRule', name:'Chomework.setRule',component:page('class/posts/homework/rule.vue')},

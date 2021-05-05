@@ -84,8 +84,8 @@ class ShareController extends Controller
             'schoolId' => 'required',
         ]);
         $userId = Auth::user()->id;
-        $result['draftCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'tempType' => 2])->count();
-        $result['templateCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'tempType' => 1])->count();
+        $result['draftCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 2])->count();
+        $result['templateCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 1])->count();
         return $result;
     }
 
@@ -108,12 +108,17 @@ class ShareController extends Controller
             'description' => $request->description,
             'content' => $request->content,
             'schoolId' => $request->schoolId,
-            'tempType' => $request->tempType
+            'tempType' => $request->tempType,
+            'lessonId'=>$request->lessonId
         ]);
         return true;
     }
 
     public function deleteTemp(Request $request)
     {
+        $this->validate($request,[
+            'id'=>'required'
+        ]);
+        return Template::where('id',$request->id)->delete();
     }
 }

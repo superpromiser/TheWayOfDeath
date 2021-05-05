@@ -1,7 +1,7 @@
 <template>
-    <v-container>
-        <v-container v-if="istemplateNew == true">
-            <v-container class="z-index-2 mb-15 banner-custom">
+    <v-container class="pa-0">
+        <v-container class="pa-0" v-if="istemplateNew == true">
+            <v-container class="z-index-2 mb-15 banner-custom px-10">
                 <v-row>
                     <v-col cols="6" md="4" class="d-flex align-center position-relative">
                         <a @click="$router.go(-1)">
@@ -17,7 +17,7 @@
                         <v-btn
                             tile
                             dark
-                            color="green lighten-1"
+                            color="#7879ff"
                             class="mx-2"
                             :loading="isSubmit"
                             @click="submit"
@@ -27,57 +27,44 @@
                     </v-col>
                 </v-row>
             </v-container>
-            <div class="d-flex align-center text-center justify-center" v-if='templateList.length == 0'>
-                {{lang.noData}}
+            <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+                <v-progress-circular
+                    indeterminate
+                    color="primary"
+                ></v-progress-circular>
             </div>
-            <v-row v-else>
-                <v-col cols="12" sm="12" md="6" lg="4" xl="3"  v-for="template in templateList" :key="template.id">
+            <v-row class="px-10" v-else>
+                <v-col cols="4" sm="6" md="4" v-for="template in templateList" :key="template.id">
                     <v-card
                     class="mx-auto"
                     max-width="400"
                     >
-                        <v-img
-                            class="white--text align-end"
-                            height="200px"
-                            :src="baseUrl+template.imgUrl"
-                        >
-                            <v-card-title>{{template.temTitle}}</v-card-title>
-                        </v-img>
-
-                        <v-card-subtitle class="pb-0">
-                            {{template.title}}
-                        </v-card-subtitle>
-
-                        <v-card-text class="text--primary">
-                            <div>{{template.description}}</div>
+                        <v-card-text>
+                            <p class="display-1 text--primary">
+                                {{template.tempTitle}}
+                            </p>
+                            <div class="text--primary">
+                                {{template.description}}
+                            </div>
                         </v-card-text>
-
-                        <v-card-actions class="justify-end">
+                        <v-card-actions>
                             <v-btn
-                                color="orange"
-                                tile
-                                dark
-                                @click="selTemp(template.content)"
+                                text
+                                color="#7879ff"
+                                @click="selTemp(template)"
                             >
-                                选择
+                                选项
+                            </v-btn>
+                            <v-btn
+                                text
+                                color="#f19861"
+                                @click="delTemp(template)"
+                            >
+                                删除
                             </v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
-                
-                <!-- <div>
-                    {{template}}
-                </div>
-            </div>
-            <v-btn
-                dark
-                color="#7879ff"
-                class="mr-8"
-                @click="submit"
-            >
-                {{lang.submit}}
-            </v-btn>
-                </div> -->
             </v-row>
         </v-container>
         <transition name="fade" mode="out-in">
@@ -87,7 +74,7 @@
 </template>
 
 <script>
-import {getQuestionnaireTemp} from '~/api/questionnaire'
+import {getQuestionnaireTemp,deleteQuestionnaireTemp} from '~/api/questionnaire'
 import lang from '~/helper/lang.json'
 export default {
     data:()=>({
@@ -108,8 +95,8 @@ export default {
         if(this.currentPath.name == 'questionnaire.templateList'){
             this.istemplateNew = true
         }
-        await getQuestionnaireTemp().then(res=>{
-            //console.log(res.data)
+        await getQuestionnaireTemp({schoolId:this.currentPath.params.schoolId}).then(res=>{
+            console.log(res.data)
             this.isLoading = false
             this.templateList = res.data
         }).catch(err=>{
@@ -133,9 +120,22 @@ export default {
             this.istemplateNew = false
             this.$router.push({name:'questionnaire.templateNew'})
         },
-        selTemp(content){
+        selTemp(tempData){
             // //console.log(content)
-            this.$router.push({name:'posts.questionnaire',query:{'tempData':content}})
+            // his.$router.push({name:'posts.share',query:{tempData:JSON.stringify(tempData.content)}})
+            this.$router.push({name:'posts.questionnaire',query:{tempData:JSON.stringify(tempData.content)}})
+        },
+        delTemp(tempData){
+            deleteQuestionnaireTemp({id:tempData.id}).then(res=>{
+                console.log(res.data)
+                let index = this.templateList.indexOf(tempData)
+                if(index > -1){
+                    this.templateList.splice(index,1)
+                }
+                // this.$router.path({name:'posts.questionnaire'})
+            }).catch(err=>{
+                console.log(err.response)
+            })    
         }
     }
 }

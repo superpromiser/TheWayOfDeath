@@ -239,7 +239,7 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import { mapGetters } from 'vuex'
-import {createShare,getTemplateCnt} from '~/api/share'
+import {createShare,getTemplateCnt,createTemp} from '~/api/share'
 import quickMenu from '~/components/quickMenu'
 
 //mo
@@ -287,12 +287,7 @@ export default {
             publishType: 'pub'
         },
         isSuccessed:false,
-        contentData:{
-            text:'',
-            imgUrl:[],
-            otherUrl:[],
-            videoUrl:[]
-        },
+        contentData:[],
 
         publishTypeRadio: null,
 
@@ -339,17 +334,41 @@ export default {
             this.isPosting = true
         }
         this.shareData.schoolId = this.currentPath.params.schoolId;
-        // getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
-        //     console.log(res.data)
-        //     this.templateCnt = res.data.templateCnt
-        //     this.draftCnt = res.data.draftCnt
-        // }).catch(err=>{
-        //     console.log(err.response)
-        // })
+        getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
+            console.log(res.data)
+            this.templateCnt = res.data.templateCnt
+            this.draftCnt = res.data.draftCnt
+        }).catch(err=>{
+            console.log(err.response)
+        })
     },
     methods:{
-        saveDraft(){
-
+        async saveDraft(){
+            this.$refs.child.emitData()
+            let draftData = {}
+            draftData.tempType = 2
+            draftData.content = this.contentData
+            draftData.schoolId = this.currentPath.params.schoolId
+            if(this.currentPath.params.lessonId){
+                draftData.lessonId = this.currentPath.params.lessonId
+            }
+            let currentTime = Date.now();
+            draftData.title = 'title-' + currentTime
+            draftData.description = 'description-' + currentTime
+            console.log(draftData)
+            if(this.shareData.content.length == 0){
+                return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+            }
+            draftData.content = this.shareData.content
+            this.isDraft = true
+            await createTemp(draftData).then(res=>{
+                console.log(res.data)
+                this.isDraft = false
+                this.draftCnt ++ 
+            }).catch(err=>{
+                console.log(err.response)
+                this.isDraft = false
+            })
         },
 
         templateList(){

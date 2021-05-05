@@ -24,24 +24,24 @@ class UserController extends Controller
     public function createStaff(Request $request)
     {
         $schoolId = Auth::user()->schoolId;
-        $mGradeId = Grade::orderBy('id', 'DESC')->first()->id;
-        if (is_null($request->lessonId)) {
-            $lessonId = Lesson::create([
-                'lessonName' => $request->name,
-                'imgUrl' => '/',
-                'schoolId' => $schoolId,
-                'gradeId' => $mGradeId
-            ])->id;
-        } else {
-            $lessonId = $request->lessonId;
-        }
+        // $mGradeId = Grade::orderBy('id', 'DESC')->first()->id;
+        // if (is_null($request->lessonId)) {
+        //     $lessonId = Lesson::create([
+        //         'lessonName' => $request->name,
+        //         'imgUrl' => '/',
+        //         'schoolId' => $schoolId,
+        //         'gradeId' => $mGradeId
+        //     ])->id;
+        // } else {
+        //     $lessonId = $request->lessonId;
+        // }
         $staffData['name'] = $request->name;
         $staffData['phoneNumber'] = $request->phoneNumber;
         $staffData['password'] = bcrypt($request->password);
         $staffData['avatar'] = $request->avatar;
         $staffData['schoolId'] = $schoolId;
         $staffData['gradeId'] = $request->gradeId;
-        $staffData['lessonId'] = $lessonId;
+        $staffData['lessonId'] = $request->lessonId;
         $staffData['gender'] = $request->gender;
         $staffData['nation'] = $request->nation;
         $staffData['cardNum'] = $request->cardNum;
@@ -53,7 +53,7 @@ class UserController extends Controller
         $staffData['residenceAddress'] = json_encode($request->residenceAddress);
         $groupArr = array();
         array_push($groupArr, 0);
-        array_push($groupArr, $lessonId);
+        array_push($groupArr, $request->lessonId);
         $staffData['groupArr'] = $groupArr;
         $manager = User::create($staffData);
 

@@ -889,7 +889,7 @@ export default {
           console.log("this.newQuestionnaireData.content",this.newQuestionnaireData.content)
         }
       },
-      deep:true
+      deeper:true
     }
   },
 
@@ -905,9 +905,9 @@ export default {
     if(this.currentPath.name == 'posts.questionnaire'){
       this.postNew = true
     }
-    getQuestionnaireTempCnt().then(res=>{
-      console.log(res.data)
-      this.tempCnt = res.data.tempCnt
+    getQuestionnaireTempCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
+      console.log("++++++++++",res.data)
+      this.tempCnt = res.data.templateCnt
       this.draftCnt = res.data.draftCnt
     })
   },
@@ -1036,25 +1036,29 @@ export default {
     },
 
 
-    saveDraft(){
-      //console.log(this.newQuestionnaireData)
-      let saveTime = new Date();
-      console.log(saveTime)
-      // return
-      this.isDraft = true;
-      createQuestionnaireTemp({
-        temTitle:saveTime,
-        imgUrl:'/asset/img/coverImage/profile_bg2.jpg',
-        title:saveTime,
-        description:saveTime,
-        content:this.newQuestionnaireData,
-        temType:2,
-      }).then(res=>{
-        console.log(res)
-        this.isDraft = false;
+    async saveDraft(){
+      let draftData = {}
+      draftData.tempType = 2
+      draftData.content = this.newQuestionnaireData.content
+      draftData.schoolId = this.currentPath.params.schoolId
+      if(this.currentPath.params.lessonId){
+          draftData.lessonId = this.currentPath.params.lessonId
+      }
+      let currentTime = Date.now();
+      draftData.tempTitle = 'title-' + currentTime
+      draftData.description = 'description-' + currentTime
+      console.log(draftData)
+      if(this.newQuestionnaireData.content.length == 0){
+          return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+      }
+      this.isDraft = true
+      await createQuestionnaireTemp(draftData).then(res=>{
+          console.log(res.data)
+          this.isDraft = false
+          this.draftCnt ++ 
       }).catch(err=>{
-        console.log(err.response)
-        this.isDraft = false;
+          console.log(err.response)
+          this.isDraft = false
       })
     },
 

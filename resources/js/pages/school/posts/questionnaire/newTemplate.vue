@@ -17,7 +17,7 @@
                   <v-btn
                       tile
                       dark
-                      color="green lighten-1"
+                      color="#7879ff"
                       class="mx-2"
                       :loading="isSubmit"
                       @click="submit"
@@ -32,19 +32,19 @@
                 <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     solo
-                    v-model="newQuestionnaireTemplateData.temTitle"
+                    v-model="newQuestionnaireTemplateData.tempTitle"
                     label="模板名称"
                     hide-details
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <!-- <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     solo
                     v-model="newQuestionnaireTemplateData.title"
                     label="标题"
                     hide-details
                   ></v-text-field>
-                </v-col>
+                </v-col> -->
                 <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     solo
@@ -53,9 +53,9 @@
                     hide-details
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <!-- <v-col cols="12" sm="6" md="4">
                   <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" :solo="true" uploadLabel="模板封面" />
-                </v-col>
+                </v-col> -->
             </v-row>
             <v-row>
                 <v-col cols="12" sm="6" md="4">
@@ -299,19 +299,19 @@ import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import AttachItemViewer from '~/components/attachItemViewer'
 import UploadImage from '~/components/UploadImage';
-import {createQuestionnaireTemp,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire'
+import {createQuestionnaireTemp } from '~/api/questionnaire'
 export default {
   data: () => ({
       lang,
       baseUrl: window.Laravel.base_url,
       newQuestionnaireTemplateData : {
-          temTitle : '',
-          imgUrl : '',
-          title:'',
+          tempTitle : '',
           description:'',
           // viewList:[],
           tempType:1,
           content:[],
+          schoolId:null,
+          lessonId:null
       },
       templateNew:true,
       selType:'',
@@ -333,6 +333,9 @@ export default {
       currentPath(){
         return this.$route;
       }
+  },
+  created(){
+    this.newQuestionnaireTemplateData.schoolId = this.currentPath.params.schoolId
   },
 
   watch:{

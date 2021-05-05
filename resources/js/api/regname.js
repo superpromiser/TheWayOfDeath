@@ -32,6 +32,22 @@ function deleteRegname(payload){
     return axios.delete('/api/v1/regname',{data:payload})
 }
 
+function getTemplateCnt(payload){
+    return axios.get('/api/v1/regname/templateCnt',{params:payload})
+}
+
+function getTemplateList(payload){
+    return axios.get('/api/v1/regname/template',{params:payload})
+}
+
+function createTemplate(payload){
+    return axios.post('/api/v1/regname/template',payload)
+}
+
+function deleteTemplate(payload){
+    return axios.delete('/api/v1/regname/template',{data:payload})
+}
+
 export{
     getRegname,
     createRegname,
@@ -40,5 +56,9 @@ export{
     answerRegname,
     getAnswerDataOne,
     updateAnswerRegname,
-    getAnswerList
+    getAnswerList,
+    getTemplateCnt,
+    getTemplateList,
+    createTemplate,
+    deleteTemplate,
 }

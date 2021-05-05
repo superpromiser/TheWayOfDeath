@@ -20,8 +20,16 @@ function getTemplateList(payload){
     return axios.get('/api/v1/voting/template',{params:payload});
 }
 
+function getTemplateCnt(payload){
+    return axios.get('/api/v1/voting/templateCnt',{params:payload});
+}
+
 function createTemplate(payload){
     return axios.post('/api/v1/voting/template',payload)
+}
+
+function deleteTemplate(payload){
+    return axios.delete('/api/v1/voting/template',{data:payload});
 }
 
 
@@ -32,4 +40,6 @@ export{
     deleteVoting,
     getTemplateList,
     createTemplate,
+    getTemplateCnt,
+    deleteTemplate
 }
