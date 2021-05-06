@@ -98,12 +98,12 @@ export default {
     },
     methods:{
         submit(){
-            this.$router.push({name:'anouncement.newTemplate'})
+            this.$router.push({name:'shift.newTemplate'})
         },
         selTemp(tempData){
             // console.log("-=-=--==-=-=-=-",tempData)
             // return
-            this.$router.push({name:'posts.announcement',query:{tempData:JSON.stringify(tempData.content)}})
+            this.$router.push({name:'posts.shift',query:{tempData:JSON.stringify(tempData.content)}})
         },
         async delTemp(tempData){
             // console.log(tempData)

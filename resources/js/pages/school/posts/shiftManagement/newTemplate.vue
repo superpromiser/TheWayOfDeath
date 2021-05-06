@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import {createTemplate} from '~/api/anouncement'
+import {createTemplate} from '~/api/shiftMng'
 import QuestionItem from '~/components/questionItem'
 import lang from '~/helper/lang.json'
 export default {
@@ -103,7 +103,7 @@ export default {
             await createTemplate(this.templateData).then(res=>{
                 console.log(res.data)
                 this.isSubmit = false
-                this.$router.push({name:'anouncement.templateList'})
+                this.$router.push({name:'shift.templateList'})
             }).catch(err=>{
                 console.log(err.response)
                 this.isSubmit = false

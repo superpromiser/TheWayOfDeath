@@ -181,7 +181,12 @@ export default [
       {path:'setRule', name:'homework.setRule',component:page('school/posts/homework/rule.vue')},
     ]
   },
-  {path:'/schoolSpace/:schoolId/post/shiftMng', name:'posts.shift', component:page('school/posts/shiftManagement/index.vue')},
+  {path:'/schoolSpace/:schoolId/post/shiftMng', name:'posts.shift', component:page('school/posts/shiftManagement/index.vue'),
+    children:[
+      {path:'templateList',name:'shift.templateList',component:page('school/posts/shiftManagement/index')}
+    ]
+  },
+  {path:'schoolSpace/:schoolId/post/shiftMng/newTemplate',name:'shift.newTemplate',component:page('school/posts/shiftMangement/newTemplate')},
   {path:'/schoolSpace/:schoolId/post/safeStudy', name:'posts.safeStudy', component:page('school/posts/safeStudy/index.vue')},
   {path:'/schoolSpace/:schoolId/post/repair', name:'posts.repair', component:page('school/posts/repair/index.vue')},
   {path:'/schoolSpace/:schoolId/post/schoolStory', name:'posts.schoolStory', component:page('school/posts/schoolStory/index.vue')},

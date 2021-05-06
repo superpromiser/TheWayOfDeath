@@ -20,8 +20,8 @@ function getTemplateCnt(payload){
     return axios.get('/api/v1/shiftMng/templateCnt',{params:payload})
 }
 
-function getTemplateList(payloada){
-    return axios.get('/api/v1/shifMng/tempalte',{params:payload})
+function getTemplateList(payload){
+    return axios.get('/api/v1/shifMng/template',{params:payload})
 }
 
 function createTemplate(payload){
@@ -29,7 +29,7 @@ function createTemplate(payload){
 }
 
 function deleteTemplate(payload){
-    return axios.delete('/api/v1/template/',{data:payload})
+    return axios.delete('/api/v1/shiftMng/template',{data:payload})
 }
 
 export{

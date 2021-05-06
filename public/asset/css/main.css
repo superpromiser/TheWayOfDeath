@@ -71,6 +71,19 @@ a {
     height: 120px;
 }
 
+.main_div{
+    /* position: relative; */
+}
+.sub_div {
+    position: fixed;
+    bottom: 0;
+    /* width: 100%; */
+}
+.emoji-mart{
+    width:300px !important;
+    height: 300px !important;
+}
+
 .school-card-img {
     height: 270px;
 }
