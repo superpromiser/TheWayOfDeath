@@ -60,7 +60,7 @@
                             :counter="11"
                             ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4" >
+                        <!-- <v-col cols="12" sm="6" md="4" >
                             <v-text-field
                                 v-model="editedItem.password"
                                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -68,7 +68,7 @@
                                 label="密码"
                                 @click:append="show1 = !show1"
                             ></v-text-field>
-                        </v-col>
+                        </v-col> -->
                         <v-col cols="12" sm="6" md="4" >
                             <v-select
                             :items="genderItems"
@@ -360,7 +360,7 @@ export default {
     editedItem: {
         name:'',
         phoneNumber:'',
-        password:'',
+        // password:'',
         gender:null,
         nation : '',
         cardNum : '',
@@ -385,7 +385,7 @@ export default {
     defaultItem: {
         name:'',
         phoneNumber:'',
-        password:'',
+        // password:'',
         gender:null,
         nation : '',
         cardNum : '',
@@ -600,8 +600,21 @@ export default {
     methods: {
 
       editItem (item) {
+        let address = item.residenceAddress.split(" ");
+        let index = this.madeJsonFromString.findIndex(item=>item.label == address[0])
+        this.willBeCityDataOfResidenceAddress = this.madeJsonFromString[index].city;
+        let cityIndex = this.willBeCityDataOfResidenceAddress.findIndex(item=>item.label == address[1])
+        this.willBeRegionDataOfResidenceAddress = this.willBeCityDataOfResidenceAddress[cityIndex].region;
+        
+        let faddress = item.familyAddress.split(" ");
+        let findex = this.madeJsonFromString.findIndex(item=>item.label == faddress[0])
+        this.willBeCityDataOfFamilyAddress = this.madeJsonFromString[findex].city;
+        let fcityIndex = this.willBeCityDataOfFamilyAddress.findIndex(item=>item.label == faddress[1])
+        this.willBeRegionDataOfFamilyAddress = this.willBeCityDataOfFamilyAddress[fcityIndex].region
+        
         this.editedIndex = this.schoolManagerData.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        // this.editedItem.password = ''
         this.editedItem.familyAddress = JSON.parse(this.schoolManagerListRaw[this.editedIndex].familyAddress)
         this.editedItem.residenceAddress = JSON.parse(this.schoolManagerListRaw[this.editedIndex].residenceAddress)
         this.dialog = true
@@ -662,9 +675,9 @@ export default {
           return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
         }
         //password
-        if(this.editedItem.password.trim() == ''){
-          return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
-        }
+        // if(this.editedItem.password.trim() == ''){
+        //   return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+        // }
         //gender
         if(this.editedItem.gender == null){
           return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})
@@ -674,13 +687,13 @@ export default {
           return this.$snackbar.showMessage({content: this.lang.requireNation, color: "error"})
         }
         //cardnumber
-        if(this.editedItem.cardNum.trim() == ''){
+        if(this.editedItem.cardNum.toString().trim() == ''){
           return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
         }
         if(/^\d*$/.test(this.editedItem.cardNum) == false){
           return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
         }
-        if(this.editedItem.cardNum.length !== 18 ){
+        if(this.editedItem.cardNum.toString().length !== 18 ){
           return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
         }
         //lessonId

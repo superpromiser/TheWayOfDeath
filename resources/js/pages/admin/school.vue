@@ -446,6 +446,7 @@ export default {
 
       async save () {
         //update schoolDataSchool
+        console.log("this.editedIndex",this.editedIndex)
         if (this.editedIndex > -1) {
           this.isCreatingSchool = true;
           await updateSchool(this.editedItem)

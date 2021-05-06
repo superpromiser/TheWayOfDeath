@@ -292,7 +292,7 @@ export default {
     ],
     baseUrl: window.Laravel.base_url,
     lang,
-    classData : null,
+    classData : [],
     classItemList : [],
     mySchoolList:[],
     activeSchool:false,
@@ -345,7 +345,9 @@ export default {
     }else if(path[1] == 'classSpace'){
       this.activeLesson = true
     }
-    if(this.user.roleId !== 1){
+    if(this.user.roleId == 1){
+      this.mySchoolList = this.schoolData
+    }else if(this.user.roleId == 2){
       this.schoolData.map(schoolItem=>{
         console.log(schoolItem)
         if(this.user.schoolId == schoolItem.id){
@@ -353,7 +355,34 @@ export default {
         }
       })
     }else{
-      this.mySchoolList = this.schoolData
+      console.log("!!!!!!!!!!!!!!!!!!!!!!!",this.schoolData)
+      console.log("@@@@@@@@@@@@@@@@@@@@@@@@",this.user)
+      let myschoolData = {}
+      let lessonData = []
+      this.schoolData.map(schoolItem=>{
+        if(this.user.schoolId == schoolItem.id){
+          myschoolData = schoolItem
+        }
+      })
+      this.mySchoolList.push(myschoolData)
+      this.mySchoolList[0].grades = []
+      console.log('&&&&&&&&',myschoolData)
+      console.log('**********',this.mySchoolList)
+      myschoolData.grades.map(grade=>{
+        grade.lessons.map(lesson=>{
+          this.user.groupArr.map(groupId=>{
+            if(lesson.id == groupId){
+              console.log(lesson)
+              // this.myschoolList.grades.push(grade)              
+              lessonData.push(lesson)
+            }
+          })
+        })
+      })
+      console.log('myschoolData------',myschoolData)
+      // console.log('lessonData*****',lessonData)
+      this.classData = lessonData
+      console.log("this.classData",this.classData)
     }
   },
 
