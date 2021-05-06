@@ -94,7 +94,9 @@ export default {
         schoolstory: {},
     }),
     created(){
+
       this.schoolstory = JSON.parse(this.content.schoolstory.content);
+      console.log("content.users", this.content);
     },
     methods:{
 

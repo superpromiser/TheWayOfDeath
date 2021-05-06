@@ -1,6 +1,6 @@
 <template>
     <v-card class="mx-auto position-relative" tile elevation="0"> 
-     <v-list class="pa-0" id="UP-go">
+     <!-- <v-list class="pa-0" id="UP-go">
         <div class="w-100">
             <v-list-item v-ripple @click="openAddUser">
                 <v-list-item-icon class="my-2">
@@ -24,7 +24,7 @@
                 </v-list-item-content>
             </v-list-item>  
       </div>
-     </v-list>
+     </v-list> -->
     <v-list class="pa-0 pb-16">
         <div class="w-100 pa-5 d-flex justify-center" v-if="isGettingContactList">  
             <v-progress-circular
@@ -271,10 +271,10 @@ export default {
         users: [],
         isCreatingNewGroup: false,
         alphabetList: [
-                {
-                    alphabet:'UP', 
-                    touched: false
-                },
+                // {
+                //     alphabet:'UP', 
+                //     touched: false
+                // },
                 {
                     alphabet:'A', 
                     touched: false

@@ -1515,23 +1515,23 @@ export default {
     created(){
         if(this.user.roleId == 1){
             this.schoolContentItemList = this.adminSchoolContents;
-            this.classContentItemList = this.adminClassItems;
+            this.classContentItemList = this.adminClassContents;
         }
         else if(this.user.roleId == 2){
             this.schoolContentItemList = this.managerSchoolContents;
-            this.classContentItemList = this.managerClassItems;
+            this.classContentItemList = this.managerClassContents;
         }
         else if(this.user.roleId == 3 || this.user.roleId == 7){
             this.schoolContentItemList = this.teacherSchoolContents;
-            this.classContentItemList = this.teacherClassItems;
+            this.classContentItemList = this.teacherClassContents;
         }
         else if(this.user.roleId == 4){
             this.schoolContentItemList = this.parentSchoolContents;
-            this.classContentItemList = this.parentClassItems;
+            this.classContentItemList = this.parentClassContents;
         }
         else if(this.user.roleId == 5){
             this.schoolContentItemList = this.studentSchoolContents;
-            this.classContentItemList = this.studentClassItems;
+            this.classContentItemList = this.studentClassContents;
         }
 
 

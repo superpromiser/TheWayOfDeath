@@ -123,7 +123,8 @@ export default {
     },
     computed:{
         ...mapGetters({
-            user:'auth/user'
+            user:'auth/user',
+            selectedSchoolItem: 'mo/selectedSchoolItem'
         })
     },
     data: ()=> ({
@@ -136,6 +137,7 @@ export default {
     }),
     created(){
         console.log("this.footerInfo",this.footerInfo)
+        console.log("!!!!!!!!!!!", this.selectedSchoolItem);
     },
     mounted(){
         let index = this.footerInfo.likes.map(x=>{
@@ -176,7 +178,12 @@ export default {
         
         addComment(){
             this.$store.dispatch('content/storePostDetail',this.footerInfo)
-            this.$router.push({name:'posts.comment'});
+            if(this.$isMobile()){
+                this.$router.push({name:'posts.comment', params:{schoolId: this.selectedSchoolItem.schoolId}});
+            }
+            else{
+                this.$router.push({name:'posts.comment'});
+            }
         },
 
         async showReadUsers(){
