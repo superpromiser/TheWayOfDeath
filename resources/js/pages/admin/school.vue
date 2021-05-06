@@ -390,10 +390,18 @@ export default {
     methods: {
 
       editItem (item) {
+        
+        let address = item.address.split(" ");
+        let index = this.madeJsonFromString.findIndex(item=>item.label == address[0])
+        this.willBeCityDataOfResidenceAddress = this.madeJsonFromString[index].city;
+        let cityIndex = this.willBeCityDataOfResidenceAddress.findIndex(item=>item.label == address[1])
+        this.willBeRegionDataOfResidenceAddress = this.willBeCityDataOfResidenceAddress[cityIndex].region;
         this.editedIndex = this.schoolDataSchool.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.editedItem.address = JSON.parse(this.schoolListRaw[this.editedIndex].address)
         this.dialog = true
+        
+        
       },
 
       deleteItem (item) {
@@ -478,12 +486,8 @@ export default {
       },
 
       selectedProvinceOfResidenceAddress(val){
-        console.log('----',val)
-        console.log('++++',this.madeJsonFromString[0].value)
         for( let i = 0 ; i < this.madeJsonFromString.length ; i++){
-          console.log(this.madeJsonFromString[i].value)
           if( val == this.madeJsonFromString[i].value ){
-            console.log('test',this.madeJsonFromString[i].value)
             this.willBeCityDataOfResidenceAddress = this.madeJsonFromString[i].city;
             this.willBeRegionDataOfResidenceAddress = [];
             this.editedItem.address.city = null;
