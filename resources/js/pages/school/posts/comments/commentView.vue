@@ -1,8 +1,6 @@
 <template>
   <v-container class="px-10">
-    <div style="    height: 283px;
-    overflow-y: auto;
-    overflow-x: hidden;">
+    <div>
       <div v-for="(comment,index) in content.comments" :key="index">
         <v-row class="py-2">
           <v-col cols="12" lg="1" md="2" sm="2">
@@ -18,24 +16,30 @@
       </div>
     </div>
     <v-row>
-      <v-col md="2">
-        <v-btn
+      <v-col class="d-flex">
+        <!-- <v-btn
             fab
             small
             class="ma-2"
             @click="toggleEmo"
         >
             <v-icon>mdi-emoticon-excited-outline</v-icon>
-        </v-btn>
-        <Picker v-if="emoStatus" set="emojione" @select="onInput" title="选择你的表情符号..." />
-        <div>
-          换行 
-          发送 / shift+
-        </div>
-      </v-col>
-      <v-col md="10">
-        <v-textarea solo name="input-7-4" :label="lang.contentPlace"
-            @keydown.enter.exact.prevent @keyup.enter.exact="submit" @keydown.enter.shift.exact="newline" v-model="commentText"
+        </v-btn> -->
+        <Picker 
+          v-if="emoStatus" 
+          set="emojione" 
+          @select="onInput" 
+          title="选择你的表情符号..." />
+        <v-textarea solo name="input-7-4"
+            prepend-inner-icon="mdi-emoticon-excited-outline"
+            @click:prepend-inner="toggleEmo"
+            :append-icon-cb="toggleEmo" 
+            :label="'换行 发送 / shift+'"
+            @keydown.enter.exact.prevent 
+            @keyup.enter.exact="submit" 
+            @keydown.enter.shift.exact="newline" 
+            v-model="commentText"
+            hide-details
         ></v-textarea>
       </v-col>
     </v-row>

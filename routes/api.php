@@ -389,6 +389,11 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('shiftMng', 'ShiftMngController@updateShiftMng');
     Route::delete('shiftMng', 'ShiftMngController@deleteShiftMng');
 
+    Route::get('shiftMng/templateCnt','ShiftMngController@getTemplateCnt');
+    Route::get('shiftMng/template','ShiftMngController@getTemplateList');
+    Route::post('shiftMng/template','ShiftMngController@createTemplate');
+    Route::delete('shiftMng/template','ShiftMngController@deleteTemplate');
+
     //safeStudy
     Route::get('safeStudy', 'SafeStudyController@getSafeStudy');
     Route::post('safeStudy', 'SafeStudyController@createSafeStudy');
