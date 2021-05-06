@@ -1,87 +1,244 @@
 <template>
-    <v-container class="pa-0">
-        <!-- {{contentData}} -->
-        <RouterBack title='评论'></RouterBack>
-        <div v-if='contentData.contentId == 1'>
-            <QuestionnairePost :content='contentData'></QuestionnairePost>
-        </div>
-        <div v-else-if='contentData.contentId == 2'>
-            <VotingPost :content='contentData'></VotingPost>
-        </div>
-        <div v-else-if='contentData.contentId == 3'>
-            <SmsPost :content='contentData'></SmsPost>
-        </div>
-        <div v-else-if='contentData.contentId == 4'>
-            <CampusPost :content='contentData'></CampusPost>
-        </div>
-        <div v-else-if='contentData.contentId == 5'>
-            <AnouncementPost :content='contentData'></AnouncementPost>
-        </div>
-        <div v-else-if='contentData.contentId == 6'>
-            <BulletinBoardPost :content='contentData'></BulletinBoardPost>
-        </div>
-        <div v-else-if='contentData.contentId == 7'>
-            <RepaireDataPost :content='contentData'></RepaireDataPost>
-        </div>
-        <div v-else-if='contentData.contentId == 8'>
-            <SafeStudyPost :content='contentData'></SafeStudyPost>
-        </div>
-        <div v-else-if='contentData.contentId == 9'>
-            <ShiftMngPost :content='contentData'></ShiftMngPost>
-        </div>
-        <div v-else-if='contentData.contentId == 10'>
-            <HomeVisitPost :content='contentData'></HomeVisitPost>
-        </div>
-        <div v-else-if='contentData.contentId == 11'>
-            <SchoolStoryPost :content='contentData'></SchoolStoryPost>
-        </div>
-        <div v-else-if='contentData.contentId == 12'>
-            <QuestionnairePost :content='contentData'></QuestionnairePost>
-        </div>
-        <div v-else-if='contentData.contentId == 13'>
-            <VotingPost :content='contentData'></VotingPost>
-        </div>
-        <div v-else-if='contentData.contentId == 14'>
-            <HomeworkPost :content='contentData'></HomeworkPost>
-        </div>
-        <div v-else-if='contentData.contentId == 15'>
-            <SmsPost :content='contentData'></SmsPost>
-        </div>
-        <div v-else-if='contentData.contentId == 16'>
-            <HomeVisitPost :content='contentData'></HomeVisitPost>
-        </div>
-        <div v-else-if='contentData.contentId == 17'>
-            <NotificationPost :content='contentData'></NotificationPost>
-        </div>
-        <div v-else-if='contentData.contentId == 18'>
-            <EvaluationPost :content='contentData'></EvaluationPost>
-        </div>
-        <div v-else-if='contentData.contentId == 19'>
-            <RecognitionPost :content='contentData'></RecognitionPost>
-        </div>
-        <div v-else-if='contentData.contentId == 20'>
-            <NotificationPost :content='contentData'></NotificationPost>
-        </div>
-        <div v-else-if='contentData.contentId == 21'>
-            <SafeStudyPost :content='contentData'></SafeStudyPost>
-        </div>
-        <div v-else-if='contentData.contentId == 22'>
-            <NotificationPost :content='contentData'></NotificationPost>
-        </div>
-        <div v-else-if='contentData.contentId == 23'>
-            <SharePost :content='contentData'></SharePost>
-        </div>
-        <div v-else-if='contentData.contentId == 24'>
-            <RegNamePost :content='contentData'></RegNamePost>
-        </div>
-        <div v-else-if='contentData.contentId == 25'>
-            <ClassStoryPost :content='contentData'></ClassStoryPost>
-        </div>
-        <div v-else-if='contentData.contentId == 26'>
-            <InterClassStoryPost :content='contentData'></InterClassStoryPost>
-        </div>
-        <FooterPost :footerInfo='contentData'></FooterPost>
-        <CommentView></CommentView>
+    <v-container class="pa-0 h-100" v-if="$isMobile()">
+        <v-container class="pa-0 add-comment-out-height">
+            <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+                <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                    <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                        mdi-chevron-left
+                    </v-icon>
+                    <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >评论</p>
+                    <v-btn @click="submit" :loading="isCreating" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                        {{lang.submit}}
+                    </v-btn>
+                </v-row>
+                <div class="cus-divider-light-gray-height"></div>
+            </v-container>
+            <div v-if='contentData.contentId == 1'>
+                <QuestionnairePost :content='contentData'></QuestionnairePost>
+            </div>
+            <div v-else-if='contentData.contentId == 2'>
+                <VotingPost :content='contentData'></VotingPost>
+            </div>
+            <div v-else-if='contentData.contentId == 3'>
+                <SmsPost :content='contentData'></SmsPost>
+            </div>
+            <div v-else-if='contentData.contentId == 4'>
+                <CampusPost :content='contentData'></CampusPost>
+            </div>
+            <div v-else-if='contentData.contentId == 5'>
+                <AnouncementPost :content='contentData'></AnouncementPost>
+            </div>
+            <div v-else-if='contentData.contentId == 6'>
+                <BulletinBoardPost :content='contentData'></BulletinBoardPost>
+            </div>
+            <div v-else-if='contentData.contentId == 7'>
+                <RepaireDataPost :content='contentData'></RepaireDataPost>
+            </div>
+            <div v-else-if='contentData.contentId == 8'>
+                <SafeStudyPost :content='contentData'></SafeStudyPost>
+            </div>
+            <div v-else-if='contentData.contentId == 9'>
+                <ShiftMngPost :content='contentData'></ShiftMngPost>
+            </div>
+            <div v-else-if='contentData.contentId == 10'>
+                <HomeVisitPost :content='contentData'></HomeVisitPost>
+            </div>
+            <div v-else-if='contentData.contentId == 11'>
+                <SchoolStoryPost :content='contentData'></SchoolStoryPost>
+            </div>
+            <div v-else-if='contentData.contentId == 12'>
+                <QuestionnairePost :content='contentData'></QuestionnairePost>
+            </div>
+            <div v-else-if='contentData.contentId == 13'>
+                <VotingPost :content='contentData'></VotingPost>
+            </div>
+            <div v-else-if='contentData.contentId == 14'>
+                <HomeworkPost :content='contentData'></HomeworkPost>
+            </div>
+            <div v-else-if='contentData.contentId == 15'>
+                <SmsPost :content='contentData'></SmsPost>
+            </div>
+            <div v-else-if='contentData.contentId == 16'>
+                <HomeVisitPost :content='contentData'></HomeVisitPost>
+            </div>
+            <div v-else-if='contentData.contentId == 17'>
+                <NotificationPost :content='contentData'></NotificationPost>
+            </div>
+            <div v-else-if='contentData.contentId == 18'>
+                <EvaluationPost :content='contentData'></EvaluationPost>
+            </div>
+            <div v-else-if='contentData.contentId == 19'>
+                <RecognitionPost :content='contentData'></RecognitionPost>
+            </div>
+            <div v-else-if='contentData.contentId == 20'>
+                <NotificationPost :content='contentData'></NotificationPost>
+            </div>
+            <div v-else-if='contentData.contentId == 21'>
+                <SafeStudyPost :content='contentData'></SafeStudyPost>
+            </div>
+            <div v-else-if='contentData.contentId == 22'>
+                <NotificationPost :content='contentData'></NotificationPost>
+            </div>
+            <div v-else-if='contentData.contentId == 23'>
+                <SharePost :content='contentData'></SharePost>
+            </div>
+            <div v-else-if='contentData.contentId == 24'>
+                <RegNamePost :content='contentData'></RegNamePost>
+            </div>
+            <div v-else-if='contentData.contentId == 25'>
+                <ClassStoryPost :content='contentData'></ClassStoryPost>
+            </div>
+            <div v-else-if='contentData.contentId == 26'>
+                <InterClassStoryPost :content='contentData'></InterClassStoryPost>
+            </div>
+            <FooterPost :footerInfo='contentData'></FooterPost>
+            <!-- <CommentView></CommentView> -->
+            <v-container class="px-2">
+                <v-container class="pa-0" v-for="(comment,index) in contentData.comments" :key="index">
+                    <v-row class="py-2">
+                        <v-col cols="12" lg="1" md="2" sm="2">
+                            {{comment.users.name}}
+                        </v-col>
+                        <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap">{{comment.comments}}</v-col>
+                        <v-col cols="12" lg="2" md="2" sm="4" class="text-right">
+                            {{TimeView(comment.created_at)}}
+                            <v-icon color="#FF5722" @click="remove(comment)" :loading="comment.isDeleting">mdi-trash-can-outline</v-icon>
+                        </v-col>
+                        </v-row>
+                    <v-divider></v-divider>
+                </v-container>
+            </v-container>
+        </v-container>
+        <v-container class="px-10 py-0 position-relative">
+            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 155px" />
+            <v-textarea solo name="input-7-4"
+                prepend-inner-icon="mdi-emoticon-excited-outline"
+                @click:prepend-inner="toggleEmo"
+                :append-icon-cb="toggleEmo" 
+                :label="'换行 发送 / shift+'"
+                @keydown.enter.exact.prevent 
+                @keyup.enter.exact="submit" 
+                @keydown.enter.shift.exact="newline" 
+                v-model="commentText"
+                rows="2"
+                hide-details
+            ></v-textarea>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0 h-100" v-else>
+        <v-container class="pa-0 add-comment-out-height">
+            <!-- {{contentData}} -->
+            <RouterBack title='评论'></RouterBack>
+            <div v-if='contentData.contentId == 1'>
+                <QuestionnairePost :content='contentData'></QuestionnairePost>
+            </div>
+            <div v-else-if='contentData.contentId == 2'>
+                <VotingPost :content='contentData'></VotingPost>
+            </div>
+            <div v-else-if='contentData.contentId == 3'>
+                <SmsPost :content='contentData'></SmsPost>
+            </div>
+            <div v-else-if='contentData.contentId == 4'>
+                <CampusPost :content='contentData'></CampusPost>
+            </div>
+            <div v-else-if='contentData.contentId == 5'>
+                <AnouncementPost :content='contentData'></AnouncementPost>
+            </div>
+            <div v-else-if='contentData.contentId == 6'>
+                <BulletinBoardPost :content='contentData'></BulletinBoardPost>
+            </div>
+            <div v-else-if='contentData.contentId == 7'>
+                <RepaireDataPost :content='contentData'></RepaireDataPost>
+            </div>
+            <div v-else-if='contentData.contentId == 8'>
+                <SafeStudyPost :content='contentData'></SafeStudyPost>
+            </div>
+            <div v-else-if='contentData.contentId == 9'>
+                <ShiftMngPost :content='contentData'></ShiftMngPost>
+            </div>
+            <div v-else-if='contentData.contentId == 10'>
+                <HomeVisitPost :content='contentData'></HomeVisitPost>
+            </div>
+            <div v-else-if='contentData.contentId == 11'>
+                <SchoolStoryPost :content='contentData'></SchoolStoryPost>
+            </div>
+            <div v-else-if='contentData.contentId == 12'>
+                <QuestionnairePost :content='contentData'></QuestionnairePost>
+            </div>
+            <div v-else-if='contentData.contentId == 13'>
+                <VotingPost :content='contentData'></VotingPost>
+            </div>
+            <div v-else-if='contentData.contentId == 14'>
+                <HomeworkPost :content='contentData'></HomeworkPost>
+            </div>
+            <div v-else-if='contentData.contentId == 15'>
+                <SmsPost :content='contentData'></SmsPost>
+            </div>
+            <div v-else-if='contentData.contentId == 16'>
+                <HomeVisitPost :content='contentData'></HomeVisitPost>
+            </div>
+            <div v-else-if='contentData.contentId == 17'>
+                <NotificationPost :content='contentData'></NotificationPost>
+            </div>
+            <div v-else-if='contentData.contentId == 18'>
+                <EvaluationPost :content='contentData'></EvaluationPost>
+            </div>
+            <div v-else-if='contentData.contentId == 19'>
+                <RecognitionPost :content='contentData'></RecognitionPost>
+            </div>
+            <div v-else-if='contentData.contentId == 20'>
+                <NotificationPost :content='contentData'></NotificationPost>
+            </div>
+            <div v-else-if='contentData.contentId == 21'>
+                <SafeStudyPost :content='contentData'></SafeStudyPost>
+            </div>
+            <div v-else-if='contentData.contentId == 22'>
+                <NotificationPost :content='contentData'></NotificationPost>
+            </div>
+            <div v-else-if='contentData.contentId == 23'>
+                <SharePost :content='contentData'></SharePost>
+            </div>
+            <div v-else-if='contentData.contentId == 24'>
+                <RegNamePost :content='contentData'></RegNamePost>
+            </div>
+            <div v-else-if='contentData.contentId == 25'>
+                <ClassStoryPost :content='contentData'></ClassStoryPost>
+            </div>
+            <div v-else-if='contentData.contentId == 26'>
+                <InterClassStoryPost :content='contentData'></InterClassStoryPost>
+            </div>
+            <FooterPost :footerInfo='contentData'></FooterPost>
+            <!-- <CommentView></CommentView> -->
+            <v-container class="px-10">
+                <v-container class="pa-0" v-for="(comment,index) in contentData.comments" :key="index">
+                    <v-row class="py-2">
+                        <v-col cols="12" lg="1" md="2" sm="2">
+                            {{comment.users.name}}
+                        </v-col>
+                        <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap">{{comment.comments}}</v-col>
+                        <v-col cols="12" lg="2" md="2" sm="4" class="text-right">
+                            {{TimeView(comment.created_at)}}
+                            <v-icon color="#FF5722" @click="remove(comment)" :loading="comment.isDeleting">mdi-trash-can-outline</v-icon>
+                        </v-col>
+                        </v-row>
+                    <v-divider></v-divider>
+                </v-container>
+            </v-container>
+        </v-container>
+        <v-container class="px-10 py-0 position-relative">
+            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 155px" />
+            <v-textarea solo name="input-7-4"
+                prepend-inner-icon="mdi-emoticon-excited-outline"
+                @click:prepend-inner="toggleEmo"
+                :append-icon-cb="toggleEmo" 
+                :label="'换行 发送 / shift+'"
+                @keydown.enter.exact.prevent 
+                @keyup.enter.exact="submit" 
+                @keydown.enter.shift.exact="newline" 
+                v-model="commentText"
+                hide-details
+            ></v-textarea>
+        </v-container>
     </v-container>
 </template>
 
@@ -110,6 +267,14 @@ import InterClassStoryPost from '~/components/contents/interClassStoryPost';
 import FooterPost from '~/components/contents/footerPost';
 import CommentView from './commentView';
 import RouterBack from '~/components/routerBack'
+import lang from '~/helper/lang.json'
+import {addComment,deleteComment} from '~/api/post'
+
+import emojiData from "emoji-mart-vue-fast/data/all.json";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
+let emojiIndex = new EmojiIndex(emojiData);
+
 export default {
     components : {
         QuestionnairePost,
@@ -133,11 +298,18 @@ export default {
         InterClassStoryPost,
         FooterPost,
         CommentView,
-        RouterBack
+        RouterBack,
+        Picker
     },
 
     data:() => ({
+        lang,
+        emoStatus:false,
+        commentText:'',
+        isDeleting:false,
 
+        emojiIndex: emojiIndex,
+        emojisOutput: "",
     }),
     computed:{
         ...mapGetters({
@@ -155,7 +327,59 @@ export default {
             this.$router.push({name:'schoolSpace.news'})
           }
         }
+        this.contentData.comments.map(comment=>{
+            this.$set(comment,'isDeleting',false)
+        })
         //console.log('CommentData',this.contentData)
+    },
+    methods:{
+        outSidePicker(){
+            this.emoStatus = false;
+        },
+
+        toggleEmo(){
+            this.emoStatus = ! this.emoStatus
+        },
+        onInput(e){
+            if(!e){
+                return false;
+            }
+            if(!this.commentText){
+                this.commentText = e.native
+            }else{
+                this.commentText = this.commentText + e.native
+            }
+        },
+        newline(){
+            this.commentText = `${this.commentText}\n`
+        },
+        submit(){
+            if(this.commentText == ''){
+                return;
+            }
+            addComment({text:this.commentText,postId:this.contentData.id}).then(res=>{
+                console.log(res)
+                this.contentData.comments.unshift(res.data)
+            }).catch(err=>{
+                //console.log(err.response)
+            })
+            this.commentText = ''
+        },
+        async remove(comment){
+            console.log(comment)
+            comment.isDeleting = true
+            await deleteComment({id:comment.id}).then(res=>{
+                let index = this.contentData.comments.indexOf(comment)
+                if(index > -1){
+                this.contentData.comments.splice(index,1)
+                }
+                comment.isDeleting = false
+                console.log(res.data)
+            }).catch(err=>{
+                console.log(err.response)
+                comment.isDeleting = false
+            })
+        },
     }
 }
 </script>
