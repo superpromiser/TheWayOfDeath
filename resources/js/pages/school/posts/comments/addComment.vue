@@ -1,15 +1,12 @@
 <template>
     <v-container class="pa-0 h-100" v-if="$isMobile()">
-        <v-container class="pa-0 add-comment-out-height">
-            <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
-                <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+        <v-container class="pa-0 add-comment-out-height-mo">
+            <v-container class="pa-0 bg-white position-sticky-top-0" >
+                <v-row class="ma-0 bg-white justify-center " >
                     <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                         mdi-chevron-left
                     </v-icon>
                     <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >评论</p>
-                    <v-btn @click="submit" :loading="isCreating" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
-                        {{lang.submit}}
-                    </v-btn>
                 </v-row>
                 <div class="cus-divider-light-gray-height"></div>
             </v-container>
@@ -95,27 +92,27 @@
             <!-- <CommentView></CommentView> -->
             <v-container class="px-2">
                 <v-container class="pa-0" v-for="(comment,index) in contentData.comments" :key="index">
-                    <v-row class="py-2">
+                    <v-row class="ma-0">
                         <v-col cols="12" lg="1" md="2" sm="2">
-                            {{comment.users.name}}
+                            <p class="mb-0 font-weight-bold">{{comment.users.name}}</p>
                         </v-col>
-                        <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap">{{comment.comments}}</v-col>
+                        <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap py-0">{{comment.comments}}</v-col>
                         <v-col cols="12" lg="2" md="2" sm="4" class="text-right">
                             {{TimeView(comment.created_at)}}
                             <v-icon color="#FF5722" @click="remove(comment)" :loading="comment.isDeleting">mdi-trash-can-outline</v-icon>
                         </v-col>
-                        </v-row>
+                    </v-row>
                     <v-divider></v-divider>
                 </v-container>
             </v-container>
         </v-container>
-        <v-container class="px-10 py-0 position-relative">
-            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 155px" />
+        <v-container class="px-0 py-0 position-relative">
+            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 71px" />
             <v-textarea solo name="input-7-4"
                 prepend-inner-icon="mdi-emoticon-excited-outline"
                 @click:prepend-inner="toggleEmo"
                 :append-icon-cb="toggleEmo" 
-                :label="'换行 发送 / shift+'"
+                label="请输入您的评论"
                 @keydown.enter.exact.prevent 
                 @keyup.enter.exact="submit" 
                 @keydown.enter.shift.exact="newline" 
@@ -321,11 +318,16 @@ export default {
     },
     created(){
         if(this.contentData == null){
-          if(this.currentpath.params.lessonId){
-            this.$router.push({name:'classSpace.news'})
-          }else{
-            this.$router.push({name:'schoolSpace.news'})
-          }
+            if(this.$isMobile()){
+                this.$router.push({name: 'home'})
+            }
+            else{
+                if(this.currentpath.params.lessonId){
+                  this.$router.push({name:'classSpace.news'})
+                }else{
+                  this.$router.push({name:'schoolSpace.news'})
+                }
+            }
         }
         this.contentData.comments.map(comment=>{
             this.$set(comment,'isDeleting',false)

@@ -1450,3 +1450,7 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
     height: calc(100% - 150px);
     overflow-y: auto;
 }
+.add-comment-out-height-mo{
+    height: calc(100vh - 66px);
+    overflow-y: auto;
+}
