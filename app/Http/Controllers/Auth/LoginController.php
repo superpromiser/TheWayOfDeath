@@ -66,6 +66,7 @@ class LoginController extends Controller
         $expiration = $this->guard()->getPayload()->get('exp');
         
         $schoolTree = School::with('grades.lessons')->get();
+        file_put_contents('test.txt',$schoolTree);
         $memberData = null;
         if ( auth()->user()->roleId == 3 || auth()->user()->roleId == 4 || auth()->user()->roleId == 5) {   
             $memberData = Member::where('userId', auth()->user()->id)->first();

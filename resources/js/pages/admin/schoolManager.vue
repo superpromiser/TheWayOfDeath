@@ -637,9 +637,9 @@ export default {
             return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
           }
           // password
-          if(this.editedItem.password.trim() == ''){
-            return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
-          }
+          // if(this.editedItem.password.trim() == ''){
+          //   return this.$snackbar.showMessage({content: this.lang.requirePassword, color: "error"})
+          // }
           //gender
           if(this.editedItem.gender == null){
             return this.$snackbar.showMessage({content: this.lang.requireGender, color: "error"})

@@ -24,17 +24,7 @@ class UserController extends Controller
     public function createStaff(Request $request)
     {
         $schoolId = Auth::user()->schoolId;
-        // $mGradeId = Grade::orderBy('id', 'DESC')->first()->id;
-        // if (is_null($request->lessonId)) {
-        //     $lessonId = Lesson::create([
-        //         'lessonName' => $request->name,
-        //         'imgUrl' => '/',
-        //         'schoolId' => $schoolId,
-        //         'gradeId' => $mGradeId
-        //     ])->id;
-        // } else {
-        //     $lessonId = $request->lessonId;
-        // }
+
         $staffData['name'] = $request->name;
         $staffData['phoneNumber'] = $request->phoneNumber;
         $staffData['password'] = bcrypt('password');
@@ -53,18 +43,11 @@ class UserController extends Controller
         $staffData['residenceAddress'] = json_encode($request->residenceAddress);
         $groupArr = array();
         array_push($groupArr, 0);
-        if(!is_null($request->lessonId)){
+        if (!is_null($request->lessonId)) {
             array_push($groupArr, $request->lessonId);
         }
         $staffData['groupArr'] = $groupArr;
         $manager = User::create($staffData);
-
-        // $memberData['schoolId'] = $schoolId;
-        // $memberData['gradeId'] = $request->gradeId;
-        // $memberData['lessonId'] = $request->lessonId;
-        // $memberData['userId'] = $manager->id;
-        // $memberData['userRoleId'] = $request->roleId;
-        // $member = Member::create($memberData);
 
         return response()->json([
             'msg' => 1,
@@ -102,7 +85,7 @@ class UserController extends Controller
         $schoolId = Auth::user()->schoolId;
         $studentData['name'] = $request->name;
         $studentData['phoneNumber'] = $request->phoneNumber;
-        $studentData['password'] = bcrypt($request->password);
+        $studentData['password'] = bcrypt('password');
         $studentData['avatar'] = $request->avatar;
         $studentData['schoolId'] = $schoolId;
         $studentData['gradeId'] = $request->gradeId;
@@ -383,7 +366,7 @@ class UserController extends Controller
 
     public function readstaff()
     {
-        return User::where('roleId', 3)->orWhere('roleId', 4)->where('schoolId', Auth::user()->schoolId)->get();
+        return User::whereIn('roleId',[3,4,7])->where('schoolId', Auth::user()->schoolId)->get();
     }
 
     public function getStatus(Request $request)
@@ -474,29 +457,29 @@ class UserController extends Controller
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
-        if ($request->roleId == 'teacher'){
+        if ($request->roleId == 'teacher') {
             if ($request->lessonId) {
                 return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')
-                            ->where([
-                                'schoolId' => $request->schoolId, 
-                            ])
-                            ->whereIn(
-                                'roleId',[3,7]
-                            )->get();
+                    ->where([
+                        'schoolId' => $request->schoolId,
+                    ])
+                    ->whereIn(
+                        'roleId',
+                        [3, 7]
+                    )->get();
             } else {
                 return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')
-                            ->where([
-                                'schoolId' => $request->schoolId, 
-                                'roleId' => 3
-                            ])
-                            ->orWhere([
-                                'schoolId' => $request->schoolId, 
-                                'roleId' => 7
-                            ])
-                            ->get();
+                    ->where([
+                        'schoolId' => $request->schoolId,
+                        'roleId' => 3
+                    ])
+                    ->orWhere([
+                        'schoolId' => $request->schoolId,
+                        'roleId' => 7
+                    ])
+                    ->get();
             }
-        }
-        elseif ($request->roleId) {
+        } elseif ($request->roleId) {
             if ($request->lessonId) {
                 return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'roleId' => $request->roleId])->get();
             } else {

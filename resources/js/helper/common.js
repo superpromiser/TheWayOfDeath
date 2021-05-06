@@ -145,6 +145,7 @@ export default{
                     mySchoolData = x;
                 }
             })
+            console.log('commonmyschooldata',mySchoolData)
             mySchoolData.grades.map( grade =>{
                 grade.lessons.map( lesson =>{
                     let lessonObj = {
@@ -155,7 +156,7 @@ export default{
                     returnVal.push(lessonObj);
                 } )
             } )
-
+            console.log('commonmyschoolinfo',returnVal)
             return returnVal;
         },
         postRemove(data){

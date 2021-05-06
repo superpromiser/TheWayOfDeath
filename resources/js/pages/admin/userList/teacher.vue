@@ -612,6 +612,10 @@ export default {
     methods: {
 
       editItem (item) {
+        console.log("================",item)
+        if(item.lessonId){
+          this.isBanzi = true
+        }
         let address = item.residenceAddress.split(" ");
         let index = this.madeJsonFromString.findIndex(item=>item.label == address[0])
         this.willBeCityDataOfResidenceAddress = this.madeJsonFromString[index].city;
@@ -658,6 +662,8 @@ export default {
 
       close () {
         this.dialog = false
+        this.isBanzi = false
+        console.log('close',this.isBanzi)
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
@@ -666,6 +672,7 @@ export default {
 
       closeDelete () {
         this.dialogDelete = false
+        this.isBanzi = false
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1

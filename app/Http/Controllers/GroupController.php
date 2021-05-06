@@ -35,7 +35,7 @@ class GroupController extends Controller
             'lessonId' => 'required'
         ]);
         // return Group::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->with('members:id,name')->get();
-        $userList['teacher'] = User::where(['schoolId' => $request->schoolId])->whereIn('roleId',[3,7])->get();
+        $userList['teacher'] = User::where(['schoolId' => $request->schoolId])->whereIn('roleId', [3, 7])->get();
         $result['teachers'] = array();
         foreach ($userList['teacher'] as $user) {
             $groupArr = $user->groupArr;
@@ -86,7 +86,7 @@ class GroupController extends Controller
                 }
             }
         } else {
-            $userList = User::where(['schoolId' => $request->schoolId])->get();
+            $userList = User::where(['schoolId' => $request->schoolId])->whereIn('roleId', [3, 4, 5, 7])->get();
             foreach ($userList as $user) {
                 $groupArr = $user->groupArr;
                 foreach ($groupArr as $groupId) {
@@ -104,15 +104,28 @@ class GroupController extends Controller
         $this->validate($request, [
             'roleId' => 'required',
             'schoolId' => 'required',
-            'groupId' => 'required'
+            'groupId' => 'required',
+            // 'lessonId'=>'required'
         ]);
         $groupId = (int)$request->groupId;
+        $lessonId = $request->lessonId;
         $result = array();
-        if ($request->lessonId) {
-            $userList = User::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'roleId' => $request->roleId])->get();
-        } else {
-            $userList = User::where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
+        $userList = User::where(['lessonId'=>$lessonId,'roleId'=>$request->roleId])->get();
+        // if ($request->lessonId) {
+        //     $userList = User::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'roleId' => $request->roleId])->get();
+        // } else {
+        //     $userList = User::where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
+        // }
+        if($request->roleId == 3){
+            $userList = User::where(['schoolId' => $request->schoolId])->whereIn('roleId',[3,7])->get();    
+        }else{
+            if($request->lessonId){
+                $userList = User::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'roleId' => $request->roleId])->get();
+            }else{
+                $userList = User::where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
+            }
         }
+        // $userList = User::where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
         foreach ($userList as $user) {
             $groupArr = $user->groupArr;
             if (($key = array_search($groupId, $groupArr)) == false) {

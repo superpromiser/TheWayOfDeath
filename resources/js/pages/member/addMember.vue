@@ -77,7 +77,7 @@ export default {
     },
     created(){
         this.mySchoolData = this.mySchoolInfo(this.currentPath.params.schoolId)
-        console.log(this.mySchoolData)
+        console.log("this.mySchoolData",this.mySchoolData)
     },
     methods:{
         inviteMember(){

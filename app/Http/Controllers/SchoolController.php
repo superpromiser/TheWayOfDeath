@@ -5,22 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\School;
 use App\User;
+
 class SchoolController extends Controller
 {
     //
-    public function getSchool(Request $request){
+    public function getSchool(Request $request)
+    {
         return School::all();
     }
-    public function storeSchool(Request $request){
-        $this->validate($request,[
-            'schoolName'=>'required',
-            'code'=>'required',
-            'phoneNum'=>'required',
-            'zipCode'=>'required',
-            'head'=>'required',
-            'address'=>'required',
-            'introduce'=>'required',
-            'imgUrl'=>'required',
+    public function storeSchool(Request $request)
+    {
+        $this->validate($request, [
+            'schoolName' => 'required',
+            'code' => 'required',
+            'phoneNum' => 'required',
+            'zipCode' => 'required',
+            'head' => 'required',
+            'address' => 'required',
+            'introduce' => 'required',
+            'imgUrl' => 'required',
         ]);
         $schoolData['schoolName'] = $request->schoolName;
         $schoolData['code'] = $request->code;
@@ -30,69 +33,74 @@ class SchoolController extends Controller
         $schoolData['address'] = json_encode($request->address);
         $schoolData['introduce'] = $request->introduce;
         $schoolData['imgUrl'] = $request->imgUrl;
-        $school = School::create($schoolData); 
+        $school = School::create($schoolData);
         return response()->json([
             'msg' => 1,
             'id' => $school->id
         ], 201);
     }
 
-    public function updateSchool(Request $request){
-        $this->validate($request,[
-            'schoolName'=>'required',
-            'code'=>'required',
-            'phoneNum'=>'required',
-            'zipCode'=>'required',
-            'head'=>'required',
-            'address'=>'required',
-            'introduce'=>'required',
-            'imgUrl'=>'required',
+    public function updateSchool(Request $request)
+    {
+        $this->validate($request, [
+            'schoolName' => 'required',
+            'code' => 'required',
+            'phoneNum' => 'required',
+            'zipCode' => 'required',
+            'head' => 'required',
+            'address' => 'required',
+            'introduce' => 'required',
+            'imgUrl' => 'required',
         ]);
-        School::where('id',$request->id)->update([
-            'schoolName'=>$request->schoolName,
-            'code'=>$request->code,
-            'phoneNum'=>$request->phoneNum,
-            'zipCode'=>$request->zipCode,
-            'head'=>$request->head,
-            'address'=>json_encode($request->address),
-            'introduce'=>$request->introduce,
-            'imgUrl'=>$request->imgUrl
+        School::where('id', $request->id)->update([
+            'schoolName' => $request->schoolName,
+            'code' => $request->code,
+            'phoneNum' => $request->phoneNum,
+            'zipCode' => $request->zipCode,
+            'head' => $request->head,
+            'address' => json_encode($request->address),
+            'introduce' => $request->introduce,
+            'imgUrl' => $request->imgUrl
         ]);
 
         return response()->json([
             'msg' => 1
         ], 200);
-
     }
 
-    public function removeSchool(Request $request){
-        $this->validate($request,[
-            'id'=>'required'
+    public function removeSchool(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required'
         ]);
-        School::where('id',$request->id)->delete();
+        School::where('id', $request->id)->delete();
         return response()->json([
             'msg' => 1
         ], 200);
     }
 
-    
 
-    public function getSchoolLessonList(Request $request){
+
+    public function getSchoolLessonList(Request $request)
+    {
         return School::with('lessons')->get();
     }
-    public function getSchoolTree(Request $request){
+    public function getSchoolTree(Request $request)
+    {
         return School::with('grades.lessons')->get();
     }
-    public function getSchoolName(){
+    public function getSchoolName()
+    {
         return School::select('schoolName')->get();
     }
 
-    public function storeManager(Request $request){
+    public function storeManager(Request $request)
+    {
         $managerData = $request->managerData;
         $schoolId = $request->schoolId;
         $managerUserData['name'] = $managerData['name'];
         $managerUserData['phoneNumber'] = $managerData['phoneNumber'];
-        $managerUserData['password'] = bcrypt($managerData['password']);
+        $managerUserData['password'] = bcrypt('password');
         $managerUserData['avatar'] = $managerData['avatar'];
         $managerUserData['schoolId'] = $schoolId;
         $managerUserData['gender'] = $managerData['gender'];
@@ -102,24 +110,25 @@ class SchoolController extends Controller
         $managerUserData['familyAddress'] = json_encode($managerData['familyAddress']);
         $managerUserData['residenceAddress'] = json_encode($managerData['residenceAddress']);
 
-        $manager = User::create($managerUserData); 
+        $manager = User::create($managerUserData);
         return response()->json([
             'msg' => 1,
             'id' => $manager->id
         ], 201);
     }
 
-    public function updateManager(Request $request){
-        User::where('id',$request->id)->update([
-            'name'=>$request->name,
-            'phoneNumber'=>$request->phoneNumber,
-            'password'=>bcrypt($request->password),
-            'avatar'=>$request->avatar,
-            'gender'=>$request->gender,
-            'nation'=>$request->nation,
-            'cardNum'=>$request->cardNum,
-            'familyAddress'=>json_encode($request->familyAddress),
-            'residenceAddress'=>json_encode($request->residenceAddress),
+    public function updateManager(Request $request)
+    {
+        User::where('id', $request->id)->update([
+            'name' => $request->name,
+            'phoneNumber' => $request->phoneNumber,
+            'password' => bcrypt('password'),
+            'avatar' => $request->avatar,
+            'gender' => $request->gender,
+            'nation' => $request->nation,
+            'cardNum' => $request->cardNum,
+            'familyAddress' => json_encode($request->familyAddress),
+            'residenceAddress' => json_encode($request->residenceAddress),
         ]);
 
         return response()->json([
@@ -127,7 +136,8 @@ class SchoolController extends Controller
         ], 200);
     }
 
-    public function getManager(Request $request){
+    public function getManager(Request $request)
+    {
         $schoolId = $request->id;
         $managerList = User::select('avatar', 'cardNum', 'familyAddress', 'gender', 'id', 'name', 'nation', 'phoneNumber', 'residenceAddress', 'roleId', 'schoolId', 'status')
             ->where([['schoolId', '=', $request->id]])->where([['roleId', '=', 2]])->get();
@@ -136,18 +146,20 @@ class SchoolController extends Controller
         ], 200);
     }
 
-    public function removeManager(Request $request){
-        $this->validate($request,[
-            'id'=>'required'
+    public function removeManager(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required'
         ]);
-        User::where('id',$request->id)->delete();
+        User::where('id', $request->id)->delete();
         return response()->json([
             'msg' => 1
         ], 200);
     }
 
-    public function managerSchool(Request $request){
+    public function managerSchool(Request $request)
+    {
         $id = $request->id;
-        return School::where('id',$id)->with('grades.lessons')->get();
+        return School::where('id', $id)->with('grades.lessons')->get();
     }
 }

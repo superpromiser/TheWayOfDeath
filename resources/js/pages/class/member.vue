@@ -2,33 +2,33 @@
   <v-container>
       <v-row>
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('add')">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" v-if="(user.role.id == 7 && user.lessonId == currentPath.params.lessonId) || user.role.id == 1 || user.role.id == 2" @click="action('add')">
             <v-card-text>
               <span>邀请成员</span>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('invite')">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" v-if="(user.role.id == 7 && user.lessonId == currentPath.params.lessonId) || user.role.id == 1 || user.role.id == 2"  @click="action('invite')">
             <v-card-text>
               <span>移除成员</span>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('application')">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" v-if="(user.role.id == 7 && user.lessonId == currentPath.params.lessonId) || user.role.id == 1 || user.role.id == 2"  @click="action('application')">
             <v-card-text>
               <span>申请</span>
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col>
+        <!-- <v-col>
           <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('import')">
             <v-card-text>
               <span>导入</span>
             </v-card-text>
           </v-card>
-        </v-col>
+        </v-col> -->
       </v-row>
       <v-row >
         <v-col>
@@ -153,7 +153,7 @@
 
 <script>
 import lang from '~/helper/lang.json'
-
+import {mapGetters} from 'vuex'
 import {getAllGroupMember} from '~/api/group'
 export default {
   data:() => ({
@@ -164,7 +164,10 @@ export default {
   computed:{
     currentPath(){
       return this.$route
-    }
+    },
+    ...mapGetters({
+      user:'auth/user'
+    })
   },
   async created(){
     this.isLoading = true

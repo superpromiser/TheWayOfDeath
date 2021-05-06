@@ -349,40 +349,43 @@ export default {
       this.mySchoolList = this.schoolData
     }else if(this.user.roleId == 2){
       this.schoolData.map(schoolItem=>{
-        console.log(schoolItem)
         if(this.user.schoolId == schoolItem.id){
           this.mySchoolList.push(schoolItem)
         }
       })
     }else{
-      console.log("!!!!!!!!!!!!!!!!!!!!!!!",this.schoolData)
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@",this.user)
       let myschoolData = {}
-      let lessonData = []
       this.schoolData.map(schoolItem=>{
         if(this.user.schoolId == schoolItem.id){
           myschoolData = schoolItem
         }
       })
-      this.mySchoolList.push(myschoolData)
-      this.mySchoolList[0].grades = []
-      console.log('&&&&&&&&',myschoolData)
-      console.log('**********',this.mySchoolList)
-      myschoolData.grades.map(grade=>{
+      let clonedVal1 = JSON.parse(JSON.stringify(myschoolData))
+      let clonedVal2 = JSON.parse(JSON.stringify(myschoolData))
+      // this.mySchoolList.push(clonedVal1)
+      // this.mySchoolList[0].grades = []
+      clonedVal1.grades = []
+      clonedVal2.grades.map(grade=>{
         grade.lessons.map(lesson=>{
+          console.log("069+++++++++++++++++++++++",lesson)
           this.user.groupArr.map(groupId=>{
             if(lesson.id == groupId){
-              console.log(lesson)
-              // this.myschoolList.grades.push(grade)              
-              lessonData.push(lesson)
+              console.log('^^^^^^^',lesson)
+              let index = clonedVal1.grades.indexOf(grade)
+              if(index > -1){
+                clonedVal1.grades[index].lessons.push(lesson)
+              }
+              else{
+                clonedVal1.grades.push(grade)
+                let gindex = clonedVal1.grades.indexOf(grade)
+                clonedVal1.grades[gindex].lessons = []
+                clonedVal1.grades[gindex].lessons.push(lesson)
+              }
             }
           })
         })
       })
-      console.log('myschoolData------',myschoolData)
-      // console.log('lessonData*****',lessonData)
-      this.classData = lessonData
-      console.log("this.classData",this.classData)
+      this.mySchoolList.push(clonedVal1)
     }
   },
 
