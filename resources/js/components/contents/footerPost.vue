@@ -34,7 +34,7 @@
     </v-col>
     <v-col cols="12" class="pt-2 px-10" v-else>
         <div class="d-flex align-center justify-end mb-5">
-            <v-menu
+            <!-- <v-menu
                 top
                 :close-on-click="true"
                 >
@@ -70,11 +70,11 @@
                         </v-list-item-title>
                     </v-list-item>
                 </v-list>
-            </v-menu>
-            <!-- <v-btn @click="showReadUsers" icon color="blue accent-3" :loading="isReadCnt" >
+            </v-menu> -->
+            <v-btn @click="showReadUsers" icon color="blue accent-3" :loading="isReadCnt" >
                 <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
                 <p class="mb-0 mr-8">{{footerInfo.readList ? footerInfo.readList.length : 0}}人</p>
-            </v-btn> -->
+            </v-btn>
             <v-btn icon color="red accent-3" :loading="isLiking">
                 <v-icon size="25" v-if="footerInfo.isLiked" @click="removeLike">mdi-heart </v-icon>
                 <v-icon size="25" v-else @click="addLike">mdi-heart-outline </v-icon>
@@ -89,22 +89,30 @@
         <v-row justify="center">
             <v-dialog
                 v-model="dialog"
-                max-width="290"
+                max-width="500"
+                height="150"
             >
-                <v-row>
-                    <v-col v-for="user in readUsers" :key="user.id" style="width:50px">
-                        <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="50" class="ma-5">
-                            <span class="white--text headline">{{user.name[0]}}</span>
-                        </v-avatar>
-                        <v-avatar v-else
-                        class="ma-5"
-                        size="50"
-                        >
-                            <v-img :src="user.avatar"></v-img>
-                        </v-avatar>
-                        <span>{{user.name}}</span>
-                    </v-col>
-                </v-row>
+                <v-card>
+                    <v-card-title class="headline grey lighten-2">
+                    read users
+                    </v-card-title>
+                    <v-card-text>
+                        <v-row>
+                            <v-col cols="12" md="6" v-for="user in readUsers" :key="user.id" style="width:50px">
+                                <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="50" class="ma-5">
+                                    <span class="white--text headline">{{user.name[0]}}</span>
+                                </v-avatar>
+                                <v-avatar v-else
+                                class="ma-5"
+                                size="50"
+                                >
+                                    <v-img :src="user.avatar"></v-img>
+                                </v-avatar>
+                                <span>{{user.name}}</span>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+                </v-card>
             </v-dialog>
         </v-row>
     </v-col>
@@ -191,7 +199,7 @@ export default {
             console.log(this.footerInfo.readList)
             await getReadCnt({userList:this.footerInfo.readList}).then(res=>{
                 this.isReadCnt = false
-                // this.dialog = true
+                this.dialog = true
                 console.log(res.data)
                 this.readUsers = res.data
             }).catch(err=>{
