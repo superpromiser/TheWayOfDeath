@@ -198,7 +198,7 @@
                     <v-icon>mdi-file-image-outline</v-icon>
                     </v-btn>
                 </template>
-                <span>image upload</span>
+                <span>图片</span>
             </v-tooltip>
             <input
                 ref="imageUploader"
@@ -223,7 +223,7 @@
                     <v-icon>mdi-video</v-icon>
                     </v-btn>
                 </template>
-                <span>video upload</span>
+                <span>视频</span>
             </v-tooltip>
             <input
                 ref="videoUploader"
@@ -248,7 +248,7 @@
                     <v-icon>mdi-file-upload</v-icon>
                     </v-btn>
                 </template>
-                <span>file upload</span>
+                <span>文件</span>
             </v-tooltip>
             <input
                 ref="fileUploader"
@@ -274,7 +274,7 @@
                         <v-icon>mdi-id-card</v-icon>
                     </v-btn>
                 </template>
-                <span>upload contact</span>
+                <span>通讯录</span>
             </v-tooltip>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
@@ -292,7 +292,7 @@
                         <v-icon>mdi-emoticon-excited-outline</v-icon>
                     </v-btn>
                 </template>
-                <span>emoji</span>
+                <span>表情</span>
             </v-tooltip>
             <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
         </v-row>

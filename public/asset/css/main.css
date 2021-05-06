@@ -1454,3 +1454,7 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
     height: calc(100vh - 66px);
     overflow-y: auto;
 }
+
+.v-text-field.label-cus-top .v-input__control .v-input__slot .v-text-field__slot label.v-label{
+    top: -3!important;
+}

@@ -75,6 +75,7 @@ export default {
         isGettingUserList: false,
         isSearching: false,
         searchKeyword: '',
+        baseUrl: window.Laravel.base_url,
         alphabetList: [
                 {
                     alphabet:'A', 

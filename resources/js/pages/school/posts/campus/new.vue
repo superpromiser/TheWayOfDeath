@@ -44,7 +44,7 @@
                                 auto-grow
                                 color="#7879ff"
                                 clear-icon="mdi-close-circle"
-                                label="輸入内容"
+                                label="输入内容"
                                 v-model="campusData.content"
                                 hide-details
                                 rows="5"

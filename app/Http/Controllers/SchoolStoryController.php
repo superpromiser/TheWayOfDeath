@@ -28,10 +28,6 @@ class SchoolStoryController extends Controller
     }
     public function getSchoolStoryMo(Request $request)
     {
-        $this->validate($request, [
-            'schoolId' => 'required',
-            'lessonId' => 'required'
-        ]);
         $schoolId = $request->schoolId;
         $lessonId = $request->lessonId;
 

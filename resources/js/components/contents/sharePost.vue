@@ -77,6 +77,7 @@
 <script>
 import lang from '~/helper/lang.json';
 import AttachItemViewer from '~/components/attachItemViewer';
+import {createReadCnt} from '~/api/alarm'
 export default {
     components:{
         AttachItemViewer,

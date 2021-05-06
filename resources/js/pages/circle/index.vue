@@ -96,14 +96,14 @@
           @infinite="infiniteHandler"
       >   
           <div slot="spinner">
-            <v-row class="pa-3 ma-5 d-flex justify-center align-center">
+            <v-row class="pa-3 ma-5 d-flex justify-center align-center pb-16">
               <v-progress-circular
                 indeterminate
                 color="#7879ff"
               ></v-progress-circular>
             </v-row>
           </div>
-          <div slot="no-more" class="pa-3 ma-3 text-center">
+          <div slot="no-more" class="pa-3 ma-3 text-center pb-16">
             <v-chip
               class="ma-2"
               color="#999999"
@@ -190,14 +190,14 @@
           @infinite="infiniteHandler"
       >   
           <div slot="spinner">
-            <v-row class="pa-3 ma-5 d-flex justify-center align-center">
+            <v-row class="pa-3 ma-5 d-flex justify-center align-center pb-16">
               <v-progress-circular
                 indeterminate
                 color="#7879ff"
               ></v-progress-circular>
             </v-row>
           </div>
-          <div slot="no-more" class="pa-3 ma-3 text-center">
+          <div slot="no-more" class="pa-3 ma-3 text-center pb-16">
             <v-chip
               class="ma-2"
               color="#999999"
