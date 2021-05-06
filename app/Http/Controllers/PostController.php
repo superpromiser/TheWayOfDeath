@@ -433,7 +433,10 @@ class PostController extends Controller
             array_push($newArr, $userId);
             $post->readList = $newArr;
         } else {
-            array_unique($readList, $userId);
+            $newArr = array();
+            if(!in_array($userId, $readList, true)){
+                array_push($readList, $userId);
+            }
             $post->readList = $readList;
         }
         $post->update();

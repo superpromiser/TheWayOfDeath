@@ -1,37 +1,41 @@
 <template>
     <v-container class="pa-0">
-        <v-container class="px-10 z-index-2 banner-custom">
-            <v-row>
-                <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                    <a @click="$router.go(-1)">
-                        <v-icon size="70" class="left-24p">
-                            mdi-chevron-left
-                        </v-icon>
-                    </a>
-                </v-col>
-                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>会员资料</h2>
-                </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn
-                        tile
-                        dark
-                        color="#7879ff"
-                        :loading="isSubmit"
-                        @click="submit"
-                    >
-                        {{ lang.submit }}
-                    </v-btn>
-                </v-col>
-            </v-row>
-        </v-container>
         <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
             <v-progress-circular
                 indeterminate
                 color="primary"
             ></v-progress-circular>
         </div>
-        <div v-else class="px-10">
+        <div v-else class="">
+            <v-container class="px-10 z-index-2 banner-custom">
+                <v-row>
+                    <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                        <a @click="$router.go(-1)">
+                            <v-icon size="70" class="left-24p">
+                                mdi-chevron-left
+                            </v-icon>
+                        </a>
+                    </v-col>
+                    <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                        <h2><span v-if="user.roleId == 3 || user.roleId == 7">老师</span>
+                            <span v-if="user.roleId == 4">家长</span>
+                            <span v-if="user.roleId == 5">学生</span>资料</h2>
+                    </v-col>
+                    <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                        <v-btn
+                            tile
+                            dark
+                            color="#7879ff"
+                            :loading="isSubmit"
+                            @click="submit"
+                        >
+                            {{ lang.submit }}
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
+        
+            <div class="px-10 mt-5">
             <v-row justify-space-between class="py-2">
                 <v-col cols="6" class="d-flex align-center">
                     <span>头像</span>
@@ -166,6 +170,7 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
+            </div>
         </div>
     </v-container>
 </template>

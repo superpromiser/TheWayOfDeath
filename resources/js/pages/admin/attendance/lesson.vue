@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-0">
+  <v-container class="pa-10">
     <!-- <v-container class="px-10 z-index-2 banner-custom">
         <v-row>
             <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -75,7 +75,7 @@
             </v-col>
         </v-row>
     </v-container> -->
-    <v-row>
+    <v-row >
       <v-col cols="12">
         <v-data-table
           :headers="headers"

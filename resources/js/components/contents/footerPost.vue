@@ -34,10 +34,47 @@
     </v-col>
     <v-col cols="12" class="pt-2 px-10" v-else>
         <div class="d-flex align-center justify-end mb-5">
-            <v-btn @click="showReadUsers" icon color="blue accent-3" :loading="isReadCnt" >
+            <v-menu
+                top
+                :close-on-click="true"
+                >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        @click="showReadUsers"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                        icon color="blue accent-3" 
+                        :loading="isReadCnt"
+                    >
+                        <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
+                        <p class="mb-0 mr-8">{{footerInfo.readList ? footerInfo.readList.length : 0}}人</p>
+                    </v-btn>
+                </template>
+
+                <v-list>
+                    <v-list-item
+                    v-for="user in readUsers" :key="user.id"
+                    >
+                        <v-list-item-title>
+                            <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="50" class="ma-5">
+                                <span class="white--text headline">{{user.name[0]}}</span>
+                            </v-avatar>
+                            <v-avatar v-else
+                            class="ma-5"
+                            size="50"
+                            >
+                                <v-img :src="user.avatar"></v-img>
+                            </v-avatar>
+                            <span>{{user.name}}</span>
+                        </v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+            <!-- <v-btn @click="showReadUsers" icon color="blue accent-3" :loading="isReadCnt" >
                 <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
                 <p class="mb-0 mr-8">{{footerInfo.readList ? footerInfo.readList.length : 0}}人</p>
-            </v-btn>
+            </v-btn> -->
             <v-btn icon color="red accent-3" :loading="isLiking">
                 <v-icon size="25" v-if="footerInfo.isLiked" @click="removeLike">mdi-heart </v-icon>
                 <v-icon size="25" v-else @click="addLike">mdi-heart-outline </v-icon>
@@ -147,7 +184,7 @@ export default {
             console.log(this.footerInfo.readList)
             await getReadCnt({userList:this.footerInfo.readList}).then(res=>{
                 this.isReadCnt = false
-                this.dialog = true
+                // this.dialog = true
                 console.log(res.data)
                 this.readUsers = res.data
             }).catch(err=>{

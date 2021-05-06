@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-0">
-    <v-container class="px-10 z-index-2 banner-custom">
+    <!-- <v-container class="px-10 z-index-2 banner-custom">
         <v-row>
             <v-col cols="6" md="4" class="d-flex align-center position-relative">
                 <a @click="$router.go(-1)">
@@ -57,7 +57,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-    </v-container>
+    </v-container> -->
     <v-row class="px-10 mt-5">
       <v-col cols="12">
         <v-data-table
@@ -68,19 +68,19 @@
           sort-by="calories"
           class="elevation-1"
         >
-          <!-- <template v-slot:top>
+          <template v-slot:top>
             <v-toolbar
                 flat
-            > -->
-                <!-- <v-toolbar-title><strong>进离校</strong></v-toolbar-title>
+            >
+                <v-toolbar-title><strong>进离校</strong></v-toolbar-title>
                 <v-divider
                 class="mx-4"
                 inset
                 vertical
                 ></v-divider>
-                <v-spacer></v-spacer>24 -->
+                <v-spacer></v-spacer>24
 
-                <!-- <div class="d-flex align-center">
+                <div class="d-flex align-center">
                     <p class="mb-0 mr-5">考勤日期</p>
                     <v-menu
                         v-model="menu"
@@ -124,7 +124,7 @@
                     </v-icon>
                 </v-btn>
             </v-toolbar>
-          </template> -->
+          </template>
           <template v-slot:[`item.other`]="{ item }">
             <div v-if="item.other == null"> - </div>
             <div v-else> 

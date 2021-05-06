@@ -105,17 +105,6 @@
               <v-icon>mdi-google-classroom</v-icon>
             </v-list-item-icon>
           </v-list-item>
-          <!-- <v-list-item
-            active-class="sub-header-active"
-            link
-            to="/admin/schedule"
-            v-if="user.role.roleName == 'manager'"
-            >
-            <v-list-item-title class="ml-9">课程维护</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-calendar-month</v-icon>
-            </v-list-item-icon>
-          </v-list-item> -->
           <v-list class="py-0" v-if="user.role.id == 2">
             <v-list-group  active-class="header-active">
             <template v-slot:activator>
@@ -154,55 +143,11 @@
               
             </v-list-group>
           </v-list>
-          <!-- <v-list-item
-            active-class="sub-header-active"
-            link
-            to="/admin/stream"
-            v-if="user.role.roleName == 'manager'"
-            >
-            <v-list-item-title class="ml-9">流媒体设置</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-view-stream</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            active-class="sub-header-active"
-            link
-            to="/admin/imei"
-            v-if="user.role.roleName == 'manager'"
-            >
-            <v-list-item-title class="ml-9">IMEI管理</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-sd</v-icon>
-            </v-list-item-icon>
-          </v-list-item> -->
-          <!-- <v-list-item
-            active-class="sub-header-active"
-            link
-            to="/admin/schedule/class"
-            v-if="user.role.id == 3 || user.role.id == 7"
-            >
-            <v-list-item-title class="ml-9">课程表管理</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-calendar-month</v-icon>
-            </v-list-item-icon>
-          </v-list-item> -->
-          <!-- <v-list-item
-            active-class="sub-header-active"
-            link
-            to="/admin/vacation/teacher"
-            v-if="user.role.id == 3 || user.role.id == 7"
-            >
-            <v-list-item-title class="ml-9">请假审批</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-check-decagram </v-icon>
-            </v-list-item-icon>
-          </v-list-item> -->
           <v-list class="py-0" v-if="user.role.id == 2 || user.role.id == 3 || user.role.id == 7">
-            <!-- <v-list-group  active-class="header-active"> -->
-            <!-- <template v-slot:activator>
-              <v-list-item-title class="ml-9">考勤</v-list-item-title>
-            </template> -->
+            <v-list-group  active-class="header-active">
+              <template v-slot:activator>
+                <v-list-item-title class="ml-9">考勤</v-list-item-title>
+              </template>
               <v-list-item
                 active-class="sub-header-active"
                 link
@@ -253,7 +198,7 @@
                   <v-icon>mdi-hexagon-slice-4  </v-icon>
                 </v-list-item-icon>
               </v-list-item>
-            <!-- </v-list-group> -->
+            </v-list-group>
           </v-list>
       </v-list-group>
       <v-list-group active-class="header-active" prepend-icon="mdi-school" v-for="(school, indexOfSchool) in mySchoolList" :key="indexOfSchool">

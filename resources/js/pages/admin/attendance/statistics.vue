@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-row class="my-3">
+  <v-container class="pa-10">
+    <v-row>
       <v-col cols="4" class="d-flex align-center">
         开姶日期
         <v-menu
@@ -78,7 +78,7 @@
       :loading="isLoading"
       loading-text="正在下载..."
       item-key="name"
-      class="elevation-1"
+      class="elevation-1 mt-5"
     >
       <template v-slot:[`item.actions`]="{ item }">
         <span @click="detail(item)" class="text-primary hover-cursor-point">立即查看</span>

@@ -34,7 +34,7 @@
                                     <v-card-title>
                                         <span class="headline">{{ formTitle }}</span>
                                     </v-card-title>
-                                    <v-card-text style="height:400px;">
+                                    <v-card-text style="height:100px;">
                                         <v-container>
                                             <v-row>
                                                 <v-col cols="12" >
@@ -43,13 +43,13 @@
                                                     label="角色名字"
                                                     ></v-text-field>
                                                 </v-col>
-                                                <v-treeview
+                                                <!-- <v-treeview
                                                     selectable
                                                     v-model="editedItem.permission"
                                                     :items="schoolSpaceMenu.data"
                                                     return-object
                                                     open-all
-                                                ></v-treeview>
+                                                ></v-treeview> -->
                                             </v-row>
                                         </v-container>
                                     </v-card-text>
