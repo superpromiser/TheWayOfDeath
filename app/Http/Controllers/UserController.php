@@ -1022,9 +1022,9 @@ class UserController extends Controller
     public function excelImport()
     {
         $user = Auth::user();
-        if ($user->id == 2) {
+        if ($user->roleId == 2) {
             $userList = User::where('schoolId', $user->schoolId)->where('roleId', 5)->with('role')->get();
-        } else if ($user->id == 7 || $user->id == 4 || $user->id == 5) {
+        } else if ($user->roleId == 7 || $user->roleId == 4 || $user->roleId == 5) {
             $userList = User::where('schoolId', $user->schoolId)->where('lessonId', $user->lessonId)->with('role')->where('roleId', 5)->get();
         } else {
             $userList = [];

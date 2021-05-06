@@ -1445,3 +1445,8 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
     background-color: #111;
     transition: 0.5s;
 }
+
+.add-comment-out-height{
+    height: calc(100% - 150px);
+    overflow-y: auto;
+}

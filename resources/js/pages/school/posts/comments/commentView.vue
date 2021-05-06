@@ -1,7 +1,7 @@
 <template>
   <v-container class="px-10">
     <div>
-      <div v-for="(comment,index) in content.comments" :key="index">
+      <div v-for="(comment,index) in contentData.comments" :key="index">
         <v-row class="py-2">
           <v-col cols="12" lg="1" md="2" sm="2">
               {{comment.users.name}}
@@ -17,14 +17,6 @@
     </div>
     <v-row>
       <v-col class="d-flex">
-        <!-- <v-btn
-            fab
-            small
-            class="ma-2"
-            @click="toggleEmo"
-        >
-            <v-icon>mdi-emoticon-excited-outline</v-icon>
-        </v-btn> -->
         <Picker 
           v-if="emoStatus" 
           set="emojione" 
@@ -58,16 +50,16 @@ export default {
 
   computed:{
     ...mapGetters({
-      content:'content/postDetail'
+      contentData:'content/postDetail'
     })
   },
   created(){
-    this.content.comments.map(comment=>{
+    this.contentData.comments.map(comment=>{
       this.$set(comment,'isDeleting',false)
     })
   },
   mounted(){
-    console.log(this.content)
+    console.log(this.contentData)
   },
   data:() => ({
     lang,
@@ -96,9 +88,9 @@ export default {
       if(this.commentText == ''){
         return;
       }
-      addComment({text:this.commentText,postId:this.content.id}).then(res=>{
+      addComment({text:this.commentText,postId:this.contentData.id}).then(res=>{
         console.log(res)
-        this.content.comments.unshift(res.data)
+        this.contentData.comments.unshift(res.data)
       }).catch(err=>{
         //console.log(err.response)
       })
@@ -108,9 +100,9 @@ export default {
       console.log(comment)
       comment.isDeleting = true
       await deleteComment({id:comment.id}).then(res=>{
-        let index = this.content.comments.indexOf(comment)
+        let index = this.contentData.comments.indexOf(comment)
         if(index > -1){
-          this.content.comments.splice(index,1)
+          this.contentData.comments.splice(index,1)
         }
         comment.isDeleting = false
         console.log(res.data)
