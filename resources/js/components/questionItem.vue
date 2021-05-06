@@ -182,17 +182,24 @@
             ></v-textarea>
         </v-row>
         <v-row>
-            <v-btn
-                color="blue accent-3"
-                fab
-                small
-                dark
-                class="ma-2"
-                :loading="isImageSelecting"
-                @click="clickUploadImageBtn"
-            >
-              <v-icon>mdi-file-image-outline</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        color="blue accent-3"
+                        fab
+                        small
+                        dark
+                        class="ma-2"
+                        :loading="isImageSelecting"
+                        @click="clickUploadImageBtn"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                    <v-icon>mdi-file-image-outline</v-icon>
+                    </v-btn>
+                </template>
+                <span>image upload</span>
+            </v-tooltip>
             <input
                 ref="imageUploader"
                 class="d-none"
@@ -200,17 +207,24 @@
                 accept="image/*"
                 @change="onImageFileChanged"
             >
-            <v-btn
-                color="blue accent-3"
-                fab
-                small
-                dark
-                class="ma-2"
-                :loading="isVideoSelecting"
-                @click="clickUploadVideoBtn"
-            >
-              <v-icon>mdi-video</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        color="blue accent-3"
+                        fab
+                        small
+                        dark
+                        class="ma-2"
+                        :loading="isVideoSelecting"
+                        @click="clickUploadVideoBtn"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                    <v-icon>mdi-video</v-icon>
+                    </v-btn>
+                </template>
+                <span>video upload</span>
+            </v-tooltip>
             <input
                 ref="videoUploader"
                 class="d-none"
@@ -218,17 +232,24 @@
                 accept="video/*"
                 @change="onVideoFileChanged"
             >
-            <v-btn
-                color="blue accent-3"
-                fab
-                small
-                dark
-                class="ma-2"
-                :loading="isFileSelecting"
-                @click="clickUploadFileBtn"
-            >
-              <v-icon>mdi-file-upload</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        color="blue accent-3"
+                        fab
+                        small
+                        dark
+                        class="ma-2"
+                        :loading="isFileSelecting"
+                        @click="clickUploadFileBtn"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                    <v-icon>mdi-file-upload</v-icon>
+                    </v-btn>
+                </template>
+                <span>file upload</span>
+            </v-tooltip>
             <input
                 ref="fileUploader"
                 class="d-none"
@@ -236,29 +257,43 @@
                 accept="file/*"
                 @change="onFileFileChanged"
             >
-            <v-btn
-                color="blue accent-3"
-                v-if="contact"
-                fab
-                small
-                dark
-                class="ma-2"
-                :loading="isUserSeleciting"
-                @click="selectUser"
-            >
-                <v-icon>mdi-id-card</v-icon>
-            </v-btn>
-            <v-btn
-                v-if="emoji"
-                color="blue accent-3"
-                fab
-                small
-                dark
-                class="ma-2"
-                @click="toggleEmo"
-            >
-                <v-icon>mdi-emoticon-excited-outline</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        color="blue accent-3"
+                        v-if="contact"
+                        fab
+                        small
+                        dark
+                        class="ma-2"
+                        :loading="isUserSeleciting"
+                        @click="selectUser"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                        <v-icon>mdi-id-card</v-icon>
+                    </v-btn>
+                </template>
+                <span>upload contact</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        v-if="emoji"
+                        color="blue accent-3"
+                        fab
+                        small
+                        dark
+                        class="ma-2"
+                        @click="toggleEmo"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                        <v-icon>mdi-emoticon-excited-outline</v-icon>
+                    </v-btn>
+                </template>
+                <span>emoji</span>
+            </v-tooltip>
             <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
         </v-row>
         <!--  IMAGE VIEWER  -->
