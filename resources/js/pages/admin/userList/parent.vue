@@ -701,7 +701,7 @@ export default {
           this.editedItem.familyAddress.region == null ||
           this.editedItem.familyAddress.detail.trim() == '' 
           ){
-          return this.$snackbar.showMessage({content: this.lang.requireFamilyAddress, color: "error"})
+          return this.$snackbar.showMessage({content: this.lang.requireResidenceAddress, color: "error"})
         }
         //update schoolManagerData
         if (this.editedIndex > -1) {

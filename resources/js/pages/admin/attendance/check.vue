@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="pa-10">
     <v-row>
       <v-col cols="12">
         <v-data-table

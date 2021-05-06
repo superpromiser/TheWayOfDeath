@@ -88,7 +88,7 @@
             </v-dialog>
             <v-dialog v-model="deleteSessionDialog" transition="dialog-bottom-transition" width="100%" max-width="500px">
                 <v-card>
-                    <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+                    <v-card-title class="headline">你确定要删除这个学期吗?</v-card-title>
                     <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click="closeDeleteSessionDialog">{{lang.cancel}}</v-btn>

@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-0">
-    <v-container class="px-10 z-index-2 banner-custom">
+    <!-- <v-container class="px-10 z-index-2 banner-custom">
         <v-row>
             <v-col cols="6" md="4" class="d-flex align-center position-relative">
                 <a @click="$router.go(-1)">
@@ -16,7 +16,7 @@
                 
             </v-col>
         </v-row>
-    </v-container>
+    </v-container> -->
     <v-dialog v-model="dialogDelete" max-width="500px">
         <v-card>
         <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
@@ -63,7 +63,7 @@
           sort-by="calories"
           class="elevation-1"
         >
-          <!-- <template v-slot:top>
+          <template v-slot:top>
             <v-toolbar
                 flat
             >
@@ -77,7 +77,7 @@
 
                 
             </v-toolbar>
-          </template> -->
+          </template>
           <template v-slot:[`item.reasonFlag`]="{ item }">
                 <span v-if="item.reasonFlag == true"> 事假 </span>
                 <span v-else> 病假 </span>
