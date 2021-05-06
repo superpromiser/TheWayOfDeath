@@ -32,7 +32,10 @@ export default [
   { path: '/member/select', name: 'member.selectMo', component: page('member/moChooseMember.vue') },
 
   //mo post preview
-  { path: '/schoolSpace/:schoolId/post/:contentType/preview',name: 'schoolPost.preview', component: page('preview.vue') },
+  { path: '/schoolSpace/:schoolId/post/:contentType/preview',name: 'schoolPost.preview', component: page('previewSchoolPost.vue') },
+  
+  //mo post preview
+  { path: '/schoolSpace/:schoolId/:lessonId/post/:contentType/preview',name: 'classPost.preview', component: page('previewClassPost.vue') },
 
   //chat mobile
   { path: '/chat/mobile', name: 'chatMobile', component: page('chat/mobile/index.vue'),
