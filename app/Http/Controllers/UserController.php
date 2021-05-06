@@ -37,7 +37,7 @@ class UserController extends Controller
         // }
         $staffData['name'] = $request->name;
         $staffData['phoneNumber'] = $request->phoneNumber;
-        $staffData['password'] = bcrypt($request->password);
+        $staffData['password'] = bcrypt('password');
         $staffData['avatar'] = $request->avatar;
         $staffData['schoolId'] = $schoolId;
         $staffData['gradeId'] = $request->gradeId;
@@ -53,7 +53,9 @@ class UserController extends Controller
         $staffData['residenceAddress'] = json_encode($request->residenceAddress);
         $groupArr = array();
         array_push($groupArr, 0);
-        array_push($groupArr, $request->lessonId);
+        if(!is_null($request->lessonId)){
+            array_push($groupArr, $request->lessonId);
+        }
         $staffData['groupArr'] = $groupArr;
         $manager = User::create($staffData);
 
@@ -75,7 +77,7 @@ class UserController extends Controller
         User::where('id', $request->id)->update([
             'name' => $request->name,
             'phoneNumber' => $request->phoneNumber,
-            'password' => bcrypt($request->password),
+            // 'password' => bcrypt($request->password),
             'avatar' => $request->avatar,
             'gender' => $request->gender,
             'cardNum' => $request->cardNum,
