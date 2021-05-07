@@ -2,7 +2,7 @@
   <v-container>
       <v-row>
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);" v-if="(user.role.id == 7 && user.lessonId == currentPath.params.lessonId) || user.role.id == 1 || user.role.id == 2" @click="action('add')">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('add')">
             <v-card-text>
               <span>邀请成员</span>
             </v-card-text>
@@ -32,29 +32,26 @@
       </v-row>
       <v-row >
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('group')">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" v-if="(user.role.id == 7 && user.lessonId == currentPath.params.lessonId) || user.role.id == 1 || user.role.id == 2"  @click="action('group')">
             <v-card-text>
               <span>小组</span>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('seat')">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" v-if="(user.role.id == 7 && user.lessonId == currentPath.params.lessonId) || user.role.id == 1 || user.role.id == 2"  @click="action('seat')">
             <v-card-text>
               <span>座位</span>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col>
-          <v-card style="background-color: rgba(242, 242, 242, 1);" @click="action('studentId')">
+          <v-card style="background-color: rgba(242, 242, 242, 1);" v-if="(user.role.id == 7 && user.lessonId == currentPath.params.lessonId) || user.role.id == 1 || user.role.id == 2"  @click="action('studentId')">
             <v-card-text>
               <span>学号</span>
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col>
-        </v-col>
-        <v-col></v-col>
       </v-row>
       <v-row v-if="isLoading" class="d-flex justify-center align-center py-16">
         <v-progress-circular

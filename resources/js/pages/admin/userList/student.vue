@@ -695,7 +695,7 @@ export default {
         }
         //phone number
         if(this.editedItem.phoneNumber.trim() == ''){
-          return this.$snackbar.showMessage({content: this.lang.requirePhoneNumber, color: "error"})
+          return this.$snackbar.showMessage({content: this.lang.requireCorrectPhoneNumber, color: "error"})
         }
         if(/^\d*$/.test(this.editedItem.phoneNumber) == false){
           return this.$snackbar.showMessage({content: this.requireCorrectPhoneNumber, color: 'error'});
