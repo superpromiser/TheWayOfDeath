@@ -175,6 +175,7 @@ import ClassStoryPost from '~/components/contents/classStoryPost'
 import InterClassStoryPost from '~/components/contents/interClassStoryPost'
 import SafeStudyPost from '~/components/contents/safeStudyPost'
 import ReturnTeam from '~/components/contents/returnTeam'
+import VacationPost from '~/components/contents/vacationPost'
 export default {
   components :{
     QusetionnairePost,
@@ -194,6 +195,7 @@ export default {
     InterClassStoryPost,
     ReturnTeam,
     InfiniteLoading,
+    VacationPost
   },
 
   data: () => ({

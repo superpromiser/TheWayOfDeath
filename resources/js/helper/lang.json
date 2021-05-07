@@ -75,6 +75,6 @@
     "requireIntroduce": "个人介绍不能为空",
 
     "requireCorrectPhoneNumber": "请输入正确的电话号码",
-    "requireCorrectCardNumber": "请输入正确的身份证号"
-
+    "requireCorrectCardNumber": "请输入正确的身份证号",
+    "vacation":"请假"
 }

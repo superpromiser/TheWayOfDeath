@@ -24,12 +24,12 @@
 
 <script>
 import { uploadOtherForExcel } from '~/api/upload'
+
 export default {
     data: ()=> ({
         selectedFile: null,
         isFileSelecting: false,
     }),
-
     methods:{
         clickUploadFileBtn() {
             window.addEventListener('focus', () => {
@@ -37,21 +37,33 @@ export default {
             this.$refs.fileUploader.click()
         },
         async onFileFileChanged(e) {
-            this.selectedFile = e.target.files[0];
-            if(this.selectedFile !== undefined && this.selectedFile !== null) {
-                this.isFileSelecting = true;
-                let fileData = new FormData();
-                fileData.append('file', this.selectedFile);
-                await uploadOtherForExcel(fileData)
-                .then((res) => {
-                    console.log(res);
-                    this.isFileSelecting = false
-                }).catch((err) => {
-                    //console.log(err);
-                    this.isFileSelecting = false
-                });
+            // this.selectedFile = e.target.files[0];
+            var files = e.target.files, f = files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, {type: 'array'});
+                let sheetName = workbook.SheetNames[0]
+                /* DO SOMETHING WITH workbook HERE */
+                console.log(workbook);
+                let worksheet = workbook.Sheets[sheetName];
+                console.log(XLSX.utils.sheet_to_json(worksheet));
+            };
+            reader.readAsArrayBuffer(f);
+            // if(this.selectedFile !== undefined && this.selectedFile !== null) {
+            //     this.isFileSelecting = true;
+            //     let fileData = new FormData();
+            //     fileData.append('file', this.selectedFile);
+            //     await uploadOtherForExcel(fileData)
+            //     .then((res) => {
+            //         console.log(res);
+            //         this.isFileSelecting = false
+            //     }).catch((err) => {
+            //         //console.log(err);
+            //         this.isFileSelecting = false
+            //     });
                 
-            }
+            // }
             //reset file input
             this.$refs.fileUploader.value = ''
         },

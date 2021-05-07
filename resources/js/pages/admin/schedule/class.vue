@@ -29,6 +29,7 @@
                         class="mb-2 ml-2"
                         tile
                         v-if="isEditable == false"
+                        @click="isEditable = !isEditable"
                         >
                         <v-icon left>
                             mdi-check

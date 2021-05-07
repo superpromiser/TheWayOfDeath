@@ -14,7 +14,7 @@ class VacationController extends Controller
     public function getBanziName()
     {
         $lessonId = Auth::user()->lessonId;
-        return User::select('id', 'name')->where(['lessonId' => $lessonId, 'roleId' => 3])->first();
+        return User::select('id', 'name')->where(['lessonId' => $lessonId, 'roleId' => 7])->first();
     }
 
     public function currentVacation(Request $request)
@@ -28,13 +28,30 @@ class VacationController extends Controller
     public function getVacation(Request $request)
     {
         $userId = Auth::user()->id;
-        return Vacation::where(['teacherId' => $userId, 'status' => 'pending'])->get();
+        return Vacation::where(['teacherId' => $userId])->orWhere(['studentId' => $userId])->get();
     }
 
-    public function allVacation()
+    public function allVacation(Request $request)
     {
         $userId = Auth::user()->id;
-        return Vacation::where(['teacherId' => $userId])->get();
+        $this->validate($request, [
+            'schoolId' => 'required',
+            'lessonId'=>'required'
+        ]);
+        if ($request->lessonId) {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 20])
+                ->with([
+                    'likes',
+                    'views',
+                    'comments',
+                    'vacations'=>function ($q) use($userId) {
+                        $q->where('teacherId',$userId)->orWhere('studentId',$userId);
+                    },
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        }
     }
 
     public function createVacation(Request $request)

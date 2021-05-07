@@ -11,8 +11,8 @@ function getVacationData(){
 function getCurrentData(payload){
     return axios.get('/api/v1/currentVacation',{params:payload});
 }
-function allVacationData(){
-    return axios.get('/api/v1/allVacation');
+function allVacationData(payload){
+    return axios.get('/api/v1/allVacation',{params:payload});
 }
 function createVacationData(payload){
     return axios.post('/api/v1/vacation',payload)
