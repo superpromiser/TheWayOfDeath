@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use App\Carbon\Carbon;
 
 class UploadController extends Controller
 {
@@ -10,7 +11,10 @@ class UploadController extends Controller
         $this->validate($request,[
             'file' => 'required|mimes:jpeg,jpg,png'
         ]);
-        $picName = time().'.'.$request->file->extension();
+        $fileCreatedAt = \Carbon\Carbon::now();
+        $fileCreatedAt = $fileCreatedAt->toDateTimeString();
+        $fileCreatedAt = explode(" ",$fileCreatedAt)[0];
+        $picName = $fileCreatedAt.'_'.time().'.'.$request->file->extension();
         $request->file->move(public_path('uploads/image'),$picName);
         return $picName;
     }
@@ -29,12 +33,14 @@ class UploadController extends Controller
         $fileOriName = $request->file->getClientOriginalName();
         $fileExtension = $request->file->extension();
         $fileName = time().'.'.$request->file->extension();
+        $fileCreatedAt = \Carbon\Carbon::now();
         $request->file->move(public_path('uploads/other'),$fileName);
         return response()->json([
             'fileName'=>$fileName,
             'fileOriName'=>$fileOriName,
             'fileSize'=>$fileSize,
-            'fileExtension'=>$fileExtension    
+            'fileExtension'=>$fileExtension,
+            'fileCreatedAt'=>$fileCreatedAt
         ]);
     }
 
@@ -52,12 +58,14 @@ class UploadController extends Controller
         $fileOriName = $request->file->getClientOriginalName();
         $fileExtension = $request->file->extension();
         $fileName = time().'.'.$request->file->extension();
+        $fileCreatedAt = \Carbon\Carbon::now();
         $request->file->move(public_path('uploads/video'),$fileName);
         return response()->json([
             'fileName'=>$fileName,
             'fileOriName'=>$fileOriName,
             'fileSize'=>$fileSize,
-            'fileExtension'=>$fileExtension    
+            'fileExtension'=>$fileExtension,
+            'fileCreatedAt'=>$fileCreatedAt  
         ]);
     }
 

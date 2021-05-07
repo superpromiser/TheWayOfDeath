@@ -51,7 +51,8 @@ export default {
           (val.path.includes('post')&&val.path.includes('classSpace')) || 
           (val.path.includes('detail')&&val.path.includes('schoolSpace')) ||
           (val.path.includes('member')&&val.path.includes('select')) ||
-          (val.path.includes('texteditor'))
+          (val.path.includes('texteditor')) ||
+          (val.path.includes('profile')&&val.path.includes('myfile')) 
           ){
           this.isPostOrDetail = true;
         }
