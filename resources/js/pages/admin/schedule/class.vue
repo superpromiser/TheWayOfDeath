@@ -29,7 +29,7 @@
                         class="mb-2 ml-2"
                         tile
                         v-if="isEditable == false"
-                        @click="isEditable = !isEditable"
+                        @click="editable"
                         >
                         <v-icon left>
                             mdi-check
@@ -118,6 +118,7 @@
 <script>
 import {getScheduleClass, createScheduleClass, updateScheduleClass} from '~/api/teacherSubject'
 import lang from '~/helper/lang.json'
+import {mapGetters} from 'vuex'
 export default {
     components:{
     },
@@ -189,6 +190,9 @@ export default {
         formTitle () {
             return this.editedIndex === -1 ? '新增课' : '编辑课'
         },
+        ...mapGetters({
+            user:'auth/user'
+        })
     },
 
     async created(){
@@ -301,6 +305,13 @@ export default {
                 this.scheduleData.push(this.editedItem)
             }
             this.closeRow()
+        },
+
+        editable(){
+            if(this.user.role.id == 5){
+                return
+            }
+            this.isEditable = ! this.isEditable
         },
 
         //actions with cells
