@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="$isMobile()" class="pa-0 h-100" 
+    <v-container v-if="$isMobile()" class="pa-0 h-100 bg-secondary" 
     v-touch="{
       left: () => swipe('Left'),
       right: () => swipe('Right'),

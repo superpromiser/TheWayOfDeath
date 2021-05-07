@@ -1,11 +1,11 @@
 <template>
     <v-container class="pa-0">
-        <v-row class="ma-0 bg-secondary justify-center position-relative" >
+        <v-row class="ma-0 bg-white justify-center position-relative" >
             <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                 mdi-chevron-left
             </v-icon>
             <p class="mb-0 font-size-0-95 font-weight-bold py-4">修改电话号码</p>
-            <v-btn @click="updateProfile" rounded :dark="isChanged" :disabled="!isChanged" :loading="isLoading" color="#7879ff" class="position-absolute put-align-center" style="right: 12px; top:50%">
+            <v-btn @click="updateProfile" :dark="isChanged" :disabled="!isChanged" :loading="isLoading" color="#7879ff" class="position-absolute put-align-center elevation-0" style="right: 12px; top:50%">
                 保存
             </v-btn>
         </v-row>

@@ -1184,6 +1184,11 @@ a {
     background: #f2f2f2 !important;
 }
 
+.mo-select-white-bg .v-input__control .v-input__slot {
+    box-shadow: none !important;
+    background: white !important;
+}
+
 .col-50 {
     flex: 0 0 20% !important;
     max-width: 20% !important;

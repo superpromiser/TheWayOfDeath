@@ -1,6 +1,6 @@
 <template>
     <v-container v-if="$isMobile()" class="pa-0 ma-0">
-        <v-row class="ma-0 pt-10"  @click="navToProfileItem('name')">
+        <v-row class="ma-0 bg-white pt-10 mb-3"  @click="navToProfileItem('name')">
             <v-col cols="12" class="d-flex justify-space-between align-center pb-0">
                 <div class="d-flex align-center">
                     <v-avatar color="#7879ff" size="60" class="rounded-lg"  >
@@ -28,8 +28,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <div class="cus-divider"></div>
-        <v-row class="ma-0">
+        <v-row class="ma-0 bg-white mb-3">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('phoneNumber')">
                 <div class="d-flex align-center">
                     <v-icon color="#3989fc">
@@ -42,8 +41,7 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <div class="cus-divider"></div>
-        <v-row class="ma-0">
+        <v-row class="ma-0 bg-white">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('wechat')">
                 <div class="d-flex align-center">
                     <v-icon color="#7879ff">
@@ -57,7 +55,7 @@
             </v-col>
         </v-row>
         <v-divider light ></v-divider>
-        <v-row class="ma-0">
+        <v-row class="ma-0 bg-white">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('qq')">
                 <div class="d-flex align-center">
                     <v-icon color="#3989fc">
@@ -71,7 +69,7 @@
             </v-col>
         </v-row>
         <v-divider light ></v-divider>
-        <v-row class="ma-0">
+        <v-row class="ma-0 bg-white">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('password')">
                 <div class="d-flex align-center">
                     <v-icon color="#7879ff">
@@ -85,7 +83,7 @@
             </v-col>
         </v-row>
         <v-divider light ></v-divider>
-        <v-row class="ma-0">
+        <v-row class="ma-0 bg-white mb-3">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('myfile')">
                 <div class="d-flex align-center">
                     <v-icon color="#feb31a">
@@ -98,8 +96,7 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <div class="cus-divider"></div>
-        <v-row class="ma-0">
+        <v-row class="ma-0 bg-white">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('schoolshare')">
                 <div class="d-flex align-center">
                     <v-icon color="#7879ff">
@@ -113,7 +110,7 @@
             </v-col>
         </v-row>
         <v-divider light ></v-divider>
-        <v-row class="ma-0">
+        <v-row class="ma-0 bg-white mb-3">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('myshare')">
                 <div class="d-flex align-center">
                     <v-icon color="#F19861">
@@ -126,8 +123,7 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <div class="cus-divider"></div>
-        <v-row class="ma-0">
+        <v-row class="ma-0 bg-white">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple>
                 <div class="d-flex align-center">
                     <v-icon color="#7879ff">
@@ -141,7 +137,7 @@
             </v-col>
         </v-row>
         <v-divider light ></v-divider>
-        <v-row class="ma-0">
+        <v-row class="ma-0 bg-white">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="openLogoutDialog">
                 <div class="d-flex align-center">
                     <v-icon color="#eb5846">
