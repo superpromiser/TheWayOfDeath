@@ -67,19 +67,17 @@
                             <v-icon right> mdi-cancel  </v-icon>
                         </v-chip>
                     </v-col>
-                    <v-col v-else v-for="(video, index) in videoFileList" :key="index" cols="12" sm="6" md="4" lg="3" class="position-relative">
-                        <v-card class="d-flex align-center " color="#F2F2F2" flat tile >
-                            <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
-                            <div class=" font-size-0-75">
-                                <div><span><strong>{{video.fileOriName}}</strong></span></div>
-                                <div>{{video.fileSize}}</div>
+
+                    <v-col cols="12" v-else class="images clearfix ma-0 pa-0">
+                        <div v-for="(video, index) in videoFileList" :key="index" class="video-con text-center" @click="openVideoViewDialog(index, video)">
+                            <div class="position-relative mo-video">
+                                <div class="position-absolute position-absolute-center">
+                                    <p class="mb-0 font-size-2-8-vw"><span><strong>{{video.fileOriName}}</strong></span></p>
+                                    <p class="mb-0 font-size-2-8-vw">{{video.fileSize}}</p>
+                                </div>
                             </div>
-                            <div class="ml-auto mr-2">
-                                <v-btn icon color="blue darken-1" @click="openVideoViewDialog(index, video)" >
-                                    <v-icon size="25" >mdi-eye </v-icon>
-                                </v-btn>
-                            </div>
-                        </v-card>
+                            <p class="mb-0 font-size-2-8-vw mx-auto text-center">{{TimeViewYMDDot(video.fileCreatedAt)}}</p>
+                        </div>
                     </v-col>
                     <v-dialog v-model="videoViewDialog" width="100%" max-width="1000">
                         <v-card>
@@ -131,7 +129,18 @@
                             <v-icon right> mdi-cancel  </v-icon>
                         </v-chip>
                     </v-col>
-                    <v-col v-else v-for="(other, index) in otherFileList" :key="index" cols="12" sm="6" md="4" lg="3" class="position-relative">
+                    <v-col cols="12" v-else class="images clearfix ma-0 pa-0">
+                        <div v-for="(other, index) in otherFileList" :key="index" class="video-con text-center">
+                            <a class="position-relative mo-video" :href="other.imgUrl" :download="other.fileOriName">
+                                <div class="position-absolute position-absolute-center">
+                                    <p class="mb-0 font-size-2-8-vw"><span><strong>{{other.fileOriName}}</strong></span></p>
+                                    <p class="mb-0 font-size-2-8-vw">{{other.fileSize}}</p>
+                                </div>
+                            </a>
+                            <p class="mb-0 font-size-2-8-vw mx-auto text-center">{{TimeViewYMDDot(other.fileCreatedAt)}}</p>
+                        </div>
+                    </v-col>
+                    <!-- <v-col v-else v-for="(other, index) in otherFileList" :key="index" cols="12" sm="6" md="4" lg="3" class="position-relative">
                         <v-card class="d-flex align-center " color="#F2F2F2" flat tile >
                             <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
                             <div class="font-size-0-75">
@@ -146,14 +155,14 @@
                                 </a>
                             </div>
                         </v-card>
-                    </v-col>
+                    </v-col> -->
                 </v-row>
-                <v-overlay :value="isLoading">
+                <!-- <v-overlay :value="isLoading">
                     <v-progress-circular
                         indeterminate
                         size="64"
                     ></v-progress-circular>
-                </v-overlay>
+                </v-overlay> -->
             </v-tab-item>
             <v-tab-item value="other-file">
                 other
@@ -162,7 +171,38 @@
                 video
             </v-tab-item>
             <v-tab-item value="image-file">
-                image
+                <!--- my image file --->
+                <v-row class="ma-0">
+                    <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
+                        <v-progress-circular
+                            indeterminate
+                            color="#7879ff"
+                        ></v-progress-circular>
+                    </v-col>
+                    <v-col v-else-if="noImageFile" cols="12" class="d-flex justify-center align-center">
+                        <v-chip class="ma-2" color="#F19861" outlined pill >
+                            没有图片
+                            <v-icon right> mdi-cancel  </v-icon>
+                        </v-chip>
+                    </v-col>
+                    <v-container v-else class="pa-0">
+                        <v-row class="ma-0" v-for="(imageGroup, index) in groupedImageFileList" :key="index">
+                            <v-col cols="12" class="d-flex justify-space-between align-center pa-0 py-3">
+                                <p class="mb-0 font-size-0-75" style="margin-left: 5px;"> {{Object.keys(imageGroup)[0]}} </p>
+                                <div class="d-flex align-center">
+                                    <p class="mb-0 font-size-0-75" style="margin-right: 5px;">{{imageGroup[`${Object.keys(imageGroup)[0]}`].length!==0 ? imageGroup[`${Object.keys(imageGroup)[0]}`].length : 0}}项</p>
+                                </div> 
+                            </v-col>
+                            <v-col cols="12"  v-viewer="optionsMo" class="images clearfix ma-0 pa-0">
+                                <div v-for="img in imageGroup[`${Object.keys(imageGroup)[0]}`]" class="image-con text-center">
+                                    <img :src="`${baseUrl}${img.path}`" :data-source="`${baseUrl}${img.path}`" :key="img.path" class="mo-image">
+                                    <p class="mb-0 font-size-2-8-vw mx-auto text-center">{{TimeViewYMDDot(img.fileCreatedAt)}}</p>
+                                </div>
+                            </v-col>
+                            <div class="cus-divider-light-gray-height"></div>
+                        </v-row>
+                    </v-container>
+                </v-row>
             </v-tab-item>
         </v-tabs-items>
         
@@ -209,7 +249,7 @@
                     color="primary"
                 ></v-progress-circular>
             </v-col>
-            <v-col v-else-if="noImageFile" cols="12" class="d-flex justify-center align-center">
+            <v-col v-else-if="noVideoFile" cols="12" class="d-flex justify-center align-center">
                 <v-chip class="ma-2" color="#F19861" outlined pill >
                     我的视频文件没有数据
                     <v-icon right> mdi-cancel  </v-icon>
@@ -384,13 +424,28 @@ export default {
                 this.noOtherFile = true;
             }
             else{
+                for(let i = 0; i < this.otherFileList.length; i++){
+                    this.otherFileList[i].fileCreatedAt = this.otherFileList[i].fileCreatedAt.split('T')[0]
+                }
+                this.otherFileList.sort(function(a,b){
+                    return new Date(b.fileCreatedAt) - new Date(a.fileCreatedAt)
+                })
 
+                let result = this.otherFileList.reduce(function (r, a) {
+                    r[a.fileCreatedAt] = r[a.fileCreatedAt] || [];
+                    r[a.fileCreatedAt].push(a);
+                    return r;
+                }, Object.create(null));
+
+                let arrayOfObj = Object.entries(result).map((e) => ( { [e[0]]: e[1] } ));
+                this.groupedOtherFileList = arrayOfObj;
             }
             
-            //manipulate video file 
+            //manipulate video file \
             if(this.videoFileList.length == 0){
                 this.noVideoFile = true;
             }
+            
             else if(this.videoFileList.length > 0){
                 for(let i = 0; i < this.videoFileList.length ; i++){
                     let clonedOption = JSON.parse(JSON.stringify(this.playerOptions));
@@ -399,8 +454,28 @@ export default {
                         clonedOption.height = '300'
                     }
                     this.playerOptionsGroup.push(clonedOption);
+                    this.videoFileList[i].fileCreatedAt = this.videoFileList[i].fileCreatedAt.split('T')[0];
                 }
+
+                this.videoFileList.sort(function(a,b){
+                    return new Date(b.fileCreatedAt) - new Date(a.fileCreatedAt)
+                })
+
+                let result = this.videoFileList.reduce(function (r, a) {
+                    r[a.fileCreatedAt] = r[a.fileCreatedAt] || [];
+                    r[a.fileCreatedAt].push(a);
+                    return r;
+                }, Object.create(null));
+
+                let arrayOfObj = Object.entries(result).map((e) => ( { [e[0]]: e[1] } ));
+                this.groupedVideoFileList = arrayOfObj;
             }
+
+            console.log("1", this.groupedImageFileList);
+            console.log("2", this.groupedVideoFileList);
+            console.log("3", this.groupedOtherFileList);
+
+
         }).catch((err) => {
             
         });
@@ -425,6 +500,12 @@ export default {
         display: inline-block;
         max-height: 280px;
     }
+    .video-con{
+        width: calc(20% - 10px);
+        cursor: pointer;
+        margin: 5px;
+        display: inline-block;
+    }
     .image {
         width: calc(20% - 10px);
         cursor: pointer;
@@ -441,5 +522,16 @@ export default {
         max-height: 280px;
         height: calc(20vw - 10px);
         border-radius: 10px;
+    }
+    .mo-video{
+        width: 100%;
+        cursor: pointer;
+        display: inline-block;
+        max-height: 280px;
+        height: calc(20vw - 10px);
+        border-radius: 10px;
+        background: #49d29e;
+        overflow: hidden;
+        color: white!important;;
     }
 </style>
