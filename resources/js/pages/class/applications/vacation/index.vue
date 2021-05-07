@@ -20,6 +20,7 @@
                     <h2>{{lang.vacation}}</h2>
                 <!-- </v-col>
                 <v-col> -->
+                    
                     <v-btn
                         tile
                         color="#7879ff"
@@ -129,6 +130,7 @@ import {allVacationData} from '~/api/vacation';
 import VocationPost from '~/components/contents/vacationPost'
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
+import {mapGetters} from 'vuex'
 export default {
     components:{
         InfiniteLoading,
@@ -149,7 +151,10 @@ export default {
     computed:{
         currentPath(){
             return this.$route
-        }
+        },
+        ...mapGetters({
+            user:'auth/user'
+        })
     },
     methods:{
         async infiniteHandler($state){
@@ -181,7 +186,14 @@ export default {
             this.isLoadingContents = false;
         },
         post(){
-            this.$router.push({name:"posts.Cvacation"})
+            if(this.user.role.id == 5){
+                this.$router.push({name:"posts.Cvacation"})
+            }else if(this.user.role.id ==7){
+                this.$router.push({name:'posts.attendance.vacation'})
+            }else{
+                return
+            }
+            
         }
     }
 }

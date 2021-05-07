@@ -24,7 +24,7 @@
 
 <script>
 import { uploadOtherForExcel } from '~/api/upload'
-
+import XLSX from 'xlsx'
 export default {
     data: ()=> ({
         selectedFile: null,

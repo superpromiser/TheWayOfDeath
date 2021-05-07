@@ -109,6 +109,7 @@
                     color="#7879ff"
                     rounded
                     @click="allowVacation"
+                    :loading="isAllow"
                     class="mr-3 ml-auto"
                 >
                     <v-icon left>
@@ -121,6 +122,7 @@
                     color="error"
                     rounded
                     @click="denyVacation"
+                    :loading="isDeny"
                     
                 >
                     <v-icon left>
@@ -152,6 +154,7 @@
                         class="mx-2"
                         tile
                         @click="denyVacation"
+                        :loading="isDeny"
                     >
                         <v-icon left>
                             mdi-hand-left
@@ -164,6 +167,7 @@
                         class=""
                         tile
                         @click="allowVacation"
+                        :loading="isAllow"
                     >
                         <v-icon left>
                             mdi-check-decagram-outline 
@@ -286,6 +290,8 @@ export default {
     data: () => ({
         lang,
         baseUrl: window.Laravel.base_url,
+        isAllow:false,
+        isDeny:false,
         newVacationData : {
             // studentName:'something',
             // teacherName:'something',
@@ -337,21 +343,27 @@ export default {
             //console.log(this.newVacationData);
         },
 
-        allowVacation(){
-            updateVacationData({status:'allow',vId:this.currentPath.params.vId}).then(res=>{
+        async allowVacation(){
+            this.isAllow = true
+            await updateVacationData({status:'allow',vId:this.currentPath.params.vId}).then(res=>{
                 console.log(res.data)
-                this.$router.push({name:'schoolSpace.news'})
+                this.isAllow = false
+                this.$router.push({name:'posts.attendance.vacation'})
             }).catch(err=>{
+                this.isAllow = false
                 console.log(err.response)
             })
         },
 
-        denyVacation(){
-            updateVacationData({status:'deny',vId:this.currentPath.params.vId}).then(res=>{
+        async denyVacation(){
+            this.isDeny = true
+            await updateVacationData({status:'deny',vId:this.currentPath.params.vId}).then(res=>{
                 console.log(res.data)
-                this.$router.push({name:'schoolSpace.news'})
+                this.isDeny = false
+                this.$router.push({name:'posts.attendance.vacation'})
             }).catch(err=>{
                 console.log(err.response)
+                this.isDeny = false
             })
         },
         

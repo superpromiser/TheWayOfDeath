@@ -143,6 +143,7 @@ class GroupController extends Controller
         ]);
         $userId = Auth::user()->id;
         $roleId = Auth::user()->roleId;
+        $lessonId = Auth::user()->lessonId;
         $members = $request->userList;
         if ($roleId == 2) {
             $userList = User::whereIn('id', $members)->get();
@@ -152,7 +153,15 @@ class GroupController extends Controller
                 $user->groupArr = array_values($groupArr);
                 $user->update();
             }
-        } else {
+        }else if($roleId == 7 && $lessonId == $request->lessonId){
+            $userList = User::whereIn('id', $members)->get();
+            foreach ($userList as $user) {
+                $groupArr = $user->groupArr;
+                array_push($groupArr, $request->lessonId);
+                $user->groupArr = array_values($groupArr);
+                $user->update();
+            }
+        }else {
             foreach ($members as $memberId) {
                 Group::create([
                     'schoolId' => $request->schoolId,

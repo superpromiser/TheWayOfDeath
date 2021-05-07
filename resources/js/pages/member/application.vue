@@ -61,7 +61,7 @@
                                 <v-btn
                                     depressed
                                     color="primary"
-                                    :loading="isAllow"
+                                    :loading="member.isAllow"
                                     @click="allow(member)"
                                 >
                                     接受
@@ -71,7 +71,7 @@
                                 <v-btn
                                     depressed
                                     color="primary"
-                                    :loading="isDeny"
+                                    :loading="member.isDeny"
                                     @click="deny(member)"
                                 >
                                     拒绝
@@ -114,6 +114,14 @@ export default {
         this.isLoading = true
         await getPendingGroupMember({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
             console.log(res.data)
+            res.data.map(member=>{
+                console.log(member)
+                this.$set(member,'isAllow',false)
+                this.$set(member,'isDeny',false)
+                // console.log(data)
+                // this.$set(data,isAllow,false)
+                // this.$set(data,isDeny,false)
+            })
             this.userList = res.data
             this.isLoading = false
         }).catch(err=>{
@@ -124,32 +132,38 @@ export default {
     methods:{
         async allow(member){
             // this.isAllow = true
+            member.isAllow = true
             console.log('allow',member)
             await updateGroupMember({member:member}).then(res=>{
-                this.isAllow = false
+                // this.isAllow = false
+                member.isAllow = false
                 let index = this.userList.indexOf(member)
                 console.log(index)
                 if(index > -1){
                     this.userList.splice(index,1)
                 }
             }).catch(err=>{
-                this.isAllow = false
+                // this.isAllow = false
+                member.isAllow = false
                 console.log(err.response)
             })
         },
         deny(member){
             // this.isDeny = true
+            member.isDeny = true
             // let userList = []
             // userList.push(member.id)
             denyGroupMember({memberId:member.id}).then(res=>{
-                this.isDeny = false
+                // this.isDeny = false
+                member.isDeny = false
                 let index = this.userList.indexOf(member)
                 console.log(index)
                 if(index > -1){
                     this.userList.splice(index,1)
                 }
             }).catch(err=>{
-                this.isDeny = false
+                // this.isDeny = false
+                member.isDeny = false
                 console.log(err.response)
             })
             console.log('deny',member)
