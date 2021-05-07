@@ -26,7 +26,7 @@
                 <v-tab
                     to="/admin/userlist/excelImport"
                 >
-                    <v-icon class="mr-2">mdi-microsoft-excel</v-icon>学生
+                    <v-icon class="mr-2">mdi-microsoft-excel</v-icon>导入
                 </v-tab>
             </v-tabs>
         </v-row>

@@ -8,13 +8,13 @@
                     <v-icon left>
                         mdi-file-upload
                     </v-icon>
-                    upload csv
+                    上传文件
                 </v-btn>
                 <input
                     ref="fileUploader"
                     class="d-none"
                     type="file"
-                    accept="file/*"
+                    accept=".csv, .xlsx, .xls"
                     @change="onFileFileChanged"
                 >
             </v-col>
