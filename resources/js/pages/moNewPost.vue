@@ -1,6 +1,6 @@
 <template>
-    <v-container class="pa-0 pb-16">
-        <v-container class="pa-0 bg-secondary position-sticky-top-0">
+    <v-container class="pa-0 pb-16 h-100 bg-secondary">
+        <v-container class="pa-0 bg-white position-sticky-top-0">
             <v-row class="ma-0">
                 <v-col cols="12" class="d-flex align-center justify-space-between py-1">
                     <transition name="page" mode="out-in">
@@ -8,7 +8,7 @@
                             v-if="isSearching" key="1"
                             solo
                             clearable
-                            class="mo-select-gray-bg"
+                            class="mo-select-white-bg"
                             v-model="searchKeyword"
                             label="请输入您的搜索词"
                             append-icon="mdi-check"
@@ -36,7 +36,7 @@
             </v-row>
         </v-container>
         <v-container class="pa-0" v-for="(selectItems, i) in selectItemGroup" :key="i">
-            <v-row class="ma-0">
+            <v-row class="ma-3 bg-white rounded-lg">
                 <v-col cols="12">
                     <p class="mb-0 border-left-5 pl-2 font-size-0-8 font-weight-bold">{{selectItems.title}}</p>
                 </v-col>
@@ -45,7 +45,6 @@
                     <p class="font-size-0-75 pt-1 mb-0">{{item.title}}</p>
                 </v-col>
             </v-row >
-            <div class="cus-divider"></div>
         </v-container>
     </v-container>
 </template>
