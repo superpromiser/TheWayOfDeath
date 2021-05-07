@@ -4,8 +4,70 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd5036e7e57070fcd0f77583d8acd303",
+    "content-hash": "be3d60fa8d60ba0207d4776938b72589",
     "packages": [
+        {
+            "name": "alchemy/binary-driver",
+            "version": "v5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alchemy-fr/BinaryDriver.git",
+                "reference": "e0615cdff315e6b4b05ada67906df6262a020d22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alchemy-fr/BinaryDriver/zipball/e0615cdff315e6b4b05ada67906df6262a020d22",
+                "reference": "e0615cdff315e6b4b05ada67906df6262a020d22",
+                "shasum": ""
+            },
+            "require": {
+                "evenement/evenement": "^3.0|^2.0|^1.0",
+                "php": ">=5.5",
+                "psr/log": "^1.0",
+                "symfony/process": "^2.3|^3.0|^4.0|^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0|^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Alchemy": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Le Goff",
+                    "email": "legoff.n@gmail.com"
+                },
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "info@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                },
+                {
+                    "name": "Jens Hausdorf",
+                    "email": "mail@jens-hausdorf.de",
+                    "homepage": "https://jens-hausdorf.de",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A set of tools to build binary drivers",
+            "keywords": [
+                "binary",
+                "driver"
+            ],
+            "time": "2020-02-12T19:35:11+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "1.3.0",
@@ -225,6 +287,88 @@
             ],
             "description": "implementation of xdg base directory specification for php",
             "time": "2019-12-04T15:06:13+00:00"
+        },
+        {
+            "name": "doctrine/cache",
+            "version": "1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/cache.git",
+                "reference": "382e7f4db9a12dc6c19431743a2b096041bcdd62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/382e7f4db9a12dc6c19431743a2b096041bcdd62",
+                "reference": "382e7f4db9a12dc6c19431743a2b096041bcdd62",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.1"
+            },
+            "conflict": {
+                "doctrine/common": ">2.2,<2.4"
+            },
+            "require-dev": {
+                "alcaeus/mongo-php-adapter": "^1.1",
+                "doctrine/coding-standard": "^6.0",
+                "mongodb/mongodb": "^1.1",
+                "phpunit/phpunit": "^7.0",
+                "predis/predis": "~1.0"
+            },
+            "suggest": {
+                "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "PHP Doctrine Cache library is a popular cache implementation that supports many different drivers such as redis, memcache, apc, mongodb and others.",
+            "homepage": "https://www.doctrine-project.org/projects/cache.html",
+            "keywords": [
+                "abstraction",
+                "apcu",
+                "cache",
+                "caching",
+                "couchdb",
+                "memcached",
+                "php",
+                "redis",
+                "xcache"
+            ],
+            "time": "2019-11-29T15:36:20+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1074,6 +1218,51 @@
             "description": "Highlight PHP code in terminal",
             "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "lakshmaji/thumbnail",
+            "version": "1.4.51",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lakshmaji/Thumbnail.git",
+                "reference": "9f95e10dc0ecce7fd79105d6fd35b1f90498f403"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lakshmaji/Thumbnail/zipball/9f95e10dc0ecce7fd79105d6fd35b1f90498f403",
+                "reference": "9f95e10dc0ecce7fd79105d6fd35b1f90498f403",
+                "shasum": ""
+            },
+            "require": {
+                "php-ffmpeg/php-ffmpeg": "~0.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lakshmaji\\Thumbnail\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "lakshmaji",
+                    "email": "lakshmaji9@gmail.com"
+                }
+            ],
+            "description": "Thumbnails for videos",
+            "keywords": [
+                "Thumbnails",
+                "composer",
+                "ffmpeg",
+                "laravel",
+                "screenshot",
+                "thumbnail",
+                "video"
+            ],
+            "time": "2017-10-19T03:36:30+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2263,6 +2452,46 @@
             "time": "2020-03-24T16:01:47+00:00"
         },
         {
+            "name": "neutron/temporary-filesystem",
+            "version": "3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/romainneutron/Temporary-Filesystem.git",
+                "reference": "60e79adfd16f42f4b888e351ad49f9dcb959e3c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/romainneutron/Temporary-Filesystem/zipball/60e79adfd16f42f4b888e351ad49f9dcb959e3c2",
+                "reference": "60e79adfd16f42f4b888e351ad49f9dcb959e3c2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "symfony/filesystem": "^2.3 || ^3.0 || ^4.0 || ^5.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^5.0.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Neutron": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com"
+                }
+            ],
+            "description": "Symfony filesystem extension to handle temporary files",
+            "time": "2020-07-27T14:00:33+00:00"
+        },
+        {
             "name": "nikic/php-parser",
             "version": "v4.3.0",
             "source": {
@@ -2501,6 +2730,90 @@
                 "side-channel resistant"
             ],
             "time": "2020-12-03T16:26:19+00:00"
+        },
+        {
+            "name": "php-ffmpeg/php-ffmpeg",
+            "version": "v0.18.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHP-FFMpeg/PHP-FFMpeg.git",
+                "reference": "edc0a7729d8818ed883e77b3d26ceb6d49ec41de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHP-FFMpeg/PHP-FFMpeg/zipball/edc0a7729d8818ed883e77b3d26ceb6d49ec41de",
+                "reference": "edc0a7729d8818ed883e77b3d26ceb6d49ec41de",
+                "shasum": ""
+            },
+            "require": {
+                "alchemy/binary-driver": "^1.5 || ~2.0.0 || ^5.0",
+                "doctrine/cache": "^1.0",
+                "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
+                "neutron/temporary-filesystem": "^2.1.1 || ^3.0",
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "silex/silex": "~1.0",
+                "symfony/phpunit-bridge": "^5.0.4",
+                "symfony/process": "2.8 || 3.3"
+            },
+            "suggest": {
+                "php-ffmpeg/extras": "A compilation of common audio & video drivers for PHP-FFMpeg"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "FFMpeg": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "info@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                },
+                {
+                    "name": "Patrik Karisch",
+                    "email": "patrik@karisch.guru",
+                    "homepage": "http://www.karisch.guru"
+                },
+                {
+                    "name": "Romain Biard",
+                    "email": "romain.biard@gmail.com",
+                    "homepage": "https://www.strime.io/"
+                },
+                {
+                    "name": "Jens Hausdorf",
+                    "email": "hello@jens-hausdorf.de",
+                    "homepage": "https://jens-hausdorf.de"
+                }
+            ],
+            "description": "FFMpeg PHP, an Object Oriented library to communicate with AVconv / ffmpeg",
+            "keywords": [
+                "audio",
+                "audio processing",
+                "avconv",
+                "avprobe",
+                "ffmpeg",
+                "ffprobe",
+                "video",
+                "video processing"
+            ],
+            "time": "2021-03-29T20:20:00+00:00"
         },
         {
             "name": "phpoffice/phpspreadsheet",
@@ -4295,6 +4608,65 @@
             "time": "2019-11-18T17:27:11+00:00"
         },
         {
+            "name": "symfony/filesystem",
+            "version": "v5.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "056e92acc21d977c37e6ea8e97374b2a6c8551b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/056e92acc21d977c37e6ea8e97374b2a6c8551b0",
+                "reference": "056e92acc21d977c37e6ea8e97374b2a6c8551b0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides basic utilities for the filesystem",
+            "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-04-01T10:42:13+00:00"
+        },
+        {
             "name": "symfony/finder",
             "version": "v5.0.5",
             "source": {
@@ -5787,88 +6159,6 @@
                 "laravel-dump-server"
             ],
             "time": "2020-03-04T15:23:26+00:00"
-        },
-        {
-            "name": "doctrine/cache",
-            "version": "1.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/cache.git",
-                "reference": "382e7f4db9a12dc6c19431743a2b096041bcdd62"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/382e7f4db9a12dc6c19431743a2b096041bcdd62",
-                "reference": "382e7f4db9a12dc6c19431743a2b096041bcdd62",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~7.1"
-            },
-            "conflict": {
-                "doctrine/common": ">2.2,<2.4"
-            },
-            "require-dev": {
-                "alcaeus/mongo-php-adapter": "^1.1",
-                "doctrine/coding-standard": "^6.0",
-                "mongodb/mongodb": "^1.1",
-                "phpunit/phpunit": "^7.0",
-                "predis/predis": "~1.0"
-            },
-            "suggest": {
-                "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.9.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com"
-                },
-                {
-                    "name": "Roman Borschel",
-                    "email": "roman@code-factory.org"
-                },
-                {
-                    "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de"
-                },
-                {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com"
-                },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                }
-            ],
-            "description": "PHP Doctrine Cache library is a popular cache implementation that supports many different drivers such as redis, memcache, apc, mongodb and others.",
-            "homepage": "https://www.doctrine-project.org/projects/cache.html",
-            "keywords": [
-                "abstraction",
-                "apcu",
-                "cache",
-                "caching",
-                "couchdb",
-                "memcached",
-                "php",
-                "redis",
-                "xcache"
-            ],
-            "time": "2019-11-29T15:36:20+00:00"
         },
         {
             "name": "doctrine/dbal",

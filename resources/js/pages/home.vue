@@ -755,7 +755,6 @@ export default {
         this.chooseableItemGroup = this.selectedItemClassGroupStore;
         this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
       }
-      
     }
     else{
       this.isLoadingPostItems = true;
