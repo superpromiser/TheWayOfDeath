@@ -14,5 +14,5 @@ import './snackbar'
 import './webcam'
 import './baidu'
 import './excel'
-
+import './xlsx'
 import 'bootstrap'

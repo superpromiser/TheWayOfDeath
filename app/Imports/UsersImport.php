@@ -28,7 +28,8 @@ class UsersImport implements ToModel, WithHeadingRow
             //
             'name'=>$row['姓名'],
             'phoneNumber'=>$row['电话号码'],
-            'password'=>Hash::make($row['密码']),
+            // 'password'=>Hash::make($row['密码']),
+            'password'=>Hash::make('password'),
              'imei'=>$row['imei'],
              'roleId'=>$row['角色代码'],
              'schoolId'=>$row['学校代码'],

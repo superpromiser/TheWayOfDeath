@@ -18,11 +18,15 @@ function deleteFile(payload){
     // return axios.delete( "/api/fileUpload/file?fileName=" + leagueImage, {headers: {"Authorization" : `Bearer ${token}`} },  )
 }
 
+function uploadExcelApi(payload){
+    return axios.post('/api/v1/file/jsonExcel',payload)
+}
+
 export{
     uploadImage,
     uploadVideo,
     uploadOther,
     uploadOtherForExcel,
     deleteFile,
-  
+    uploadExcelApi,
 }
