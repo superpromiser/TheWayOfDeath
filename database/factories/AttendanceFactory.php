@@ -16,6 +16,6 @@ $factory->define(Attendance::class, function (Faker $faker) {
         'schoolId'=>1,
         'gradeId'=>1,
         'lessonId'=>1,
-        'userId'=>rand(28,31),
+        'userId'=>rand(20,21),
     ];
 });

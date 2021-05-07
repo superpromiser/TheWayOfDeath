@@ -50,7 +50,7 @@ class PostController extends Controller
         $this->validate($request, [
             'classId' => 'required'
         ]);
-        // $userId = Auth::user()->id;
+        $userId = Auth::user()->id;
         $classId = $request->classId;
         return Post::whereIn('contentId', [1, 2, 5, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
             ->where('classId', $classId)

@@ -342,6 +342,7 @@ export default [
       {path:'classRecognition', name:'details.classRecognition', component:page('details/recognition/index.vue')},
       {path:'classStory', name:'details.classStory', component:page('details/classStory/index.vue')},
       {path:'interClassStory', name:'details.interClassStory', component:page('details/interClassStory/index.vue')},
+      {path:'vacation', name:'details.vacation', component:page('details/vacation/index.vue')},
     ]
   },
 
@@ -357,6 +358,7 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/classStory',name:'classSpace.applications.classStory',component:page('class/applications/classStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/interClassStory',name:'classSpace.applications.interClassStory',component:page('class/applications/interClassStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/recognition',name:'classSpace.applications.recognition',component:page('class/applications/recognition/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/vacation',name:'classSpace.applications.vacation',component:page('class/applications/vacation/index.vue')},
 
   //manage guest
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests/index.vue')},
