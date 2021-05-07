@@ -21,6 +21,7 @@
     "bootstrap": "^4.3.1",
     "emoji-mart-vue": "^2.6.6",
     "emoji-mart-vue-fast": "^9.1.2",
+    "file-saver": "^2.0.5",
     "hmacsha1": "^1.0.0",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.0",
@@ -78,6 +79,7 @@
     "resolve-url-loader": "^2.3.1",
     "sass": "^1.20.1",
     "sass-loader": "^7.1.0",
+    "script-loader": "^0.7.2",
     "vue-template-compiler": "^2.6.10",
     "webpack-bundle-analyzer": "^3.3.2"
   }
