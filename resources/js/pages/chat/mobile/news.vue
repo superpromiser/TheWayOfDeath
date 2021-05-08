@@ -302,6 +302,7 @@ export default {
         },
 
         updatechatwith(userInfo) {
+            console.log("userInfo_news", userInfo)
             for(let i = 0; i < this.contactList.length; i++){
                 if( userInfo.user.id == this.contactList[i].contactUserId ){
                     this.totalNewMessageCount = this.totalNewMessageCount - this.contactList[i].new_msg_count;

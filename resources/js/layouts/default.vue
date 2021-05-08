@@ -52,7 +52,8 @@ export default {
           (val.path.includes('detail')&&val.path.includes('schoolSpace')) ||
           (val.path.includes('member')&&val.path.includes('select')) ||
           (val.path.includes('texteditor')) ||
-          (val.path.includes('profile')&&val.path.includes('myfile')) 
+          (val.path.includes('profile')&&val.path.includes('myfile')) ||
+          (val.path.includes('chat')&&val.path.includes('mobile')&&val.path.includes('detail'))
           ){
           this.isPostOrDetail = true;
         }

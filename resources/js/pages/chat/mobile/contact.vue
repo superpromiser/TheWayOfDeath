@@ -1,30 +1,30 @@
 <template>
     <v-card class="mx-auto position-relative" tile elevation="0"> 
-     <!-- <v-list class="pa-0" id="UP-go">
-        <div class="w-100">
-            <v-list-item v-ripple @click="openAddUser">
-                <v-list-item-icon class="my-2">
-                    <v-avatar size="50" color="#7879ff" class="rounded-lg">
-                        <v-icon dark> mdi-plus </v-icon>
-                    </v-avatar>
-                </v-list-item-icon>
-                <v-list-item-content>
-                    <v-list-item-title>新的朋友</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>  
-            <v-divider inset></v-divider>
-            <v-list-item v-ripple @click="openAddGroup">
-                <v-list-item-icon class="my-2">
-                    <v-avatar size="50" color="#7879ff" class="rounded-lg">
-                        <v-icon dark> mdi-account-group </v-icon>
-                    </v-avatar>
-                </v-list-item-icon>
-                <v-list-item-content>
-                    <v-list-item-title>群聊</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>  
-      </div>
-     </v-list> -->
+    <!-- <v-list class="pa-0" id="UP-go">
+    <div class="w-100">
+        <v-list-item v-ripple @click="openAddUser">
+            <v-list-item-icon class="my-2">
+                <v-avatar size="50" color="#7879ff" class="rounded-lg">
+                    <v-icon dark> mdi-plus </v-icon>
+                </v-avatar>
+            </v-list-item-icon>
+            <v-list-item-content>
+                <v-list-item-title>新的朋友</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>  
+        <v-divider inset></v-divider>
+        <v-list-item v-ripple @click="openAddGroup">
+            <v-list-item-icon class="my-2">
+                <v-avatar size="50" color="#7879ff" class="rounded-lg">
+                    <v-icon dark> mdi-account-group </v-icon>
+                </v-avatar>
+            </v-list-item-icon>
+            <v-list-item-content>
+                <v-list-item-title>群聊</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>  
+    </div>
+    </v-list> -->
     <v-list class="pa-0 pb-16">
         <div class="w-100 pa-5 d-flex justify-center" v-if="isGettingContactList">  
             <v-progress-circular
@@ -41,7 +41,7 @@
             <p class="mb-0 font-size-0-8 font-color-gray">{{userGroup.letter}}</p>
         </div>
         <div  v-for="(user, j) in userGroup.data" :key="j">
-            <v-list-item v-ripple >   
+            <v-list-item v-ripple @click="updatechatwith(user)">   
                 <v-list-item-icon class="my-2">
                     <v-avatar size="50" color="#7879ff" class="rounded-lg">
                         <v-img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user.name[0]" class="chat-user-avatar"></v-img>
@@ -563,6 +563,8 @@ export default {
             this.willAddToContactUser.contactId = null;
         },
 
+        
+
         openGroupNameDialog(){
             this.groupNameDialog = true;
         },
@@ -683,7 +685,67 @@ export default {
             else{
                 $(el).attr('data-before',this.character);
             }
-        }
+        },
+
+        updatechatwith(userInfo) {
+            console.log("userInfo_contact", userInfo)
+            this.pushUserToList(userInfo.id);
+            this.updatedAddUserToContact()
+            for(let i = 0; i < this.contactList.length; i++){
+                if( userInfo.id == this.contactList[i].contactUserId ){
+                    this.totalNewMessageCount = this.totalNewMessageCount - this.contactList[i].new_msg_count;
+                    this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
+                    this.contactList[i].new_msg_count = 0;
+
+                    postNewMsgCount({new_msg_count:this.contactList[i]})
+                }
+            }
+            let user = {
+                id: userInfo.id,
+                name: userInfo.name
+            }
+            this.$set(userInfo, 'user', user);
+            this.$emit("updatechatwith", userInfo);
+        },
+
+        async updatedAddUserToContact(){
+            let included = false;
+            for(let i = 0; i < this.contactList.length; i++){
+                console.log(this.willAddToContactUser.contactId, this.contactList[i].user.id);
+                if(this.contactList[i].user.id == this.willAddToContactUser.contactId){
+                    included = true;
+                }
+            }
+            console.log("included", included);
+            if(included == true){
+                return
+            }
+            else{
+                console.log("QQQQQQQQQQQQQ");
+                if(this.willAddToContactUser.contactId == null){
+                    return this.$snackbar.showMessage({content: '请选择将添加到联系人的用户', color: 'error'})
+                }
+                await addUserToContact(this.willAddToContactUser)
+                .then((res) => {
+                    // this.$snackbar.showMessage({content: '成功添加到地址簿。', color :'success'})
+                    let addedContact = res.data.addedToContactUser[0];
+                    this.contactList.unshift(addedContact);
+                    this.isNoContactList = false;
+                    this.isGettingContactList = false;
+                    this.addUserDialog = false;
+                }).catch((err) => {
+                    if(err.response.status == 409){
+                        console.log(err)
+                        // this.$snackbar.showMessage({content: '您已经将该用户添加为联系人', color: 'error'})
+                    }
+                    else{
+                        console.log(err)
+                        // this.$snackbar.showMessage({content: '出问题了', color: 'error'})
+                    }
+                });
+                this.willAddToContactUser.contactId = null;
+            }
+        },
     }
 }
 </script>

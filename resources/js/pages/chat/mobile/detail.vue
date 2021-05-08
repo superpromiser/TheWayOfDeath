@@ -140,11 +140,6 @@
                             @keydown.enter.shift.exact.prevent
                             @keydown="sendTypingEvent"
                         ></v-text-field>
-                        <v-btn fab dark small color="primary" @click="$router.go(-1)" class="position-absolute" style="right: 5px; top: 80px;">
-                            <v-icon dark>
-                                mdi-backup-restore
-                            </v-icon>
-                        </v-btn>
                     </v-col>
                 </v-row>
             </v-col>                

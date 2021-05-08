@@ -4,8 +4,15 @@
             left: () => swipe('Left'),
             right: () => swipe('Right'),
         }"
-    >
-        <v-col cols="12" class=" d-flex mo-chat-index-nav pa-0 bg-white align-center" >
+    >   
+        <v-row v-if="isDetailPage" class="ma-0 bg-white justify-center position-sticky-top-0" >
+            <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                mdi-chevron-left
+            </v-icon>
+            <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{contactNow}}</p>
+        </v-row>
+
+        <v-col v-else cols="12" class=" d-flex mo-chat-index-nav pa-0 bg-white align-center" >
           <transition name="page" mode="out-in">
             <v-text-field
                 v-if="isSearching" key="1"
@@ -58,7 +65,8 @@ export default {
         ChatIn: null,
         contactNow: null,
         messages: [],
-        moChatTab: 0
+        moChatTab: 0,
+        isDetailPage: false,
     }),
     computed:{
         currentPath(){
@@ -93,6 +101,12 @@ export default {
                 else{
                     this.isActiveNavNews = false;
                     this.isActiveNavContactList = false;
+                }
+                if(val.name == "mochat.detail"){
+                    this.isDetailPage = true;
+                }
+                else{
+                    this.isDetailPage = false
                 }
             },
             deep: true
