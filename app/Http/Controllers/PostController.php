@@ -78,8 +78,7 @@ class PostController extends Controller
                 'returnteam',
                 'users:id,name,avatar'
             ])
-            ->orderBy('updated_at
-            ', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate(5);
     }
 
