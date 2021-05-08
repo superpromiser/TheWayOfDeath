@@ -158,6 +158,7 @@ import ShiftMngPost from '~/components/contents/shiftMngPost'
 import SafeStudyPost from '~/components/contents/safeStudyPost'
 import RepairDataPost from '~/components/contents/repairDataPost'
 import SchoolStoryPost from '~/components/contents/schoolStoryPost'
+import NewComment from '~/pages/school/posts/comments/newComment'
 export default {
   middleware: 'auth',
   components :{
@@ -176,6 +177,7 @@ export default {
     RepairDataPost,
     SchoolStoryPost,
     InfiniteLoading,
+    NewComment
   },
 
   data: () => ({

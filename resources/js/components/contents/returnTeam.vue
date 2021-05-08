@@ -70,10 +70,19 @@ export default {
     created(){
       this.returnTeamData = this.content.returnteam;
     },
-
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     methods:{
         showDetail(content){
             this.$store.dispatch('content/storePostDetail',content)
+            if(this.currentPath.params.lessonId){
+              
+            }else{
+
+            }
             this.$router.push({name:'classSpace.returnTeam'});
         },
     }

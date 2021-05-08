@@ -19,7 +19,7 @@ class RecognitionController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'recognitions',
                 'users:id,name,avatar'
             ])

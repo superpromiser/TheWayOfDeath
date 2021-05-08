@@ -19,7 +19,7 @@ class CampusController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'campus',
                 'users:id,name'
             ])

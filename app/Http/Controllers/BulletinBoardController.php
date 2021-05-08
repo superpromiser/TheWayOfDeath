@@ -19,7 +19,7 @@ class BulletinBoardController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'bulletinBoards',
                 'users:id,name'
             ])

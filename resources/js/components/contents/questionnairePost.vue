@@ -152,9 +152,9 @@ export default {
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
         if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.classQuesionnaire'})
+          this.$router.push({name:'classSpace.detail'})
         }else{
-          this.$router.push({name:'details.quesionnaire'});
+          this.$router.push({name:'schoolSpace.detail'});
         }
         // this.$router.push({path:'/schoolspace',params:{id:'1',viewType:'postDetail',postType:'1'}})
       },

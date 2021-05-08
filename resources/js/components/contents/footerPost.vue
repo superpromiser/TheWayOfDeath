@@ -33,6 +33,29 @@
         <v-divider></v-divider>
     </v-col>
     <v-col cols="12" class="pt-2 px-10" v-else>
+        <div v-if="isComment == true" class="position-relative">
+            <v-textarea
+            solo
+            name="input-7-4"
+            label="Solo textarea"
+            v-model="commentText"
+            hide-details
+            ></v-textarea>
+            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 71px" />
+            <v-row>
+                <v-col cols="12" class="d-flex justify-space-between mt-5">
+                    <v-icon @click="emoStatus = !emoStatus">
+                        mdi-emoticon-excited-outline
+                    </v-icon>
+                    <v-btn
+                        color="#7879ff"
+                        dark
+                    >
+                        test
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </div>
         <div class="d-flex align-center justify-end mb-5">
             <!-- <v-menu
                 top
@@ -122,12 +145,19 @@
 import {addLike,removeLike} from '~/api/post'
 import {mapGetters} from 'vuex';
 import {getReadCnt} from '~/api/alarm'
+import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+import emojiData from "emoji-mart-vue-fast/data/all.json";
+let emojiIndex = new EmojiIndex(emojiData);
 export default {
     props:{
         footerInfo:{
             type:Object,
             required:true
         }
+    },
+    components:{
+        Picker
     },
     computed:{
         ...mapGetters({
@@ -142,6 +172,10 @@ export default {
         isDisLiking : false,
         dialog:false,
         readUsers:[],
+        commentText:'',
+        isComment:false,
+        emoStatus:false,
+        emojiIndex: emojiIndex,
     }),
     created(){
         console.log("this.footerInfo",this.footerInfo)
@@ -185,15 +219,22 @@ export default {
         },
         
         addComment(){
-            this.$store.dispatch('content/storePostDetail',this.footerInfo)
-            if(this.$isMobile()){
-                this.$router.push({name:'posts.comment', params:{schoolId: this.selectedSchoolItem.schoolId}});
+            console.log('add comment---------------')
+            this.isComment = ! this.isComment
+        },
+        onInput(e){
+            if(!e){
+                return false;
             }
-            else{
-                this.$router.push({name:'posts.comment'});
+            if(!this.commentText){
+                this.commentText = e.native
+            }else{
+                this.commentText = this.commentText + e.native
             }
         },
-
+        outSidePicker(){
+            this.emoStatus = false;
+        },
         async showReadUsers(){
             this.isReadCnt = true
             console.log(this.footerInfo.readList)

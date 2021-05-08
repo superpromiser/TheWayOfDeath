@@ -22,7 +22,7 @@ class RegnameController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'regnames',
                 'users:id,name,avatar'
             ])

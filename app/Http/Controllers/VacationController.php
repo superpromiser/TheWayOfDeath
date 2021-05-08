@@ -43,7 +43,7 @@ class VacationController extends Controller
                 ->with([
                     'likes',
                     'views',
-                    'comments',
+                    'comments.users:id,name',
                     'vacations'=>function ($q) use($userId) {
                         $q->where('teacherId',$userId)->orWhere('studentId',$userId);
                     },

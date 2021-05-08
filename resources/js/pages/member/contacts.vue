@@ -156,8 +156,14 @@ export default {
                     selUsers.push(user)
                 }
             })
+            
             this.$store.dispatch('member/storeClubMembers',selUsers);
-            this.$router.push({name:'member.newClub'});
+            if(this.currentPath.query.clubId){
+                this.$router.push({name:'member.newClub',query:{clubId:this.currentPath.query.clubId}});
+            }else{
+                this.$router.push({name:'member.newClub'});    
+            }
+            
         }
     }
 }

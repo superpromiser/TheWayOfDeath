@@ -98,6 +98,11 @@ export default {
       this.shareData = JSON.parse(this.content.shares.content);
       console.log(this.content)
     },
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     methods:{
 
       showDetail(content){
@@ -107,7 +112,12 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.share'});
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'classSpace.detail'});
+        }else{
+          this.$router.push({name:'schoolSpace.detail'});
+        }
+        
       },
       
     }

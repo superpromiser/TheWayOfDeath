@@ -20,7 +20,7 @@ class QuestionnaireController extends Controller
                 ->with([
                     'likes',
                     'views',
-                    'comments',
+                    'comments.users:id,name',
                     'questionnaires',
                     'users:id,name,avatar'
                 ])

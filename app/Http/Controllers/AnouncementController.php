@@ -21,7 +21,7 @@ class AnouncementController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'anouncements',
                 'users:id,name,avatar'
             ])

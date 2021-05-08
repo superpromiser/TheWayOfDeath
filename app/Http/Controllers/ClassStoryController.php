@@ -20,7 +20,7 @@ class ClassStoryController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'classstory',
                 'users:id,name,avatar'
             ])

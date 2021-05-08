@@ -81,6 +81,11 @@ export default {
         baseUrl:window.Laravel.base_url,
         bulletinBoardData: null,
     }),
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     created(){
       this.bulletinBoardData = this.content.bulletin_boards;
       this.bulletinBoardData.content = JSON.parse(this.bulletinBoardData.content);
@@ -88,7 +93,11 @@ export default {
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.bulletinBoard'});
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'schoolSpace.detail'})
+        }else{
+          this.$router.push({name:'classSpace.detail'})
+        }
       },
     }
 }

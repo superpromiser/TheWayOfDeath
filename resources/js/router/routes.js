@@ -304,7 +304,7 @@ export default [
   {path:'/admin/attendance/statistics', name:'posts.attendance.statistics', component:page('admin/attendance/statistics.vue')},
 
   //classPostDetail
-  {path:'/schoolSpace/:schoolId/:gradeId/:lessonId/detail', name:"schoolSpace.detail", component:page('details/index.vue'),
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/detail', name:"classSpace.detail", component:page('details/index.vue'),
     children:[
       {path:'questionnaire', name:'details.classQuesionnaire', component:page('details/questionnaire/index.vue'),
         children:[

@@ -146,14 +146,18 @@ export default {
         return this.$route
       }
     },
-
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
         if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.classVoting'});
+          this.$router.push({name:'classSpace.detail'});
         }else{
-          this.$router.push({name:'details.voting'});
+          this.$router.push({name:'schoolSpace.detail'});
         }
       },
     }

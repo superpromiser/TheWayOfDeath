@@ -55,6 +55,26 @@ class ClubController extends Controller
 
     public function updateClub(Request $request)
     {
+        $this->validate($request,[
+            'schoolId'=>'required',
+            'lessonId'=>'required',
+            'clubName'=>'required',
+            'memberNames'=>'required',
+            'memberIds'=>'required',
+            'clubId'=>'required'
+        ]);
+        Club::where('id',$request->clubId)->update([
+            'clubName'=>$request->clubName,
+            'members'=>$request->memberNames
+        ]);
+        ClubMember::where('clubId',$request->clubId)->delete();
+        foreach ($request->memberIds as $memberId) {
+            ClubMember::create([
+                'clubId' => $request->clubId,
+                'memberId' => $memberId
+            ]);
+        }
+        return true;
         // $this->validate($request,[
         //     'schoolId'=>'required',
         //     'lessonId'=>'required',

@@ -97,11 +97,20 @@ export default {
     created(){
       this.smsData = JSON.parse(this.content.sms.content);
     },
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     methods:{
 
       showDetail(){
         this.$store.dispatch('content/storePostDetail',this.content)
-        this.$router.push({name:'details.sms'});
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'classSpace.detail'});  
+        }else{
+          this.$router.push({name:'schoolSpace.detail'})
+        }
       },
       
     }

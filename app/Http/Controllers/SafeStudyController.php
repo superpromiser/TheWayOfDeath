@@ -19,7 +19,7 @@ class SafeStudyController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'safestudy',
                 'users:id,name'
             ])
