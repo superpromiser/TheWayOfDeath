@@ -1,6 +1,6 @@
 <template>
- <v-container class="h-100 pa-0">
-      <v-row class="h-100 ma-0">
+    <v-container class="h-100 pa-0">
+        <v-row class="h-100 ma-0">
             <v-col cols="12" sm="12" md="9" class="h-100 mo-glow-bg">
                 <v-row class="mo-glow-bg mo-ch-area-height ma-0 ">
                     <v-col cols="12" class="overflowY-auto h-100 mo-glow-bg mo-glow-inverse" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
@@ -296,8 +296,8 @@
                     </v-sheet>
                 </div>
             </v-col>                
-      </v-row>
- </v-container>
+        </v-row>
+    </v-container>
     
 </template>
 
