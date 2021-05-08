@@ -21,7 +21,7 @@
       </v-row>
     </v-container>
     <v-container v-else>
-        <v-col cols="12" class="d-flex align-center" @click="showDetail(content)">
+        <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail(content)">
             <v-avatar class="ma-3 school-card-avatar" tile >
               <v-img :src="`${baseUrl}/asset/img/icon/评价.png`" alt="postItem" ></v-img>
             </v-avatar>
@@ -43,7 +43,7 @@
                 </template>
                 <v-list>
                   <v-list-item link >
-                    <v-list-item-title class="px-2">{{lang.toTop}}</v-list-item-title>
+                    <v-list-item-title class="px-2" @click="fixTop(content)">{{lang.toTop}}</v-list-item-title>
                   </v-list-item>
                   <v-list-item link >
                     <v-list-item-title class="px-2" @click="postRemove(content)">{{lang.remove}}</v-list-item-title>
@@ -71,6 +71,7 @@
 
 <script>
 import lang from '~/helper/lang.json'
+import {createReadCnt} from '~/api/alarm'
 export default {
     props:{
         content:{
@@ -95,6 +96,11 @@ export default {
     },
     methods:{
       showDetail(content){
+        createReadCnt({postId:content.id}).then(res=>{
+          console.log(res.data)
+        }).catch(err=>{
+          console.log(err.response)
+        })
         this.$store.dispatch('content/storePostDetail',content)
         if(this.currentPath.params.lessonId){
           this.$router.push({name:'classSpace.detail'});

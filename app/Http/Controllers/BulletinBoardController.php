@@ -23,7 +23,7 @@ class BulletinBoardController extends Controller
                 'bulletinBoards',
                 'users:id,name'
             ])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate(5);
     }
 

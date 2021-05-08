@@ -1,7 +1,7 @@
 <template>
   <v-container v-if="$isMobile()">
     <v-row>
-      <v-col cols="12" class="d-flex" @click="showDetail(content)">
+      <v-col cols="12" class="d-flex hover-cursor-point" @click="showDetail(content)">
         <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="48">
             <span class="white--text headline">{{content.users.name[0]}}</span>
         </v-avatar>
@@ -52,7 +52,7 @@
           </template>
           <v-list>
             <v-list-item link >
-              <v-list-item-title class="px-2">{{lang.toTop}}</v-list-item-title>
+              <v-list-item-title class="px-2" @click="fixTop(content)">{{lang.toTop}}</v-list-item-title>
             </v-list-item>
             <v-list-item link >
               <v-list-item-title class="px-2" @click="postRemove(content)">{{lang.remove}}</v-list-item-title>

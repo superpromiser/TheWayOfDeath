@@ -26,7 +26,7 @@ class VotingController extends Controller
                     'votings',
                     'users:id,name,avatar'
                 ])
-                ->orderBy('created_at', 'desc')
+                ->orderBy('updated_at', 'desc')
                 ->paginate(5);
         } else {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 2])
@@ -37,7 +37,7 @@ class VotingController extends Controller
                     'votings',
                     'users:id,name,avatar'
                 ])
-                ->orderBy('created_at', 'desc')
+                ->orderBy('updated_at', 'desc')
                 ->paginate(5);
         }
     }

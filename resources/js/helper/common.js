@@ -166,9 +166,18 @@ export default{
             console.log('commonmyschoolinfo',returnVal)
             return returnVal;
         },
+        fixTop(data){
+            console.log('fixtop-----',data.id);
+            axios.put('/api/v1/post',{postId:data.id}).then(res=>{
+                this.$snackbar.showMessage({content: '成功', color: "success"})
+            }).catch(err=>{
+                console.log(err.response)
+            })
+        },
         postRemove(data){
             axios.delete('/api/v1/post',{data:{postId:data.id}}).then(res=>{
-                alert('删除成功')
+                // alert('删除成功')
+                this.$snackbar.showMessage({content: '删除成功', color: "success"})
             }).catch(err=>{
                 //console.log(err.response)
             });

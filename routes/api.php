@@ -133,6 +133,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('classPost', 'PostController@getClassPost');
     Route::post('like', 'LikeController@addLike');
     Route::delete('like', 'LikeController@removeLike');
+    Route::put('post','PostController@fixTop');
     Route::delete('post', 'PostController@deletePost');
 
     //template

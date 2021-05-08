@@ -23,7 +23,7 @@ class ShiftMngController extends Controller
                 'shiftMng',
                 'users:id,name,avatar'
             ])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate(5);
     }
 

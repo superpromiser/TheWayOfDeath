@@ -52,7 +52,7 @@
           </template>
           <v-list>
             <v-list-item link >
-              <v-list-item-title class="px-2">{{lang.toTop}}</v-list-item-title>
+              <v-list-item-title class="px-2" @click="fixTop(content)">{{lang.toTop}}</v-list-item-title>
             </v-list-item>
             <v-list-item link >
               <v-list-item-title class="px-2" @click="postRemove(content)">{{lang.remove}}</v-list-item-title>
@@ -77,6 +77,7 @@
 <script>
 import lang from '~/helper/lang.json';
 import AttachItemViewer from '~/components/attachItemViewer';
+import {createReadCnt} from '~/api/alarm'
 export default {
     components:{
         AttachItemViewer,
@@ -107,6 +108,11 @@ export default {
 
       showDetail(content){
         console.log("content", content)
+        createReadCnt({postId:content.id}).then(res=>{
+          console.log(res.data)
+        }).catch(err=>{
+          console.log(err.response)
+        })
         this.$store.dispatch('content/storePostDetail',content)
         if(this.currentPath.params.lessonId){
           this.$router.push({name:'classSpace.detail'});
