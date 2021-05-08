@@ -84,6 +84,11 @@ a {
     height: 300px !important;
 }
 
+.emoji-mart.w-100.h-350-px{
+    width:100% !important;
+    height: 350px !important;
+}
+
 .school-card-img {
     height: 270px;
 }
@@ -828,7 +833,7 @@ a {
 }
 
 .mo-glow-bg {
-    background-color: #f2f3f7 !important;
+    background-color: #F2F2F2 !important;
 }
 
 .primary-bg {
@@ -1032,7 +1037,7 @@ a {
 }
 
 .mo-ch-area-height {
-    height: calc(100vh - 150px);
+    height: calc(100vh - 132px);
 }
 
 .mo-chat-emoji-area-popup .emoji-mart.emoji-mart-static {

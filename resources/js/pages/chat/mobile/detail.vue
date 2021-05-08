@@ -41,10 +41,13 @@
                     </v-dialog>
                 </v-row>
                 <div id="push-popup-bottom-nav" class="push-popup-bottom-nav">
-                    <v-row class="bg-white ma-0 pa-0 w-100" style="position:absolute; top: -80px; ">
-                        <v-col cols="12" class="d-flex align-center position-relative">
+                    <v-row class="bg-secondary ma-0 pa-0 w-100" style="position:absolute; top: -62px; ">
+                        <v-col cols="12" class="d-flex align-center position-relative" style="border-bottom: 1px solid lightgray;">
                             <div class="ch-icon-area d-flex align-center position-relative">
-                                <v-progress-circular indeterminate color="primary" v-if="isUploadingFileInChat"></v-progress-circular>
+                                <v-icon @click="closeSheet()" size="30" v-if="isFileUploadSheet" class="hover-cursor-point">
+                                    mdi-keyboard-outline
+                                </v-icon>
+                                <v-progress-circular size="30" indeterminate color="#7879ff" v-else-if="isFileUploadSheet == true && isUploadingFileInChat == true"></v-progress-circular>
                                 <v-icon @click="showSheet('fileUpload')" size="30" v-else class="hover-cursor-point">
                                     mdi-paperclip
                                 </v-icon>
@@ -52,19 +55,18 @@
                                 <v-icon @click="showSheet('emoji')" size="30" class="hover-cursor-point mr-4">
                                     mdi-emoticon-happy-outline
                                 </v-icon>
-                                <div class="mo-chat-emoji-area-popup position-absolute" style="bottom: 50px">
-                                    <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
-                                </div>
                             </div>
                             <v-text-field
+                                solo
+                                class="mo-select-white-bg"
                                 v-model="text"
                                 :append-outer-icon="'mdi-send'"
-                                filled
-                                clear-icon="mdi-close-circle"
-                                clearable
                                 label="输入内容"
+                                dense
                                 type="text"
                                 hide-details
+                                color="#7879ff"
+                                ref="textField"
                                 @click:append-outer="submit"
                                 @click:clear="clearMessage"
 
@@ -76,45 +78,57 @@
                             ></v-text-field>
                         </v-col>
                     </v-row>
-                    <v-sheet class="py-3" color="#E0E0E0">
-                        <v-container v-if="isFileUploadSheet == true" class="d-flex">  
-                            <div @click="clickUploadImageBtn" v-ripple>
-                                <v-icon>mdi-file-image-outline</v-icon>
-                                <p>图片</p>
-                            </div>
-                            <input
-                                ref="imageUploader"
-                                class="d-none"
-                                type="file"
-                                accept="image/*"
-                                @change="onImageFileChanged"
-                            >
-                            <div @click="clickUploadVideoBtn" v-ripple>
-                                <v-icon>mdi-video</v-icon>
-                                <p>视频</p>
-                            </div>
-                            <input
-                                ref="videoUploader"
-                                class="d-none"
-                                type="file"
-                                accept="video/*"
-                                @change="onVideoFileChanged"
-                            >
-                            <div @click="clickUploadFileBtn" v-ripple>
-                                <v-icon>mdi-file-upload</v-icon>
-                                <p>文档</p>
-                            </div>
-                            <input
-                                ref="fileUploader"
-                                class="d-none"
-                                type="file"
-                                accept="file/*"
-                                @change="onFileFileChanged"
-                            >
-                        </v-container>
-                        <v-container v-else-if="isEmojiSheet == true">
-                            <Picker :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
-                        </v-container>
+                    <v-sheet class="" color="#F2F2F2">
+                        <transition name="page" mode="out-in">
+                            <v-container key="1" v-if="isFileUploadSheet == true" class="d-flex" :style="{ transitionDelay: delay }">  
+                                <div class="text-center" @click="clickUploadImageBtn">
+                                    <v-icon size="35" color="#757575">mdi-file-image-outline</v-icon>
+                                    <p class="mb-0 font-size-0-75">图片</p>
+                                </div>
+                                <input
+                                    ref="imageUploader"
+                                    class="d-none"
+                                    type="file"
+                                    accept="image/*"
+                                    @change="onImageFileChanged"
+                                >
+                                <div class="text-center mx-5" @click="clickUploadVideoBtn">
+                                    <v-icon size="35" color="#757575">mdi-file-video-outline</v-icon>
+                                    <p class="mb-0 font-size-0-75">视频</p>
+                                </div>
+                                <input
+                                    ref="videoUploader"
+                                    class="d-none"
+                                    type="file"
+                                    accept="video/*"
+                                    @change="onVideoFileChanged"
+                                >
+                                <div class="text-center" @click="clickUploadFileBtn">
+                                    <v-icon size="35" color="#757575">mdi-file-upload-outline</v-icon>
+                                    <p class="mb-0 font-size-0-75">文档</p>
+                                </div>
+                                <input
+                                    ref="fileUploader"
+                                    class="d-none"
+                                    type="file"
+                                    accept="file/*"
+                                    @change="onFileFileChanged"
+                                >
+                            </v-container>
+                            <v-container key="2" class="pa-0" v-else-if="isEmojiSheet == true" :style="{ transitionDelay: delay }">
+                                <Picker 
+                                    class="w-100 h-350-px" 
+                                    title="选择你的表情符号..." 
+                                    set="twitter" 
+                                    color="#7879ff"
+                                    :data="emojiIndex" 
+                                    :showPreview="false"
+                                    :showSearch="false"
+                                    :i18n="emojiI18n"
+                                    @select="onInput" 
+                                    />
+                            </v-container>
+                        </transition>
                     </v-sheet>
                 </div>
             </v-col>                
@@ -161,8 +175,28 @@ export default {
     },
 
     data: ()=> ({
+
         emojiIndex: emojiIndex,
         emojisOutput: "",
+        emojiI18n: { 
+            search: 'Recherche', 
+            categories: { 
+                search: '//Search Results',
+                recent: '//Frequently Used',
+                smileys: '//Smileys & Emoticon',
+                people: '//People & Body',
+                nature: '//Animals & Nature',
+                foods: '//Food & Drink',
+                activity: '//Activity',
+                places: '//Travel & Places',
+                objects: '//Objects',
+                symbols: '//Symbols',
+                flags: '//Flags',
+                custom: '//Custom',
+            } 
+                
+        },
+        delay: "0.25s",
 
         fab: false,
         lang,
@@ -649,19 +683,29 @@ export default {
         },
 
         closeSheet() {
+            this.$refs.textField.focus();
             document.getElementById("push-popup-bottom-nav").style.height = "0";
+            this.isFileUploadSheet = false;
+            this.isEmojiSheet = false;
         },
 
         showSheet(type){
             if(type == "fileUpload"){
                 this.isFileUploadSheet = true;
                 this.isEmojiSheet = false;
-                document.getElementById("push-popup-bottom-nav").style.height = "118px";
+                document.getElementById("push-popup-bottom-nav").style.height = "77px";
             }
             else if(type == 'emoji'){
-                this.isEmojiSheet = true;
-                this.isFileUploadSheet = false;
-                document.getElementById("push-popup-bottom-nav").style.height = "318px";
+                if(this.isEmojiSheet == false){
+                    this.isEmojiSheet = true;
+                    this.isFileUploadSheet = false;
+                    document.getElementById("push-popup-bottom-nav").style.height = "350px";
+                }
+                else{
+                    document.getElementById("push-popup-bottom-nav").style.height = "0";
+                    this.isEmojiSheet = false;
+                    this.isFileUploadSheet = false;
+                }
             }
         },
 
