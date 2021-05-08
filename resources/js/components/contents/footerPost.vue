@@ -23,7 +23,7 @@
                 </div>
                 <div class="d-flex align-center">
                     <v-btn icon color="success" >
-                        <v-icon size="20" @click="addComment">mdi-comment-outline</v-icon>
+                        <v-icon size="20" @click="showComment">mdi-comment-outline</v-icon>
                     </v-btn>
                     <!-- <span class="font-size-0-8 font-color-white">评论</span> -->
                     <span>{{footerInfo.comments.length > 0 ? footerInfo.comments.length : 0}}</span>
@@ -33,29 +33,7 @@
         <v-divider></v-divider>
     </v-col>
     <v-col cols="12" class="pt-2 px-10" v-else>
-        <div v-if="isComment == true" class="position-relative">
-            <v-textarea
-            solo
-            name="input-7-4"
-            label="Solo textarea"
-            v-model="commentText"
-            hide-details
-            ></v-textarea>
-            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 71px" />
-            <v-row>
-                <v-col cols="12" class="d-flex justify-space-between mt-5">
-                    <v-icon @click="emoStatus = !emoStatus">
-                        mdi-emoticon-excited-outline
-                    </v-icon>
-                    <v-btn
-                        color="#7879ff"
-                        dark
-                    >
-                        test
-                    </v-btn>
-                </v-col>
-            </v-row>
-        </div>
+        
         <div class="d-flex align-center justify-end mb-5">
             <!-- <v-menu
                 top
@@ -104,9 +82,57 @@
             </v-btn>
             <span class="mr-8">{{footerInfo.likes.length > 0 ? footerInfo.likes.length : 0}}</span>
             <v-btn icon color="success" >
-                <v-icon size="25" @click="addComment">mdi-comment-outline</v-icon>
+                <v-icon size="25" @click="showComment">mdi-comment-outline</v-icon>
             </v-btn>
             <span>{{footerInfo.comments.length > 0 ? footerInfo.comments.length : 0}}</span>
+        </div>
+        <div v-if="isComment == true" class="position-relative">
+            <v-row>
+                <v-col cols="12" class="d-flex">
+                    <v-avatar v-if="footerInfo.users.name !== '' && footerInfo.users.avatar == '/'" color="primary" size="48">
+                        <span class="white--text headline">{{footerInfo.users.name[0]}}</span>
+                        </v-avatar>
+                        <v-avatar v-else
+                    size="48"
+                    >
+                        <v-img :src="footerInfo.users.avatar"></v-img>
+                    </v-avatar>
+                    <v-textarea
+                        solo
+                        name="input-7-4"
+                        label="Solo textarea"
+                        class="ml-2"
+                        v-model="commentText"
+                        hide-details
+                    ></v-textarea>
+                </v-col>
+            </v-row>
+            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 71px" />
+            <v-row class="d-flex justify-space-between my-5">
+                <v-col cols="6">
+                    <v-icon @click="emoStatus = !emoStatus">
+                        mdi-emoticon-excited-outline
+                    </v-icon>
+                </v-col>
+                <v-col cols="6" class="text-right">
+                    <v-btn
+                        color="#f89651"
+                        dark
+                        @click="cancelComment"
+                    >
+                        取消
+                    </v-btn>
+                    <v-btn
+                        color="#7879ff"
+                        class="ml-2"
+                        dark
+                        :loading="isPosting"
+                        @click="postComment"
+                    >
+                        提交评论
+                    </v-btn>
+                </v-col>
+            </v-row>
         </div>
         <v-divider class="thick-border" light></v-divider>
         <v-row justify="center">
@@ -145,6 +171,8 @@
 import {addLike,removeLike} from '~/api/post'
 import {mapGetters} from 'vuex';
 import {getReadCnt} from '~/api/alarm'
+import {addComment,deleteComment} from '~/api/post'
+
 import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
 import "emoji-mart-vue-fast/css/emoji-mart.css";
 import emojiData from "emoji-mart-vue-fast/data/all.json";
@@ -176,6 +204,7 @@ export default {
         isComment:false,
         emoStatus:false,
         emojiIndex: emojiIndex,
+        isPosting:false
     }),
     created(){
         console.log("this.footerInfo",this.footerInfo)
@@ -218,7 +247,7 @@ export default {
             this.fab = false;
         },
         
-        addComment(){
+        showComment(){
             console.log('add comment---------------')
             this.isComment = ! this.isComment
         },
@@ -247,7 +276,23 @@ export default {
                 this.isReadCnt = false
                 console.log(err.response)
             })
-
+        },
+        postComment(){
+            this.isPosting = true
+            addComment({text:this.commentText,postId:this.footerInfo.id}).then(res=>{
+                console.log(res)
+                this.isPosting = false
+                this.footerInfo.comments.unshift(res.data)
+            }).catch(err=>{
+                this.isPosting = false
+                //console.log(err.response)
+            })
+            this.commentText = ''
+        },
+        cancelComment(){
+            this.commentText = ''
+            this.emoStatus = false
+            this.isComment = false
         }
     }
 }
