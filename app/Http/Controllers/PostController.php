@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 use App\Like;
+use DB;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -41,7 +42,7 @@ class PostController extends Controller
                 'regnames',
                 'users:id,name,avatar'
             ])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate(5);
     }
 
@@ -77,7 +78,7 @@ class PostController extends Controller
                 'returnteam',
                 'users:id,name,avatar'
             ])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate(5);
     }
 
@@ -100,7 +101,7 @@ class PostController extends Controller
                 'homeworkResult:postId,content',
                 'users:id,name'
             ])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->get();
         $albumData = array();
         foreach ($posts as $post) {
@@ -440,6 +441,17 @@ class PostController extends Controller
             $post->readList = $readList;
         }
         $post->update();
+        return true;
+    }
+
+    public function fixTop(Request $request){
+        $this->validate($request,[
+            'postId'=>'required'
+        ]);
+        $post = Post::where('id',$request->postId)->first();
+        // $post->updated_at = DB::raw('NOW()');
+        // $post->update();
+        $post->touch();
         return true;
     }
 }

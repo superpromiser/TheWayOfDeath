@@ -269,7 +269,15 @@
                                         </v-list-item>
                                     </v-list-item-group>
                                 </v-list>
-                                <v-card-actions>
+                                <v-card-actions class="justify-end">
+                                    <v-btn
+                                        color="deep-purple lighten-2"
+                                        text
+                                        @click="closeChooseSignNameDialog"
+                                    >
+                                        {{lang.cancel}}
+                                    </v-btn>
+
                                     <v-btn
                                         color="deep-purple lighten-2"
                                         text
@@ -278,13 +286,6 @@
                                         {{lang.ok}}
                                     </v-btn>
 
-                                    <v-btn
-                                        color="deep-purple lighten-2"
-                                        text
-                                        @click="closeChooseSignNameDialog"
-                                    >
-                                        {{lang.cancel}}
-                                    </v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>

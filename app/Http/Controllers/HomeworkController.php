@@ -16,7 +16,16 @@ class HomeworkController extends Controller
             'schoolId' => 'required',
             'lessonId' => 'required',
         ]);
-        return Homework::where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->get();
+         return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 14])
+            ->with([
+                'likes',
+                'views',
+                'comments.users:id,name',
+                'homework:postId,content',
+                'users:id,name,avatar'
+            ])
+            ->orderBy('updated_at', 'desc')
+            ->paginate(5);
     }
 
     public function createHomeworkData(Request $request)

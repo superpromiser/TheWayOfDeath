@@ -17,17 +17,17 @@
     </div>
     <v-row class="mt-3">
       <v-col cols="12" class="d-flex">        
-        <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="48">
-          <span class="white--text headline">{{contentData.users.name[0]}}</span>
+        <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="48">
+          <span class="white--text headline">{{user.name[0]}}</span>
         </v-avatar>
         <v-avatar v-else
           size="48"
         >
-          <v-img :src="contentData.users.avatar"></v-img>
+          <v-img :src="user.avatar"></v-img>
         </v-avatar>
         <v-textarea solo name="input-7-4"
             :append-icon-cb="toggleEmo" 
-            :label="'换行 发送 / shift+'"
+            :label="''"
             v-model="commentText"
             hide-details
             class="ml-2"
@@ -80,7 +80,8 @@ export default {
 
   computed:{
     ...mapGetters({
-      contentData:'content/postDetail'
+      contentData:'content/postDetail',
+      user:'auth/user'
     })
   },
   created(){

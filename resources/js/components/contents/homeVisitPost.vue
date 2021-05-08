@@ -1,7 +1,7 @@
 <template>
     <v-container v-if="$isMobile()">
       <v-row>
-        <v-col cols="12" class="d-flex" @click="showDetail">
+        <v-col cols="12" class="d-flex hover-cursor-point align-center" @click="showDetail">
           <v-avatar>
             <v-img :src="`${baseUrl}/asset/img/appIcon/others/家访.png`" alt="postItem" ></v-img>
           </v-avatar>
@@ -55,7 +55,7 @@
                 </template>
                 <v-list>
                   <v-list-item link >
-                    <v-list-item-title class="px-2">{{lang.toTop}}</v-list-item-title>
+                    <v-list-item-title class="px-2" @click="fixTop(content)">{{lang.toTop}}</v-list-item-title>
                   </v-list-item>
                   <v-list-item link >
                     <v-list-item-title class="px-2" @click="postRemove(content)">{{lang.remove}}</v-list-item-title>
@@ -93,6 +93,7 @@
 
 <script>
 import AttachItemViewer from '~/components/attachItemViewer';
+import {createReadCnt} from '~/api/alarm'
 import lang from '~/helper/lang.json'
 export default {
     components:{
@@ -121,6 +122,11 @@ export default {
     },
     methods:{
       showDetail(content){
+        createReadCnt({postId:content.id}).then(res=>{
+          console.log(res.data)
+        }).catch(err=>{
+          console.log(err.response)
+        })
         this.$store.dispatch('content/storePostDetail',content)
         if(this.currentPath.params.lessonId){
           this.$router.push({name:'classSpace.detail'});

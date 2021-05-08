@@ -5,7 +5,8 @@
                 <span class="white--text headline">{{content.users.name[0]}}</span>
             </v-avatar>
             <v-avatar v-else
-              size="48"
+              class="ma-5"
+              size="60"
             >
               <v-img :src="content.users.avatar"></v-img>
             </v-avatar>
@@ -27,7 +28,7 @@
                 </template>
                 <v-list>
                   <v-list-item link >
-                    <v-list-item-title class="px-2">{{lang.toTop}}</v-list-item-title>
+                    <v-list-item-title class="px-2" @click="fixTop(content)">{{lang.toTop}}</v-list-item-title>
                   </v-list-item>
                   <v-list-item link >
                     <v-list-item-title class="px-2" @click="postRemove(content)">{{lang.remove}}</v-list-item-title>
@@ -68,6 +69,7 @@
 
 <script>
 import AttachItemViewer from '~/components/attachItemViewer';
+import {createReadCnt} from '~/api/alarm'
 import lang from '~/helper/lang.json'
 import {mapGetters} from 'vuex'
 export default {
@@ -103,6 +105,11 @@ export default {
     },
     methods:{
       showDetail(){
+        createReadCnt({postId:this.content.id}).then(res=>{
+          console.log(res.data)
+        }).catch(err=>{
+          console.log(err.response)
+        })
         this.$store.dispatch('content/storePostDetail',this.content)
         if(this.currentPath.params.lessonId){
           if(this.content.homework.homeworkType == "常规作业"){

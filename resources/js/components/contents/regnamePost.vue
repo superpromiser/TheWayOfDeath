@@ -59,7 +59,7 @@
     </v-row>
   </v-container>
   <v-container v-else>
-    <v-col cols="12" class="d-flex align-center">
+    <v-col cols="12" class="d-flex align-center hover-cursor-point">
       <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="60" class="ma-5">
             <span class="white--text headline">{{content.users.name[0]}}</span>
         </v-avatar>
@@ -87,7 +87,7 @@
           </template>
           <v-list>
             <v-list-item link >
-              <v-list-item-title class="px-2">{{lang.toTop}}</v-list-item-title>
+              <v-list-item-title class="px-2" @click="fixTop(content)">{{lang.toTop}}</v-list-item-title>
             </v-list-item>
             <v-list-item link >
               <v-list-item-title class="px-2" @click="postRemove(content)">{{lang.remove}}</v-list-item-title>
@@ -146,6 +146,7 @@
 <script>
 import {mapGetters} from 'vuex';
 import lang from '~/helper/lang.json';
+import {createReadCnt} from '~/api/alarm'
 import AttachItemViewer from '~/components/attachItemViewer';
 export default {
     components:{
@@ -179,6 +180,11 @@ export default {
     methods:{
 
       showDetail(content){
+        createReadCnt({postId:content.id}).then(res=>{
+          console.log(res.data)
+        }).catch(err=>{
+          console.log(err.response)
+        })
         this.$store.dispatch('content/storePostDetail',content);
         if(this.user.roleId !== 4 && this.user.roleId !== 5){
             this.$router.push({name:'details.regnameResult'});

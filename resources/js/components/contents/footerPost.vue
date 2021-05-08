@@ -89,18 +89,18 @@
         <div v-if="isComment == true" class="position-relative">
             <v-row>
                 <v-col cols="12" class="d-flex">
-                    <v-avatar v-if="footerInfo.users.name !== '' && footerInfo.users.avatar == '/'" color="primary" size="48">
-                        <span class="white--text headline">{{footerInfo.users.name[0]}}</span>
+                    <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="48">
+                        <span class="white--text headline">{{user.name[0]}}</span>
                         </v-avatar>
                         <v-avatar v-else
                     size="48"
                     >
-                        <v-img :src="footerInfo.users.avatar"></v-img>
+                        <v-img :src="user.avatar"></v-img>
                     </v-avatar>
                     <v-textarea
                         solo
                         name="input-7-4"
-                        label="Solo textarea"
+                        label=""
                         class="ml-2"
                         v-model="commentText"
                         hide-details
