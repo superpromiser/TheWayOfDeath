@@ -7,7 +7,7 @@
               {{comment.users.name}}
           </v-col>
           <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap">{{comment.comments}}</v-col>
-          <v-col cols="12" lg="2" md="2" sm="4">
+          <v-col cols="12" lg="2" md="2" sm="4" class="text-right">
             {{TimeView(comment.created_at)}}
             <v-icon color="#FF5722" @click="remove(comment)" :loading="comment.isDeleting">mdi-trash-can-outline</v-icon>
           </v-col>
@@ -59,7 +59,7 @@ export default {
     })
   },
   mounted(){
-    console.log(this.contentData)
+    console.log('-------------------',this.contentData)
   },
   data:() => ({
     lang,

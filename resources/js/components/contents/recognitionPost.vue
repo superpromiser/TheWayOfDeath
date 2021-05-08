@@ -72,10 +72,20 @@ export default {
         baseUrl:window.Laravel.base_url,
         students:[],
     }),
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.classRecognition'});
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'classSpace.detail'});
+        }else{
+          this.$router.push({name:'schoolSpace.detail'});
+        }
+        
       }
     },
     created(){

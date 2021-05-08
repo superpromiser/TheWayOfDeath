@@ -22,7 +22,7 @@ class VotingController extends Controller
                 ->with([
                     'likes',
                     'views',
-                    'comments',
+                    'comments.users:id,name',
                     'votings',
                     'users:id,name,avatar'
                 ])

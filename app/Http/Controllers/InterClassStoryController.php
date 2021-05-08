@@ -20,7 +20,7 @@ class InterClassStoryController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'interclassstory',
                 'users:id,name,avatar'
             ])

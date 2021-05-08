@@ -162,6 +162,11 @@ export default {
         this.vacationData = this.content.vacations
 
     },
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     methods:{
 
       showDetail(content){
@@ -171,7 +176,11 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.vacation'});
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'classSpace.detail'});
+        }else{
+          this.$router.push({name:'schoolSpace.detail'});
+        }
       },
       
     }

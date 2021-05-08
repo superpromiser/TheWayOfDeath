@@ -69,6 +69,10 @@ function updateSeatData(payload){
     return axios.put('/api/v1/seat',payload)
 }
 
+function updateClub(payload){
+    return axios.put('/api/v1/club',payload)
+}
+
 export{
     getClub,
     createClub,
@@ -87,4 +91,5 @@ export{
     updateSeatData,
     getStudentIdUser,
     createStudentIdUser,
+    updateClub,
 }

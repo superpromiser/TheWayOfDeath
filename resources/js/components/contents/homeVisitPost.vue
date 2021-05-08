@@ -123,9 +123,9 @@ export default {
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
         if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.classHomeVisit'});
+          this.$router.push({name:'classSpace.detail'});
         }else{
-          this.$router.push({name:'details.homeVisit'});
+          this.$router.push({name:'schoolSpace.detail'});
         }
       }
     }

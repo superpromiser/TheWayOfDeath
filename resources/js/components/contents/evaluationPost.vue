@@ -88,10 +88,20 @@ export default {
       this.userList = JSON.parse(this.content.evaluations.userList)
       this.medalList = this.content.evaluations.selMedalList
     },
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     methods:{
       showDetail(content){
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.classEvaluation'});
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'classSpace.detail'});
+        }else{
+          this.$router.push({name:'schoolSpace.detail'})
+        }
+        
       }
     }
 }

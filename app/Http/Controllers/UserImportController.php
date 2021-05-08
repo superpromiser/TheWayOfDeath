@@ -27,11 +27,11 @@ class UserImportController extends Controller
             'serverData'=>'required'
         ]);
         foreach($request->serverData as $userData){
-            $groupArr = explode(",",$userData['groupArr']);
-            // $groupArr = array();
-            // foreach($groups as $group){
-            //     array_push($groupArr,$group);
-            // }
+            $groups = explode(",",$userData['groupArr']);
+            $groupArr = array();
+            foreach($groups as $group){
+                array_push($groupArr,$group);
+            }
             User::create([
                 'name'=>$userData['name'],
                 'phoneNumber'=>$userData['phoneNumber'],
@@ -52,7 +52,7 @@ class UserImportController extends Controller
                 'qq'=>$userData['qq'],
                 'studentId'=>$userData['studentId'],
                 'subjectName'=>$userData['subjectName'],
-                'groupArr'=>$userData['groupArr']
+                'groupArr'=>$groupArr
             ]);
         }
         return true;

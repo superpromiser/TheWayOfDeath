@@ -63,7 +63,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import lang from '~/helper/lang.json'
-import  {createClub} from '~/api/group'
+import  {createClub,updateClub} from '~/api/group'
 export default {
     data:()=>({
         clubName:"",
@@ -72,6 +72,9 @@ export default {
         lang,
     }),
     created(){
+        // if(this.cName == '' || this.clubMembers.length == 0){
+        //     this.$router.push({name:'classSpace.club'})
+        // }
         this.newClub = true
         this.clubName = this.cName
         console.log(this.clubMembers,"this.clubMembers")
@@ -88,12 +91,18 @@ export default {
     methods:{
         selStudent(){
             this.$store.dispatch('member/storeClubName',this.clubName);
-            this.$router.push({name:"classSpace.contact"})
+            if(this.currentPath.query.clubId){
+                this.$router.push({name:"classSpace.contact",query:{clubId:this.currentPath.query.clubId}})
+            }else{
+                this.$router.push({name:"classSpace.contact"})
+            }
+            
         },
         async submit(){
             // console.log(this.clubMembers)
             // console.log('cName',this.cName)
             // return
+            
             if(this.clubName.trim() == ''){
                 return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
             }
@@ -109,20 +118,35 @@ export default {
                 memberIds.push(member.id)
             })
             this.isSubmit = true
-            await createClub({
+            if(this.currentPath.query.clubId){
+                console.log('edit mode')
+                await updateClub({
+                    clubId:this.currentPath.query.clubId,
+                    clubName:this.clubName,
+                    memberNames:memberNames,
+                    memberIds:memberIds,
+                    schoolId:this.currentPath.params.schoolId,
+                    lessonId:this.currentPath.params.lessonId
+                }).then(res=>{
+                    console.log(res.data)
+                    this.$router.push({name:'classSpace.club'})
+                })
+            }else{
+                await createClub({
                 clubName:this.clubName,
                 memberNames:memberNames,
                 memberIds:memberIds,
                 schoolId:this.currentPath.params.schoolId,
                 lessonId:this.currentPath.params.lessonId
-            }).then(res=>{
-                console.log(res.data)
-                this.isSubmit = false
-                return this.$router.push({name:"classSpace.club"})
-            }).catch(err=>{
-                console.log(err.response)
-                this.isSubmit = false
-            })
+                }).then(res=>{
+                    console.log(res.data)
+                    this.isSubmit = false
+                    return this.$router.push({name:"classSpace.club"})
+                }).catch(err=>{
+                    console.log(err.response)
+                    this.isSubmit = false
+                })
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ class ShareController extends Controller
                 ->with([
                     'likes',
                     'views',
-                    'comments',
+                    'comments.users:id,name',
                     'shares',
                     'users:id,name,avatar'
                 ])
@@ -32,7 +32,7 @@ class ShareController extends Controller
                 ->with([
                     'likes',
                     'views',
-                    'comments',
+                    'comments.users:id,name',
                     'shares',
                     'users:id,name,avatar'
                 ])

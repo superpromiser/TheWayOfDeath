@@ -35,7 +35,11 @@
                         {{club.clubName}}
                     </v-col>
                     <v-col cols="6">
-                        <span v-for="member in club.members" :key="member">{{member}},</span>
+                        <!-- <span v-for="(member,index) in club.members" :key="index">
+                            {{member}}
+                            <span v-if="index != club.members.length">,</span>
+                        </span> -->
+                        <span>{{MemberList(club.members)}}</span>
                         <span></span>
                     </v-col>
                     <v-col cols="3">
@@ -75,6 +79,8 @@ export default {
         }
     },
     async created(){
+        this.$store.dispatch('member/storeClubName','');
+        this.$store.dispatch('member/storeClubMembers',[]);
         this.isLoading = true
         await getClub({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
             console.log(res.data)
@@ -104,15 +110,15 @@ export default {
             this.$router.push({name:'member.newClub'})
         },
         editClub(club){
-            deleteClub({id:club.id}).then(res=>{
-                console.log(res.data)
-                let index = this.clubList.indexOf(club);
-                if(index > -1){
-                    this.clubList.splice(index,1)
-                }
-            }).catch(err=>{
-                console.log(err.response)
-            })
+            // deleteClub({id:club.id}).then(res=>{
+            //     console.log(res.data)
+            //     let index = this.clubList.indexOf(club);
+            //     if(index > -1){
+            //         this.clubList.splice(index,1)
+            //     }
+            // }).catch(err=>{
+            //     console.log(err.response)
+            // })
             let selUsers = []
 
             club.member.map(member=>{
@@ -120,10 +126,14 @@ export default {
             })
             this.$store.dispatch('member/storeClubName',club.clubName);
             this.$store.dispatch('member/storeClubMembers',selUsers);
-            this.$router.push({name:'member.newClub'})
+            this.$router.push({name:'member.newClub',query:{clubId:club.id}})
         },
         addMember(club){
 
+        },
+        memberList(members){
+            // let newString = members.replace()
+            return members;
         }
     }
 }

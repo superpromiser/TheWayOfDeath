@@ -19,7 +19,7 @@ class ShiftMngController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'shiftMng',
                 'users:id,name,avatar'
             ])

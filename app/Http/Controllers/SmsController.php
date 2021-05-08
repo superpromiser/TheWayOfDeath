@@ -20,7 +20,7 @@ class SmsController extends Controller
             ->with([
                 'likes',
                 'views',
-                'comments',
+                'comments.users:id,name',
                 'sms',
                 'users:id,name,avatar'
             ])

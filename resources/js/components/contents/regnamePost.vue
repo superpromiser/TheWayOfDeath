@@ -171,6 +171,11 @@ export default {
     created(){
       this.regnameData = JSON.parse(this.content.regnames.content);
     },
+    computed:{
+      currentPath(){
+        return this.$route;
+      }
+    },
     methods:{
 
       showDetail(content){

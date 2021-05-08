@@ -141,6 +141,11 @@ export default {
         lang,
         baseUrl:window.Laravel.base_url,
     }),
+    computed:{
+      currentPath(){
+        return this.$route
+      }
+    },
     methods:{
       showDetail(content){
         createReadCnt({postId:content.id}).then(res=>{
@@ -148,8 +153,14 @@ export default {
         }).catch(err=>{
           console.log(err.response)
         })
+        
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.anouncement'});
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'classSpace.detail'});
+        }else{
+          this.$router.push({name:'schoolSpace.detail'});
+        }
+        
       }
     }
 }
