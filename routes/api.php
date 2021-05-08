@@ -119,7 +119,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
 
     Route::get('gradeClass', 'MemberController@getGradeClass')->name('getGradeClass');
 
-    Route::get('getLesson', 'MemberController@getLesson')->name('getLesson');
+    Route::get('getLesson', 'MemberController@getLesson')->name('getLessonMember');
     Route::get('surveySchool', 'MemberController@getSurveySchool');
     Route::get('surveyGrade', 'MemberController@getSurveyGrade');
     Route::get('surveyLesson', 'MemberController@getSurveyLesson');

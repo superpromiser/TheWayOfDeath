@@ -70,11 +70,16 @@
 
                     <v-col cols="12" v-else class="images clearfix ma-0 pa-0">
                         <div v-for="(video, index) in videoFileList" :key="index" class="video-con text-center" @click="openVideoViewDialog(index, video)">
-                            <div class="position-relative mo-video">
+                            <div class="position-relative mo-video d-flex align-center justify-center">
                                 <div class="position-absolute position-absolute-center">
                                     <p class="mb-0 font-size-2-8-vw"><span><strong>{{video.fileOriName}}</strong></span></p>
                                     <p class="mb-0 font-size-2-8-vw">{{video.fileSize}}</p>
                                 </div>
+                                <v-overlay :absolute="true" >
+                                    <v-btn color="#49d29e" icon @click="openVideoViewDialog(index, video)">
+                                        <v-icon>mdi-play-circle-outline</v-icon>
+                                    </v-btn>
+                                </v-overlay>
                             </div>
                             <p class="mb-0 font-size-2-8-vw mx-auto text-center">{{TimeViewYMDDot(video.fileCreatedAt)}}</p>
                         </div>
@@ -165,10 +170,81 @@
                 </v-overlay> -->
             </v-tab-item>
             <v-tab-item value="other-file">
-                other
+                <v-container class="pa-0">
+                     <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
+                        <v-progress-circular
+                            indeterminate
+                            color="#7879ff"
+                        ></v-progress-circular>
+                    </v-col>
+                    <v-col v-else-if="noOtherFile" cols="12" class="d-flex justify-center align-center">
+                        <v-chip class="ma-2" color="#F19861" outlined pill >
+                            没有文档
+                            <v-icon right> mdi-cancel  </v-icon>
+                        </v-chip>
+                    </v-col>
+                    <v-container v-else class="pa-0" v-for="(otherFile, index) in otherFileList" :key="index">
+                        <v-row class="ma-0">
+                            <v-col cols="12" class="d-flex align-center">
+                                <img v-if="otherFile.fileExtension == 'zip'" :src="`${baseUrl}/asset/img/fileIcon/zip.png`" style="width:39px; height:52px; " alt="">
+                                <img v-else :src="`${baseUrl}/asset/img/fileIcon/file.png`" style="width:39px; height:52px; " alt="">
+                                <div class="ml-3">
+                                    <p class="mb-0 font-size-0-75"> <strong>{{otherFile.fileOriName}}</strong></p>
+                                    <p class="mb-0 font-size-0-75">{{otherFile.fileSize}}</p>
+                                </div>
+                                <v-spacer></v-spacer>
+                                <div class="d-flex align-start">
+                                    <p class="mb-0 font-size-0-75">{{TimeViewYMDDot(otherFile.fileCreatedAt)}}</p>
+                                </div>
+                            </v-col>
+                        </v-row>
+                        <v-divider light></v-divider>
+                    </v-container>
+                </v-container>
             </v-tab-item>
             <v-tab-item value="video-file">
-                video
+                <!--- my video file --->
+                <v-row class="ma-0">
+                    <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
+                        <v-progress-circular
+                            indeterminate
+                            color="#7879ff"
+                        ></v-progress-circular>
+                    </v-col>
+                    <v-col v-else-if="noVideoFile" cols="12" class="d-flex justify-center align-center">
+                        <v-chip class="ma-2" color="#F19861" outlined pill >
+                            没有视频
+                            <v-icon right> mdi-cancel  </v-icon>
+                        </v-chip>
+                    </v-col>
+                    <v-container v-else class="pa-0">
+                        <v-row class="ma-0" v-for="(videoGroup, index) in groupedVideoFileList" :key="index">
+                            <v-col cols="12" class="d-flex justify-space-between align-center pa-0 py-3">
+                                <p class="mb-0 font-size-0-75" style="margin-left: 5px;"> {{Object.keys(videoGroup)[0]}} </p>
+                                <div class="d-flex align-center">
+                                    <p class="mb-0 font-size-0-75" style="margin-right: 5px;">{{videoGroup[`${Object.keys(videoGroup)[0]}`].length!==0 ? videoGroup[`${Object.keys(videoGroup)[0]}`].length : 0}}项</p>
+                                </div> 
+                            </v-col>
+                            <v-col cols="12" class="images clearfix ma-0 pa-0">
+                                <div v-for="(video,index) in videoGroup[`${Object.keys(videoGroup)[0]}`]" :key="index" class="video-con text-center ">
+                                    <div class="position-relative mo-video d-flex align-center justify-center">
+                                        <div class="position-absolute position-absolute-center">
+                                            <p class="mb-0 font-size-2-8-vw"><span><strong>{{video.fileOriName}}</strong></span></p>
+                                            <p class="mb-0 font-size-2-8-vw">{{video.fileSize}}</p>
+                                        </div>
+                                        <v-overlay :absolute="true" >
+                                            <v-btn color="#49d29e" icon @click="openVideoViewDialog(index, video)">
+                                                <v-icon>mdi-play-circle-outline</v-icon>
+                                            </v-btn>
+                                        </v-overlay>
+                                    </div>
+                                    <p class="mb-0 font-size-2-8-vw mx-auto text-center">{{TimeViewYMDDot(video.fileCreatedAt)}}</p>
+                                </div>
+                            </v-col>
+                            <div class="cus-divider-light-gray-height"></div>
+                        </v-row>
+                    </v-container>
+                </v-row>
             </v-tab-item>
             <v-tab-item value="image-file">
                 <!--- my image file --->
@@ -231,7 +307,7 @@
             </v-col>
             <v-col cols="12" v-else v-viewer="options" class="images clearfix ma-0">
                 <template v-for="img in imageFileList">
-                    <img :src="`${baseUrl}${img}`" :data-source="`${baseUrl}${img}`" class="image" :key="img" >
+                    <img :src="`${baseUrl}${img.path}`" :data-source="`${baseUrl}${img.path}`" class="image" :key="img.path" >
                 </template>
             </v-col>
         </v-row>
