@@ -40,7 +40,7 @@
                         </v-card>
                     </v-dialog>
                 </v-row>
-                <v-row class="bg-white ma-0 pa-0">
+                <!-- <v-row class="bg-white ma-0 pa-0">
                     <v-col cols="12" class="d-flex align-center position-relative">
                         <div class="ch-icon-area d-flex align-center position-relative">
                             <v-speed-dial
@@ -105,16 +105,17 @@
                                     accept="file/*"
                                     @change="onFileFileChanged"
                                 >
-                                <!-- <v-btn
-                                    fab
-                                    dark
-                                    small
-                                    color="green"
-                                    @click="clickUploadMapBtn"
-                                >
-                                    <v-icon>mdi-map-marker-outline</v-icon>
-                                </v-btn> -->
+                                
                             </v-speed-dial>
+                            
+                            <v-icon v-model="fab" size="30" v-if="fab" class="hover-cursor-point">
+                                mdi-close
+                            </v-icon>
+                            <v-progress-circular indeterminate color="primary" v-else-if="isUploadingFileInChat"></v-progress-circular>
+                            <v-icon v-model="fab" size="30" v-else class="hover-cursor-point">
+                                mdi-paperclip
+                            </v-icon>
+                            
                             <v-icon @click="toggleEmo" size="30" class="hover-cursor-point mr-4">
                                 mdi-emoticon-happy-outline
                             </v-icon>
@@ -141,7 +142,159 @@
                             @keydown="sendTypingEvent"
                         ></v-text-field>
                     </v-col>
-                </v-row>
+                </v-row> -->
+                <div id="push-popup-bottom-nav" class="push-popup-bottom-nav">
+                    <v-row class="bg-white ma-0 pa-0 w-100" style="position:absolute; top: -80px; ">
+                        <v-col cols="12" class="d-flex align-center position-relative">
+                            <div class="ch-icon-area d-flex align-center position-relative">
+                                <!-- <v-speed-dial
+                                    v-model="fab"
+                                    direction="top"
+                                    transition="slide-y-reverse-transition"
+                                    >
+                                    <template v-slot:activator>
+                                        <v-icon v-model="fab" size="30" v-if="fab" class="hover-cursor-point">
+                                            mdi-close
+                                        </v-icon>
+                                        <v-progress-circular indeterminate color="primary" v-else-if="isUploadingFileInChat"></v-progress-circular>
+                                        <v-icon v-model="fab" size="30" v-else class="hover-cursor-point">
+                                            mdi-paperclip
+                                        </v-icon>
+                                    </template>
+                                    <v-btn
+                                        fab
+                                        dark
+                                        small
+                                        color="green"
+                                        @click="clickUploadImageBtn"
+                                    >
+                                        <v-icon>mdi-file-image-outline</v-icon>
+                                    </v-btn>
+                                    <input
+                                        ref="imageUploader"
+                                        class="d-none"
+                                        type="file"
+                                        accept="image/*"
+                                        @change="onImageFileChanged"
+                                    >
+                                    <v-btn
+                                        fab
+                                        dark
+                                        small
+                                        color="green"
+                                        @click="clickUploadVideoBtn"
+                                    >
+                                        <v-icon>mdi-video</v-icon>
+                                    </v-btn>
+                                    <input
+                                        ref="videoUploader"
+                                        class="d-none"
+                                        type="file"
+                                        accept="video/*"
+                                        @change="onVideoFileChanged"
+                                    >
+                                    <v-btn
+                                        fab
+                                        dark
+                                        small
+                                        color="green"
+                                        @click="clickUploadFileBtn"
+                                    >
+                                        <v-icon>mdi-file-upload</v-icon>
+                                    </v-btn>
+                                    <input
+                                        ref="fileUploader"
+                                        class="d-none"
+                                        type="file"
+                                        accept="file/*"
+                                        @change="onFileFileChanged"
+                                    >
+                                    
+                                </v-speed-dial> -->
+                                <v-progress-circular indeterminate color="primary" v-if="isUploadingFileInChat"></v-progress-circular>
+                                <v-icon @click="showSheet('fileUpload')" size="30" v-else class="hover-cursor-point">
+                                    mdi-paperclip
+                                </v-icon>
+                                
+                                <v-icon @click="showSheet('emoji')" size="30" class="hover-cursor-point mr-4">
+                                    mdi-emoticon-happy-outline
+                                </v-icon>
+                                <div class="mo-chat-emoji-area-popup position-absolute" style="bottom: 50px">
+                                    <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
+                                </div>
+                            </div>
+                            <v-text-field
+                                v-model="text"
+                                :append-outer-icon="'mdi-send'"
+                                filled
+                                clear-icon="mdi-close-circle"
+                                clearable
+                                label="输入内容"
+                                type="text"
+                                hide-details
+                                @click:append-outer="submit"
+                                @click:clear="clearMessage"
+
+                                @keydown.enter.exact.prevent 
+                                @keyup.enter.exact="newline" 
+                                @keydown.enter.shift.exact="submit" 
+                                @keydown.enter.shift.exact.prevent
+                                @keydown="sendTypingEvent"
+                            ></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <!-- <v-btn-toggle
+                        v-model="toggle_none" style="position:absolute; right: 12px;  top: -60px; "
+                        background-color="#E0E0E0" class="rounded-lg"
+                    >
+                        <v-btn @click="showFileUploadSheet">
+                            <v-icon size="22">mdi-format-underline</v-icon>
+                        </v-btn>
+                        <v-btn @click="closeSheet">
+                            <v-icon size="22">mdi-file-image-outline</v-icon>
+                        </v-btn>
+                    </v-btn-toggle> -->
+                    <v-sheet class="py-3" color="#E0E0E0">
+                        <v-container v-if="isFileUploadSheet == true" class="d-flex">  
+                            <div @click="clickUploadImageBtn" v-ripple>
+                                <v-icon>mdi-file-image-outline</v-icon>
+                                <p>图片</p>
+                            </div>
+                            <input
+                                ref="imageUploader"
+                                class="d-none"
+                                type="file"
+                                accept="image/*"
+                                @change="onImageFileChanged"
+                            >
+                            <div @click="clickUploadVideoBtn" v-ripple>
+                                <v-icon>mdi-video</v-icon>
+                                <p>视频</p>
+                            </div>
+                            <input
+                                ref="videoUploader"
+                                class="d-none"
+                                type="file"
+                                accept="video/*"
+                                @change="onVideoFileChanged"
+                            >
+                            <div @click="clickUploadFileBtn" v-ripple>
+                                <v-icon>mdi-file-upload</v-icon>
+                                <p>文档</p>
+                            </div>
+                            <input
+                                ref="fileUploader"
+                                class="d-none"
+                                type="file"
+                                accept="file/*"
+                                @change="onFileFileChanged"
+                            >
+                        </v-container>
+                        <v-container v-else-if="isEmojiSheet == true">
+                            <Picker :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
+                        </v-container>
+                    </v-sheet>
+                </div>
             </v-col>                
       </v-row>
  </v-container>
@@ -224,6 +377,11 @@ export default {
         warning: false,
         warningMessage: '',
         isFormValid: false,
+
+        toggle_none: null,
+        isEmojiSheet: false,
+        isFileUploadSheet: false,
+                
     }),
 
     computed:{
@@ -666,7 +824,25 @@ export default {
         },
         sendTypingEvent(){
 
-        }
+        },
+
+        closeSheet() {
+            document.getElementById("push-popup-bottom-nav").style.height = "0";
+        },
+
+        showSheet(type){
+            if(type == "fileUpload"){
+                this.isFileUploadSheet = true;
+                this.isEmojiSheet = false;
+                document.getElementById("push-popup-bottom-nav").style.height = "118px";
+            }
+            else if(type == 'emoji'){
+                this.isEmojiSheet = true;
+                this.isFileUploadSheet = false;
+                document.getElementById("push-popup-bottom-nav").style.height = "318px";
+            }
+        },
+
     }
 }
 </script>
