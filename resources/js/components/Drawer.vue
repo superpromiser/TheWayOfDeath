@@ -368,6 +368,7 @@ export default {
       clonedVal2.grades.map(grade=>{
         grade.lessons.map(lesson=>{
           console.log("069+++++++++++++++++++++++",lesson)
+          console.log("this.user.groupArr", this.user.groupArr);
           this.user.groupArr.map(groupId=>{
             if(lesson.id == groupId){
               console.log('^^^^^^^',lesson)
@@ -387,6 +388,7 @@ export default {
       })
       this.mySchoolList.push(clonedVal1)
     }
+    console.log("#########", "this.mySchoolList", this.mySchoolList);
   },
 
   methods:{
