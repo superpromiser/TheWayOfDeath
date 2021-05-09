@@ -9,7 +9,7 @@
         <div v-else-if="isNoContactList" class="pa-3 text-center ">
             请添加新朋友
         </div>
-        <v-list three-line class="py-0">
+        <v-list three-line class="py-0 mb-16">
             <v-list-item-group
                 v-model="model"
                 mandatory
