@@ -42,7 +42,7 @@ class PostController extends Controller
                 'regnames',
                 'users:id,name,avatar'
             ])
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('fixTop', 'desc')
             ->paginate(5);
     }
 
@@ -78,7 +78,8 @@ class PostController extends Controller
                 'returnteam',
                 'users:id,name,avatar'
             ])
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('fixTop', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
     }
 
@@ -102,6 +103,7 @@ class PostController extends Controller
                 'users:id,name'
             ])
             ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
         $albumData = array();
         foreach ($posts as $post) {
@@ -451,7 +453,10 @@ class PostController extends Controller
         $post = Post::where('id',$request->postId)->first();
         // $post->updated_at = DB::raw('NOW()');
         // $post->update();
-        $post->touch();
+        $currentTime = \Carbon\Carbon::now();
+        $post->fixTop = $currentTime;
+        // $post->touch();
+        $post->update();
         return true;
     }
 }

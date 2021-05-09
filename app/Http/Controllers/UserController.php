@@ -57,6 +57,11 @@ class UserController extends Controller
 
     public function updateStaff(Request $request)
     {
+        $groupArr = array();
+        array_push($groupArr, 0);
+        if (!is_null($request->lessonId)) {
+            array_push($groupArr, $request->lessonId);
+        }
         User::where('id', $request->id)->update([
             'name' => $request->name,
             'phoneNumber' => $request->phoneNumber,
@@ -70,6 +75,7 @@ class UserController extends Controller
             'roleId' => $request->roleId,
             'familyAddress' => json_encode($request->familyAddress),
             'residenceAddress' => json_encode($request->residenceAddress),
+            'groupArr'=>$groupArr
         ]);
         Member::where('userId', $request->id)->update([
             'gradeId' => $request->gradeId,
@@ -123,6 +129,9 @@ class UserController extends Controller
 
     public function updateStudent(Request $request)
     {
+        $groupArr = array();
+        array_push($groupArr, 0);
+        array_push($groupArr, $request->lessonId);
         User::where('id', $request->id)->update([
             'name' => $request->name,
             'phoneNumber' => $request->phoneNumber,
@@ -139,6 +148,7 @@ class UserController extends Controller
             'introduce' => $request->introduce,
             'birthday' => new DateTime($request->birthday),
             'familyAddress' => json_encode($request->familyAddress),
+            'groupArr'=>$groupArr
         ]);
         Member::where('userId', $request->id)->update([
             'gradeId' => $request->gradeId,
