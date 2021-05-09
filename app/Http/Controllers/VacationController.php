@@ -49,6 +49,7 @@ class VacationController extends Controller
                     },
                     'users:id,name,avatar'
                 ])
+                ->orderBy('fixTop', 'desc')
                 ->orderBy('created_at', 'desc')
                 ->paginate(5);
         }

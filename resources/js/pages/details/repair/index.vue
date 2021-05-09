@@ -153,8 +153,6 @@
                 </v-col>
             </v-row>
         </v-col>
-        
-        
     </v-container>
 </template>
 

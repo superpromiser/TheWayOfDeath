@@ -23,7 +23,8 @@ class SafeStudyController extends Controller
                 'safestudy',
                 'users:id,name'
             ])
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('fixTop', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
     }
 

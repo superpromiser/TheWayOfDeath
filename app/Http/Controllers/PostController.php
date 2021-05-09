@@ -42,7 +42,8 @@ class PostController extends Controller
                 'regnames',
                 'users:id,name,avatar'
             ])
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('fixTop', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
     }
 
@@ -53,7 +54,7 @@ class PostController extends Controller
         ]);
         $userId = Auth::user()->id;
         $classId = $request->classId;
-        return Post::whereIn('contentId', [1, 2, 5, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
+        return Post::whereIn('contentId', [1, 2, 5,7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
             ->where('classId', $classId)
             ->orWhere('viewList', 'like', "%{$classId}%")
             ->with([
@@ -76,9 +77,13 @@ class PostController extends Controller
                 'interclassstory',
                 'vacations',
                 'returnteam',
+                'repairdata' => function ($q) {
+                    $q->whereIn('status', ['progress', 'done']);
+                },
                 'users:id,name,avatar'
             ])
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('fixTop', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
     }
 
@@ -102,6 +107,7 @@ class PostController extends Controller
                 'users:id,name'
             ])
             ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
         $albumData = array();
         foreach ($posts as $post) {
@@ -451,7 +457,10 @@ class PostController extends Controller
         $post = Post::where('id',$request->postId)->first();
         // $post->updated_at = DB::raw('NOW()');
         // $post->update();
-        $post->touch();
+        $currentTime = \Carbon\Carbon::now();
+        $post->fixTop = $currentTime;
+        // $post->touch();
+        $post->update();
         return true;
     }
 }

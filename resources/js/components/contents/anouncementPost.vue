@@ -130,6 +130,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import {createReadCnt} from '~/api/alarm'
+import {mapGetters} from 'vuex'
 export default {
     props:{
         content:{
@@ -144,10 +145,18 @@ export default {
     computed:{
       currentPath(){
         return this.$route
-      }
+      },
+      ...mapGetters({
+        user: 'auth/user'
+      })
+    },
+    created(){
+      console.log("this.user", this.user  );
     },
     methods:{
       showDetail(content){
+        console.log(this.user)
+        return
         createReadCnt({postId:content.id}).then(res=>{
           console.log(res.data)
         }).catch(err=>{
