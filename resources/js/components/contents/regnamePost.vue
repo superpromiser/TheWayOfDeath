@@ -186,7 +186,7 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',content);
-        if(this.user.roleId !== 4 && this.user.roleId !== 5){
+        if(this.user.roleId !== 4 || this.user.roleId !== 5){
             this.$router.push({name:'details.regnameResult'});
         }
         else{
