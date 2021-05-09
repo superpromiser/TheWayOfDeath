@@ -176,11 +176,12 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',this.content)
-        if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.repair'});
-        }else{
-          this.$router.push({name:'details.repair'});
-        }
+        this.$router.push({name:'details.schoolRepair'})
+        // if(this.currentPath.params.lessonId){
+        //   this.$router.push({name:'details.classRepair'});
+        // }else{
+        //   this.$router.push({name:'details.schoolRepair'});
+        // }
         
       },
       

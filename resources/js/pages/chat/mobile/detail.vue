@@ -83,7 +83,7 @@
                             <v-container key="1" v-if="isFileUploadSheet == true" class="d-flex" :style="{ transitionDelay: delay }">  
                                 <div class="text-center" @click="clickUploadImageBtn">
                                     <v-icon size="35" color="#757575">mdi-file-image-outline</v-icon>
-                                    <p class="mb-0 font-size-0-75">图片</p>
+                                    <p class="mb-0 font-size-0-75 font-color-gray-dark">图片</p>
                                 </div>
                                 <input
                                     ref="imageUploader"
@@ -94,7 +94,7 @@
                                 >
                                 <div class="text-center mx-5" @click="clickUploadVideoBtn">
                                     <v-icon size="35" color="#757575">mdi-file-video-outline</v-icon>
-                                    <p class="mb-0 font-size-0-75">视频</p>
+                                    <p class="mb-0 font-size-0-75 font-color-gray-dark">视频</p>
                                 </div>
                                 <input
                                     ref="videoUploader"
@@ -105,7 +105,7 @@
                                 >
                                 <div class="text-center" @click="clickUploadFileBtn">
                                     <v-icon size="35" color="#757575">mdi-file-upload-outline</v-icon>
-                                    <p class="mb-0 font-size-0-75">文档</p>
+                                    <p class="mb-0 font-size-0-75 font-color-gray-dark">文档</p>
                                 </div>
                                 <input
                                     ref="fileUploader"
@@ -182,17 +182,17 @@ export default {
             search: 'Recherche', 
             categories: { 
                 search: '//Search Results',
-                recent: '//Frequently Used',
-                smileys: '//Smileys & Emoticon',
-                people: '//People & Body',
-                nature: '//Animals & Nature',
-                foods: '//Food & Drink',
-                activity: '//Activity',
-                places: '//Travel & Places',
-                objects: '//Objects',
-                symbols: '//Symbols',
-                flags: '//Flags',
-                custom: '//Custom',
+                recent: '最近常用',
+                smileys: '黄脸',
+                people: '人和手势',
+                nature: '动物和植物',
+                foods: '食物',
+                activity: '活动',
+                places: '交通 ',
+                objects: '物品',
+                symbols: '标志',
+                flags: '国旗',
+                custom: '其他',
             } 
                 
         },
