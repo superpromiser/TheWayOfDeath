@@ -1,7 +1,7 @@
 <template>
     <v-container class="h-100 pa-0">
         <v-row class="h-100 ma-0">
-            <v-col cols="12" sm="12" md="9" class="h-100 mo-glow-bg">
+            <v-col cols="12" sm="12" md="9" class="h-100 mo-glow-bg pa-0">
                 <v-row class="mo-glow-bg mo-ch-area-height ma-0 ">
                     <v-col cols="12" class="overflowY-auto h-100 mo-glow-bg mo-glow-inverse" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
                         <ChatMessage
@@ -347,8 +347,10 @@ export default {
                     this.fab = false;
                     console.log(res)
                     this.messages.push(res.data.message);
-                    this.isUploadingFileInChat = false
-                    this.selectedImageFile = null
+                    this.isUploadingFileInChat = false;
+                    this.selectedImageFile = null;
+                    this.isFileUploadSheet = false;
+                    document.getElementById("push-popup-bottom-nav").style.height = "0";
                 }).catch((err) => {
                     console.log(err)
                     this.isUploadingFileInChat = false
@@ -370,7 +372,9 @@ export default {
                     this.fab = false;
                     this.selectedVideoFile = null;
                     console.log(res)
-                    this.isUploadingFileInChat = false
+                    this.isUploadingFileInChat = false;
+                    this.isFileUploadSheet = false;
+                    document.getElementById("push-popup-bottom-nav").style.height = "0";
                 }).catch((err) => {
                     //console.log(err);
                     this.isUploadingFileInChat = false
@@ -393,7 +397,9 @@ export default {
                     this.fab = false;
                     this.selectedFile = null;
                     console.log(res);
-                    this.isUploadingFileInChat = false
+                    this.isUploadingFileInChat = false;
+                    this.isFileUploadSheet = false;
+                    document.getElementById("push-popup-bottom-nav").style.height = "0";
                 }).catch((err) => {
                     //console.log(err);
                     this.isUploadingFileInChat = false
