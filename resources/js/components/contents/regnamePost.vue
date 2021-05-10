@@ -186,10 +186,18 @@ export default {
         // console.log(this.user)
         // return
         this.$store.dispatch('content/storePostDetail',content);
+<<<<<<< HEAD
         if(this.currentPath.params.lessonId){
           this.$router.push({name:'details.classDefault'});
         }else{
           this.$router.push({name:'details.schoolDefault'});
+=======
+        if(this.user.roleId !== 4 || this.user.roleId !== 5){
+            this.$router.push({name:'details.regnameResult'});
+        }
+        else{
+            this.$router.push({name:'details.regnameAnswer'});
+>>>>>>> cc1ec9f1bc33e3b435ed9aa2b9c4d35176dd9c8e
         }
       },
       

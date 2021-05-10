@@ -286,7 +286,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('/lessonAttendance', 'LessonAttendanceController@updateLessonAttendance');
     Route::delete('/lessonAttendance', 'LessonAttendanceController@deleteLessonAttendance');
     Route::get('/statLessonAttData', 'LessonAttendanceController@getStatLessonAttData');
-    Route::get('/statDetailAttData', 'LessonAttendanceCOntroller@getStatDetailAttData');
+    Route::get('/statDetailAttData', 'LessonAttendanceController@getStatDetailAttData');
 
     //checkIn
     Route::get('/checkIn', 'CheckInController@getCheckInData');
