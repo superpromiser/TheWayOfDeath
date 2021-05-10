@@ -24,6 +24,7 @@ class QuestionnaireController extends Controller
                     'questionnaires',
                     'users:id,name,avatar'
                 ])
+                ->orderBy('fixTop', 'desc')
                 ->orderBy('created_at', 'desc')
                 ->paginate(5);
         } else {
@@ -36,6 +37,7 @@ class QuestionnaireController extends Controller
                     'users:id,name,avatar'
                 ])
                 ->orderBy('updated_at', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->paginate(5);
         }
     }

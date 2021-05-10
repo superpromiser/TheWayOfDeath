@@ -237,7 +237,7 @@
               </v-icon>
           </template>
           <template v-slot:no-data>
-            <p>没有学习资料</p>
+            <p>暂无</p>
           </template>
         </v-data-table>
       </v-col>

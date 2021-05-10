@@ -6,6 +6,10 @@
           <AnouncementPost :content="content"></AnouncementPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
+         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 7 && content.repairdata">
+          <RepairDataPost :content='content'></RepairDataPost>
+          <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 8 && content.safestudy">
           <SafeStudyPost :content='content'></SafeStudyPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
@@ -135,7 +139,7 @@
               outlined
               pill
             >
-              没有更多数据
+              暂无
               <v-icon right>
                 mdi-cancel 
               </v-icon>
@@ -146,7 +150,7 @@
                   <v-icon size="150" color="grey darken-1">
                     mdi-magnify
                   </v-icon>
-                  <h5>资料不存在</h5>
+                  <h5>暂无</h5>
               </div>
           </div>
       </InfiniteLoading>
@@ -176,6 +180,7 @@ import InterClassStoryPost from '~/components/contents/interClassStoryPost'
 import SafeStudyPost from '~/components/contents/safeStudyPost'
 import ReturnTeam from '~/components/contents/returnTeam'
 import VacationPost from '~/components/contents/vacationPost'
+import RepairDataPost from '~/components/contents/repairDataPost'
 export default {
   components :{
     QusetionnairePost,
@@ -195,7 +200,8 @@ export default {
     InterClassStoryPost,
     ReturnTeam,
     InfiniteLoading,
-    VacationPost
+    VacationPost,
+    RepairDataPost
   },
 
   data: () => ({

@@ -15,4 +15,6 @@ import './webcam'
 import './baidu'
 import './excel'
 import './xlsx'
+import './timeago'
+
 import 'bootstrap'

@@ -9,16 +9,14 @@
         <div v-else-if="isNoContactList" class="pa-3 text-center ">
             请添加新朋友
         </div>
-        <v-list three-line class="py-0">
+        <v-list three-line class="py-0 mb-16">
             <v-list-item-group
-                v-model="model"
-                mandatory
                 color="#7879ff"
             >
                 <template>
                     <v-list v-for="(group, i) in chatGroupList" :key="'A'+ i" class="py-0 position-relative">
                         <v-list-item @click="updatechatIn(group, i)">
-                            <v-avatar size="50" color="#7879ff" class="ma-3" tile>
+                            <v-avatar size="50" color="#7879ff" class="mr-3" tile>
                                 <span dark class="white--text headline"> {{group.room_id.roomName[0]}}</span>
                             </v-avatar>
 
@@ -34,7 +32,7 @@
                                 </v-badge>
                             </div>
                         </v-list-item>
-                        <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
+                        <!-- <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
                             <template v-slot:activator="{ attrs, on }">
                                 <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 10px;">
                                     mdi-dots-horizontal-circle-outline
@@ -45,16 +43,16 @@
                                 <v-list-item @click="leaveGroup(group)"><v-list-item-icon> <v-icon>mdi-arrow-right-bold-box-outline</v-icon> </v-list-item-icon> <v-list-item-title > 离开团体</v-list-item-title> </v-list-item>
                                 <v-list-item v-if="group.room_id.userId == currentUser.id" @click="removeGroup(group)"><v-list-item-icon> <v-icon>mdi-trash-can-outline</v-icon> </v-list-item-icon>  <v-list-item-title > 删除群组</v-list-item-title> </v-list-item>
                             </v-list>
-                        </v-menu>
+                        </v-menu> -->
                         
                         <v-divider inset ></v-divider>
                     </v-list>
-                    <v-list v-for="user in filteredContacts" :key="user.id" class="py-0 position-relative">
+                    <v-list v-for="(user, index) in filteredContacts" :key="index" class="py-0 position-relative">
                         <v-list-item @click="updatechatwith(user)">
                             <v-badge bordered bottom v-if="checkOnline(user.user.id)"
                                 color="light-green accent-3" dot
                                 offset-x="10"
-                                offset-y="10" class="ma-3"
+                                offset-y="10" class="mr-3"
                             >
                                 <v-avatar size="50" color="#7879ff">
                                     <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
@@ -64,7 +62,7 @@
                             <v-badge bordered bottom v-else
                                 color="blue-grey lighten-2" dot
                                 offset-x="10"
-                                offset-y="10" class="ma-3"
+                                offset-y="10" class="mr-3"
                             >
                                 <v-avatar size="50" color="#7879ff">
                                     <v-img v-if="user.user.avatar !== '/'" :src="`${baseUrl}${user.user.avatar}`" :alt="user.user.name[0]" class="chat-user-avatar"></v-img>
@@ -73,18 +71,31 @@
                             </v-badge>
                             
                             <v-list-item-content>
-                                <v-list-item-title>{{user.user.name}}</v-list-item-title>
-                                <v-list-item-subtitle>asdf</v-list-item-subtitle>
+                                <v-list-item-title class="d-flex justify-space-between">
+                                    <p class="mb-0"> {{user.user.name}} </p>
+                                    <p class="mb-0" v-if="user.last_time !== null"> 
+                                        <timeago :datetime="convertTime(user.last_time)" locale="zhCN" :auto-update="60"></timeago> 
+                                    </p>
+                                    <p class="mb-0" v-else></p>
+                                </v-list-item-title>
+                                <v-list-item-subtitle class="d-flex justify-space-between line-height-1-7">
+                                    <p class="mb-0" v-if="user.last_message !== null" >{{user.last_message}}</p>
+                                    <p class="mb-0" v-else></p>
+                                    <div v-if="user.new_msg_count !== 0" class="mr-8">
+                                        <v-badge
+                                            color="red"
+                                            :content="user.new_msg_count"
+                                            >
+                                        </v-badge>
+                                    </div>
+                                </v-list-item-subtitle>
                             </v-list-item-content>
-                            <div v-if="user.new_msg_count !== 0" class="mr-8">
-                                <v-badge
-                                    color="red"
-                                    :content="user.new_msg_count"
-                                    >
-                                </v-badge>
-                            </div>
+                            <!-- <div class="mr-8">
+                                5 mins ago
+                                
+                            </div> -->
                         </v-list-item>
-                        <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
+                        <!-- <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
                             <template v-slot:activator="{ attrs, on }">
                                 <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 10px;">
                                     mdi-dots-horizontal-circle-outline
@@ -94,8 +105,8 @@
                             <v-list>
                                 <v-list-item @click="removeUserFromContactList(user.user)"><v-list-item-icon> <v-icon>mdi-trash-can-outline</v-icon> </v-list-item-icon> <v-list-item-title > 删除</v-list-item-title> </v-list-item>
                             </v-list>
-                        </v-menu>
-                        <v-divider inset ></v-divider>
+                        </v-menu> -->
+                        <v-divider inset v-if="index < filteredContacts.length - 1" ></v-divider>
                     </v-list>
                 </template>
             </v-list-item-group>
@@ -151,6 +162,8 @@ export default {
     }),
 
     async created(){
+        this.$timeago.locale = 'zh-CN'
+        // this.$timeago.locale = 'zhCN';
         this.listen();
         if(this.usersStore !== null){
             this.users = this.usersStore;
@@ -202,8 +215,22 @@ export default {
             });
             this.isGettingContactList = false;
         }
-        this.model = this.chatGroupList.length;
+        // this.model = this.chatGroupList.length;
         console.log("this.contactList", this.contactList);
+    },
+
+    mounted(){
+        console.log("SSSSS");
+        Echo.join('chats')
+            .here(user=>{
+                this.activeUserList = user;
+            })
+            .joining(user=>{
+                this.activeUserList.push(user);
+            })
+            .leaving(user=>{
+                this.activeUserList = this.activeUserList.filter(u => u.id != user.id);
+            })
     },
 
     computed:{
@@ -262,6 +289,7 @@ export default {
                 .leaving(user=>{
                     this.activeUserList = this.activeUserList.filter(u => u.id != user.id);
                 })
+            Echo.private('newMessage.'+ this.currentUser.id)
                 .listen('NewMessage', (message) => {
                     console.log("---listenList", message);
                     if ( message.message.to == this.currentUser.id ) {
@@ -272,19 +300,28 @@ export default {
                                 // this.$store.state.totalNewMsgCnt = this.totalNewMessageCount;
                                 this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
                                 this.contactList[i].new_msg_count = this.contactList[i].new_msg_count + 1;
-                                postNewMsgCount({new_msg_count:this.contactList[i]})
+                                postNewMsgCount({new_msg_count:this.contactList[i]});
+
+                                if(message.message.text !== null){
+                                    this.contactList[i].last_messsage = message.message.text;
+                                    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",this.contactList);
+                                    this.$store.dispatch('chat/storeContactList',this.contactList)
+                                    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", this.contactListStore)
+                                }
                             }
                         }
                     }
-                    else if ( (((message.message.room_id.invited)).includes(this.currentUser.id) || message.message.room_id.userId == this.currentUser.id ) && message.message.from.id !== this.currentUser.id  ) {
-                        console.log("Badge", message.message.from.id);
-                        for(let i = 0; i < this.chatGroupList.length; i++){
-                            if( message.message.roomId == this.chatGroupList[i].roomId ){
-                                this.totalNewMessageCount = this.totalNewMessageCount + 1;
-                                // this.$store.state.totalNewMsgCnt = this.totalNewMessageCount;
-                                this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
-                                this.chatGroupList[i].new_msg_count = this.chatGroupList[i].new_msg_count + 1;
-                                postNewMsgCount({new_msg_count:this.chatGroupList[i]})
+                    else if(message.message.roomId !== null){
+                        if ( (((message.message.roomId.invited)).includes(this.currentUser.id) || message.message.roomId.userId == this.currentUser.id ) && message.message.from.id !== this.currentUser.id  ) {
+                            console.log("Badge", message.message.from.id);
+                            for(let i = 0; i < this.chatGroupList.length; i++){
+                                if( message.message.roomId == this.chatGroupList[i].roomId ){
+                                    this.totalNewMessageCount = this.totalNewMessageCount + 1;
+                                    // this.$store.state.totalNewMsgCnt = this.totalNewMessageCount;
+                                    this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
+                                    this.chatGroupList[i].new_msg_count = this.chatGroupList[i].new_msg_count + 1;
+                                    postNewMsgCount({new_msg_count:this.chatGroupList[i]})
+                                }
                             }
                         }
                     }
@@ -308,7 +345,6 @@ export default {
                     this.totalNewMessageCount = this.totalNewMessageCount - this.contactList[i].new_msg_count;
                     this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
                     this.contactList[i].new_msg_count = 0;
-
                     postNewMsgCount({new_msg_count:this.contactList[i]})
                 }
             }
@@ -452,6 +488,9 @@ export default {
             }
             return result
         },
+        convertTime(time){
+            return new Date(time);
+        }
     }
 }
 </script>

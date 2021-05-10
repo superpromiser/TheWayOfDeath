@@ -124,7 +124,7 @@
             :headers="headers"
             :items="scheduleData"
             :loading="isLoadingSchoolData"
-            loading-text="等一下..."
+            loading-text="正在加载..."
             sort-by="calories"
             class="elevation-1"
         >
@@ -168,7 +168,7 @@
                                 <v-text-field
                                     solo
                                     v-model="editedItem.subjectOrderName"
-                                    label="机构名称"
+                                    label="课时名称"
                                     hide-details
                                 ></v-text-field>
                             </v-col>
@@ -377,7 +377,7 @@
                 </v-icon>
           </template>
           <template v-slot:no-data>
-            <p>没有学习资料</p>
+            <p>暂无</p>
           </template>
         </v-data-table>
       </v-col>

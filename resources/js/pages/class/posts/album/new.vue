@@ -53,7 +53,7 @@
         </v-row>
         <v-row v-else-if="imgUrlList.length == 0" class="justify-center">
             <v-chip class="ma-2" color="#F19861" outlined pill >
-                没有更多数据
+                暂无
                 <v-icon right> mdi-cancel  </v-icon>
             </v-chip>
         </v-row>

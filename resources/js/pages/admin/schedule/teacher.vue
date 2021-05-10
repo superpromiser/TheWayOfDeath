@@ -4,7 +4,7 @@
             :headers="headers"
             :items="scheduleTeacherData"
             :loading="isLoadingSchoolData"
-            loading-text="等一下..."
+            loading-text="正在加载..."
             sort-by="calories"
             class="elevation-1"
             >
@@ -52,7 +52,7 @@
                                         item-text="subjectName"
                                         item-value="id"
                                         v-model="editedItem.scheduleSettingId"
-                                        label="主题选择"
+                                        label="课程名称"
                                         @change="onChangeSubjectName"
                                         return-object
                                         hide-details
@@ -66,7 +66,7 @@
                                         item-text="name"
                                         item-value="id"
                                         v-model="editedItem.teacherId"
-                                        label="老师选拔"
+                                        label="任课教师"
                                         @change="onChangeTeacherName"
                                         return-object
                                         hide-details
@@ -81,7 +81,7 @@
                                         item-text="lessonName"
                                         item-value="lessonId"
                                         v-model="editedItem.lessons"
-                                        label="班级选择"
+                                        label="任课班级"
                                         :disabled="editedItem.scheduleSettingId == null"
                                         hide-details
                                     ></v-select>
@@ -171,7 +171,7 @@
                 </v-icon>
             </template>
             <template v-slot:no-data>
-                <p>没有学习资料</p>
+                <p>暂无</p>
             </template>
             </v-data-table>
     </v-container>

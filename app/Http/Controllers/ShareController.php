@@ -25,7 +25,8 @@ class ShareController extends Controller
                     'shares',
                     'users:id,name,avatar'
                 ])
-                ->orderBy('updated_at', 'desc')
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->paginate(5);
         } else {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 23])
@@ -36,7 +37,8 @@ class ShareController extends Controller
                     'shares',
                     'users:id,name,avatar'
                 ])
-                ->orderBy('updated_at', 'desc')
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->paginate(5);
         }
     }

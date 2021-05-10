@@ -23,6 +23,7 @@ class SchoolStoryController extends Controller
                 'schoolstory',
                 'users:id,name,avatar'
             ])
+            ->orderBy('fixTop', 'desc')
             ->orderBy('created_at', 'desc')
             ->paginate(5);
     }
@@ -33,16 +34,22 @@ class SchoolStoryController extends Controller
 
         $classStory =  Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 25])
             ->with([
+                'likes',
+                'views',
+                'comments.users:id,name',
                 'classstory',
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')
             ->get();
 
         $schoolStory =  Post::where(['schoolId' => $request->schoolId,  'contentId' => 11])
             ->with([
+                'likes',
+                'views',
+                'comments.users:id,name',
                 'schoolstory',
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('created_at', 'desc')
             ->get();

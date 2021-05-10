@@ -81,7 +81,7 @@
           :headers="headers"
           :items="attendanceData"
           :loading="isLoadingSchoolData"
-          loading-text="正在下载..."
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -196,7 +196,7 @@
                             <template v-slot:[`item.other`]="{ item }">
                               <v-text-field
                                 v-model="item.other"
-                                label="人员姓名"
+                                label=""
                                 hide-details
                               ></v-text-field>
                             </template>

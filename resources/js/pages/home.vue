@@ -724,6 +724,7 @@ export default {
           this.bodyStoryList = this.selectedStoryGroup;
           this.bannerKey++;
         }
+        console.log("!!!!!!!!!!!!!!!!!!!,this.bannerStoryList", this.bannerStoryList);
       }).catch((err) => {
         
       });
@@ -1066,7 +1067,7 @@ export default {
     showDetailSchoolStory(story){
       story.schoolstory.content = JSON.stringify(story.schoolstory.content);
       this.$store.dispatch('content/storePostDetail',story)
-      this.$router.push({name:'details.schoolStory'});
+      this.$router.push({name:'details.schoolStory', params:{schoolId: this.user.schoolId}});
     },
 
     showDetailClassStory(story){

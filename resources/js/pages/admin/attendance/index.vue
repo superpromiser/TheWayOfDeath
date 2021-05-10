@@ -64,7 +64,7 @@
           :headers="headers"
           :items="attendanceData"
           :loading="isLoadingSchoolData"
-          loading-text="正在下载..."
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -78,7 +78,7 @@
                 inset
                 vertical
                 ></v-divider>
-                <v-spacer></v-spacer>24
+                <v-spacer></v-spacer>
 
                 <div class="d-flex align-center">
                     <p class="mb-0 mr-5">考勤日期</p>

@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-0 h-100" v-if="$isMobile()">
+    <!-- <v-container class="pa-0 h-100" v-if="$isMobile()">
         <v-container class="pa-0 add-comment-out-height-mo">
             <v-container class="pa-0 bg-white position-sticky-top-0" >
                 <v-row class="ma-0 bg-white justify-center " >
@@ -89,7 +89,6 @@
                 <InterClassStoryPost :content='contentData'></InterClassStoryPost>
             </div>
             <FooterPost :footerInfo='contentData'></FooterPost>
-            <!-- <CommentView></CommentView> -->
             <v-container class="px-2">
                 <v-container class="pa-0" v-for="(comment,index) in contentData.comments" :key="index">
                     <v-row class="ma-0">
@@ -124,7 +123,6 @@
     </v-container>
     <v-container class="pa-0" v-else>
         <v-container class="pa-0 add-comment-out-height">
-            <!-- {{contentData}} -->
             <RouterBack title='评论'></RouterBack>
             <div v-if='contentData.contentId == 1'>
                 <QuestionnairePost :content='contentData'></QuestionnairePost>
@@ -206,36 +204,10 @@
             </div>
             <FooterPost :footerInfo='contentData'></FooterPost>
             <CommentView></CommentView>
-            <!-- <v-container class="px-10">
-                <v-container class="pa-0" v-for="(comment,index) in contentData.comments" :key="index">
-                    <v-row class="py-2">
-                        <v-col cols="12" lg="1" md="2" sm="2">
-                            {{comment.users.name}}
-                        </v-col>
-                        <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap">{{comment.comments}}</v-col>
-                        <v-col cols="12" lg="2" md="2" sm="4" class="text-right">
-                            {{TimeView(comment.created_at)}}
-                            <v-icon color="#FF5722" @click="remove(comment)" :loading="comment.isDeleting">mdi-trash-can-outline</v-icon>
-                        </v-col>
-                        </v-row>
-                    <v-divider></v-divider>
-                </v-container>
-            </v-container> -->
         </v-container>
-        <!-- <v-container class="px-10 py-0 position-relative">
-            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 155px" />
-            <v-textarea solo name="input-7-4"
-                prepend-inner-icon="mdi-emoticon-excited-outline"
-                @click:prepend-inner="toggleEmo"
-                :append-icon-cb="toggleEmo" 
-                :label="'换行 发送 / shift+'"
-                @keydown.enter.exact.prevent 
-                @keyup.enter.exact="submit" 
-                @keydown.enter.shift.exact="newline" 
-                v-model="commentText"
-                hide-details
-            ></v-textarea>
-        </v-container> -->
+    </v-container> -->
+    <v-container class="pa-0">
+        <router-view></router-view>
     </v-container>
 </template>
 

@@ -101,7 +101,7 @@ export default [
       {path:'member', name:'schoolSpace.member',component:page('school/member.vue')},
     ]
   },
-
+  // schoolSpace detail
   {path:'/schoolSpace/:schoolId/detail', name:"schoolSpace.detail", component:page('details/index.vue'),
     children:[
       {path:'questionnaire', name:'details.quesionnaire', component:page('details/questionnaire/index.vue'),
@@ -124,8 +124,9 @@ export default [
       {path:'regnameAnswer', name:'details.regnameAnswer', component:page('details/regname/answer.vue')},
       {path:'shiftMng', name:'details.shiftMng', component:page('details/shiftMng/index.vue')},
       {path:'safeStudy', name:'details.safeStudy', component:page('details/safeStudy/index.vue')},
-      {path:'repaire', name:'details.repair', component:page('details/repair/index.vue')},
+      {path:'repair', name:'details.schoolRepair', component:page('details/repair/index.vue')},
       {path:'schoolStory', name:'details.schoolStory', component:page('details/schoolStory/index.vue')},
+      {path:'default',name:'details.schoolDefault',component:page('details/default/index.vue')}
     ]
   },
   
@@ -343,6 +344,8 @@ export default [
       {path:'classStory', name:'details.classStory', component:page('details/classStory/index.vue')},
       {path:'interClassStory', name:'details.interClassStory', component:page('details/interClassStory/index.vue')},
       {path:'vacation', name:'details.vacation', component:page('details/vacation/index.vue')},
+      {path:'repair', name:'details.classRepair', component:page('details/repair/index.vue')},
+      {path:'default',name:'details.classDefault',component:page('details/default/index.vue')}
     ]
   },
 

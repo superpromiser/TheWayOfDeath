@@ -33,7 +33,7 @@
         </v-container>
         <v-container v-else-if="noData" class="d-flex justify-center align-center">
             <v-chip class="ma-2" color="primary" outlined pill >
-                没有数据
+                暂无
                 <v-icon right>
                 mdi-cancel 
                 </v-icon>

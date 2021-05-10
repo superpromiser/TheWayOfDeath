@@ -159,11 +159,6 @@ export default {
             required:true
         }
     },
-    computed:{
-        ...mapGetters({
-            user: 'auth/user',
-        })
-    },
     data:() => ({
         lang,
         baseUrl:window.Laravel.base_url,
@@ -175,7 +170,10 @@ export default {
     computed:{
       currentPath(){
         return this.$route;
-      }
+      },
+      ...mapGetters({
+          user: 'auth/user',
+      })
     },
     methods:{
 
@@ -185,8 +183,10 @@ export default {
         }).catch(err=>{
           console.log(err.response)
         })
+        // console.log(this.user)
+        // return
         this.$store.dispatch('content/storePostDetail',content);
-        if(this.user.roleId !== 4 && this.user.roleId !== 5){
+        if(this.user.roleId !== 4 || this.user.roleId !== 5){
             this.$router.push({name:'details.regnameResult'});
         }
         else{

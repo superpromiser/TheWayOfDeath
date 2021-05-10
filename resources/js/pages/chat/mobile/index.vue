@@ -191,11 +191,16 @@ export default {
         },
 
         swipe (direction) {
-            if(direction == "Left"){
-                this.$router.push({name: 'circle'});
+            if(this.isDetailPage == true){
+                return
             }
-            if(direction == "Right"){
-                this.$router.push({name: 'home'});
+            else{
+                if(direction == "Left"){
+                    this.$router.push({name: 'circle'});
+                }
+                if(direction == "Right"){
+                    this.$router.push({name: 'home'});
+                }
             }
         },
     }

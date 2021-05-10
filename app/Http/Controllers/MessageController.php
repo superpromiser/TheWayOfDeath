@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Message;
+use App\Contact;
 use App\Events\NewMessage;
 
 class MessageController extends Controller
@@ -43,9 +44,21 @@ class MessageController extends Controller
         if($request->to !== null){
             $data = request(['from','to','text']);
             $message = Message::create($data);
-    
+            
+            Contact::where(function($query) {
+                $query->where('userId', request('from'));
+                $query->where('contactUserId', request('to'));
+            })->orWhere(function($query) {
+                $query->where('userId', request('to'));
+                $query->where('contactUserId', request('from'));
+            })->update([
+                'last_message' => $request->text,
+                'last_time' => \Carbon\Carbon::now(),
+                'last_sender' => $request->from
+            ]);
+
             //broadcast Event
-            broadcast(new NewMessage($message->load('from')))->toOthers();
+            broadcast(new NewMessage($message->load('from'), $request->to));
     
             return response()->json([
                 'msg' => "ok"

@@ -110,7 +110,7 @@
               outlined
               pill
             >
-              没有更多数据
+              暂无
               <v-icon right>
                 mdi-cancel 
               </v-icon>
@@ -121,7 +121,7 @@
                   <v-icon size="150" color="grey darken-1">
                     mdi-magnify
                   </v-icon>
-                  <h5>资料不存在</h5>
+                  <h5>暂无</h5>
               </div>
           </div>
       </InfiniteLoading>
@@ -204,7 +204,7 @@
               outlined
               pill
             >
-              没有更多数据
+              暂无
               <v-icon right>
                 mdi-cancel 
               </v-icon>
@@ -215,7 +215,7 @@
                   <v-icon size="150" color="grey darken-1">
                     mdi-magnify
                   </v-icon>
-                  <h5>资料不存在</h5>
+                  <h5>暂无</h5>
               </div>
           </div>
       </InfiniteLoading>

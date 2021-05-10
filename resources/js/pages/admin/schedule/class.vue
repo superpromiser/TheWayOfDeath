@@ -6,7 +6,7 @@
           :headers="headers"
           :items="scheduleData"
           :loading="isLoadingSchoolData"
-          loading-text="等一下..."
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -107,7 +107,7 @@
                 </tbody>
             </template>
             <template v-slot:no-data>
-                <p>没有学习资料</p>
+                <p>暂无</p>
             </template>
         </v-data-table>
       </v-col>
@@ -133,7 +133,7 @@ export default {
         isEditable : false,
         subjectItem : [],
         headers: [
-            { text: "演讲顺序", value: "ord", sortable: false, align: "left" },
+            { text: "节次", value: "ord", sortable: false, align: "left" },
             { text: "星期一", value: "mon", sortable: false, align: "left" },
             { text: "星期二", value: "tue", sortable: false, },
             { text: "星期三", value: "wed", sortable: false, },

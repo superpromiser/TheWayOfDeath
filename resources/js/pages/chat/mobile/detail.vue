@@ -1,7 +1,7 @@
 <template>
     <v-container class="h-100 pa-0">
         <v-row class="h-100 ma-0">
-            <v-col cols="12" sm="12" md="9" class="h-100 mo-glow-bg">
+            <v-col cols="12" sm="12" md="9" class="h-100 mo-glow-bg pa-0">
                 <v-row class="mo-glow-bg mo-ch-area-height ma-0 ">
                     <v-col cols="12" class="overflowY-auto h-100 mo-glow-bg mo-glow-inverse" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
                         <ChatMessage
@@ -83,7 +83,7 @@
                             <v-container key="1" v-if="isFileUploadSheet == true" class="d-flex" :style="{ transitionDelay: delay }">  
                                 <div class="text-center" @click="clickUploadImageBtn">
                                     <v-icon size="35" color="#757575">mdi-file-image-outline</v-icon>
-                                    <p class="mb-0 font-size-0-75">图片</p>
+                                    <p class="mb-0 font-size-0-75 font-color-gray-dark">图片</p>
                                 </div>
                                 <input
                                     ref="imageUploader"
@@ -94,7 +94,7 @@
                                 >
                                 <div class="text-center mx-5" @click="clickUploadVideoBtn">
                                     <v-icon size="35" color="#757575">mdi-file-video-outline</v-icon>
-                                    <p class="mb-0 font-size-0-75">视频</p>
+                                    <p class="mb-0 font-size-0-75 font-color-gray-dark">视频</p>
                                 </div>
                                 <input
                                     ref="videoUploader"
@@ -105,7 +105,7 @@
                                 >
                                 <div class="text-center" @click="clickUploadFileBtn">
                                     <v-icon size="35" color="#757575">mdi-file-upload-outline</v-icon>
-                                    <p class="mb-0 font-size-0-75">文档</p>
+                                    <p class="mb-0 font-size-0-75 font-color-gray-dark">文档</p>
                                 </div>
                                 <input
                                     ref="fileUploader"
@@ -182,17 +182,17 @@ export default {
             search: 'Recherche', 
             categories: { 
                 search: '//Search Results',
-                recent: '//Frequently Used',
-                smileys: '//Smileys & Emoticon',
-                people: '//People & Body',
-                nature: '//Animals & Nature',
-                foods: '//Food & Drink',
-                activity: '//Activity',
-                places: '//Travel & Places',
-                objects: '//Objects',
-                symbols: '//Symbols',
-                flags: '//Flags',
-                custom: '//Custom',
+                recent: '最近常用',
+                smileys: '黄脸',
+                people: '人和手势',
+                nature: '动物和植物',
+                foods: '食物',
+                activity: '活动',
+                places: '交通 ',
+                objects: '物品',
+                symbols: '标志',
+                flags: '国旗',
+                custom: '其他',
             } 
                 
         },
@@ -247,6 +247,7 @@ export default {
 
         ...mapGetters({
             currentUser: 'auth/user',
+            contactListStore: 'chat/contactListStore',
         }),
 
         activeFab () {
@@ -347,8 +348,10 @@ export default {
                     this.fab = false;
                     console.log(res)
                     this.messages.push(res.data.message);
-                    this.isUploadingFileInChat = false
-                    this.selectedImageFile = null
+                    this.isUploadingFileInChat = false;
+                    this.selectedImageFile = null;
+                    this.isFileUploadSheet = false;
+                    document.getElementById("push-popup-bottom-nav").style.height = "0";
                 }).catch((err) => {
                     console.log(err)
                     this.isUploadingFileInChat = false
@@ -370,7 +373,9 @@ export default {
                     this.fab = false;
                     this.selectedVideoFile = null;
                     console.log(res)
-                    this.isUploadingFileInChat = false
+                    this.isUploadingFileInChat = false;
+                    this.isFileUploadSheet = false;
+                    document.getElementById("push-popup-bottom-nav").style.height = "0";
                 }).catch((err) => {
                     //console.log(err);
                     this.isUploadingFileInChat = false
@@ -393,7 +398,9 @@ export default {
                     this.fab = false;
                     this.selectedFile = null;
                     console.log(res);
-                    this.isUploadingFileInChat = false
+                    this.isUploadingFileInChat = false;
+                    this.isFileUploadSheet = false;
+                    document.getElementById("push-popup-bottom-nav").style.height = "0";
                 }).catch((err) => {
                     //console.log(err);
                     this.isUploadingFileInChat = false
@@ -432,11 +439,25 @@ export default {
                         to: this.ChatWith,
                         from: this.currentUser.id,
                     }
+                    
                     postMessage(payload)
                     .then((res) => {
                     }).catch((err) => {
                         
                     });
+
+                    //for contact user
+                    for (let i = 0 ; i < this.contactListStore.length ; i++){
+                        if(this.contactListStore[i].contactUserId == this.ChatWith){
+                            this.contactListStore[i].last_message = messageText;
+                            this.contactListStore[i].last_time = currentTime;
+                            this.contactListStore[i].last_sender = this.currentUser.id;
+                            return;
+                        }
+                    }
+                    this.$store.dispatch('chat/storeContactList',this.contactListStore)
+
+                    
                 }
                 else if(this.recordingBlobData){
                     let formdata = new FormData();
@@ -557,6 +578,7 @@ export default {
                     }
                 }
             })
+        Echo.private('newMessage.'+ this.currentUser.id)
             .listen('NewMessage', (message) => {
                 console.log("---listenIndex", message)
                 console.log(this.currentUser.id, this.ChatWith)

@@ -23,7 +23,8 @@ class ShiftMngController extends Controller
                 'shiftMng',
                 'users:id,name,avatar'
             ])
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('fixTop', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
     }
 
@@ -59,6 +60,13 @@ class ShiftMngController extends Controller
 
     public function updateShiftMng(Request $request)
     {
+        $this->validate($request,[
+            'shiftId'=>'required',
+            'confirmDate'=>'required'
+        ]);
+        return ShiftMng::where('id',$request->shiftId)->update([
+            'confirmDate'=>$request->confirmDate
+        ]);
     }
 
     public function deleteShiftMng(Request $request)

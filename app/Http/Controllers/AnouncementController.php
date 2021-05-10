@@ -25,7 +25,8 @@ class AnouncementController extends Controller
                 'anouncements',
                 'users:id,name,avatar'
             ])
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('fixTop', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
     }
 

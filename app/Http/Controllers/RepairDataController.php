@@ -20,18 +20,36 @@ class RepairDataController extends Controller
         $status = $request->status;
         $deadline = $request->deadline;
         $userId = Auth::user()->id;
-        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 7])
+        if($request->status == 'all'){
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 7])
             ->with([
                 'likes',
                 'views',
                 'comments.users:id,name',
                 'repairdata' => function ($q) use ($status, $deadline, $userId) {
-                    $q->where(['status' => $status])->whereDate('deadline', $deadline);
+                    $q->whereDate('created_at', $deadline);
                 },
                 'users:id,name,avatar'
             ])
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('fixTop', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
+        }else{
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 7])
+            ->with([
+                'likes',
+                'views',
+                'comments.users:id,name',
+                'repairdata' => function ($q) use ($status, $deadline, $userId) {
+                    $q->where(['status' => $status])->whereDate('created_at', $deadline);
+                },
+                'users:id,name,avatar'
+            ])
+            ->orderBy('fixTop', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+        }
+        
     }
 
     public function createRepairData(Request $request)
@@ -70,7 +88,8 @@ class RepairDataController extends Controller
             'repairId' => 'required'
         ]);
         return RepairData::where('id', $request->repairId)->update([
-            'status' => $request->status
+            'status' => $request->status,
+            'reason'=>$request->reason
         ]);
     }
 

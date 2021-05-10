@@ -84,19 +84,19 @@
     <v-col cols="12" class="pl-10 pt-0">
         <div class="d-flex align-center">
             <p class="text-wrap mb-0">
-            <strong>姓名:</strong>
+            <strong>交班人:</strong>
             {{content.shift_mng.prevName}}
             </p>
         </div>
         <div class="d-flex align-center">
             <p class="text-wrap mb-0">
-            <strong>交接人姓名:</strong>
+            <strong>接班人:</strong>
             {{content.shift_mng.nextName}}
             </p>
         </div>
         <div class="d-flex align-center">
             <p class="text-wrap mb-0">
-            <strong>归程队成员:</strong>
+            <strong>交班时间:</strong>
             {{TimeViewSam(content.shift_mng.scheduleDate)}}
             </p>
         </div>
@@ -105,6 +105,11 @@
             <strong>交接物品:</strong>
             {{content.shift_mng.itemList}}
             </p>
+        </div>
+        <div class="d-flex align-center" v-if="content.shift_mng.confirmDate">
+          <p class="text-wrap mb-0"></p>
+          <strong>接班时间</strong>
+          {{content.shift_mng.confirmDate}}
         </div>
     </v-col>
   </v-container>
@@ -148,9 +153,9 @@ export default {
         })
         this.$store.dispatch('content/storePostDetail',this.content)
         if(this.currentPath.params.lessonId){
-          this.$router.push({name:'classSpace.detail'});
+          this.$router.push({name:'details.classDefault'});
         }else{
-          this.$router.push({name:'schoolSpace.detail'});
+          this.$router.push({name:'details.schoolDefault'});
         }
       },
       

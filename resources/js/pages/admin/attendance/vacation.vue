@@ -42,7 +42,7 @@
           :headers="headers"
           :items="vacationData"
           :loading="isLoadingSchoolData"
-          loading-text="正在下载..."
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -81,13 +81,13 @@
               {{TimeView(item.endTime)}}
           </template>
           <template v-slot:[`item.status`]="{ item }">
-            <v-chip v-if="item.status == 'deny'" class="ma-2" color="pink" label text-color="white" >
+            <v-chip small v-if="item.status == 'deny'" class="ma-2" color="pink" label text-color="white" >
               <v-icon left> mdi-cancel </v-icon> 否定
             </v-chip>
-            <v-chip v-else-if="item.status == 'allow'" class="ma-2" color="success"  label text-color="white" >
+            <v-chip small v-else-if="item.status == 'allow'" class="ma-2" color="success"  label text-color="white" >
               <v-icon left> mdi-hand   </v-icon> 允许
             </v-chip>
-            <v-chip v-else-if="item.status == 'pending'" class="ma-2" color="orange"  label text-color="white" >
+            <v-chip small v-else-if="item.status == 'pending'" class="ma-2" color="orange"  label text-color="white" >
               <v-icon left> mdi-clock-outline   </v-icon> 待办的
             </v-chip>
           </template>
@@ -100,10 +100,10 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            mdi-reply
+                            mdi-stamper
                         </v-icon>
                     </template>
-                    <span>回复</span>
+                    <span>审批</span>
                 </v-tooltip>
                 <v-tooltip bottom v-if="item.status == 'allow'">
                     <template v-slot:activator="{ on, attrs }">
@@ -142,7 +142,7 @@
                             mdi-delete
                         </v-icon>
                     </template>
-                    <span>删除假期</span>
+                    <span>删除</span>
                 </v-tooltip>
           </template>
           <template v-slot:no-data>
@@ -170,7 +170,7 @@ export default {
             { text: '请假人', value: 'studentName', sortable: false, align: 'start'},
             { text: '开始时间', value: 'startTime', sortable: false },
             { text: '结束时间', value: 'endTime', sortable: false },
-            { text: '休假表格', value: 'reasonFlag', sortable: false },
+            { text: '请假类型', value: 'reasonFlag', sortable: false },
             { text: '请假原因', value: 'reason', sortable: false, align: 'center' },
             { text: '审批状态', value: 'status', sortable: false, align: 'center' },
             { text: '操作', value: 'actions', sortable: false },
