@@ -289,6 +289,10 @@ a {
     .border-type-2 {
         border-radius: 0px !important;
     }
+    * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+    }
 }
 
 .medal-background {
