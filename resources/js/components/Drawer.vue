@@ -353,7 +353,18 @@ export default {
           this.mySchoolList.push(schoolItem)
         }
       })
-    }else{
+    }else if(this.user.roleId == 6){
+      let myschoolData = {}
+      this.schoolData.map(schoolItem=>{
+        if(this.user.schoolId == schoolItem.id){
+          myschoolData = schoolItem
+        }
+      })
+      console.log("myschoolData-------",myschoolData)
+      myschoolData.grades = [] 
+      this.mySchoolList.push(myschoolData)
+    }
+    else{
       let myschoolData = {}
       this.schoolData.map(schoolItem=>{
         if(this.user.schoolId == schoolItem.id){
@@ -362,13 +373,9 @@ export default {
       })
       let clonedVal1 = JSON.parse(JSON.stringify(myschoolData))
       let clonedVal2 = JSON.parse(JSON.stringify(myschoolData))
-      // this.mySchoolList.push(clonedVal1)
-      // this.mySchoolList[0].grades = []
       clonedVal1.grades = []
       clonedVal2.grades.map(grade=>{
         grade.lessons.map(lesson=>{
-          console.log("069+++++++++++++++++++++++",lesson)
-          console.log("this.user.groupArr", this.user.groupArr);
           this.user.groupArr.map(groupId=>{
             if(lesson.id == groupId){
               console.log('^^^^^^^',lesson)
