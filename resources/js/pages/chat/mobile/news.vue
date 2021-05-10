@@ -325,7 +325,6 @@ export default {
                     this.totalNewMessageCount = this.totalNewMessageCount - this.contactList[i].new_msg_count;
                     this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
                     this.contactList[i].new_msg_count = 0;
-
                     postNewMsgCount({new_msg_count:this.contactList[i]})
                 }
             }
