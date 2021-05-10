@@ -73,7 +73,7 @@
                             <v-list-item-content>
                                 <v-list-item-title class="d-flex justify-space-between">
                                     <p class="mb-0"> {{user.user.name}} </p>
-                                    <p class="mb-0">  5 mins ago </p>
+                                    <p class="mb-0"> <timeago :datetime="convertTime(user.last_time)" locale="zh-CN"></timeago> </p>
                                 </v-list-item-title>
                                 <v-list-item-subtitle class="d-flex justify-space-between line-height-1-7">
                                     <p class="mb-0" v-if="user.last_message !== null" >{{user.last_message}}</p>
@@ -468,6 +468,9 @@ export default {
             }
             return result
         },
+        convertTime(time){
+            return new Date(time);
+        }
     }
 }
 </script>
