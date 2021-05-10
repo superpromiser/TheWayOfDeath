@@ -129,6 +129,7 @@
 
 <script>
 import lang from '~/helper/lang.json'
+import {createReadCnt} from '~/api/alarm'
 export default {
     props:{
         content:{
@@ -160,9 +161,9 @@ export default {
         })
         this.$store.dispatch('content/storePostDetail',content)
         if(this.currentPath.params.lessonId){
-          this.$router.push({name:'classSpace.detail'});
+          this.$router.push({name:'details.classVoting'});
         }else{
-          this.$router.push({name:'schoolSpace.detail'});
+          this.$router.push({name:'details.voting'});
         }
       },
     }

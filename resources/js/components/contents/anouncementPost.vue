@@ -156,7 +156,7 @@ export default {
     methods:{
       showDetail(content){
         console.log(this.user)
-        return
+        // return
         createReadCnt({postId:content.id}).then(res=>{
           console.log(res.data)
         }).catch(err=>{
@@ -165,10 +165,11 @@ export default {
         
         this.$store.dispatch('content/storePostDetail',content)
         if(this.currentPath.params.lessonId){
-          this.$router.push({name:'classSpace.detail'});
+          this.$router.push({name:'details.classDefault'});
         }else{
-          this.$router.push({name:'schoolSpace.detail'});
+          this.$router.push({name:'details.schoolDefault'});
         }
+        // this.$router.push({name:'details.default'})
         
       }
     }

@@ -186,11 +186,10 @@ export default {
         // console.log(this.user)
         // return
         this.$store.dispatch('content/storePostDetail',content);
-        if(this.user.roleId !== 4 && this.user.roleId !== 5){
-            this.$router.push({name:'details.regnameResult'});
-        }
-        else{
-            this.$router.push({name:'details.regnameAnswer'});
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'details.classDefault'});
+        }else{
+          this.$router.push({name:'details.schoolDefault'});
         }
       },
       

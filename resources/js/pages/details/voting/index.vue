@@ -93,6 +93,43 @@
             </v-row>
         </div>
         <div v-if="answerUserShow == false">
+            <v-col cols="12" class="d-flex align-center hover-cursor-point px-10">
+                <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="60" class="ma-5">
+                    <span class="white--text headline">{{contentData.users.name[0]}}</span>
+                </v-avatar>
+                <v-avatar v-else
+                class="ma-5"
+                size="60"
+                >
+                <v-img :src="contentData.users.avatar"></v-img>
+                </v-avatar>
+                <div>
+                <p class="font-weight-black fs-15 mb-3"> {{lang.questionnaire}}  </p>
+                <div class="d-flex align-center">
+                    <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                    <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
+                    <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                    <p class="mb-0">{{contentData.users.name}}</p>
+                </div>
+                </div>
+                <div class="ml-auto">
+                <v-menu offset-y >
+                    <template v-slot:activator="{ attrs, on }">
+                    <v-btn icon color="primary" v-bind="attrs" v-on="on" >
+                        <v-icon size="30">mdi-chevron-down </v-icon>
+                    </v-btn>
+                    </template>
+                    <v-list>
+                    <v-list-item link >
+                        <v-list-item-title class="px-2" @click="fixTop(contentData)">{{lang.toTop}}</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item link >
+                        <v-list-item-title class="px-2" @click="postRemove(contentData)">{{lang.remove}}</v-list-item-title>
+                    </v-list-item>
+                    </v-list>
+                </v-menu>
+                </div>
+            </v-col>
             <v-row class="ma-0 px-5 px-md-10 mt-5">
                 <v-col cols="12">
                     <p class="mb-0 d-flex align-center"> 
@@ -134,6 +171,8 @@
                         {{lang.submit}}
                 </v-btn>
             </v-row>
+            <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+            <CommentView></CommentView>
         </div>
         <div v-else>
             <router-view :answerUsers="answerDataList"></router-view>
@@ -147,9 +186,13 @@ import {mapGetters} from 'vuex';
 import lang from '~/helper/lang.json';
 import AttachItemViewer from '~/components/attachItemViewer';
 import {createAnswerVoting,getAnswerVoting} from '~/api/postAnswer'
+import FooterPost from '~/components/contents/footerPost'
+import CommentView from '~/pages/school/posts/comments/commentView';
 export default {
     components:{
         AttachItemViewer,
+        FooterPost,
+        CommentView
     },
     data:()=>({
         // contentData:null
@@ -275,6 +318,9 @@ export default {
             this.answerUserShow = true
             this.$router.push({name:'details.votingUsers'});
             //console.log('answerUsers')
+        },
+        updateFooterInfo(){
+
         }
     }
 }

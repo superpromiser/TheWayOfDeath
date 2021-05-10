@@ -1,5 +1,5 @@
 <template>
-    <!-- <v-container class="pa-0 h-100" v-if="$isMobile()">
+    <v-container class="pa-0 h-100" v-if="$isMobile()">
         <v-container class="pa-0 add-comment-out-height-mo">
             <v-container class="pa-0 bg-white position-sticky-top-0" >
                 <v-row class="ma-0 bg-white justify-center " >
@@ -205,9 +205,6 @@
             <FooterPost :footerInfo='contentData'></FooterPost>
             <CommentView></CommentView>
         </v-container>
-    </v-container> -->
-    <v-container class="pa-0">
-        <router-view></router-view>
     </v-container>
 </template>
 

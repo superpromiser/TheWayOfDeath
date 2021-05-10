@@ -85,8 +85,8 @@
         
         </v-container>
     </v-container>
-    <v-container v-else>
-        <v-row class="justify-center align-center z-index-2 banner-custom ">
+    <v-container v-else class="pa-0">
+        <v-row class="justify-center align-center z-index-2 banner-custom px-10">
             <v-icon size="70" @click="$router.go(-1)" class="position-absolute put-align-center" style="top:50%; left:20px">
                 mdi-chevron-left
             </v-icon>
@@ -115,37 +115,79 @@
                 </div>
             </div>
         </v-row>
-        <v-row class="pl-5 mt-5 ma-0">
-            <v-col cols="12" class="d-flex justify-space-between align-center">
+        <v-col cols="12" class="d-flex align-center hover-cursor-point mt-5">
+            <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="60" class="ma-5">
+                    <span class="white--text headline">{{contentData.users.name[0]}}</span>
+                </v-avatar>
+                <v-avatar v-else
+                class="ma-5"
+                size="60"
+                >
+                <v-img :src="contentData.users.avatar"></v-img>
+                </v-avatar>
+            <div>
+                <div class="d-flex align-center mb-3">
+                <p class="font-weight-black fs-15 mb-0"> 维修工单  </p>
+                <v-chip class="ma-2" color="pink" label text-color="white" v-if="contentData.repairdata.status == 'done'">
+                    <v-icon left> mdi-label </v-icon> 已完成
+                </v-chip>
+                </div>
+                <div class="d-flex align-center">
+                <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
+                <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                <p class="mb-0">{{contentData.users.name}}</p>
+                </div>
+            </div>
+            <div class="ml-auto">
+                <v-menu offset-y >
+                <template v-slot:activator="{ attrs, on }">
+                    <v-btn icon color="primary" v-bind="attrs" v-on="on" >
+                    <v-icon size="30">mdi-chevron-down </v-icon>
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-item link >
+                    <v-list-item-title class="px-2" @click="fixTop(contentData)">{{lang.toTop}}</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item link >
+                    <v-list-item-title class="px-2" @click="postRemove(contentData)">{{lang.remove}}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+                </v-menu>
+            </div>
+        </v-col>
+        <v-row class="ma-0">
+            <v-col cols="12" class="d-flex justify-space-between align-center px-10">
                 <p class="mb-0" >姓名 </p>
                 <p class="mb-0" >{{contentData.repairdata.userName}} </p>
             </v-col>
         </v-row>
         <v-divider light></v-divider>
-        <v-row class="ma-0 pl-5">
-            <v-col cols="12" class="d-flex justify-space-between align-center">
+        <v-row class="ma-0">
+            <v-col cols="12" class="d-flex justify-space-between align-center px-10">
                 <p class="mb-0" >交接人姓名 </p>
                 <p class="mb-0" >{{contentData.repairdata.viewListName}} </p>
             </v-col>
         </v-row>
         <v-divider light></v-divider>
-        <v-row class="ma-0 pl-5">
-            <v-col cols="12" class="d-flex justify-space-between align-center">
+        <v-row class="ma-0">
+            <v-col cols="12" class="d-flex justify-space-between align-center px-10">
                 <p class="mb-0" >维修物品 </p>
                 <p class="mb-0" >{{contentData.repairdata.repairType}} </p>
             </v-col>
         </v-row>
         <v-divider light></v-divider>
-        <v-row class="ma-0 pl-5">
-            <v-col cols="12" class="d-flex justify-space-between align-center">
+        <v-row class="ma-0">
+            <v-col cols="12" class="d-flex justify-space-between align-center px-10">
                 <p class="mb-0" >发布时间 </p>
                 <p class="mb-0" >{{TimeViewSam(contentData.repairdata.deadline)}} </p>
             </v-col>
         </v-row>
         <v-divider light></v-divider>
-        <v-col cols="12" class="pl-5 pt-0">
+        <v-col cols="12" class="pa-0">
             <v-row class="ma-0">
-                <v-col cols="12">
+                <v-col cols="12" class=" px-10 py-0">
                 <p class="text-wrap"><read-more more-str="全文" :text="description.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
                 </v-col>
                 <v-col cols="12" v-if="checkIfAttachExist(description)">
@@ -153,6 +195,8 @@
                 </v-col>
             </v-row>
         </v-col>
+        <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        <CommentView></CommentView>
     </v-container>
 </template>
 
@@ -161,9 +205,13 @@ import {mapGetters} from 'vuex';
 import lang from '~/helper/lang.json';
 import AttachItemViewer from '~/components/attachItemViewer';
 import {updateRepairData} from '~/api/repair';
+import FooterPost from '~/components/contents/footerPost'
+import CommentView from '~/pages/school/posts/comments/commentView';
 export default {
     components:{
         AttachItemViewer,
+        FooterPost,
+        CommentView
     },
     data:()=>({
         // contentData:null
@@ -204,6 +252,9 @@ export default {
             }).catch(err=>{
                 console.log(err.response)
             })
+        },
+        updateFooterInfo(){
+            
         }
     }
 

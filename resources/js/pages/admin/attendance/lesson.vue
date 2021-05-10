@@ -196,7 +196,7 @@
                             <template v-slot:[`item.other`]="{ item }">
                               <v-text-field
                                 v-model="item.other"
-                                label="人员姓名"
+                                label=""
                                 hide-details
                               ></v-text-field>
                             </template>

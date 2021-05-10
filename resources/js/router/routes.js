@@ -126,6 +126,7 @@ export default [
       {path:'safeStudy', name:'details.safeStudy', component:page('details/safeStudy/index.vue')},
       {path:'repair', name:'details.schoolRepair', component:page('details/repair/index.vue')},
       {path:'schoolStory', name:'details.schoolStory', component:page('details/schoolStory/index.vue')},
+      {path:'default',name:'details.schoolDefault',component:page('details/default/index.vue')}
     ]
   },
   
@@ -344,6 +345,7 @@ export default [
       {path:'interClassStory', name:'details.interClassStory', component:page('details/interClassStory/index.vue')},
       {path:'vacation', name:'details.vacation', component:page('details/vacation/index.vue')},
       {path:'repair', name:'details.classRepair', component:page('details/repair/index.vue')},
+      {path:'default',name:'details.classDefault',component:page('details/default/index.vue')}
     ]
   },
 
