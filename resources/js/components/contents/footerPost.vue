@@ -143,7 +143,7 @@
             >
                 <v-card>
                     <v-card-title class="headline grey lighten-2">
-                    read users
+                    已读
                     </v-card-title>
                     <v-card-text>
                         <v-row>

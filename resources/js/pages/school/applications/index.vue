@@ -70,12 +70,16 @@ export default {
             case 5:
                 this.contentItemList = this.studentItem
                 break;
-            default:
-                this.contentItemList = this.studentItem
-                break;
+            case 6:
+                this.contentItemList = this.employeeItem
+                break
             case 7:
                 this.contentItemList = this.teacherItem;
                 break;
+            default:
+                this.contentItemList = this.studentItem
+                break;
+            
         }
 
     },
@@ -654,6 +658,26 @@ export default {
                     //     path:"posts.",
 
                     // },
+                ]
+            },
+        ],
+        employeeItem:[
+            {
+                title:"校园安全",//교내안전
+                icon:"mdi-account-cog-outline",
+                items:[
+                    {
+                        color:"#98BB3A",
+                        title:"交接班",//교대반관리
+                        imgUrl:"/asset/img/newIcon/shiftMng.png",
+                        path:"schoolSpace.applications.shiftMng"
+                    },
+                    {
+                        color:"#98BB3A",
+                        title:"维修工单",//수리공
+                        imgUrl:"/asset/img/newIcon/repair.png",
+                        path:"schoolSpace.applications.repair"
+                    },
                 ]
             },
         ],

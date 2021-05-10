@@ -35,9 +35,7 @@ class PostController extends Controller
                 'shares',
                 'shiftMng',
                 'safestudy',
-                'repairdata' => function ($q) {
-                    $q->whereIn('status', ['progress', 'done']);
-                },
+                'repairdata',
                 'schoolstory',
                 'regnames',
                 'users:id,name,avatar'
@@ -77,9 +75,7 @@ class PostController extends Controller
                 'interclassstory',
                 'vacations',
                 'returnteam',
-                'repairdata' => function ($q) {
-                    $q->whereIn('status', ['progress', 'done']);
-                },
+                'repairdata',
                 'users:id,name,avatar'
             ])
             ->orderBy('fixTop', 'desc')

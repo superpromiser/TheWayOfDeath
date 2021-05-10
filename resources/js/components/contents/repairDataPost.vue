@@ -68,8 +68,20 @@
       <div>
         <div class="d-flex align-center mb-3">
           <p class="font-weight-black fs-15 mb-0"> 维修工单  </p>
-          <v-chip class="ma-2" color="pink" label text-color="white" v-if="content.repairdata.status == 'done'">
-            <v-icon left> mdi-label </v-icon> 已完成
+          <v-chip class="ma-2" color="#999999" label text-color="white" v-if="content.repairdata.status == 'cancel'">
+              <v-icon left> mdi-label </v-icon> 取消
+          </v-chip>
+          <v-chip class="ma-2" color="#EB5846" label text-color="white" v-if="content.repairdata.status == 'Undone'">
+              <v-icon left> mdi-label </v-icon> 未完成
+          </v-chip>
+          <v-chip class="ma-2" color="#F19861" label text-color="white" v-if="content.repairdata.status == 'progress'">
+              <v-icon left> mdi-label </v-icon> 已发布
+          </v-chip>
+          <v-chip class="ma-2" color="#FEB31A" label text-color="white" v-if="content.repairdata.status == 'done'">
+              <v-icon left> mdi-label </v-icon> 已维修
+          </v-chip>
+          <v-chip class="ma-2" color="#4AD2A0" label text-color="white" v-if="content.repairdata.status == 'completed'">
+              <v-icon left> mdi-label </v-icon> 已完成
           </v-chip>
         </div>
         <div class="d-flex align-center">
@@ -114,6 +126,12 @@
             <p class="text-wrap mb-0">
             <strong>维修物品:</strong>
             {{content.repairdata.repairType}}
+            </p>
+        </div>
+        <div class="d-flex align-center" v-if="content.repairdata.reason">
+            <p class="text-wrap mb-0">
+            <strong>reason:</strong>
+            {{content.repairdata.reason}}
             </p>
         </div>
         <div class="d-flex align-center">

@@ -59,7 +59,6 @@
                     <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                         v-model="date"
-                        label="Picker without buttons"
                         prepend-icon="mdi-calendar"
                         readonly
                         v-bind="attrs"
@@ -186,6 +185,10 @@ export default {
         lang,
         viewList:[
             {
+                text:'全部',
+                value:'all'
+            },
+            {
                 text:'已维修',
                 value:'done'
             },
@@ -200,6 +203,10 @@ export default {
             {
                 text:'已取消',
                 value:'cancel'
+            },
+            {
+                text:'未完成',
+                value:'Undone'
             },
         ],
         viewType:'progress',

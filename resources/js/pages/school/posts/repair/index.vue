@@ -105,6 +105,7 @@
                         color="#F19861"
                         :loading="isDraft"
                         @click="draft"
+                        class="mx-2"
                     >
                         {{lang.saveDraft}}
                     </v-btn>
@@ -114,77 +115,72 @@
                         color="#7879ff"
                         @click="submit"
                         :loading="isSubmit"
-                        class="mx-2"
+                        
                     >
                         提交
                     </v-btn>
                 </v-col>
             </v-row>
         </v-container>
-        <v-container>
-            <v-row class="ma-0 py-3 px-5 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
+        <v-container class="px-10">
+            <v-row class="ma-0 pt-3 hover-cursor-point">
+                <v-col cols="12" class="d-flex justify-space-between align-center px-0">
                     <p class="mb-0">姓名</p>
                     <p class="mb-0">{{repairData.userName}}</p>
                 </v-col>
             </v-row>
+            <v-divider light class=""></v-divider>
             <!-- <v-row class="ma-0 py-3 px-5 hover-cursor-point">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <p class="mb-0">发布位置</p>
                     <p class="mb-0">{{repairData.viewList}}</p>
                 </v-col>
             </v-row> -->
-            <v-row class="ma-0 py-3 px-5 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <v-row>
-                        <v-col cols="6">
-                            <p class="mb-0">发布位置</p>
-                        </v-col>
-                        <v-col cols="6">
-                           <v-text-field
-                                solo
-                                v-model="repairData.viewListName"
-                                label="发布位置"
-                                hide-details
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
+            <v-row class="ma-0 hover-cursor-point d-flex justify-space-between align-center">
+                <v-col cols="6" class="d-flex align-center px-0">
+                    <p class="mb-0">发布位置</p>
+                </v-col>
+                <v-col cols="6" class=" px-0">
+                    <v-text-field
+                        solo
+                        v-model="repairData.viewListName"
+                        label="发布位置"
+                        dense
+                        hide-details
+                    ></v-text-field>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 py-3 px-5 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <v-row>
-                        <v-col cols="6">
-                            <p class="mb-0">维修物品</p>
-                        </v-col>
-                        <v-col cols="6">
-                            <v-select
-                                :items="itemList"
-                                solo
-                                v-model="repairData.repairType"
-                            ></v-select>
-                        </v-col>
-                    </v-row>
+            <v-divider light class=""></v-divider>
+            <v-row class="ma-0 hover-cursor-point d-flex justify-space-between align-center">
+                <v-col cols="6" class=" px-0">
+                    <p class="mb-0">维修物品</p>
+                </v-col>
+                <v-col cols="6" class="d-flex align-center px-0">
+                    <v-select
+                        :items="itemList"
+                        solo
+                        dense
+                        v-model="repairData.repairType"
+                        hide-details
+                    ></v-select>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 py-3 px-5 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <v-row>
-                        <v-col cols="6">
-                            <p class="mb-0"  >发布时间</p>
-                        </v-col>
-                        <v-col cols="6">
-                            <v-datetime-picker 
-                                label="发布时间" 
-                                v-model="repairData.deadline"
-                                :okText='lang.ok'
-                                :clearText='lang.cancel'
-                            ></v-datetime-picker>
-                        </v-col>
-                    </v-row>
+            <v-divider light class=""></v-divider>
+            <v-row class="ma-0  hover-cursor-pointd-flex justify-space-between align-center">
+                <v-col cols="6" class="d-flex align-center px-0">
+                    <p class="mb-0"  >发布时间</p>
+                </v-col>
+                <v-col cols="6" class=" px-0">
+                    <v-datetime-picker 
+                        label="发布时间" 
+                        v-model="repairData.deadline"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    ></v-datetime-picker>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 py-3 px-5 hover-cursor-point">
+            <v-divider light class=""></v-divider>
+            <v-row class="ma-0  hover-cursor-point">
                 <QuestionItem Label="请输入维修物品的详细信息，例如：桌子、椅子等" ref="child" @contentData="loadContentData"></QuestionItem>            
             </v-row>
         </v-container>
@@ -208,7 +204,7 @@ export default {
             viewListName:'',
             repairType:'',
             content:null,
-            deadline:'',
+            deadline:new Date(),
             schoolId:'',
         },
         itemList:[

@@ -72,12 +72,16 @@ export default {
             case 5:
                 this.contentItemList = this.studentItem
                 break;
-            default:
-                this.contentItemList = this.studentItem
+            case 6:
+                this.contentItemList = this.employeeItem
                 break;
             case 7:
                 this.contentItemList = this.teacherItem
                 break;
+            default:
+                this.contentItemList = this.studentItem
+                break;
+            
         }
     },
     data: () => ({
@@ -657,6 +661,38 @@ export default {
                     // },
             //     ]
             // },
+        ],
+        employeeItem:[
+            {
+                title:"校园安全",//교내안전
+                icon:"mdi-account-cog-outline",
+                items:[
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"访客管理",//방문자관리
+                    //     imgUrl:"/asset/img/newIcon/graduate.png",
+                    //     path:"posts."
+                    // },
+                    {
+                        color:"#98BB3A",
+                        title:"交接班",//교대반관리
+                        imgUrl:"/asset/img/newIcon/shiftMng.png",
+                        path:"posts.shift"
+                    },
+                    {
+                        color:"#98BB3A",
+                        title:"维修工单",//수리공
+                        imgUrl:"/asset/img/newIcon/repair.png",
+                        path:"posts.repair"
+                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"安全教育",//안전교육
+                    //     imgUrl:"/asset/img/newIcon/safeStudy.png",
+                    //     path:"posts.safeStudy"
+                    // },
+                ]
+            },
         ],
         contentItemList:[],
     }),
