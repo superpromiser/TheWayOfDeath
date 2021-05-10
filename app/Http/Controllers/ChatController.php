@@ -27,7 +27,16 @@ class ChatController extends Controller
             [ 'userId', '=', $userId],
             [ 'contactUserId', '<>', null],
         ])->with( array('user' => function($query) { $query->select('id', 'name','avatar'); }) )
-            ->orderBy('created_at','desc')->get(['userId','roomId', 'new_msg_count', 'contactUserId', 'id']);
+            ->orderBy('created_at','desc')
+            ->get([
+                'userId',
+                'roomId', 
+                'new_msg_count', 
+                'contactUserId', 
+                'id', 
+                'last_message', 
+                'last_time'
+            ]);
         $chatGroups = Contact::where([
             [ 'userId', '=', $userId],
             [ 'roomId', '<>', null],

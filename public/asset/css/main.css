@@ -1579,3 +1579,7 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
     transform: translateX(-50%);
     font-size: 0.75rem;
 }
+
+.line-height-1-7{
+    line-height: 1.7!important;
+}

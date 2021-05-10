@@ -504,15 +504,17 @@ export default {
                             }
                         }
                     }
-                    else if ( (((message.message.room_id.invited)).includes(this.currentUser.id) || message.message.room_id.userId == this.currentUser.id ) && message.message.from.id !== this.currentUser.id  ) {
-                        console.log("Badge", message.message.from.id);
-                        for(let i = 0; i < this.chatGroupList.length; i++){
-                            if( message.message.roomId == this.chatGroupList[i].roomId ){
-                                this.totalNewMessageCount = this.totalNewMessageCount + 1;
-                                // this.$store.state.totalNewMsgCnt = this.totalNewMessageCount;
-                                this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
-                                this.chatGroupList[i].new_msg_count = this.chatGroupList[i].new_msg_count + 1;
-                                postNewMsgCount({new_msg_count:this.chatGroupList[i]})
+                    else if(message.message.roomId !== null){
+                        if ( (((message.message.roomId.invited)).includes(this.currentUser.id) || message.message.roomId.userId == this.currentUser.id ) && message.message.from.id !== this.currentUser.id  ) {
+                            console.log("Badge", message.message.from.id);
+                            for(let i = 0; i < this.chatGroupList.length; i++){
+                                if( message.message.roomId == this.chatGroupList[i].roomId ){
+                                    this.totalNewMessageCount = this.totalNewMessageCount + 1;
+                                    // this.$store.state.totalNewMsgCnt = this.totalNewMessageCount;
+                                    this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
+                                    this.chatGroupList[i].new_msg_count = this.chatGroupList[i].new_msg_count + 1;
+                                    postNewMsgCount({new_msg_count:this.chatGroupList[i]})
+                                }
                             }
                         }
                     }
