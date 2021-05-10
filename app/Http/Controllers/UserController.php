@@ -59,8 +59,11 @@ class UserController extends Controller
     {
         $groupArr = array();
         array_push($groupArr, 0);
+        $roelId = $request->roleId;
         if (!is_null($request->lessonId)) {
             array_push($groupArr, $request->lessonId);
+            $roleId = 7;
+
         }
         User::where('id', $request->id)->update([
             'name' => $request->name,
@@ -72,7 +75,7 @@ class UserController extends Controller
             'nation' => $request->nation,
             'gradeId' => $request->gradeId,
             'lessonId' => $request->lessonId,
-            'roleId' => $request->roleId,
+            'roleId' => $roleId,
             'familyAddress' => json_encode($request->familyAddress),
             'residenceAddress' => json_encode($request->residenceAddress),
             'groupArr'=>$groupArr

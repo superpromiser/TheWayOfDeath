@@ -459,4 +459,18 @@ class PostController extends Controller
         $post->update();
         return true;
     }
+    
+    public function relaseTop(Request $request){
+        $this->validate($request,[
+            'postId'=>'required'
+        ]);
+        $post = Post::where('id',$request->postId)->first();
+        // $post->updated_at = DB::raw('NOW()');
+        // $post->update();
+        $currentTime = NULL;
+        $post->fixTop = $currentTime;
+        // $post->touch();
+        $post->update();
+        return true;
+    }
 }
