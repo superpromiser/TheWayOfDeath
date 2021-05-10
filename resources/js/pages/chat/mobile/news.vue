@@ -73,7 +73,10 @@
                             <v-list-item-content>
                                 <v-list-item-title class="d-flex justify-space-between">
                                     <p class="mb-0"> {{user.user.name}} </p>
-                                    <p class="mb-0"> <timeago :datetime="convertTime(user.last_time)" locale="zh-CN"></timeago> </p>
+                                    <p class="mb-0" v-if="user.last_time !== null"> 
+                                        <timeago :datetime="convertTime(user.last_time)" locale="zhCN" :auto-update="60"></timeago> 
+                                    </p>
+                                    <p class="mb-0" v-else></p>
                                 </v-list-item-title>
                                 <v-list-item-subtitle class="d-flex justify-space-between line-height-1-7">
                                     <p class="mb-0" v-if="user.last_message !== null" >{{user.last_message}}</p>
@@ -159,6 +162,8 @@ export default {
     }),
 
     async created(){
+        this.$timeago.locale = 'zh-CN'
+        // this.$timeago.locale = 'zhCN';
         this.listen();
         if(this.usersStore !== null){
             this.users = this.usersStore;
@@ -270,6 +275,7 @@ export default {
                 .leaving(user=>{
                     this.activeUserList = this.activeUserList.filter(u => u.id != user.id);
                 })
+            Echo.private('newMessage.'+ this.currentUser.id)
                 .listen('NewMessage', (message) => {
                     console.log("---listenList", message);
                     if ( message.message.to == this.currentUser.id ) {

@@ -116,24 +116,25 @@
             <v-card>
                 <v-toolbar
                     dark
-                    color="indigo"
+                    color="#7879ff"
                     >
+                    <v-spacer></v-spacer>
+                    <v-toolbar-title>选择一个用户</v-toolbar-title>
+                    <v-spacer></v-spacer>
                     <v-btn icon dark @click="closeAddDialog" >
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
-                    <v-toolbar-title>Settings</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-toolbar-items>
+                    <!-- <v-toolbar-items>
                         <v-btn dark text  @click="closeAddDialog" >
-                        Save
+                        保存
                         </v-btn>
-                    </v-toolbar-items>
+                    </v-toolbar-items> -->
                 </v-toolbar>
                 <v-container class="cus-container">
                     <v-row v-if="value == 0" class="ma-0">
                         <v-col cols="12">
                             <v-row class="ma-0 d-flex align-center px-3">
-                                <v-text-field label="Filled" filled rounded dense hide-details ></v-text-field>
+                                <v-text-field label="搜寻" filled rounded dense hide-details ></v-text-field>
                                 <v-spacer></v-spacer>
                                 <v-btn tile color="success" :disabled="willAddToContactUser.contactId == null" @click="addUserToContact" :loading="isAdding">
                                     <v-icon left> mdi-plus </v-icon>
@@ -144,7 +145,7 @@
                         <v-col cols="12">
                             <v-row class="ma-0 pb-16">
                                 <v-col cols="6" sm="6" md="4" lg="3" xl="2" v-for="user in users" :key="user.id" class="hover-cursor-point" @click="pushUserToList(user.id)">
-                                    <v-card color="cyan lighten-2" dark tile>
+                                    <v-card color="#49d29e" dark tile>
                                         <div class="d-flex flex-no-wrap justify-space-between">
                                             <div>
                                                 <v-card-title > {{user.name}}</v-card-title>
@@ -167,7 +168,7 @@
                     <v-row v-else class="ma-0">
                          <v-col cols="12">
                             <v-row class="ma-0 d-flex align-center px-3">
-                                <v-text-field label="Filled" filled rounded dense hide-details ></v-text-field>
+                                <v-text-field label="搜寻" filled rounded dense hide-details ></v-text-field>
                                 <v-spacer></v-spacer>
                                 <v-btn tile color="success" :disabled="newGroup.length < 2" @click="openGroupNameDialog" :loading="isCreatingNewGroup">
                                     <v-icon left> mdi-plus </v-icon>
@@ -178,7 +179,7 @@
                         <v-col cols="12">
                             <v-row class="ma-0 pb-16">
                                 <v-col cols="6" sm="6" md="4" lg="3" xl="2" v-for="user in contactList" :key="user.user.id" class="hover-cursor-point" @click="pushUserToNewGroup(user.user.id)">
-                                    <v-card color="cyan lighten-2" dark tile>
+                                    <v-card color="#49d29e" dark tile>
                                         <div class="d-flex flex-no-wrap justify-space-between">
                                             <div>
                                                 <v-card-title > {{user.user.name}}</v-card-title>
@@ -240,10 +241,10 @@
                             <span>加入联络人</span>
                             <v-icon>mdi-plus</v-icon>
                         </v-btn>
-                        <v-btn>
+                        <!-- <v-btn>
                             <span>新组</span>
                             <v-icon>mdi-account-group</v-icon>
-                        </v-btn>
+                        </v-btn> -->
                     </v-bottom-navigation>
                 </v-container>
             </v-card>
@@ -419,25 +420,21 @@ export default {
         async addUserToContact(){
             this.isAdding = true;
             if(this.willAddToContactUser.contactId == null){
-                this.errorMessage = "请选择将添加到联系人的用户";
-                this.postFailed = true;
+                this.$snackbar.showMessage({content: '请选择将添加到联系人的用户', color:'error'})
             }
             await addUserToContact(this.willAddToContactUser)
             .then((res) => {
-                this.successMessage = "成功添加到地址簿。"
-                this.postSuccess = true;
+                this.$snackbar.showMessage({content: "成功添加到地址簿", color: 'success'});
                 let addedContact = res.data.addedToContactUser[0];
                 this.contactList.unshift(addedContact);
                 this.isNoContactList = false;
                 this.isGettingContactList = false;
             }).catch((err) => {
                 if(err.response.status == 409){
-                    this.errorMessage = "您已经将该用户添加为联系人";
-                    this.postFailed = true;
+                    this.$snackbar.showMessage({content: '您已经将该用户添加为联系人', color:'error'})
                 }
                 else{
-                    this.errorMessage = "出问题了";
-                    this.postFailed = true;
+                    this.$snackbar.showMessage({content: '出问题了', color:'error'})
                 }
             });
             this.isAdding = false;
@@ -490,8 +487,9 @@ export default {
                 .leaving(user=>{
                     this.activeUserList = this.activeUserList.filter(u => u.id != user.id);
                 })
+            Echo.private('newMessage.'+ this.currentUser.id)
                 .listen('NewMessage', (message) => {
-                    console.log("---listenList", message);
+                    console.log("---listenListNewChannel-——————————", message);
                     if ( message.message.to == this.currentUser.id ) {
                         console.log("Badge", message.message.from.id);
                         for(let i = 0; i < this.contactList.length; i++){

@@ -578,6 +578,7 @@ export default {
                     }
                 }
             })
+        Echo.private('newMessage.'+ this.currentUser.id)
             .listen('NewMessage', (message) => {
                 console.log("---listenIndex", message)
                 console.log(this.currentUser.id, this.ChatWith)
