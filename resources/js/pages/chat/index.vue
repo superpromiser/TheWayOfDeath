@@ -381,6 +381,7 @@ export default {
             })
         Echo.private('newMessage.'+ this.currentUser.id)
             .listen('NewMessage', (message) => {
+                console.log('newMessage.'+ this.currentUser.id);
                 console.log("---listenIndex________________", message)
                 console.log(this.currentUser.id, this.ChatWith)
                 if (

@@ -219,6 +219,20 @@ export default {
         console.log("this.contactList", this.contactList);
     },
 
+    mounted(){
+        console.log("SSSSS");
+        Echo.join('chats')
+            .here(user=>{
+                this.activeUserList = user;
+            })
+            .joining(user=>{
+                this.activeUserList.push(user);
+            })
+            .leaving(user=>{
+                this.activeUserList = this.activeUserList.filter(u => u.id != user.id);
+            })
+    },
+
     computed:{
         ...mapGetters({
             currentUser: 'auth/user',
