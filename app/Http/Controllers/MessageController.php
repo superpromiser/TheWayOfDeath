@@ -58,7 +58,7 @@ class MessageController extends Controller
             ]);
 
             //broadcast Event
-            broadcast(new NewMessage($message->load('from')))->toOthers();
+            broadcast(new NewMessage($message->load('from'), $request->to));
     
             return response()->json([
                 'msg' => "ok"

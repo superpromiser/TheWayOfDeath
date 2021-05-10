@@ -18,9 +18,6 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 });
 
 
-Broadcast::channel('chats', function ($user) {
-    return $user;
-});
 
 Broadcast::channel('group', function ($user) {
     return auth()->check();
@@ -31,5 +28,9 @@ Broadcast::channel('newguest.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('newReturnTeam.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('chats.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
