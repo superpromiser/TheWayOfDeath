@@ -33,3 +33,7 @@ Broadcast::channel('newguest.{id}', function ($user, $id) {
 Broadcast::channel('newReturnTeam.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('newMessage.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});

@@ -289,6 +289,14 @@ a {
     .border-type-2 {
         border-radius: 0px !important;
     }
+    * {
+        -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+        -webkit-touch-callout: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
 }
 
 .medal-background {
@@ -1578,4 +1586,8 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.75rem;
+}
+
+.line-height-1-7{
+    line-height: 1.7!important;
 }

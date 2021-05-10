@@ -247,6 +247,7 @@ export default {
 
         ...mapGetters({
             currentUser: 'auth/user',
+            contactListStore: 'chat/contactListStore',
         }),
 
         activeFab () {
@@ -438,11 +439,25 @@ export default {
                         to: this.ChatWith,
                         from: this.currentUser.id,
                     }
+                    
                     postMessage(payload)
                     .then((res) => {
                     }).catch((err) => {
                         
                     });
+
+                    //for contact user
+                    for (let i = 0 ; i < this.contactListStore.length ; i++){
+                        if(this.contactListStore[i].contactUserId == this.ChatWith){
+                            this.contactListStore[i].last_message = messageText;
+                            this.contactListStore[i].last_time = currentTime;
+                            this.contactListStore[i].last_sender = this.currentUser.id;
+                            return;
+                        }
+                    }
+                    this.$store.dispatch('chat/storeContactList',this.contactListStore)
+
+                    
                 }
                 else if(this.recordingBlobData){
                     let formdata = new FormData();
@@ -563,6 +578,7 @@ export default {
                     }
                 }
             })
+        Echo.private('newMessage.'+ this.currentUser.id)
             .listen('NewMessage', (message) => {
                 console.log("---listenIndex", message)
                 console.log(this.currentUser.id, this.ChatWith)
