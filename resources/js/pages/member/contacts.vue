@@ -10,7 +10,7 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>userList</h2>
+                    <h2>选择成员</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                 <v-text-field

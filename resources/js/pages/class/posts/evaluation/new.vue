@@ -128,7 +128,7 @@
                         </v-list-item-title>
                         <v-list-item-title v-else-if="noData" class="pa-5 d-flex align-center justify-center">
                             <v-chip class="ma-2" color="primary" outlined pill >
-                                没有更多数据
+                                暂无
                                 <v-icon right> mdi-cancel  </v-icon>
                             </v-chip>
                         </v-list-item-title>

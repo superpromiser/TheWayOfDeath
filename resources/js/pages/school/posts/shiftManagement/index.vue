@@ -111,7 +111,7 @@
             <v-container class="px-10">
                 <v-row class="hover-cursor-point d-flex py-3">
                     <v-col cols="6" class="d-flex align-center">
-                        姓名
+                        交班人
                     </v-col>
                     <v-col cols="6" class="text-right">
                         <v-text-field
@@ -128,7 +128,7 @@
                 <!-- <div class="cus-divider"></div> -->
                 <v-row class="hover-cursor-point py-3">
                     <v-col cols="6" class="d-flex align-center">
-                        交接人姓名
+                        接班人
                     </v-col>
                     <v-col cols="6" class="">
                         <v-select
@@ -148,18 +148,26 @@
                 <!-- <div class="cus-divider"></div> -->
                 <v-row class="hover-cursor-point py-3">
                     <v-col cols="6" class="d-flex align-center">
-                        交接时间
+                        交班时间
                     </v-col>
                     <v-col cols="6">
-                        <v-datetime-picker 
-                            label="交接时间" 
+                        <!-- <v-datetime-picker 
                             v-model="shiftData.scheduleDate"
                             hide-details
                             dense
                             class="mt-0 pt-0"
                             :okText='lang.ok'
                             :clearText='lang.cancel'
-                        ></v-datetime-picker>
+                            aria-disabled                            
+                        ></v-datetime-picker> -->
+                        <v-text-field
+                            solo
+                            v-model="shiftData.scheduleDate"
+                            value="shiftData.prevName"
+                            readonly
+                            dense
+                            hide-details
+                        ></v-text-field>
                     </v-col>
                 </v-row>
                 <v-divider light></v-divider>
@@ -231,6 +239,7 @@ export default {
     },
 
     async created(){
+        this.shiftData.scheduleDate = this.TimeView(Date.now())
         this.shiftData.prevName = this.user.name;
         this.shiftData.prevNameId = this.user.id;
         this.shiftData.schoolId = this.currentPath.params.schoolId

@@ -6,7 +6,7 @@
           :headers="headers"
           :items="vacationData"
           :loading="isLoadingSchoolData"
-          loading-text="等一下..."
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -106,7 +106,7 @@
 
           </template>
           <template v-slot:no-data>
-            <p>没有学习资料</p>
+            <p>暂无</p>
           </template>
         </v-data-table>
       </v-col>

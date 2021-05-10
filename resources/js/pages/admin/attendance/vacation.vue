@@ -42,7 +42,7 @@
           :headers="headers"
           :items="vacationData"
           :loading="isLoadingSchoolData"
-          loading-text="正在下载..."
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >
@@ -170,7 +170,7 @@ export default {
             { text: '请假人', value: 'studentName', sortable: false, align: 'start'},
             { text: '开始时间', value: 'startTime', sortable: false },
             { text: '结束时间', value: 'endTime', sortable: false },
-            { text: '休假表格', value: 'reasonFlag', sortable: false },
+            { text: '请假类型', value: 'reasonFlag', sortable: false },
             { text: '请假原因', value: 'reason', sortable: false, align: 'center' },
             { text: '审批状态', value: 'status', sortable: false, align: 'center' },
             { text: '操作', value: 'actions', sortable: false },

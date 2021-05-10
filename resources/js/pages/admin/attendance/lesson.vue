@@ -81,7 +81,7 @@
           :headers="headers"
           :items="attendanceData"
           :loading="isLoadingSchoolData"
-          loading-text="正在下载..."
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >

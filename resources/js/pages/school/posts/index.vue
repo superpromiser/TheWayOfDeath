@@ -146,12 +146,12 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/manageGuests.png",
                     //     path:"posts."
                     // },
-                    {
-                        color:"#98BB3A",
-                        title:"交接班",//교대반관리
-                        imgUrl:"/asset/img/newIcon/shiftMng.png",
-                        path:"posts.shift"
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"交接班",//교대반관리
+                    //     imgUrl:"/asset/img/newIcon/shiftMng.png",
+                    //     path:"posts.shift"
+                    // },
                     {
                         color:"#98BB3A",
                         title:"维修工单",//수리공
@@ -261,12 +261,12 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/manageGuests.png",
                     //     path:"posts."
                     // },
-                    {
-                        color:"#98BB3A",
-                        title:"交接班",//교대반관리
-                        imgUrl:"/asset/img/newIcon/shiftMng.png",
-                        path:"posts.shift"
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"交接班",//교대반관리
+                    //     imgUrl:"/asset/img/newIcon/shiftMng.png",
+                    //     path:"posts.shift"
+                    // },
                     {
                         color:"#98BB3A",
                         title:"维修工单",//수리공
@@ -376,12 +376,12 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/manageGuests.png",
                     //     path:"posts."
                     // },
-                    {
-                        color:"#98BB3A",
-                        title:"交接班",//교대반관리
-                        imgUrl:"/asset/img/newIcon/shiftMng.png",
-                        path:"posts.shift"
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"交接班",//교대반관리
+                    //     imgUrl:"/asset/img/newIcon/shiftMng.png",
+                    //     path:"posts.shift"
+                    // },
                     {
                         color:"#98BB3A",
                         title:"维修工单",//수리공

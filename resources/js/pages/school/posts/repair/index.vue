@@ -171,12 +171,20 @@
                     <p class="mb-0"  >发布时间</p>
                 </v-col>
                 <v-col cols="6" class=" px-0">
-                    <v-datetime-picker 
+                    <!-- <v-datetime-picker 
                         label="发布时间" 
                         v-model="repairData.deadline"
                         :okText='lang.ok'
                         :clearText='lang.cancel'
-                    ></v-datetime-picker>
+                    ></v-datetime-picker> -->
+                    <v-text-field
+                            solo
+                            v-model="repairData.deadline"
+                            value="shiftData.prevName"
+                            readonly
+                            dense
+                            hide-details
+                        ></v-text-field>
                 </v-col>
             </v-row>
             <v-divider light class=""></v-divider>
@@ -204,7 +212,7 @@ export default {
             viewListName:'',
             repairType:'',
             content:null,
-            deadline:new Date(),
+            deadline:'',
             schoolId:'',
         },
         itemList:[
@@ -228,6 +236,7 @@ export default {
         })
     },
     created(){
+        this.repairData.deadline = this.TimeView(Date.now())
         this.repairData.userName = this.user.name
         this.repairData.schoolId = this.currentPath.params.schoolId
     },

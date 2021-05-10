@@ -22,7 +22,7 @@
           :headers="headers"
           :items="vacationData"
           :loading="isLoadingSchoolData"
-          loading-text="正在下载..."
+          loading-text="正在加载..."
           sort-by="calories"
           class="elevation-1"
         >

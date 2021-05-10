@@ -2,7 +2,7 @@
   <v-container class="pa-10">
     <v-row>
       <v-col cols="4" class="d-flex align-center">
-        开姶日期
+        开始日期
         <v-menu
           v-model="startMenu"
           :close-on-content-click="false"
@@ -31,7 +31,7 @@
         </v-menu>
       </v-col>
       <v-col cols="4" class="d-flex align-center">
-        结東日期
+        结束日期
         <v-menu
           v-model="endMenu"
           :close-on-content-click="false"
@@ -76,7 +76,7 @@
       :headers="headers"
       :items="desserts"
       :loading="isLoading"
-      loading-text="正在下载..."
+      loading-text="正在加载..."
       item-key="name"
       class="elevation-1 mt-5"
     >
@@ -152,7 +152,7 @@ export default {
         { text: '总考勤次数', value: 'all' },
         // { text: '考勤結果', value: 'attResult' },
         { text: '出勤', value: 'attendance' }, 
-        { text: '迟勤', value: 'late' },
+        { text: '迟到', value: 'late' },
         { text: '缺勤', value: 'absent' },
         { text: '清假', value: 'sick' },
         { text: '操作', value: 'actions' },
@@ -168,7 +168,7 @@ export default {
         { text: '考勤时间', value: 'attendanceTime' },
         // { text: '考勤結果', value: 'attResult' },
         { text: '出勤', value: 'attendance' }, 
-        { text: '迟勤', value: 'late' },
+        { text: '迟到', value: 'late' },
         { text: '缺勤', value: 'absent' },
         { text: '清假', value: 'sick' },
         { text: '备注', value: 'remark' },

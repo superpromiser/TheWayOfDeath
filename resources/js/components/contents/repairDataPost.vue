@@ -130,7 +130,7 @@
         </div>
         <div class="d-flex align-center" v-if="content.repairdata.reason">
             <p class="text-wrap mb-0">
-            <strong>reason:</strong>
+            <strong>未完成原因:</strong>
             {{content.repairdata.reason}}
             </p>
         </div>

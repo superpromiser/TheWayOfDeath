@@ -99,32 +99,45 @@
                     <h2>维修工单</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <div v-if="contentData.repairdata.status == 'progress'">
-                        <v-btn class="mr-3" @click="cancel('cancel')" :loading="isCancel">
-                            取诮发布
-                        </v-btn>
+                    <div v-if="user.roleId == 6">
+                        <div v-if="contentData.repairdata.status == 'progress'">
+                             <v-btn class="mr-3" @click="reasonFlag = true">
+                                未完成
+                            </v-btn>
+                            <v-btn dark color="#7879ff" @click="post('done')" :loading="isPost">
+                                已完成
+                            </v-btn>
+                        </div>
                     </div>
-                    <div v-if="contentData.repairdata.status == 'done'">
-                        <v-btn class="mr-3" @click="reasonFlag = true">
-                            未完成
-                        </v-btn>
-                        <v-btn dark color="#7879ff" @click="post('completed')" :loading="isPost">
-                            确认完成
-                        </v-btn>
+                    <div v-else>
+                        <div v-if="contentData.repairdata.status == 'progress'">
+                            <v-btn class="mr-3" @click="cancel('cancel')" :loading="isCancel">
+                                取诮发布
+                            </v-btn>
+                        </div>
+                        <div v-if="contentData.repairdata.status == 'done'">
+                            <v-btn class="mr-3" @click="reasonFlag = true">
+                                未完成
+                            </v-btn>
+                            <v-btn dark color="#7879ff" @click="post('completed')" :loading="isPost">
+                                确认完成
+                            </v-btn>
+                        </div>
+                        <div v-if="contentData.repairdata.status == 'Undone'">
+                            <v-btn class="mr-3" @click="cancel('cancel')" :loading="isCancel">
+                                关闭
+                            </v-btn>
+                            <v-btn dark color="#7879ff" @click="post('progress')" :loading="isPost">
+                                重新发送
+                            </v-btn>
+                        </div>
+                        <div v-if="contentData.repairdata.status == 'cancel'">
+                            <v-btn dark color="#7879ff" @click="post('progress')" :loading="isPost">
+                                重新发送
+                            </v-btn>
+                        </div>
                     </div>
-                    <div v-if="contentData.repairdata.status == 'Undone'">
-                        <v-btn class="mr-3" @click="cancel('cancel')" :loading="isCancel">
-                            关闭
-                        </v-btn>
-                        <v-btn dark color="#7879ff" @click="post('progress')" :loading="isPost">
-                            重新发送
-                        </v-btn>
-                    </div>
-                    <div v-if="contentData.repairdata.status == 'cancel'">
-                        <v-btn dark color="#7879ff" @click="post('progress')" :loading="isPost">
-                            重新发送
-                        </v-btn>
-                    </div>
+                    
                 </v-col>
             </v-row>
         </v-container>
@@ -206,7 +219,7 @@
             <v-divider light></v-divider>
             <v-row class="ma-0" v-if="contentData.repairdata.reason">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <p class="mb-0" >reason </p>
+                    <p class="mb-0" >未完成原因 </p>
                     <p class="mb-0" >{{contentData.repairdata.reason}} </p>
                 </v-col>
             </v-row>

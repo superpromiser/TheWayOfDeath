@@ -123,7 +123,45 @@
     </v-container>
     <v-container class="pa-0" v-else>
         <v-container class="pa-0 add-comment-out-height">
-            <RouterBack title='评论'></RouterBack>
+            <!-- <RouterBack title='评论'></RouterBack> -->
+            <v-container class="px-10 z-index-2 banner-custom">
+                <v-row>
+                    <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                        <a @click="$router.go(-1)">
+                            <v-icon size="70" class="left-24p">
+                                mdi-chevron-left
+                            </v-icon>
+                        </a>
+                    </v-col>
+                    <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                        <h2>交接班管理</h2>
+                    </v-col>
+                    <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                        <div v-if="contentData.contentId == 9 && contentData.shift_mng.confirmDate == null && contentData.shift_mng.nextNameId == user.id">
+                            <!-- <v-btn
+                                tile
+                                dark
+                                color="#F19861"
+                                :loading="isCancel"
+                                @click="cancelShift"
+                            >
+                                取消
+                            </v-btn> -->
+                            <v-btn
+                                dark
+                                tile
+                                color="#7879ff"
+                                @click="confirmShift"
+                                :loading="isSubmit"
+                                class="mx-2"
+                            >
+                                确认
+                            </v-btn>
+                        </div>
+                        
+                    </v-col>
+                </v-row>
+            </v-container>
             <div v-if='contentData.contentId == 1'>
                 <QuestionnairePost :content='contentData'></QuestionnairePost>
             </div>
@@ -240,7 +278,7 @@ import emojiData from "emoji-mart-vue-fast/data/all.json";
 import "emoji-mart-vue-fast/css/emoji-mart.css";
 import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
 let emojiIndex = new EmojiIndex(emojiData);
-
+import {updateShiftMng} from '~/api/shiftMng'
 export default {
     components : {
         QuestionnairePost,
@@ -277,10 +315,16 @@ export default {
 
         emojiIndex: emojiIndex,
         emojisOutput: "",
+        titleArr:[
+            ''
+        ],
+        isCancel:false,
+        isSubmit:false,
     }),
     computed:{
         ...mapGetters({
-            contentData:'content/postDetail'
+            contentData:'content/postDetail',
+            user:'auth/user'
         }),
         currentpath(){
             return this.$route
@@ -352,6 +396,25 @@ export default {
                 comment.isDeleting = false
             })
         },
+        cancelShift(){
+            console.log('updateShiftMng');
+        },
+        async confirmShift(){
+            this.isSubmit = true
+            let confirmDate = this.TimeView(Date.now());
+            await updateShiftMng({shiftId:this.contentData.shift_mng.id,confirmDate:confirmDate}).then(res=>{
+                this.isSubmit = false
+                console.log(res.dat)
+                if(this.currentpath.params.lessonId){
+                    this.$router.push({name:'classSpace.news'})
+                }else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
+            }).catch(err=>{
+                this.isSubmit = false
+                console.log(err.response)
+            })
+        }
     }
 }
 </script>
