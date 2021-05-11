@@ -30,7 +30,7 @@
                 <div slot="no-more" class="pa-3 ma-3 text-center">
                     <v-chip
                     class="ma-2"
-                    color="primary"
+                    color="#7879ff"
                     outlined
                     pill
                     >
