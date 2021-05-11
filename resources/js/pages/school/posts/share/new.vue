@@ -96,7 +96,7 @@
                     </v-container>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-gray-light-dark">
+            <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-secondary">
                 <v-col cols="2" @click="clickUploadImageBtn" class="d-flex justify-center align-center py-1" v-ripple>
                     <v-progress-circular v-if="isImageSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
                     <v-icon v-else size="30">mdi-file-image-outline</v-icon>
@@ -128,7 +128,19 @@
                 <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple @click="toggleEmo">
                     <v-icon size="30">mdi-emoticon-excited-outline</v-icon>
                 </v-col>
-                <Picker class="position-absolute" style="bottom:50px; left:50%; transform:translateX(-50%)" v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
+                <Picker 
+                    class="position-absolute" 
+                    style="bottom:50px; left:50%; transform:translateX(-50%)" 
+                    v-click-outside="outSidePicker" 
+                    v-if="emoStatus" 
+                    :data="emojiIndex" 
+                    title="选择你的表情符号..." 
+                    set="twitter" 
+                    @select="onInput" 
+                    :showPreview="false"
+                    :showSearch="false"
+                    :i18n="emojiI18n"
+                />
                 <v-col @click="clickUploadFileBtn" cols="2" class="d-flex justify-center align-center py-1" v-ripple>
                     <v-progress-circular v-if="isFileSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
                     <v-icon v-else size="30">mdi-folder-outline</v-icon>
@@ -137,7 +149,7 @@
                     ref="fileUploader"
                     class="d-none"
                     type="file"
-                    accept="file/*"
+                    accept=".doc, .docx, .zip, .pdf, .xls, .xlsx, .rp, .mp3, .rp, .ppt, .pptx, .pptm, .apk, .rar"
                     @change="onFileFileChanged"
                 >
                 <v-btn rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="top: -45px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>
@@ -261,6 +273,23 @@ export default {
         emojiIndex: emojiIndex,
         emojisOutput: "",
         emoStatus:false,
+        emojiI18n: { 
+            search: 'Recherche', 
+            categories: { 
+                search: '//Search Results',
+                recent: '最近常用',
+                smileys: '黄脸',
+                people: '人和手势',
+                nature: '动物和植物',
+                foods: '食物',
+                activity: '活动',
+                places: '交通 ',
+                objects: '物品',
+                symbols: '标志',
+                flags: '国旗',
+                custom: '其他',
+            } 
+        },
         selectedImageFile: null,
         selectedVideoFile: null,
         selectedFile: null,

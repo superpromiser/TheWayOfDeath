@@ -11,7 +11,15 @@
         </v-row>
         <v-row class="ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="$refs.phoneNumber.focus()">
-                <v-text-field v-model="user.phoneNumber" ref="phoneNumber" hint="请正确输入您的电话号码" dense color="#7879ff" class="mt-0 pt-0"></v-text-field>
+                <v-text-field 
+                    v-model="user.phoneNumber" 
+                    ref="phoneNumber" 
+                    hint="请正确输入您的电话号码" 
+                    dense 
+                    color="#7879ff" 
+                    class="mt-0 pt-0 max-length-11-staff-input"
+                    :counter="11"
+                ></v-text-field>
             </v-col>
         </v-row>
     </v-container>
@@ -44,6 +52,11 @@ export default {
             },
             deep:true
         }
+    },
+
+    mounted(){
+        var ele_11 = $('.max-length-11-staff-input');
+        ele_11.find('input').attr("maxlength","11")
     },
 
     created(){

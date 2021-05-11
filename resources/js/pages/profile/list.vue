@@ -1,7 +1,7 @@
 <template>
-    <v-container v-if="$isMobile()" class="pa-0 ma-0">
-        <v-row class="ma-0 bg-white pt-10 mb-3"  @click="navToProfileItem('name')">
-            <v-col cols="12" class="d-flex justify-space-between align-center pb-0">
+    <v-container v-if="$isMobile()" class="pa-0 ma-0 mb-16">
+        <v-row class="ma-0 bg-white pt-10 mb-3"  >
+            <v-col cols="12" class="d-flex justify-space-between align-center pb-0" @click="navToProfileItem('name')">
                 <div class="d-flex align-center">
                     <v-avatar color="#7879ff" size="60" class="rounded-lg"  >
                         <span v-if="user.avatar == '/'" class="white--text headline">{{user.name[0]}}</span>
@@ -22,10 +22,34 @@
                 </div>
             </v-col>
             <v-col cols="12" class="pt-2" style="padding-left: 84px;">
-                <v-btn color="#3989fc" outlined rounded small>
-                    <v-icon left> mdi-plus </v-icon>
-                    状态
+                <v-btn color="#3989fc" outlined rounded small @click="openMoStatusDialog">
+                    <v-icon left> mdi-plus </v-icon> {{user.status}}
                 </v-btn>
+                <v-dialog 
+                    width="100%" 
+                    max-width="500" 
+                    scrollable
+                    v-model="moStatusDialog">
+                    <v-card>
+                        <v-card-title class="title">
+                            人员状态
+                        </v-card-title>
+                    
+                        <v-card-text class="pt-5" >
+                            <v-select
+                                :items="userStatusItem"
+                                :menu-props="{ top: false, offsetY: true }"
+                                item-text="label"
+                                label="人员状态"
+                                hide-details
+                                color="#7879ff"
+                                single-line
+                                v-model="user.status"
+                                @change="onSelectStatusMo"
+                            ></v-select>
+                        </v-card-text>
+                    </v-card>
+                </v-dialog>
             </v-col>
         </v-row>
         <v-row class="ma-0 bg-white mb-3">
@@ -207,7 +231,7 @@
                     item-text="label"
                     label="人员状态"
                     hide-details
-                    v-model="currentStatus"
+                    v-model="user.status"
                     @change="onSelectStatus"
                     class="w-50"
                 ></v-select>
@@ -355,6 +379,9 @@ export default {
         isUpdating: false,
         temp: "",
         currentStatus: "",
+        statusDialog: false,
+        moStatusDialog: false,
+        selectedStatus: null,
         userStatusItem: [
             {
                 label: "在办公室",
@@ -387,25 +414,8 @@ export default {
 
     created(){
         console.log(this.user);
-        switch (this.user.status) {
-            case 1:
-                this.currentStatus = "在办公室";
-                break;
-            case 2:
-                this.currentStatus = "上课中";
-                break;
-            case 3:
-                this.currentStatus = "会议中";
-                break;
-            case 4:
-                this.currentStatus = "待客中";
-                break;
-            case 5:
-                this.currentStatus = "忙碌中";
-                break;
-            case 6:
-                this.currentStatus = "外出中";
-                break;
+        if(this.user.roleId == 4 || this.user.roleId == 5 || this.user.roleId == 6){
+            this.userStatusItem = this.userStatusItem.splice(0,1);
         }
     },
 
@@ -508,24 +518,8 @@ export default {
             this.isUpdating = false;
         },
 
-        convertStatus(){
-            switch (this.user.status) {
-                case 1:
-                    this.currentStatus = "在办公室";
-                case 2:
-                    this.currentStatus = "上课中";
-                case 3:
-                    this.currentStatus = "会议中";
-                case 4:
-                    this.currentStatus = "待客中";
-                case 5:
-                    this.currentStatus = "忙碌中";
-                case 6:
-                    this.currentStatus = "外出中";
-            }
-        },
-
         onSelectStatus(val){
+            this.user.status = val;
             let payload = {
                 userId: this.user.id,
                 status : val,
@@ -536,6 +530,21 @@ export default {
             }).catch((err) => {
                 
             });
+        },
+
+        onSelectStatusMo(val){
+            this.user.status = val;
+            let payload = {
+                userId: this.user.id,
+                status : val,
+            }
+            updateProfile(payload)
+            .then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                
+            });
+            this.moStatusDialog = false;
         },
 
         navToChangePassword(){
@@ -602,6 +611,14 @@ export default {
         closeLogoutDialog(){
             this.logoutDialog = false;
         },
+
+        closeMoStatusDialog(){
+            this.moStatusDialog = false;
+        },
+
+        openMoStatusDialog(){
+            this.moStatusDialog = true;
+        }
     }
 }
 </script>

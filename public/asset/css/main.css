@@ -289,14 +289,14 @@ a {
     .border-type-2 {
         border-radius: 0px !important;
     }
-    * {
-        -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+    /* * {
+        -webkit-user-select: none; 
         -webkit-touch-callout: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-    }
+    } */
 }
 
 .medal-background {
@@ -1590,4 +1590,40 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
 
 .line-height-1-7{
     line-height: 1.7!important;
+}
+
+.mo-search-input-text-field .v-input__control .v-input__slot{
+    box-shadow: none !important;
+    background: #f2f2f2 !important;
+    min-height: 30px!important;
+    border-radius: 50px!important;
+    margin: 4px 0px!important;
+}
+
+.mo-search-input-text-field .v-input__control .v-input__slot .v-text-field__slot label.v-label{
+    font-size: 0.75rem!important;
+}
+
+.v-input.mo-search-input-text-field .v-input__control{
+    min-height: 30px!important;
+}
+
+.mo-search-input-text-field-chat .v-input__control .v-input__slot{
+    box-shadow: none !important;
+    background: #f2f2f2 !important;
+    min-height: 30px!important;
+    border-radius: 50px!important;
+    margin: 9px 0px!important;
+}
+
+.mo-search-input-text-field-chat .v-input__control .v-input__slot .v-text-field__slot label.v-label{
+    font-size: 0.75rem!important;
+}
+
+.v-input.mo-search-input-text-field-chat .v-input__control{
+    min-height: 30px!important;
+}
+
+.min-width-0{
+    min-width: 0!important;
 }

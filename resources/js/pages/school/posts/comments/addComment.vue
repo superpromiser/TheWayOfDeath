@@ -107,7 +107,18 @@
             </v-container>
         </v-container>
         <v-container class="px-0 py-0 position-relative">
-            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 71px" />
+            <Picker 
+                v-click-outside="outSidePicker" 
+                v-if="emoStatus" 
+                :data="emojiIndex" 
+                title="选择你的表情符号..." 
+                set="twitter" 
+                @select="onInput" 
+                class="position-absolute" 
+                style="bottom: 71px" 
+                :showPreview="false"
+                :showSearch="false"
+                :i18n="emojiI18n"/>
             <v-textarea solo name="input-7-4"
                 prepend-inner-icon="mdi-emoticon-excited-outline"
                 @click:prepend-inner="toggleEmo"
@@ -223,7 +234,19 @@
             </v-container>
         </v-container>
         <v-container class="px-10 py-0 position-relative">
-            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 155px" />
+            <Picker 
+                v-click-outside="outSidePicker" 
+                v-if="emoStatus" 
+                :data="emojiIndex" 
+                title="选择你的表情符号..." 
+                set="twitter" 
+                @select="onInput" 
+                class="position-absolute" 
+                style="bottom: 155px"
+                :showPreview="false"
+                :showSearch="false"
+                :i18n="emojiI18n"
+                />
             <v-textarea solo name="input-7-4"
                 prepend-inner-icon="mdi-emoticon-excited-outline"
                 @click:prepend-inner="toggleEmo"
@@ -307,6 +330,23 @@ export default {
 
         emojiIndex: emojiIndex,
         emojisOutput: "",
+        emojiI18n: { 
+            search: 'Recherche', 
+            categories: { 
+                search: '//Search Results',
+                recent: '最近常用',
+                smileys: '黄脸',
+                people: '人和手势',
+                nature: '动物和植物',
+                foods: '食物',
+                activity: '活动',
+                places: '交通 ',
+                objects: '物品',
+                symbols: '标志',
+                flags: '国旗',
+                custom: '其他',
+            } 
+        },
     }),
     computed:{
         ...mapGetters({

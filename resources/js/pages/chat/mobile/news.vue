@@ -74,7 +74,8 @@
                                 <v-list-item-title class="d-flex justify-space-between">
                                     <p class="mb-0"> {{user.user.name}} </p>
                                     <p class="mb-0" v-if="user.last_time !== null"> 
-                                        <timeago :datetime="convertTime(user.last_time)" locale="zhCN" :auto-update="60"></timeago> 
+                                        <timeago :datetime="convertTime(user.last_time)" :auto-update="60"></timeago>
+                                        <!-- <timeago :datetime="convertTime(user.last_time)" locale="zhCN" :auto-update="60"></timeago>  -->
                                     </p>
                                     <p class="mb-0" v-else></p>
                                 </v-list-item-title>
@@ -162,7 +163,7 @@ export default {
     }),
 
     async created(){
-        this.$timeago.locale = 'zh-CN'
+        this.$timeago.locale = 'zhCN'
         // this.$timeago.locale = 'zhCN';
         this.listen();
         if(this.usersStore !== null){

@@ -2,7 +2,7 @@
   <v-container class="pa-0">
     <v-container v-if="$isMobile()" class="pa-0" >
       <v-row class="ma-0">
-        <v-col cols="12" class="d-flex align-center bg-secondary py-1 position-sticky-top-0" v-touch="{
+        <v-col cols="12" class="d-flex align-center bg-white py-1 position-sticky-top-0" v-touch="{
           left: () => swipe('Left'),
           right: () => swipe('Right'),
         }">
@@ -10,21 +10,27 @@
             <v-text-field
               v-if="isSearching" key="1"
               solo
-              clearable
-              class="mo-select-gray-bg"
+              class="mo-search-input-text-field"
               v-model="searchKeyword"
               label="请输入您的搜索词"
-              append-icon="mdi-check"
-              @click:append="onSearch"
               prepend-inner-icon="mdi-magnify"
               hide-details
               color="#7879ff"
               dense 
-            ></v-text-field>
+            >
+              <v-icon
+                  v-if="searchKeyword.trim() !== ''"
+                  slot="append"
+                  @click="searchKeyword = ''"
+                  small
+                >
+                mdi-close-circle
+              </v-icon>
+            </v-text-field>
             <v-select
               v-else key="2"
               solo
-              class="mo-select-gray-bg"
+              class="mo-select-white-bg"
               color="#7879ff"
               :items="schoolListDropdownItem"
               :menu-props="{ top: false, offsetY: true }"
@@ -37,10 +43,8 @@
             ></v-select>
           </transition>
           <transition name="page" mode="out-in">
-          <v-btn icon v-if="isSearching" key="3" class="ml-3" @click="onFalseSearching">
-            <v-icon>
-              mdi-close
-            </v-icon>
+          <v-btn text small v-if="isSearching" key="3" class="ml-3 px-0 min-width-0" @click="onFalseSearching">
+            取消
           </v-btn>
           <v-btn icon plain v-else key="4" class="ml-3" @click="isSearching = true">
             <v-icon size="30">
@@ -174,7 +178,7 @@
         left: () => swipe('Left'),
         right: () => swipe('Right'),
       }" >
-        <v-row class="ma-0" v-for="story in bodyStoryList" :key="story.id" @click="showDetailSchoolStory(story)">
+        <v-row class="ma-0" v-for="(story, index) in bodyStoryList" :key="index" @click="showDetailSchoolStory(story)">
           <v-col cols="7" class="pl-0 d-flex align-start flex-column">
             <p class="mb-auto font-weight-bold d-inline-block text-truncate w-100">{{story.schoolstory.content.text}}</p>
             <div class="d-flex align-center justify-space-between w-100">
@@ -185,14 +189,14 @@
           <v-col cols="5" class="pr-0">
             <v-img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" height="100"></v-img>
           </v-col>
+          <div v-if="index < bodyStoryList.length - 1" class="cus-divider-light-gray-height"></div>
         </v-row>
-        <v-divider light></v-divider>
       </v-container>
       <v-container v-else class="pb-16" v-touch="{
         left: () => swipe('Left'),
         right: () => swipe('Right'),
       }">
-        <v-row class="ma-0" v-for="story in bodyStoryList" :key="story.id" @click="showDetailClassStory(story)">
+        <v-row class="ma-0" v-for="(story, index) in bodyStoryList" :key="index" @click="showDetailClassStory(story)">
           <v-col cols="7" class="pl-0 d-flex align-start flex-column">
             <p class="mb-auto font-weight-bold">{{story.classstory.content.text}}</p>
             <div class="d-flex align-center justify-space-between w-100">
@@ -203,8 +207,8 @@
           <v-col cols="5" class="pr-0">
             <v-img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" height="100"></v-img>
           </v-col>
+          <div v-if="index < bodyStoryList.length - 1 " class="cus-divider-light-gray-height"></div>
         </v-row>
-        <v-divider light></v-divider>
       </v-container>
       
     </v-container>
@@ -299,271 +303,271 @@ export default {
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.share"
+        path:"share"
       },
       {
         title:"问卷",//설문
         imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
-        path:"posts.questionnaire"
+        path:"questionnaire"
       },
       {
         title:"投票",//투표
         imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
-        path:"posts.voting"
+        path:"voting"
       },
       {
         title:"报名",//이름등록
         imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
-        path:"posts.regname"
+        path:"regname"
       },
       {
         title:"公告",//공시
         imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
-        path:"posts.announcement"
+        path:"announcement"
       },
       {
         title:"交接班",//교대반관리
         imgUrl:"/asset/img/appIcon/schoolSafety/shiftMng.png",
-        path:"posts.shift"
+        path:"shiftMng"
       },
       {
         title:"维修工单",//수리공
         imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
-        path:"posts.repair"
+        path:"repair"
       },
       {
         title:"安全教育",//안전교육
         imgUrl:"/asset/img/appIcon/schoolSafety/safeStudy.png",
-        path:"posts.safeStudy"
+        path:"safeStudy"
       },
       {
         title:"学校动态",//학교동태
         imgUrl:"/asset/img/appIcon/schoolStory/schoolStory.png",
-        path:"posts.schoolStory",
+        path:"schoolStory",
       },
     ],
     managerSchoolItems:[
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.share"
+        path:"share"
       },
       {
         title:"问卷",//설문
         imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
-        path:"posts.questionnaire"
+        path:"questionnaire"
       },
       {
         title:"投票",//투표
         imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
-        path:"posts.voting"
+        path:"voting"
       },
       {
         title:"报名",//이름등록
         imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
-        path:"posts.regname"
+        path:"regname"
       },
       {
         title:"公告",//공시
         imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
-        path:"posts.announcement"
+        path:"announcement"
       },
       {
         title:"交接班",//교대반관리
         imgUrl:"/asset/img/appIcon/schoolSafety/shiftMng.png",
-        path:"posts.shift"
+        path:"shiftMng"
       },
       {
         title:"维修工单",//수리공
         imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
-        path:"posts.repair"
+        path:"repair"
       },
       {
         title:"安全教育",//안전교육
         imgUrl:"/asset/img/appIcon/schoolSafety/safeStudy.png",
-        path:"posts.safeStudy"
+        path:"safeStudy"
       },
       {
         title:"学校动态",//학교동태
         imgUrl:"/asset/img/appIcon/schoolStory/schoolStory.png",
-        path:"posts.schoolStory",
+        path:"schoolStory",
       },
     ],
     teacherSchoolItems:[
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.share"
+        path:"share"
       },
       {
         title:"问卷",//설문
         imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
-        path:"posts.questionnaire"
+        path:"questionnaire"
       },
       {
         title:"投票",//투표
         imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
-        path:"posts.voting"
+        path:"voting"
       },
       {
         title:"报名",//이름등록
         imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
-        path:"posts.regname"
+        path:"regname"
       },
       {
         title:"公告",//공시
         imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
-        path:"posts.announcement"
+        path:"announcement"
       },
       {
         title:"交接班",//교대반관리
         imgUrl:"/asset/img/appIcon/schoolSafety/shiftMng.png",
-        path:"posts.shift"
+        path:"shiftMng"
       },
       {
         title:"维修工单",//수리공
         imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
-        path:"posts.repair"
+        path:"repair"
       },
       {
         title:"安全教育",//안전교육
         imgUrl:"/asset/img/appIcon/schoolSafety/safeStudy.png",
-        path:"posts.safeStudy"
+        path:"safeStudy"
       },
       {
         title:"学校动态",//학교동태
         imgUrl:"/asset/img/appIcon/schoolStory/schoolStory.png",
-        path:"posts.schoolStory",
+        path:"schoolStory",
       },
     ],
     parentSchoolItems:[
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.share"
+        path:"share"
       },
     ],
     studentSchoolItems:[
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.share"
+        path:"share"
       },
       {
         title:"维修工单",//수리공
         imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
-        path:"posts.repair"
+        path:"repair"
       },
     ],
     adminClassItems:[
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.Cshare"
+        path:"share"
       },
       {
         title:"问卷",//설문
         imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
-        path:"posts.Cquestionnaire"
+        path:"questionnaire"
       },
       {
         title:"投票",//투표
         imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
-        path:"posts.Cvoting"
+        path:"voting"
       },
       {
         title:"报名",//이름등록
         imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
-        path:"posts.CregName"
+        path:"regName"
       },
       {
         title:"公告",//공시
         imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
-        path:"posts.Cannouncement"
+        path:"announcement"
       },
       {
         title:"维修工单",//수리공
         imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
-        path:"posts.Crepair"
+        path:"repair"
       },
       {
         title:"安全教育",//안전교육
         imgUrl:"/asset/img/appIcon/schoolSafety/safeStudy.png",
-        path:"posts.CsafeStudy"
+        path:"safeStudy"
       },
       {
         title:"班级动态",//학급동태
         imgUrl:"/asset/img/appIcon/schoolStory/classStory.png",
-        path:"posts.classStory",
+        path:"classStory",
       },
       {
         title:"班际动态",//학급별동태
         imgUrl:"/asset/img/appIcon/schoolStory/interClassStory.png",
-        path:"posts.interClassStory",
+        path:"interClassStory",
       },
       {
         title:"表彰",//영예표창
         imgUrl:"/asset/img/appIcon/schoolStory/recognition.png",
-        path:"posts.Crecognition",
+        path:"recognition",
       },
     ],
     managerClassItems:[
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.Cshare"
+        path:"share"
       },
       {
         title:"问卷",//설문
         imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
-        path:"posts.Cquestionnaire"
+        path:"questionnaire"
       },
       {
         title:"投票",//투표
         imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
-        path:"posts.Cvoting"
+        path:"voting"
       },
       {
         title:"报名",//이름등록
         imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
-        path:"posts.CregName"
+        path:"regName"
       },
       {
         title:"公告",//공시
         imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
-        path:"posts.Cannouncement"
+        path:"announcement"
       },
       {
         title:"维修工单",//수리공
         imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
-        path:"posts.Crepair"
+        path:"repair"
       },
       {
         title:"安全教育",//안전교육
         imgUrl:"/asset/img/appIcon/schoolSafety/safeStudy.png",
-        path:"posts.CsafeStudy"
+        path:"safeStudy"
       },
       {
         title:"班级动态",//학급동태
         imgUrl:"/asset/img/appIcon/schoolStory/classStory.png",
-        path:"posts.classStory",
+        path:"classStory",
       },
       {
         title:"班际动态",//학급별동태
         imgUrl:"/asset/img/appIcon/schoolStory/interClassStory.png",
-        path:"posts.interClassStory",
+        path:"interClassStory",
       },
       {
         title:"表彰",//영예표창
         imgUrl:"/asset/img/appIcon/schoolStory/recognition.png",
-        path:"posts.Crecognition",
+        path:"recognition",
       },
     ],
     teacherClassItems:[
       {
         title:"请假审批",//휴가심사
         imgUrl:"/asset/img/appIcon/attendance/vocationReply.png",
-        path:"posts.vocation"
+        path:"vocation"
       },
       {
         title:"课程表",//시간표
@@ -573,32 +577,32 @@ export default {
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.Cshare"
+        path:"share"
       },
       {
         title:"问卷",//설문
         imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
-        path:"posts.Cquestionnaire"
+        path:"questionnaire"
       },
       {
         title:"投票",//투표
         imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
-        path:"posts.Cvoting"
+        path:"voting"
       },
       {
         title:"报名",//이름등록
         imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
-        path:"posts.CregName"
+        path:"regName"
       },
       {
         title:"公告",//공시
         imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
-        path:"posts.Cannouncement"
+        path:"announcement"
       },
       {
         title:"作业",//숙제
         imgUrl:"/asset/img/appIcon/homeSchool/homework.png",
-        path:"posts.Chomework"
+        path:"homework"
       },
       {
         title:"归程队",//귀한팀관리
@@ -608,51 +612,51 @@ export default {
       {
         title:"维修工单",//수리공
         imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
-        path:"posts.Crepair"
+        path:"repair"
       },
       {
         title:"安全教育",//안전교육
         imgUrl:"/asset/img/appIcon/schoolSafety/safeStudy.png",
-        path:"posts.CsafeStudy"
+        path:"safeStudy"
       },
       {
         title:"班级动态",//학급동태
         imgUrl:"/asset/img/appIcon/schoolStory/classStory.png",
-        path:"posts.classStory",
+        path:"classStory",
       },
       {
         title:"班际动态",//학급별동태
         imgUrl:"/asset/img/appIcon/schoolStory/interClassStory.png",
-        path:"posts.interClassStory",
+        path:"interClassStory",
       },
       {
         title:"表彰",//영예표창
         imgUrl:"/asset/img/appIcon/schoolStory/recognition.png",
-        path:"posts.Crecognition",
+        path:"recognition",
       },
     ],
     parentClassItems:[
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.Cshare"
+        path:"share"
       },
     ],
     studentClassItems:[
       {
         title:"请假单",//휴가신청
         imgUrl:"/asset/img/appIcon/attendance/vocationRequest.png",
-        path:"posts.Cvacation"
+        path:"vacation"
       },
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
-        path:"posts.Cshare"
+        path:"share"
       },
       {
         title:"维修工单",//수리공
         imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
-        path:"posts.Crepair"
+        path:"repair"
       },
     ],
   }),
@@ -968,34 +972,13 @@ export default {
     },
 
     selectItem(item){
-        this.sheet = false;
         if(this.isSchoolSpace == true){
-            if(item.path == 'posts.vocation'){
-                if(this.user.roleId == 3){
-                    this.$router.push({name:"posts.vacationTeacher",params:{schoolId:this.selectedSchoolItem.schoolId}})
-                }else if(this.user.roleId == 2){
-                    this.$router.push({name:"posts.attendance.vacation",params:{schoolId:this.selectedSchoolItem.schoolId}})
-                }
-                else{
-                    this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId}})
-                }
-            }else{
-                this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId}})
-            }
+            console.log(item);
+            this.$router.push({name: `schoolSpace.applications.${item.path}`, params: {schoolId:this.selectedSchoolItem.schoolId}});
         }
         else{
-            if(item.path == 'posts.vocation'){
-                if(this.user.roleId == 3){
-                    this.$router.push({name:"posts.vacationTeacher",params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
-                }else if(this.user.roleId == 2){
-                    this.$router.push({name:"posts.attendance.vacation",params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
-                }
-                else{
-                    this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
-                }
-            }else{
-                this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
-            }
+            console.log(item);
+            this.$router.push({name:`classSpace.applications.${item.path}`,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
         }
     },
     openAddItemDialog(){

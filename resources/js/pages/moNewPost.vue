@@ -7,24 +7,28 @@
                         <v-text-field
                             v-if="isSearching" key="1"
                             solo
-                            clearable
-                            class="mo-select-white-bg"
+                            class="mo-search-input-text-field"
                             v-model="searchKeyword"
                             label="请输入您的搜索词"
-                            append-icon="mdi-check"
-                            @click:append="onSearch"
                             prepend-inner-icon="mdi-magnify"
                             hide-details
                             color="#7879ff"
                             dense 
-                        ></v-text-field>
+                            >
+                            <v-icon
+                                v-if="searchKeyword.trim() !== ''"
+                                slot="append"
+                                @click="searchKeyword = ''"
+                                small
+                                >
+                                mdi-close-circle
+                            </v-icon>
+                        </v-text-field>
                         <p v-else key="2" class="mb-0 font-color-gray-heavy" style="padding: 7px 12px"> {{selectedSchoolItem.label}}</p>
                     </transition>
                     <transition name="page" mode="out-in">
-                    <v-btn icon v-if="isSearching" key="3" class="ml-3" @click="onFalseSearching">
-                        <v-icon>
-                        mdi-close
-                        </v-icon>
+                    <v-btn text small v-if="isSearching" key="3" class="ml-3 px-0 min-width-0" @click="onFalseSearching">
+                        取消
                     </v-btn>
                     <v-btn icon plain v-else key="4" class="ml-3" @click="isSearching = true">
                         <v-icon size="30">

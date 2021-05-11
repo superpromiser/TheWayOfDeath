@@ -12,33 +12,38 @@
             <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{contactNow}}</p>
         </v-row>
 
-        <v-col v-else cols="12" class=" d-flex mo-chat-index-nav pa-0 bg-white align-center" >
+        <v-col v-else cols="12" class="d-flex mo-chat-index-nav py-0 bg-white align-center">
           <transition name="page" mode="out-in">
             <v-text-field
-                v-if="isSearching" key="1"
-                solo
-                clearable
-                color="#7879ff"
-                v-model="searchKeyword"
-                label="请输入您的搜索词"
-                append-icon="mdi-check"
-                @click:append="onSearch"
-                class="mo-select-white-bg"
-                prepend-inner-icon="mdi-magnify"
-                hide-details
-            ></v-text-field>
+              v-if="isSearching" key="1"
+              solo
+              class="mo-search-input-text-field-chat"
+              v-model="searchKeyword"
+              label="请输入您的搜索词"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+              color="#7879ff"
+              dense 
+            >
+              <v-icon
+                  v-if="searchKeyword.trim() !== ''"
+                  slot="append"
+                  @click="searchKeyword = ''"
+                  small
+                >
+                mdi-close-circle
+              </v-icon>
+            </v-text-field>
             <v-tabs class="mo-chat-contact-tab" v-model="moChatTab" color="#666666" v-else background-color="#fffff">
                 <v-tab @click="navToChatNews" :ripple="false" active-class="mo-chat-nav-active">消息</v-tab>
                 <v-tab @click="navToChatContact" :ripple="false" active-class="mo-chat-nav-active"> 联系人</v-tab>
             </v-tabs>
           </transition>
           <transition name="page" mode="out-in">
-            <v-btn icon v-if="isSearching" key="3" class="ml-3 mr-2" @click="onFalseSearching">
-                <v-icon>
-                mdi-close
-                </v-icon>
+            <v-btn text small v-if="isSearching" key="3" class="ml-3 px-0 min-width-0" @click="onFalseSearching">
+                取消
             </v-btn>
-            <v-btn icon plain v-else key="4" class="ml-3 mr-4" @click="isSearching = true">
+            <v-btn icon plain v-else key="4" class="" @click="isSearching = true">
                 <v-icon size="30">
                 mdi-magnify
                 </v-icon>
