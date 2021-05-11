@@ -194,7 +194,6 @@ export default {
                 flags: '国旗',
                 custom: '其他',
             } 
-                
         },
         delay: "0.25s",
 

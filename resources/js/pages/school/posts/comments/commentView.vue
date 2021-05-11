@@ -35,7 +35,18 @@
         
       </v-col>
     </v-row>
-    <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" class="position-absolute" style="bottom: 80px; z-index:100" />
+    <Picker 
+      v-click-outside="outSidePicker" 
+      v-if="emoStatus" 
+      :data="emojiIndex" 
+      title="选择你的表情符号..." 
+      set="twitter" @select="onInput" 
+      class="position-absolute" 
+      style="bottom: 80px; z-index:100"
+      :showPreview="false"
+      :showSearch="false"
+      :i18n="emojiI18n"
+      />
     <v-row class="d-flex justify-space-between my-5">
                 <v-col cols="6">
                     <v-icon @click="emoStatus = !emoStatus">
@@ -98,7 +109,26 @@ export default {
     commentText:'',
     isDeleting:false,
     emojiIndex: emojiIndex,
-    isPosting:false
+    isPosting:false,
+    
+    emojiI18n: { 
+            search: 'Recherche', 
+            categories: { 
+                search: '//Search Results',
+                recent: '最近常用',
+                smileys: '黄脸',
+                people: '人和手势',
+                nature: '动物和植物',
+                foods: '食物',
+                activity: '活动',
+                places: '交通 ',
+                objects: '物品',
+                symbols: '标志',
+                flags: '国旗',
+                custom: '其他',
+            } 
+        },
+
   }),
   methods:{
     toggleEmo(){

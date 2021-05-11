@@ -99,8 +99,18 @@
             >
                 <v-icon>mdi-emoticon-excited-outline</v-icon>
             </v-btn>
-            <Picker v-click-outside="outSidePicker"
-                     class="w-90-i" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
+            <Picker 
+                v-click-outside="outSidePicker"
+                class="w-90-i" 
+                v-if="emoStatus" 
+                :data="emojiIndex" 
+                title="选择你的表情符号..." 
+                set="twitter" 
+                @select="onInput" 
+                :showPreview="false"
+                :showSearch="false"
+                :i18n="emojiI18n"
+            />
         </v-row>
         <!--  IMAGE VIEWER  -->
         <v-row class="ma-0">
@@ -294,7 +304,16 @@
                 </template>
                 <span>表情</span>
             </v-tooltip>
-            <Picker v-click-outside="outSidePicker" v-if="emoStatus" :data="emojiIndex" title="选择你的表情符号..." set="twitter" @select="onInput" />
+            <Picker 
+                v-click-outside="outSidePicker" 
+                v-if="emoStatus" 
+                :data="emojiIndex" 
+                title="选择你的表情符号..." 
+                set="twitter" 
+                @select="onInput"
+                :showPreview="false"
+                :showSearch="false"
+                :i18n="emojiI18n" />
         </v-row>
         <!--  IMAGE VIEWER  -->
         <v-row>
@@ -426,6 +445,24 @@ export default {
         deleteItem : null,
         isUserSeleciting:false,
         emoStatus:false,
+
+        emojiI18n: { 
+            search: 'Recherche', 
+            categories: { 
+                search: '//Search Results',
+                recent: '最近常用',
+                smileys: '黄脸',
+                people: '人和手势',
+                nature: '动物和植物',
+                foods: '食物',
+                activity: '活动',
+                places: '交通 ',
+                objects: '物品',
+                symbols: '标志',
+                flags: '国旗',
+                custom: '其他',
+            } 
+        },
     }),
 
     created(){

@@ -88,7 +88,16 @@
                                 mdi-emoticon-happy-outline
                             </v-icon>
                             <div class="emoji-area-popup position-absolute" style="bottom: 50px">
-                                <Picker v-if="emoStatus" set="emojione" @select="onInput" title="选择你的表情符号..." v-click-outside="onClickOutsideEmoji" />
+                                <Picker 
+                                    v-if="emoStatus" 
+                                    set="emojione" 
+                                    @select="onInput" 
+                                    title="选择你的表情符号..." 
+                                    v-click-outside="onClickOutsideEmoji" 
+                                    :showPreview="false"
+                                    :showSearch="false"
+                                    :i18n="emojiI18n"
+                                />
                             </div>
                         </div>
                         <v-text-field
@@ -151,7 +160,12 @@ import * as easings from 'vuetify/es5/services/goto/easing-patterns'
 import { mapGetters } from 'vuex';
 import ChatList from './chatlist';
 import ChatArea from './chatarea';
-import { Picker } from 'emoji-mart-vue'
+//emoji
+import emojiData from "emoji-mart-vue-fast/data/all.json";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
+let emojiIndex = new EmojiIndex(emojiData);
+
 import { getMessage, postMessage, postMessageImage, postMessageVideo, postMessageFile, getGroupChatMessage } from '~/api/chat';
 export default {
     components:{
@@ -208,7 +222,27 @@ export default {
             offset: 0,
             easing: 'easeInOutCubic',
             container: '#h-out-navbar'
-        }
+        },
+
+        emojiIndex: emojiIndex,
+        emojisOutput: "",
+        emojiI18n: { 
+            search: 'Recherche', 
+            categories: { 
+                search: '//Search Results',
+                recent: '最近常用',
+                smileys: '黄脸',
+                people: '人和手势',
+                nature: '动物和植物',
+                foods: '食物',
+                activity: '活动',
+                places: '交通 ',
+                objects: '物品',
+                symbols: '标志',
+                flags: '国旗',
+                custom: '其他',
+            } 
+        },
     }),
     computed: {
         icon () {
