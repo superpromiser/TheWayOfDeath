@@ -55,7 +55,7 @@
                 </v-col>
             </v-row>
             <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
-                <v-row class="px-3 mt-1" v-if="content.repairdata">
+                <v-row class="mt-1 ma-0" v-if="content.repairdata">
                     <RepairDataPost :content="content"></RepairDataPost>
                     <FooterPost :footerInfo='content'></FooterPost>
                 </v-row>

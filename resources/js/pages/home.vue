@@ -969,38 +969,12 @@ export default {
 
     selectItem(item){
         if(this.isSchoolSpace == true){
-            // if(item.path == 'posts.vocation'){
-            //     if(this.user.roleId == 3){
-            //         this.$router.push({name:"vacationTeacher",params:{schoolId:this.selectedSchoolItem.schoolId}})
-            //     }else if(this.user.roleId == 2){
-            //         this.$router.push({name:"attendance.vacation",params:{schoolId:this.selectedSchoolItem.schoolId}})
-            //     }
-            //     else{
-            //         this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId}})
-            //     }
-            // }else{
-            //     this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId}})
-            // }
             console.log(item);
             this.$router.push({name: `schoolSpace.applications.${item.path}`, params: {schoolId:this.selectedSchoolItem.schoolId}});
         }
         else{
-
-            // if(item.path == 'posts.vocation'){
-            //     if(this.user.roleId == 3){
-            //         this.$router.push({name:"vacationTeacher",params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
-            //     }else if(this.user.roleId == 2){
-            //         this.$router.push({name:"attendance.vacation",params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
-            //     }
-            //     else{
-            //         this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
-            //     }
-            // }else{
-            //     this.$router.push({name:item.path,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
-            // }
             console.log(item);
             this.$router.push({name:`classSpace.applications.${item.path}`,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
-
         }
     },
     openAddItemDialog(){

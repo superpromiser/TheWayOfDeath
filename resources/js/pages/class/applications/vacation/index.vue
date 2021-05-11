@@ -13,7 +13,7 @@
             <div class="cus-divider-light-gray-height"></div>
         </v-container>
         <v-container v-if="contentList.length" class="px-0" v-for="content in contentList" :key="content.id" >
-            <v-row class="px-3 mt-1">
+            <v-row class="mt-1 ma-0">
                 <VocationPost :content="content"></VocationPost>
                 <FooterPost :footerInfo='content'></FooterPost>
             </v-row>
