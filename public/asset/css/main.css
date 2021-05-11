@@ -289,14 +289,14 @@ a {
     .border-type-2 {
         border-radius: 0px !important;
     }
-    * {
-        -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+    /* * {
+        -webkit-user-select: none; 
         -webkit-touch-callout: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-    }
+    } */
 }
 
 .medal-background {

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <loading ref="loading" />
+    <loading v-if="!$isMobile()" ref="loading" />
 
     <transition name="page" mode="out-in">
       <component :is="layout" v-if="layout" />
