@@ -137,7 +137,7 @@
                     ref="fileUploader"
                     class="d-none"
                     type="file"
-                    accept="file/*"
+                    accept=".doc, .docx, .zip, .pdf, .xls, .xlsx, .rp, .mp3, .rp, .ppt, .pptx, .pptm, .apk, .rar"
                     @change="onFileFileChanged"
                 >
                 <v-btn rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="top: -45px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>

@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="$isMobile()" class="pa-0 ma-0">
+    <v-container v-if="$isMobile()" class="pa-0 ma-0 mb-16">
         <v-row class="ma-0 bg-white pt-10 mb-3"  @click="navToProfileItem('name')">
             <v-col cols="12" class="d-flex justify-space-between align-center pb-0">
                 <div class="d-flex align-center">

@@ -71,7 +71,7 @@
                                     ref="fileUploader"
                                     class="d-none"
                                     type="file"
-                                    accept="file/*"
+                                    accept=".doc, .docx, .zip, .pdf, .xls, .xlsx, .rp, .mp3, .rp, .ppt, .pptx, .pptm, .apk, .rar"
                                     @change="onFileFileChanged"
                                 >
                                 <!-- <v-btn
@@ -133,7 +133,7 @@
                                 @click="clickUploadFileBtn" >
                                 <v-icon>mdi-file-upload</v-icon>
                             </v-btn>
-                            <input ref="fileUploader" class="d-none" type="file" accept="file/*" @change="onFileFileChanged" >
+                            <input ref="fileUploader" class="d-none" type="file" accept=".doc, .docx, .zip, .pdf, .xls, .xlsx, .rp, .mp3, .rp, .ppt, .pptx, .pptm, .apk, .rar" @change="onFileFileChanged" >
                             <v-btn v-if="emoji" color="blue accent-3" fab small dark class="ma-2"
                                 @click="toggleEmo" >
                                 <v-icon>mdi-emoticon-excited-outline</v-icon>

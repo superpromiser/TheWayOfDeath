@@ -73,7 +73,7 @@
                 ref="fileUploader"
                 class="d-none"
                 type="file"
-                accept="file/*"
+                accept=".doc, .docx, .zip, .pdf, .xls, .xlsx, .rp, .mp3, .rp, .ppt, .pptx, .pptm, .apk, .rar"
                 @change="onFileFileChanged"
             >
             <v-btn
@@ -254,7 +254,7 @@
                 ref="fileUploader"
                 class="d-none"
                 type="file"
-                accept="file/*"
+                accept=".doc, .docx, .zip, .pdf, .xls, .xlsx, .rp, .mp3, .rp, .ppt, .pptx, .pptm, .apk, .rar"
                 @change="onFileFileChanged"
             >
             <v-tooltip bottom>

@@ -184,19 +184,26 @@
                         </v-chip>
                     </v-col>
                     <v-container v-else class="pa-0" v-for="(otherFile, index) in otherFileList" :key="index">
-                        <v-row class="ma-0">
-                            <v-col cols="12" class="d-flex align-center">
-                                <img v-if="otherFile.fileExtension == 'zip'" :src="`${baseUrl}/asset/img/fileIcon/zip.png`" style="width:39px; height:52px; " alt="">
+                        <v-row class="ma-0">   
+                            <a class="col col-12 d-flex align-center" :href="otherFile.imgUrl" :download="otherFile.fileOriName">
+                                <img v-if="otherFile.fileExtension == 'zip'" :src="`${baseUrl}/asset/img/fileIcon/zip1.png`" style="width:39px; height:52px; " alt="">
+                                <img v-else-if="otherFile.fileExtension == 'doc' || otherFile.fileExtension == 'docx'" :src="`${baseUrl}/asset/img/fileIcon/doc.png`" style="width:39px; height:52px; " alt="">
+                                <img v-else-if="otherFile.fileExtension == 'xlsx' || otherFile.fileExtension == 'xls'" :src="`${baseUrl}/asset/img/fileIcon/xls1.png`" style="width:39px; height:52px; " alt="">
+                                <img v-else-if="otherFile.fileExtension == 'ppt' || otherFile.fileExtension == 'pptm' || otherFile.fileExtension == 'pptx'" :src="`${baseUrl}/asset/img/fileIcon/ppt.png`" style="width:39px; height:52px; " alt="">
+                                <img v-else-if="otherFile.fileExtension == 'pdf'" :src="`${baseUrl}/asset/img/fileIcon/pdf.png`" style="width:39px; height:52px; " alt="">
+                                <img v-else-if="otherFile.fileExtension == 'mp3'" :src="`${baseUrl}/asset/img/fileIcon/mp3.png`" style="width:39px; height:52px; " alt="">
+                                <img v-else-if="otherFile.fileExtension == 'rar'" :src="`${baseUrl}/asset/img/fileIcon/zip.png`" style="width:39px; height:52px; " alt="">
+                                <!-- <img v-else-if="otherFile.fileExtension == 'apk'" :src="`${baseUrl}/asset/img/fileIcon/doc.png`" style="width:39px; height:52px; " alt=""> -->
                                 <img v-else :src="`${baseUrl}/asset/img/fileIcon/file.png`" style="width:39px; height:52px; " alt="">
                                 <div class="ml-3">
-                                    <p class="mb-0 font-size-0-75"> <strong>{{otherFile.fileOriName}}</strong></p>
-                                    <p class="mb-0 font-size-0-75">{{otherFile.fileSize}}</p>
+                                    <p class="mb-0 font-size-0-75 font-color-gray"> <strong>{{otherFile.fileOriName}}</strong></p>
+                                    <p class="mb-0 font-size-0-75 font-color-gray">{{otherFile.fileSize}}</p>
                                 </div>
                                 <v-spacer></v-spacer>
                                 <div class="d-flex align-start">
-                                    <p class="mb-0 font-size-0-75">{{TimeViewYMDDot(otherFile.fileCreatedAt)}}</p>
+                                    <p class="mb-0 font-size-0-75 font-color-gray">{{TimeViewYMDDot(otherFile.fileCreatedAt)}}</p>
                                 </div>
-                            </v-col>
+                            </a>
                         </v-row>
                         <v-divider light></v-divider>
                     </v-container>
