@@ -4,13 +4,13 @@
     right: () => swipe('Right'),
   }" v-if="isSchoolSpace">
     <v-row class="ma-0 pa-0 position-sticky-top-0" >
-      <v-col cols="12" class="d-flex align-center bg-secondary py-1 position-relative">
+      <v-col cols="12" class="d-flex align-center bg-white py-1 position-relative">
           <transition name="page" mode="out-in">
             <v-text-field
               v-if="isSearching" key="1"
               solo
               clearable
-              class="mo-select-gray-bg"
+              class="mo-select-white-bg"
               v-model="searchKeyword"
               label="请输入您的搜索词"
               append-icon="mdi-check"

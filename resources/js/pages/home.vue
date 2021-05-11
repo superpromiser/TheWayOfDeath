@@ -2,7 +2,7 @@
   <v-container class="pa-0">
     <v-container v-if="$isMobile()" class="pa-0" >
       <v-row class="ma-0">
-        <v-col cols="12" class="d-flex align-center bg-secondary py-1 position-sticky-top-0" v-touch="{
+        <v-col cols="12" class="d-flex align-center bg-white py-1 position-sticky-top-0" v-touch="{
           left: () => swipe('Left'),
           right: () => swipe('Right'),
         }">
@@ -11,7 +11,7 @@
               v-if="isSearching" key="1"
               solo
               clearable
-              class="mo-select-gray-bg"
+              class="mo-select-white-bg"
               v-model="searchKeyword"
               label="请输入您的搜索词"
               append-icon="mdi-check"
@@ -24,7 +24,7 @@
             <v-select
               v-else key="2"
               solo
-              class="mo-select-gray-bg"
+              class="mo-select-white-bg"
               color="#7879ff"
               :items="schoolListDropdownItem"
               :menu-props="{ top: false, offsetY: true }"
@@ -174,7 +174,7 @@
         left: () => swipe('Left'),
         right: () => swipe('Right'),
       }" >
-        <v-row class="ma-0" v-for="story in bodyStoryList" :key="story.id" @click="showDetailSchoolStory(story)">
+        <v-row class="ma-0" v-for="(story, index) in bodyStoryList" :key="index" @click="showDetailSchoolStory(story)">
           <v-col cols="7" class="pl-0 d-flex align-start flex-column">
             <p class="mb-auto font-weight-bold d-inline-block text-truncate w-100">{{story.schoolstory.content.text}}</p>
             <div class="d-flex align-center justify-space-between w-100">
@@ -185,14 +185,14 @@
           <v-col cols="5" class="pr-0">
             <v-img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" height="100"></v-img>
           </v-col>
+          <div v-if="index < bodyStoryList.length - 1" class="cus-divider-light-gray-height"></div>
         </v-row>
-        <v-divider light></v-divider>
       </v-container>
       <v-container v-else class="pb-16" v-touch="{
         left: () => swipe('Left'),
         right: () => swipe('Right'),
       }">
-        <v-row class="ma-0" v-for="story in bodyStoryList" :key="story.id" @click="showDetailClassStory(story)">
+        <v-row class="ma-0" v-for="(story, index) in bodyStoryList" :key="index" @click="showDetailClassStory(story)">
           <v-col cols="7" class="pl-0 d-flex align-start flex-column">
             <p class="mb-auto font-weight-bold">{{story.classstory.content.text}}</p>
             <div class="d-flex align-center justify-space-between w-100">
@@ -203,8 +203,8 @@
           <v-col cols="5" class="pr-0">
             <v-img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" height="100"></v-img>
           </v-col>
+          <div v-if="index < bodyStoryList.length - 1 " class="cus-divider-light-gray-height"></div>
         </v-row>
-        <v-divider light></v-divider>
       </v-container>
       
     </v-container>
