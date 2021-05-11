@@ -174,6 +174,13 @@ export default{
                 console.log(err.response)
             })
         },
+        relaseTop(id){
+            axios.put('/api/v1/post/relaseTop',{postId:id}).then(res=>{
+                this.snackbar.showMessage({content: '成功', color: "success"})
+            }).catch(err=>{
+                console.log(err.response)
+            })
+        },
         postRemove(data){
             axios.delete('/api/v1/post',{data:{postId:data.id}}).then(res=>{
                 // alert('删除成功')

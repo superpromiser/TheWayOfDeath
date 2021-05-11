@@ -22,7 +22,8 @@
                 </template>
                 <v-list>
                   <v-list-item link >
-                    <v-list-item-title class="px-2" @click="fixTop(content)">{{lang.toTop}}</v-list-item-title>
+                    <v-list-item-title class="px-2" @click="fixTop(content)" v-if="content.fixTop == null">{{lang.toTop}}</v-list-item-title>
+                    <v-list-item-title class="px-2" @click="relaseTop(content.id)" v-else>{{lang.toRelase}}</v-list-item-title>
                   </v-list-item>
                   <v-list-item link >
                     <v-list-item-title class="px-2" @click="postRemove(content)">{{lang.remove}}</v-list-item-title>

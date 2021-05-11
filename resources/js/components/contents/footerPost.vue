@@ -191,7 +191,10 @@ export default {
         ...mapGetters({
             user:'auth/user',
             selectedSchoolItem: 'mo/selectedSchoolItem'
-        })
+        }),
+        currentPath(){
+            return this.$route
+        }
     },
     data: ()=> ({
         fab: false,
@@ -249,6 +252,7 @@ export default {
         
         showComment(){
             console.log('add comment---------------')
+            console.log(this.currentPath)
             this.isComment = ! this.isComment
         },
         onInput(e){

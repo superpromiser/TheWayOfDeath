@@ -27,13 +27,13 @@
     <v-col cols="12" class="d-flex align-center hover-cursor-point" @click="showDetail">
       <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="60" class="ma-5">
             <span class="white--text headline">{{content.users.name[0]}}</span>
-        </v-avatar>
-        <v-avatar v-else
-          class="ma-5"
-          size="60"
-        >
-          <v-img :src="content.users.avatar"></v-img>
-        </v-avatar>
+      </v-avatar>
+      <v-avatar v-else
+        class="ma-5"
+        size="60"
+      >
+        <v-img :src="content.users.avatar"></v-img>
+      </v-avatar>
       <div>
         <p class="font-weight-black fs-15 mb-3"> {{lang.sms}}  </p>
         <div class="d-flex align-center">
@@ -52,7 +52,8 @@
           </template>
           <v-list>
             <v-list-item link >
-              <v-list-item-title class="px-2" @click="fixTop(content)">{{lang.toTop}}</v-list-item-title>
+              <v-list-item-title class="px-2" @click="fixTop(content)" v-if="content.fixTop == null">{{lang.toTop}}</v-list-item-title>
+              <v-list-item-title class="px-2" @click="relaseTop(content.id)" v-else>{{lang.toRelase}}</v-list-item-title>
             </v-list-item>
             <v-list-item link >
               <v-list-item-title class="px-2" @click="postRemove(content)">{{lang.remove}}</v-list-item-title>
