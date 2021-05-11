@@ -138,7 +138,7 @@
                     </v-card>
                 </v-col>
             </v-row>
-            <v-dialog v-model="selectLeaderDialog" width="100%" max-width="500">
+            <v-dialog persistent v-model="selectLeaderDialog" width="100%" max-width="500">
                 <v-card>
                     <v-card-title class="title"> 归程队组长 </v-card-title>
                     <v-card-text v-if="returnTeamData.member.length == 0">

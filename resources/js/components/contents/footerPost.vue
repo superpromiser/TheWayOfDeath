@@ -33,45 +33,7 @@
         <v-divider></v-divider>
     </v-col>
     <v-col cols="12" class="pt-2 px-10" v-else>
-        
         <div class="d-flex align-center justify-end mb-5">
-            <!-- <v-menu
-                top
-                :close-on-click="true"
-                >
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                        @click="showReadUsers"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                        icon color="blue accent-3" 
-                        :loading="isReadCnt"
-                    >
-                        <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
-                        <p class="mb-0 mr-8">{{footerInfo.readList ? footerInfo.readList.length : 0}}人</p>
-                    </v-btn>
-                </template>
-
-                <v-list>
-                    <v-list-item
-                    v-for="user in readUsers" :key="user.id"
-                    >
-                        <v-list-item-title>
-                            <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="50" class="ma-5">
-                                <span class="white--text headline">{{user.name[0]}}</span>
-                            </v-avatar>
-                            <v-avatar v-else
-                            class="ma-5"
-                            size="50"
-                            >
-                                <v-img :src="user.avatar"></v-img>
-                            </v-avatar>
-                            <span>{{user.name}}</span>
-                        </v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu> -->
             <v-btn @click="showReadUsers" icon color="blue accent-3" :loading="isReadCnt" >
                 <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
                 <p class="mb-0 mr-8">{{footerInfo.readList ? footerInfo.readList.length : 0}}人</p>
@@ -137,6 +99,7 @@
         <v-divider class="thick-border" light></v-divider>
         <v-row justify="center">
             <v-dialog
+                persistent
                 v-model="dialog"
                 max-width="500"
                 height="150"

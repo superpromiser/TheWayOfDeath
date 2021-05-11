@@ -15,7 +15,7 @@
                             @videoInfoToParent="passVideoDataFromChild"
                         />
                     </v-col>
-                    <v-dialog v-model="videoViewDialog" width="100%" max-width="1000">
+                    <v-dialog persistent v-model="videoViewDialog" width="100%" max-width="1000">
                         <v-card>
                             <v-card-text class="px-0">
                                 <video-player  

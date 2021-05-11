@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\LessonAttendance;
+use App\Session;
+use App\Subject;
 use Illuminate\Support\Facades\Auth;
 class LessonAttendanceController extends Controller
 {
@@ -76,5 +78,19 @@ class LessonAttendanceController extends Controller
             $lessonId = $request->lessonId;
             return LessonAttendance::whereBetween('attendanceDay',[$from,$to])->where('lessonId',$lessonId)->get();
         }
+    }
+    public function getLessonItem(Request $request){
+        $this->validate($request,[
+            'schoolId'=>'required',
+        ]);
+        $schoolId = $request->schoolId;
+        $lastSession = Session::latest('id')->first();
+        $subjectOrder = array();
+        if($lastSession){
+            $subjectOrder = Subject::where(['schoolId'=>Auth::user()->schoolId, 'sessionId'=>$lastSession->id])->get();
+        }
+        
+        return $subjectOrder;
+
     }
 }

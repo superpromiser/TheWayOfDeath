@@ -1,6 +1,158 @@
 <template>
-  <v-container class="pa-10">
-    <v-row>
+  <v-container class="pa-0">
+    <v-container class="px-10 z-index-2 banner-custom">
+        <v-row>
+            <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class="left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+            </v-col>
+            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                <h2>晨午检</h2>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                <v-btn
+                  color="#f19861"
+                  dark
+                  tile
+                  class="mx-2"
+                  @click="dialog = !dialog"
+                  >
+                  <v-icon left>
+                    mdi-plus
+                  </v-icon>
+                添加
+                </v-btn>
+                <!-- <v-btn
+                    color="#7879ff"
+                    dark
+                    tile
+                >
+                  发布
+                </v-btn> -->
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-dialog
+    persistent
+    v-model="dialog"
+    max-width="800px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{ formTitle }}</span>
+        </v-card-title>
+
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="6">
+                <v-select
+                  solo
+                  v-model="editedItem.checkType"
+                  :items="checkTypeItem"
+                  item-text="label"
+                  item-value="value"
+                  @change="selectedCheckType"
+                  :menu-props="{ top: false, offsetY: true }"
+                  label="项目"
+                  hide-details
+              ></v-select>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-select
+                  solo
+                  v-model="editedItem.studentId"
+                  :items="studentList"
+                  item-text="name"
+                  item-value="id"
+                  @change="selectedStudent"
+                  :menu-props="{ top: false, offsetY: true }"
+                  label="姓名"
+                  hide-details
+              ></v-select>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-select
+                  solo
+                  v-model="editedItem.signal"
+                  :items="signalItem"
+                  item-text="label"
+                  item-value="value"
+                  @change="selectedSignal"
+                  :menu-props="{ top: false, offsetY: true }"
+                  label="主要症状"
+                  hide-details
+              ></v-select>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-datetime-picker 
+                    label="发病时间" 
+                    v-model="editedItem.startTime"
+                    :okText='lang.ok'
+                    :clearText='lang.cancel'
+                > </v-datetime-picker>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-select
+                  solo
+                  v-model="editedItem.reason"
+                  :items="reasonItem"
+                  item-text="label"
+                  item-value="value"
+                  @change="selectedReason"
+                  :menu-props="{ top: false, offsetY: true }"
+                  label="诊断"
+                  hide-details
+              ></v-select>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="editedItem.hospital"
+                  label="诊断医院"
+                  hide-details
+                  solo
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="close"
+          >
+            {{lang.cancel}}
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            :loading="isCreatingSchool"
+            @click="save"
+          >
+            {{lang.save}}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog persistent v-model="dialogDelete" max-width="500px">
+      <v-card>
+        <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+        <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
+        <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+              
+    <v-row class="pa-10">
       <v-col cols="12">
         <v-data-table
           :headers="headers"
@@ -14,13 +166,6 @@
             <v-toolbar
                 flat
             >
-              <v-toolbar-title><strong>晨午检</strong></v-toolbar-title>
-              <v-divider
-              class="mx-4"
-              inset
-              vertical
-              ></v-divider>
-              <v-spacer></v-spacer>
               <div class="d-flex align-center">
                 
                 <v-menu
@@ -67,144 +212,7 @@
                   class="mr-4"
                 ></v-select>
               </div>
-              <v-dialog
-              v-model="dialog"
-              max-width="800px"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                  color="#f19861"
-                  dark
-                  tile
-                  class="mb-2 mr-4"
-                  v-bind="attrs"
-                  v-on="on"
-                  >
-                    <v-icon left>
-                      mdi-plus
-                    </v-icon>
-                  添加
-                  </v-btn>
-                </template>
-                <v-card>
-                  <v-card-title>
-                    <span class="headline">{{ formTitle }}</span>
-                  </v-card-title>
-
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12" sm="6">
-                          <v-select
-                            solo
-                            v-model="editedItem.checkType"
-                            :items="checkTypeItem"
-                            item-text="label"
-                            item-value="value"
-                            @change="selectedCheckType"
-                            :menu-props="{ top: false, offsetY: true }"
-                            label="项目"
-                            hide-details
-                        ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6">
-                          <v-select
-                            solo
-                            v-model="editedItem.studentId"
-                            :items="studentList"
-                            item-text="name"
-                            item-value="id"
-                            @change="selectedStudent"
-                            :menu-props="{ top: false, offsetY: true }"
-                            label="姓名"
-                            hide-details
-                        ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6">
-                          <v-select
-                            solo
-                            v-model="editedItem.signal"
-                            :items="signalItem"
-                            item-text="label"
-                            item-value="value"
-                            @change="selectedSignal"
-                            :menu-props="{ top: false, offsetY: true }"
-                            label="主要症状"
-                            hide-details
-                        ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6">
-                          <v-datetime-picker 
-                              label="发病时间" 
-                              v-model="editedItem.startTime"
-                              :okText='lang.ok'
-                              :clearText='lang.cancel'
-                          > </v-datetime-picker>
-                        </v-col>
-                        <v-col cols="12" sm="6">
-                          <v-select
-                            solo
-                            v-model="editedItem.reason"
-                            :items="reasonItem"
-                            item-text="label"
-                            item-value="value"
-                            @change="selectedReason"
-                            :menu-props="{ top: false, offsetY: true }"
-                            label="诊断"
-                            hide-details
-                        ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6">
-                          <v-text-field
-                            v-model="editedItem.hospital"
-                            label="诊断医院"
-                            hide-details
-                            solo
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-text>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="close"
-                    >
-                      {{lang.cancel}}
-                    </v-btn>
-                    <v-btn
-                      color="blue darken-1"
-                      text
-                      :loading="isCreatingSchool"
-                      @click="save"
-                    >
-                      {{lang.save}}
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-              <v-dialog v-model="dialogDelete" max-width="500px">
-                <v-card>
-                  <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
-                  <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
-                  <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-              <v-btn
-                color="#7879ff"
-                dark
-                tile
-                class="mb-2"
-                >
-                发布
-              </v-btn>
+              
             </v-toolbar>
           </template>
           <template v-slot:[`item.imgUrl`]="{ item }">

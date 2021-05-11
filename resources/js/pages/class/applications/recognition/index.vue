@@ -26,12 +26,14 @@
                         dark
                         class="mr-5"
                         @click="post"
+                        v-if="user.roleId == 1 || user.roleId == 2 || user.roelId == 3 || user.roleId == 7"
                         >
                         <v-icon left>
                             mdi-book-plus 
                         </v-icon>
                         发布
                     </v-btn>
+                    <span v-else> </span>
                 </v-col>
             </v-row>
         </v-container>
@@ -128,6 +130,7 @@ import {getRecognition} from '~/api/recognition';
 import RecognitionPost from '~/components/contents/recognitionPost.vue'
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
+import {mapGetters} from 'vuex'
 export default {
     components:{
         InfiniteLoading,
@@ -169,7 +172,10 @@ export default {
     computed:{
         currentPath(){
             return this.$route
-        }
+        },
+        ...mapGetters({
+            user:'auth/user'
+        })
     },
     methods:{
         async infiniteHandler($state){

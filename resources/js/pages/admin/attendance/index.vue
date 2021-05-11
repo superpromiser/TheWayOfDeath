@@ -58,6 +58,34 @@
             </v-col>
         </v-row>
     </v-container> -->
+    <v-container class="px-10 z-index-2 banner-custom">
+        <v-row>
+            <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class="left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+            </v-col>
+            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                <h2>进离校</h2>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                 <v-btn
+                    dark
+                    color="#7879ff"
+                    tile
+                    class="ml-4"
+                    large
+                >
+                    导出
+                    <v-icon right>
+                        mdi-export 
+                    </v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+    </v-container>
     <v-row class="px-10 mt-5">
       <v-col cols="12">
         <v-data-table
@@ -72,14 +100,6 @@
             <v-toolbar
                 flat
             >
-                <v-toolbar-title><strong>进离校</strong></v-toolbar-title>
-                <v-divider
-                class="mx-4"
-                inset
-                vertical
-                ></v-divider>
-                <v-spacer></v-spacer>
-
                 <div class="d-flex align-center">
                     <p class="mb-0 mr-5">考勤日期</p>
                     <v-menu
@@ -111,18 +131,7 @@
                     </v-menu>
                 </div>
                 
-                <v-btn
-                    dark
-                    color="#7879ff"
-                    tile
-                    class="ml-4"
-                    large
-                >
-                    导出
-                    <v-icon right>
-                        mdi-export 
-                    </v-icon>
-                </v-btn>
+               
             </v-toolbar>
           </template>
           <template v-slot:[`item.other`]="{ item }">

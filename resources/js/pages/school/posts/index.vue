@@ -612,12 +612,12 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/shiftMng.png",
                     //     path:"posts.shift"
                     // },
-                    {
-                        color:"#98BB3A",
-                        title:"维修工单",//수리공
-                        imgUrl:"/asset/img/newIcon/repair.png",
-                        path:"posts.repair"
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"维修工单",//수리공
+                    //     imgUrl:"/asset/img/newIcon/repair.png",
+                    //     path:"posts.repair"
+                    // },
                     // {
                     //     color:"#98BB3A",
                     //     title:"安全教育",//안전교육

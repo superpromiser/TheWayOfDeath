@@ -25,7 +25,7 @@ class CreateSubjectsTable extends Migration
             $table->string('subjectOrderType');
             $table->char('startTime');
             $table->char('endTime');
-            $table->date('subjectStartDate');
+            // $table->date('subjectStartDate');
             $table->boolean('isActived')->default(false);
             $table->timestamps();
         });

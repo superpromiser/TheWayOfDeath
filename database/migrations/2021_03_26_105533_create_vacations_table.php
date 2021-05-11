@@ -24,6 +24,7 @@ class CreateVacationsTable extends Migration
             $table->boolean('isHeat');
             $table->string('painDesc')->nullable();
             $table->char('status')->default('pending');
+            
             $table->unsignedBigInteger('postId');
             $table->unsignedBigInteger('studentId');
             $table->unsignedBigInteger('schoolId');

@@ -490,18 +490,18 @@ export default {
                     //     imgUrl:"/asset/img/newIcon/manageGuests.png",
                     //     path:"posts."
                     // },
-                    {
-                        color:"#98BB3A",
-                        title:"交接班",//교대반관리
-                        imgUrl:"/asset/img/newIcon/shiftMng.png",
-                        path:"schoolSpace.applications.shiftMng"
-                    },
-                    {
-                        color:"#98BB3A",
-                        title:"维修工单",//수리공
-                        imgUrl:"/asset/img/newIcon/repair.png",
-                        path:"schoolSpace.applications.repair"
-                    },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"交接班",//교대반관리
+                    //     imgUrl:"/asset/img/newIcon/shiftMng.png",
+                    //     path:"schoolSpace.applications.shiftMng"
+                    // },
+                    // {
+                    //     color:"#98BB3A",
+                    //     title:"维修工单",//수리공
+                    //     imgUrl:"/asset/img/newIcon/repair.png",
+                    //     path:"schoolSpace.applications.repair"
+                    // },
                     {
                         color:"#98BB3A",
                         title:"安全教育",//안전교육

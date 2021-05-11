@@ -16,13 +16,16 @@ class SessionController extends Controller
     {   
         $this->validate($request,[
             'sessionName'=>'required',
+            'sessionDate'=>'required'
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
+        $sessionDate = $request->sessionDate;
         $session = Session::create([
             'userId' => $userId,
             'schoolId' => $schoolId,
             'sessionName' => $request->sessionName,
+            'sessionDate'=>$sessionDate,
         ]);
         return response()->json([
             'msg'=> 1,

@@ -153,8 +153,7 @@
                         color="#f19861"
                         class="mx-2"
                         tile
-                        @click="denyVacation"
-                        :loading="isDeny"
+                        @click="reasonFlag = !reasonFlag"
                     >
                         <v-icon left>
                             mdi-hand-left
@@ -276,6 +275,50 @@
                     ></v-textarea>
                 </v-col>
             </v-row>
+            <v-row justify="center">
+                <v-dialog
+                    v-model="reasonFlag"
+                    persistent
+                    max-width="600px"
+                >
+                    <v-card>
+                        <v-card-title>
+                            <!-- <span class="headline">添加围栏</span> -->
+                        </v-card-title>
+                        <v-card-text>
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12">
+                                    <v-textarea
+                                        label=""
+                                        required
+                                        v-model="reason"
+                                    ></v-textarea>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="reasonFlag = false"
+                            >
+                                关闭
+                            </v-btn>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                :loading="isSaving"
+                                @click="denyVacation"
+                            >
+                                保存
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-row>
         </v-container>
     </v-container>
 </template>
@@ -292,6 +335,9 @@ export default {
         baseUrl: window.Laravel.base_url,
         isAllow:false,
         isDeny:false,
+        isSaving:false,
+        reasonFlag:false,
+        reason:"",
         newVacationData : {
             // studentName:'something',
             // teacherName:'something',
@@ -356,14 +402,18 @@ export default {
         },
 
         async denyVacation(){
-            this.isDeny = true
-            await updateVacationData({status:'deny',vId:this.currentPath.params.vId}).then(res=>{
+            if(this.reason == ''){
+                return this.$snackbar.showMessage({content: "必须至少选择一个", color: "error"})
+            }
+            this.isSaving = true
+            await updateVacationData({status:'deny',vId:this.currentPath.params.vId,denyReason:this.reason}).then(res=>{
                 console.log(res.data)
-                this.isDeny = false
+                this.isSaving = false
+                this.reason = ''
                 this.$router.push({name:'posts.attendance.vacation'})
             }).catch(err=>{
                 console.log(err.response)
-                this.isDeny = false
+                this.isSaving = false
             })
         },
         

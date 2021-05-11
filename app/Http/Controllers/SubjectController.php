@@ -25,7 +25,6 @@ class SubjectController extends Controller
             'subjectOrderType' => 'required',
             'startTime' => 'required',
             'endTime' => 'required',
-            'subjectStartDate' => 'required'
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
@@ -37,7 +36,6 @@ class SubjectController extends Controller
             'subjectOrderType' => $request->subjectOrderType,
             'startTime' => $request->startTime,
             'endTime' => $request->endTime,
-            'subjectStartDate' => $request->subjectStartDate,
         ]);
     }
 

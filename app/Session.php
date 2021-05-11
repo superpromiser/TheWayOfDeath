@@ -9,6 +9,7 @@ class Session extends Model
     protected $fillable = [
         'userId', 
         'schoolId', 
-        'sessionName', 
+        'sessionName',
+        'sessionDate' 
     ];
 }

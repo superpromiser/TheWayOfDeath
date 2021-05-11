@@ -20,6 +20,7 @@ class CreateSessionsTable extends Migration
             $table->unsignedBigInteger('schoolId');
             $table->foreign('schoolId')->references('id')->on('schools')->onDelete('cascade');
             $table->string('sessionName');
+            
             $table->timestamps();
         });
     }

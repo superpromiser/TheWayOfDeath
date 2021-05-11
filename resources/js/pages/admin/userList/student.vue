@@ -251,7 +251,7 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-              <v-dialog v-model="dialogDelete" max-width="500px">
+              <v-dialog persistent v-model="dialogDelete" max-width="500px">
                 <v-card>
                   <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
                   <v-card-actions>
@@ -263,6 +263,7 @@
                 </v-card>
               </v-dialog>
               <v-dialog
+                persistent
                 v-model="indroduceDialog"
                 max-width="500px"
               >
@@ -381,17 +382,31 @@ export default {
     ],
     fatherJobItem:[
         { 
-            label : "农民", 
-            value : "farmer" 
+            label : "父亲", 
+            value : "father" 
         },
         { 
-            label : "工人", 
-            value : "worker" 
+            label : "母亲", 
+            value : "mother" 
         },
         { 
-            label : "开发商", 
-            value : "developer" 
+            label : "祖父", 
+            value : "zufu" 
         },
+        { 
+            label : "祖母", 
+            value : "zumu" 
+        },
+        { 
+            label : "外祖父", 
+            value : "waizufu" 
+        },
+        { 
+            label : "外祖母", 
+            value : "waizumu" 
+        },
+        
+        
         
     ],
     date: new Date().toISOString().substr(0, 10),

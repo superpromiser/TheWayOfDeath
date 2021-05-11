@@ -1,6 +1,6 @@
 <template>
-  <v-container class="pa-10">
-    <!-- <v-container class="px-10 z-index-2 banner-custom">
+  <v-container class="pa-0">
+    <v-container class="px-10 z-index-2 banner-custom">
         <v-row>
             <v-col cols="6" md="4" class="d-flex align-center position-relative">
                 <a @click="$router.go(-1)">
@@ -13,54 +13,7 @@
                 <h2>课堂考勤</h2>
             </v-col>
             <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                <div class="d-flex align-center">
-                    <p class="mb-0 mr-5">考勤日期</p>
-                    <v-menu
-                        ref="menu"
-                        v-model="menu"
-                        :close-on-content-click="false"
-                        :return-value.sync="attendanceDate"
-                        transition="scale-transition"
-                        offset-y
-                        min-width="auto"
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                            solo
-                            v-model="attendanceDate"
-                            prepend-icon="mdi-calendar"
-                            readonly
-                            v-bind="attrs"
-                            v-on="on"
-                            hide-details
-                        ></v-text-field>
-                        </template>
-                        <v-date-picker
-                            v-model="attendanceDate"
-                            no-title
-                            scrollable
-                            @change="onSelectAttendanceDate"
-                            locale="zh-cn"
-                        >
-                        </v-date-picker>
-                    </v-menu>
-                </div>
-                <v-btn
-                  :dark="attendanceDate !== ''"
-                  color="#f19861"
-                  tile
-                  class="ml-4"
-                  large
-                  :disabled="attendanceDate == ''"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  新增考勤
-                <v-icon right>
-                    mdi-plus
-                </v-icon>
-                </v-btn>
-                <v-btn
+                 <v-btn
                     dark
                     color="#7879ff"
                     tile
@@ -72,10 +25,198 @@
                         mdi-export 
                     </v-icon>
                 </v-btn>
+                <v-btn
+                      :dark="attendanceDate !== ''"
+                      color="#f19861"
+                      tile
+                      class="ml-4"
+                      large
+                      :disabled="attendanceDate == ''"
+                      @click="dialog = !dialog"
+                    >
+                      新增考勤
+                    <v-icon right>
+                        mdi-plus
+                    </v-icon>
+                  </v-btn>
             </v-col>
         </v-row>
-    </v-container> -->
-    <v-row >
+    </v-container>
+    <v-dialog
+        persistent
+        v-model="dialog"
+        max-width="800px"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="headline">{{ formTitle }}</span>
+          </v-card-title>
+
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="6" >
+                <h3>{{editedItem.attendanceDay}}</h3>
+              </v-col>
+              <v-col cols="12" sm="6" >
+                <v-select
+                  solo
+                  v-model="editedItem.attendanceTime"
+                  :menu-props="{ top: false, offsetY: true }"
+                  :items="lessonTimeItem"
+                  item-text="lessonTimeName"
+                  item-value="lessonTimeValue"
+                  @change="selectedLessonTime"
+                  label="考勤时间"
+                  hide-details
+              ></v-select>
+              </v-col>
+              <v-col cols="12">
+                <v-data-table
+                  :headers="dialogHeaders"
+                  :items="editedItem.resultArr"
+                  sort-by="calories"
+                  class="elevation-1"
+                >
+                  <template v-slot:[`item.attendanceResult`]="{ item }">
+                    <v-select 
+                      :items="attendanceResultItem"
+                      :menu-props="{ top: false, offsetY: true }"
+                      item-text="resultType"
+                      item-value="resultValue"
+                      v-model="item.attendanceResult"
+                      hide-details
+                    >
+                    </v-select>
+                  </template>
+                  <template v-slot:[`item.other`]="{ item }">
+                    <v-text-field
+                      v-model="item.other"
+                      label=""
+                      hide-details
+                    ></v-text-field>
+                  </template>
+                </v-data-table>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="close"
+          >
+            {{lang.cancel}}
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            :loading="isCreatingSchool"
+            @click="save"
+          >
+            {{lang.save}}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+      <v-dialog
+        persistent
+        v-model="viewDialog"
+        max-width="800px"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="headline">查看考勤</span>
+          </v-card-title>
+
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="6" >
+                <h3>{{editedItem.attendanceDay}}</h3>
+              </v-col>
+              <v-col cols="12" sm="6" >
+                <v-select
+                  solo
+                  v-model="editedItem.attendanceTime"
+                  :menu-props="{ top: false, offsetY: true }"
+                  :items="lessonTimeItem"
+                  item-text="lessonTimeName"
+                  item-value="lessonTimeValue"
+                  label="考勤时间"
+                  hide-details
+                  readonly
+              ></v-select>
+              </v-col>
+              <v-col cols="12">
+                <v-data-table
+                  :headers="dialogHeaders"
+                  :items="editedItem.resultArr"
+                  sort-by="calories"
+                  class="elevation-1"
+                >
+                  <template v-slot:[`item.attendanceResult`]="{ item }">
+                    <v-select 
+                      :items="attendanceResultItem"
+                      :menu-props="{ top: false, offsetY: true }"
+                      item-text="resultType"
+                      item-value="resultValue"
+                      v-model="item.attendanceResult"
+                      hide-details
+                      readonly
+                    >
+                    </v-select>
+                  </template>
+                  <template v-slot:[`item.other`]="{ item }">
+                    <v-text-field
+                      v-model="item.other"
+                      label="人员姓名"
+                      hide-details
+                      readonly
+                    ></v-text-field>
+                  </template>
+                </v-data-table>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <!-- <v-btn
+            color="blue darken-1"
+            text
+            @click="close"
+          >
+            {{lang.cancel}}
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            :loading="isCreatingSchool"
+            @click="save"
+          >
+            {{lang.save}}
+          </v-btn> -->
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog persistent v-model="dialogDelete" max-width="500px">
+      <v-card>
+        <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+        <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
+        <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+                
+    <v-row class="pa-10">
       <v-col cols="12">
         <v-data-table
           :headers="headers"
@@ -90,13 +231,7 @@
                 flat
             >
               
-              <v-toolbar-title><strong>课堂考勤</strong></v-toolbar-title>
-              <v-divider
-                class="mx-4"
-                inset
-                vertical
-              ></v-divider>
-              <v-spacer></v-spacer>
+              
               <div class="d-flex align-center">
                   <p class="mb-0 mr-5">考勤日期</p>
                   <v-menu
@@ -130,206 +265,7 @@
                   </v-menu>
               </div>
                 
-                <v-dialog
-                  v-model="dialog"
-                  max-width="800px"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      :dark="attendanceDate !== ''"
-                      color="#f19861"
-                      tile
-                      class="ml-4"
-                      large
-                      :disabled="attendanceDate == ''"
-                      v-bind="attrs"
-                      v-on="on"
-                    >
-                      新增考勤
-                    <v-icon right>
-                        mdi-plus
-                    </v-icon>
-                  </v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">{{ formTitle }}</span>
-                    </v-card-title>
-
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12" sm="6" >
-                          <h3>{{editedItem.attendanceDay}}</h3>
-                        </v-col>
-                        <v-col cols="12" sm="6" >
-                          <v-select
-                            solo
-                            v-model="editedItem.attendanceTime"
-                            :menu-props="{ top: false, offsetY: true }"
-                            :items="lessonTimeItem"
-                            item-text="lessonTimeName"
-                            item-value="lessonTimeValue"
-                            @change="selectedLessonTime"
-                            label="考勤时间"
-                            hide-details
-                        ></v-select>
-                        </v-col>
-                        <v-col cols="12">
-                          <v-data-table
-                            :headers="dialogHeaders"
-                            :items="editedItem.resultArr"
-                            sort-by="calories"
-                            class="elevation-1"
-                          >
-                            <template v-slot:[`item.attendanceResult`]="{ item }">
-                              <v-select 
-                                :items="attendanceResultItem"
-                                :menu-props="{ top: false, offsetY: true }"
-                                item-text="resultType"
-                                item-value="resultValue"
-                                v-model="item.attendanceResult"
-                                hide-details
-                              >
-                              </v-select>
-                            </template>
-                            <template v-slot:[`item.other`]="{ item }">
-                              <v-text-field
-                                v-model="item.other"
-                                label=""
-                                hide-details
-                              ></v-text-field>
-                            </template>
-                          </v-data-table>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-text>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="close"
-                    >
-                      {{lang.cancel}}
-                    </v-btn>
-                    <v-btn
-                      color="blue darken-1"
-                      text
-                      :loading="isCreatingSchool"
-                      @click="save"
-                    >
-                      {{lang.save}}
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-                <v-dialog
-                  v-model="viewDialog"
-                  max-width="800px"
-                >
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">查看考勤</span>
-                    </v-card-title>
-
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12" sm="6" >
-                          <h3>{{editedItem.attendanceDay}}</h3>
-                        </v-col>
-                        <v-col cols="12" sm="6" >
-                          <v-select
-                            solo
-                            v-model="editedItem.attendanceTime"
-                            :menu-props="{ top: false, offsetY: true }"
-                            :items="lessonTimeItem"
-                            item-text="lessonTimeName"
-                            item-value="lessonTimeValue"
-                            label="考勤时间"
-                            hide-details
-                            readonly
-                        ></v-select>
-                        </v-col>
-                        <v-col cols="12">
-                          <v-data-table
-                            :headers="dialogHeaders"
-                            :items="editedItem.resultArr"
-                            sort-by="calories"
-                            class="elevation-1"
-                          >
-                            <template v-slot:[`item.attendanceResult`]="{ item }">
-                              <v-select 
-                                :items="attendanceResultItem"
-                                :menu-props="{ top: false, offsetY: true }"
-                                item-text="resultType"
-                                item-value="resultValue"
-                                v-model="item.attendanceResult"
-                                hide-details
-                                readonly
-                              >
-                              </v-select>
-                            </template>
-                            <template v-slot:[`item.other`]="{ item }">
-                              <v-text-field
-                                v-model="item.other"
-                                label="人员姓名"
-                                hide-details
-                                readonly
-                              ></v-text-field>
-                            </template>
-                          </v-data-table>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-text>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <!-- <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="close"
-                    >
-                      {{lang.cancel}}
-                    </v-btn>
-                    <v-btn
-                      color="blue darken-1"
-                      text
-                      :loading="isCreatingSchool"
-                      @click="save"
-                    >
-                      {{lang.save}}
-                    </v-btn> -->
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-              <v-dialog v-model="dialogDelete" max-width="500px">
-                <v-card>
-                  <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
-                  <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
-                  <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-                <v-btn
-                    dark
-                    color="#7879ff"
-                    tile
-                    class="ml-4"
-                    large
-                >
-                    导出
-                    <v-icon right>
-                        mdi-export 
-                    </v-icon>
-                </v-btn>
+              
             </v-toolbar>
           </template>
           <template v-slot:[`item.resultNormal`]="{ item }">
@@ -403,10 +339,10 @@
 import {getLessonUserList,} from '~/api/user'
 import {getLessonAttendanceData,
         createLessonAttendanceData,
-        updateLessonAttendanceData,
-        deleteLessonAttendanceData}
+      getLessonItem}
   from '~/api/attendance';
 import lang from '~/helper/lang.json'
+import {mapGetters} from 'vuex'
 export default {
     components:{
     },
@@ -433,42 +369,7 @@ export default {
             { text: '考勤备注', value: 'other', },
         ],
         lessonTimeItem : [
-          {
-            lessonTimeName: "早自习",
-            lessonTimeValue: "早自习"
-          },
-          {
-            lessonTimeName: "第一节",
-            lessonTimeValue: "第一节"
-          },
-          {
-            lessonTimeName: "第二节",
-            lessonTimeValue: "第二节"
-          },
-          {
-            lessonTimeName: "第三节",
-            lessonTimeValue: "第三节"
-          },
-          {
-            lessonTimeName: "第四节",
-            lessonTimeValue: "第四节"
-          },
-          {
-            lessonTimeName: "第五节",
-            lessonTimeValue: "第五节"
-          },
-          {
-            lessonTimeName: "第六节",
-            lessonTimeValue: "第六节"
-          },
-          {
-            lessonTimeName: "第七节",
-            lessonTimeValue: "第七节"
-          },
-          {
-            lessonTimeName: "晚自习",
-            lessonTimeValue: "晚自习"
-          },
+          
         ],
         attendanceResultItem : [
           {
@@ -603,6 +504,10 @@ export default {
       formTitle () {
         return this.editedIndex === -1 ? '新增考勤' : '修改考勤'
       },
+      ...mapGetters({
+        user:'auth/user'
+      })
+
     },
 
 
@@ -611,6 +516,18 @@ export default {
         //we have to make result array for editedItem from student list
         // this needs very high skill...
           // this.isLoadingSchoolData = true;
+        getLessonItem({schoolId:this.user.schoolId}).then(res=>{
+          console.log("-----------------",res.data)
+          res.data.map(data=>{
+            let lessonItem = {}
+            lessonItem.lessonTimeName = data.subjectOrderName
+            lessonItem.lessonTimeValue = data.subjectOrderName
+            this.lessonTimeItem.push(lessonItem)
+          })
+
+        }).catch(err=>{
+          console.log(err.response)
+        })
         getLessonAttendanceData({attDate:this.attendanceDate}).then(res=>{
           console.log("res.data1",res.data)
           res.data.map(item=>{
@@ -636,6 +553,7 @@ export default {
           console.log(err.response)
           this.isLoadingSchoolData = false;
         })
+
     },
 
     watch: {

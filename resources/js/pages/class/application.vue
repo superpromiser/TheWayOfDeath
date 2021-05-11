@@ -435,30 +435,30 @@ export default {
                 },
             ]
         },
-        {
-            title:"校园安全",//교내안전
-            icon:"mdi-account-cog-outline",
-            items:[
-                {
-                    color:"#98BB3A",
-                    title:"归程队",//귀한팀관리
-                    imgUrl:"/asset/img/newIcon/returnTeam.png",
-                    path:"classSpace.returnTeam"
-                },
-                {
-                    color:"#98BB3A",
-                    title:"维修工单",//수리공
-                    imgUrl:"/asset/img/newIcon/repair.png",
-                    path:"classSpace.applications.repair"
-                },
-                {
-                    color:"#98BB3A",
-                    title:"安全教育",//안전교육
-                    imgUrl:"/asset/img/newIcon/safeStudy.png",
-                    path:"classSpace.applications.safeStudy"
-                },
-            ]
-        },
+        // {
+        //     title:"校园安全",//교내안전
+        //     icon:"mdi-account-cog-outline",
+        //     items:[
+        //         {
+        //             color:"#98BB3A",
+        //             title:"归程队",//귀한팀관리
+        //             imgUrl:"/asset/img/newIcon/returnTeam.png",
+        //             path:"classSpace.returnTeam"
+        //         },
+        //         {
+        //             color:"#98BB3A",
+        //             title:"维修工单",//수리공
+        //             imgUrl:"/asset/img/newIcon/repair.png",
+        //             path:"classSpace.applications.repair"
+        //         },
+        //         {
+        //             color:"#98BB3A",
+        //             title:"安全教育",//안전교육
+        //             imgUrl:"/asset/img/newIcon/safeStudy.png",
+        //             path:"classSpace.applications.safeStudy"
+        //         },
+        //     ]
+        // },
         {
             title:"校园文化",//
             icon:"mdi-lifebuoy",

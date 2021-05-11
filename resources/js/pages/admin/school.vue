@@ -22,6 +22,7 @@
               ></v-divider>
               <v-spacer></v-spacer>
               <v-dialog
+              persistent
               v-model="dialog"
               persistent
               max-width="500px"
@@ -160,7 +161,7 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-              <v-dialog v-model="dialogDelete" max-width="500px">
+              <v-dialog  persistent v-model="dialogDelete" max-width="500px">
                 <v-card>
                   <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
                   <v-card-actions>
@@ -172,6 +173,7 @@
                 </v-card>
               </v-dialog>
               <v-dialog
+                persistent
                 v-model="indroduceDialog"
                 max-width="500px"
               >

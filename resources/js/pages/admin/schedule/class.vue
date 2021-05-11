@@ -1,7 +1,52 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12">
+  <v-container class="pa-0">
+    <v-container class="px-10 z-index-2 banner-custom">
+        <v-row>
+            <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class="left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+            </v-col>
+            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                <h2>课程表</h2>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                <v-btn
+                    color="#f19861"
+                    dark
+                    class="mb-2 ml-2"
+                    tile
+                    v-if="isEditable == false"
+                    @click="editable"
+                    >
+                    <v-icon left>
+                        mdi-check
+                    </v-icon>
+                    修改
+                </v-btn>
+                <v-btn
+                    color="#7879ff"
+                    dark
+                    class="mb-2 ml-2"
+                    tile
+                    v-if="isEditable == true"
+                    :loading="isLoadingNewData"
+                    @click="onSubmit"
+                    >
+                    <v-icon left>
+                        mdi-alert-circle-outline
+                    </v-icon>
+                    <!-- 无法修改 -->
+                    <!-- {{lang.submit}} -->
+                    保存
+                </v-btn>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-row class="mt-5">
+      <v-col cols="12" class="px-10">
         <v-data-table
           :headers="headers"
           :items="scheduleData"
@@ -10,11 +55,11 @@
           sort-by="calories"
           class="elevation-1"
         >
-            <template v-slot:top>
+            <!-- <template v-slot:top>
                 <v-toolbar
                     flat
                 >
-                    <!-- <v-toolbar-title><strong>{{someData.grade.className}}2021学下学期课程表</strong></v-toolbar-title> -->
+                    <v-toolbar-title><strong>{{someData.grade.className}}2021学下学期课程表</strong></v-toolbar-title>
                     <v-toolbar-title><strong>{{sessionName}}</strong></v-toolbar-title>
                     <v-divider
                     class="mx-4"
@@ -48,11 +93,11 @@
                         <v-icon left>
                             mdi-alert-circle-outline
                         </v-icon>
-                        <!-- 无法修改 -->
-                        <!-- {{lang.submit}} -->
+                       
+                        {{lang.submit}}
                         保存
                     </v-btn>
-                    <!-- <v-btn
+                    <v-btn
                         color="#7879ff"
                         dark
                         class="mb-2 ml-2"
@@ -61,9 +106,9 @@
                         @click="onSubmit"
                         >
                         {{lang.submit}}
-                    </v-btn> -->
+                    </v-btn>
                 </v-toolbar>
-            </template>
+            </template> -->
 
             <template v-slot:body="{ items, headers }">
                 <tbody>

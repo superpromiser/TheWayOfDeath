@@ -70,7 +70,7 @@
                         v-model="user.name"
                         hide-details
                         dense
-                        class=""
+                        class="w-50 ml-auto"
                     ></v-text-field>
                 </v-col>
                 
@@ -101,7 +101,7 @@
                         v-model="user.phoneNumber"
                         hide-details
                         dense
-                        class=""
+                        class="w-50 ml-auto"
                     ></v-text-field>
                 </v-col>
                 

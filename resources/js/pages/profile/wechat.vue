@@ -29,7 +29,7 @@
                 </div>
             </v-col>
         </v-row>
-        <v-dialog v-model="wechatDialog" @click:outside="closeDialog" width="100%" max-width="500px">
+        <v-dialog persistent v-model="wechatDialog" @click:outside="closeDialog" width="100%" max-width="500px">
             <v-card>
                 <v-card-text class="pt-5">
                     <v-text-field solo hide-details v-model="wechat"></v-text-field>

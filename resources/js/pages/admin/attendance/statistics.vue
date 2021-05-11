@@ -1,7 +1,31 @@
 <template>
-  <v-container class="pa-10">
-    <v-row>
-      <v-col cols="4" class="d-flex align-center">
+  <v-container class="pa-0">
+    <v-container class="px-10 z-index-2 banner-custom">
+        <v-row>
+            <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class="left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+            </v-col>
+            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                <h2>开始日期</h2>
+            </v-col>
+            <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                <v-btn
+                  depressed
+                  color="#7879FF"
+                  dark
+                  @click="searchAction"
+                >
+                  査洵
+                </v-btn>
+            </v-col>
+        </v-row>
+    </v-container>
+    <v-row class="pa-10">
+      <v-col cols="12" md="6" class="d-flex align-center">
         开始日期
         <v-menu
           v-model="startMenu"
@@ -29,8 +53,9 @@
             @input="selStartDate"
           ></v-date-picker>
         </v-menu>
+        
       </v-col>
-      <v-col cols="4" class="d-flex align-center">
+      <v-col cols="12" md="6" class="d-flex align-center">
         结束日期
         <v-menu
           v-model="endMenu"
@@ -59,17 +84,6 @@
           ></v-date-picker>
         </v-menu>
       </v-col>
-      <v-col cols="4">
-        <v-btn
-          depressed
-          color="#7879FF"
-          dark
-          @click="searchAction"
-          class="float-right text-light"
-        >
-          査洵
-        </v-btn>
-      </v-col>
     </v-row>
     <v-data-table
       dense
@@ -78,7 +92,7 @@
       :loading="isLoading"
       loading-text="正在加载..."
       item-key="name"
-      class="elevation-1 mt-5"
+      class="px-10"
     >
       <template v-slot:[`item.actions`]="{ item }">
         <span @click="detail(item)" class="text-primary hover-cursor-point">立即查看</span>

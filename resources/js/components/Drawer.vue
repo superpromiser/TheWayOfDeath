@@ -115,6 +115,16 @@
                 link
                 to="/admin/schedule"
                 >
+                <v-list-item-title class="ml-16">课时维护</v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>mdi-calendar-month</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+              <v-list-item
+                active-class="sub-header-active"
+                link
+                to="/admin/scheduleSetting"
+                >
                 <v-list-item-title class="ml-16">课程维护</v-list-item-title>
                 <v-list-item-icon>
                   <v-icon>mdi-calendar-month</v-icon>
@@ -130,20 +140,11 @@
                   <v-icon>mdi-calendar-month</v-icon>
                 </v-list-item-icon>
               </v-list-item>
-              <v-list-item
-                active-class="sub-header-active"
-                link
-                to="/admin/scheduleSetting"
-                >
-                <v-list-item-title class="ml-16">课程维护</v-list-item-title>
-                <v-list-item-icon>
-                  <v-icon>mdi-calendar-month</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
+              
               
             </v-list-group>
           </v-list>
-          <v-list class="py-0" v-if="user.role.id == 2 || user.role.id == 3 || user.role.id == 7">
+          <v-list class="py-0" v-if="user.role.id == 2">
             <v-list-group  active-class="header-active">
               <template v-slot:activator>
                 <v-list-item-title class="ml-9">考勤</v-list-item-title>
@@ -158,7 +159,7 @@
                   <v-icon>mdi-account-clock </v-icon>
                 </v-list-item-icon>
               </v-list-item>
-              <v-list-item
+              <!-- <v-list-item
                 active-class="sub-header-active"
                 link
                 to="/admin/attendance/lesson"
@@ -167,7 +168,7 @@
                 <v-list-item-icon>
                  <v-icon>mdi-badge-account  </v-icon>
                 </v-list-item-icon>
-              </v-list-item>
+              </v-list-item> -->
               <v-list-item
                 active-class="sub-header-active"
                 link
@@ -178,7 +179,7 @@
                   <v-icon>mdi-account-search </v-icon>
                 </v-list-item-icon>
               </v-list-item>
-              <v-list-item
+              <!-- <v-list-item
                 active-class="sub-header-active"
                 link
                 to="/admin/attendance/vacation"
@@ -187,7 +188,7 @@
                 <v-list-item-icon>
                   <v-icon>mdi-check-decagram-outline </v-icon>
                 </v-list-item-icon>
-              </v-list-item>
+              </v-list-item> -->
               <v-list-item
                 active-class="sub-header-active"
                 link
@@ -200,6 +201,64 @@
               </v-list-item>
             </v-list-group>
           </v-list>
+          
+          <!-- teacher admin -->
+          
+          <v-list-item
+            v-if="user.roleId == 3 || user.roleId == 7"
+            active-class="sub-header-active"
+            link
+            to="/admin/attendance/index"
+            >
+            <v-list-item-title class="ml-9">进离校</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-account-clock </v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            v-if="user.roleId == 3 || user.roleId == 7"
+            active-class="sub-header-active"
+            link
+            to="/admin/attendance/lesson"
+            >
+            <v-list-item-title class="ml-9">课堂考勤</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-badge-account  </v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            v-if="user.roleId == 3 || user.roleId == 7"
+            active-class="sub-header-active"
+            link
+            to="/admin/attendance/check"
+            >
+            <v-list-item-title class="ml-9">晨午检</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-account-search </v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            v-if="user.roleId == 3 || user.roleId == 7"
+            active-class="sub-header-active"
+            link
+            to="/admin/attendance/vacation"
+            >
+            <v-list-item-title class="ml-9">请假</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-check-decagram-outline </v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+          <v-list-item
+            v-if="user.roleId == 3 || user.roleId == 7"
+            active-class="sub-header-active"
+            link
+            to="/admin/attendance/statistics"
+            >
+            <v-list-item-title class="ml-9">统计</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>mdi-hexagon-slice-4  </v-icon>
+            </v-list-item-icon>
+          </v-list-item>
       </v-list-group>
       <v-list-group active-class="header-active" prepend-icon="mdi-school" v-for="(school, indexOfSchool) in mySchoolList" :key="indexOfSchool">
         <template v-slot:activator>

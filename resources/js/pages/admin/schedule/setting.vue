@@ -1,5 +1,111 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>课程维护</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
+                        color="#7879ff"
+                        dark
+                        tile
+                        @click="dialog = ! dialog"
+                        :disabled="!isEditable"
+                    >
+                        添加
+                    </v-btn>
+                    <v-btn
+                        color="#f19861"
+                        dark
+                        
+                        tile
+                        v-if="isEditable == false"
+                        @click="isEditable = !isEditable"
+                        >
+                        <v-icon left>
+                            mdi-check
+                        </v-icon>
+                        修改
+                    </v-btn>
+                    <v-btn
+                        color="#f19861"
+                        dark
+                        tile
+                        v-if="isEditable == true"
+                        @click="isEditable = !isEditable"
+                        class="mx-2"
+                        >
+                        <v-icon left>
+                            mdi-alert-circle-outline
+                        </v-icon>
+                        保存
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-dialog
+            v-model="dialog"
+            persistent
+            max-width="500px"
+            >
+                <v-card>
+                <v-card-title>
+                    <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
+
+                <v-card-text>
+                    <v-container>
+                    <v-row>
+                        <v-col cols="12">
+                            <v-text-field
+                                v-model="editedItem.subjectName"
+                                label="请输入课程名称"
+                                hide-details
+                            ></v-text-field>
+                        </v-col>
+                    </v-row>
+                    </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="close"
+                    >
+                    取消
+                    </v-btn>
+                    <v-btn
+                    color="blue darken-1"
+                    text
+                    :loading="isCreating"
+                    @click="save"
+                    >
+                    保存
+                    </v-btn>
+                </v-card-actions>
+                </v-card>
+        </v-dialog>
+        <v-dialog persistent v-model="dialogDelete" max-width="500px">
+            <v-card>
+            <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+            <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+            <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
+            <v-spacer></v-spacer>
+            </v-card-actions>
+            </v-card>
+        </v-dialog>
         <v-row>
             <v-col cols="12">
                  <v-row class="ma-0 align-center">
@@ -23,147 +129,38 @@
                 </v-row>
             </v-col>
         </v-row>
-            <v-data-table
+        <v-data-table
             :headers="headers"
             :items="scheduleSettingData"
             :loading="isLoadingSchoolData"
             loading-text="正在加载..."
             sort-by="calories"
             class="elevation-1"
+        >
+        
+        <template v-slot:[`item.actions`]="{ item }">
+            <v-icon
+                small
+                color="success"
+                class="mr-2"
+                :disabled="!isEditable"
+                @click="editItem(item)"
             >
-            <template v-slot:top>
-                <v-toolbar
-                    flat
-                >
-                    <v-toolbar-title><strong>{{currentSelectedGrade ? currentSelectedGrade.gradeName : ''}} 课程安排</strong></v-toolbar-title>
-                    <v-divider
-                    class="mx-4"
-                    inset
-                    vertical
-                    ></v-divider>
-                    <v-spacer></v-spacer>
-
-                    <v-dialog
-                    v-model="dialog"
-                    persistent
-                    max-width="500px"
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                        color="#7879ff"
-                        dark
-                        tile
-                        class="mb-2"
-                        v-bind="attrs"
-                        v-on="on"
-                        :disabled="!isEditable"
-                        >
-                        添加
-                        </v-btn>
-                        </template>
-                        <v-card>
-                        <v-card-title>
-                            <span class="headline">{{ formTitle }}</span>
-                        </v-card-title>
-
-                        <v-card-text>
-                            <v-container>
-                            <v-row>
-                                <v-col cols="12">
-                                    <v-text-field
-                                        v-model="editedItem.subjectName"
-                                        label="请输入课程名称"
-                                        hide-details
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
-                            </v-container>
-                        </v-card-text>
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                            color="blue darken-1"
-                            text
-                            @click="close"
-                            >
-                            取消
-                            </v-btn>
-                            <v-btn
-                            color="blue darken-1"
-                            text
-                            :loading="isCreating"
-                            @click="save"
-                            >
-                            保存
-                            </v-btn>
-                        </v-card-actions>
-                        </v-card>
-                    </v-dialog>
-                    <v-dialog v-model="dialogDelete" max-width="500px">
-                        <v-card>
-                        <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
-                        <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-                        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
-                        <v-spacer></v-spacer>
-                        </v-card-actions>
-                        </v-card>
-                    </v-dialog>
-
-                    <v-btn
-                        color="#f19861"
-                        dark
-                        class="mb-2 ml-2"
-                        tile
-                        v-if="isEditable == false"
-                        @click="isEditable = !isEditable"
-                        >
-                        <v-icon left>
-                            mdi-check
-                        </v-icon>
-                        修改
-                    </v-btn>
-                    <v-btn
-                        color="#f19861"
-                        dark
-                        class="mb-2 ml-2"
-                        tile
-                        v-if="isEditable == true"
-                        @click="isEditable = !isEditable"
-                        >
-                        <v-icon left>
-                            mdi-alert-circle-outline
-                        </v-icon>
-                        保存
-                    </v-btn>
-                </v-toolbar>
-            </template>
-            
-            <template v-slot:[`item.actions`]="{ item }">
-                <v-icon
-                    small
-                    color="success"
-                    class="mr-2"
-                    :disabled="!isEditable"
-                    @click="editItem(item)"
-                >
-                    mdi-pencil
-                </v-icon>
-                <v-icon
-                    small
-                    color="error"
-                    :disabled="!isEditable"
-                    @click="deleteItem(item)"
-                >
-                    mdi-delete
-                </v-icon>
-            </template>
-            <template v-slot:no-data>
-                <p>暂无</p>
-            </template>
-            </v-data-table>
+                mdi-pencil
+            </v-icon>
+            <v-icon
+                small
+                color="error"
+                :disabled="!isEditable"
+                @click="deleteItem(item)"
+            >
+                mdi-delete
+            </v-icon>
+        </template>
+        <template v-slot:no-data>
+            <p>暂无</p>
+        </template>
+        </v-data-table>
     </v-container>
 </template>
 

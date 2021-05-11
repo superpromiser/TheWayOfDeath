@@ -112,6 +112,7 @@
             v-model="addDialog"
             fullscreen
             hide-overlay
+            persistent
             transition="dialog-bottom-transition" >   
             <v-card>
                 <v-toolbar
@@ -198,7 +199,7 @@
                                 </v-col>
                             </v-row>
                         </v-col>
-                        <v-dialog v-model="groupNameDialog" transition="dialog-bottom-transition" max-width="500">   
+                        <v-dialog persistent v-model="groupNameDialog" transition="dialog-bottom-transition" max-width="500">   
                             <v-card>
                                 <v-card-text class="pa-5">
                                     <v-text-field

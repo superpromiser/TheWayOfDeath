@@ -1,127 +1,28 @@
 <template>
-    <v-container>
-            <v-data-table
-            :headers="headers"
-            :items="scheduleTeacherData"
-            :loading="isLoadingSchoolData"
-            loading-text="正在加载..."
-            sort-by="calories"
-            class="elevation-1"
-            >
-            <template v-slot:top>
-                <v-toolbar flat>
-                    <v-toolbar-title><strong>任课教师</strong></v-toolbar-title>
-                    <v-divider
-                    class="mx-4"
-                    inset
-                    vertical
-                    ></v-divider>
-                    <v-spacer></v-spacer>
-
-                    <v-dialog
-                    v-model="dialog"
-                    persistent
-                    max-width="500px"
-                    >
-                        <template v-slot:activator="{ on, attrs }">
-                        <v-btn
+    <v-container class="pa-0">
+         <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>任课教师</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                    <v-btn
                         color="#7879ff"
                         dark
                         tile
                         class="mb-2"
-                        v-bind="attrs"
-                        v-on="on"
+                        @click="dialog = !dialog"
                         :disabled="!isEditable"
-                        >
+                    >
                         添加
-                        </v-btn>
-                        </template>
-                        <v-card>
-                        <v-card-title>
-                            <span class="headline">{{ formTitle }}</span>
-                        </v-card-title>
-
-                        <v-card-text>
-                            <v-container>
-                            <v-row>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="subjectNameItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="subjectName"
-                                        item-value="id"
-                                        v-model="editedItem.scheduleSettingId"
-                                        label="课程名称"
-                                        @change="onChangeSubjectName"
-                                        return-object
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        :items="teacherNameItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="name"
-                                        item-value="id"
-                                        v-model="editedItem.teacherId"
-                                        label="任课教师"
-                                        @change="onChangeTeacherName"
-                                        return-object
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                                <v-col cols="12">
-                                    <v-select
-                                        solo
-                                        multiple
-                                        :items="classItem"
-                                        :menu-props="{ top: false, offsetY: true }"
-                                        item-text="lessonName"
-                                        item-value="lessonId"
-                                        v-model="editedItem.lessons"
-                                        label="任课班级"
-                                        :disabled="editedItem.scheduleSettingId == null"
-                                        hide-details
-                                    ></v-select>
-                                </v-col>
-                            </v-row>
-                            </v-container>
-                        </v-card-text>
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                            color="blue darken-1"
-                            text
-                            @click="close"
-                            >
-                            取消
-                            </v-btn>
-                            <v-btn
-                            color="blue darken-1"
-                            text
-                            :loading="isCreating"
-                            @click="save"
-                            >
-                            保存
-                            </v-btn>
-                        </v-card-actions>
-                        </v-card>
-                    </v-dialog>
-                    <v-dialog v-model="dialogDelete" max-width="500px">
-                        <v-card>
-                        <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
-                        <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-                        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
-                        <v-spacer></v-spacer>
-                        </v-card-actions>
-                        </v-card>
-                    </v-dialog>
-
+                    </v-btn>
                     <v-btn
                         color="#f19861"
                         dark
@@ -148,9 +49,108 @@
                         </v-icon>
                         保存
                     </v-btn>
-                </v-toolbar>
-            </template>
-            
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-dialog
+            v-model="dialog"
+            persistent
+            max-width="500px"
+            >
+                <v-card>
+                <v-card-title>
+                    <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
+
+                <v-card-text>
+                    <v-container>
+                    <v-row>
+                        <v-col cols="12">
+                            <v-select
+                                solo
+                                :items="subjectNameItem"
+                                :menu-props="{ top: false, offsetY: true }"
+                                item-text="subjectName"
+                                item-value="id"
+                                v-model="editedItem.scheduleSettingId"
+                                label="课程名称"
+                                @change="onChangeSubjectName"
+                                return-object
+                                hide-details
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                solo
+                                :items="teacherNameItem"
+                                :menu-props="{ top: false, offsetY: true }"
+                                item-text="name"
+                                item-value="id"
+                                v-model="editedItem.teacherId"
+                                label="任课教师"
+                                @change="onChangeTeacherName"
+                                return-object
+                                hide-details
+                            ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-select
+                                solo
+                                multiple
+                                :items="classItem"
+                                :menu-props="{ top: false, offsetY: true }"
+                                item-text="lessonName"
+                                item-value="lessonId"
+                                v-model="editedItem.lessons"
+                                label="任课班级"
+                                :disabled="editedItem.scheduleSettingId == null"
+                                hide-details
+                            ></v-select>
+                        </v-col>
+                    </v-row>
+                    </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="close"
+                    >
+                    取消
+                    </v-btn>
+                    <v-btn
+                    color="blue darken-1"
+                    text
+                    :loading="isCreating"
+                    @click="save"
+                    >
+                    保存
+                    </v-btn>
+                </v-card-actions>
+                </v-card>
+        </v-dialog>
+        <v-dialog persistent v-model="dialogDelete" max-width="500px">
+            <v-card>
+            <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+            <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+            <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
+            <v-spacer></v-spacer>
+            </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-data-table
+            :headers="headers"
+            :items="scheduleTeacherData"
+            :loading="isLoadingSchoolData"
+            loading-text="正在加载..."
+            sort-by="calories"
+            class="elevation-1"
+            >
             <template v-slot:[`item.actions`]="{ item }">
                 <v-icon
                     small

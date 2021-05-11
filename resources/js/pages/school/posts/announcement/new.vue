@@ -23,6 +23,7 @@
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                     <v-dialog
+                        persistent
                         v-model="chooseSignNameDialog"
                         max-width="500px"
                     >
@@ -202,6 +203,7 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                         <v-dialog
+                            persistent
                             v-model="chooseSignNameDialog"
                             max-width="500px"
                         >

@@ -6,7 +6,7 @@
                     <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                         mdi-chevron-left
                     </v-icon>
-                    <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >评论</p>
+                    <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{titleArr[content.contentId]}}</p>
                 </v-row>
                 <div class="cus-divider-light-gray-height"></div>
             </v-container>
@@ -134,7 +134,7 @@
                         </a>
                     </v-col>
                     <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                        <h2>交接班管理</h2>
+                        <h2>{{titleArr[contentData.contentId]}}</h2>
                     </v-col>
                     <v-col cols="12" md="4" class="d-flex align-center justify-end">
                         <div v-if="contentData.contentId == 9 && contentData.shift_mng.confirmDate == null && contentData.shift_mng.nextNameId == user.id">
@@ -316,7 +316,34 @@ export default {
         emojiIndex: emojiIndex,
         emojisOutput: "",
         titleArr:[
-            ''
+            '详情',
+            '问卷',
+            '投票',
+            '短信',
+            '校园动态',
+            '公告',
+            '布告栏',
+            '维修工单',
+            '安全教育',
+            '交接班管理',
+            '家访',
+            '学校动态',
+            '问卷',
+            '投票',
+            '作业',
+            '完成作业',
+            '家访',
+            '通知',
+            '评价',
+            '表彰',
+            '请假单',
+            '安全教育',
+            '作业结果',
+            '分享',
+            '报名',
+            '班级动态',
+            '班际动态',
+            '归程队管理'
         ],
         isCancel:false,
         isSubmit:false,

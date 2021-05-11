@@ -254,7 +254,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     //attendance
     Route::get('attendance', 'AttendanceController@getAttendanceData');
     Route::get('statAttendance', 'AttendanceController@getStatData');
-
+    Route::get('lessonItem','LessonAttendanceController@getLessonItem');
     //chat
     Route::get('/chat/userList', 'ChatController@getUserList')->name('getUserList');
     Route::get('/chat/contactList', 'ChatController@getContactList')->name('getContactList');

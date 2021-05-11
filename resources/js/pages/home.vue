@@ -95,7 +95,7 @@
             </carousel>
             <v-divider class="mx-3" light></v-divider>
 
-          <v-dialog v-model="addItemDialog" width="100%" max-width="500" scrollable>
+          <v-dialog persistent v-model="addItemDialog" width="100%" max-width="500" scrollable>
               <v-card>
                   <v-card-title class="title"> 添加 </v-card-title>
                   <v-card-text class="px-0" style="height: 300px; ">

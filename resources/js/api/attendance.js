@@ -32,6 +32,10 @@ function getStatDetailAttData(payload){
     return axios.get('/api/v1/statDetailAttData',{params:payload});
 }
 
+function getLessonItem(payload){
+    return axios.get('/api/v1/lessonItem',{params:payload})
+}
+
 export{
     getAttendanceData,
     getLessonAttendanceData,
@@ -41,4 +45,5 @@ export{
     getStatData,
     getStatLessonAttData,
     getStatDetailAttData,
+    getLessonItem,
 }

@@ -83,7 +83,7 @@
                 </v-card>
             </v-col>
         </v-row >
-        <v-dialog v-model="videoViewDialog" width="100%" max-width="1000">
+        <v-dialog persistent v-model="videoViewDialog" width="100%" max-width="1000">
             <v-card>
                 <v-card-title class="title">
                 {{selectedViedoName}}

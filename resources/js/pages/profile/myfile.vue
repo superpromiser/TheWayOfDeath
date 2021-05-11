@@ -84,7 +84,7 @@
                             <p class="mb-0 font-size-2-8-vw mx-auto text-center">{{TimeViewYMDDot(video.fileCreatedAt)}}</p>
                         </div>
                     </v-col>
-                    <v-dialog v-model="videoViewDialog" width="100%" max-width="1000">
+                    <v-dialog persistent v-model="videoViewDialog" width="100%" max-width="1000">
                         <v-card>
                             <v-card-title class="title">
                             {{selectedViedoName}}
@@ -345,7 +345,7 @@
                     </div>
                 </v-card>
             </v-col>
-            <v-dialog v-model="videoViewDialog" width="100%" max-width="1000">
+            <v-dialog persistent v-model="videoViewDialog" width="100%" max-width="1000">
                 <v-card>
                     <v-card-title class="title">
                     {{selectedViedoName}}

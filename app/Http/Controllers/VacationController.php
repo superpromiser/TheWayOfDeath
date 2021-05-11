@@ -103,7 +103,7 @@ class VacationController extends Controller
         return Vacation::where([
             'id' => $request->vId,
 
-        ])->update(['status' => $request->status]);
+        ])->update(['status' => $request->status,'denyReason'=>$request->denyReason]);
     }
 
     public function deleteVacation(Request $request)

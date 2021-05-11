@@ -27,12 +27,14 @@
                         dark
                         class="mr-5"
                         @click="post"
+                        v-if="user.roleId == 5"
                         >
                         <v-icon left>
                             mdi-book-plus 
                         </v-icon>
                         发布
                     </v-btn>
+                    <span v-else> </span>
                 </v-col>
             </v-row>
         </v-container>
