@@ -734,7 +734,8 @@ export default {
                             id: res.data.id,
                             userId: this.user.id,
                             schoolId: this.user.schoolId,
-                            sessionName: this.sessionName
+                            sessionName: this.sessionName,
+                            sessionDate:this.sessionDate
                         }
                         this.sessionDataArr.push(sessionObj)
                         if(this.sessionDataArr.length == 1){
