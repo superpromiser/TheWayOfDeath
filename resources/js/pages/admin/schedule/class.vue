@@ -380,6 +380,7 @@ export default {
                 let payload = {
                     classSchedule: this.scheduleData
                 }
+                console.log(payload)
                 await createScheduleClass(payload)
                 .then((res) => {
                     console.log(res)

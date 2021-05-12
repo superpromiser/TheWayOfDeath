@@ -477,7 +477,8 @@ export default {
                     return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireMember, color: "error"})
             }
             this.isCreating = true
-            //console.log("announcementData", this.announcementData);
+            console.log("announcementData", this.announcementData);
+            // return
             await createAnouncement(this.announcementData).then(res=>{
                 //console.log(res)
                 if(this.$isMobile()){

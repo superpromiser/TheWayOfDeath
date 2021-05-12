@@ -12,7 +12,7 @@
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
                     <h2>归程队管理</h2>
                 </v-col>
-                <v-col v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3" cols="12" md="4" class="d-flex align-center justify-end">
+                <v-col v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7" cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn dark color="#3989ff" link :to="{name: 'classSpace.remainReturnTeam'}">
                         历史留堂
                     </v-btn>
