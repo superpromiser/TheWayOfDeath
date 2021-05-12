@@ -186,37 +186,35 @@
         </div>
     </v-container>
     <v-container class="pa-0" v-else>
-        <div class="px-10 z-index-2 banner-custom">
-          <v-row>
-            <v-col cols="6" md="4" class="d-flex align-center position-relative">
-              <a @click="$router.go(-1)" class="float-left">
-                <v-icon size="70" class=" left-24p">
-                    mdi-chevron-left
-                </v-icon>
-              </a>
-            </v-col>
-            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-              <h2>{{lang.questionnaire}}</h2>
-            </v-col>
-            <v-col cols="12" md="4" class="d-flex align-center justify-end">
-              <v-btn
-                dark
-                color="#7879ff"
-                class="mr-8"
-                tile
-                @click="answerUsers"
-                v-if="answerUserShow == false"
-              >
-                已答 {{answerDataList.length}}
-                <v-icon right>
-                    mdi-chevron-right
-                </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </div>
+        <v-row class="px-10 z-index-2 banner-custom">
+          <v-col cols="6" md="4" class="d-flex align-center position-relative">
+            <a @click="$router.go(-1)" class="float-left">
+              <v-icon size="70" class=" left-24p">
+                  mdi-chevron-left
+              </v-icon>
+            </a>
+          </v-col>
+          <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+            <h2>{{lang.questionnaire}}</h2>
+          </v-col>
+          <v-col cols="12" md="4" class="d-flex align-center justify-end">
+            <v-btn
+              dark
+              color="#7879ff"
+              class="mr-8"
+              tile
+              @click="answerUsers"
+              v-if="answerUserShow == false"
+            >
+              已答 {{answerDataList.length}}
+              <v-icon right>
+                  mdi-chevron-right
+              </v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
         <!----title---->
-        <v-col cols="12" class="d-flex align-center hover-cursor-point">
+        <v-col cols="12" class="d-flex align-center hover-cursor-point mt-5 px-10">
             <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="60" class="ma-5">
                 <span class="white--text headline">{{contentData.users.name[0]}}</span>
             </v-avatar>
@@ -235,7 +233,7 @@
                 <p class="mb-0">{{contentData.users.name}}</p>
               </div>
             </div>
-            <div class="ml-auto">
+            <div class="ml-auto mr-5">
               <v-menu offset-y >
                 <template v-slot:activator="{ attrs, on }">
                   <v-btn icon color="primary" v-bind="attrs" v-on="on" >
@@ -253,8 +251,8 @@
               </v-menu>
             </div>
         </v-col>
-        <div v-if="answerUserShow == false">
-          <v-row class="ma-0 px-5 px-md-10 mt-5">
+        <div v-if="answerUserShow == false" class="px-10">
+          <v-row class="ma-0 px-10 mt-5">
               <v-col cols="12" class="d-flex justify-center align-center">
                   <h2>{{contentData.questionnaires.title}}</h2>
               </v-col>
@@ -263,7 +261,7 @@
               </v-col>
           </v-row>
           <!----questionnaires---->
-          <v-row class="ma-0 px-5 px-md-10">
+          <v-row class="ma-0 px-10">
               <v-col cols="12" v-for="(content, index) in contentData.questionnaires.content" :key="index">
                   <!--  single Datas  -->
                   <v-row v-if="content.type == 'single'">
@@ -378,7 +376,7 @@
                   </v-row>
               </v-col>
           </v-row>
-          <v-row class="d-flex justify-end px-md-13 px-5 mx-0 my-10">
+          <v-row class="d-flex justify-end px-10 mx-0 my-10">
             <v-btn
                   dark
                   color="deep-purple accent-3"

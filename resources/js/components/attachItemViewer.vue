@@ -6,7 +6,7 @@
                 <v-img :src="`${baseUrl}${imgUrl.path}`" alt="upload image" class="uploaded-image" ></v-img>
             </v-col>
         </v-row> -->
-        <v-row v-viewer="options" class="images clearfix">
+        <v-row v-viewer="$isMobile()?moOptions:options" class="images clearfix">
             <template v-for="img in items.imgUrl">
                 <img :src="`${baseUrl}${img.path}`" :data-source="`${baseUrl}${img.path}`" class="image" :key="img.path" >
             </template>
@@ -158,6 +158,10 @@ export default {
         baseUrl:window.Laravel.base_url,
         options: {
             toolbar: true,
+            url: 'data-source'
+        },
+        moOptions: {
+            toolbar: false,
             url: 'data-source'
         },
         playerOptionsGroup:[],

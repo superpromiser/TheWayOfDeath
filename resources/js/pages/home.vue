@@ -1,58 +1,58 @@
 <template>
   <v-container class="pa-0">
     <v-container v-if="$isMobile()" class="pa-0" >
-      <v-row class="ma-0">
-        <v-col cols="12" class="d-flex align-center bg-white py-1 position-sticky-top-0" v-touch="{
-          left: () => swipe('Left'),
-          right: () => swipe('Right'),
-        }">
-          <transition name="page" mode="out-in">
-            <v-text-field
-              v-if="isSearching" key="1"
-              solo
-              class="mo-search-input-text-field"
-              v-model="searchKeyword"
-              label="请输入您的搜索词"
-              prepend-inner-icon="mdi-magnify"
-              hide-details
-              color="#7879ff"
-              dense 
-            >
-              <v-icon
-                  v-if="searchKeyword.trim() !== ''"
-                  slot="append"
-                  @click="searchKeyword = ''"
-                  small
-                >
-                mdi-close-circle
-              </v-icon>
-            </v-text-field>
-            <v-select
-              v-else key="2"
-              solo
-              class="mo-select-white-bg"
-              color="#7879ff"
-              :items="schoolListDropdownItem"
-              :menu-props="{ top: false, offsetY: true }"
-              item-text="label"
-              label="栏目"
-              hide-details
-              v-model="selectedItem"
-              @change="onSelectSchoolItem"
-              dense 
-            ></v-select>
-          </transition>
-          <transition name="page" mode="out-in">
-          <v-btn text small v-if="isSearching" key="3" class="ml-3 px-0 min-width-0" @click="onFalseSearching">
-            取消
-          </v-btn>
-          <v-btn icon plain v-else key="4" class="ml-3" @click="isSearching = true">
-            <v-icon size="30">
-              mdi-magnify
+      <v-col cols="12" class="d-flex align-center bg-white py-1 position-sticky-top-0" v-touch="{
+        left: () => swipe('Left'),
+        right: () => swipe('Right'),
+      }">
+        <transition name="page" mode="out-in">
+          <v-text-field
+            v-if="isSearching" key="1"
+            solo
+            class="mo-search-input-text-field"
+            v-model="searchKeyword"
+            label="请输入您的搜索词"
+            prepend-inner-icon="mdi-magnify"
+            hide-details
+            color="#7879ff"
+            dense 
+          >
+            <v-icon
+                v-if="searchKeyword.trim() !== ''"
+                slot="append"
+                @click="searchKeyword = ''"
+                small
+              >
+              mdi-close-circle
             </v-icon>
-          </v-btn>
-          </transition>
-        </v-col>
+          </v-text-field>
+          <v-select
+            v-else key="2"
+            solo
+            class="mo-select-white-bg"
+            color="#7879ff"
+            :items="schoolListDropdownItem"
+            :menu-props="{ top: false, offsetY: true }"
+            item-text="label"
+            label="栏目"
+            hide-details
+            v-model="selectedItem"
+            @change="onSelectSchoolItem"
+            dense 
+          ></v-select>
+        </transition>
+        <transition name="page" mode="out-in">
+        <v-btn text small v-if="isSearching" key="3" class="ml-3 px-0 min-width-0" @click="onFalseSearching">
+          取消
+        </v-btn>
+        <v-btn icon plain v-else key="4" class="ml-3" @click="isSearching = true">
+          <v-icon size="30">
+            mdi-magnify
+          </v-icon>
+        </v-btn>
+        </transition>
+      </v-col>
+      <v-row class="ma-0">
         <v-col cols="12" class="py-2" >
           <carousel v-if="isSchoolSpace" :key="bannerKey" class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplay="true" :autoplaySpeed="1500">
             <img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img"  @click="showDetailSchoolStory(story)" />

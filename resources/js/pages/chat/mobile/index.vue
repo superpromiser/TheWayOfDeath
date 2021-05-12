@@ -98,12 +98,15 @@ export default {
                 if(val.name == "mochat.news"){
                     this.isActiveNavNews = true;
                     this.isActiveNavContactList = false;
+                    this.moChatTab = 0
                 }
                 else if(val.name == "mochat.contact"){
                     this.isActiveNavNews = false;
                     this.isActiveNavContactList = true;
+                    this.moChatTab = 1
                 }
                 else{
+                    this.moChatTab = 0
                     this.isActiveNavNews = false;
                     this.isActiveNavContactList = false;
                 }
@@ -201,10 +204,20 @@ export default {
             }
             else{
                 if(direction == "Left"){
-                    this.$router.push({name: 'circle'});
+                    if(this.currentPath.name == 'mochat.news'){
+                        this.$router.push({name: 'mochat.contact'});
+                    }
+                    else if(this.currentPath.name == 'mochat.contact'){
+                        this.$router.push({name: 'circle'});
+                    }
                 }
                 if(direction == "Right"){
-                    this.$router.push({name: 'home'});
+                    if(this.currentPath.name == 'mochat.news'){
+                        this.$router.push({name: 'home'});
+                    }
+                    else if(this.currentPath.name == 'mochat.contact'){
+                        this.$router.push({name: 'mochat.news'});
+                    }
                 }
             }
         },

@@ -13,14 +13,14 @@
                     <h2 v-if="isRemainTeam">剩余团队的详细信息</h2>
                     <h2 v-else>退货团队的详细信息</h2>
                 </v-col>
-                <v-col v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3" cols="12" md="4" class="d-flex align-center justify-end">
+                <v-col v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7" cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn :dark="!isDetailView" color="#7879ff" :disabled="isDetailView" @click="submit" :loading="isUpdating">
                         新建归程队
                     </v-btn>
                 </v-col>
             </v-row>
         </v-container>
-        <v-container v-if="isRemainTeam == false && (user.roleId == 1 || user.roleId == 2 || user.roleId == 3)" class="pa-0">
+        <v-container v-if="isRemainTeam == false && (user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7)" class="pa-0">
             <v-row class="ma-0 hover-cursor-point" v-ripple @click="clickUploadImageBtn">
                 <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
                     <p class="mb-0" >头像 </p>
@@ -131,7 +131,7 @@
                 </v-card>
             </v-dialog>
         </v-container>
-        <v-container class="pa-0" v-if="isDetailView == false && isRemainTeam == true && (user.roleId == 1 || user.roleId == 2 || user.roleId == 3)">
+        <v-container class="pa-0" v-if="isDetailView == false && isRemainTeam == true && (user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7)">
             <v-row class="ma-0 hover-cursor-point" v-ripple @click="navToAddMember">
                 <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
                     <p class="mb-0">留堂成员</p>

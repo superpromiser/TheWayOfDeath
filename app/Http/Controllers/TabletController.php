@@ -35,7 +35,11 @@ class TabletController extends Controller
         $weekday = $weekMap[$dayOfTheWeek];
         $schoolId = Auth::user()->schoolId;
         $lessonId = Auth::user()->lessonId;
-        $scheduleData = json_decode(ScheduleClass::where(['schoolId' => $schoolId, 'lessonId' => $lessonId])->first()->scheduleData);
+        $encodeData = ScheduleClass::where(['schoolId' => $schoolId, 'lessonId' => $lessonId])->first();
+        $scheduleData = array();
+        if(!is_null($encodeData)){
+            $scheduleData = json_decode($encodeData->scheduleData);    
+        }
         $lastSession = Session::latest('id')->first();
         $subjectData = Subject::select('subjectOrderName', 'subjectOrderType', 'startTime', 'endTime')->where('sessionId', $lastSession->id)->get();
         $subjectArr = array();
@@ -101,12 +105,35 @@ class TabletController extends Controller
             }
         }
         $today = Carbon::today();
+        $standStartTime = "08:00:00";
+        $standEndTime = "17:00:00";
         $attendanceData = Attendance::select('startTime', 'endTime', 'userId')->where(['lessonId' => $lessonId, 'date' => $today])->with('user:id,name')->get();
+        $attendData['absent'] = 0;
+        $attendData['late'] = 0;
+        $attendData['normal'] = 0;
+        $attendData['leave'] = 0;
+        foreach($attendanceData as $userData){
+            $startTime = $userData->startTime;
+            $endTime = $userData->endTime;
+            if(is_null($startTime) && is_null($endTime)){
+                $attendData['absent'] ++;
+            }
+            if($startTime >  strtotime($standStartTime)){
+                $attendData['late'] ++;
+            }else{
+                if($endTime > strtotime($standEndTime)){
+                    $attendData['normal'] ++;
+                }else{
+                    $attendData['leave'] ++;
+                }
+            }
 
+        }
+        
         $resultData['timeTableData'] = $subjectArr;
         $resultData['albumData'] = $albumData;
         $resultData['announceData'] = $announcementData;
-        $resultData['attendanceData'] = $attendanceData;
+        $resultData['attendanceData'] = $attendData;
         $resultData['schoolStoryData'] = $schoolStoryData;
         $resultData['classStoryData'] = $classStoryData;
         return response()->json($resultData);

@@ -106,61 +106,60 @@
             </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-row>
-            <v-col cols="12">
-                 <v-row class="ma-0 align-center">
-                    <v-col cols="12" md="6">
-                        <p class="mb-0">请选择需要维护的课程</p>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-select
-                            :items="mySchoolData.grades"
-                            item-text="gradeName"
-                            item-value="id"
-                            :menu-props="{ top: false, offsetY: true }"
-                            v-model="currentSelectedGrade"
-                            :disabled="mySchoolData.grades.length === 0"
-                            :loading="isLoadingSchoolData"
-                            hide-details
-                            solo
-                            @change="onChangeGrade"
-                            ></v-select>
-                    </v-col>
-                </v-row>
+        <v-row class="my-5 align-center px-10">
+            <v-col cols="12" md="6">
+                <p class="mb-0">请选择需要维护的课程</p>
+            </v-col>
+            <v-col cols="12" md="6">
+                <v-select
+                    :items="mySchoolData.grades"
+                    item-text="gradeName"
+                    item-value="id"
+                    :menu-props="{ top: false, offsetY: true }"
+                    v-model="currentSelectedGrade"
+                    :disabled="mySchoolData.grades.length === 0"
+                    :loading="isLoadingSchoolData"
+                    hide-details
+                    solo
+                    @change="onChangeGrade"
+                ></v-select>
             </v-col>
         </v-row>
-        <v-data-table
-            :headers="headers"
-            :items="scheduleSettingData"
-            :loading="isLoadingSchoolData"
-            loading-text="正在加载..."
-            sort-by="calories"
-            class="elevation-1"
-        >
+        <div class="px-10">
+            <v-data-table
+                :headers="headers"
+                :items="scheduleSettingData"
+                :loading="isLoadingSchoolData"
+                loading-text="正在加载..."
+                sort-by="calories"
+                class="elevation-1"
+            >
+            
+            <template v-slot:[`item.actions`]="{ item }">
+                <v-icon
+                    small
+                    color="success"
+                    class="mr-2"
+                    :disabled="!isEditable"
+                    @click="editItem(item)"
+                >
+                    mdi-pencil
+                </v-icon>
+                <v-icon
+                    small
+                    color="error"
+                    :disabled="!isEditable"
+                    @click="deleteItem(item)"
+                >
+                    mdi-delete
+                </v-icon>
+            </template>
+            <template v-slot:no-data>
+                <p>暂无</p>
+            </template>
+            </v-data-table>
+        </div>
         
-        <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-                small
-                color="success"
-                class="mr-2"
-                :disabled="!isEditable"
-                @click="editItem(item)"
-            >
-                mdi-pencil
-            </v-icon>
-            <v-icon
-                small
-                color="error"
-                :disabled="!isEditable"
-                @click="deleteItem(item)"
-            >
-                mdi-delete
-            </v-icon>
-        </template>
-        <template v-slot:no-data>
-            <p>暂无</p>
-        </template>
-        </v-data-table>
     </v-container>
 </template>
 

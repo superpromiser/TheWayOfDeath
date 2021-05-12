@@ -92,8 +92,8 @@
                 </v-col>
             </v-row>
         </div>
-        <div v-if="answerUserShow == false">
-            <v-col cols="12" class="d-flex align-center hover-cursor-point px-10">
+        <div v-if="answerUserShow == false" class=" px-10 mt-5">
+            <v-col cols="12" class="d-flex align-center hover-cursor-point">
                 <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="60" class="ma-5">
                     <span class="white--text headline">{{contentData.users.name[0]}}</span>
                 </v-avatar>
@@ -112,7 +112,7 @@
                     <p class="mb-0">{{contentData.users.name}}</p>
                 </div>
                 </div>
-                <div class="ml-auto">
+                <div class="ml-auto mr-5">
                 <v-menu offset-y >
                     <template v-slot:activator="{ attrs, on }">
                     <v-btn icon color="primary" v-bind="attrs" v-on="on" >
@@ -130,7 +130,7 @@
                 </v-menu>
                 </div>
             </v-col>
-            <v-row class="ma-0 px-5 px-md-10 mt-5">
+            <v-row class="ma-0 mt-5">
                 <v-col cols="12">
                     <p class="mb-0 d-flex align-center"> 
                         <!-- {{index + 1}}.   -->
@@ -158,17 +158,16 @@
                     <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                 </v-col>
             </v-row>
-            <v-row class="d-flex justify-end px-md-13 px-5 mx-0 my-10">
+            <v-row class="d-flex justify-end mx-0 my-10 px-10">
                 <v-btn
-                        :dark="!alreadyAnswer"
-                        color="#7879ff"
-                        tile
-                        :loading="isSubmit"
-                        :disabled="alreadyAnswer"
-                        @click="submit"
-                        class="mr-5"
-                    > 
-                        {{lang.submit}}
+                    :dark="!alreadyAnswer"
+                    color="#7879ff"
+                    tile
+                    :loading="isSubmit"
+                    :disabled="alreadyAnswer"
+                    @click="submit"
+                > 
+                    {{lang.submit}}
                 </v-btn>
             </v-row>
             <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
@@ -239,6 +238,7 @@ export default {
         console.log(this.contentData)
         this.answerData.postId = this.contentData.id
         this.content = JSON.parse(this.contentData.votings.content)
+        console.log('-----------+++++-------',this.content)
         // //console.log('detail index')
         await getAnswerVoting({postId:this.answerData.postId}).then(res=>{
             this.answerDataList = res.data

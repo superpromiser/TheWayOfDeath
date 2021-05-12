@@ -107,7 +107,7 @@
                 <v-text-field
                     v-model="homeworkData.monitorName"
                     solo
-                    label="即使发布"
+                    label="即时发布"
                     clearable
                 ></v-text-field>
             </v-col>

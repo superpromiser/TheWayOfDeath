@@ -78,7 +78,7 @@
                     <p class="">发布规则</p>
                 </v-col>
                 <v-col cols="6" class="text-right">
-                    <span>即使发布</span>
+                    <span>即时发布</span>
                     <v-icon
                         right  
                     >

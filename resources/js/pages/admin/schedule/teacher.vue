@@ -142,38 +142,39 @@
             </v-card-actions>
             </v-card>
         </v-dialog>
-
-        <v-data-table
-            :headers="headers"
-            :items="scheduleTeacherData"
-            :loading="isLoadingSchoolData"
-            loading-text="正在加载..."
-            sort-by="calories"
-            class="elevation-1"
-            >
-            <template v-slot:[`item.actions`]="{ item }">
-                <v-icon
-                    small
-                    color="success"
-                    class="mr-2"
-                    :disabled="!isEditable"
-                    @click="editItem(item)"
+        <div class="px-10 mt-8">
+            <v-data-table
+                :headers="headers"
+                :items="scheduleTeacherData"
+                :loading="isLoadingSchoolData"
+                loading-text="正在加载..."
+                sort-by="calories"
+                class="elevation-1"
                 >
-                    mdi-pencil
-                </v-icon>
-                <v-icon
-                    small
-                    color="error"
-                    :disabled="!isEditable"
-                    @click="deleteItem(item)"
-                >
-                    mdi-delete
-                </v-icon>
-            </template>
-            <template v-slot:no-data>
-                <p>暂无</p>
-            </template>
+                <template v-slot:[`item.actions`]="{ item }">
+                    <v-icon
+                        small
+                        color="success"
+                        class="mr-2"
+                        :disabled="!isEditable"
+                        @click="editItem(item)"
+                    >
+                        mdi-pencil
+                    </v-icon>
+                    <v-icon
+                        small
+                        color="error"
+                        :disabled="!isEditable"
+                        @click="deleteItem(item)"
+                    >
+                        mdi-delete
+                    </v-icon>
+                </template>
+                <template v-slot:no-data>
+                    <p>暂无</p>
+                </template>
             </v-data-table>
+        </div>
     </v-container>
 </template>
 

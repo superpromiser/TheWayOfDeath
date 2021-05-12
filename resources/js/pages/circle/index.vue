@@ -327,7 +327,7 @@ export default {
           this.$router.push({name: 'profile.list'});
         }
         if(direction == "Right"){
-          this.$router.push({name: 'mochat.news'});
+          this.$router.push({name: 'mochat.contact'});
         }
       },
 

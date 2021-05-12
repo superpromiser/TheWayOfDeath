@@ -424,6 +424,8 @@ export default {
             
             this.votingData.deadline = this.TimeView(this.votingData.deadline)
             this.isCreating = true
+            console.log("+++++++++++++++",this.votingData)
+            // return
             await createVoting(this.votingData).then(res=>{
                 if(this.$isMobile()){
                     this.$router.push({name:'home'})

@@ -85,13 +85,17 @@ class HomeworkResultController extends Controller
     public function updateTeacherAnswer(Request $request)
     {
         $this->validate($request, [
-            'teacherAnswer' => 'required',
+            // 'teacherAnswer' => 'required',
             'rating' => 'required',
             'id' => 'required'
         ]);
+        $teacherAnswer = '';
+        if($request->teacherAnswer){
+            $teacherAnswer = json_encode($request->teacherAnswer);
+        }
 
         return HomeworkResult::where('id', $request->id)->update([
-            'teacherAnswer' => json_encode($request->teacherAnswer),
+            'teacherAnswer' => $teacherAnswer,
             'rating' => $request->rating
         ]);
     }
