@@ -7,16 +7,19 @@
 <script>
 import lang from '~/helper/lang.json'
 import {getDashboardData} from '~/api/tablet'
+import {mapGetters} from 'vuex'
 export default {
   data:() => ({
     lang
   }),
+  computed:{
+    ...mapGetters({
+      user:'auth/user'
+    })
+  },
   created(){
-    // getDashboardData().then(res=>{
-    //   console.log('getdashboardData',res.data)
-    // }).catch(err=>{
-    //   console.log(err.response)
-    // })
+    
+    
   },
 
 }

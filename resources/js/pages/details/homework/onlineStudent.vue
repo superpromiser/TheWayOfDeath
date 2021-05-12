@@ -1,7 +1,6 @@
 <template>
-    <v-container>
-        <!-- <div class="category">答卷</div> -->
-        <v-container class="px-10 z-index-2 banner-custom mb-15">
+    <v-container class="pa-0">
+        <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
                     <a @click="$router.go(-1)">
@@ -15,7 +14,8 @@
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
-                        color="primary"
+                        color="#7879ff"
+                        dark
                         @click="submit"
                         :loading="isSubmit"
                         :disabled="alreadyAnswer"
@@ -25,12 +25,12 @@
                 </v-col>
             </v-row>
         </v-container>
-        <div v-if="alreadyAnswer == false">
+        <div v-if="alreadyAnswer == false" class="px-10 mt-5">
             <QuestionItem Label='答卷' ref="child" @contentData="loadContentData"></QuestionItem>
         </div>
-        <div v-else>
-            <div class="category mt-15">答卷内容</div>
-            <v-row>
+        <div v-else class="mt-5">
+            <div class="category px-0">答卷内容</div>
+            <v-row class="px-10">
                 <v-col cols="12">
                     <p class="mb-0 d-flex align-center"> 
                     </p>
@@ -40,8 +40,8 @@
                     <AttachItemViewer :items="answerData" />
                 </v-col>
             </v-row>
-            <div class="category mt-15">批改详情</div>
-            <v-row v-if="homeworkResult.teacherAnswer != null">
+            <div class="category mt-15 px-0">批改详情</div>
+            <v-row v-if="homeworkResult.teacherAnswer != null" class="px-10">
                     <v-col cols="12" class="pb-0">
                     <p class="text-wrap mb-0"><read-more more-str="全文" :text="homeworkResult.teacherAnswer.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
                 </v-col>
@@ -49,8 +49,10 @@
                     <AttachItemViewer :items="homeworkResult.teacherAnswer" />
                 </v-col>
             </v-row>
-            <v-col class="d-flex justify-space-between align-center" cols="12" v-if="homeworkResult.rating != null">
-                <p class="pl-2">
+            <div class="category mt-15 px-0">成绩评价</div>
+            <v-col class="d-flex justify-space-between align-center px-10" cols="12" v-if="homeworkResult.rating != null">
+                <p class="">
+                    {{user.name}} 成绩评价
                 </p>
                 <v-rating
                     half-increments
@@ -58,7 +60,7 @@
                     background-color="orange lighten-3"
                     color="orange"
                     length="5"
-                    size="50"
+                    size="25"
                     value="0"
                     v-model="homeworkResult.rating"
                     readonly
@@ -73,6 +75,7 @@ import QuestionItem from '~/components/questionItem'
 import lang from '~/helper/lang.json'
 import {getHomeworkResult,createHomeworkResult} from '~/api/homework'
 import AttachItemViewer from '~/components/attachItemViewer';
+import {mapGetters} from 'vuex'
 export default {
     components:{
         QuestionItem,
@@ -95,7 +98,10 @@ export default {
     computed:{
         currentPath(){
             return this.$route
-        }
+        },
+        ...mapGetters({
+            user:'auth/user'
+        })
     },
     async created(){
         console.log("this.contentData",this.contentData)

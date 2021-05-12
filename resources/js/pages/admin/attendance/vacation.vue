@@ -64,21 +64,6 @@
           sort-by="calories"
           class="elevation-1"
         >
-          <template v-slot:top>
-            <v-toolbar
-                flat
-            >
-                <v-toolbar-title><strong>请假审批</strong></v-toolbar-title>
-                <v-divider
-                class="mx-4"
-                inset
-                vertical
-                ></v-divider>
-                <v-spacer></v-spacer>
-
-                
-            </v-toolbar>
-          </template>
           <template v-slot:[`item.reasonFlag`]="{ item }">
                 <span v-if="item.reasonFlag == true"> 事假 </span>
                 <span v-else> 病假 </span>

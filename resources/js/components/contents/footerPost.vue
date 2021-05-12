@@ -111,7 +111,6 @@
         <v-divider class="thick-border" light></v-divider>
         <v-row justify="center">
             <v-dialog
-                persistent
                 v-model="dialog"
                 max-width="500"
                 height="150"

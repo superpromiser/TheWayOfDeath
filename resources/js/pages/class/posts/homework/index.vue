@@ -36,7 +36,7 @@
                 <v-col cols="12" class="d-flex align-center justify-space-between" @click="setRule">
                     <p class="mb-0">发布规则</p>
                     <div class="d-flex align-center">
-                        <span>即使发布</span>
+                        <span>即时发布</span>
                         <v-icon right> mdi-chevron-right </v-icon>
                     </div>
                 </v-col>
@@ -138,7 +138,7 @@
                         <p class="">发布规则</p>
                     </v-col>
                     <v-col cols="6" class="text-right">
-                        <span>即使发布</span>
+                        <span>即时发布</span>
                         <v-icon
                             right  
                         >

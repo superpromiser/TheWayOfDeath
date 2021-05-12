@@ -30,6 +30,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import {getDashboardData} from '~/api/tablet'
 export default {
     middleware:'auth',
     data:() =>({
@@ -65,6 +66,15 @@ export default {
         console.log("this.user.roleId",this.userRoleId)
         if(this.currentPath.name=="schoolSpace" || this.currentPath.name=="schoolSpace.news" || this.currentPath.name == "schoolSpace.member" || this.currentPath.name == "schoolSpace.application"){
             this.isPost = true
+        }
+
+        if(this.user.roleId == 7){
+            console.log('dahboard called')
+            getDashboardData().then(res=>{
+                console.log('getdashboardData',res.data)
+            }).catch(err=>{
+                console.log(err.response)
+            })
         }
     },
     methods:{

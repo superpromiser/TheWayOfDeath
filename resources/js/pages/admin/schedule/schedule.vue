@@ -19,41 +19,8 @@
             </v-col>
         </v-row>
     </v-container>
-    <v-row class="pa-0 mt-5 px-10">
+    <v-row class="pa-0 px-10">
         <v-col cols="12" class="d-flex align-center ">
-            <!-- <v-row class="ma-0">
-                <v-col cols="12" sm="9" md="6" class="mx-auto">
-                    <v-row v-if="isLoadingSessionData" class="ma-0 align-center justify-center" >
-                        <v-progress-circular
-                            indeterminate
-                            color="primary"
-                        ></v-progress-circular>
-                    </v-row>
-                    <v-row v-else-if="sessionDataArr.length == 0" class="ma-0">
-                        <p>没有学期数据。</p>
-                    </v-row>
-                    <v-row v-else class="ma-0 justify-space-between align-center border-bottom-1" v-for="(item, i) in sessionDataArr" :key="i">
-                        <p class="mb-0"> {{item.sessionName}}</p>
-                        <div class="d-flex align-center">
-                            <v-icon
-                                small
-                                color="success"
-                                class="mr-2"
-                                @click="editSession(item, i)"
-                            >
-                                mdi-pencil
-                            </v-icon>
-                            <v-icon
-                                small
-                                color="error"
-                                @click="deleteSession(item, i)"
-                            >
-                                mdi-delete
-                            </v-icon>
-                        </div>
-                    </v-row>
-                </v-col>
-            </v-row> -->
             <v-dialog persistent v-model="addSessionDialog" transition="dialog-bottom-transition" width="100%" max-width="500">   
                 <v-card>
                     <v-card-title>
@@ -149,12 +116,12 @@
                 </v-card>
             </v-dialog>
         </v-col>
-        <v-col cols="12" class="mt-5">
-            <v-row class="ma-0 align-center">
-                <v-col cols="12" md="6">
+        <v-col cols="12">
+            <v-row class="d-flex align-center justify-space-between">
+                <v-col cols="6">
                     <p class="mb-0">请选择需要维护的课时</p>
                 </v-col>
-                <v-col cols="12" md="6">
+                <v-col cols="6">
                     <v-select
                         :items="sessionDataArr"
                         item-text="sessionName"
@@ -167,301 +134,301 @@
                         solo
                         @change="onChangeSession"
                         >
-                             <template slot="selection" slot-scope="data">
-                                <!-- HTML that describe how select should render selected items -->
-                                {{ data.item.sessionName }} ({{ data.item.sessionDate }})
-                            </template>
-                            <template slot="item" slot-scope="data" >
-                                <!-- HTML that describe how select should render items when the select is open -->
-                                <v-row class="d-flex align-center justify-space-between">
-                                    <v-col cols="8">{{ data.item.sessionName }} ({{data.item.sessionDate}})</v-col>
-                                    <v-col cols="4" class="text-right" >
-                                        <v-icon
-                                            small
-                                            color="success"
-                                            class="mx-2"
-                                            @click="editSession(data.item)"
-                                        >
-                                            mdi-pencil
-                                        </v-icon>
-                                        <v-icon
-                                            small
-                                            color="error"
-                                            @click="deleteSession(data.item)"
-                                        >
-                                            mdi-delete
-                                        </v-icon>
-                                    </v-col>
-                                </v-row>
-                                
+                        <template slot="selection" slot-scope="data">
+                            <!-- HTML that describe how select should render selected items -->
+                            {{ data.item.sessionName }} ({{ data.item.sessionDate }})
+                        </template>
+                        <template slot="item" slot-scope="data" >
+                            <!-- HTML that describe how select should render items when the select is open -->
+                            <v-row class="d-flex align-center justify-space-between">
+                                <v-col cols="8">{{ data.item.sessionName }} ({{data.item.sessionDate}})</v-col>
+                                <v-col cols="4" class="text-right" >
+                                    <v-icon
+                                        small
+                                        color="success"
+                                        class="mx-2"
+                                        @click="editSession(data.item)"
+                                    >
+                                        mdi-pencil
+                                    </v-icon>
+                                    <v-icon
+                                        small
+                                        color="error"
+                                        @click="deleteSession(data.item)"
+                                    >
+                                        mdi-delete
+                                    </v-icon>
+                                </v-col>
+                            </v-row>
+                            
 
-                            </template>
-                        </v-select>
+                        </template>
+                    </v-select>
                 </v-col>
             </v-row>
         </v-col>
-      <v-col cols="12">
-        <v-data-table
-            :headers="headers"
-            :items="scheduleData"
-            :loading="isLoadingSchoolData"
-            loading-text="正在加载..."
-            sort-by="calories"
-            class="elevation-1"
-        >
-          <template v-slot:top>
-            <v-toolbar flat>
-                <!-- <v-toolbar-title><strong>课时维护</strong></v-toolbar-title>
-                <v-divider
-                class="mx-4"
-                inset
-                vertical
-                ></v-divider> -->
-                <v-spacer></v-spacer>
+        <v-col cols="12">
+            <v-data-table
+                :headers="headers"
+                :items="scheduleData"
+                :loading="isLoadingSchoolData"
+                loading-text="正在加载..."
+                sort-by="calories"
+                class="elevation-1"
+            >
+            <template v-slot:top>
+                <v-toolbar flat>
+                    <!-- <v-toolbar-title><strong>课时维护</strong></v-toolbar-title>
+                    <v-divider
+                    class="mx-4"
+                    inset
+                    vertical
+                    ></v-divider> -->
+                    <v-spacer></v-spacer>
 
-                <v-dialog
-                v-model="dialog"
-                persistent
-                max-width="500px"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                    color="#7879FF"
-                    dark
-                    tile
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                    :disabled="!isEditable"
+                    <v-dialog
+                    v-model="dialog"
+                    persistent
+                    max-width="500px"
                     >
-                    添加
-                    </v-btn>
-                    </template>
-                    <v-card>
-                    <v-card-title>
-                        <span class="headline">{{ formTitle }}</span>
-                    </v-card-title>
+                        <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                        color="#7879FF"
+                        dark
+                        tile
+                        class="mb-2"
+                        v-bind="attrs"
+                        v-on="on"
+                        :disabled="!isEditable"
+                        >
+                        添加
+                        </v-btn>
+                        </template>
+                        <v-card>
+                        <v-card-title>
+                            <span class="headline">{{ formTitle }}</span>
+                        </v-card-title>
 
-                    <v-card-text>
-                        <v-container>
-                        <v-row>
-                            <v-col cols="12"  >
-                                <v-text-field
-                                    solo
-                                    v-model="editedItem.subjectOrderName"
-                                    label="课时名称"
-                                    hide-details
-                                ></v-text-field>
-                            </v-col>
-                            <v-col cols="12"  >
-                                <v-select
-                                    solo
-                                    :items="subjectTypeItem"
-                                    :menu-props="{ top: false, offsetY: true }"
-                                    item-text="label"
-                                    v-model="editedItem.subjectOrderType"
-                                    label="课时类型"
-                                    hide-details
-                                ></v-select>
-                            </v-col>
-                            <v-col cols="12" >
-                                <v-menu
-                                    ref="startTimeMenu"
-                                    v-model="startTimeMenu"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    :return-value.sync="time"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="290px"
-                                >
-                                    <template v-slot:activator="{ on, attrs }">
+                        <v-card-text>
+                            <v-container>
+                            <v-row>
+                                <v-col cols="12"  >
                                     <v-text-field
                                         solo
-                                        v-model="editedItem.startTime"
-                                        label="上课时间"
-                                        prepend-icon="mdi-clock-time-four-outline"
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
+                                        v-model="editedItem.subjectOrderName"
+                                        label="课时名称"
                                         hide-details
                                     ></v-text-field>
-                                    </template>
-                                    <v-time-picker
-                                        v-if="startTimeMenu"
-                                        v-model="editedItem.startTime"
-                                        full-width
-                                        @click:minute="$refs.startTimeMenu.save(time)"
-                                    ></v-time-picker>
-                                </v-menu>
-                            </v-col>
-                            <v-col cols="12" >
-                                <v-menu
-                                    ref="endTimeMenu"
-                                    v-model="endTimeMenu"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    :return-value.sync="time"
-                                    transition="scale-transition"
-                                    offset-y
-                                    max-width="290px"
-                                    min-width="290px"
-                                >
-                                    <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
+                                </v-col>
+                                <v-col cols="12"  >
+                                    <v-select
                                         solo
-                                        v-model="editedItem.endTime"
-                                        label="下课时间"
-                                        prepend-icon="mdi-clock-time-four-outline"
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
+                                        :items="subjectTypeItem"
+                                        :menu-props="{ top: false, offsetY: true }"
+                                        item-text="label"
+                                        v-model="editedItem.subjectOrderType"
+                                        label="课时类型"
                                         hide-details
-                                    ></v-text-field>
-                                    </template>
-                                    <v-time-picker
-                                        v-if="endTimeMenu"
-                                        v-model="editedItem.endTime"
-                                        full-width
-                                        @click:minute="$refs.endTimeMenu.save(time)"
-                                    ></v-time-picker>
-                                </v-menu>
-                            </v-col>
-                            <!-- <v-col cols="12" >
-                                <v-menu
-                                    ref="subjectDateMenu"
-                                    v-model="subjectDateMenu"
-                                    :close-on-content-click="false"
-                                    :return-value.sync="editedItem.subjectStartDate"
-                                    transition="scale-transition"
-                                    offset-y
-                                    min-width="auto"
-                                >
-                                    <template v-slot:activator="{ on, attrs }">
+                                    ></v-select>
+                                </v-col>
+                                <v-col cols="12" >
+                                    <v-menu
+                                        ref="startTimeMenu"
+                                        v-model="startTimeMenu"
+                                        :close-on-content-click="false"
+                                        :nudge-right="40"
+                                        :return-value.sync="time"
+                                        transition="scale-transition"
+                                        offset-y
+                                        max-width="290px"
+                                        min-width="290px"
+                                    >
+                                        <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
-                                            v-model="editedItem.subjectStartDate"
-                                            label="生效时间"
-                                            prepend-icon="mdi-calendar"
+                                            solo
+                                            v-model="editedItem.startTime"
+                                            label="上课时间"
+                                            prepend-icon="mdi-clock-time-four-outline"
                                             readonly
                                             v-bind="attrs"
                                             v-on="on"
-                                            solo
+                                            hide-details
                                         ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                        v-model="editedItem.subjectStartDate"
-                                        no-title
-                                        scrollable
-                                        locale="zh-cn"
+                                        </template>
+                                        <v-time-picker
+                                            v-if="startTimeMenu"
+                                            v-model="editedItem.startTime"
+                                            full-width
+                                            @click:minute="$refs.startTimeMenu.save(time)"
+                                        ></v-time-picker>
+                                    </v-menu>
+                                </v-col>
+                                <v-col cols="12" >
+                                    <v-menu
+                                        ref="endTimeMenu"
+                                        v-model="endTimeMenu"
+                                        :close-on-content-click="false"
+                                        :nudge-right="40"
+                                        :return-value.sync="time"
+                                        transition="scale-transition"
+                                        offset-y
+                                        max-width="290px"
+                                        min-width="290px"
                                     >
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="subjectDateMenu = false"
+                                        <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                            solo
+                                            v-model="editedItem.endTime"
+                                            label="下课时间"
+                                            prepend-icon="mdi-clock-time-four-outline"
+                                            readonly
+                                            v-bind="attrs"
+                                            v-on="on"
+                                            hide-details
+                                        ></v-text-field>
+                                        </template>
+                                        <v-time-picker
+                                            v-if="endTimeMenu"
+                                            v-model="editedItem.endTime"
+                                            full-width
+                                            @click:minute="$refs.endTimeMenu.save(time)"
+                                        ></v-time-picker>
+                                    </v-menu>
+                                </v-col>
+                                <!-- <v-col cols="12" >
+                                    <v-menu
+                                        ref="subjectDateMenu"
+                                        v-model="subjectDateMenu"
+                                        :close-on-content-click="false"
+                                        :return-value.sync="editedItem.subjectStartDate"
+                                        transition="scale-transition"
+                                        offset-y
+                                        min-width="auto"
                                     >
-                                        {{lang.cancel}}
-                                    </v-btn>
-                                    <v-btn
-                                        text
-                                        color="primary"
-                                        @click="$refs.subjectDateMenu.save(editedItem.subjectStartDate)"
-                                    >
-                                        {{lang.ok}}
-                                    </v-btn>
-                                    </v-date-picker>
-                                </v-menu>
-                            </v-col> -->
-                        </v-row>
-                        </v-container>
-                    </v-card-text>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field
+                                                v-model="editedItem.subjectStartDate"
+                                                label="生效时间"
+                                                prepend-icon="mdi-calendar"
+                                                readonly
+                                                v-bind="attrs"
+                                                v-on="on"
+                                                solo
+                                            ></v-text-field>
+                                        </template>
+                                        <v-date-picker
+                                            v-model="editedItem.subjectStartDate"
+                                            no-title
+                                            scrollable
+                                            locale="zh-cn"
+                                        >
+                                        <v-spacer></v-spacer>
+                                        <v-btn
+                                            text
+                                            color="primary"
+                                            @click="subjectDateMenu = false"
+                                        >
+                                            {{lang.cancel}}
+                                        </v-btn>
+                                        <v-btn
+                                            text
+                                            color="primary"
+                                            @click="$refs.subjectDateMenu.save(editedItem.subjectStartDate)"
+                                        >
+                                            {{lang.ok}}
+                                        </v-btn>
+                                        </v-date-picker>
+                                    </v-menu>
+                                </v-col> -->
+                            </v-row>
+                            </v-container>
+                        </v-card-text>
 
-                    <v-card-actions>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="close"
+                            >
+                            取消
+                            </v-btn>
+                            <v-btn
+                            color="blue darken-1"
+                            text
+                            :loading="isCreating"
+                            @click="save"
+                            >
+                            保存
+                            </v-btn>
+                        </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-dialog persistent v-model="dialogDelete" max-width="500px">
+                        <v-card>
+                        <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+                        <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="close"
-                        >
-                        取消
-                        </v-btn>
-                        <v-btn
-                        color="blue darken-1"
-                        text
-                        :loading="isCreating"
-                        @click="save"
-                        >
-                        保存
-                        </v-btn>
-                    </v-card-actions>
-                    </v-card>
-                </v-dialog>
-                <v-dialog persistent v-model="dialogDelete" max-width="500px">
-                    <v-card>
-                    <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
-                    <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-                    <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
-                    <v-spacer></v-spacer>
-                    </v-card-actions>
-                    </v-card>
-                </v-dialog>
+                        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+                        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
+                        <v-spacer></v-spacer>
+                        </v-card-actions>
+                        </v-card>
+                    </v-dialog>
 
-                <v-btn
-                    color="#f19861"
-                    dark
-                    class="mb-2 ml-2"
-                    tile
-                    v-if="isEditable == false"
-                    @click="isEditable = !isEditable"
+                    <v-btn
+                        color="#f19861"
+                        dark
+                        class="mb-2 ml-2"
+                        tile
+                        v-if="isEditable == false"
+                        @click="isEditable = !isEditable"
+                        >
+                        <v-icon left>
+                            mdi-check
+                        </v-icon>
+                        修改
+                    </v-btn>
+                    <v-btn
+                        color="#f19861"
+                        dark
+                        class="mb-2 ml-2"
+                        tile
+                        v-if="isEditable == true"
+                        @click="isEditable = !isEditable"
+                        >
+                        <v-icon left>
+                            mdi-alert-circle-outline
+                        </v-icon>
+                        保存
+                    </v-btn>
+                </v-toolbar>
+            </template>
+            
+            <template v-slot:[`item.actions`]="{ item }">
+                    <v-icon
+                        small
+                        color="success"
+                        class="mr-2"
+                        :disabled="!isEditable"
+                        @click="editItem(item)"
                     >
-                    <v-icon left>
-                        mdi-check
+                        mdi-pencil
                     </v-icon>
-                    修改
-                </v-btn>
-                <v-btn
-                    color="#f19861"
-                    dark
-                    class="mb-2 ml-2"
-                    tile
-                    v-if="isEditable == true"
-                    @click="isEditable = !isEditable"
+                    <v-icon
+                        small
+                        color="error"
+                        :disabled="!isEditable"
+                        @click="deleteItem(item)"
                     >
-                    <v-icon left>
-                        mdi-alert-circle-outline
+                        mdi-delete
                     </v-icon>
-                    保存
-                </v-btn>
-            </v-toolbar>
-          </template>
-          
-          <template v-slot:[`item.actions`]="{ item }">
-                <v-icon
-                    small
-                    color="success"
-                    class="mr-2"
-                    :disabled="!isEditable"
-                    @click="editItem(item)"
-                >
-                    mdi-pencil
-                </v-icon>
-                <v-icon
-                    small
-                    color="error"
-                    :disabled="!isEditable"
-                    @click="deleteItem(item)"
-                >
-                    mdi-delete
-                </v-icon>
-          </template>
-          <template v-slot:no-data>
-            <p>暂无</p>
-          </template>
-        </v-data-table>
-      </v-col>
+            </template>
+            <template v-slot:no-data>
+                <p>暂无</p>
+            </template>
+            </v-data-table>
+        </v-col>
     </v-row>
   </v-container>
 </template>

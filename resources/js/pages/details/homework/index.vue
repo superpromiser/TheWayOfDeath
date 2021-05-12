@@ -69,6 +69,43 @@
                     </v-col>
                 </v-row>
             </v-container>
+            <v-col cols="12" class="d-flex align-center hover-cursor-point mt-5 px-5">
+                <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="60" class="ma-5">
+                    <span class="white--text headline">{{contentData.users.name[0]}}</span>
+                </v-avatar>
+                <v-avatar v-else
+                    class="ma-5"
+                    size="60"
+                    >
+                    <v-img :src="contentData.users.avatar"></v-img>
+                </v-avatar>
+                <div>
+                    <p class="font-weight-black fs-15 mb-3"> {{contentData.homework.homeworkType}}  </p>
+                    <div class="d-flex align-center">
+                        <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                        <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
+                        <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                        <p class="mb-0">{{contentData.users.name}}</p>
+                    </div>
+                </div>
+                <div class="ml-auto mr-5">
+                    <v-menu offset-y >
+                    <template v-slot:activator="{ attrs, on }">
+                        <v-btn icon color="primary" v-bind="attrs" v-on="on" >
+                        <v-icon size="30">mdi-chevron-down </v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item link >
+                        <v-list-item-title class="px-2" @click="fixTop(contentData)">{{lang.toTop}}</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item link >
+                        <v-list-item-title class="px-2" @click="postRemove(contentData)">{{lang.remove}}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                    </v-menu>
+                </div>
+            </v-col>
             <v-col cols="12" class="pl-10 pt-0 mt-5">
             <div class="d-flex align-center">
                 <p class="text-wrap mb-0">
@@ -96,6 +133,8 @@
                 </v-col>
             </v-row>
             </v-col>
+            <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+            <CommentView></CommentView>
         </div>
         <div v-else>
             <router-view :contentData="contentData"></router-view>
@@ -107,9 +146,13 @@
 import lang from '~/helper/lang.json'
 import {mapGetters} from 'vuex';
 import AttachItemViewer from '~/components/attachItemViewer';
+import FooterPost from '~/components/contents/footerPost'
+import CommentView from '~/pages/school/posts/comments/commentView';
 export default {
     components:{
         AttachItemViewer,
+        FooterPost,
+        CommentView
     },
     data:()=>({
         baseUrl:window.Laravel.base_url,
@@ -141,6 +184,9 @@ export default {
         viewDetail(){
             console.log('viewDetail')
             this.showDetail = true
+        },
+        updateFooterInfo(){
+            
         }
     }
 

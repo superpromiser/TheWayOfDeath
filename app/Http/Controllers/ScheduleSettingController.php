@@ -19,9 +19,9 @@ class ScheduleSettingController extends Controller
             'schoolId'=>$schoolId
         ])->get();
         $baseData['teacherArr'] = User::select('id','name')->where([
-            'schoolId'=>$schoolId,
-            'roleId'=>3
-        ])->get();
+            'schoolId'=>$schoolId
+        ])->whereIn('roleId',[3,7])
+        ->get();
         $baseData['gradeArr'] = Grade::select('id','gradeName')->with('lessons:id,lessonName,gradeId')->where('schoolId',$schoolId)->get();
 
         

@@ -10,7 +10,7 @@
                 </a>
             </v-col>
             <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                <h2>开始日期</h2>
+                <h2>统计</h2>
             </v-col>
             <v-col cols="12" md="4" class="d-flex align-center justify-end">
                 <v-btn
@@ -85,22 +85,24 @@
         </v-menu>
       </v-col>
     </v-row>
-    <v-data-table
-      dense
-      :headers="headers"
-      :items="desserts"
-      :loading="isLoading"
-      loading-text="正在加载..."
-      item-key="name"
-      class="px-10"
-    >
-      <template v-slot:[`item.actions`]="{ item }">
-        <span @click="detail(item)" class="text-primary hover-cursor-point">立即查看</span>
-      </template>
-      <template v-slot:no-data>
-        <p>没有统计信息</p>
-      </template>
-    </v-data-table>
+    <div class="px-10">
+      <v-data-table
+        :headers="headers"
+        :items="desserts"
+        :loading="isLoading"
+        loading-text="正在加载..."
+        item-key="name"
+        sort-by="calories"
+        class="px-10 elevation-1"
+      >
+        <template v-slot:[`item.actions`]="{ item }">
+          <span @click="detail(item)" class="text-primary hover-cursor-point">立即查看</span>
+        </template>
+        <template v-slot:no-data>
+          <p>没有统计信息</p>
+        </template>
+      </v-data-table>
+    </div>
     <v-row justify="center">
       <v-dialog
         v-model="dialog"

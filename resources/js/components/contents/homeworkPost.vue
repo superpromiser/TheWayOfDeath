@@ -114,7 +114,7 @@ export default {
         this.$store.dispatch('content/storePostDetail',this.content)
         if(this.currentPath.params.lessonId){
           if(this.content.homework.homeworkType == "常规作业"){
-            if(this.user.roleId == 3){
+            if(this.user.roleId == 3 || this.user.roleId == 7){
               this.$router.push({name:'details.homeworkofflineTeacher'});    
             }else if(this.user.roleId == 5){
               this.$router.push({name:'details.homeworkofflineStudent'});    
@@ -122,7 +122,7 @@ export default {
               this.$router.push({name:'details.classHomework'});    
             }
           }else if(this.content.homework.homeworkType == '在线作业'){
-            if(this.user.roleId == 3){
+            if(this.user.roleId == 3 || this.user.roleId == 7){
               this.$router.push({name:'details.homeworkonlineTeacher'});    
             }else if(this.user.roleId == 5){
               this.$router.push({name:'details.homeworkonlineStudent'});    
@@ -130,7 +130,7 @@ export default {
               this.$router.push({name:'details.classHomework'});    
             }
           }else if(this.content.homework.homeworkType == '在线测试'){
-            if(this.user.roleId == 3){
+            if(this.user.roleId == 3 || this.user.roleId == 7){
               this.$router.push({name:'details.homeworktestTeacher'});    
             }else if(this.user.roleId == 5){
               this.$router.push({name:'details.homeworktestTeacher'});    

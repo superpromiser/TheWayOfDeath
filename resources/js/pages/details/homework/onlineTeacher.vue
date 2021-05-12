@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -24,7 +24,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <div v-if="homeworkCheck == false">
+        <div v-if="homeworkCheck == false" class="px-10 mt-5">
             <v-row v-for="(user,idx) in userList" :key="user.id" class=" ma-0">
                 <v-col class="d-flex justify-space-between align-center hover-cursor-point" cols="12" @click="selUser(user)">
                     <span class="pl-2">
@@ -36,64 +36,9 @@
                 <v-divider class="thick-border"></v-divider>
             </v-row>
         </div>
-        <div v-else>
+        <div v-else class="mt-5">
             <router-view :studentName='studentName'></router-view>
         </div>
-        <!-- <div>
-            <div class="category">答卷内容</div>
-            <v-row>
-                <v-col cols="12">
-                    <p class="mb-0 d-flex align-center"> 
-                    </p>
-                    <p class="text-wrap pl-3 mb-0 mt-3">{{ studentAnswer.text }}</p>
-                </v-col>
-                <v-col v-if="checkIfAttachExist(studentAnswer)">
-                    <AttachItemViewer :items="studentAnswer" />
-                </v-col>
-            </v-row>
-            <div class="category">批改洋情</div>
-            <v-row v-if="teacherAnswer == null" class="ma-0">
-                <QuestionItem Label='答卷' ref="child" @contentData="loadContentData" class="my-10"></QuestionItem>
-            </v-row>
-            <v-row v-else>
-                <v-col cols="12">
-                    <p class="mb-0 d-flex align-center"> 
-                    </p>
-                    <p class="text-wrap pl-3 mb-0 mt-3">{{ teacherAnswer.text }}</p>
-                </v-col>
-                <v-col v-if="checkIfAttachExist(teacherAnswer)">
-                    <AttachItemViewer :items="teacherAnswer" />
-                </v-col>
-            </v-row>
-            <div class="category">成绩评价</div>
-            <v-row class="d-flex justify-space-between align-center pl-2 mt-3">
-                <p class="pl-2">
-                    {{contentData.users.name}}
-                </p>
-                <v-rating
-                    half-increments
-                    hover
-                    background-color="orange lighten-3"
-                    color="orange"
-                    length="5"
-                    size="50"
-                    value="0"
-                    v-model="rating"
-                ></v-rating>
-            </v-row>
-            <v-row class="float-right">
-                <v-col cols="12">
-                    <v-btn
-                        color="primary"
-                        @click="submit"
-                        :disabled="alreadyAnswer"
-                        :loading="isSubmit"
-                    >
-                        {{lang.submit}}
-                    </v-btn>
-                </v-col>
-            </v-row>
-        </div> -->
     </v-container>
 </template>
 
