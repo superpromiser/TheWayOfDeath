@@ -272,6 +272,7 @@ export default {
                 return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
             }
             this.isSubmit = true
+            console.log(this.shiftData)
             createShiftMng(this.shiftData).then(res=>{
                 console.log(res.data)
                 this.isSubmit = false

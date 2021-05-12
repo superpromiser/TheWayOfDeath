@@ -1033,31 +1033,6 @@ export default {
         }).catch((err) => {
           
         });
-
-
-        // this.selectedItemGroupForClassDia = this.selectedItemGroup;
-        // this.selectedItemGroupForClassDia.map(namedItem =>{
-        //   let found = this.chooseableItemGroup.some(el=>el.title == namedItem)
-        //   if(!found) {
-        //     this.classSpaceItems.map(classItem=>{
-        //       if(classItem.title == namedItem){
-        //         this.chooseableItemGroup.push(classItem);
-        //         this.carouselKey += 1
-        //       }
-        //     })
-        //   }
-        // })
-        // let payload = {
-        //   classItem: this.selectedItemGroupForClassDia
-        // }
-        // this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroupForClassDia);
-        // this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.chooseableItemGroup);
-        // postChooseableClassItem(payload)
-        // .then((res) => {
-          
-        // }).catch((err) => {
-          
-        // });
       }
       this.closeAddItemDialog();
     },
