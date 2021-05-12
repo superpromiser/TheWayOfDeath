@@ -4,7 +4,7 @@
     <v-row v-if="$isMobile()" class="w-100 h-100 bg-white align-center justify-center">
       <v-col cols="12">
         <div class="d-flex justify-center mb-10">
-          <img :src="`${baseUrl}/asset/img/favicon_white.png`" alt="upload-video-icon" class="mo-login-logo"/>
+          <img :src="`${baseUrl}/asset/img/logoNewWhite.png`" alt="upload-video-icon" class="mo-login-logo"/>
         </div>
          <v-card flat>
           <v-card-text ref="form">

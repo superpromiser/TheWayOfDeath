@@ -1,38 +1,63 @@
 <template>
     <div class="position-fixed mo-bottom-nav-con">
         <v-bottom-navigation
-            :value="value"
+            v-model="value"
             :input-value="active"
             color="#7879ff"
             grow
             fixed
             class=" bg-secondary mo-bottom-nav"
         >
-            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item ml-3" @click="navToFirst">
+            <!-- <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item " @click="navToFirst">
                 <span>首页</span>
                 <v-icon>mdi-home</v-icon>
             </v-btn>
-            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item mx-3 mr-auto" @click="navToSecond">
+            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item " >
                 <span>通讯录</span>
                 <v-icon>mdi-account-group</v-icon>
             </v-btn>
+
+            <v-btn v-if="isNewPost" :ripple="false" fab dark depressed class="" color="#7879ff" @click="$router.go(-1)" >
+                <v-icon> mdi-minus </v-icon>
+            </v-btn>
+            
+            <v-btn v-else fab dark :ripple="false" depressed class="" color="#7879ff" @click="navToNewPost" >
+                <v-icon> mdi-plus </v-icon>
+            </v-btn>
            
-            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item mx-3 ml-auto" @click="navToThird">
+            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item " @click="navToThird">
                 <span>圈子</span>
                 <v-icon>mdi-fire-hydrant</v-icon>
             </v-btn>
-            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item mr-3" @click="navToFourth">
+            <v-btn fab plain :ripple="false" class="mo-bottom-nav-btn-item " @click="navToFourth">
+                <span>我的</span>
+                <v-icon>mdi-account</v-icon>
+            </v-btn> -->
+            <v-btn :ripple="false"  @click="navToFirst">
+                <span>首页</span>
+                <v-icon>mdi-home</v-icon>
+            </v-btn>
+            <v-btn :ripple="false" @click="navToSecond">
+                <span>通讯录</span>
+                <v-icon>mdi-account-group</v-icon>
+            </v-btn>
+            <div class="pa-1 h-100 px-5">
+                <v-btn v-if="isNewPost" :ripple="false" fab dark depressed class="mo-bottom-center-btn" color="#7879ff" @click="$router.go(-1)" >
+                    <v-icon color="white"> mdi-minus </v-icon>
+                </v-btn>
+                <v-btn v-else fab dark :ripple="false" depressed class="mo-bottom-center-btn" color="#7879ff" @click="navToNewPost" >
+                    <v-icon color="white"> mdi-plus </v-icon>
+                </v-btn>
+            </div>
+            <v-btn :ripple="false" @click="navToThird">
+                <span>圈子</span>
+                <v-icon>mdi-fire-hydrant</v-icon>
+            </v-btn>
+            <v-btn :ripple="false" @click="navToFourth">
                 <span>我的</span>
                 <v-icon>mdi-account</v-icon>
             </v-btn>
         </v-bottom-navigation>
-
-        <v-btn v-if="isNewPost" :ripple="false" fab dark depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff" @click="$router.go(-1)" >
-            <v-icon> mdi-minus </v-icon>
-        </v-btn>
-        <v-btn v-else fab dark :ripple="false" depressed class="position-absolute mo-bottom-nav-plut-btn" color="#7879ff" @click="navToNewPost" >
-            <v-icon> mdi-plus </v-icon>
-        </v-btn>
     </div>
 </template>
 
@@ -149,7 +174,7 @@ export default {
                 return
             }
             else{
-                this.$store.dispatch('mo/onMoBottomNavValue', 2);
+                this.$store.dispatch('mo/onMoBottomNavValue', 3);
                 this.$router.push({name: "circle"})
             }
         },
@@ -158,7 +183,7 @@ export default {
                 return
             }
             else{
-                this.$store.dispatch('mo/onMoBottomNavValue', 3);
+                this.$store.dispatch('mo/onMoBottomNavValue', 4);
                 this.$router.push({name:"profile.list"})
             }
         },
@@ -167,7 +192,7 @@ export default {
                 return
             }
             else{
-                this.$store.dispatch('mo/onMoBottomNavValue', -1);
+                this.$store.dispatch('mo/onMoBottomNavValue', null);
                 this.$router.push({name:"mo.newPost"})
             }
         }

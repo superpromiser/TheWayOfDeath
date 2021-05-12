@@ -297,6 +297,10 @@ a {
         -ms-user-select: none;
         user-select: none;
     } */
+
+    .theme--light.v-icon:focus::after, .theme--light.v-btn--active::before{
+        opacity: 0!important;
+    }
 }
 
 .medal-background {
@@ -676,6 +680,7 @@ a {
     padding: 10px;
     position: relative;
     overflow-wrap: anywhere;
+    word-break: break-all;
 }
 
 .msg-container p {
@@ -692,6 +697,7 @@ a {
     padding: 10px;
     position: relative;
     overflow-wrap: anywhere;
+    word-break: break-all;
 }
 
 .messagebox_p {
@@ -699,6 +705,8 @@ a {
     font-size: 14px;
     padding: 0.2rem;
     max-width: 400px;
+    overflow-wrap: anywhere;
+    word-break: break-all;
 }
 
 .msg-container .messagebox_p a {
@@ -903,7 +911,7 @@ a {
     align-items: center;
 }
 .mo-bottom-nav.v-bottom-navigation.v-item-group .v-btn {
-    border-radius: 50% !important;
+    /* border-radius: 50% !important;
     flex: 0 1 auto !important;
     font-size: 0.75rem !important;
     height: 86% !important;
@@ -911,7 +919,7 @@ a {
     min-width: 12px !important;
     position: relative !important;
     text-transform: none !important;
-    width: 49px !important;
+    width: 49px !important; */
 }
 
 .mo-bottom-nav.v-bottom-navigation.v-item-group .v-btn.v-btn--active {
@@ -1063,6 +1071,16 @@ a {
     position: sticky;
     top: 0;
     z-index: 2;
+    width: 100%;
+    /* -webkit-transform: translate3d(0,0,0); */
+}
+
+.pt-46-px{
+    padding-top: 46px!important;
+}
+
+.mt-46-px{
+    margin-top: 46px!important;
 }
 
 .pb-100 {
@@ -1078,6 +1096,7 @@ a {
     position: sticky !important;
     top: 0px;
     z-index: 1;
+    width: 100%;
 }
 
 .mo-ch-area-height {
@@ -1158,7 +1177,7 @@ a {
     width: 100px;
     height: 100px;
     background: #7879ff;
-    padding: 25px;
+    padding: 15px;
     border-radius: 20px;
 }
 
@@ -1626,4 +1645,31 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
 
 .min-width-0{
     min-width: 0!important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .v-btn:hover::before,
+    .theme--light.v-btn--active:hover::before,  
+    .theme--light.v-btn:hover::before 
+    { 
+        opacity: 0!important;
+    }
+    .theme--light.v-btn:hover::before { 
+        opacity: 0!important;
+    }
+}
+
+.mo-bottom-center-btn{
+    min-width: 48px!important;
+    border-radius: 50%!important;
+}
+
+@media (max-width: 370px) {
+    .v-item-group.v-bottom-navigation .v-btn{
+        min-width: 65px!important;
+    }
+
+    .v-item-group.v-bottom-navigation .v-btn.mo-bottom-center-btn{
+        min-width: 48px!important;
+    }
 }
