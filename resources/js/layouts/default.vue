@@ -72,11 +72,11 @@ export default {
           this.$store.dispatch('mo/onMoBottomNavIsNewPost', false);
         }
         else if(val.name=="circle"){
-          this.$store.dispatch('mo/onMoBottomNavValue', 2);
+          this.$store.dispatch('mo/onMoBottomNavValue', 3);
           this.$store.dispatch('mo/onMoBottomNavIsNewPost', false);
         }
         else if(val.name=="profile.list"){
-          this.$store.dispatch('mo/onMoBottomNavValue', 3);
+          this.$store.dispatch('mo/onMoBottomNavValue', 4);
           this.$store.dispatch('mo/onMoBottomNavIsNewPost', false);
         }
         else if(val.name=="mo.newPost"){
@@ -84,7 +84,7 @@ export default {
           this.$store.dispatch('mo/onMoBottomNavIsNewPost', true);
         }
         else{
-          this.$store.dispatch('mo/onMoBottomNavValue', -1);
+          this.$store.dispatch('mo/onMoBottomNavValue', null);
           this.$store.dispatch('mo/onMoBottomNavIsNewPost', false);
         }
       },
