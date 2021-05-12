@@ -989,22 +989,20 @@ export default {
     },
     saveSelectedItemGroup(){
       if(this.selectedItem.type == "school"){
-        this.selectedItemGroupForSchoolDia = this.selectedItemGroup;
-        this.selectedItemGroupForSchoolDia.map(namedItem =>{
-          let found = this.chooseableItemGroup.some(el=>el.title == namedItem)
-          if(!found) {
-            this.schoolSpaceItems.map(schoolItem=>{
-              if(schoolItem.title == namedItem){
-                this.chooseableItemGroup.push(schoolItem);
-                this.carouselKey += 1
-              }
-            })
-          }
-        })
+        this.chooseableItemGroup = [];
+        this.carouselKey += 1
+        this.selectedItemGroup.map(namedItem=>{
+          this.schoolSpaceItems.map(item =>{
+            if(item.title == namedItem){
+              this.chooseableItemGroup.push(item);
+              this.carouselKey += 1
+            }
+          })
+        });
         let payload = {
-          schoolItem: this.selectedItemGroupForSchoolDia
+          schoolItem: this.selectedItemGroup
         }
-        this.$store.dispatch('mo/onSelectedItemGroupForSchoolDiaStore', this.selectedItemGroupForSchoolDia);
+        this.$store.dispatch('mo/onSelectedItemGroupForSchoolDiaStore', this.selectedItemGroup);
         this.$store.dispatch('mo/onSelectedItemSchoolGroupStore', this.chooseableItemGroup);
         postChooseableSchoolItem(payload)
         .then((res) => {
@@ -1014,22 +1012,20 @@ export default {
         });
       }
       else{
-        this.selectedItemGroupForClassDia = this.selectedItemGroup;
-        this.selectedItemGroupForClassDia.map(namedItem =>{
-          let found = this.chooseableItemGroup.some(el=>el.title == namedItem)
-          if(!found) {
-            this.classSpaceItems.map(classItem=>{
-              if(classItem.title == namedItem){
-                this.chooseableItemGroup.push(classItem);
-                this.carouselKey += 1
-              }
-            })
-          }
-        })
+        this.chooseableItemGroup = [];
+        this.carouselKey += 1
+        this.selectedItemGroup.map(namedItem=>{
+          this.classSpaceItems.map(item =>{
+            if(item.title == namedItem){
+              this.chooseableItemGroup.push(item);
+              this.carouselKey += 1
+            }
+          })
+        });
         let payload = {
-          classItem: this.selectedItemGroupForClassDia
+          classItem: this.selectedItemGroup
         }
-        this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroupForClassDia);
+        this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroup);
         this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.chooseableItemGroup);
         postChooseableClassItem(payload)
         .then((res) => {
@@ -1037,6 +1033,31 @@ export default {
         }).catch((err) => {
           
         });
+
+
+        // this.selectedItemGroupForClassDia = this.selectedItemGroup;
+        // this.selectedItemGroupForClassDia.map(namedItem =>{
+        //   let found = this.chooseableItemGroup.some(el=>el.title == namedItem)
+        //   if(!found) {
+        //     this.classSpaceItems.map(classItem=>{
+        //       if(classItem.title == namedItem){
+        //         this.chooseableItemGroup.push(classItem);
+        //         this.carouselKey += 1
+        //       }
+        //     })
+        //   }
+        // })
+        // let payload = {
+        //   classItem: this.selectedItemGroupForClassDia
+        // }
+        // this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroupForClassDia);
+        // this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.chooseableItemGroup);
+        // postChooseableClassItem(payload)
+        // .then((res) => {
+          
+        // }).catch((err) => {
+          
+        // });
       }
       this.closeAddItemDialog();
     },
