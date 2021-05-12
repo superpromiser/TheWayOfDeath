@@ -77,8 +77,8 @@
                     mdi-chevron-right
                 </v-icon>
             </v-col>
+            <div class="ml-11 cus-divider-light-gray-height"></div>
         </v-row>
-        <v-divider light ></v-divider>
         <v-row class="ma-0 bg-white">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('qq')">
                 <div class="d-flex align-center">
@@ -91,8 +91,8 @@
                     mdi-chevron-right
                 </v-icon>
             </v-col>
+            <div class="ml-11 cus-divider-light-gray-height"></div>
         </v-row>
-        <v-divider light ></v-divider>
         <v-row class="ma-0 bg-white">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('password')">
                 <div class="d-flex align-center">
@@ -105,8 +105,8 @@
                     mdi-chevron-right
                 </v-icon>
             </v-col>
+            <div class="ml-11 cus-divider-light-gray-height"></div>
         </v-row>
-        <v-divider light ></v-divider>
         <v-row class="ma-0 bg-white mb-3">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('myfile')">
                 <div class="d-flex align-center">
@@ -132,8 +132,8 @@
                     mdi-chevron-right
                 </v-icon>
             </v-col>
+            <div class="ml-11 cus-divider-light-gray-height"></div>
         </v-row>
-        <v-divider light ></v-divider>
         <v-row class="ma-0 bg-white mb-3">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="navToProfileItem('myshare')">
                 <div class="d-flex align-center">
@@ -159,8 +159,8 @@
                     mdi-chevron-right
                 </v-icon>
             </v-col>
+            <div class="ml-11 cus-divider-light-gray-height"></div>
         </v-row>
-        <v-divider light ></v-divider>
         <v-row class="ma-0 bg-white">
             <v-col class="d-flex align-center justify-space-between" cols="12" v-ripple @click="openLogoutDialog">
                 <div class="d-flex align-center">

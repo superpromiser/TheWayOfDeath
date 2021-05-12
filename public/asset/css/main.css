@@ -676,6 +676,7 @@ a {
     padding: 10px;
     position: relative;
     overflow-wrap: anywhere;
+    word-break: break-all;
 }
 
 .msg-container p {
@@ -692,6 +693,7 @@ a {
     padding: 10px;
     position: relative;
     overflow-wrap: anywhere;
+    word-break: break-all;
 }
 
 .messagebox_p {
@@ -699,6 +701,8 @@ a {
     font-size: 14px;
     padding: 0.2rem;
     max-width: 400px;
+    overflow-wrap: anywhere;
+    word-break: break-all;
 }
 
 .msg-container .messagebox_p a {
@@ -1063,6 +1067,16 @@ a {
     position: sticky;
     top: 0;
     z-index: 2;
+    width: 100%;
+    /* -webkit-transform: translate3d(0,0,0); */
+}
+
+.pt-46-px{
+    padding-top: 46px!important;
+}
+
+.mt-46-px{
+    margin-top: 46px!important;
 }
 
 .pb-100 {
@@ -1075,9 +1089,10 @@ a {
 }
 
 .mo-chat-index-nav {
-    position: sticky !important;
+    position: fixed !important;
     top: 0px;
     z-index: 1;
+    width: 100%;
 }
 
 .mo-ch-area-height {
@@ -1158,7 +1173,7 @@ a {
     width: 100px;
     height: 100px;
     background: #7879ff;
-    padding: 25px;
+    padding: 15px;
     border-radius: 20px;
 }
 
