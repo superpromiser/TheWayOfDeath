@@ -1,7 +1,7 @@
 <template>
     <div class="position-fixed mo-bottom-nav-con">
         <v-bottom-navigation
-            v-model="value"
+            :value="value"
             :input-value="active"
             color="#7879ff"
             grow
