@@ -36,7 +36,7 @@
                 <p class="mb-0">{{content.users.name}}</p>
               </div>
             </div>
-            <div class="ml-auto">
+            <div class="ml-auto" v-if="user.roleId < 3 || content.users.id == user.id">
               <v-menu offset-y >
                 <template v-slot:activator="{ attrs, on }">
                   <v-btn icon color="primary" v-bind="attrs" v-on="on" >
@@ -44,7 +44,7 @@
                   </v-btn>
                 </template>
                 <v-list>
-                  <v-list-item link >
+                  <v-list-item link v-if="user.roelId < 3" >
                     <v-list-item-title class="px-2" @click="fixTop(content)" v-if="content.fixTop == null">{{lang.toTop}}</v-list-item-title>
                     <v-list-item-title class="px-2" @click="relaseTop(content.id)" v-else>{{lang.toRelase}}</v-list-item-title>
                   </v-list-item>
@@ -79,6 +79,7 @@
 import lang from '~/helper/lang.json'
 import AttachItemViewer from '~/components/attachItemViewer';
 import {createReadCnt} from '~/api/alarm'
+import {mapGetters} from 'vuex'
 export default {
     components:{
         AttachItemViewer,
@@ -101,7 +102,10 @@ export default {
     computed:{
       currentPath(){
         return this.$route;
-      }
+      },
+      ...mapGetters({
+        user:'auth/user'
+      })
     },
     methods:{
       showDetail(content){

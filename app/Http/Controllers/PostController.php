@@ -52,7 +52,7 @@ class PostController extends Controller
         ]);
         $userId = Auth::user()->id;
         $classId = $request->classId;
-        return Post::whereIn('contentId', [1, 2, 5,7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
+        return Post::whereIn('contentId', [1, 2, 5, 7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
             ->where('classId', $classId)
             ->orWhere('viewList', 'like', "%{$classId}%")
             ->with([
@@ -437,7 +437,7 @@ class PostController extends Controller
             $post->readList = $newArr;
         } else {
             $newArr = array();
-            if(!in_array($userId, $readList, true)){
+            if (!in_array($userId, $readList, true)) {
                 array_push($readList, $userId);
             }
             $post->readList = $readList;
@@ -446,11 +446,12 @@ class PostController extends Controller
         return true;
     }
 
-    public function fixTop(Request $request){
-        $this->validate($request,[
-            'postId'=>'required'
+    public function fixTop(Request $request)
+    {
+        $this->validate($request, [
+            'postId' => 'required'
         ]);
-        $post = Post::where('id',$request->postId)->first();
+        $post = Post::where('id', $request->postId)->first();
         // $post->updated_at = DB::raw('NOW()');
         // $post->update();
         $currentTime = \Carbon\Carbon::now();
@@ -459,12 +460,13 @@ class PostController extends Controller
         $post->update();
         return true;
     }
-    
-    public function relaseTop(Request $request){
-        $this->validate($request,[
-            'postId'=>'required'
+
+    public function relaseTop(Request $request)
+    {
+        $this->validate($request, [
+            'postId' => 'required'
         ]);
-        $post = Post::where('id',$request->postId)->first();
+        $post = Post::where('id', $request->postId)->first();
         // $post->updated_at = DB::raw('NOW()');
         // $post->update();
         $currentTime = NULL;

@@ -133,8 +133,8 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('classPost', 'PostController@getClassPost');
     Route::post('like', 'LikeController@addLike');
     Route::delete('like', 'LikeController@removeLike');
-    Route::put('post','PostController@fixTop');
-    Route::put('post/relaseTop','PostController@relaseTop');
+    Route::put('post', 'PostController@fixTop');
+    Route::put('post/relaseTop', 'PostController@relaseTop');
     Route::delete('post', 'PostController@deletePost');
 
     //template
@@ -254,7 +254,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     //attendance
     Route::get('attendance', 'AttendanceController@getAttendanceData');
     Route::get('statAttendance', 'AttendanceController@getStatData');
-    Route::get('lessonItem','LessonAttendanceController@getLessonItem');
+    Route::get('lessonItem', 'LessonAttendanceController@getLessonItem');
     //chat
     Route::get('/chat/userList', 'ChatController@getUserList')->name('getUserList');
     Route::get('/chat/contactList', 'ChatController@getContactList')->name('getContactList');
@@ -392,16 +392,21 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('shiftMng', 'ShiftMngController@updateShiftMng');
     Route::delete('shiftMng', 'ShiftMngController@deleteShiftMng');
 
-    Route::get('shiftMng/templateCnt','ShiftMngController@getTemplateCnt');
-    Route::get('shiftMng/template','ShiftMngController@getTemplateList');
-    Route::post('shiftMng/template','ShiftMngController@createTemplate');
-    Route::delete('shiftMng/template','ShiftMngController@deleteTemplate');
+    Route::get('shiftMng/templateCnt', 'ShiftMngController@getTemplateCnt');
+    Route::get('shiftMng/template', 'ShiftMngController@getTemplateList');
+    Route::post('shiftMng/template', 'ShiftMngController@createTemplate');
+    Route::delete('shiftMng/template', 'ShiftMngController@deleteTemplate');
 
     //safeStudy
     Route::get('safeStudy', 'SafeStudyController@getSafeStudy');
     Route::post('safeStudy', 'SafeStudyController@createSafeStudy');
     Route::put('safeStudy', 'SafeStudyController@updateSafeStudy');
     Route::delete('safeStudy', 'SafeStudyController@deleteSafeStudy');
+    Route::get('safeStudy/templateCnt', 'SafeStudyController@getTemplateCnt');
+    Route::get('safeStudy/template', 'SafeStudyController@getTemplateList');
+    Route::post('safeStudy/template', 'SafeStudyController@createTemplate');
+    Route::put('safeStudy/template', 'SafeStudyController@updateTemplate');
+    Route::delete('safeStudy/template', 'SafeStudyController@deleteTemplate');
 
     //repiarData
     Route::get('repairData', 'RepairDataController@getRepairData');
@@ -415,6 +420,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('schoolStory', 'SchoolStoryController@createSchoolStory');
     Route::put('schoolStory', 'SchoolStoryController@updateSchoolStory');
     Route::delete('schoolStory', 'SchoolStoryController@deleteSchoolStory');
+
+    Route::get('schoolStory/templateCnt', 'SchoolStoryController@getTemplateCnt');
+    Route::get('schoolStory/template', 'SchoolStoryController@getTemplateList');
+    Route::post('schoolStory/template', 'SchoolStoryController@createTemplate');
+    Route::put('schoolStory/template', 'SchoolStoryController@updateTemplate');
+    Route::delete("schoolStory/template", 'SchoolStoryController@deleteTemplate');
 
     //classStory
     Route::get('classStory', 'ClassStoryController@getClassStory');

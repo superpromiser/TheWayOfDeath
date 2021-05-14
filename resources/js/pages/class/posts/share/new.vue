@@ -219,7 +219,7 @@
                 </v-row>
             </v-container>
             <v-container class="pa-10">
-                <QuestionItem Label="分享内容" :emoji="true" :contact="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
+                <QuestionItem Label="分享内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
             <v-snackbar
                 timeout="3000"

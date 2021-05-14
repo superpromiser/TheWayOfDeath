@@ -271,6 +271,19 @@
       },
 
       async save () {
+        if(this.editedItem.schoolId == ''){
+          return this.$snackbar.showMessage({content: '学校名称', color: "error"})
+        }
+        if(this.editedItem.gradeId == ''){
+          return this.$snackbar.showMessage({content: '年级名称', color: "error"})
+        }
+        if(this.editedItem.lessonName.trim() == ''){
+          return this.$snackbar.showMessage({content: '班级名称', color: "error"})
+        }
+        if(this.editedItem.imgUrl == ''){
+          return this.$snackbar.showMessage({content: '上传年级图片', color: "error"})
+        }
+        
         this.isCreatingClassData = true;
         if (this.editedIndex > -1) {
           await updateClass(this.editedItem).then(res=>{

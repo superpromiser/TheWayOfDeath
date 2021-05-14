@@ -254,6 +254,15 @@ export default {
       },
 
       async save () {
+        if(this.editedItem.schoolId == 0){
+          return this.$snackbar.showMessage({content: '学校名称', color: "error"})
+        }
+        if(this.editedItem.gradeName.trim() == ''){
+          return this.$snackbar.showMessage({content: '年级名称', color: "error"})
+        }
+        if(this.editedItem.imgUrl == ''){
+          return this.$snackbar.showMessage({content: '上传年级图片', color: "error"})
+        }
         this.isCreatingGrade = true;
         //console.log(this.editedItem)
         if (this.editedIndex > -1) {

@@ -88,7 +88,7 @@
                 </v-col>
             </v-row>
             <v-divider light></v-divider>
-            <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+            <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" ref="child" @contentData="loadContentData"></QuestionItem>
         </div>
         <div v-else>
             <router-view></router-view>

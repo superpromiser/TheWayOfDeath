@@ -13,7 +13,7 @@
             <div class="cus-divider-light-gray-height"></div>
             <v-row class="ma-0 mo-glow mb-16">
                 <v-col cols="12">
-                    <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                    <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" ref="child" @contentData="loadContentData"></QuestionItem>
                 </v-col>
             </v-row>
             <v-snackbar
@@ -82,7 +82,7 @@
             </v-row>
         </v-container>
         <v-container class="pa-10">
-            <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+            <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" ref="child" @contentData="loadContentData"></QuestionItem>
         </v-container>
         <v-snackbar
             timeout="3000"

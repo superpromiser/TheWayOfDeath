@@ -190,10 +190,20 @@ export default [
       {path:'templateList',name:'shift.templateList',component:page('school/posts/shiftManagement/index')}
     ]
   },
-  {path:'schoolSpace/:schoolId/post/shiftMng/newTemplate',name:'shift.newTemplate',component:page('school/posts/shiftMangement/newTemplate')},
-  {path:'/schoolSpace/:schoolId/post/safeStudy', name:'posts.safeStudy', component:page('school/posts/safeStudy/index.vue')},
+  {path:'schoolSpace/:schoolId/post/shiftMng/newTemplate',name:'shift.newTemplate',component:page('school/posts/shiftMangement/newTemplate.vue')},
+  {path:'/schoolSpace/:schoolId/post/safeStudy', name:'posts.safeStudy', component:page('school/posts/safeStudy/index.vue'),
+    children:[
+      {path:'templateList',name:'safeStudy.templateList',component:page('school/posts/safeStudy/templateList.vue')}
+    ]
+  },
+  {path:'/schoolSpace/:schoolId/post/safeStudy/newTempalte',name:'safeStudy.newTemplate',component:page('school/posts/safeStudy/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/repair', name:'posts.repair', component:page('school/posts/repair/index.vue')},
-  {path:'/schoolSpace/:schoolId/post/schoolStory', name:'posts.schoolStory', component:page('school/posts/schoolStory/index.vue')},
+  {path:'/schoolSpace/:schoolId/post/schoolStory', name:'posts.schoolStory', component:page('school/posts/schoolStory/index.vue'),
+    children:[
+      {path:'templateList',name:'schoolStory.templateList',component:page('school/posts/schoolStory/templateList.vue')}
+    ]
+  },
+  {path:'/schoolSpace/:schoolId/post/schoolStory/newTemplate',name:'schoolStory.newTemplate',component:page('school/posts/schoolStory/newTemplate.vue')},
   
   {path:'/schoolSpace/:schoolId/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
 

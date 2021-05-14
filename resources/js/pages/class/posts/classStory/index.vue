@@ -18,7 +18,6 @@
         <QuestionItem
           :Label="lang.contentPlaceFirst"
           :emoji="true"
-          :contact="true"
           ref="child"
           @contentData="loadContentData"
         ></QuestionItem>
