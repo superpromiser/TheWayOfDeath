@@ -53,7 +53,7 @@ class MessageController extends Controller
                 $query->where('contactUserId', request('from'));
             })->update([
                 'last_message' => $request->text,
-                'last_time' => \Carbon\Carbon::now(),
+                'last_time' => \Carbon\Carbon::now()->setTimezone('Asia/Shanghai'),
                 'last_sender' => $request->from
             ]);
 
@@ -94,7 +94,19 @@ class MessageController extends Controller
 
             $message = Message::create($messageImage);
 
-            broadcast(new NewMessage($message->load('from')))->toOthers();
+            Contact::where(function($query) {
+                $query->where('userId', request('from'));
+                $query->where('contactUserId', request('to'));
+            })->orWhere(function($query) {
+                $query->where('userId', request('to'));
+                $query->where('contactUserId', request('from'));
+            })->update([
+                'last_message' => 'sammie-image',
+                'last_time' => \Carbon\Carbon::now()->setTimezone('Asia/Shanghai'),
+                'last_sender' => $request->from
+            ]);
+
+            broadcast(new NewMessage($message->load('from'), $request->to))->toOthers();
 
             return response()->json([
                 'message' => $message->load('from')
@@ -135,7 +147,19 @@ class MessageController extends Controller
 
             $message = Message::create($messageVideo);
 
-            broadcast(new NewMessage($message->load('from')))->toOthers();
+            Contact::where(function($query) {
+                $query->where('userId', request('from'));
+                $query->where('contactUserId', request('to'));
+            })->orWhere(function($query) {
+                $query->where('userId', request('to'));
+                $query->where('contactUserId', request('from'));
+            })->update([
+                'last_message' => 'sammie-video',
+                'last_time' => \Carbon\Carbon::now()->setTimezone('Asia/Shanghai'),
+                'last_sender' => $request->from
+            ]);
+
+            broadcast(new NewMessage($message->load('from'), $request->to))->toOthers();
 
             return response()->json([
                 'message' => $message->load('from')
@@ -189,8 +213,20 @@ class MessageController extends Controller
             $messageFile['file'] = $fileInfo;
     
             $message = Message::create($messageFile);
+
+            Contact::where(function($query) {
+                $query->where('userId', request('from'));
+                $query->where('contactUserId', request('to'));
+            })->orWhere(function($query) {
+                $query->where('userId', request('to'));
+                $query->where('contactUserId', request('from'));
+            })->update([
+                'last_message' => 'sammie-file',
+                'last_time' => \Carbon\Carbon::now()->setTimezone('Asia/Shanghai'),
+                'last_sender' => $request->from
+            ]);
     
-            broadcast(new NewMessage($message->load('from')))->toOthers();
+            broadcast(new NewMessage($message->load('from'), $request->to))->toOthers();
     
             return response()->json([
                 'message' => $message->load('from')
@@ -227,8 +263,20 @@ class MessageController extends Controller
             $messageMap['map'] = $mapInfo;
     
             $message = Message::create($messageMap);
+
+            Contact::where(function($query) {
+                $query->where('userId', request('from'));
+                $query->where('contactUserId', request('to'));
+            })->orWhere(function($query) {
+                $query->where('userId', request('to'));
+                $query->where('contactUserId', request('from'));
+            })->update([
+                'last_message' => 'sammie-map',
+                'last_time' => \Carbon\Carbon::now()->setTimezone('Asia/Shanghai'),
+                'last_sender' => $request->from
+            ]);
     
-            broadcast(new NewMessage($message->load('from')))->toOthers();
+            broadcast(new NewMessage($message->load('from'), $request->to))->toOthers();
     
             return response()->json([
                 'message' => $message->load('from')
@@ -270,8 +318,20 @@ class MessageController extends Controller
             $messageVoice['voice'] = $path;
     
             $message = Message::create($messageVoice);
+
+            Contact::where(function($query) {
+                $query->where('userId', request('from'));
+                $query->where('contactUserId', request('to'));
+            })->orWhere(function($query) {
+                $query->where('userId', request('to'));
+                $query->where('contactUserId', request('from'));
+            })->update([
+                'last_message' => 'sammie-voice',
+                'last_time' => \Carbon\Carbon::now()->setTimezone('Asia/Shanghai'),
+                'last_sender' => $request->from
+            ]);
     
-            broadcast(new NewMessage($message->load('from')))->toOthers();
+            broadcast(new NewMessage($message->load('from'), $request->to))->toOthers();
     
             return response()->json([
                 'message' => $message->load('from')

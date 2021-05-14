@@ -56,22 +56,32 @@ class ShareController extends Controller
             'schoolId' => $request->schoolId,
             'classId' => $request->lessonId
         ])->id;
-        if ($request->publishType == 'spec') {
+        if( $request->publishType == 'pub' ) {
             Share::create([
                 'content' => $shareData,
                 'postId' => $postId,
                 'schoolId' => $request->schoolId,
                 'lessonId' => $request->lessonId,
-                'publishType' => $request->publishType,
-                'specUsers' => $request->specUsers,
             ]);
-        } else {
+        }
+        else if ($request->publishType == 'spec') {
             Share::create([
                 'content' => $shareData,
                 'postId' => $postId,
                 'schoolId' => $request->schoolId,
                 'lessonId' => $request->lessonId,
-                'publishType' => $request->publishType,
+                'viewList' => $request->specUsers,
+            ]);
+        } 
+        else if( $request->publishType == 'pvt' ) {
+            $pvtArr = array();
+            array_push($pvtArr, $userId);
+            Share::create([
+                'content' => $shareData,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
+                'viewList' => $pvtArr,
             ]);
         }
 

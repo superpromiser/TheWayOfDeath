@@ -48,7 +48,15 @@
                         <v-divider inset ></v-divider>
                     </v-list>
                     <v-list v-for="(user, index) in filteredContacts" :key="index" class="py-0 position-relative">
-                        <v-list-item @click="updatechatwith(user)">
+                        <v-list-item 
+                            @click="updatechatwith(user)" 
+                            v-long-press="1000"
+                            @long-press-start="onLongPressStart(index)"
+                            @touchstart="startTouchContact"
+                            @touchend="stopTouchContact"
+                            :ref="`contact-user-${index}`"
+                            :id="`contact-user-${index}`"
+                        >
                             <v-badge bordered bottom v-if="checkOnline(user.user.id)"
                                 color="light-green accent-3" dot
                                 offset-x="10"
@@ -73,15 +81,17 @@
                             <v-list-item-content>
                                 <v-list-item-title class="d-flex justify-space-between">
                                     <p class="mb-0"> {{user.user.name}} </p>
-                                    <p class="mb-0" v-if="user.last_time !== null"> 
+                                    <p class="mb-0 font-size-0-8" v-if="user.last_time !== null"> 
                                         <timeago :datetime="convertTime(user.last_time)" :auto-update="60"></timeago>
                                         <!-- <timeago :datetime="convertTime(user.last_time)" locale="zhCN" :auto-update="60"></timeago>  -->
                                     </p>
                                     <p class="mb-0" v-else></p>
                                 </v-list-item-title>
                                 <v-list-item-subtitle class="d-flex justify-space-between line-height-1-7">
-                                    <p class="mb-0" v-if="user.last_message !== null" >{{user.last_message}}</p>
-                                    <p class="mb-0" v-else></p>
+                                    <p class="mb-0" v-if="user.last_message !== null&& user.last_message == 'sammie-image'" ><span class="d-flex align-center"><v-icon left>mdi-file-image-outline</v-icon>图片</span></p>
+                                    <p class="mb-0" v-else-if="user.last_message !== null&& user.last_message == 'sammie-video'"><span class="d-flex align-center"><v-icon left>mdi-file-video-outline</v-icon>视频</span></p>
+                                    <p class="mb-0" v-else-if="user.last_message !== null&& user.last_message == 'sammie-file'"><span  class="d-flex align-center"><v-icon left>mdi-file-upload-outline</v-icon>文档</span></p>   
+                                    <p class="mb-0 w-50 over-flow-text" v-else>{{user.last_message}}</p>
                                     <div v-if="user.new_msg_count !== 0" class="mr-8">
                                         <v-badge
                                             color="red"
@@ -91,24 +101,14 @@
                                     </div>
                                 </v-list-item-subtitle>
                             </v-list-item-content>
-                            <!-- <div class="mr-8">
-                                5 mins ago
-                                
-                            </div> -->
                         </v-list-item>
-                        <!-- <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
-                            <template v-slot:activator="{ attrs, on }">
-                                <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 10px;">
-                                    mdi-dots-horizontal-circle-outline
-                                </v-icon>
-                            </template>
-
-                            <v-list>
-                                <v-list-item @click="removeUserFromContactList(user.user)"><v-list-item-icon> <v-icon>mdi-trash-can-outline</v-icon> </v-list-item-icon> <v-list-item-title > 删除</v-list-item-title> </v-list-item>
-                            </v-list>
-                        </v-menu> -->
                         <v-divider inset v-if="index < filteredContacts.length - 1" ></v-divider>
                     </v-list>
+                    <div class="v-overlay__scrim-cus" id="v-overlay__scrim-cus">
+                        <div class="mo-chat-contact-cus-menu" id="mo-chat-contact-cus-menu" v-ripple @click="removeContact"  v-click-outside="closeMoChatCusMenuOverlay">
+                            <p class="mb-0 pa-2 px-5 font-color-gray">删除</p> 
+                        </div>
+                    </div>
                 </template>
             </v-list-item-group>
         </v-list>
@@ -120,6 +120,7 @@ import lang from '~/helper/lang.json'
 import { mapGetters } from 'vuex';
 import pinyin from 'js-pinyin'
 import { getUserList, getContactList, addUserToContact, postNewMsgCount, postNewGroup, removeContactUser, leaveGroup, removeGroup } from '~/api/chat'
+import LoginWithGithubVue from '../../../components/LoginWithGithub.vue';
 export default {
     props:{
         chatto: {
@@ -160,6 +161,13 @@ export default {
         isCreatingNewGroup: false,
         groupNameDialog: false,
         groupName: '',
+
+        touchDuration : 1000,
+        timer: null,
+        globalTouchEvent: null,
+        moChatCusMenuOverlay: false,
+        isOpenedMenu: false,
+        removeIndex: null,
     }),
 
     async created(){
@@ -491,6 +499,92 @@ export default {
         },
         convertTime(time){
             return new Date(time);
+        },
+
+        onLongPressStart(index){
+            console.log("%c long press event triggered", 'color:red');
+            let el = document.getElementById(`contact-user-${index}`);
+            console.log(el)
+            
+            this.removeIndex = index;
+
+        },
+
+        startTouchContact(e){
+            console.log(e.touches[0].clientX, e.touches[0].clientY)
+            console.log(e.touches[0].pageX, e.touches[0].pageY)
+            this.globalTouchEvent = e;
+            this.timer = setTimeout(this.onLongTouch, this.touchDuration); 
+        },
+
+        stopTouchContact(e){        
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }    
+        },
+
+        onLongTouch(){
+            console.log("%c open menu here ", 'color: green; font-weight:bold;')
+            console.log("this.globalTouchEvent", this.globalTouchEvent);
+            console.log("this.globalTouchEvent", this.globalTouchEvent.touches[0]);
+            
+            let moChatCusMenu = document.getElementById('mo-chat-contact-cus-menu');
+            let moChatCusMenuOverlay = document.getElementById('v-overlay__scrim-cus');
+            $(moChatCusMenuOverlay).css({"visibility": "visible"});
+            
+            $(moChatCusMenu).css({"top": this.globalTouchEvent.touches[0].pageY - 48});
+            if(this.globalTouchEvent.touches[0].pageX - 72 < 0){
+                $(moChatCusMenu).css({"left": "20px"});
+            }
+            else{
+                $(moChatCusMenu).css({"left": this.globalTouchEvent.touches[0].pageX - 72});
+            }
+            $(moChatCusMenu).css({"visibility": "visible"});
+            this.isOpenedMenu = true;
+        },
+
+        closeMoChatCusMenuOverlay(){
+            if(this.isOpenedMenu = false){
+                return;
+            }
+            else{
+                let moChatCusMenu = document.getElementById('mo-chat-contact-cus-menu');
+                let moChatCusMenuOverlay = document.getElementById('v-overlay__scrim-cus');
+                $(moChatCusMenu).css({"visibility": "hidden"});
+                $(moChatCusMenuOverlay).css({"visibility": "hidden"});
+
+                this.isOpenedMenu = false
+            }
+        },
+
+        removeContact(){
+            console.log(this.removeIndex)
+            console.log(this.contactList[this.removeIndex].contactUserId)
+            let payload = {
+                userId : this.contactList[this.removeIndex].contactUserId
+            }
+            removeContactUser(payload)
+            .then(res=>{
+                console.log(res);
+                if(res.data.msg == 1){
+                    let removedUserId = payload.userId;
+                    for (let i = 0; i < this.contactList.length ; i++){
+                        if( this.contactList[i].user.id == removedUserId){
+                            this.contactList.splice(i, 1);
+                        }
+                    }
+                    this.$store.dispatch('chat/storeContactList',this.contactList)
+                    this.closeMoChatCusMenuOverlay();
+                }
+                if(this.chatGroupList.length == 0 && this.contactList.length == 0){
+                    this.isNoContactList = true;
+                }
+            })
+            .catch(err=>{
+                console.log(err.response);
+            })
+            
         }
     }
 }

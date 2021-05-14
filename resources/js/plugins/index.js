@@ -16,5 +16,6 @@ import './baidu'
 import './excel'
 import './xlsx'
 import './timeago'
+import './longpress'
 
 import 'bootstrap'

@@ -69,7 +69,7 @@
                                 ref="textField"
                                 @click:append-outer="submit"
                                 @click:clear="clearMessage"
-
+                                @focus="closeSheet()"
                                 @keydown.enter.exact.prevent 
                                 @keyup.enter.exact="newline" 
                                 @keydown.enter.shift.exact="submit" 
@@ -349,11 +349,23 @@ export default {
                     this.messages.push(res.data.message);
                     this.isUploadingFileInChat = false;
                     this.selectedImageFile = null;
-                    this.isFileUploadSheet = false;
-                    document.getElementById("push-popup-bottom-nav").style.height = "0";
+                    this.closeSheetSecond()
+                    //for contact user
+                    for (let i = 0 ; i < this.contactListStore.length ; i++){
+                        if(this.contactListStore[i].contactUserId == this.ChatWith){
+                            this.contactListStore[i].last_message = 'sammie-image';
+                            this.contactListStore[i].last_time = new Date();
+                            this.contactListStore[i].last_sender = this.currentUser.id;
+                            return;
+                        }
+                    }
+                    this.$store.dispatch('chat/storeContactList',this.contactListStore)
+
+                    
                 }).catch((err) => {
                     console.log(err)
                     this.isUploadingFileInChat = false
+                    this.closeSheetSecond()
                 }); 
             }
         },
@@ -373,11 +385,22 @@ export default {
                     this.selectedVideoFile = null;
                     console.log(res)
                     this.isUploadingFileInChat = false;
-                    this.isFileUploadSheet = false;
-                    document.getElementById("push-popup-bottom-nav").style.height = "0";
+                    this.closeSheetSecond()
+                    //for contact user
+                    for (let i = 0 ; i < this.contactListStore.length ; i++){
+                        if(this.contactListStore[i].contactUserId == this.ChatWith){
+                            this.contactListStore[i].last_message = 'sammie-video';
+                            this.contactListStore[i].last_time = new Date();
+                            this.contactListStore[i].last_sender = this.currentUser.id;
+                            return;
+                        }
+                    }
+                    this.$store.dispatch('chat/storeContactList',this.contactListStore)
                 }).catch((err) => {
                     //console.log(err);
                     this.isUploadingFileInChat = false
+
+                    this.closeSheetSecond()
                 });
             }
         },
@@ -398,13 +421,32 @@ export default {
                     this.selectedFile = null;
                     console.log(res);
                     this.isUploadingFileInChat = false;
-                    this.isFileUploadSheet = false;
-                    document.getElementById("push-popup-bottom-nav").style.height = "0";
+                    this.closeSheetSecond()
+                    //for contact user
+                    for (let i = 0 ; i < this.contactListStore.length ; i++){
+                        if(this.contactListStore[i].contactUserId == this.ChatWith){
+                            this.contactListStore[i].last_message = 'sammie-file';
+                            this.contactListStore[i].last_time = new Date();
+                            this.contactListStore[i].last_sender = this.currentUser.id;
+                            return;
+                        }
+                    }
+                    this.$store.dispatch('chat/storeContactList',this.contactListStore)
+
+                    
                 }).catch((err) => {
                     //console.log(err);
                     this.isUploadingFileInChat = false
+
+                    this.closeSheetSecond()
                 });
             }
+        },
+
+        closeSheetSecond(){
+            document.getElementById("push-popup-bottom-nav").style.height = "0";
+            this.isFileUploadSheet = false;
+            this.isEmojiSheet = false
         },
         clickUploadMapBtn(){
             console.log("send map");
@@ -438,7 +480,11 @@ export default {
                         to: this.ChatWith,
                         from: this.currentUser.id,
                     }
-                    
+
+                    document.getElementById("push-popup-bottom-nav").style.height = "0";
+                    this.isFileUploadSheet = false;
+                    this.isEmojiSheet = false;
+
                     postMessage(payload)
                     .then((res) => {
                     }).catch((err) => {
@@ -455,8 +501,6 @@ export default {
                         }
                     }
                     this.$store.dispatch('chat/storeContactList',this.contactListStore)
-
-                    
                 }
                 else if(this.recordingBlobData){
                     let formdata = new FormData();

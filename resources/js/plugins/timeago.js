@@ -5,6 +5,6 @@ Vue.use(VueTimeago, {
     name: "Timeago", // Component name, `Timeago` by default
     locale: "en", // Default locale
     locales: {
-      'zhCN': require('date-fns/locale/zh-CN'),
+      'zhCN': require('vue-timeago/node_modules/date-fns/locale/zh_cn'),
     }
   })
