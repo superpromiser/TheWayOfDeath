@@ -29,22 +29,22 @@
         </div>
         <v-container class="pa-10">
             <v-row>
-                <v-col cols="12" sm="6" md="4">
+                <!-- <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     solo
                     v-model="newQuestionnaireTemplateData.tempTitle"
                     label="模板名称"
                     hide-details
                   ></v-text-field>
-                </v-col>
-                <!-- <v-col cols="12" sm="6" md="4">
+                </v-col> -->
+                <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     solo
                     v-model="newQuestionnaireTemplateData.title"
                     label="标题"
                     hide-details
                   ></v-text-field>
-                </v-col> -->
+                </v-col>
                 <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     solo
@@ -305,9 +305,8 @@ export default {
       lang,
       baseUrl: window.Laravel.base_url,
       newQuestionnaireTemplateData : {
-          tempTitle : '',
+          title : '',
           description:'',
-          // viewList:[],
           tempType:1,
           content:[],
           schoolId:null,
@@ -402,6 +401,15 @@ export default {
       }
     },
     async submit(){
+      if(this.newQuestionnaireTemplateData.title.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.share + this.lang.requireTitle, color: 'error'})
+      }
+      if(this.newQuestionnaireTemplateData.description.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.share + this.lang.requireDescription, color: 'error'})
+      }
+      if(this.newQuestionnaireTemplateData.content.length == 0){
+          return this.$snackbar.showMessage({content: this.lang.share + this.lang.requireContent, color: 'error'})
+      }
       //console.log(this.newQuestionnaireTemplateData)
       this.isSubmit = true
       await createQuestionnaireTemp(this.newQuestionnaireTemplateData).then(res=>{

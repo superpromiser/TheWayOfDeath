@@ -280,10 +280,10 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/interClassStory', name:'posts.interClassStory', component:page('class/posts/interClassStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share', name:'posts.Cshare', component:page('class/posts/share/new.vue'),
     children:[
-      {path:'templateList',name:"share.CtemplateList", component:page('class/posts/share/templateList.vue')}
+      {path:'templateList',name:"Cshare.templateList", component:page('class/posts/share/templateList.vue')}
     ]
   },
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share/newTemplate',name:'share.CnewTemplate',component:page('class/posts/share/newTemplate.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share/newTemplate',name:'Cshare.newTemplate',component:page('class/posts/share/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.CregName',component:page('class/posts/regname/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.Cshare',component:page('class/posts/share/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement',name:'posts.Cannouncement',component:page('class/posts/announcement/new.vue')},

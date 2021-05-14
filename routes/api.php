@@ -149,11 +149,11 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('questionnaire', 'QuestionnaireController@updateQuestionnaire');
     Route::delete('questionnaire', 'QuestionnaireController@deleteQuestionnaire');
 
-    Route::get('questionnaireTemp', 'QuestionnaireTempController@getQuestionnaireTemp');
-    Route::post('questionnaireTemp', 'QuestionnaireTempController@createQuestionnaireTemp');
+    Route::get('questionnaireTemp', 'QuestionnaireTempController@getTempList');
+    Route::post('questionnaireTemp', 'QuestionnaireTempController@createTemplate');
     Route::put('questionnaireTemp', 'QuestionnaireTempController@updateQuestionnaireTemp');
-    Route::delete('questionnaireTemp', 'QuestionnaireTempController@deleteQuestionnaireTemp');
-    Route::get('questionnaireTempCnt', 'QuestionnaireTempController@getQuestionnaireTempCnt');
+    Route::delete('questionnaireTemp', 'QuestionnaireTempController@deleteTemp');
+    Route::get('questionnaireTempCnt', 'QuestionnaireTempController@getTempCnt');
     //voting
     Route::get('voting', 'VotingController@getVotingData');
     Route::post('voting', 'VotingController@createVotingData');

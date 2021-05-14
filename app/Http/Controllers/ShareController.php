@@ -56,15 +56,14 @@ class ShareController extends Controller
             'schoolId' => $request->schoolId,
             'classId' => $request->lessonId
         ])->id;
-        if( $request->publishType == 'pub' ) {
+        if ($request->publishType == 'pub') {
             Share::create([
                 'content' => $shareData,
                 'postId' => $postId,
                 'schoolId' => $request->schoolId,
                 'lessonId' => $request->lessonId,
             ]);
-        }
-        else if ($request->publishType == 'spec') {
+        } else if ($request->publishType == 'spec') {
             Share::create([
                 'content' => $shareData,
                 'postId' => $postId,
@@ -72,8 +71,7 @@ class ShareController extends Controller
                 'lessonId' => $request->lessonId,
                 'viewList' => $request->specUsers,
             ]);
-        } 
-        else if( $request->publishType == 'pvt' ) {
+        } else if ($request->publishType == 'pvt') {
             $pvtArr = array();
             array_push($pvtArr, $userId);
             Share::create([
@@ -96,8 +94,8 @@ class ShareController extends Controller
             'schoolId' => 'required',
         ]);
         $userId = Auth::user()->id;
-        $result['draftCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 2])->count();
-        $result['templateCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 1])->count();
+        $result['draftCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'tempType' => 2])->count();
+        $result['templateCnt'] = Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'tempType' => 1])->count();
         return $result;
     }
 
@@ -107,7 +105,7 @@ class ShareController extends Controller
             'schoolId' => 'required'
         ]);
         $userId = Auth::user()->id;
-        return Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId,])->get();
+        return Template::where(['contentId' => 23, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->get();
     }
 
     public function createTemp(Request $request)
@@ -121,16 +119,16 @@ class ShareController extends Controller
             'content' => $request->content,
             'schoolId' => $request->schoolId,
             'tempType' => $request->tempType,
-            'lessonId'=>$request->lessonId
+            'lessonId' => $request->lessonId
         ]);
         return true;
     }
 
     public function deleteTemp(Request $request)
     {
-        $this->validate($request,[
-            'id'=>'required'
+        $this->validate($request, [
+            'id' => 'required'
         ]);
-        return Template::where('id',$request->id)->delete();
+        return Template::where('id', $request->id)->delete();
     }
 }

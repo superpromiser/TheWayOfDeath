@@ -1045,7 +1045,7 @@ export default {
           draftData.lessonId = this.currentPath.params.lessonId
       }
       let currentTime = Date.now();
-      draftData.tempTitle = 'title-' + currentTime
+      draftData.title = 'title-' + currentTime
       draftData.description = 'description-' + currentTime
       console.log(draftData)
       if(this.newQuestionnaireData.content.length == 0){

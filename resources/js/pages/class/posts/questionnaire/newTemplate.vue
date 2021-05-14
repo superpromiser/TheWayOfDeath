@@ -1,55 +1,42 @@
 <template>
   <v-container class="pa-0">
       <div v-if="templateNew == true">
-        <v-banner class=" mb-10 z-index-2" color="white" sticky elevation="20">
-          <div class="d-flex align-center">
-              <v-avatar
-                  class="ma-3 ml-3"
-                  size="50"
-                  tile
-              >
-                  <v-img :src="`${baseUrl}/asset/img/icon/问卷 拷贝.png`" alt="postItem" ></v-img>
-              </v-avatar>
-              <h2>{{lang.questionnaire}}</h2>
-          </div>
-          <template v-slot:actions>
-            <!-- <v-btn
-                text
-                color="primary"
-                @click="selContent('template')"
-            >
-                可用模板 0， 草稿 0
-            </v-btn> -->
-            <v-btn
-                dark
-                color="#7879ff"
-                class="mr-md-8"
-                :loading="isSubmit"
-                @click="submit"
-            >
-                {{lang.submit}}
-            </v-btn>
-            <!-- <v-btn
-                dark
-                color="lighten-1"
-                class="mr-8"
-                :loading="isDraft"
-                @click="saveDraft"
-            >
-                {{lang.saveDraft}}
-            </v-btn> -->
-          </template>
-        </v-banner>
+        <div class="px-10 mb-10 z-index-2 banner-custom" color="white" sticky elevation="20">
+           <v-row>
+              <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                  <a @click="$router.go(-1)">
+                      <v-icon size="70" class=" left-24p">
+                          mdi-chevron-left
+                      </v-icon>
+                  </a>
+              </v-col>
+              <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                  <h2>{{lang.questionnaire}}模板</h2>
+              </v-col>
+              <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                  <v-btn
+                      tile
+                      dark
+                      color="#7879ff"
+                      class="mx-2"
+                      :loading="isSubmit"
+                      @click="submit"
+                  >
+                      {{lang.submit}}
+                  </v-btn>
+              </v-col>
+          </v-row>
+        </div>
         <v-container class="pa-10">
             <v-row>
-                <v-col cols="12" sm="6" md="4">
+                <!-- <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     solo
                     v-model="newQuestionnaireTemplateData.temTitle"
                     label="模板名称"
                     hide-details
                   ></v-text-field>
-                </v-col>
+                </v-col> -->
                 <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     solo
@@ -66,9 +53,9 @@
                     hide-details
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <!-- <v-col cols="12" sm="6" md="4">
                   <UploadImage @upImgUrl="upImgUrl" @clearedImg="clearedImg" :solo="true" uploadLabel="模板封面" />
-                </v-col>
+                </v-col> -->
             </v-row>
             <v-row>
                 <v-col cols="12" sm="6" md="4">
@@ -318,12 +305,12 @@ export default {
       lang,
       baseUrl: window.Laravel.base_url,
       newQuestionnaireTemplateData : {
-          temTitle : '',
-          imgUrl : '',
           title:'',
           description:'',
-          // viewList:[],
+          tempType:2,
           content:[],
+          schoolId:null,
+          lessonId:null
       },
       templateNew:true,
       selType:'',
@@ -356,6 +343,10 @@ export default {
       },
       deep:true
     }
+  },
+  created(){
+    this.newQuestionnaireTemplateData.schoolId = this.currentPath.params.schoolId
+    this.newQuestionnaireTemplateData.lessonId = this.currentPath.params.lessonId
   },
 
   methods:{
@@ -411,7 +402,15 @@ export default {
       }
     },
     async submit(){
-      //console.log(this.newQuestionnaireTemplateData)
+      if(this.newQuestionnaireTemplateData.title.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.share + this.lang.requireTitle, color: 'error'})
+      }
+      if(this.newQuestionnaireTemplateData.description.trim() == ''){
+          return this.$snackbar.showMessage({content: this.lang.share + this.lang.requireDescription, color: 'error'})
+      }
+      if(this.newQuestionnaireTemplateData.content.length == 0){
+          return this.$snackbar.showMessage({content: this.lang.share + this.lang.requireContent, color: 'error'})
+      }
       this.isSubmit = true
       await createQuestionnaireTemp(this.newQuestionnaireTemplateData).then(res=>{
         this.isSubmit = false

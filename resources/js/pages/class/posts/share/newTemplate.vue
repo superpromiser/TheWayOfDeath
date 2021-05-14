@@ -77,7 +77,7 @@ export default {
     },
     created(){
         this.templateData.schoolId = this.currentPath.params.schoolId
-        this.templateData = this.currentPath.params.lessonId
+        this.templateData.lessonId = this.currentPath.params.lessonId
     },
     methods:{
         loadContentData(data){
