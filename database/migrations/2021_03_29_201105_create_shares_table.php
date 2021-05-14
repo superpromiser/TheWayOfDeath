@@ -16,8 +16,7 @@ class CreateSharesTable extends Migration
         Schema::create('shares', function (Blueprint $table) {
             $table->id();
             $table->LONGTEXT('content');
-            $table->enum('publishType', ['pub', 'pvt', 'spec'])->default('pub');
-            $table->json('specUsers')->nullable();
+            $table->json('viewList')->nullable();
             $table->unsignedBigInteger('postId');
             $table->tinyInteger('schoolId');
             $table->tinyInteger('lessonId')->nullable();

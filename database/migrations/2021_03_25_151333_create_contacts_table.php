@@ -22,7 +22,7 @@ class CreateContactsTable extends Migration
             $table->foreign('contactUserId')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('roomId')->references('id')->on('chat_rooms')->onDelete('cascade');
             $table->unsignedBigInteger('new_msg_count')->default('0');
-            $table->string('last_message')->nullable();
+            $table->string('last_message',1000)->nullable();
             $table->char('last_time')->nullable();
             $table->unsignedBigInteger('last_sender')->nullable();
             $table->timestamps();

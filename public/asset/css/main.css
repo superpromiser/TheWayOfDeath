@@ -1698,3 +1698,9 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
     will-change: opacity;
     visibility: hidden;
 }
+
+.over-flow-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

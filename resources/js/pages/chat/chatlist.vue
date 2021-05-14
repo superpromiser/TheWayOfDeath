@@ -31,7 +31,7 @@
 
                                 <v-list-item-content>
                                     <v-list-item-title>{{group.room_id.roomName}}</v-list-item-title>
-                                    <v-list-item-subtitle>asdf</v-list-item-subtitle>
+                                    <v-list-item-subtitle></v-list-item-subtitle>
                                 </v-list-item-content>
                                 <div v-if="group.new_msg_count !== 0" class="mr-8">
                                     <v-badge
@@ -81,7 +81,7 @@
                                 
                                 <v-list-item-content>
                                     <v-list-item-title>{{user.user.name}}</v-list-item-title>
-                                    <v-list-item-subtitle>asdf</v-list-item-subtitle>
+                                    <v-list-item-subtitle></v-list-item-subtitle>
                                 </v-list-item-content>
                                 <div v-if="user.new_msg_count !== 0" class="mr-8">
                                     <v-badge

@@ -81,15 +81,17 @@
                             <v-list-item-content>
                                 <v-list-item-title class="d-flex justify-space-between">
                                     <p class="mb-0"> {{user.user.name}} </p>
-                                    <p class="mb-0" v-if="user.last_time !== null"> 
+                                    <p class="mb-0 font-size-0-8" v-if="user.last_time !== null"> 
                                         <timeago :datetime="convertTime(user.last_time)" :auto-update="60"></timeago>
                                         <!-- <timeago :datetime="convertTime(user.last_time)" locale="zhCN" :auto-update="60"></timeago>  -->
                                     </p>
                                     <p class="mb-0" v-else></p>
                                 </v-list-item-title>
                                 <v-list-item-subtitle class="d-flex justify-space-between line-height-1-7">
-                                    <p class="mb-0" v-if="user.last_message !== null" >{{user.last_message}}</p>
-                                    <p class="mb-0" v-else></p>
+                                    <p class="mb-0" v-if="user.last_message !== null&& user.last_message == 'sammie-image'" ><span class="d-flex align-center"><v-icon left>mdi-file-image-outline</v-icon>图片</span></p>
+                                    <p class="mb-0" v-else-if="user.last_message !== null&& user.last_message == 'sammie-video'"><span class="d-flex align-center"><v-icon left>mdi-file-video-outline</v-icon>视频</span></p>
+                                    <p class="mb-0" v-else-if="user.last_message !== null&& user.last_message == 'sammie-file'"><span  class="d-flex align-center"><v-icon left>mdi-file-upload-outline</v-icon>文档</span></p>   
+                                    <p class="mb-0 w-50 over-flow-text" v-else>{{user.last_message}}</p>
                                     <div v-if="user.new_msg_count !== 0" class="mr-8">
                                         <v-badge
                                             color="red"
@@ -99,23 +101,7 @@
                                     </div>
                                 </v-list-item-subtitle>
                             </v-list-item-content>
-                            <!-- <div class="mr-8">
-                                5 mins ago
-                                
-                            </div> -->
                         </v-list-item>
-                        <!-- <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
-                            <template v-slot:activator="{ attrs, on }">
-                                <v-icon class="position-absolute" v-bind="attrs" v-on="on" color="indigo" style="top: 10px; right: 10px;">
-                                    mdi-dots-horizontal-circle-outline
-                                </v-icon>
-                            </template>
-
-                            <v-list>
-                                <v-list-item @click="removeUserFromContactList(user.user)"><v-list-item-icon> <v-icon>mdi-trash-can-outline</v-icon> </v-list-item-icon> <v-list-item-title > 删除</v-list-item-title> </v-list-item>
-                            </v-list>
-                        </v-menu> -->
-
                         <v-divider inset v-if="index < filteredContacts.length - 1" ></v-divider>
                     </v-list>
                     <div class="v-overlay__scrim-cus" id="v-overlay__scrim-cus">

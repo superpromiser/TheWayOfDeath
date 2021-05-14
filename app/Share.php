@@ -9,6 +9,6 @@ class Share extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'specUsers' => 'array',
+        'viewList' => 'array',
     ];
 }
