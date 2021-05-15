@@ -54,7 +54,7 @@
       </v-col>
       <v-row class="ma-0">
         <v-col cols="12" class="py-2" >
-          <carousel v-if="isSchoolSpace" :key="bannerKey" class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplay="true" :autoplaySpeed="1500">
+          <carousel v-if="isSchoolSpace == true" :key="bannerKey" class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplay="true" :autoplaySpeed="1500">
             <img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img"  @click="showDetailSchoolStory(story)" />
           </carousel>
           <carousel v-else class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true" :autoplay="true" :autoplaySpeed="1500">
@@ -198,14 +198,14 @@
       }">
         <v-row class="ma-0" v-for="(story, index) in bodyStoryList" :key="index" @click="showDetailClassStory(story)">
           <v-col cols="7" class="pl-0 d-flex align-start flex-column">
-            <p class="mb-auto font-weight-bold">{{story.classstory.content.text}}</p>
+            <p class="mb-auto font-weight-bold d-inline-block text-truncate w-100">{{story.classstory.content.text}}</p>
             <div class="d-flex align-center justify-space-between w-100">
               <p class="mb-0">{{TimeViewYMD(story.created_at)}}</p>
               <p class="mb-0">{{story.users.name}}</p>
             </div>
           </v-col>
           <v-col cols="5" class="pr-0">
-            <v-img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" height="100"></v-img>
+            <v-img :src="`${baseUrl}${story.classstory.content.imgUrl[0].path}`" height="100"></v-img>
           </v-col>
           <div v-if="index < bodyStoryList.length - 1 " class="cus-divider-light-gray-height"></div>
         </v-row>
@@ -214,8 +214,8 @@
     </v-container>
 
     <v-container v-else class="">
-      <v-row v-if="user.roleId == 1">
-        <v-col v-for="(schoolItem, i) in schoolList" :key="i" cols="12" md="4" sm="6" class="hover-cursor-point" @click="goNewsOfSchool(schoolItem.id)">
+      <v-row v-for="(schoolItem, i) in mySchoolList" :key="i" class="ma-0 pa-0">
+        <v-col cols="12" class="hover-cursor-point" @click="goNewsOfSchool(schoolItem.id)">
           <v-card>
             <v-img :src="`${baseUrl}${schoolItem.imgUrl}`" alt="school" class="school-card-img"></v-img>
             <v-card-title>{{schoolItem.schoolName}}</v-card-title>
@@ -232,21 +232,15 @@
             </v-card-text>
           </v-card>
         </v-col>
-      </v-row>
-      <v-row v-else-if="user.roleId == 2">
-        <v-col v-for="(lesson, i) in mySchoolLessonData" :key="i" cols="12" md="4" sm="6" class="hover-cursor-point" @click="goNewsOfClass(lesson)">
-          <v-card>
-            <v-img :src="`${baseUrl}${lesson.imgUrl}`" alt="school" class="school-card-img"></v-img>
-            <v-card-title>{{lesson.lessonName}} - {{lesson.gradeName}}</v-card-title>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row v-else>
-        <v-col cols="12" md="4" sm="6" @click="goNewsOfClass(myLessonData)" class="hover-cursor-point">
-          <v-card>
-            <v-img :src="`${baseUrl}${myLessonData.imgUrl}`" alt="school" class="school-card-img"></v-img>
-            <v-card-title>{{myLessonData.lessonName}} - {{myLessonData.gradeName}}</v-card-title>
-          </v-card>
+        <v-col class="ma-0 pa-0" cols="12" >
+          <v-row class="ma-0" v-for="(grade, k) in schoolItem.grades" :key="k">
+            <v-col v-for="(lesson, j) in grade.lessons" :key="j" cols="12" md="4" sm="6" class="hover-cursor-point" @click="goNewsOfClass(lesson)">
+              <v-card>
+                <v-img :src="`${baseUrl}${lesson.imgUrl}`" alt="school" class="class-card-img"></v-img>
+                <v-card-title>{{lesson.lessonName}} - {{grade.gradeName}}</v-card-title>
+              </v-card>
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -659,6 +653,9 @@ export default {
         path:"repair"
       },
     ],
+
+
+    mySchoolList:[],
   }),
 
   watch:{
@@ -701,23 +698,44 @@ export default {
       this.schoolSpaceItems = this.studentSchoolItems;
       this.classSpaceItems = this.studentClassItems;
     }
-    if(this.$isMobile() && this.schoolStoryList == null){
-      let obj = {
-        schoolId: this.user.schoolId,
-        lessonId: this.user.lessonId
+    if(this.$isMobile()){
+      if(this.schoolStoryList == null){
+        let obj = {
+          schoolId: this.user.schoolId,
+          lessonId: this.user.lessonId
+        }
+        await getSchoolStoryMo(obj)
+        .then((res) => {
+          res.data.schoolStory.map(item=>{
+            item.schoolstory.content = JSON.parse(item.schoolstory.content);
+          });
+          res.data.classStory.map(item=>{
+            item.classstory.content = JSON.parse(item.classstory.content);
+          });
+          this.$store.dispatch('mo/onSchoolStoryList', res.data.schoolStory);
+          this.$store.dispatch('mo/onClassStoryList', res.data.classStory);
+          this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.schoolStoryList))
+          if(this.selectedStoryGroup.length < 6 ){
+            this.bannerStoryList = this.selectedStoryGroup;
+            this.bodyStoryList = [];
+            this.bannerKey++;
+          }
+          else{
+            this.bannerStoryList = this.selectedStoryGroup.splice(0, 5);
+            this.bodyStoryList = this.selectedStoryGroup;
+            this.bannerKey++;
+          }
+        }).catch((err) => {
+          
+        });
       }
-      await getSchoolStoryMo(obj)
-      .then((res) => {
-        res.data.schoolStory.map(item=>{
-          item.schoolstory.content = JSON.parse(item.schoolstory.content);
-        });
-        res.data.classStory.map(item=>{
-          item.classstory.content = JSON.parse(item.classstory.content);
-        });
-        this.$store.dispatch('mo/onSchoolStoryList', res.data.schoolStory);
-        this.$store.dispatch('mo/onClassStoryList', res.data.classStory);
-        this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.schoolStoryList))
-        console.log("this.selectedStoryGroup", this.selectedStoryGroup);
+      else{
+        if(this.isSchoolSpace){
+          this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.schoolStoryList))
+        }
+        else{
+          this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.classStoryList))
+        }
         if(this.selectedStoryGroup.length < 6 ){
           this.bannerStoryList = this.selectedStoryGroup;
           this.bodyStoryList = [];
@@ -728,77 +746,59 @@ export default {
           this.bodyStoryList = this.selectedStoryGroup;
           this.bannerKey++;
         }
-        console.log("!!!!!!!!!!!!!!!!!!!,this.bannerStoryList", this.bannerStoryList);
-      }).catch((err) => {
+      }
+      if(this.selectedItemSchoolGroupStore !== null || this.selectedItemClassGroupStore !== null){
+        if(this.selectedSchoolItem.type == "school"){
+          this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
+          this.selectedItemGroup = this.selectedItemGroupForSchoolDiaStore;
+        }
+        else{
+          this.chooseableItemGroup = this.selectedItemClassGroupStore;
+          this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
+        }
+      }
+      else{
+        this.isLoadingPostItems = true;
+        await getPostItem()
+        .then((res) => {
+          let schoolArr = JSON.parse(res.data.schoolItem);
+          let classArr = JSON.parse(res.data.classItem);
+          this.selectedItemGroupForSchoolDia = schoolArr;
+          this.selectedItemGroupForClassDia = classArr;
+          this.$store.dispatch('mo/onSelectedItemGroupForSchoolDiaStore', this.selectedItemGroupForSchoolDia);
+          this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroupForClassDia);
+          schoolArr.map(y=>{
+            this.schoolSpaceItems.map(x=>{
+              if(x.title == y){
+                this.selectedItemSchoolGroup.push(x)
+              }
+            })
+          })
+          classArr.map(y=>{
+            this.classSpaceItems.map(x=>{
+              if(x.title == y){
+                this.selectedItemClassGroup.push(x)
+              }
+            })
+          })
+        }).catch((err) => {
+          
+        });
         
-      });
-    }
-    else if(this.$isMobile()){
-      if(this.isSchoolSpace){
-        this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.schoolStoryList))
-      }
-      else{
-        this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.classStoryList))
-      }
-      if(this.selectedStoryGroup.length < 6 ){
-        this.bannerStoryList = this.selectedStoryGroup;
-        this.bodyStoryList = [];
-        this.bannerKey++;
-      }
-      else{
-        this.bannerStoryList = this.selectedStoryGroup.splice(0, 5);
-        this.bodyStoryList = this.selectedStoryGroup;
-        this.bannerKey++;
-      }
-    }
-    if(this.selectedItemSchoolGroupStore !== null || this.selectedItemClassGroupStore !== null){
-      if(this.selectedSchoolItem.type == "school"){
+        this.$store.dispatch('mo/onSelectedItemSchoolGroupStore', this.selectedItemSchoolGroup);
+        this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.selectedItemClassGroup);
+        // if(this.selectedItemSchoolGroupStore == null && this.selectedItemClassGroupStore == null){
+        // }
         this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
-        this.selectedItemGroup = this.selectedItemGroupForSchoolDiaStore;
+  
+        this.isLoadingPostItems = false;
+  
+        this.selectedItemGroup = this.selectedItemGroupForSchoolDia;
       }
-      else{
-        this.chooseableItemGroup = this.selectedItemClassGroupStore;
-        this.selectedItemGroup = this.selectedItemGroupForClassDiaStore;
-      }
-    }
-    else{
-      this.isLoadingPostItems = true;
-      await getPostItem()
-      .then((res) => {
-        let schoolArr = JSON.parse(res.data.schoolItem);
-        let classArr = JSON.parse(res.data.classItem);
-        this.selectedItemGroupForSchoolDia = schoolArr;
-        this.selectedItemGroupForClassDia = classArr;
-        this.$store.dispatch('mo/onSelectedItemGroupForSchoolDiaStore', this.selectedItemGroupForSchoolDia);
-        this.$store.dispatch('mo/onSelectedItemGroupForClassDiaStore', this.selectedItemGroupForClassDia);
-        schoolArr.map(y=>{
-          this.schoolSpaceItems.map(x=>{
-            if(x.title == y){
-              this.selectedItemSchoolGroup.push(x)
-            }
-          })
-        })
-        classArr.map(y=>{
-          this.classSpaceItems.map(x=>{
-            if(x.title == y){
-              this.selectedItemClassGroup.push(x)
-            }
-          })
-        })
-      }).catch((err) => {
-        
-      });
-      
-      this.$store.dispatch('mo/onSelectedItemSchoolGroupStore', this.selectedItemSchoolGroup);
-      this.$store.dispatch('mo/onSelectedItemClassGroupStore', this.selectedItemClassGroup);
-      // if(this.selectedItemSchoolGroupStore == null && this.selectedItemClassGroupStore == null){
-      // }
-      this.chooseableItemGroup = this.selectedItemSchoolGroupStore;
 
-      this.isLoadingPostItems = false;
-
-      this.selectedItemGroup = this.selectedItemGroupForSchoolDia;
     }
+
+    console.log("this.schoolTree", this.schoolTree);
     if(this.user.roleId == 1){
       this.schoolList = this.schoolTree;
       this.schoolTree.map((school, schoolIndex)=>{
@@ -835,6 +835,7 @@ export default {
             this.schoolListDropdownItem.push(dividerObj);
         } )
       })
+      console.log("@@@@@@@@@@@@@@@@@@@@@@@@this.schoolListDropdownItem",this.schoolListDropdownItem);
     }
     else if (this.user.roleId == 2){
       let myschoolData = {}
@@ -870,6 +871,21 @@ export default {
         })
       })
     }
+    else if(this.user.roleId == 6){
+      let myschoolData = {}
+      this.schoolTree.map((x, schoolIndex)=>{
+        if(this.user.schoolId == x.id){
+          myschoolData = x;
+          let schoolObj = {
+            label : x.schoolName,
+            schoolId : x.id,
+            type : "school",
+            value : 's'+schoolIndex
+          }
+          this.schoolListDropdownItem.push(schoolObj)
+        }
+      })
+    }
     else{
       let myschoolData = {}
       this.schoolTree.map((school, schoolIndex)=>{
@@ -902,6 +918,59 @@ export default {
       }
       this.schoolListDropdownItem.push(lessonObj)
     }
+
+    if(this.user.roleId == 1){
+      this.mySchoolList = this.schoolData
+    }else if(this.user.roleId == 2){
+      this.schoolData.map(schoolItem=>{
+        if(this.user.schoolId == schoolItem.id){
+          this.mySchoolList.push(schoolItem)
+        }
+      })
+    }else if(this.user.roleId == 6){
+      let myschoolData = {}
+      this.schoolData.map(schoolItem=>{
+        if(this.user.schoolId == schoolItem.id){
+          myschoolData = schoolItem
+        }
+      })
+      console.log("myschoolData-------",myschoolData)
+      myschoolData.grades = [] 
+      this.mySchoolList.push(myschoolData)
+    }
+    else{
+      let myschoolData = {}
+      this.schoolData.map(schoolItem=>{
+        if(this.user.schoolId == schoolItem.id){
+          myschoolData = schoolItem
+        }
+      })
+      let clonedVal1 = JSON.parse(JSON.stringify(myschoolData))
+      let clonedVal2 = JSON.parse(JSON.stringify(myschoolData))
+      clonedVal1.grades = []
+      clonedVal2.grades.map(grade=>{
+        grade.lessons.map(lesson=>{
+          this.user.groupArr.map(groupId=>{
+            if(lesson.id == groupId){
+              console.log('^^^^^^^',lesson)
+              let index = clonedVal1.grades.indexOf(grade)
+              if(index > -1){
+                clonedVal1.grades[index].lessons.push(lesson)
+              }
+              else{
+                clonedVal1.grades.push(grade)
+                let gindex = clonedVal1.grades.indexOf(grade)
+                clonedVal1.grades[gindex].lessons = []
+                clonedVal1.grades[gindex].lessons.push(lesson)
+              }
+            }
+          })
+        })
+      })
+      this.mySchoolList.push(clonedVal1)
+    }
+    console.log("#########", "this.mySchoolList", this.mySchoolList);
+
     if(this.selectedSchoolItem == null){
       this.selectedItem = this.schoolListDropdownItem[0];
       this.$store.dispatch('mo/onSelectedSchoolItem', this.selectedItem);

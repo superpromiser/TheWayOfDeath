@@ -56,7 +56,7 @@ a {
 }
 
 .logo-img {
-    width: 150px;
+    width: 53px;
 }
 .w-50 {
     width: 50%;
@@ -90,6 +90,10 @@ a {
 }
 
 .school-card-img {
+    height: 460px;
+}
+
+.class-card-img {
     height: 270px;
 }
 
