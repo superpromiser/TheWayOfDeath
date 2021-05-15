@@ -13,4 +13,8 @@ class Anouncement extends Model
     {
         return $this->belongsTo(User::class, 'userId');
     }
+    protected $casts = [
+        'viewList' => 'array',
+        'showList' => 'array',
+    ];
 }

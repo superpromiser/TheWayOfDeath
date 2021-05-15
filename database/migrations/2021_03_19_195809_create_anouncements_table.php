@@ -17,7 +17,8 @@ class CreateAnouncementsTable extends Migration
             $table->id();
             $table->char('title');
             $table->char('signName');
-            $table->json('viewList');
+            $table->json('viewList')->nullable();
+            $table->json('showList')->nullable();
             $table->boolean('scopeFlag');
             $table->LONGTEXT('content');
             $table->tinyInteger('schoolId');

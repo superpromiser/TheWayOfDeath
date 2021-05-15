@@ -32,6 +32,14 @@ function deleteTemplate(payload){
     return axios.delete('/api/v1/anouncement/template',{data:payload})
 }
 
+function getSchoolUsers(payload){
+    return axios.get('/api/v1/schoolUsers',{params:payload})
+}
+
+function getLessonUsers(payload){
+    return axios.get('/api/v1/lessonUsers',{params:payload})
+}
+
 export{
     getAnouncement,
     createAnouncement,
@@ -41,4 +49,6 @@ export{
     getTemplateList,
     createTemplate,
     deleteTemplate,
+    getSchoolUsers,
+    getLessonUsers,
 }
