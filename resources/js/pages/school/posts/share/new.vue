@@ -266,6 +266,14 @@ export default {
             if(this.shareData.content.length == 0){
                 return this.$snackbar.showMessage({content: this.lang.share+this.lang.requireContent, color: "error"})
             }
+            if(this.shareData.publishType == 'spec'){
+                if(this.$isMobile()){
+                    this.$set(this.shareData, 'specUsers', this.publishSpecUserList);
+                }
+                else{
+                    
+                }
+            }
             this.isSubmit = true
             await createShare(this.shareData).then(res=>{
                 if(this.$isMobile()){
@@ -291,6 +299,7 @@ export default {
             }
             this.shareData.content.push(data)
         },
+
 
         selectPublishType( val ){
             console.log(val);
