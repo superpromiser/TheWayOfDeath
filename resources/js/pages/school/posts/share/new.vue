@@ -83,7 +83,7 @@
             <v-container class="pa-10">
                 <QuestionItem Label="分享内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
-            <v-row>
+            <v-row class="px-10">
                 <v-col cols="8" md="10"></v-col>
                 <v-col cols="4" class="justify-end" md="2">
                     <v-select
@@ -95,21 +95,17 @@
                     ></v-select>
                 </v-col>
             </v-row>
-            <div v-if="viewType == 'some'">
+            <!-- <div v-if="shareData.publishType == 'spec'" class="px-10">
                 <v-row v-for="user in userList" :key="user.id" class=" ma-0">
                     <v-col class="d-flex justify-space-between align-center" cols="12">
                         <v-checkbox
-                            v-model="user.checkbox"
+                            v-model="user.isChecked"
                             :label="user.name"
                         ></v-checkbox>
-                        <!-- <span class="pl-2">
-                            {{idx + 1}}.
-                            {{user.name}}
-                        </span> -->
                     </v-col>
                     <v-divider class="thick-border"></v-divider>
                 </v-row>
-            </div>
+            </div> -->
         </div>
         <div v-else>
             <router-view></router-view>
@@ -144,7 +140,6 @@ export default {
                     videoUrl:[]
                 },
             ],
-            viewList:[],
             publishType: 'pub'
         },
         isSuccessed:false,
@@ -158,15 +153,15 @@ export default {
         viewList:[
             {
                 label:'公开',
-                value:'all'
+                value:'pub'
             },
             {
                 label:'私密',
-                value:'me'
+                value:'pvt'
             },
             {
                 label:'部分可见',
-                value:'some'
+                value:'spec'
             },
         ],
         userList:[]
@@ -181,6 +176,7 @@ export default {
             backWithoutSelect: 'mo/backWithoutSelect',
             backWithChange: 'mo/backWithChange',
             clickedChange: 'mo/clickedChange',
+            specUsers:'member/specUsers',
         }),
     },
     watch:{
@@ -270,7 +266,7 @@ export default {
                     this.$set(this.shareData, 'specUsers', this.publishSpecUserList);
                 }
                 else{
-                    
+                    this.$set(this.shareData, 'specUsers', this.specUsers);
                 }
             }
             this.isSubmit = true
@@ -335,7 +331,11 @@ export default {
             this.$router.go(-1);
         },
         selViewList(){
-            console.log(this.viewType)
+            // console.log(this.viewType)
+            if(this.shareData.publishType == 'spec'){
+                this.isPosting = false
+                this.$router.push({name:'share.contacts'})
+            }
         }
     }
 }

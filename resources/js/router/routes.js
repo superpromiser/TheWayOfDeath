@@ -126,7 +126,7 @@ export default [
       {path:'safeStudy', name:'details.safeStudy', component:page('details/safeStudy/index.vue')},
       {path:'repair', name:'details.schoolRepair', component:page('details/repair/index.vue')},
       {path:'schoolStory', name:'details.schoolStory', component:page('details/schoolStory/index.vue')},
-      {path:'default',name:'details.schoolDefault',component:page('details/default/index.vue')}
+      {path:'default',name:'details.schoolDefault',component:page('details/default/index.vue')},
     ]
   },
   
@@ -167,7 +167,8 @@ export default [
   {path:'/schoolSpace/:schoolId/post/announcement/newTemplate',name:'anouncement.newTemplate',component:page('school/posts/announcement/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/share', name:'posts.share', component:page('school/posts/share/new.vue'),
     children:[
-      {path:'templateList',name:"share.templateList", component:page('school/posts/share/templateList.vue')}
+      {path:'templateList',name:"share.templateList", component:page('school/posts/share/templateList.vue')},
+      {path:'contacts',name:"share.contacts",component:page('school/contacts.vue')}
     ]
   },
   {path:'/schoolSpace/:schoolId/post/share/newTemplate',name:'share.newTemplate',component:page('school/posts/share/newTemplate.vue')},
@@ -204,6 +205,7 @@ export default [
     ]
   },
   {path:'/schoolSpace/:schoolId/post/schoolStory/newTemplate',name:'schoolStory.newTemplate',component:page('school/posts/schoolStory/newTemplate.vue')},
+  {path:'/schoolSpace/:schoolId/post/contacts',name:"schoolSpace.contacts",component:page('school/contacts.vue')},
   
   {path:'/schoolSpace/:schoolId/post/addComment', name:'posts.comment', component:page('school/posts/comments/addComment.vue')},
 

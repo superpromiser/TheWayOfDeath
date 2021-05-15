@@ -76,6 +76,13 @@ function getUserListExcel() {
     return axios.get('/api/v1/users/excel/import')
 }
 
+function getSchoolUsers(payload){
+    return axios.get('/api/v1/schoolUsers',{params:payload})
+}
+
+function getLessonUsers(payload){
+    return axios.get('/api/v1/lessonUsers',{params:payload})
+}
 
 export{
     createStaff,
@@ -98,5 +105,6 @@ export{
     getEmployeeList,
     getMyFile,
     getUserListExcel,
-
+    getSchoolUsers,
+    getLessonUsers,
 }
