@@ -1486,11 +1486,11 @@ a {
     box-shadow: none !important;
 }
 .publish-type-menu {
-    top: calc(100vh - 222px) !important;
+    top: calc(100vh - 212px) !important;
     background: #e0e0e0;
 }
 .publish-type-menu-with-btn {
-    top: calc(100vh - 252px) !important;
+    top: calc(100vh - 242px) !important;
     background: #e0e0e0;
 }
 .opened-setting-pell {
