@@ -106,7 +106,7 @@
                                             <v-list-item-title v-text="lang.addOption"></v-list-item-title>
                                         </v-list-item-content>
                                     </v-list-item>
-                                    <v-list-item v-if="newSignFlag">
+                                    <v-list-item v-if="newSignFlag" class="text-right">
                                         <v-text-field
                                             v-model="newSignName"
                                             solo
@@ -142,7 +142,7 @@
                         </v-card>
                     </v-dialog>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <!-- <v-col cols="12" sm="6" md="4">
                     <v-select
                         solo
                         multiple
@@ -155,7 +155,7 @@
                         label="展示范围"
                         hide-details
                     ></v-select>
-                </v-col>
+                </v-col> -->
                 <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
                     <span>签名反馈</span>
                     <v-switch
@@ -170,17 +170,35 @@
                     <QuestionItem Label="分享内容" :emoji="true" :item="announcementData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
                 </v-col>
             </v-row>
-            
+            <v-row>
+                <v-col cols="8" md="10"></v-col>
+                <v-col cols="4" class="justify-end" md="2">
+                    <v-select
+                        :items='viewList'
+                        item-text="label"
+                        item-value="value"
+                        v-model="viewType"
+                        @change="selViewList"
+                    ></v-select>
+                </v-col>
+            </v-row>
+            <div v-if="viewType == 'spec'">
+                <v-row v-for="user in userList" :key="user.id" class=" ma-0">
+                    <v-col class="d-flex justify-space-between align-center" cols="12">
+                        <v-checkbox
+                            v-model="user.isChecked"
+                            :label="user.name"
+                        ></v-checkbox>
+                        <!-- <span class="pl-2">
+                            {{idx + 1}}.
+                            {{user.name}}
+                        </span> -->
+                    </v-col>
+                    <v-divider class="thick-border"></v-divider>
+                </v-row>
+            </div>
         </v-container>
-        <v-snackbar
-            timeout="3000"
-            v-model="requiredText"
-            color="error"
-            absolute
-            top
-            >
-            {{lang.requiredText}}
-        </v-snackbar>
+        
     </v-container>
 </template>
 
@@ -192,7 +210,7 @@ import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
 
 
-import {createAnouncement} from '~/api/anouncement'
+import {createAnouncement,getLessonUsers} from '~/api/anouncement'
 
 export default {
     middleware:['post','auth'],
@@ -220,7 +238,7 @@ export default {
         announcementData:{
             title:'',
             signName:'',
-            viewList:[],
+            showList:[],
             scopeFlag:false,
             content:[],
             schoolId:null,
@@ -229,7 +247,23 @@ export default {
         newSignFlag:false,
         newSignName:'',
         isCreating:false,
-        isDraft:false
+        isDraft:false,
+        viewList:[
+            {
+                label:'公开',
+                value:'pub'
+            },
+            {
+                label:'私密',
+                value:'prv'
+            },
+            {
+                label:'部分可见',
+                value:'spec'
+            },
+        ],
+        viewType:'pub',
+        userList:[],
     }),
 
     computed: {
@@ -244,6 +278,13 @@ export default {
     created() {
         this.announcementData.schoolId = this.currentPath.params.schoolId
         this.announcementData.lessonId = this.currentPath.params.lessonId
+        getLessonUsers({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+            res.data.map(data=>{
+                this.$set(data,'isChecked',false)
+            })
+            this.userList = res.data
+            console.log(this.userList)
+        })
     },
 
     methods: {
@@ -273,15 +314,31 @@ export default {
 
         async publishcampusData(){
             this.$refs.child.emitData()
+            if(this.viewType == 'pub'){
+                this.announcementData.showList = null
+            }else if(this.viewType == 'prv'){
+                this.announcementData.showList = []
+                this.announcementData.showList.push(this.user.id)
+            }else{
+                this.announcementData.showList = []
+                this.userList.map(user=>{
+                    if(user.isChecked == true){
+                        this.announcementData.showList.push(user.id)
+                    }
+                })
+            }
+            
+            // console.log(this.announcementData)
+            // return
             if(this.announcementData.content.length == 0){
                     return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireContent, color: "error"})
                 }
             if(this.announcementData.title.trim() == ''){
                     return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireTitle, color: "error"})
             }
-            if(this.announcementData.viewList.length == 0){
-                    return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireMember, color: "error"})
-            }
+            // if(this.announcementData.viewList.length == 0){
+            //         return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireMember, color: "error"})
+            // }
             this.isCreating = true
             //console.log("announcementData", this.announcementData);
             await createAnouncement(this.announcementData).then(res=>{
@@ -316,6 +373,9 @@ export default {
                 text:this.newSignName
             })
             //console.log(this.signNameItems)
+        },
+        selViewList(){
+            console.log(this.viewType)
         }
     }
 }

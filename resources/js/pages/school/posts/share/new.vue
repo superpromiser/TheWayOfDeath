@@ -199,6 +199,7 @@
                             dark
                             tile
                             color="#F19861"
+                            class="mx-2"
                             :loading="isDraft"
                             @click="saveDraft"
                         >
@@ -209,7 +210,7 @@
                             dark
                             tile
                             color="#7879ff"
-                            class="mx-2"
+                            
                             :loading="isSubmit"
                             @click="submit"
                         >
@@ -222,24 +223,25 @@
             <v-container class="pa-10">
                 <QuestionItem Label="分享内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
-            <v-row>
+            <v-row class="px-10">
                 <v-col cols="8" md="10"></v-col>
                 <v-col cols="4" class="justify-end" md="2">
                     <v-select
                         :items='viewList'
                         item-text="label"
                         item-value="value"
-                        v-model="viewType"
+                        v-model="shareData.publishType"
                         @change="selViewList"
                     ></v-select>
                 </v-col>
             </v-row>
-            <div v-if="viewType == 'some'">
+            <div class="px-10" v-if="shareData.publishType == 'spec'">
                 <v-row v-for="user in userList" :key="user.id" class=" ma-0">
                     <v-col class="d-flex justify-space-between align-center" cols="12">
                         <v-checkbox
-                            v-model="user.checkbox"
+                            v-model="user.isChecked"
                             :label="user.name"
+                            hide-details
                         ></v-checkbox>
                         <!-- <span class="pl-2">
                             {{idx + 1}}.
@@ -260,7 +262,7 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import { mapGetters } from 'vuex'
-import {createShare,getTemplateCnt,createTemp,getSchoolUsers} from '~/api/share'
+import {createShare,getTemplateCnt,createTemp,getSchoolUsers,getLessonUsers} from '~/api/share'
 import quickMenu from '~/components/quickMenu'
 
 //mo
@@ -336,18 +338,17 @@ export default {
         viewList:[
             {
                 label:'公开',
-                value:'all'
+                value:'pub'
             },
             {
                 label:'私密',
-                value:'me'
+                value:'pvt'
             },
             {
                 label:'部分可见',
-                value:'some'
+                value:'spec'
             },
         ],
-        viewType:'all',
         userList:[]
     }),
     computed:{
@@ -403,6 +404,15 @@ export default {
             this.userList = res.data
             console.log("this.userList",this.userList)
         })
+        // getLessonUsers({schoolId:1,lessonId:1}).then(res=>{
+        //     console.log("------------",res.data)
+        //      res.data.map(data=>{
+        //         this.$set(data,'isChecked',false)
+        //     })
+        //     this.userList = res.data
+        // }).catch(err=>{
+        //     console.log(err.response)
+        // })
     },
     methods:{
         async saveDraft(){
@@ -457,14 +467,23 @@ export default {
                     this.$store.dispatch('mo/onBackWithChange', false);
                     this.$router.push({name:'home'})
                 }).catch(err=>{
+                    console.log(err.response)
                 })
                 this.isSubmit = false
             }
             else{
-                this.$refs.child.emitData()
+                // this.$refs.child.emitData()
                 if(this.shareData.content.length == 0){
                     return this.$snackbar.showMessage({content: this.lang.share+this.lang.requireContent, color: "error"})
                 }
+                console.log(this.userList)
+                this.userList.map(user=>{
+                    if(user.isChecked == true){
+                        this.shareData.viewList.push(user.id)
+                    }
+                })
+                console.log(this.shareData)
+                return
                 this.isSubmit = true
                 await createShare(this.shareData).then(res=>{
                     this.$router.push({name:'schoolSpace.news'})
@@ -481,11 +500,7 @@ export default {
             }
             this.shareData.content.push(data)
         },
-        something(){
-
-        },
-
-
+    
         //Emoji
         showEmoji(emoji) {
             this.emojisOutput = this.emojisOutput + emoji.native;
@@ -676,7 +691,7 @@ export default {
             this.$router.go(-1);
         },
         selViewList(){
-            console.log(this.viewType)
+           
         }
     }
 }

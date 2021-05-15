@@ -35,7 +35,6 @@ class AnouncementController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'signName' => 'required',
-            'viewList' => 'required',
             'scopeFlag' => 'required',
             'content' => 'required'
         ]);
@@ -50,7 +49,7 @@ class AnouncementController extends Controller
         return Anouncement::create([
             'title' => $request->title,
             'signName' => $request->signName,
-            'viewList' => json_encode($request->viewList),
+            'showList' => $request->showList,
             'scopeFlag' => $request->scopeFlag,
             'content' => json_encode($request->content),
             'schoolId' => $request->schoolId,
