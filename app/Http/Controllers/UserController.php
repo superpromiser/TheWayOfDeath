@@ -432,13 +432,13 @@ class UserController extends Controller
     public function getSchoolUsers(Request $request)
     {
         $schoolId = $request->schoolId;
-        return User::select('id', 'name', 'avatar')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
+        return User::select('id', 'name', 'avatar', 'gender', 'phoneNumber')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
     }
 
     public function getLessonUsers(Request $request)
     {
         $lessonId = $request->lessonId;
-        return User::select('id', 'name', 'avatar')->where('groupArr', 'like', "%{$lessonId}%")->where(['roleId' => 5])->get();
+        return User::select('id', 'name', 'avatar', 'gender', 'phoneNumber')->where('groupArr', 'like', "%{$lessonId}%")->where(['roleId' => 5])->get();
     }
 
     public function getUserByRole(Request $request)

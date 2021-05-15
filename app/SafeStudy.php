@@ -8,4 +8,7 @@ class SafeStudy extends Model
 {
     //
     protected $guarded = [];
+    protected $casts = [
+        'viewList' => 'array',
+    ];
 }

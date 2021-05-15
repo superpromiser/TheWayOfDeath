@@ -42,13 +42,45 @@ class SafeStudyController extends Controller
             'schoolId' => $request->schoolId,
             'classId' => $request->lessonId
         ])->id;
-        return SafeStudy::create([
-            'content' => $shareData,
-            'postId' => $postId,
-            'userId' => $userId,
-            'schoolId' => $request->schoolId,
-            'lessonId' => $request->lessonId
-        ]);
+        // return SafeStudy::create([
+        //     'content' => $shareData,
+        //     'postId' => $postId,
+        //     'userId' => $userId,
+        //     'schoolId' => $request->schoolId,
+        //     'lessonId' => $request->lessonId
+        // ]);
+        if ($request->publishType == 'pub') {
+            SafeStudy::create([
+                'content' => $shareData,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
+                'userId' => $userId,
+            ]);
+        } else if ($request->publishType == 'spec') {
+            SafeStudy::create([
+                'content' => $shareData,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
+                'viewList' => $request->viewList,
+                'userId' => $userId,
+            ]);
+        } else if ($request->publishType == 'pvt') {
+            $pvtArr = array();
+            array_push($pvtArr, $userId);
+            SafeStudy::create([
+                'content' => $shareData,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
+                'viewList' => $pvtArr,
+                'userId' => $userId,
+            ]);
+        }
+        return response()->json([
+            'msg' => 'ok'
+        ], 200);
     }
 
     public function updateSafeStudy(Request $request)

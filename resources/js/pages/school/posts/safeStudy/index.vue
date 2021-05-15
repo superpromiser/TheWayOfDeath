@@ -84,6 +84,32 @@
             <v-container class="pa-10">
                 <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" ref="child" :item="shareData.content[0]" @contentData="loadContentData"></QuestionItem>
             </v-container>
+            <v-row class="px-10">
+                <v-col cols="8" md="10"></v-col>
+                <v-col cols="4" class="justify-end" md="2">
+                    <v-select
+                        :items='viewList'
+                        item-text="label"
+                        item-value="value"
+                        v-model="shareData.publishType"
+                    ></v-select>
+                </v-col>
+            </v-row>
+            <div v-if="shareData.publishType == 'spec'" class="px-10">
+                <v-row v-for="user in userList" :key="user.id" class=" ma-0">
+                    <v-col class="d-flex justify-space-between align-center" cols="12">
+                        <v-checkbox
+                            v-model="user.isChecked"
+                            :label="user.name"
+                        ></v-checkbox>
+                        <!-- <span class="pl-2">
+                            {{idx + 1}}.
+                            {{user.name}}
+                        </span> -->
+                    </v-col>
+                    <v-divider class="thick-border"></v-divider>
+                </v-row>
+            </div>
         </div>
         <div v-else>
             <router-view></router-view>
@@ -95,6 +121,7 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {createSafeStudy,getTemplateCnt,createTemplate} from '~/api/safeStudy'
+import {getSchoolUsers} from '~/api/user'
 import quickMenu from '~/components/quickMenu'
 export default {
     components:{
@@ -111,12 +138,28 @@ export default {
         shareData:{
             schoolId:null,
             lessonId:null,
-            content:[]
+            content:[],
+            publishType:'pub'
         },
         isSuccessed:false,
         isPosting:false,
         draftCnt:0,
-        templateCnt:0
+        templateCnt:0,
+        viewList:[
+            {
+                label:'公开',
+                value:'pub'
+            },
+            {
+                label:'私密',
+                value:'pvt'
+            },
+            {
+                label:'部分可见',
+                value:'spec'
+            },
+        ],
+        userList:[]
     }),
     computed:{
         currentPath(){
@@ -135,6 +178,12 @@ export default {
         if(this.currentPath.name == 'posts.safeStudy'){
             this.isPosting = true
         }
+        getSchoolUsers({schoolId:this.currentPath.params.schoolId}).then(res=>{
+            res.data.map(data=>{
+                this.$set(data,'isChecked',false)
+            })
+            this.userList = res.data
+        })
     },
     watch:{
         currentPath:{
@@ -182,6 +231,21 @@ export default {
             this.$refs.child.emitData()
             if(this.shareData.content.length == 0){
                 return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
+            }
+            if(this.shareData.publishType == 'spec'){
+                if(this.$isMobile()){
+                    // this.$set(this.shareData, 'specUsers', this.publishSpecUserList);
+                }
+                else{
+                    let selUsers = []
+                    this.userList.map(user=>{
+                        if(user.isChecked == true){
+                            // selUsers.push(user.id)
+                            selUsers = [...selUsers,user.id]
+                        }
+                    })
+                    this.$set(this.shareData, 'specUsers', selUsers);
+                }
             }
             //console.log(this.shareData)
             this.isSubmit = true
