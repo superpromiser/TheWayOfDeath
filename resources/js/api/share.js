@@ -32,6 +32,14 @@ function deleteTemp(payload){
     return axios.delete('/api/v1/shareTemp',{data:payload})
 }
 
+function getSchoolUsers(payload){
+    return axios.get('/api/v1/schoolUsers',{params:payload})
+}
+
+function getLessonUsers(payload){
+    return axios.get('/api/v1/lessonUsers',{params:payload})
+}
+
 export{
     getShare,
     createShare,
@@ -41,4 +49,6 @@ export{
     getTempList,
     createTemp,
     deleteTemp,
+    getSchoolUsers,
+    getLessonUsers
 }

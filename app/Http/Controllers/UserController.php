@@ -63,7 +63,6 @@ class UserController extends Controller
         if (!is_null($request->lessonId)) {
             array_push($groupArr, $request->lessonId);
             $roleId = 7;
-
         }
         User::where('id', $request->id)->update([
             'name' => $request->name,
@@ -78,7 +77,7 @@ class UserController extends Controller
             'roleId' => $roleId,
             'familyAddress' => json_encode($request->familyAddress),
             'residenceAddress' => json_encode($request->residenceAddress),
-            'groupArr'=>$groupArr
+            'groupArr' => $groupArr
         ]);
         Member::where('userId', $request->id)->update([
             'gradeId' => $request->gradeId,
@@ -151,7 +150,7 @@ class UserController extends Controller
             'introduce' => $request->introduce,
             'birthday' => new DateTime($request->birthday),
             'familyAddress' => json_encode($request->familyAddress),
-            'groupArr'=>$groupArr
+            'groupArr' => $groupArr
         ]);
         Member::where('userId', $request->id)->update([
             'gradeId' => $request->gradeId,
@@ -379,7 +378,7 @@ class UserController extends Controller
 
     public function readstaff()
     {
-        return User::whereIn('roleId',[3,4,7])->where('schoolId', Auth::user()->schoolId)->get();
+        return User::whereIn('roleId', [3, 4, 7])->where('schoolId', Auth::user()->schoolId)->get();
     }
 
     public function getStatus(Request $request)
@@ -428,6 +427,18 @@ class UserController extends Controller
             }
             return User::select('id', 'name', 'lessonId', 'avatar', 'studentId')->where(['lessonId' => $lessonId, 'roleId' => 5])->get();
         }
+    }
+
+    public function getSchoolUsers(Request $request)
+    {
+        $schoolId = $request->schoolId;
+        return User::select('id', 'name', 'avatar')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
+    }
+
+    public function getLessonUsers(Request $request)
+    {
+        $lessonId = $request->lessonId;
+        return User::select('id', 'name', 'avatar')->where('groupArr', 'like', "%{$lessonId}%")->where(['roleId' => 5])->get();
     }
 
     public function getUserByRole(Request $request)
