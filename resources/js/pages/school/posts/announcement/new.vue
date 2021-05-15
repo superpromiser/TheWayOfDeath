@@ -317,7 +317,7 @@
                         ></v-switch>
                     </v-col>
                     <v-col cols="12">
-                        <QuestionItem Label="分享内容" :emoji="true" :contact="true" :item="announcementData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
+                        <QuestionItem Label="分享内容" :emoji="true" :item="announcementData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
                     </v-col>
                 </v-row>
                 

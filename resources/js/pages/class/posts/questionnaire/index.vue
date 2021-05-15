@@ -345,7 +345,7 @@
                 color="#999999"
                 @click="selContent('template')"
               >
-                  可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
+                  可用模板 {{templateCnt}}， 草稿 {{draftCnt}}
               </v-btn>
               
               <v-btn
@@ -741,8 +741,7 @@ import { mapGetters } from 'vuex';
 import lang from '~/helper/lang.json';
 import QuestionItem from '~/components/questionItem';
 import AttachItemViewer from '~/components/attachItemViewer';
-import {getQuestionnaire,createQuestionnaire,updateQuestionnaire,deleteQuestionnaire} from '~/api/questionnaire';
-import {getTemplate,createTemplate,updateTemplate,deleteTemplate} from '~/api/template';
+import {createQuestionnaire,getQuestionnaireTempCnt,createQuestionnaireTemp} from '~/api/questionnaire';
 import quickMenu from '~/components/quickMenu'
 import {getLessonUserList} from '~/api/user'
 export default {
@@ -772,7 +771,7 @@ export default {
       isDraft:false,
       isSuccessed:false,
       draftCnt:0,
-      tempCnt:0
+      templateCnt:0
   }),
 
   components: {
@@ -795,6 +794,7 @@ export default {
             this.postNew = true
           }
           if(val.query.tempData){
+            console.log('1200234-102-4012-4',JSON.parse(val.query.tempData))
             this.newQuestionnaireData.content = JSON.parse(val.query.tempData)
           }
       },
@@ -813,6 +813,10 @@ export default {
       console.log(res.data)
     }).catch(err=>{
       console.log(err.response)
+    })
+    getQuestionnaireTempCnt({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+      this.templateCnt = res.data.templateCnt
+      this.draftCnt = res.data.draftCnt
     })
   },
 
@@ -948,15 +952,30 @@ export default {
     },
 
 
-    saveDraft(){
-      //console.log(this.newQuestionnaireData)
-      this.isDraft = true;
-      createTemplate({tempData:this.newQuestionnaireData,tempType:1,contentId:1}).then(res=>{
-        //console.log(res)
+    async saveDraft(){
+      let draftData = {}
+      draftData.tempType = 2
+      draftData.content = this.newQuestionnaireData.content
+      draftData.schoolId = this.currentPath.params.schoolId
+      if(this.currentPath.params.lessonId){
+          draftData.lessonId = this.currentPath.params.lessonId
+      }
+      let currentTime = Date.now();
+      draftData.title = 'title-' + currentTime
+      draftData.description = 'description-' + currentTime
+      console.log(draftData)
+      if(this.newQuestionnaireData.content.length == 0){
+          return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+      }
+      this.isDraft = true
+      await createQuestionnaireTemp(draftData).then(res=>{
+          console.log(res.data)
+          this.isDraft = false
+          this.draftCnt ++ 
       }).catch(err=>{
-        //console.log(err.response)
+          console.log(err.response)
+          this.isDraft = false
       })
-      this.isDraft = false;
     },
 
     something(){

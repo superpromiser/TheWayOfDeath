@@ -329,7 +329,7 @@
 import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createVoting} from '~/api/voting'
+import {createVoting,getTemplateCnt,createTemplate} from '~/api/voting'
 import quickMenu from '~/components/quickMenu'
 export default {
     middleware:['post','auth'],
@@ -400,6 +400,10 @@ export default {
     created(){
         this.votingData.schoolId = this.currentPath.params.schoolId
         this.votingData.classId = this.currentPath.params.lessonId
+        getTemplateCnt({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+            this.tempCnt = res.data.templateCnt
+            this.draftCnt = res.data.draftCnt
+        })
     },
     methods: {
         saveDraft(){
@@ -450,7 +454,37 @@ export default {
         },
         something(){
 
-        }
+        },
+        async saveDraft(){
+            for(let index = 1;  index <= this.initialCnt; index++){
+                this.$refs[index][0].emitData()
+            }
+            console.log('this.votingData.content.length',this.votingData.content.length)
+            if(this.votingData.content.length == 0 ){
+                return this.$snackbar.showMessage({content: this.lang.voting+this.lang.requireContent, color: "error"})
+            }
+            let draftData = {}
+            draftData.tempType = 2
+            draftData.content = this.votingData.content
+            draftData.schoolId = this.currentPath.params.schoolId
+            if(this.currentPath.params.lessonId){
+                draftData.lessonId = this.currentPath.params.lessonId
+            }
+            let currentTime = Date.now();
+            draftData.tempTitle = 'title-' + currentTime
+            draftData.description = 'description-' + currentTime
+            console.log(draftData)
+            
+            this.isDraft = true
+            await createTemplate(draftData).then(res=>{
+                console.log(res.data)
+                this.isDraft = false
+                this.draftCnt ++ 
+            }).catch(err=>{
+                console.log(err.response)
+                this.isDraft = false
+            })
+        },
     }
 }
 </script>

@@ -44,7 +44,7 @@
                     </v-btn>
                 </v-col>
                 <v-col cols="12" >
-                    <QuestionItem :Label="lang.contentPlace" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                    <QuestionItem :Label="lang.contentPlace" :emoji="true" ref="child" @contentData="loadContentData"></QuestionItem>
                 </v-col>
             </v-row>
             <v-dialog persistent v-model="detailDialog" max-width="900px" style="background:white!important">
@@ -148,7 +148,7 @@
                     </v-btn>
                 </v-col>
                 <v-col cols="12">
-                    <QuestionItem :Label="lang.contentPlace" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                    <QuestionItem :Label="lang.contentPlace" :emoji="true" ref="child" @contentData="loadContentData"></QuestionItem>
                 </v-col>
             </v-row>
             

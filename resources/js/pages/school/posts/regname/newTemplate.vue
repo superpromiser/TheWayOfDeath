@@ -45,7 +45,7 @@
             </v-col>
         </v-row>
         <v-container class="pa-10">
-            <QuestionItem Label="分享内容" :emoji="true" :contact="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+            <QuestionItem Label="分享内容" :emoji="true" ref="child" @contentData="loadContentData"></QuestionItem>
         </v-container>
     </v-container>
 </template>

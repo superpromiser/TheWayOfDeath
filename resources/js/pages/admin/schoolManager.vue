@@ -271,6 +271,9 @@
               </v-dialog>
             </v-toolbar>
           </template>
+          <template v-slot:[`item.id`]="{ item }">
+              {{schoolManagerData.indexOf(item)+1}}
+          </template>
           <template v-slot:[`item.avatar`]="{ item }">
             <img v-if="item.avatar !== '/'" :src="`${baseUrl}${item.avatar}`" alt="ManagerAvatar" class="school-manager-img">
             <v-avatar v-else size="120" color="primary" > 

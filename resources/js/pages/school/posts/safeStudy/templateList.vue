@@ -10,7 +10,7 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.share}}模板清单</h2>
+                    <h2>{{lang.safeStudy}}模板清单</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
@@ -70,7 +70,7 @@
 
 <script>
 import lang from '~/helper/lang.json'
-import {getTempList,deleteTemp} from '~/api/share'
+import {getTemplateList,deleteTemplate} from '~/api/safeStudy'
 export default {
     data:()=>({
         lang,
@@ -87,7 +87,7 @@ export default {
     async created(){
         // this.$router.push({name:'posts.share'})
         this.isLoading = true
-        getTempList({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+        getTemplateList({schoolId:this.currentPath.params.schoolId}).then(res=>{
             console.log(res.data)
             this.tempList = res.data
             this.isLoading = false
@@ -99,16 +99,16 @@ export default {
     methods:{
         submit(){
             console.log('submit')
-            this.$router.push({name:'Cshare.newTemplate'})
+            this.$router.push({name:'safeStudy.newTemplate'})
         },
         selTemp(tempData){
-            this.$router.push({name:'posts.Cshare',query:{tempData:JSON.stringify(tempData.content)}})
+            this.$router.push({name:'posts.safeStudy',query:{tempData:JSON.stringify(tempData.content)}})
         },
         async delTemp(tempData){
             // console.log(tempData)
             // return
             this.isDelete = true
-            await deleteTemp({id:tempData.id}).then(res=>{
+            await deleteTemplate({id:tempData.id}).then(res=>{
                 console.log(res.data)
                 this.isDelete = false
                 let index = this.tempList.indexOf(tempData)

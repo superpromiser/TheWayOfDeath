@@ -244,8 +244,8 @@ export default {
         
         showComment(){
             console.log('add comment---------------')
-            console.log(this.currentPath)
-            this.isComment = ! this.isComment
+            // console.log(this.currentPath)
+            // this.isComment = ! this.isComment
         },
         onInput(e){
             if(!e){
