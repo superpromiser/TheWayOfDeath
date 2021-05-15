@@ -60,7 +60,6 @@
                             dark
                             tile
                             color="#F19861"
-                            class="mx-2"
                             :loading="isDraft"
                             @click="saveDraft"
                         >
@@ -71,7 +70,7 @@
                             dark
                             tile
                             color="#7879ff"
-                            
+                            class="mx-2"
                             :loading="isSubmit"
                             @click="submit"
                         >
@@ -84,25 +83,24 @@
             <v-container class="pa-10">
                 <QuestionItem Label="分享内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
-            <v-row class="px-10">
+            <v-row>
                 <v-col cols="8" md="10"></v-col>
                 <v-col cols="4" class="justify-end" md="2">
                     <v-select
                         :items='viewList'
                         item-text="label"
                         item-value="value"
-                        v-model="shareData.publishType"
+                        v-model="viewType"
                         @change="selViewList"
                     ></v-select>
                 </v-col>
             </v-row>
-            <div class="px-10" v-if="shareData.publishType == 'spec'">
+            <div v-if="viewType == 'some'">
                 <v-row v-for="user in userList" :key="user.id" class=" ma-0">
                     <v-col class="d-flex justify-space-between align-center" cols="12">
                         <v-checkbox
-                            v-model="user.isChecked"
+                            v-model="user.checkbox"
                             :label="user.name"
-                            hide-details
                         ></v-checkbox>
                         <!-- <span class="pl-2">
                             {{idx + 1}}.
@@ -123,53 +121,14 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import { mapGetters } from 'vuex'
-import {createShare,getTemplateCnt,createTemp,getSchoolUsers,getLessonUsers} from '~/api/share'
-import quickMenu from '~/components/quickMenu'
-
-//mo
-import {uploadImage, uploadVideo, uploadOther, deleteFile} from '~/api/upload'
-import emojiData from "emoji-mart-vue-fast/data/all.json";
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
-let emojiIndex = new EmojiIndex(emojiData);
+import {createShare,getTemplateCnt,createTemp,getSchoolUsers} from '~/api/share'
 
 export default {
     components:{
         QuestionItem,
-        //mo
-        Picker,
     },
 
     data: ()=> ({
-        //mo
-        emojiIndex: emojiIndex,
-        emojisOutput: "",
-        emoStatus:false,
-        emojiI18n: { 
-            search: 'Recherche', 
-            categories: { 
-                search: '//Search Results',
-                recent: '最近常用',
-                smileys: '黄脸',
-                people: '人和手势',
-                nature: '动物和植物',
-                foods: '食物',
-                activity: '活动',
-                places: '交通 ',
-                objects: '物品',
-                symbols: '标志',
-                flags: '国旗',
-                custom: '其他',
-            } 
-        },
-        selectedImageFile: null,
-        selectedVideoFile: null,
-        selectedFile: null,
-        isImageSelecting: false,
-        isVideoSelecting: false,
-        isFileSelecting: false,
-        deleteItem : null,
-
         lang,
         baseUrl: window.Laravel.base_url,
         isSubmit:false,
@@ -199,17 +158,18 @@ export default {
         viewList:[
             {
                 label:'公开',
-                value:'pub'
+                value:'all'
             },
             {
                 label:'私密',
-                value:'pvt'
+                value:'me'
             },
             {
                 label:'部分可见',
-                value:'spec'
+                value:'some'
             },
         ],
+        viewType:'all',
         userList:[]
     }),
     computed:{
@@ -265,15 +225,6 @@ export default {
             this.userList = res.data
             console.log("this.userList",this.userList)
         })
-        // getLessonUsers({schoolId:1,lessonId:1}).then(res=>{
-        //     console.log("------------",res.data)
-        //      res.data.map(data=>{
-        //         this.$set(data,'isChecked',false)
-        //     })
-        //     this.userList = res.data
-        // }).catch(err=>{
-        //     console.log(err.response)
-        // })
     },
     methods:{
         async saveDraft(){
@@ -376,7 +327,7 @@ export default {
             this.$router.go(-1);
         },
         selViewList(){
-           
+            console.log(this.viewType)
         }
     }
 }
