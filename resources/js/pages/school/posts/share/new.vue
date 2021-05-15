@@ -222,24 +222,33 @@
             <v-container class="pa-10">
                 <QuestionItem Label="分享内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
-            <v-snackbar
-                timeout="3000"
-                v-model="requiredText"
-                color="error"
-                absolute
-                top
-                >
-                {{lang.requiredText}}
-            </v-snackbar>
-            <v-snackbar
-            timeout="3000"
-                v-model="isSuccessed"
-                color="success"
-                absolute
-                top
-                >
-                {{lang.successText}}
-            </v-snackbar>
+            <v-row>
+                <v-col cols="8" md="10"></v-col>
+                <v-col cols="4" class="justify-end" md="2">
+                    <v-select
+                        :items='viewList'
+                        item-text="label"
+                        item-value="value"
+                        v-model="viewType"
+                        @change="selViewList"
+                    ></v-select>
+                </v-col>
+            </v-row>
+            <div v-if="viewType == 'some'">
+                <v-row v-for="user in userList" :key="user.id" class=" ma-0">
+                    <v-col class="d-flex justify-space-between align-center" cols="12">
+                        <v-checkbox
+                            v-model="user.checkbox"
+                            :label="user.name"
+                        ></v-checkbox>
+                        <!-- <span class="pl-2">
+                            {{idx + 1}}.
+                            {{user.name}}
+                        </span> -->
+                    </v-col>
+                    <v-divider class="thick-border"></v-divider>
+                </v-row>
+            </div>
         </div>
         <div v-else>
             <router-view></router-view>
@@ -251,7 +260,7 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import { mapGetters } from 'vuex'
-import {createShare,getTemplateCnt,createTemp} from '~/api/share'
+import {createShare,getTemplateCnt,createTemp,getSchoolUsers} from '~/api/share'
 import quickMenu from '~/components/quickMenu'
 
 //mo
@@ -313,6 +322,7 @@ export default {
                     videoUrl:[]
                 },
             ],
+            viewList:[],
             publishType: 'pub'
         },
         isSuccessed:false,
@@ -323,6 +333,22 @@ export default {
         isPosting:false,
         draftCnt:0,
         templateCnt:0,
+        viewList:[
+            {
+                label:'公开',
+                value:'all'
+            },
+            {
+                label:'私密',
+                value:'me'
+            },
+            {
+                label:'部分可见',
+                value:'some'
+            },
+        ],
+        viewType:'all',
+        userList:[]
     }),
     computed:{
         currentPath(){
@@ -369,6 +395,13 @@ export default {
             this.draftCnt = res.data.draftCnt
         }).catch(err=>{
             console.log(err.response)
+        })
+        getSchoolUsers({schoolId:this.currentPath.params.schoolId}).then(res=>{
+            res.data.map(data=>{
+                this.$set(data,'isChecked',false)
+            })
+            this.userList = res.data
+            console.log("this.userList",this.userList)
         })
     },
     methods:{
@@ -641,6 +674,9 @@ export default {
             this.$store.dispatch('mo/onClickedChange', false);
             this.$store.dispatch('mo/onBackWithChange', false);
             this.$router.go(-1);
+        },
+        selViewList(){
+            console.log(this.viewType)
         }
     }
 }

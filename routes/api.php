@@ -280,7 +280,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('/messages/map', 'MessageController@storeChatSendMap')->name('chatSendMapStore');
 
     //get lesson user list
-    Route::get('/lessonUserList', 'UserController@getLessonUserList');
+    Route::get('/schoolUserList', 'UserController@getSchoolUserList');
 
     Route::get('/lessonAttendance', 'LessonAttendanceController@getLessonAttendance');
     Route::post('/lessonAttendance', 'LessonAttendanceController@createLessonAttendance');
@@ -448,6 +448,10 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     //readCnt
     Route::get('readCnt', 'PostController@getReadCnt');
     Route::post('readCnt', 'PostController@createReadCnt');
+
+    //
+    Route::get('schoolUsers', 'UserController@getSchoolUsers');
+    Route::get('lessonUsers', 'UserController@getLessonUsers');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {
