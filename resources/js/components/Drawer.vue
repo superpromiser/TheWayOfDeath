@@ -14,7 +14,7 @@
         height="74"
         >
         <v-toolbar-title class="d-flex align-center pl-4">
-          <img :src="`${baseUrl}/asset/img/logo.png`" alt="Logo" class="logo-img">
+          <img :src="`${baseUrl}/asset/img/logoNewWhite.png`" alt="Logo" class="logo-img">
         </v-toolbar-title>
 
         <v-spacer></v-spacer>

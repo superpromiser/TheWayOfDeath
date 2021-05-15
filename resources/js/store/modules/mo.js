@@ -1,4 +1,3 @@
-import { faLaptopHouse } from '@fortawesome/free-solid-svg-icons'
 import * as types from '../mutation-types'
 // state
 export const state = {

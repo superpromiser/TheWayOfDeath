@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 // state
 export const state = {
     schoolTree:  Cookies.get('schoolTree') ? JSON.parse(Cookies.get('schoolTree')) : null,
-    schoolData:  Cookies.get('schoolData') ? JSON.parse(Cookies.get('schoolData')) : null,
+    schoolData:  localStorage.getItem('schoolData') ? JSON.parse(localStorage.getItem('schoolData')) : null,
     memberData:  Cookies.get('memberData') ? JSON.parse(Cookies.get('memberData')) : null,
     chooseableSchoolTree: null,
 }
@@ -24,8 +24,7 @@ export const mutations = {
     },
     [types.STORE_SCHOOL_DATA] (state,  schoolData ) {
         state.schoolData = schoolData
-        console.log('mutations',schoolData)
-        Cookies.set('schoolData', schoolData, { expires:  365000 })
+        localStorage.setItem('schoolData', JSON.stringify(schoolData));
     },  
     [types.STORE_MEMBER_DATA] (state,  memberData ) {
         state.memberData = memberData

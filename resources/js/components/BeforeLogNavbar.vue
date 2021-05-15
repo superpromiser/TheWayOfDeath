@@ -3,7 +3,8 @@
   color="white" app
   >
     <v-toolbar-title>
-      <img :src="`${baseUrl}/asset/img/logo_original.png`" alt="Logo" class="logo-img">
+      <!-- <img :src="`${baseUrl}/asset/img/logoNewWhite.png`" alt="upload-video-icon" class="mo-login-logo"/> -->
+      <img :src="`${baseUrl}/asset/img/logoNewPrimary.png`" alt="Logo" class="logo-img">
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn text>

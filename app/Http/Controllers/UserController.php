@@ -855,6 +855,9 @@ class UserController extends Controller
                     }
                     break;
                 case 23:    //shares
+                    $asdfa = $post->shares;
+                    $asdfa = $post->shares;
+                    $asdfa = $post->shares;
                     $contentData = json_decode($post->shares->content);
                     foreach ($contentData as $questionItem) {
                         $imgUrls = $questionItem->imgUrl;
