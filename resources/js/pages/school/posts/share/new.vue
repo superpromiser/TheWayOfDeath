@@ -90,7 +90,7 @@
                         :items='viewList'
                         item-text="label"
                         item-value="value"
-                        v-model="viewType"
+                        v-model="shareData.publishType"
                         @change="selViewList"
                     ></v-select>
                 </v-col>
@@ -169,7 +169,6 @@ export default {
                 value:'some'
             },
         ],
-        viewType:'all',
         userList:[]
     }),
     computed:{
