@@ -97,7 +97,7 @@
                 </v-col>
             </v-row>
             <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-secondary">
-                <v-col cols="2" @click="clickUploadImageBtn" class="d-flex justify-center align-center py-1" v-ripple>
+                <v-col cols="3" @click="clickUploadImageBtn" class="d-flex justify-center align-center py-1" v-ripple>
                     <v-progress-circular v-if="isImageSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
                     <v-icon v-else size="30">mdi-file-image-outline</v-icon>
                 </v-col>
@@ -108,13 +108,13 @@
                     accept="image/*"
                     @change="onImageFileChanged"
                 >
-                <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple>
+                <!-- <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple>
                     <p class="mb-0 pb-1" style="font-size: 25px; color:#676767; font-weight: bold">@</p>
                 </v-col>
                 <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple>
                     <p class="mb-0" style="font-size: 25px; color:#676767; font-weight: bold">#</p>
-                </v-col>
-                <v-col @click="clickUploadVideoBtn" cols="2" class="d-flex justify-center align-center py-1" v-ripple>
+                </v-col> -->
+                <v-col @click="clickUploadVideoBtn" cols="3" class="d-flex justify-center align-center py-1" v-ripple>
                     <v-progress-circular v-if="isVideoSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
                     <v-icon v-else size="30">mdi-play-box-outline </v-icon>
                 </v-col>
@@ -125,7 +125,7 @@
                     accept="video/*"
                     @change="onVideoFileChanged"
                 >
-                <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple @click="toggleEmo">
+                <v-col cols="3" class="d-flex justify-center align-center py-1" v-ripple @click="toggleEmo">
                     <v-icon size="30">mdi-emoticon-excited-outline</v-icon>
                 </v-col>
                 <Picker 
@@ -141,7 +141,7 @@
                     :showSearch="false"
                     :i18n="emojiI18n"
                 />
-                <v-col @click="clickUploadFileBtn" cols="2" class="d-flex justify-center align-center py-1" v-ripple>
+                <v-col @click="clickUploadFileBtn" cols="3" class="d-flex justify-center align-center py-1" v-ripple>
                     <v-progress-circular v-if="isFileSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
                     <v-icon v-else size="30">mdi-folder-outline</v-icon>
                 </v-col>
