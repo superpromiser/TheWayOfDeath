@@ -122,52 +122,13 @@ import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import { mapGetters } from 'vuex'
 import {createShare,getTemplateCnt,createTemp,getSchoolUsers} from '~/api/share'
-import quickMenu from '~/components/quickMenu'
-
-//mo
-import {uploadImage, uploadVideo, uploadOther, deleteFile} from '~/api/upload'
-import emojiData from "emoji-mart-vue-fast/data/all.json";
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
-let emojiIndex = new EmojiIndex(emojiData);
 
 export default {
     components:{
         QuestionItem,
-        //mo
-        Picker,
     },
 
     data: ()=> ({
-        //mo
-        emojiIndex: emojiIndex,
-        emojisOutput: "",
-        emoStatus:false,
-        emojiI18n: { 
-            search: 'Recherche', 
-            categories: { 
-                search: '//Search Results',
-                recent: '最近常用',
-                smileys: '黄脸',
-                people: '人和手势',
-                nature: '动物和植物',
-                foods: '食物',
-                activity: '活动',
-                places: '交通 ',
-                objects: '物品',
-                symbols: '标志',
-                flags: '国旗',
-                custom: '其他',
-            } 
-        },
-        selectedImageFile: null,
-        selectedVideoFile: null,
-        selectedFile: null,
-        isImageSelecting: false,
-        isVideoSelecting: false,
-        isFileSelecting: false,
-        deleteItem : null,
-
         lang,
         baseUrl: window.Laravel.base_url,
         isSubmit:false,
