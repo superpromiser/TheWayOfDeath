@@ -2,8 +2,13 @@
   <v-container v-if="$isMobile()">
     <v-row>
       <v-col cols="12" class="d-flex" @click="showDetail(content)">
-        <v-avatar>
-          <v-img :src="`${baseUrl}/asset/img/appIcon/校园文化/班级动态.png`" alt="postItem" ></v-img>
+        <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="48">
+            <span class="white--text headline">{{content.users.name[0]}}</span>
+        </v-avatar>
+        <v-avatar v-else
+          size="48"
+        >
+          <v-img :src="content.users.avatar"></v-img>
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
           <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.classStory}}  </p>
@@ -92,7 +97,7 @@ export default {
         schoolstory: {},
     }),
     created(){
-      this.schoolstory = JSON.parse(this.content.classstory.content);
+      this.schoolstory = (JSON.parse(this.content.classstory.content))[0];
     },
     computed:{
       currentPath(){
@@ -111,12 +116,12 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',content)
-        this.$router.push({name:'details.classStory'})
-        // if(this.currentPath.params.lessonId){
-        //   this.$router.push({name:'details.classDefault'});
-        // }else{
-        //   this.$router.push({name:'details.schoolDefault'});
-        // }
+        // this.$router.push({name:'details.classStory'})
+        if(this.currentPath.params.lessonId){
+          this.$router.push({name:'details.classDefault'});
+        }else{
+          this.$router.push({name:'details.schoolDefault'});
+        }
       },
       
     }
