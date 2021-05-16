@@ -68,7 +68,7 @@ export default {
                 this.$router.push({name:'schoolSpace.news'})
             }
         }
-        this.schoolStory = JSON.parse(this.contentData.schoolstory.content);
+        this.schoolStory = (JSON.parse(this.contentData.schoolstory.content))[0];
         console.log(this.contentData)
     }
 }
