@@ -44,13 +44,45 @@ class InterClassStoryController extends Controller
             'schoolId' => $request->schoolId,
             'classId' => $request->lessonId
         ])->id;
-        return InterClassStory::create([
-            'content' => $content,
-            'schoolId' => $request->schoolId,
-            'lessonId' => $request->lessonId,
-            'postId' => $postId,
-            'userId' => $userId,
-        ]);
+        // return InterClassStory::create([
+        //     'content' => $content,
+        //     'schoolId' => $request->schoolId,
+        //     'lessonId' => $request->lessonId,
+        //     'postId' => $postId,
+        //     'userId' => $userId,
+        // ]);
+        if ($request->publishType == 'pub') {
+            InterClassStory::create([
+                'content' => $content,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
+                'userId' => $userId,
+            ]);
+        } else if ($request->publishType == 'spec') {
+            InterClassStory::create([
+                'content' => $content,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
+                'viewList' => $request->specUsers,
+                'userId' => $userId,
+            ]);
+        } else if ($request->publishType == 'pvt') {
+            $pvtArr = array();
+            array_push($pvtArr, $userId);
+            InterClassStory::create([
+                'content' => $content,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
+                'viewList' => $pvtArr,
+                'userId' => $userId,
+            ]);
+        }
+        return response()->json([
+            'msg' => 'ok'
+        ], 200);
     }
 
     public function updateInterClassStory(Request $request)

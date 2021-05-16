@@ -16,6 +16,7 @@ class CreateClassStoriesTable extends Migration
         Schema::create('class_stories', function (Blueprint $table) {
             $table->id();
             $table->LONGTEXT('content');
+            $table->json('viewList')->nullable();
             $table->unsignedBigInteger('postId');
             $table->tinyInteger('schoolId');
             $table->tinyInteger('lessonId');

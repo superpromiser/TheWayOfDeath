@@ -280,8 +280,16 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/recognition', name:'posts.Crecognition', component:page('class/posts/recognition/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/album', name:'posts.Calbum', component:page('class/posts/album/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/file', name:'posts.Cfile', component:page('class/posts/file/new.vue')},
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/classStory', name:'posts.classStory', component:page('class/posts/classStory/index.vue')},
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/interClassStory', name:'posts.interClassStory', component:page('class/posts/interClassStory/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/classStory', name:'posts.classStory', component:page('class/posts/classStory/index.vue'),
+    children:[
+      {path:'contacts',name:'classStory.contacts',component:page('class/contacts.vue')}
+    ]
+  },
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/interClassStory', name:'posts.interClassStory', component:page('class/posts/interClassStory/index.vue'),
+    children:[
+      {path:'contacts',name:'interClassStory.contacts',component:page('class/contacts.vue')}
+    ]
+  },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share', name:'posts.Cshare', component:page('class/posts/share/new.vue'),
     children:[
       {path:'templateList',name:"Cshare.templateList", component:page('class/posts/share/templateList.vue')},

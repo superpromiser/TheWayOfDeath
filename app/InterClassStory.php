@@ -8,4 +8,7 @@ class InterClassStory extends Model
 {
     //
     protected $guarded = [];
+    protected $casts = [
+        'viewList' => 'array'
+    ];
 }

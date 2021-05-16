@@ -8,4 +8,7 @@ class ClassStory extends Model
 {
     //
     protected $guarded = [];
+    protected $casts = [
+        'viewList' => 'array'
+    ];
 }

@@ -60,10 +60,10 @@
     <v-col cols="12" class="pl-10 pt-0">
       <v-row>
         <v-col cols="12">
-          <p class="text-wrap"><read-more more-str="全文" :text="schoolstory.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+          <p class="text-wrap"><read-more more-str="全文" :text="schoolstory[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
         </v-col>
-        <v-col cols="12" v-if="checkIfAttachExist(schoolstory)">
-          <AttachItemViewer :items="schoolstory" />
+        <v-col cols="12" v-if="checkIfAttachExist(schoolstory[0])">
+          <AttachItemViewer :items="schoolstory[0]" />
         </v-col>
       </v-row>
     </v-col>
