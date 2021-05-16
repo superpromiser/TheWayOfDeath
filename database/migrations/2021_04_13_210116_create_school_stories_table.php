@@ -18,6 +18,7 @@ class CreateSchoolStoriesTable extends Migration
             $table->LONGTEXT('content');
             $table->unsignedBigInteger('postId');
             $table->tinyInteger('schoolId');
+            $table->json('viewList')->nullable();
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');

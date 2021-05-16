@@ -194,14 +194,16 @@ export default [
   {path:'schoolSpace/:schoolId/post/shiftMng/newTemplate',name:'shift.newTemplate',component:page('school/posts/shiftMangement/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/safeStudy', name:'posts.safeStudy', component:page('school/posts/safeStudy/index.vue'),
     children:[
-      {path:'templateList',name:'safeStudy.templateList',component:page('school/posts/safeStudy/templateList.vue')}
+      {path:'templateList',name:'safeStudy.templateList',component:page('school/posts/safeStudy/templateList.vue')},
+      {path:'contacts',name:"safeStudy.contacts",component:page('school/contacts.vue')}
     ]
   },
   {path:'/schoolSpace/:schoolId/post/safeStudy/newTempalte',name:'safeStudy.newTemplate',component:page('school/posts/safeStudy/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/repair', name:'posts.repair', component:page('school/posts/repair/index.vue')},
   {path:'/schoolSpace/:schoolId/post/schoolStory', name:'posts.schoolStory', component:page('school/posts/schoolStory/index.vue'),
     children:[
-      {path:'templateList',name:'schoolStory.templateList',component:page('school/posts/schoolStory/templateList.vue')}
+      {path:'templateList',name:'schoolStory.templateList',component:page('school/posts/schoolStory/templateList.vue')},
+      {path:'contacts',name:"schoolStory.contacts",component:page('school/contacts.vue')}
     ]
   },
   {path:'/schoolSpace/:schoolId/post/schoolStory/newTemplate',name:'schoolStory.newTemplate',component:page('school/posts/schoolStory/newTemplate.vue')},
@@ -282,14 +284,19 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/interClassStory', name:'posts.interClassStory', component:page('class/posts/interClassStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share', name:'posts.Cshare', component:page('class/posts/share/new.vue'),
     children:[
-      {path:'templateList',name:"Cshare.templateList", component:page('class/posts/share/templateList.vue')}
+      {path:'templateList',name:"Cshare.templateList", component:page('class/posts/share/templateList.vue')},
+      {path:'contacts',name:"Cshare.contacts", component:page('class/contacts.vue')},
     ]
   },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share/newTemplate',name:'Cshare.newTemplate',component:page('class/posts/share/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.CregName',component:page('class/posts/regname/new.vue')},
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.Cshare',component:page('class/posts/share/new.vue')},
+  // {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.Cshare',component:page('class/posts/share/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement',name:'posts.Cannouncement',component:page('class/posts/announcement/new.vue')},
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/safeStudy',name:'posts.CsafeStudy',component:page('class/posts/safeStudy/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/safeStudy',name:'posts.CsafeStudy',component:page('class/posts/safeStudy/index.vue'),
+    children:[
+      {path:'contacts',name:'CsafeStudy.contacts',component:page('class/contacts.vue')},
+    ]
+  },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/repair',name:'posts.Crepair',component:page('class/posts/repair/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/vacation',name:'posts.Cvacation',component:page('class/posts/vacation/student/new.vue')},
   //class member  

@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import {getSchoolUsers} from '~/api/user';
+import {getLessonUsers} from '~/api/user';
 import lang from "~/helper/lang.json";
 import {mapGetters} from 'vuex';
 export default {
@@ -100,8 +100,9 @@ export default {
     async created(){
         // console.log('%c specUsers','color:orange;font-weight:bold')
         this.isLoading = true
-        await getSchoolUsers({
+        await getLessonUsers({
             schoolId:this.currentPath.params.schoolId,
+            lessonId:this.currentPath.params.lessonId
         })
         .then(res => {
             res.data.map(user => {

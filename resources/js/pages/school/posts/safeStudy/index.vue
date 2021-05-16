@@ -82,7 +82,7 @@
                 </v-row>
             </v-container>
             <v-container class="pa-10">
-                <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" ref="child" :item="shareData.content[0]" @contentData="loadContentData"></QuestionItem>
+                <QuestionItem Label="内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
             <v-row class="px-10">
                 <v-col cols="8" md="10"></v-col>
@@ -92,24 +92,10 @@
                         item-text="label"
                         item-value="value"
                         v-model="shareData.publishType"
+                        @change="selPublishType"
                     ></v-select>
                 </v-col>
             </v-row>
-            <div v-if="shareData.publishType == 'spec'" class="px-10">
-                <v-row v-for="user in userList" :key="user.id" class=" ma-0">
-                    <v-col class="d-flex justify-space-between align-center" cols="12">
-                        <v-checkbox
-                            v-model="user.isChecked"
-                            :label="user.name"
-                        ></v-checkbox>
-                        <!-- <span class="pl-2">
-                            {{idx + 1}}.
-                            {{user.name}}
-                        </span> -->
-                    </v-col>
-                    <v-divider class="thick-border"></v-divider>
-                </v-row>
-            </div>
         </div>
         <div v-else>
             <router-view></router-view>
@@ -121,8 +107,8 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {createSafeStudy,getTemplateCnt,createTemplate} from '~/api/safeStudy'
-import {getSchoolUsers} from '~/api/user'
 import quickMenu from '~/components/quickMenu'
+import {mapGetters} from 'vuex'
 export default {
     components:{
         QuestionItem,
@@ -138,7 +124,12 @@ export default {
         shareData:{
             schoolId:null,
             lessonId:null,
-            content:[],
+            content:[{
+                    text:'',
+                    imgUrl:[],
+                    otherUrl:[],
+                    videoUrl:[]
+                },],
             publishType:'pub'
         },
         isSuccessed:false,
@@ -164,7 +155,10 @@ export default {
     computed:{
         currentPath(){
             return this.$route
-        }
+        },
+        ...mapGetters({
+            specUsers:'member/specUsers'
+        })
     },
     created(){
         getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
@@ -178,12 +172,6 @@ export default {
         if(this.currentPath.name == 'posts.safeStudy'){
             this.isPosting = true
         }
-        getSchoolUsers({schoolId:this.currentPath.params.schoolId}).then(res=>{
-            res.data.map(data=>{
-                this.$set(data,'isChecked',false)
-            })
-            this.userList = res.data
-        })
     },
     watch:{
         currentPath:{
@@ -237,14 +225,7 @@ export default {
                     // this.$set(this.shareData, 'specUsers', this.publishSpecUserList);
                 }
                 else{
-                    let selUsers = []
-                    this.userList.map(user=>{
-                        if(user.isChecked == true){
-                            // selUsers.push(user.id)
-                            selUsers = [...selUsers,user.id]
-                        }
-                    })
-                    this.$set(this.shareData, 'specUsers', selUsers);
+                   this.$set(this.shareData,'specUsers',this.specUsers)
                 }
             }
             //console.log(this.shareData)
@@ -257,6 +238,7 @@ export default {
                     this.$router.push({name:'home'})
                 }
                 else{
+                    this.$store.dispatch('member/storeSpecUsers', []);
                     this.$router.push({name:'schoolSpace.news'})
                 }
             }).catch(err=>{
@@ -270,11 +252,18 @@ export default {
                 this.shareData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"})
             }
+            this.shareData.content = [];
             this.shareData.content.push(data)
         },
         templateList(){
             this.$router.push({name:"safeStudy.templateList"})
             this.isPosting = false
+        },
+        selPublishType(){
+            if(this.shareData.publishType == 'spec'){
+                this.isPosting = false
+                this.$router.push({name:'safeStudy.contacts'})
+            }
         }
     }
 }

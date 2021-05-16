@@ -78,8 +78,20 @@
                 </v-row>
             </v-container>
             <v-container class="pa-10">
-                <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" ref="child" @contentData="loadContentData" :item="shareData.content[0]"></QuestionItem>
+                <QuestionItem Label="内容" :emoji="true" ref="child" @contentData="loadContentData" :item="shareData.content[0]"></QuestionItem>
             </v-container>
+            <v-row class="px-10">
+                <v-col cols="8" md="10"></v-col>
+                <v-col cols="4" class="justify-end" md="2">
+                    <v-select
+                        :items='viewList'
+                        item-text="label"
+                        item-value="value"
+                        v-model="shareData.publishType"
+                        @change="selPublishType"
+                    ></v-select>
+                </v-col>
+            </v-row>
         </div>
         <div v-else>
             <router-view></router-view>
@@ -92,8 +104,7 @@ import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {createSchoolStory,createTemplate,getTemplateCnt} from '~/api/schoolStory'
 import quickMenu from '~/components/quickMenu'
-import { mapGetters } from 'vuex'
-
+import {mapGetters} from 'vuex'
 export default {
     components:{
         QuestionItem,
@@ -126,6 +137,20 @@ export default {
         templateCnt:0,
         draftCnt:0,
         isPosting:false,
+        viewList:[
+            {
+                label:'公开',
+                value:'pub'
+            },
+            {
+                label:'私密',
+                value:'pvt'
+            },
+            {
+                label:'部分可见',
+                value:'spec'
+            },
+        ],
     }),
     computed:{
         currentPath(){
@@ -237,6 +262,7 @@ export default {
             if(data.text === ''){
                 this.shareData.content = [];
             }
+            this.shareData.content = [];
             this.shareData.content.push(data)
         },
         something(){
@@ -281,6 +307,13 @@ export default {
             this.$store.dispatch('mo/onBackWithChange', false);
             this.$router.go(-1);
         },
+        
+        selPublishType(){
+            if(this.shareData.publishType == 'spec'){
+                this.isPosting = false
+                this.$router.push({name:'schoolStory.contacts'});
+            }
+        }
     }
 }
 </script>
