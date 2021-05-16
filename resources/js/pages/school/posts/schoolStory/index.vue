@@ -81,8 +81,20 @@
                 </v-row>
             </v-container>
             <v-container class="pa-10">
-                <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" ref="child" @contentData="loadContentData" :item="shareData.content[0]"></QuestionItem>
+                <QuestionItem Label="内容" :emoji="true" ref="child" @contentData="loadContentData" :item="shareData.content[0]"></QuestionItem>
             </v-container>
+            <v-row class="px-10">
+                <v-col cols="8" md="10"></v-col>
+                <v-col cols="4" class="justify-end" md="2">
+                    <v-select
+                        :items='viewList'
+                        item-text="label"
+                        item-value="value"
+                        v-model="shareData.publishType"
+                        @change="selPublishType"
+                    ></v-select>
+                </v-col>
+            </v-row>
         </div>
         <div v-else>
             <router-view></router-view>
@@ -95,6 +107,7 @@ import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {createSchoolStory,createTemplate,getTemplateCnt} from '~/api/schoolStory'
 import quickMenu from '~/components/quickMenu'
+import {mapGetters} from 'vuex'
 export default {
     components:{
         QuestionItem,
@@ -109,17 +122,40 @@ export default {
         requiredText:false,
         shareData:{
             schoolId:null,
-            content:[]
+            content:[{
+                    text:'',
+                    imgUrl:[],
+                    otherUrl:[],
+                    videoUrl:[]
+                },],
+            publishType:'pub'
         },
         isSuccessed:false,
         templateCnt:0,
         draftCnt:0,
         isPosting:false,
+        viewList:[
+            {
+                label:'公开',
+                value:'pub'
+            },
+            {
+                label:'私密',
+                value:'pvt'
+            },
+            {
+                label:'部分可见',
+                value:'spec'
+            },
+        ],
     }),
     computed:{
         currentPath(){
             return this.$route
-        }
+        },
+        ...mapGetters({
+            specUsers:'member/specUsers'
+        })
     },
     watch:{
         currentPath:{
@@ -177,10 +213,19 @@ export default {
         },
         async submit(){
             this.$refs.child.emitData()
-            if(this.shareData.content == null){
+            if(this.shareData.content.length == 0){
                 return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
             }
-            //console.log(this.shareData)
+            if(this.shareData.publishType == 'spec'){
+                if(this.$isMobile()){
+                    // this.$set(this.shareData, 'specUsers', this.publishSpecUserList);
+                }
+                else{
+                   this.$set(this.shareData,'specUsers',this.specUsers)
+                }
+            }
+            console.log(this.shareData)
+            // return
             this.isSubmit = true
             await createSchoolStory(this.shareData).then(res=>{
                 console.log(res)
@@ -203,6 +248,7 @@ export default {
                 this.shareData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"}) 
             }
+            this.shareData.content = [];
             this.shareData.content.push(data)
         },
         something(){
@@ -211,6 +257,12 @@ export default {
         templateList(){
             this.isPosting = false
             this.$router.push({name:'schoolStory.templateList'})
+        },
+        selPublishType(){
+            if(this.shareData.publishType == 'spec'){
+                this.isPosting = false
+                this.$router.push({name:'schoolStory.contacts'});
+            }
         }
     }
 }

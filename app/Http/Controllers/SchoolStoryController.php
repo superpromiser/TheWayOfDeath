@@ -78,12 +78,41 @@ class SchoolStoryController extends Controller
             'userId' => $userId,
             'schoolId' => $request->schoolId
         ])->id;
-        return SchoolStory::create([
-            'content' => $content,
-            'schoolId' => $request->schoolId,
-            'userId' => $userId,
-            'postId' => $postId,
-        ]);
+        // return SchoolStory::create([
+        //     'content' => $content,
+        //     'schoolId' => $request->schoolId,
+        //     'userId' => $userId,
+        //     'postId' => $postId,
+        // ]);
+        if ($request->publishType == 'pub') {
+            SchoolStory::create([
+                'content' => $content,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'userId' => $userId,
+            ]);
+        } else if ($request->publishType == 'spec') {
+            SchoolStory::create([
+                'content' => $content,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'viewList' => $request->specUsers,
+                'userId' => $userId,
+            ]);
+        } else if ($request->publishType == 'pvt') {
+            $pvtArr = array();
+            array_push($pvtArr, $userId);
+            SchoolStory::create([
+                'content' => $content,
+                'postId' => $postId,
+                'schoolId' => $request->schoolId,
+                'viewList' => $pvtArr,
+                'userId' => $userId,
+            ]);
+        }
+        return response()->json([
+            'msg' => 'ok'
+        ], 200);
     }
 
     public function updateSchoolStory(Request $request)

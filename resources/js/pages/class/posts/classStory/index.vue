@@ -99,6 +99,7 @@
         @contentData="loadContentData"
       ></QuestionItem>
     </v-container>
+
     <v-snackbar
       timeout="3000"
       v-model="requiredText"
@@ -139,7 +140,14 @@ export default {
     requiredText: false,
     shareData: {
       schoolId: null,
-      content: null,
+      content: [
+                {
+                    text:'',
+                    imgUrl:[],
+                    otherUrl:[],
+                    videoUrl:[]
+                },
+            ],
       lessonId: null
     },
     isSuccessed: false

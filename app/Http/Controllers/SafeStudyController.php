@@ -63,7 +63,7 @@ class SafeStudyController extends Controller
                 'postId' => $postId,
                 'schoolId' => $request->schoolId,
                 'lessonId' => $request->lessonId,
-                'viewList' => $request->viewList,
+                'viewList' => $request->specUsers,
                 'userId' => $userId,
             ]);
         } else if ($request->publishType == 'pvt') {

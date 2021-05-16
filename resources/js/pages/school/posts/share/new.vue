@@ -280,6 +280,7 @@ export default {
                     this.$router.push({name:'home'})
                 }
                 else{
+                    this.$store.dispatch('member/storeSpecUsers', []);
                     this.$router.push({name:'schoolSpace.news'})
                 }
             }).catch(err=>{
@@ -292,6 +293,7 @@ export default {
                 this.shareData.content = [];
                 return;
             }
+            this.shareData.content = [];
             this.shareData.content.push(data)
         },
 

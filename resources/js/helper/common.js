@@ -106,6 +106,8 @@ export default{
             // return date
         },
         checkIfAttachExist(data){
+
+            console.log("+++++++++++",data)
             let count = 0;
             count = count + data.imgUrl.length + data.videoUrl.length + data.otherUrl.length;
             if( count == 0 ) {

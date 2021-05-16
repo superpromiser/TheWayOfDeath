@@ -221,24 +221,18 @@
             <v-container class="pa-10">
                 <QuestionItem Label="分享内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
-            <v-snackbar
-                timeout="3000"
-                v-model="requiredText"
-                color="error"
-                absolute
-                top
-                >
-                {{lang.requiredText}}
-            </v-snackbar>
-            <v-snackbar
-            timeout="3000"
-                v-model="isSuccessed"
-                color="success"
-                absolute
-                top
-                >
-                {{lang.successText}}
-            </v-snackbar>
+            <v-row class="px-10">
+                <v-col cols="8" md="10"></v-col>
+                <v-col cols="4" class="justify-end" md="2">
+                    <v-select
+                        :items='viewList'
+                        item-text="label"
+                        item-value="value"
+                        v-model="shareData.publishType"
+                        @change="selViewList"
+                    ></v-select>
+                </v-col>
+            </v-row>
         </div>
         <div v-else>
             <router-view></router-view>
@@ -324,7 +318,20 @@ export default {
         },
 
         publishTypeRadio: null,
-
+        viewList:[
+            {
+                label:'公开',
+                value:'pub'
+            },
+            {
+                label:'私密',
+                value:'pvt'
+            },
+            {
+                label:'部分可见',
+                value:'spec'
+            },
+        ],
         isPosting:false,
         draftCnt:0,
         templateCnt:0,
@@ -339,6 +346,7 @@ export default {
             backWithoutSelect: 'mo/backWithoutSelect',
             backWithChange: 'mo/backWithChange',
             clickedChange: 'mo/clickedChange',
+            specUsers:'member/specUsers'
         }),
     },
     watch:{
@@ -437,6 +445,9 @@ export default {
                 this.$refs.child.emitData()
                 if(this.shareData.content.length == 0){
                     return this.$snackbar.showMessage({content: this.lang.share+this.lang.requireContent, color: "error"})
+                }
+                if(this.shareData.publishType == 'spec'){
+                    this.$set(this.shareData, 'specUsers', this.specUsers);
                 }
                 this.isSubmit = true
                 await createShare(this.shareData).then(res=>{
@@ -647,6 +658,12 @@ export default {
             this.$store.dispatch('mo/onClickedChange', false);
             this.$store.dispatch('mo/onBackWithChange', false);
             this.$router.go(-1);
+        },
+        selViewList(){
+            if(this.shareData.publishType == 'spec'){
+                this.isPosting = false
+                this.$router.push({name:'Cshare.contacts'})
+            }
         }
     }
 }
