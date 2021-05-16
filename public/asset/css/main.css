@@ -1708,3 +1708,7 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.text-area-without-nav-bottom-announcement{
+    height: calc(100vh - 340px);
+}

@@ -2,7 +2,7 @@
     <v-container class="pa-0" v-if="$isMobile()">
         <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
             <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
-                <v-icon @click="navToBackCustom" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                <v-icon @click="navToNew" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
                 <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.share}}模板清单</p>
@@ -177,9 +177,10 @@ export default {
             })
         },
 
-        navToBackCustom(){
-            this.$router.go(-1);
-        }
+        navToNew(){
+            this.$router.push({name:'posts.share'});
+        },
+
     }
 }
 </script>
