@@ -169,6 +169,9 @@ export default {
                 if(index > -1){
                     this.tempList.splice(index,1)
                 }
+                if(this.tempList.length == 0){
+                    this.noData = true;
+                }
             }).catch(err=>{
                 console.log(err.response)
                 this.isDelete = false

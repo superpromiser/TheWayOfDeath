@@ -55,7 +55,7 @@
       <v-row class="ma-0">
         <v-col cols="12" class="py-2" >
           <carousel v-if="isSchoolSpace == true" :key="bannerKey" class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true"  :autoplay="true" :autoplaySpeed="1500">
-            <img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img"  @click="showDetailSchoolStory(story)" />
+            <img :src="`${baseUrl}${story.schoolstory.content[0].imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img"  @click="showDetailSchoolStory(story)" />
           </carousel>
           <carousel v-else class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true" :autoplay="true" :autoplaySpeed="1500">
             <img :src="`${baseUrl}${story.classstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img" @click="showDetailClassStory(story)" />
@@ -180,14 +180,14 @@
       }" >
         <v-row class="ma-0" v-for="(story, index) in bodyStoryList" :key="index" @click="showDetailSchoolStory(story)">
           <v-col cols="7" class="pl-0 d-flex align-start flex-column">
-            <p class="mb-auto font-weight-bold d-inline-block text-truncate w-100">{{story.schoolstory.content.text}}</p>
+            <p class="mb-auto font-weight-bold d-inline-block text-truncate w-100">{{story.schoolstory.content[0].text}}</p>
             <div class="d-flex align-center justify-space-between w-100">
               <p class="mb-0">{{TimeViewYMD(story.created_at)}}</p>
               <p class="mb-0">{{story.users.name}}</p>
             </div>
           </v-col>
           <v-col cols="5" class="pr-0">
-            <v-img :src="`${baseUrl}${story.schoolstory.content.imgUrl[0].path}`" height="100"></v-img>
+            <v-img :src="`${baseUrl}${story.schoolstory.content[0].imgUrl[0].path}`" height="100"></v-img>
           </v-col>
           <div v-if="index < bodyStoryList.length - 1" class="cus-divider-light-gray-height"></div>
         </v-row>
