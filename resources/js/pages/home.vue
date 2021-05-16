@@ -58,7 +58,7 @@
             <img :src="`${baseUrl}${story.schoolstory.content[0].imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img"  @click="showDetailSchoolStory(story)" />
           </carousel>
           <carousel v-else class="position-relative owl-cus-con" :nav="false" :items="1" :margin="10" :loop="true" :autoplay="true" :autoplaySpeed="1500">
-            <img :src="`${baseUrl}${story.classstory.content.imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img" @click="showDetailClassStory(story)" />
+            <img :src="`${baseUrl}${story.classstory.content[0].imgUrl[0].path}`" v-for="story in bannerStoryList" :key="story.id" alt="carousel" class="mo-home-carousel-img" @click="showDetailClassStory(story)" />
           </carousel>
         </v-col>
         <v-col cols="12" class="pa-0">
@@ -198,14 +198,14 @@
       }">
         <v-row class="ma-0" v-for="(story, index) in bodyStoryList" :key="index" @click="showDetailClassStory(story)">
           <v-col cols="7" class="pl-0 d-flex align-start flex-column">
-            <p class="mb-auto font-weight-bold d-inline-block text-truncate w-100">{{story.classstory.content.text}}</p>
+            <p class="mb-auto font-weight-bold d-inline-block text-truncate w-100">{{story.classstory.content[0].text}}</p>
             <div class="d-flex align-center justify-space-between w-100">
               <p class="mb-0">{{TimeViewYMD(story.created_at)}}</p>
               <p class="mb-0">{{story.users.name}}</p>
             </div>
           </v-col>
           <v-col cols="5" class="pr-0">
-            <v-img :src="`${baseUrl}${story.classstory.content.imgUrl[0].path}`" height="100"></v-img>
+            <v-img :src="`${baseUrl}${story.classstory.content[0].imgUrl[0].path}`" height="100"></v-img>
           </v-col>
           <div v-if="index < bodyStoryList.length - 1 " class="cus-divider-light-gray-height"></div>
         </v-row>
@@ -1158,7 +1158,14 @@ export default {
     else  {
       this.selectedItem = this.selectedSchoolItem
     }
-    this.selectedTypeItemGroup = this.schoolSpaceItems;
+
+    
+    if(this.isSchoolSpace){
+      this.selectedTypeItemGroup = this.schoolSpaceItems;
+    }
+    else {
+      this.selectedTypeItemGroup = this.classSpaceItems
+    }
   },
 
   methods:{
@@ -1300,9 +1307,12 @@ export default {
     },
 
     showDetailClassStory(story){
+      createReadCnt({postId:story.id}).then(res=>{
+      }).catch(err=>{
+      })
       story.classstory.content = JSON.stringify(story.classstory.content);
       this.$store.dispatch('content/storePostDetail',story)
-      this.$router.push({name:'details.classStory'});
+      this.$router.push({name:'details.classDefault'});
     },
   }
 }

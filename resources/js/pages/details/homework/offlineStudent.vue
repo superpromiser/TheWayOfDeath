@@ -1,5 +1,34 @@
 <template>
-    <v-container>
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+        <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{contentData.homework.homeworkType}}</p>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0">
+                <v-col class="d-flex justify-center align-center" cols="12" v-if="user != null">
+                    <v-rating
+                        half-increments
+                        hover
+                        background-color="orange lighten-3"
+                        color="orange"
+                        length="5"
+                        size="30"
+                        value="0"
+                        v-model="user.rating"
+                        readonly
+                    ></v-rating>
+                </v-col>
+                <v-col class="d-flex align-center justify-center category mt-15" v-else>
+                    没有数据
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-container>
+    <v-container v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">

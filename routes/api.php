@@ -447,7 +447,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('interClassStory/templateCnt', 'InterClassStoryController@getTemplateCnt');
     Route::get('interClassStory/template', 'InterClassStoryController@getTemplateList');
     Route::post('interClassStory/template', 'InterClassStoryController@createTemplate');
-    Route::put('interClassStory/template', 'InterClassStoryController@deleteTemplate');
+    Route::delete('interClassStory/template', 'InterClassStoryController@deleteTemplate');
 
     //fence
     Route::get('fence', 'FenceController@getFenceData');

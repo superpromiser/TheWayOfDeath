@@ -78,6 +78,10 @@
 
     "requireRepairType": "维修物品不能为空",
     "requireRepairName": "发布位置不能为空",
+    "requireSignName": "落款名称不能为空",
+    "requireSubjectName": "科目不能为空",
+    "requireSubjectType": "类型不能为空",
+    "requireMonitorName": "课代表不能为空",
 
     "requireCorrectPhoneNumber": "请输入正确的电话号码",
     "requireCorrectCardNumber": "请输入正确的身份证号",

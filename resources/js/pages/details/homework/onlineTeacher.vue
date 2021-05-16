@@ -1,5 +1,37 @@
 <template>
-    <v-container class="pa-0">
+    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
+        <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >答案详情</p>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <div v-if="isLoading" class="pa-5 d-flex align-center justify-center">
+                <v-progress-circular
+                    indeterminate
+                    color="#7879ff"
+                ></v-progress-circular>
+            </div>
+            <v-container class="pa-0" v-else-if="homeworkCheck == false" >
+                <v-row v-for="(user,idx) in userList" :key="user.id" class=" ma-0">
+                    <v-col class="d-flex justify-space-between align-center hover-cursor-point" cols="12" @click="selUser(user)">
+                        <span class="">
+                            {{idx + 1}}.
+                            {{user.name}}
+                        </span>
+                        <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                    <v-divider v-if="idx < userList.length - 1" class="thick-border"></v-divider>
+                </v-row>
+            </v-container>
+            <v-container v-else class="pa-0">
+                <router-view :studentName='studentName'></router-view>
+            </v-container>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -69,7 +101,8 @@ export default {
         content:null,
         userList:[],
         homeworkCheck:false,
-        studentName:''
+        studentName:'',
+        isLoading: false,
     }),
     computed:{
         currentPath(){
@@ -77,6 +110,7 @@ export default {
         }
     },
     async created(){
+        this.isLoading = true;
         await getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
             console.log(res.data)
             res.data.map(user=>{
@@ -95,6 +129,8 @@ export default {
         }).catch(err=>{
             console.log(err.response)
         })
+
+        this.isLoading = false;
         // console.log('onlineTeacher',this.contentData)
         // this.studentAnswer = JSON.parse(this.contentData.homework_result.content)
         // this.teacherAnswer = JSON.parse(this.contentData.homework_result.teacherAnswer)
