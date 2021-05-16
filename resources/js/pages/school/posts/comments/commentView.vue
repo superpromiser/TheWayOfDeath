@@ -1,5 +1,68 @@
 <template>
-  <v-container class="px-10">
+  <v-container v-if="$isMobile()">
+    <div>
+      <div v-for="(comment,index) in contentData.comments" :key="index">
+        <v-row class="ma-0">
+          <v-col cols="12" class="d-flex align-center justify-space-between">
+              <p class="mb-0">{{comment.users.name}}</p>
+              <p class="mb-0">{{TimeView(comment.created_at)}}</p>
+          </v-col>
+          <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap">{{comment.comments}}</v-col>
+        </v-row>
+        <v-divider v-if="index < contentData.comments.length -1"></v-divider>
+      </div>
+    </div>
+    <v-row class="ma-0 mt-3">
+      <v-col cols="12" class="d-flex">        
+        <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="48">
+          <span class="white--text headline">{{user.name[0]}}</span>
+        </v-avatar>
+        <v-avatar v-else
+          size="48"
+        >
+          <v-img :src="user.avatar"></v-img>
+        </v-avatar>
+        <v-textarea solo name="input-7-4"
+            :append-icon-cb="toggleEmo" 
+            :label="''"
+            v-model="commentText"
+            hide-details
+            class="ml-2"
+            rows="1"
+        ></v-textarea>
+        
+      </v-col>
+    </v-row>
+    
+    <v-row class="ma-0 mb-4">
+      <v-col cols="12" class="d-flex align-center position-relative">
+        <v-icon class="ml-14" @click="emoStatus = !emoStatus">
+          mdi-emoticon-excited-outline
+        </v-icon>
+        <Picker 
+          v-click-outside="outSidePicker" 
+          v-if="emoStatus" 
+          :data="emojiIndex"
+          title="选择你的表情符号..." 
+          set="twitter"
+          @select="onInput"
+          class="position-absolute"
+          style="bottom: 45px; z-index:100"
+          :showPreview="false"
+          :showSearch="false"
+          :i18n="emojiI18n"
+        />
+        <v-spacer></v-spacer>
+        <v-btn color="#f89651" dark @click="cancelComment" >
+            取消
+        </v-btn>
+        <v-btn color="#7879ff" class="ml-2" dark :loading="isPosting" @click="postComment" >
+            提交评论
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
+  <v-container class="px-10" v-else>
     <div>
       <div v-for="(comment,index) in contentData.comments" :key="index">
         <v-row class="py-2">
@@ -12,7 +75,7 @@
             <!-- <v-icon color="#FF5722" @click="remove(comment)" :loading="comment.isDeleting">mdi-trash-can-outline</v-icon> -->
           </v-col>
         </v-row>
-        <v-divider></v-divider>
+        <v-divider v-if="index < contentData.comments.length -1"></v-divider>
       </div>
     </div>
     <v-row class="mt-3">
@@ -151,17 +214,16 @@ export default {
         this.commentText = `${this.commentText}\n`
     },
     async postComment(){
-      this.isPosting = true
       if(this.commentText == ''){
-        return;
+        return this.$snackbar.showMessage({content: this.lang.requireComment, color: "error"})
       }
+      this.isPosting = true
       await addComment({text:this.commentText,postId:this.contentData.id}).then(res=>{
         console.log(res)
         this.isPosting = false
         this.contentData.comments.unshift(res.data)
       }).catch(err=>{
         this.isPosting = false
-        //console.log(err.response)
       })
       this.commentText = ''
     },

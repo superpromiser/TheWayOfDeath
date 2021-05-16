@@ -1,21 +1,16 @@
 <template>
     <v-container class="pa-0" v-if="$isMobile()">
-      <v-container class="pt-0 px-0 h-100 bg-white">
+      <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
         <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
           <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
             mdi-chevron-left
           </v-icon>
           <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.questionnaire}}</p>
-          <v-btn @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+          <v-btn v-if="answerUserShow == false" @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
             已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
-            <v-icon right>
-              mdi-chevron-right
-            </v-icon>
           </v-btn>
         </v-row>
         <div class="cus-divider-light-gray-height"></div>
-        </v-container>
-        <!----title---->
         <div v-if="answerUserShow == false">
           <v-row class="ma-0 px-5 px-md-10 mt-5">
               <v-col cols="12" class="d-flex justify-center align-center">
@@ -51,7 +46,7 @@
                         >
                           <strong>{{alphabet[singleDataIndex-1]}}</strong>
                         </v-chip>
-                        <p class="mb-0 text-wrap"> {{singleData.text}}</p>
+                        <p class="mb-0 text-wrap width-100-without-68-px"> {{singleData.text}}</p>
                       </div>
                       <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
                     </v-col>
@@ -79,7 +74,7 @@
                         >
                           <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>
-                        <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                        <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                       </div>
                       <div class="d-flex align-center cursor-pointer" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1}" v-else>
                         <v-chip
@@ -89,7 +84,7 @@
                         >
                           <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>
-                        <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                        <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                       </div> 
                       <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                     </v-col>
@@ -117,6 +112,7 @@
                         value=""
                         v-model="answerData[index]"
                         hide-details
+                        :disabled="alreadyAnswer"
                       ></v-textarea>
                     </v-col>
                   </v-row>
@@ -168,22 +164,16 @@
                   </v-row>
               </v-col>
           </v-row>
-          <v-row class="d-flex justify-end px-md-13 px-5 mx-0 my-10">
-            <v-btn
-                  dark
-                  color="deep-purple accent-3"
-                  tile
-                  :loading="isSubmit"
-                  :disabled="alreadyAnswer"
-                  @click="submit"
-              > 
-                  {{lang.submit}}
-              </v-btn>
+          <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
+              <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
+                  <v-btn color="#7879ff" block :dark="!alreadyAnswer" large :disabled="alreadyAnswer" :loading="isSubmit" @click="submit"> {{lang.submit}} </v-btn>
+              </v-col>
           </v-row>
         </div>
         <div v-else>
           <router-view :answerUsers="answerDataList"></router-view>
         </div>
+      </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
         <v-row class="px-10 z-index-2 banner-custom">
@@ -286,7 +276,7 @@
                         >
                           <strong>{{alphabet[singleDataIndex-1]}}</strong>
                         </v-chip>
-                        <p class="mb-0 text-wrap"> {{singleData.text}}</p>
+                        <p class="mb-0 text-wrap width-100-without-68-px"> {{singleData.text}}</p>
                       </div>
                       <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
                     </v-col>
@@ -314,7 +304,7 @@
                         >
                           <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>
-                        <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                        <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                       </div>
                       <div class="d-flex align-center cursor-pointer" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1}" v-else>
                         <v-chip
@@ -324,7 +314,7 @@
                         >
                           <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>
-                        <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                        <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                       </div> 
                       <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                     </v-col>
@@ -352,6 +342,7 @@
                         value=""
                         v-model="answerData[index]"
                         hide-details
+                        :disabled="alreadyAnswer"
                       ></v-textarea>
                     </v-col>
                   </v-row>
@@ -535,10 +526,15 @@ export default {
           this.isSubmit = true;
           await createAnswerQuestionnaire({answerData:this.answerData,schoolId:this.currentpath.params.schoolId,lessonId:this.currentpath.params.lessonId,postId:this.contentData.id}).then(res=>{
             //console.log(res)
-            if(this.currentpath.params.lessonId){
-              this.$router.push({name:'classSpace.news'})
-            }else{
-              this.$router.push({name:'schoolSpace.news'})
+            if(this.$isMobile()){
+              this.$router.push({name: "home"})
+            }
+            else{
+              if(this.currentpath.params.lessonId){
+                this.$router.push({name:'classSpace.news'})
+              }else{
+                this.$router.push({name:'schoolSpace.news'})
+              }
             }
             this.isSubmit = false;
           }).catch(err=>{

@@ -43,7 +43,7 @@
                         >
                           <strong>{{alphabet[singleDataIndex-1]}}</strong>
                         </v-chip>
-                        <p class="mb-0 text-wrap"> {{singleData.text}}</p>
+                        <p class="mb-0 text-wrap width-100-without-68-px"> {{singleData.text}}</p>
                       </div>
                       <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
                     </v-col>
@@ -72,7 +72,7 @@
                         >
                           <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>
-                        <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                        <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                       </div>
                       <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                     </v-col>

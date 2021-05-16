@@ -145,7 +145,7 @@
             </v-row>
         </v-container>
         <v-container v-else class="pa-0 ma-0">
-            <v-row class="ma-0">
+            <v-row class="ma-0 px-3 pt-2">
                 <!-- {{index}} -->
                 <v-col cols="12" class="pa-0">
                     <p class="mb-0 font-size-0-8 font-color-gray-dark">{{Label}}</p> 

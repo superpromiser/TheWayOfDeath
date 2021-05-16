@@ -153,7 +153,7 @@
                     >
                       <strong>{{alphabet[singleDataIndex-1]}}</strong>
                     </v-chip>
-                    <p class="mb-0 text-wrap"> {{singleData.text}}</p>
+                    <p class="mb-0 text-wrap width-100-without-68-px"> {{singleData.text}}</p>
                   </div>
                   <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
                 </v-col>
@@ -198,7 +198,7 @@
                   >
                     <strong>{{alphabet[singleDataIndex-1]}}</strong>
                   </v-chip>
-                  <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                  <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                 </div>
 
                 <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
@@ -302,7 +302,7 @@
         <div class="cus-divider"></div>
         <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
           <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
-            <div class="text-center px-2">
+            <div class="text-center px-2" @click="selContent('template')">
               <v-icon>mdi-buffer</v-icon>
               <p class="mb-0 font-color-gray-dark">模板</p>
             </div>
@@ -646,7 +646,7 @@
                       >
                         <strong>{{alphabet[singleDataIndex-1]}}</strong>
                       </v-chip>
-                      <p class="mb-0 text-wrap"> {{singleData.text}}</p>
+                      <p class="mb-0 text-wrap width-100-without-68-px"> {{singleData.text}}</p>
                     </div>
                     <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
                   </v-col>
@@ -690,7 +690,7 @@
                       >
                         <strong>{{alphabet[singleDataIndex-1]}}</strong>
                       </v-chip>
-                      <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                      <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                     </div>
                     <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                   </v-col>
