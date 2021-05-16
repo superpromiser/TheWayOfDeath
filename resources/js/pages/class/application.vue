@@ -81,12 +81,12 @@ export default {
                     imgUrl:"/asset/img/newIcon/announcement.png",
                     path:"classSpace.applications.announcement"
                 },
-                {
-                    color:"#E4BC16",
-                    title:"作业",//숙제
-                    imgUrl:"/asset/img/newIcon/homework.png",
-                    path:"classSpace.applications.homework"
-                },
+                // {
+                //     color:"#E4BC16",
+                //     title:"作业",//숙제
+                //     imgUrl:"/asset/img/newIcon/homework.png",
+                //     path:"classSpace.applications.homework"
+                // },
             ]
         },
         {
@@ -183,12 +183,12 @@ export default {
                     imgUrl:"/asset/img/newIcon/announcement.png",
                     path:"classSpace.applications.announcement"
                 },
-                {
-                    color:"#E4BC16",
-                    title:"作业",//숙제
-                    imgUrl:"/asset/img/newIcon/homework.png",
-                    path:"classSpace.applications.homework"
-                },
+                // {
+                //     color:"#E4BC16",
+                //     title:"作业",//숙제
+                //     imgUrl:"/asset/img/newIcon/homework.png",
+                //     path:"classSpace.applications.homework"
+                // },
             ]
         },
         {

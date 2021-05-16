@@ -11,6 +11,22 @@
           </v-btn>
         </v-row>
         <div class="cus-divider-light-gray-height"></div>
+        <v-row class="ma-0">
+          <v-col cols="12" class="d-flex">
+            <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="48">
+                <span class="white--text headline">{{contentData.users.name[0]}}</span>
+            </v-avatar>
+            <v-avatar v-else
+              size="48"
+            >
+              <v-img :src="contentData.users.avatar"></v-img>
+            </v-avatar>
+            <div class="ml-2 d-flex flex-column">
+              <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.questionnaire}}  </p>
+              <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(contentData.created_at)}} 转发</span> {{contentData.users.name}}</p>
+            </div>
+          </v-col>
+        </v-row>
         <div v-if="answerUserShow == false">
           <v-row class="ma-0 px-5 px-md-10 mt-5">
               <v-col cols="12" class="d-flex justify-center align-center">
@@ -164,6 +180,8 @@
                   </v-row>
               </v-col>
           </v-row>
+          <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+          <CommentView class="pb-10"></CommentView>
           <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
               <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
                   <v-btn color="#7879ff" block :dark="!alreadyAnswer" large :disabled="alreadyAnswer" :loading="isSubmit" @click="submit"> {{lang.submit}} </v-btn>

@@ -440,12 +440,89 @@ export default {
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
         path:"share"
       },
+      {
+        title:"问卷",//설문
+        imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
+        path:"questionnaire"
+      },
+      {
+        title:"投票",//투표
+        imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
+        path:"voting"
+      },
+      {
+        title:"报名",//이름등록
+        imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
+        path:"regname"
+      },
+      {
+        title:"公告",//공시
+        imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
+        path:"announcement"
+      },
+      {
+        title:"安全教育",//안전교육
+        imgUrl:"/asset/img/appIcon/schoolSafety/safeStudy.png",
+        path:"safeStudy"
+      },
+      {
+        title:"学校动态",//학교동태
+        imgUrl:"/asset/img/appIcon/schoolStory/schoolStory.png",
+        path:"schoolStory",
+      },
     ],
     studentSchoolItems:[
       {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
         path:"share"
+      },
+      {
+        title:"问卷",//설문
+        imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
+        path:"questionnaire"
+      },
+      {
+        title:"投票",//투표
+        imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
+        path:"voting"
+      },
+      {
+        title:"报名",//이름등록
+        imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
+        path:"regname"
+      },
+      {
+        title:"公告",//공시
+        imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
+        path:"announcement"
+      },
+      {
+        title:"交接班",//교대반관리
+        imgUrl:"/asset/img/appIcon/schoolSafety/shiftMng.png",
+        path:"shiftMng"
+      },
+      {
+        title:"维修工单",//수리공
+        imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
+        path:"repair"
+      },
+      {
+        title:"安全教育",//안전교육
+        imgUrl:"/asset/img/appIcon/schoolSafety/safeStudy.png",
+        path:"safeStudy"
+      },
+      {
+        title:"学校动态",//학교동태
+        imgUrl:"/asset/img/appIcon/schoolStory/schoolStory.png",
+        path:"schoolStory",
+      },
+    ],
+    employeeSchoolItems:[
+      {
+        title:"交接班",//교대반관리
+        imgUrl:"/asset/img/appIcon/schoolSafety/shiftMng.png",
+        path:"shiftMng"
       },
       {
         title:"维修工单",//수리공
@@ -599,6 +676,11 @@ export default {
         path:"homework"
       },
       {
+        title:"访客管理",//방문자관리
+        imgUrl:"/asset/img/newIcon/manageGuests.png",
+        path:"classSpace.manageGuests"
+      },
+      {
         title:"归程队",//귀한팀관리
         imgUrl:"/asset/img/appIcon/schoolSafety/returnTeam.png",
         path:"classSpace.returnTeam"
@@ -635,6 +717,46 @@ export default {
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
         path:"share"
       },
+      {
+        title:"问卷",//설문
+        imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
+        path:"questionnaire"
+      },
+      {
+        title:"投票",//투표
+        imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
+        path:"voting"
+      },
+      {
+        title:"报名",//이름등록
+        imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
+        path:"regname"
+      },
+      {
+        title:"公告",//공시
+        imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
+        path:"announcement"
+      },
+      {
+        title:"作业",//숙제
+        imgUrl:"/asset/img/appIcon/homeSchool/homework.png",
+        path:"homework"
+      },
+      {
+        title:"班级动态",//학급동태
+        imgUrl:"/asset/img/appIcon/schoolStory/classStory.png",
+        path:"classStory",
+      },
+      {
+        title:"班际动态",//학급별동태
+        imgUrl:"/asset/img/appIcon/schoolStory/interClassStory.png",
+        path:"interClassStory",
+      },
+      {
+        title:"表彰",//영예표창
+        imgUrl:"/asset/img/appIcon/schoolStory/recognition.png",
+        path:"recognition",
+      },
     ],
     studentClassItems:[
       {
@@ -643,14 +765,69 @@ export default {
         path:"vacation"
       },
       {
+        title:"课程表",//시간표
+        imgUrl:"/asset/img/appIcon/attendance/scheduleClass.png",
+        path:"admin.scheduleClass"
+      },
+      {
         title:"分享",//공유
         imgUrl:"/asset/img/appIcon/basicCommunity/share.png",
         path:"share"
       },
       {
+        title:"问卷",//설문
+        imgUrl:"/asset/img/appIcon/basicCommunity/questionnaire.png",
+        path:"questionnaire"
+      },
+      {
+        title:"投票",//투표
+        imgUrl:"/asset/img/appIcon/basicCommunity/voting.png",
+        path:"voting"
+      },
+      {
+        title:"报名",//이름등록
+        imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
+        path:"regname"
+      },
+      {
+        title:"公告",//공시
+        imgUrl:"/asset/img/appIcon/homeSchool/announcement.png",
+        path:"announcement"
+      },
+      {
+        title:"作业",//숙제
+        imgUrl:"/asset/img/appIcon/homeSchool/homework.png",
+        path:"homework"
+      },
+      {
+        title:"归程队",//귀한팀관리
+        imgUrl:"/asset/img/appIcon/schoolSafety/returnTeam.png",
+        path:"classSpace.returnTeam"
+      },
+      {
         title:"维修工单",//수리공
         imgUrl:"/asset/img/appIcon/schoolSafety/repair.png",
         path:"repair"
+      },
+      {
+        title:"安全教育",//안전교육
+        imgUrl:"/asset/img/appIcon/schoolSafety/safeStudy.png",
+        path:"safeStudy"
+      },
+      {
+        title:"班级动态",//학급동태
+        imgUrl:"/asset/img/appIcon/schoolStory/classStory.png",
+        path:"classStory",
+      },
+      {
+        title:"班际动态",//학급별동태
+        imgUrl:"/asset/img/appIcon/schoolStory/interClassStory.png",
+        path:"interClassStory",
+      },
+      {
+        title:"表彰",//영예표창
+        imgUrl:"/asset/img/appIcon/schoolStory/recognition.png",
+        path:"recognition",
       },
     ],
 
@@ -700,6 +877,10 @@ export default {
     else if(this.user.roleId == 5){
       this.schoolSpaceItems = this.studentSchoolItems;
       this.classSpaceItems = this.studentClassItems;
+    }
+    else if(this.user.roleId == 6){
+      this.schoolSpaceItems = this.employeeSchoolItems;
+      this.classSpaceItems = [];
     }
     if(this.$isMobile()){
       if(this.schoolStoryList == null || this.classStoryList == null){

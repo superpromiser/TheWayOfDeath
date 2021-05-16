@@ -243,9 +243,12 @@ export default {
         },
         
         showComment(){
-            console.log('add comment---------------')
-            // console.log(this.currentPath)
-            this.isComment = ! this.isComment
+            if(this.currentPath.path.includes('detail')){
+                return;
+            }
+            else{
+                this.isComment = ! this.isComment
+            }
         },
         onInput(e){
             if(!e){

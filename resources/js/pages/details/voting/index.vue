@@ -6,15 +6,27 @@
                     mdi-chevron-left
                 </v-icon>
                 <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.voting}}</p>
-                <v-btn @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                <v-btn v-if="answerUserShow == false" @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
                     已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
-                    <v-icon right>
-                        mdi-chevron-right
-                    </v-icon>
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
-
+            <v-row class="ma-0">
+                <v-col cols="12" class="d-flex">
+                    <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="48">
+                        <span class="white--text headline">{{contentData.users.name[0]}}</span>
+                    </v-avatar>
+                    <v-avatar v-else
+                        size="48"
+                    >
+                        <v-img :src="contentData.users.avatar"></v-img>
+                    </v-avatar>
+                    <div class="ml-2 d-flex flex-column">
+                        <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.questionnaire}}  </p>
+                        <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(contentData.created_at)}} 转发</span> {{contentData.users.name}}</p>
+                    </div>
+                </v-col>
+            </v-row>
             <div v-if="answerUserShow == false">
                 <v-row class="ma-0 px-5 px-md-10 mt-5">
                     <v-col cols="12">
@@ -39,23 +51,17 @@
                             >
                             <strong>{{alphabet[multiDataIndex-1]}}</strong>
                             </v-chip>
-                            <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                            <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                         </div>
                         <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                     </v-col>
                 </v-row>
-                <v-row class="d-flex justify-end px-md-13 px-5 mx-0 my-10">
-                    <v-btn
-                            :dark="!alreadyAnswer"
-                            color="#7879ff"
-                            tile
-                            :loading="isSubmit"
-                            :disabled="alreadyAnswer"
-                            @click="submit"
-                            class="mr-5"
-                        > 
-                            {{lang.submit}}
-                    </v-btn>
+                <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+                <CommentView class="pb-10"></CommentView>
+                <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
+                    <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
+                        <v-btn color="#7879ff" block :dark="!alreadyAnswer" large :disabled="alreadyAnswer" :loading="isSubmit" @click="submit"> {{lang.submit}} </v-btn>
+                    </v-col>
                 </v-row>
             </div>
             <div v-else>
@@ -153,7 +159,7 @@
                         >
                         <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>
-                        <p class="mb-0 text-wrap"> {{multiData.text}}</p>
+                        <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                     </div>
                     <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                 </v-col>
@@ -300,10 +306,15 @@ export default {
             this.isSubmit = true
             await createAnswerVoting({answer:this.answerData,postId:this.contentData.id}).then(res=>{
                 this.isSubmit = false
-                if(this.currentpath.params.lessonId){
-                    this.$router.push({name:'classSpace.news'})
-                }else{
-                    this.$router.push({name:'schoolSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name: "home"})
+                }
+                else{
+                    if(this.currentpath.params.lessonId){
+                        this.$router.push({name:'classSpace.news'})
+                    }else{
+                        this.$router.push({name:'schoolSpace.news'})
+                    }
                 }
             }).catch(err=>{
                 this.isSubmit = false
