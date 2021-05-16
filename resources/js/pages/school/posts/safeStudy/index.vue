@@ -276,6 +276,7 @@ export default {
         selectPublishType( val ){
             console.log(val);
             if(val == 'spec'){
+                console.log("this.shareData.content[0].text", this.shareData.content[0].text);
                 if(this.shareData.content[0].text.trim() == ''){
                     this.shareData.publishType = null;
                     return this.$snackbar.showMessage({content: this.lang.share+this.lang.requireContent, color: "error"})

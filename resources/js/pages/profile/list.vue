@@ -174,7 +174,7 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <v-dialog v-model="logoutDialog"  width="100%" max-width="500" >
+        <v-dialog v-model="logoutDialog" overlay-opacity="0"  width="100%" max-width="500" >
             <v-card>
                 <v-card-title class="title"> <v-icon color="#F19861" class="mr-2">mdi-alert-circle</v-icon> 您确定要注销吗？ </v-card-title>
                  <v-card-actions>

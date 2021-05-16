@@ -97,7 +97,7 @@ export default {
         schoolstory: null,
     }),
     created(){
-      this.schoolstory = (JSON.parse(this.content.schoolstory.content));
+      this.schoolstory = (JSON.parse(this.content.schoolstory.content))[0];
     },
     computed:{
       currentPath(){

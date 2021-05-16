@@ -253,6 +253,7 @@ import { getSchool } from '~/api/school'
 import {getSchoolStoryMo} from '~/api/schoolStory'
 import {getClassStory} from '~/api/classStory'
 import {postChooseableSchoolItem,  postChooseableClassItem, getPostItem} from '~/api/user'
+import {createReadCnt} from '~/api/alarm'
 import carousel from 'v-owl-carousel';
 import lang from '~/helper/lang.json'
 export default {
@@ -1297,9 +1298,12 @@ export default {
     },
 
     showDetailSchoolStory(story){
+      createReadCnt({postId:story.id}).then(res=>{
+      }).catch(err=>{
+      })
       story.schoolstory.content = JSON.stringify(story.schoolstory.content);
       this.$store.dispatch('content/storePostDetail',story)
-      this.$router.push({name:'details.schoolStory', params:{schoolId: this.user.schoolId}});
+      this.$router.push({name:'details.schoolDefault'});
     },
 
     showDetailClassStory(story){
