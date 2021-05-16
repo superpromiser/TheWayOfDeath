@@ -76,6 +76,7 @@ class PostController extends Controller
                 'vacations',
                 'returnteam',
                 'repairdata',
+                'todayduty',
                 'users:id,name,avatar'
             ])
             ->orderBy('fixTop', 'desc')

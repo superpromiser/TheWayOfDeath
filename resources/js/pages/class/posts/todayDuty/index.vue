@@ -44,7 +44,7 @@
                     <v-col cols="6" class=" px-0">
                         <v-text-field
                             solo
-                            v-model="dutyData.date"
+                            v-model="dutyDate"
                             value="shiftData.prevName"
                             readonly
                             dense
@@ -99,6 +99,7 @@ import lang from '~/helper/lang.json'
 import {mapGetters} from 'vuex'
 import {getLessonUsers} from '~/api/user';
 import quickMenu from '~/components/quickMenu'
+import {createTodayDutyData} from '~/api/todayDuty'
 export default {
 
     components:{
@@ -113,13 +114,9 @@ export default {
         templateCnt:0,
         draftCnt:0,
         isPosting:false,
-        dutyData:{
-            date:'',
-            userList:[]
-        },
+        dutyDate:'',
         checkAll: false,
         userList: [],
-        isSubmit: false,
         selected: [],
         search:'',
         isLoading:false,
@@ -132,7 +129,12 @@ export default {
         }),
         currentPath(){
             return this.$route
-        }
+        },
+        filteredList(){
+            return this.userList.filter(user=>{
+                return user.name.toLowerCase().includes(this.search.toLowerCase())
+            })
+        },
     },
     watch:{
         currentPath:{
@@ -142,14 +144,35 @@ export default {
                 }
             },
             deep:true
-        }
+        },
+        
     },
 
     async created(){
         if(this.currentPath.name == 'posts.CtodayDuty'){
             this.isPosting = true
         }
-        this.dutyData.date = this.TimeViewYMD(Date.now())
+        this.dutyDate = this.TimeViewSTD(Date.now())
+        await getLessonUsers({
+            schoolId:this.currentPath.params.schoolId,
+            lessonId:this.currentPath.params.lessonId
+        })
+        .then(res => {
+            res.data.map(user => {
+                this.$set(user, "checkbox", false);
+                this.specUsers.map(selUser=>{
+                    if(user.id == selUser){
+                        user.checkbox = true
+                    }
+                })
+            });
+            this.userList = res.data;
+            this.isLoading = false
+        })
+        .catch(err => {
+            console.log(err.response);
+            this.isLoading = false
+        });
     },
 
     methods:{
@@ -157,9 +180,50 @@ export default {
             this.isPosting = false
             this.$router.push({name:'todayDuty.contacts'})
         },
-        submit(){
+        async submit(){
             console.log(this.specUsers)
-        }
+            let selUsers = []
+            this.userList.map(user=>{
+                if(user.checkbox == true){
+                    selUsers.push(user.id)
+                }
+            })
+            this.isSubmit = true
+            await createTodayDutyData({
+                schoolId:this.currentPath.params.schoolId,
+                lessonId:this.currentPath.params.lessonId,
+                userList:selUsers,
+                dutyDate:this.dutyDate
+            }).then(res=>{
+                console.log(res.data)
+                this.isSubmit = false
+                this.$router.push({name:"classSpace.news"})
+            }).catch(err=>{
+                console.log(err.response)
+                this.isSubmit = false
+            })
+        },
+        selectAll() {
+            console.log(this.checkAll);
+            if (this.checkAll == false) {
+                this.userList.map(user => {
+                    user.checkbox = false;
+                });
+            } else {
+                this.userList.map(user => {
+                    user.checkbox = true;
+                });
+            }
+        },
+        selectMem(user) {
+            console.log(this.userList);
+            this.checkAll = true;
+            this.userList.map(user => {
+                if (user.checkbox == false) {
+                    this.checkAll = false;
+                }
+            });
+        },
     }
 }
 </script>

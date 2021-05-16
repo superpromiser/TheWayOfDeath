@@ -53,6 +53,7 @@ class TabletController extends Controller
         $todaySchedule = array();
         foreach ($scheduleData as $key => $oneDaySchedule) {
             $schedule['name'] = $oneDaySchedule->$weekday;
+
             array_push($todaySchedule, $schedule);
         }
         for ($i = 0; $i < count($subjectArr); $i++) {

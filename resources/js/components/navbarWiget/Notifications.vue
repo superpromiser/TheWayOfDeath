@@ -93,9 +93,7 @@ export default {
         res.data.map(alarm=>{
           alarm.content = JSON.parse(alarm.content);
         })
-        console.log(res.data);
         this.$store.dispatch('alarm/storeAlarm', res.data);
-        console.log("this.alarmData", this.alarmData)
       }).catch((err) => {
         console.log(err);
       });
@@ -106,14 +104,12 @@ export default {
     listen(){
       Echo.private('newguest.'+ this.user.id)
         .listen('NewGuest', (alarm) => {
-          console.log(alarm)
           alarm.guest.content = JSON.parse(alarm.guest.content);
           this.alarmData.push(alarm.guest);
           this.$store.dispatch('alarm/storeAlarm', this.alarmData);
         });
       Echo.private('newReturnTeam.'+ this.user.id)
         .listen('NewReturnTeam', (alarm) => {
-          console.log("!!!!!!!!!",alarm)
           alarm.returnTeam.content = JSON.parse(alarm.returnTeam.content);
           this.alarmData.push(alarm.returnTeam);
           this.$store.dispatch('alarm/storeAlarm', this.alarmData);
@@ -121,7 +117,6 @@ export default {
     },
 
     onClickAlarm(alarm){
-      console.log(alarm);
       if(alarm.type == 'NewReturnTeam'){
         this.removeAlarm(alarm.id);
         this.$router.push({name: 'classSpace.returnTeam', params: {schoolId: this.user.schoolId, gradeId: this.user.gradeId, lessonId: this.user.lessonId}})
@@ -134,7 +129,6 @@ export default {
       }
       deleteAlarm(payload)
       .then((res) => {
-        console.log("remove successfully alarm data!!!")
       }).catch((err) => {
         
       });

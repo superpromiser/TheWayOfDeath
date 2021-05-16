@@ -97,10 +97,8 @@ export default {
             if(this.newTemplateData.content.length < 4){
                 return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
             }
-            console.log(this.newTemplateData)
             this.isSubmit = true
             createTemplate(this.newTemplateData).then(res=>{
-                console.log(res.data)
                 this.isSubmit = false
                 this.$router.push({name:'voting.tempList'})
             }).catch(err=>{

@@ -27,10 +27,10 @@
           <HomeworkPost :content='content'></HomeworkPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <!-- <v-row class="pa-0 mt-1" v-else-if="content.contentId == 15">
-          <CampusPost :content='content'></CampusPost>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 15 && content.todayduty">
+          <TodayDutyPost :content='content'></TodayDutyPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
-        </v-row> -->
+        </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 16 && content.home_visit">
           <HomeVisitPost :content="content"></HomeVisitPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
@@ -181,6 +181,7 @@ import SafeStudyPost from '~/components/contents/safeStudyPost'
 import ReturnTeam from '~/components/contents/returnTeam'
 import VacationPost from '~/components/contents/vacationPost'
 import RepairDataPost from '~/components/contents/repairDataPost'
+import TodayDutyPost from '~/components/contents/todayDutyPost'
 export default {
   components :{
     QusetionnairePost,
@@ -201,7 +202,8 @@ export default {
     ReturnTeam,
     InfiniteLoading,
     VacationPost,
-    RepairDataPost
+    RepairDataPost,
+    TodayDutyPost,
   },
 
   data: () => ({
@@ -274,7 +276,6 @@ export default {
           vm.pageOfContent = vm.pageOfContent + 1;
       });
       this.isLoadingContents = false;
-      console.log("this.contentList", this.contentList);
     },
 
     updateFooterInfo(data){

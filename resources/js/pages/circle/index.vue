@@ -312,7 +312,7 @@ export default {
       if(this.selectedSchoolItem == null){
         this.$router.push({name: 'home'});
       }
-      console.log("this.isSchoolSpace", this.isSchoolSpace, this.selectedSchoolItem);
+      ("this.isSchoolSpace", this.isSchoolSpace, this.selectedSchoolItem);
     },
 
     methods:{
@@ -341,7 +341,6 @@ export default {
       async infiniteHandler($state){
         if(this.isSchoolSpace == true ){
           let timeOut = 0;
-          console.log("111", this.pageOfContent);
           this.isLoadingContents = true;
           if (this.pageOfContent > 1) {
               timeOut = 1000;
@@ -357,7 +356,6 @@ export default {
               vm.lastpageOfContent = res.data.last_page;
               $.each(res.data.data, function(key, value){
                 
-                console.log("value", value);
                   vm.contentList.push(value); 
               });
               if (vm.pageOfContent - 1 === vm.lastpageOfContent) {
@@ -372,7 +370,6 @@ export default {
         }
         else{
           let timeOut = 0;
-          console.log("111", this.pageOfContent);
           this.isLoadingContents = true;
           if (this.pageOfContent > 1) {
               timeOut = 1000;
@@ -381,7 +378,6 @@ export default {
 
           await getClassPost(this.selectedSchoolItem.lessonId, this.pageOfContent)
           .then(res=>{
-              console.log("resress", res)
               if(vm.pageOfContent == 1 && res.data.data.length == 0){
                   $state.complete();
                   return;
@@ -389,7 +385,6 @@ export default {
               vm.lastpageOfContent = res.data.last_page;
               
               $.each(res.data.data, function(key, value){
-                  console.log("value", value)
                   vm.contentList.push(value); 
               });
               if (vm.pageOfContent - 1 === vm.lastpageOfContent) {

@@ -432,7 +432,6 @@ export default {
                 if(this.chatGroupList.length == 0 && this.contactList.length == 0){
                     this.isNoContactList = true;
                 }
-                console.log("this.contactList", res.data);
                 for(let i = 0; i < this.contactList.length ; i++){
                     this.totalNewMessageCount = this.totalNewMessageCount + this.contactList[i].new_msg_count;
                 }
@@ -446,7 +445,6 @@ export default {
             this.isGettingContactList = false;
         }
         this.model = this.chatGroupList.length;
-        console.log("this.contactList", this.contactList);
     },
 
     watch:{
@@ -585,11 +583,9 @@ export default {
                 newgroup: this.newGroup,
                 groupName: this.groupName
             }
-            console.log("this.newGroup",payload);
             this.isCreatingNewGroup = true;
             await postNewGroup(payload)
             .then(res=>{
-                console.log(res.data);
                 this.chatGroupList.unshift(res.data.newGroup);
                 this.isCreatingNewGroup = false;
                 this.close();
@@ -626,28 +622,23 @@ export default {
 
         },
         startTouchAlphabet(alphabet){
-            console.log("start child")
             alphabet.touched = true;
         },
 
         endTouchAlphabet(alphabet){
-            console.log("end child")
             alphabet.touched = false;
         },
 
         moveChildAlphabet(alphabet){
-            console.log("move child", alphabet.alphabet, alphabet.touched)
             if (this.isMovedParentAlphabet == true){
                 alphabet.touched = true;
             }
         },
 
         startParentAlphabet(){
-            console.log("start parent")
             this.isMovedParentAlphabet = true;
         },
         endParentAlphabet(){
-            console.log("end parent")
             this.isMovedParentAlphabet = false;
         },
         startTouchParent(e){
@@ -688,7 +679,6 @@ export default {
         },
 
         updatechatwith(userInfo) {
-            console.log("userInfo_contact", userInfo)
             this.pushUserToList(userInfo.id);
             this.updatedAddUserToContact()
             for(let i = 0; i < this.contactList.length; i++){
@@ -711,17 +701,14 @@ export default {
         async updatedAddUserToContact(){
             let included = false;
             for(let i = 0; i < this.contactList.length; i++){
-                console.log(this.willAddToContactUser.contactId, this.contactList[i].user.id);
                 if(this.contactList[i].user.id == this.willAddToContactUser.contactId){
                     included = true;
                 }
             }
-            console.log("included", included);
             if(included == true){
                 return
             }
             else{
-                console.log("QQQQQQQQQQQQQ");
                 if(this.willAddToContactUser.contactId == null){
                     return this.$snackbar.showMessage({content: '请选择将添加到联系人的用户', color: 'error'})
                 }

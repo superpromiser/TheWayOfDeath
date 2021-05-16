@@ -398,7 +398,6 @@ export default {
     }
   },
   created() {
-    console.log("this.schoolData",this.schoolData)
     let path = this.currentPath.path.split('/')
     if(path[1] == 'schoolSpace'){
       this.activeSchool = true
@@ -420,7 +419,6 @@ export default {
           myschoolData = schoolItem
         }
       })
-      console.log("myschoolData-------",myschoolData)
       myschoolData.grades = [] 
       this.mySchoolList.push(myschoolData)
     }
@@ -438,7 +436,6 @@ export default {
         grade.lessons.map(lesson=>{
           this.user.groupArr.map(groupId=>{
             if(lesson.id == groupId){
-              console.log('^^^^^^^',lesson)
               let index = clonedVal1.grades.indexOf(grade)
               if(index > -1){
                 clonedVal1.grades[index].lessons.push(lesson)
@@ -455,7 +452,6 @@ export default {
       })
       this.mySchoolList.push(clonedVal1)
     }
-    console.log("#########", "this.mySchoolList", this.mySchoolList);
   },
 
   methods:{

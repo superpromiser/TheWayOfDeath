@@ -113,7 +113,6 @@ export default {
         this.isLoading = true;
         await getUserListExcel()
         .then((res) => {
-            console.log(res)
             this.userList = res.data.userList
             for(let i = 0; i< this.userList.length; i++){
                 if(this.userList[i].familyAddress !== null){
@@ -126,7 +125,6 @@ export default {
                 this.userList[i].fatherJob = this.transFatherJob(this.userList[i].fatherJob);
                 this.userList[i].birthday = this.TimeViewYMD(this.userList[i].birthday);
             }
-            console.log("this.userList", this.userList)
             this.json_data = this.userList;
         }).catch((err) => {
             console.log(err)

@@ -616,7 +616,6 @@ export default {
     methods: {
 
       editItem (item) {
-        console.log("================",item)
         if(item.lessonId){
           this.isBanzi = true
         }
@@ -667,7 +666,6 @@ export default {
       close () {
         this.dialog = false
         this.isBanzi = false
-        console.log('close',this.isBanzi)
         this.$nextTick(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
@@ -684,7 +682,6 @@ export default {
       },
 
       async save () {
-        console.log("this.editedItem", this.editedItem);
         if(this.editedItem.name.trim() == ''){
           return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
         }
@@ -715,7 +712,6 @@ export default {
           return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
         }
         if(/^\d*$/.test(this.editedItem.cardNum) == false){
-          console.log(/^\d*$/.test(this.editedItem.cardNum));
           return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
         }
         if(this.editedItem.cardNum.toString().length !== 18){

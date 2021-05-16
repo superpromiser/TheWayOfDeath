@@ -123,7 +123,6 @@ export default {
     },
     methods:{
         selectAll() {
-            console.log(this.checkAll);
             if (this.checkAll == false) {
                 this.userList.map(user => {
                     user.checkbox = false;
@@ -135,7 +134,6 @@ export default {
             }
         },
         selectMem(user) {
-            console.log(this.userList);
             this.checkAll = true;
             this.userList.map(user => {
                 if (user.checkbox == false) {

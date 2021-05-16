@@ -126,7 +126,6 @@ export default {
             this.searchKeyword = '';
         },
         onSearch(){
-            console.log(this.searchKeyword);
         },
         navToChatNews(){
             this.isActiveNavNews = true;
@@ -160,7 +159,6 @@ export default {
             }
             getMessage(payload)
             .then((res) => {
-                console.log("res", res)
                 for(let i = 0; i < res.data.messages.length ; i++){
                     if(res.data.messages[i].file){
                         res.data.messages[i].file = JSON.parse(res.data.messages[i].file);
@@ -181,10 +179,8 @@ export default {
                 to: this.ChatIn,
                 from: this.currentUser.id,
             };
-            console.log("payload",payload)
             getGroupChatMessage(payload)
                 .then((res) => {
-                    console.log("res", res);
                 for(let i = 0; i < res.data.messages.length ; i++){
                     if(res.data.messages[i].file){
                     res.data.messages[i].file = JSON.parse(res.data.messages[i].file);

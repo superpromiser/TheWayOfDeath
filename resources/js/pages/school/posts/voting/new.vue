@@ -365,7 +365,6 @@ export default {
             handler(val){
                 if(val.query.tempData){
                     this.isPosting = true
-                    console.log("JSON.parse(val.query.tempData)",JSON.parse(val.query.tempData))
                     this.votingData.content = JSON.parse(val.query.tempData)
                 }
             },
@@ -424,7 +423,6 @@ export default {
             
             this.votingData.deadline = this.TimeView(this.votingData.deadline)
             this.isCreating = true
-            console.log("+++++++++++++++",this.votingData)
             // return
             await createVoting(this.votingData).then(res=>{
                 if(this.$isMobile()){
@@ -454,11 +452,9 @@ export default {
             let currentTime = Date.now();
             draftData.tempTitle = 'title-' + currentTime
             draftData.description = 'description-' + currentTime
-            console.log(draftData)
             
             this.isDraft = true
             await createTemplate(draftData).then(res=>{
-                console.log(res.data)
                 this.isDraft = false
                 this.draftCnt ++ 
             }).catch(err=>{

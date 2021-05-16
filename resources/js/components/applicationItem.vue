@@ -72,7 +72,6 @@ export default {
     methods : {
         selectItem(){
             this.$emit('selected',false)
-            console.log('-----',this.item.path)
             if(this.item.path == 'posts.vocation'){
                 if(this.user.roleId == 3){
                     this.$router.push({name:"posts.vacationTeacher",params:{schoolId:this.currentSchoolId,gradeId:this.currentGradeId,lessonId:this.currentLessonId}})

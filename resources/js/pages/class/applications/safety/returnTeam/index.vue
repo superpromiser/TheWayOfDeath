@@ -104,21 +104,17 @@ export default {
     }),
 
     async created(){
-        console.log("this.todayReturnTeamArr", this.todayReturnTeamArr);
         if(this.todayReturnTeamArr == null){
             let todayTeamArr = [];
             let remainTeamArr = [];
             this.isLoading = true;
             await getReturnTeam()
             .then((res) => {
-                console.log(res)
                 res.data.returnTeamArr.map(returnTeam=>{
                     if(returnTeam.name !== '留堂成员'){
                         todayTeamArr.push(returnTeam);
                     }
-                    console.log("!!!!!!!!!",this.isToday(returnTeam.updated_at))
                     if( returnTeam.name == '留堂成员' && (this.isToday(returnTeam.updated_at) == true)){
-                        console.log(this.isToday(returnTeam.updated_at))
                         todayTeamArr.push(returnTeam);
                         this.$set(returnTeam, "checkbox", false);
                         this.$set(returnTeam, "isDelete", false);

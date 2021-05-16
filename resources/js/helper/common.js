@@ -48,6 +48,7 @@ export default{
         // }
     },
     methods:{
+
         TimeView(str){
             // let date =  new Date(str)
             let date = new Date(str);
@@ -56,6 +57,18 @@ export default{
             let hour = ("0" + date.getHours()).slice(-2);
             let min = ("0" + date.getMinutes()).slice(-2);
             let time = date.getFullYear() + '-' + mnth + '-' + day + ' ' + hour + ':' + min;
+            return time
+            // date = date.getTime()
+            // return date
+        },
+        TimeViewSTD(str){
+            // let date =  new Date(str)
+            let date = new Date(str);
+            let mnth = ("0" + (date.getMonth() + 1)).slice(-2);
+            let day = ("0" + date.getDate()).slice(-2);
+            let hour = ("0" + date.getHours()).slice(-2);
+            let min = ("0" + date.getMinutes()).slice(-2);
+            let time = date.getFullYear() + '-' + mnth + '-' + day;
             return time
             // date = date.getTime()
             // return date
@@ -106,8 +119,6 @@ export default{
             // return date
         },
         checkIfAttachExist(data){
-
-            console.log("+++++++++++",data)
             let count = 0;
             count = count + data.imgUrl.length + data.videoUrl.length + data.otherUrl.length;
             if( count == 0 ) {
@@ -154,7 +165,6 @@ export default{
                     mySchoolData = x;
                 }
             })
-            console.log('commonmyschooldata',mySchoolData)
             mySchoolData.grades.map( grade =>{
                 grade.lessons.map( lesson =>{
                     let lessonObj = {
@@ -165,11 +175,9 @@ export default{
                     returnVal.push(lessonObj);
                 } )
             } )
-            console.log('commonmyschoolinfo',returnVal)
             return returnVal;
         },
         fixTop(data){
-            console.log('fixtop-----',data.id);
             axios.put('/api/v1/post',{postId:data.id}).then(res=>{
                 this.$snackbar.showMessage({content: '成功', color: "success"})
             }).catch(err=>{

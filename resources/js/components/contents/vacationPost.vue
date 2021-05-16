@@ -160,7 +160,6 @@ export default {
     created(){
     //   this.shareData = JSON.parse(this.content.shares.content);
     //   console.log(this.content)
-        console.log('vacation--------',this.content.vacations)
         this.vacationData = this.content.vacations
 
     },
@@ -176,12 +175,10 @@ export default {
 
       showDetail(content){
         createReadCnt({postId:content.id}).then(res=>{
-          console.log(res.data)
         }).catch(err=>{
           console.log(err.response)
         })
         createReadCnt({postId:content.id}).then(res=>{
-          console.log(res.data)
         }).catch(err=>{
           console.log(err.response)
         })

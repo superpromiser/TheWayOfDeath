@@ -560,7 +560,6 @@ export default {
     methods: {
 
       editItem (item) {
-        console.log("---------------",item)
         let address = item.residenceAddress.split(" ");
         let index = this.madeJsonFromString.findIndex(item=>item.label == address[0])
         this.willBeCityDataOfResidenceAddress = this.madeJsonFromString[index].city;
@@ -579,7 +578,6 @@ export default {
         this.editedItem.familyAddress = JSON.parse(this.schoolManagerListRaw[this.editedIndex].familyAddress)
         this.editedItem.residenceAddress = JSON.parse(this.schoolManagerListRaw[this.editedIndex].residenceAddress)
         this.dialog = true
-        console.log("+++++++++++++++++",this.editedItem)
       },
 
       deleteItem (item) {
@@ -624,8 +622,6 @@ export default {
 
       async save () {
         //update schoolManagerData
-        console.log("this.editedIndex",this.editedIndex)
-        console.log("this.editedItem",this.editedItem)
         if (this.editedIndex > -1) {
         
           if(this.editedItem.name.trim() == ''){
@@ -655,15 +651,12 @@ export default {
           }
           // cardnumber
           if(this.editedItem.cardNum == ''){
-            console.log('1')
             return this.$snackbar.showMessage({content: this.lang.requireCardNumber, color: "error"})
           }
           if(/^\d*$/.test(this.editedItem.cardNum) == false){
-            console.log('2')
             return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
           }
           if(this.editedItem.cardNum.toString().length !== 18 ){
-            console.log('3')
             return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
           }
           //residence address

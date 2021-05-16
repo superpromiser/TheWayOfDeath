@@ -272,7 +272,6 @@ export default {
         //you need to get teacher's name from server or vuex...
         // this.newVacationData.teacherName = this.....
         getBanziName().then(res=>{
-            console.log(res.data)
             this.newVacationData.teacherName = res.data.name
             this.newVacationData.teacherId = res.data.id
         }).catch(err=>{
@@ -291,7 +290,6 @@ export default {
             console.log(this.newVacationData);
             this.isLoading = true
             await createVacationData(this.newVacationData).then(res=>{
-                console.log(res.data)
                 this.isLoading = false
                 if(this.$isMobile()){
                     this.$router.push({name:'home'})

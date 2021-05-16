@@ -57,7 +57,7 @@
                 <HomeworkPost :content='contentData'></HomeworkPost>
             </div>
             <div v-else-if='contentData.contentId == 15'>
-                <SmsPost :content='contentData'></SmsPost>
+                <TodayDutyPost :content='contentData'></TodayDutyPost>
             </div>
             <div v-else-if='contentData.contentId == 16'>
                 <HomeVisitPost :content='contentData'></HomeVisitPost>
@@ -180,7 +180,7 @@
                 <HomeworkPost :content='contentData'></HomeworkPost>
             </div>
             <div v-else-if='contentData.contentId == 15'>
-                <SmsPost :content='contentData'></SmsPost>
+                <TodayDutyPost :content='contentData'></TodayDutyPost>
             </div>
             <div v-else-if='contentData.contentId == 16'>
                 <HomeVisitPost :content='contentData'></HomeVisitPost>
@@ -254,6 +254,7 @@ import "emoji-mart-vue-fast/css/emoji-mart.css";
 import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
 let emojiIndex = new EmojiIndex(emojiData);
 import {updateShiftMng} from '~/api/shiftMng'
+import TodayDutyPost from '~/components/contents/todayDutyPost'
 export default {
     components : {
         QuestionnairePost,
@@ -279,7 +280,8 @@ export default {
         CommentView,
         RouterBack,
         Picker,
-        VacationPost
+        VacationPost,
+        TodayDutyPost,
     },
 
     data:() => ({

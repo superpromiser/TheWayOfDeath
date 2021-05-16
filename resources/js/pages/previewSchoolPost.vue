@@ -179,7 +179,6 @@ export default {
     }),
 
     created(){
-        console.log("this.previewData", this.previewData);
         if(this.previewData == null){
             return this.$router.go(-1);
         }

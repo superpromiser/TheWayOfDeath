@@ -179,7 +179,6 @@ export default {
     }),
 
     created(){
-        console.log("this.previewData", this.previewData);
         this.previewData.schoolId = this.currentPath.params.schoolId
         this.previewData.classId = this.currentPath.params.lessonId
         if(this.previewData == null){

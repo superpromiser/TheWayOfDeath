@@ -375,7 +375,6 @@ export default {
       await loginApi(payload)
         .then(res=>{
           this.isLogging = false;
-          console.log("res.data$$$$$$$$$$$$$$$$$$",res.data)
           // Save the token.
           this.$store.dispatch('auth/saveToken', {
             token: res.data.token,

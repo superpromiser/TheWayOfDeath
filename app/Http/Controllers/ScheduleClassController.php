@@ -24,7 +24,7 @@ class ScheduleClassController extends Controller
 
         if ($lastSession) { // error appears next line with id is non defined, so setted if condition
             $subjectOrder = Subject::where(['schoolId' => Auth::user()->schoolId, 'sessionId' => $lastSession->id])->get();
-            $mySchoolScheduleTeacherData = ScheduleTeacher::where(['schoolId' => Auth::user()->schoolId])->get();
+            $mySchoolScheduleTeacherData = ScheduleTeacher::where(['schoolId' => Auth::user()->schoolId])->with('teacher:id,avatar')->get();
 
             $scheduleTeacherDataArr = array();
             foreach ($mySchoolScheduleTeacherData as $key => $scheduleTeacherData) {

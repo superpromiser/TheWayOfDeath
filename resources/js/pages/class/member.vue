@@ -170,7 +170,6 @@ export default {
     this.isLoading = true
     await getAllGroupMember({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
       this.isLoading = false
-      console.log(res.data)
       this.userList = res.data
 
     }).catch(err=>{
@@ -206,7 +205,6 @@ export default {
       }
     },
     selMember(user){
-      console.log(user)
       this.$router.push({name:'classSpace.memProfile',params:{userId:user.id}});
     }
   }

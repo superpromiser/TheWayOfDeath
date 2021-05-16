@@ -163,7 +163,6 @@ export default {
     async created(){
         this.isLoadingSchoolData = true;
         await getAttendanceData().then(res=>{
-            console.log(res.data)
             this.attendanceData = res.data
             this.isLoadingSchoolData = false;
         }).catch(err=>{
@@ -211,14 +210,11 @@ export default {
         },
 
         chooseDate(date){
-            console.log(date)
         },
         async selDate(){
-            console.log(this.attendanceDate)
             this.menu = false
             this.isLoadingSchoolData = true
             await getAttendanceData({selDate:this.attendanceDate}).then(res=>{
-                console.log(res.data)
                 this.attendanceData = res.data
                 this.isLoadingSchoolData = false;
             }).catch(err=>{

@@ -1,18 +1,18 @@
 import axios from 'axios'
 
-function getTodayDutyData(){
+function getTodayDutyData(payload){
     return axios.get('/api/v1/todayDuty',{params:payload})
 }
 
-function createTodayDutyData(){
+function createTodayDutyData(payload){
     return axios.post('/api/v1/todayDuty',payload)
 }
 
-function updateTodayDutyData(){
+function updateTodayDutyData(payload){
     return axios.put('/api/v1/todayDuty',payload)
 }
 
-function deleteTodayDutyData(){
+function deleteTodayDutyData(payload){
     return axios.delete('/api/v1/todayDuty',{params:payload})
 }
 

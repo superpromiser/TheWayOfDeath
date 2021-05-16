@@ -240,14 +240,12 @@ export default {
             let vm = this;
             await getRecognition({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,status:this.viewType,deadline:this.date,lessonId:this.currentPath.params.lessonId})
             .then(res=>{
-                console.log(res.data)
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
                     $state.complete();
                     return;
                 }
                 vm.lastpageOfContent = res.data.last_page;
                 $.each(res.data.data, function(key, value){
-                    console.log("value",value)
                     vm.contentList.push(value); 
                 });
                 if (vm.pageOfContent - 1 === vm.lastpageOfContent) {
@@ -264,14 +262,12 @@ export default {
             this.$router.push({name:"posts.Crecognition"})
         },
         selViewType(){
-            console.log(this.viewType)
             this.pageOfContent = 1;
             this.lastPageOfContent = 0;
             this.contentList = [];
             this.infiniteHandler()
         },
         selDate(){
-            console.log(this.date)
             this.pageOfContent = 1;
             this.lastPageOfContent = 0;
             this.contentList = [];

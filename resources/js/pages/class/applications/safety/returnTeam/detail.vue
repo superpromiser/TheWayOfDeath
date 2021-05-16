@@ -238,8 +238,6 @@ export default {
             this.teamData.teacher_id = this.selectedTeacherData
             this.teamData.teacherId = this.teamData.teacher_id.id
         }
-        console.log("this.teamData",this.teamData);
-
     },
 
     methods:{
@@ -308,7 +306,6 @@ export default {
             });
             payload.member = idArr;
             this.isUpdating = true;
-            console.log("payload", payload)
             await updateReturnTeam(payload)
             .then((res) => {
                 if(res.data.msg == 1){

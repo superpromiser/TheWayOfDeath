@@ -124,7 +124,6 @@ export default {
     methods:{
       showDetail(content){
         createReadCnt({postId:content.id}).then(res=>{
-          console.log(res.data)
         }).catch(err=>{
           console.log(err.response)
         })

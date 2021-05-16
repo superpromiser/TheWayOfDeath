@@ -252,6 +252,7 @@ export default {
             this.subjectItem.push(selfStudy);
             res.data.scheduleTeacherDataArr.map(data=>{
                 data.subjectName = data.subjectName + ' - ' + data.teacherName
+                data.teacherAvatar = data.teacher.avatar
                 this.subjectItem.push(data);
             })
             if(res.data.scheduleData.length == 0){
@@ -271,9 +272,29 @@ export default {
                 } )
             }
             else{
-                this.scheduleData = JSON.parse(res.data.scheduleData[0].scheduleData);
+                
                 this.scheduleDataId = res.data.scheduleData[0].id;
-                console.log("res.data.scheduleData", res.data.scheduleData);
+                let scheduleData = JSON.parse(res.data.scheduleData[0].scheduleData);
+                res.data.subjectOrder.map((order,index)=>{
+                    if(order.subjectOrderName == scheduleData[index].ord){
+                        this.scheduleData.push(scheduleData[index])
+                    }else{
+                        let scheduleDataItemObj = {
+                            ord: order.subjectOrderName,
+                            mon: "",
+                            tue: "",
+                            wed: "",
+                            thu: "",
+                            fri: "",
+                            sat: "",
+                            sun: ""
+                        }
+                        this.scheduleData.push(scheduleDataItemObj);
+                    }
+                })
+                // console.log("res.data.scheduleData", this.scheduleData);
+                // console.log("this.scheduleData.length",this.scheduleData.length)
+                
             }
         }).catch(err=>{
             console.log(err.response)
@@ -374,7 +395,6 @@ export default {
         },
         async onSubmit(){
             this.isLoadingNewData = true;
-            console.log(this.scheduleData);
 
             if(this.isCreatMode == true){
                 let payload = {
@@ -383,7 +403,6 @@ export default {
                 console.log(payload)
                 await createScheduleClass(payload)
                 .then((res) => {
-                    console.log(res)
                     this.isEditable = false
                 }).catch((err) => {
                     this.isEditable = false                    
@@ -396,7 +415,6 @@ export default {
                 }
                 await updateScheduleClass(payload)
                 .then((res) => {
-                    console.log(res);
                     this.isEditable = false
                 }).catch((err) => {
                     this.isEditable = false

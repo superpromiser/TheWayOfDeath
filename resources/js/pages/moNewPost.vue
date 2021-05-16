@@ -1538,7 +1538,6 @@ export default {
         }
 
 
-        console.log("this.selectedSchoolItem", this.selectedSchoolItem);
         if(this.selectedSchoolItem == null){
             return this.$router.push({name: 'home'});
         }
