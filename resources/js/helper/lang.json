@@ -77,5 +77,6 @@
 
     "requireCorrectPhoneNumber": "请输入正确的电话号码",
     "requireCorrectCardNumber": "请输入正确的身份证号",
-    "vacation":"请假"
+    "vacation":"请假",
+    "requireComment": "评论不能为空"
 }
