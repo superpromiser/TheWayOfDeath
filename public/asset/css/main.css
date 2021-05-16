@@ -1712,3 +1712,7 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
 .text-area-without-nav-bottom-announcement{
     height: calc(100vh - 340px);
 }
+
+.width-100-without-68-px{
+    width: calc(100% - 68px);
+}
