@@ -108,7 +108,7 @@
                                                 <v-list-item-title v-text="lang.addOption"></v-list-item-title>
                                             </v-list-item-content>
                                         </v-list-item>
-                                        <v-list-item v-if="newSignFlag" class="text-right">
+                                        <v-list-item v-if="newSignFlag" class="justify-end">
                                             <v-text-field
                                                 v-model="newSignName"
                                                 solo
@@ -200,7 +200,7 @@ import lang from '~/helper/lang.json'
 import { VueEditor } from "vue2-editor";
 
 
-import {createAnouncement,getLessonUsers} from '~/api/anouncement'
+import {createAnouncement,getTemplateCnt,createTemplate} from '~/api/anouncement'
 
 export default {
     middleware:['post','auth'],
@@ -288,12 +288,9 @@ export default {
         if(this.currentPath.name == 'posts.Cannouncement'){
             this.isPosting = true
         }
-        getLessonUsers({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
-            res.data.map(data=>{
-                this.$set(data,'isChecked',false)
-            })
-            this.userList = res.data
-            console.log(this.userList)
+        getTemplateCnt({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+            this.templateCnt = res.data.templateCnt
+            this.draftCnt = res.data.draftCnt
         })
     },
 
@@ -302,7 +299,30 @@ export default {
             //console.log(val)
         },  
         saveDraft(){
-
+            this.$refs.child.emitData()
+            let draftData = {}
+            draftData.tempType = 2
+            draftData.content = this.announcementData.content
+            draftData.schoolId = this.currentPath.params.schoolId
+            if(this.currentPath.params.lessonId){
+                draftData.lessonId = this.currentPath.params.lessonId
+            }
+            let currentTime = Date.now();
+            draftData.title = 'title-' + currentTime
+            draftData.description = 'description-' + currentTime
+            console.log(draftData)
+            if(this.announcementData.content.length == 0){
+                return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+            }
+            this.isDraft = true
+            createTemplate(draftData).then(res=>{
+                console.log(res.data)
+                this.isDraft = false
+                this.draftCnt ++ 
+            }).catch(err=>{
+                console.log(err.response)
+                this.isDraft = false
+            })
         },
         loadContentData(data){
             if(data.text === ''){

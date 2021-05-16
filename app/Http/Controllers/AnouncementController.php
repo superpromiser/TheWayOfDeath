@@ -85,7 +85,7 @@ class AnouncementController extends Controller
             'schoolId' => 'required'
         ]);
         $userId = Auth::user()->id;
-        return Template::where(['contentId' => 5, 'userId' => $userId, 'schoolId' => $request->schoolId,])->get();
+        return Template::where(['contentId' => 5, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->get();
     }
 
     public function createTemplate(Request $request)

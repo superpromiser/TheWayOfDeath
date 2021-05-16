@@ -285,14 +285,18 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/file', name:'posts.Cfile', component:page('class/posts/file/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/classStory', name:'posts.classStory', component:page('class/posts/classStory/index.vue'),
     children:[
-      {path:'contacts',name:'classStory.contacts',component:page('class/contacts.vue')}
+      {path:'contacts',name:'classStory.contacts',component:page('class/contacts.vue')},
+      {path:'templateList',name:'classStory.templateList',component:page('class/posts/classStory/templateList.vue')}
     ]
   },
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/classStory/newTemplate',name:'classStory.newTemplate',component:page('class/posts/classStory/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/interClassStory', name:'posts.interClassStory', component:page('class/posts/interClassStory/index.vue'),
     children:[
-      {path:'contacts',name:'interClassStory.contacts',component:page('class/contacts.vue')}
+      {path:'contacts',name:'interClassStory.contacts',component:page('class/contacts.vue')},
+      {path:'templateList',name:'interClassStory.templateList',component:page('class/posts/interClassStory/templateList.vue')}
     ]
   },
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/interClassStory/newTemplate',name:'interClassStory.newTemplate',component:page('class/posts/interClassStory/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share', name:'posts.Cshare', component:page('class/posts/share/new.vue'),
     children:[
       {path:'templateList',name:"Cshare.templateList", component:page('class/posts/share/templateList.vue')},
@@ -306,12 +310,19 @@ export default [
     ]
   },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName/newTemplate',name:'CregName.newTemplate',component:page('class/posts/regname/newTemplate.vue')},
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement',name:'posts.Cannouncement',component:page('class/posts/announcement/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement',name:'posts.Cannouncement',component:page('class/posts/announcement/new.vue'),
+    children:[
+      {path:'templateList',name:'Cannouncement.templateList',component:page('class/posts/announcement/templateList.vue')}
+    ]
+  },
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement/newTemplate',name:'Cannouncement.newTemplate',component:page('class/posts/announcement/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/safeStudy',name:'posts.CsafeStudy',component:page('class/posts/safeStudy/index.vue'),
     children:[
       {path:'contacts',name:'CsafeStudy.contacts',component:page('class/contacts.vue')},
+      {path:'templateList',name:'CsafeStudy.templateList',component:page('class/posts/safeStudy/templateList.vue')},
     ]
   },
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/safeStudy/newTemplate',name:'CsafeStudy.newTemplate',component:page('class/posts/safeStudy/newTemplate.vue')},  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/repair',name:'posts.Crepair',component:page('class/posts/repair/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/vacation',name:'posts.Cvacation',component:page('class/posts/vacation/student/new.vue')},
   //class member  

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\InterClassStory;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
+use App\Template;
 
 class InterClassStoryController extends Controller
 {
@@ -91,5 +92,49 @@ class InterClassStoryController extends Controller
 
     public function deleteInterClassStory(Request $request)
     {
+    }
+
+    public function getTemplateCnt(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required',
+        ]);
+        $userId = Auth::user()->id;
+        $result['draftCnt'] = Template::where(['contentId' => 26, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'tempType' => 2])->count();
+        $result['templateCnt'] = Template::where(['contentId' => 26, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'tempType' => 1])->count();
+        return $result;
+    }
+
+    public function getTemplateList(Request $request)
+    {
+        $this->validate($request, [
+            'schoolId' => 'required'
+        ]);
+        $userId = Auth::user()->id;
+        return Template::where(['contentId' => 26, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->get();
+    }
+
+    public function createTemplate(Request $request)
+    {
+        $userId = Auth::user()->id;
+        Template::create([
+            'contentId' => 26,
+            'userId' => $userId,
+            'tempTitle' => $request->title,
+            'description' => $request->description,
+            'content' => $request->content,
+            'schoolId' => $request->schoolId,
+            'tempType' => $request->tempType,
+            'lessonId' => $request->lessonId
+        ]);
+        return true;
+    }
+
+    public function deleteTemplate(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required'
+        ]);
+        return Template::where('id', $request->id)->delete();
     }
 }
