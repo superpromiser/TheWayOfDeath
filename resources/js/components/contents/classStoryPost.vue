@@ -97,7 +97,12 @@ export default {
         schoolstory: {},
     }),
     created(){
-      this.schoolstory = (JSON.parse(this.content.classstory.content))[0];
+      if(this.$isMobile()){
+        this.schoolstory = (JSON.parse(this.content.classstory.content))[0];
+      }
+      else{
+        this.schoolstory = JSON.parse(this.content.classstory.content);
+      }
     },
     computed:{
       currentPath(){

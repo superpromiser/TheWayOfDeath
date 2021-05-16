@@ -227,8 +227,9 @@ export default {
             });
             this.isLoadingContents = false;
         },
+
         post(){
-            this.$router.push({name:"posts.schoolStory"})
+            this.$router.push({name:"posts.interClassStory"})
         }
     }
 }
