@@ -21,7 +21,7 @@ class CreateTemplatesTable extends Migration
             $table->char('description')->nullable();
             // $table->char('imgUrl');
             $table->tinyInteger('tempType');
-            $table->json('content')->nullable();
+            $table->longText('content')->nullable();
             $table->tinyInteger('schoolId');
             $table->tinyInteger('lessonId')->nullable();
             $table->foreign('contentId')->references('id')->on('contents')->onDelete('cascade');
