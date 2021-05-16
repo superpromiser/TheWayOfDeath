@@ -1,47 +1,61 @@
 <template>
     <v-container  class="ma-0 pa-0 h-100" v-if="$isMobile()">
-        <div v-if="showDetail == false">
-            <v-container class="pt-0 px-0 h-100 bg-white">
-                <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
-                    <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
-                        mdi-chevron-left
-                    </v-icon>
-                    <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{homeworkData.homeworkType}}</p>
-                    <v-btn @click="viewDetail" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
-                        查看详情
-                    </v-btn>
-                </v-row>
-                <div class="cus-divider-light-gray-height"></div>
-                <v-row class="ma-0">
-                    <v-col cols="12">
-                        <div class="d-flex align-center">
-                            <p class="text-wrap mb-0">
-                            <strong>作业科目:</strong>
-                            {{homeworkData.subjectName}}
-                            </p>
-                        </div>
-                        <div class="d-flex align-center">
-                            <p class="text-wrap mb-0">
-                            <strong>作业类型:</strong>
-                            {{homeworkData.homeworkType}}
-                            </p>
-                        </div>
-                        <div class="d-flex align-center">
-                            <p class="text-wrap mb-0">
-                            <strong>作业内容:</strong>
-                            {{homeworkData.content.text}}
-                            </p>
-                        </div>
-                    </v-col>
-                    <v-col cols="12" v-if="checkIfAttachExist(homeworkData.content)">
-                        <AttachItemViewer :items="homeworkData.content" />
-                    </v-col>
-                </v-row>
-            </v-container>
-        </div>
-        <div v-else>
+        <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px" v-if="showDetail == false">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{homeworkData.homeworkType}}</p>
+                <v-btn @click="viewDetail" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    查看详情
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0">
+                <v-col cols="12" class="d-flex">
+                    <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="48">
+                        <span class="white--text headline">{{contentData.users.name[0]}}</span>
+                    </v-avatar>
+                    <v-avatar v-else size="48" >
+                        <v-img :src="contentData.users.avatar"></v-img>
+                    </v-avatar>
+                    <div class="ml-2 d-flex flex-column">
+                        <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{homeworkData.homeworkType}}  </p>
+                        <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(contentData.created_at)}} 转发</span> {{contentData.users.name}}</p>
+                    </div>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0">
+                <v-col cols="12">
+                    <div class="d-flex align-center">
+                        <p class="text-wrap mb-0">
+                        <strong>作业科目:</strong>
+                        {{homeworkData.subjectName}}
+                        </p>
+                    </div>
+                    <div class="d-flex align-center">
+                        <p class="text-wrap mb-0">
+                        <strong>作业类型:</strong>
+                        {{homeworkData.homeworkType}}
+                        </p>
+                    </div>
+                    <div class="d-flex align-center">
+                        <p class="text-wrap mb-0 w-100">
+                        <strong>作业内容:</strong>
+                        {{homeworkData.content.text}}
+                        </p>
+                    </div>
+                </v-col>
+                <v-col cols="12" class="py-0" v-if="checkIfAttachExist(homeworkData.content)">
+                    <AttachItemViewer :items="homeworkData.content" />
+                </v-col>
+                <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+                <CommentView></CommentView>
+            </v-row>
+        </v-container>
+        <v-container class="pa-0" v-else>
             <router-view :contentData="contentData"></router-view>
-        </div>
+        </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
         <div v-if="showDetail == false">
@@ -171,10 +185,15 @@ export default {
     },
     created(){
         if(this.contentData == null){
-            if(this.currentpath.params.lessonId){
-                this.$router.push({name:'classSpace.news'})
-            }else{
-                this.$router.push({name:'schoolSpace.news'})
+            if(this.$isMobile()){
+                this.$router.push({name:'home'})
+            }
+            else{
+                if(this.currentpath.params.lessonId){
+                    this.$router.push({name:'classSpace.news'})
+                }else{
+                    this.$router.push({name:'schoolSpace.news'})
+                }
             }
         }
         console.log("this.contentData",this.contentData)

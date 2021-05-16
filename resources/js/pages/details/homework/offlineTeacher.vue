@@ -1,5 +1,66 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+        <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{homeworkData.homeworkType}}</p>
+                <v-btn @click="submit" :disabled="alreadyAnswer" :loading="isSubmit" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <div v-if="isLoading" class="pa-5 d-flex align-center justify-center">
+                <v-progress-circular
+                    indeterminate
+                    color="#7879ff"
+                ></v-progress-circular>
+            </div>
+            <div v-else-if="alreadyAnswer == false">
+                <v-row class="ma-0" v-for="(user,idx) in userList" :key="user.id" >
+                    <v-col class="d-flex justify-space-between align-center" cols="12">
+                        <p class=" mb-0">
+                            {{idx + 1}}.
+                            {{user.name}}
+                        </p>
+                        <v-rating
+                            half-increments
+                            hover
+                            background-color="orange lighten-3"
+                            color="orange"
+                            length="5"
+                            size="20"
+                            v-model="user.rating"
+                        ></v-rating>
+                    </v-col>
+                    <v-divider v-if="idx < userList.length - 1" class="thick-border"></v-divider>
+                </v-row>
+            </div>
+            <div v-else>
+                <v-row class="ma-0" v-for="(user,idx) in userList" :key="user.id">
+                    <v-col class="d-flex justify-space-between align-center" cols="12">
+                        <p class=" mb-0">
+                            {{idx + 1}}.
+                            {{user.user.name}}
+                        </p>
+                        <v-rating
+                            half-increments
+                            hover
+                            background-color="orange lighten-3"
+                            color="orange"
+                            length="5"
+                            size="20"
+                            v-model="user.rating"
+                            readonly
+                        ></v-rating>
+                    </v-col>
+                    <v-divider v-if="idx < userList.length - 1" class="thick-border"></v-divider>
+                </v-row>
+            </div>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -88,6 +149,7 @@ export default {
         alreadyAnswer:false,
         homeworkData:null,
         isSubmit:false,
+        isLoading: false
     }),
     computed:{
         currentPath(){
@@ -97,6 +159,7 @@ export default {
     async created(){
         console.log('-------------',this.contentData)
         this.homeworkData = this.contentData.homework
+        this.isLoading = true;
         await getOfflineTeacherAnswer({
             postId:this.contentData.id
         }).then(res=>{
@@ -128,6 +191,7 @@ export default {
                 console.log(err.response)
             })
         }
+        this.isLoading = false;
     },
     methods:{
         submit(){
@@ -145,7 +209,12 @@ export default {
             createOfflineTeacherAnswer({ratingList:this.userList}).then(res=>{
                 console.log(res.data)
                 this.isSubmit = false
-                this.$router.push({name:'classSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name: 'home'})
+                }
+                else{
+                    this.$router.push({name:'classSpace.news'})
+                }
             }).catch(err=>{
                 this.isSubmit = false
                 console.log(err.response)
