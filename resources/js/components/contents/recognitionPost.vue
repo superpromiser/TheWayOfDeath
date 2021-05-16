@@ -40,7 +40,7 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item link v-if="user.roelId < 3" >
+                <v-list-item link v-if="user.roleId < 3" >
                   <v-list-item-title class="px-2" @click="fixTop(content)" v-if="content.fixTop == null">{{lang.toTop}}</v-list-item-title>
                   <v-list-item-title class="px-2" @click="relaseTop(content.id)" v-else>{{lang.toRelase}}</v-list-item-title>
                 </v-list-item>

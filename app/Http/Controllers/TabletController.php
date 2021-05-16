@@ -37,8 +37,8 @@ class TabletController extends Controller
         $lessonId = Auth::user()->lessonId;
         $encodeData = ScheduleClass::where(['schoolId' => $schoolId, 'lessonId' => $lessonId])->first();
         $scheduleData = array();
-        if(!is_null($encodeData)){
-            $scheduleData = json_decode($encodeData->scheduleData);    
+        if (!is_null($encodeData)) {
+            $scheduleData = json_decode($encodeData->scheduleData);
         }
         $lastSession = Session::latest('id')->first();
         $subjectData = Subject::select('subjectOrderName', 'subjectOrderType', 'startTime', 'endTime')->where('sessionId', $lastSession->id)->get();
@@ -77,7 +77,7 @@ class TabletController extends Controller
         $schoolStoryData = array();
         $schoolStory = SchoolStory::select('content')->where('schoolId', $schoolId)->get();
         foreach ($schoolStory as $content) {
-            $contentData = json_decode($content->content);
+            $contentData = json_decode($content->content)[0];
             $imgUrls = $contentData->imgUrl;
             foreach ($imgUrls as $imgUrl) {
                 array_push($schoolStoryData, $imgUrl->path);
@@ -87,7 +87,7 @@ class TabletController extends Controller
         $classStoryData = array();
         $classStory = ClassStory::select('content')->where('lessonId', $lessonId)->get();
         foreach ($classStory as $content) {
-            $contentData = json_decode($content->content);
+            $contentData = json_decode($content->content)[0];
             $imgUrls = $contentData->imgUrl;
             foreach ($imgUrls as $imgUrl) {
                 array_push($classStoryData, $imgUrl->path);
@@ -97,7 +97,7 @@ class TabletController extends Controller
         $announcementData = array();
         $allAnounceData = Anouncement::where('schoolId', $schoolId)->with('users:id,name,avatar')->get();
         foreach ($allAnounceData as $data) {
-            $lessonArr = json_decode($data->viewList);
+            $lessonArr = $data->viewList;
             foreach ($lessonArr as $lesson) {
                 if ($lesson == $lessonId) {
                     array_push($announcementData, $data);
@@ -112,24 +112,23 @@ class TabletController extends Controller
         $attendData['late'] = 0;
         $attendData['normal'] = 0;
         $attendData['leave'] = 0;
-        foreach($attendanceData as $userData){
+        foreach ($attendanceData as $userData) {
             $startTime = $userData->startTime;
             $endTime = $userData->endTime;
-            if(is_null($startTime) && is_null($endTime)){
-                $attendData['absent'] ++;
+            if (is_null($startTime) && is_null($endTime)) {
+                $attendData['absent']++;
             }
-            if($startTime >  strtotime($standStartTime)){
-                $attendData['late'] ++;
-            }else{
-                if($endTime > strtotime($standEndTime)){
-                    $attendData['normal'] ++;
-                }else{
-                    $attendData['leave'] ++;
+            if ($startTime >  strtotime($standStartTime)) {
+                $attendData['late']++;
+            } else {
+                if ($endTime > strtotime($standEndTime)) {
+                    $attendData['normal']++;
+                } else {
+                    $attendData['leave']++;
                 }
             }
-
         }
-        
+
         $resultData['timeTableData'] = $subjectArr;
         $resultData['albumData'] = $albumData;
         $resultData['announceData'] = $announcementData;
