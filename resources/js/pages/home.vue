@@ -1163,7 +1163,14 @@ export default {
     else  {
       this.selectedItem = this.selectedSchoolItem
     }
-    this.selectedTypeItemGroup = this.schoolSpaceItems;
+
+    
+    if(this.isSchoolSpace){
+      this.selectedTypeItemGroup = this.schoolSpaceItems;
+    }
+    else {
+      this.selectedTypeItemGroup = this.classSpaceItems
+    }
   },
 
   methods:{
