@@ -1,6 +1,6 @@
 <template>
     <v-container v-if="$isMobile()"  class="ma-0 pa-0 h-100">
-        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+        <v-container v-if="isPosting == true" class="pa-0 h-100 bg-white mb-16 pb-3" >
             <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
                 <v-icon @click="navToBackCustom" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
@@ -11,164 +11,26 @@
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
-            <v-row class="ma-0 text-area-without-nav-bottom" @click="$refs.textarea.focus()" style="">
-                <v-col cols="12">
-                    <v-textarea
-                        class="v-textarea-cus-border-0 v-textarea-px-0 mt-0 pt-0"
-                        auto-grow
-                        color="#7879ff"
-                        clear-icon="mdi-close-circle"
-                        label="输入内容"
-                        v-model="shareData.content[0].text"
-                        hide-details
-                        rows="5"
-                        solo
-                        ref="textarea"
-                    ></v-textarea>
-                </v-col>
-                <v-col cols="12" class="pa-0 pb-16">
-                    <v-container class="pa-0 pb-16">
-                        <!--  IMAGE VIEWER  -->
-                        <v-row class="ma-0">
-                            <v-col v-for="(imgUrl, index) in shareData.content[0].imgUrl" :key="index" cols="12" sm="4" md="3" lg="2" class="position-relative py-1">
-                                <v-btn
-                                    icon
-                                    class="position-absolute remove-uploaded-item-icon mr-2"
-                                    @click="removeUploadItem('image', index)"
-                                    :loading="imgUrl.isDeleting"
-                                    color="pink"
-                                    >
-                                    <v-icon size="25">mdi-trash-can-outline</v-icon>
-                                </v-btn>
-                                <v-img :src="`${baseUrl}${imgUrl.path}`" alt="upload image" class="uploaded-image" ></v-img>
-                            </v-col>
-                        </v-row>
-                        <!--  VIDEO VIEWER  -->
-                        <v-row class="ma-0">
-                            <v-col v-for="(video, index) in shareData.content[0].videoUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative py-1">
-                                <v-card
-                                    class="d-flex align-center mo-glow-bg"
-                                    flat
-                                    tile
-                                >
-                                    <img :src="`${baseUrl}/asset/img/upload_video_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
-                                    <div class="font-size-0-75">
-                                        <div><span><strong>{{video.fileOriName}}</strong></span></div>
-                                        <div>{{video.fileSize}}</div>
-                                    </div>
-                                    <v-btn
-                                        icon
-                                        class="ml-auto mo-glow mr-2"
-                                        @click="removeUploadItem('video', index)"
-                                        :loading="video.isDeleting"
-                                        style="color:#ff264c;"
-                                        >
-                                        <v-icon size="25">mdi-trash-can-outline</v-icon>
-                                    </v-btn>
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                        <!--  FILE VIEWER  -->
-                        <v-row class="ma-0">
-                            <v-col v-for="(other, index) in shareData.content[0].otherUrl" :key="index" cols="12" sm="4" md="4" lg="3" class="position-relative py-1 ">
-                                <v-card
-                                    class="d-flex align-center mo-glow-bg"
-                                    flat
-                                    tile
-                                >
-                                    <img :src="`${baseUrl}/asset/img/upload_file_img.png`" alt="upload-video-icon" class="uploaded-video-icon ma-2" />
-                                    <div class="font-size-0-75">
-                                        <div><span><strong>{{other.fileOriName}}</strong></span></div>
-                                        <div>{{other.fileSize}}</div>
-                                    </div>
-                                    <v-btn
-                                        icon
-                                        style="color:#ff264c;"
-                                        class="ml-auto mo-glow mr-2"
-                                        @click="removeUploadItem('other', index)"
-                                        :loading="other.isDeleting"
-                                        >
-                                        <v-icon size="25">mdi-trash-can-outline</v-icon>
-                                    </v-btn>
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-col>
-            </v-row>
-            <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-gray-light-dark">
-                <v-col cols="2" @click="clickUploadImageBtn" class="d-flex justify-center align-center py-1" v-ripple>
-                    <v-progress-circular v-if="isImageSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
-                    <v-icon v-else size="30">mdi-file-image-outline</v-icon>
-                </v-col>
-                <input
-                    ref="imageUploader"
-                    class="d-none"
-                    type="file"
-                    accept="image/*"
-                    @change="onImageFileChanged"
-                >
-                <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple>
-                    <p class="mb-0 pb-1" style="font-size: 25px; color:#676767; font-weight: bold">@</p>
-                </v-col>
-                <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple>
-                    <p class="mb-0" style="font-size: 25px; color:#676767; font-weight: bold">#</p>
-                </v-col>
-                <v-col @click="clickUploadVideoBtn" cols="2" class="d-flex justify-center align-center py-1" v-ripple>
-                    <v-progress-circular v-if="isVideoSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
-                    <v-icon v-else size="30">mdi-play-box-outline </v-icon>
-                </v-col>
-                <input
-                    ref="videoUploader"
-                    class="d-none"
-                    type="file"
-                    accept="video/*"
-                    @change="onVideoFileChanged"
-                >
-                <v-col cols="2" class="d-flex justify-center align-center py-1" v-ripple @click="toggleEmo">
-                    <v-icon size="30">mdi-emoticon-excited-outline</v-icon>
-                </v-col>
-                <Picker 
-                    class="position-absolute" 
-                    style="bottom:50px; left:50%; transform:translateX(-50%)" 
-                    v-click-outside="outSidePicker" 
-                    v-if="emoStatus" 
-                    :data="emojiIndex" 
-                    title="选择你的表情符号..." 
-                    set="twitter" 
-                    @select="onInput" 
-                    :showPreview="false"
-                    :showSearch="false"
-                    :i18n="emojiI18n"/>
-                <v-col @click="clickUploadFileBtn" cols="2" class="d-flex justify-center align-center py-1" v-ripple>
-                    <v-progress-circular v-if="isFileSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
-                    <v-icon v-else size="30">mdi-folder-outline</v-icon>
-                </v-col>
-                <input
-                    ref="fileUploader"
-                    class="d-none"
-                    type="file"
-                    accept=".doc, .docx, .zip, .pdf, .xls, .xlsx, .rp, .mp3, .rp, .ppt, .pptx, .pptm, .apk, .rar"
-                    @change="onFileFileChanged"
-                >
-                <v-btn rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="top: -45px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>
-
-                <v-menu top offset-y :close-on-content-click="true" :content-class="publishSpecUserList !== null&&publishSpecUserList.length > 0 ? 'box-shadow-none publish-type-menu-with-btn': 'box-shadow-none publish-type-menu'" tile min-width="90">
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn v-bind="attrs" v-on="on" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="top: -45px; right: 12px;"> <v-icon left>mdi-earth</v-icon>
-                            {{shareData.publishType=="pub"? '公开' : shareData.publishType=="pvt"? '私密' : publishSpecUserList == null ? '部分看见' : `部分看见(${publishSpecUserList.length})`}}
-                        </v-btn>
-                    </template>
-                    <div class="pa-3 text-right">
-                        <v-radio-group class="mt-0 pt-0" v-model="shareData.publishType" @change="selectPublishType" mandatory dense hide-details >
-                            <v-radio name="shareData.publishType" color="#7879ff" label="公开" value="pub" ></v-radio>
-                            <v-radio name="shareData.publishType" color="#7879ff" label="私密" value="pvt" ></v-radio>
-                            <v-radio name="shareData.publishType" color="#7879ff" label="部分看见" value="spec" ></v-radio>
-                        </v-radio-group>
-                        <v-btn v-if="publishSpecUserList !== null&&publishSpecUserList.length > 0" elevation="0" small text color="#7879ff" @click="changeSelectedUserList">重选名单</v-btn>
-                    </div>
-                </v-menu>
-            </v-row>
+            <QuestionItem Label="" :emoji="true" :isShareView="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
+            <v-btn @click="templateList()" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="bottom: 54px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>
+            <v-menu top offset-y :close-on-content-click="true" :content-class="publishSpecUserList !== null&&publishSpecUserList.length > 0 ? 'box-shadow-none publish-type-menu-with-btn': 'box-shadow-none publish-type-menu'" tile min-width="90">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="bottom: 54px; right: 12px;"> <v-icon left>mdi-earth</v-icon>
+                        {{shareData.publishType=="pub"? '公开' : shareData.publishType=="pvt"? '私密' : publishSpecUserList == null ? '部分看见' : `部分看见(${publishSpecUserList.length})`}}
+                    </v-btn>
+                </template>
+                <div class="pa-3 text-right">
+                    <v-radio-group class="mt-0 pt-0" v-model="shareData.publishType" @change="selectPublishType" mandatory dense hide-details >
+                        <v-radio name="shareData.publishType" color="#7879ff" label="公开" value="pub" ></v-radio>
+                        <v-radio name="shareData.publishType" color="#7879ff" label="私密" value="pvt" ></v-radio>
+                        <v-radio name="shareData.publishType" color="#7879ff" label="部分看见" value="spec" ></v-radio>
+                    </v-radio-group>
+                    <v-btn v-if="publishSpecUserList !== null&&publishSpecUserList.length > 0" elevation="0" small text color="#7879ff" @click="changeSelectedUserList">重选名单</v-btn>
+                </div>
+            </v-menu>
+        </v-container>
+        <v-container class="pa-0 ma-0" v-else>
+            <router-view></router-view>
         </v-container>
   </v-container>
     <v-container class="pa-0" v-else>
@@ -245,52 +107,13 @@ import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import { mapGetters } from 'vuex'
 import {createShare,getTemplateCnt,createTemp} from '~/api/share'
-import quickMenu from '~/components/quickMenu'
-
-//mo
-import {uploadImage, uploadVideo, uploadOther, deleteFile} from '~/api/upload'
-import emojiData from "emoji-mart-vue-fast/data/all.json";
-import "emoji-mart-vue-fast/css/emoji-mart.css";
-import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
-let emojiIndex = new EmojiIndex(emojiData);
 
 export default {
     components:{
         QuestionItem,
-        //mo
-        Picker,
     },
 
     data: ()=> ({
-        //mo
-        emojiIndex: emojiIndex,
-        emojisOutput: "",
-        emojiI18n: { 
-            search: 'Recherche', 
-            categories: { 
-                search: '//Search Results',
-                recent: '最近常用',
-                smileys: '黄脸',
-                people: '人和手势',
-                nature: '动物和植物',
-                foods: '食物',
-                activity: '活动',
-                places: '交通 ',
-                objects: '物品',
-                symbols: '标志',
-                flags: '国旗',
-                custom: '其他',
-            } 
-        },
-        emoStatus:false,
-        selectedImageFile: null,
-        selectedVideoFile: null,
-        selectedFile: null,
-        isImageSelecting: false,
-        isVideoSelecting: false,
-        isFileSelecting: false,
-        deleteItem : null,
-
         lang,
         baseUrl: window.Laravel.base_url,
         isSubmit:false,
@@ -465,166 +288,7 @@ export default {
             }
             this.shareData.content.push(data)
         },
-        something(){
-
-        },
-
-
-        //Emoji
-        showEmoji(emoji) {
-            this.emojisOutput = this.emojisOutput + emoji.native;
-        },
-
-        outSidePicker(){
-            this.emoStatus = false;
-        },
-        clickUploadImageBtn() {
-            window.addEventListener('focus', () => {
-            }, { once: true })
-            this.$refs.imageUploader.click()
-        },
-
-        onInput(e){
-            if(!e){
-                return false;
-            }
-            if(!this.shareData.content[0].text){
-                this.shareData.content[0].text = e.native
-            }else{
-                this.shareData.content[0].text = this.shareData.content[0].text + e.native
-            }
-        },
-
-        toggleEmo(){
-            this.emoStatus = ! this.emoStatus
-        },
-
-        clickUploadImageBtn() {
-            window.addEventListener('focus', () => {
-            }, { once: true })
-            this.$refs.imageUploader.click()
-        },
-
-        async onImageFileChanged(e) {
-            this.selectedImageFile = e.target.files[0];
-            if(this.selectedImageFile !== undefined && this.selectedImageFile !== null) {
-                this.isImageSelecting = true;
-                let fileData = new FormData();
-                fileData.append('file', this.selectedImageFile);
-                await uploadImage(fileData)
-                .then((res) => {
-                    let imgObj = {
-                        path : `/uploads/image/${res.data}`,
-                        isDeleting : false,
-                    }
-                    this.shareData.content[0].imgUrl.push(imgObj);
-                    this.isImageSelecting = false
-                    this.selectedImageFile = null
-                }).catch((err) => {
-                    //console.log(err);
-                    this.isImageSelecting = false
-                }); 
-            }
-
-            //reset image file input
-            this.$refs.imageUploader.value = ''
-            
-        },
-        clickUploadVideoBtn() {
-            window.addEventListener('focus', () => {
-            }, { once: true })
-            this.$refs.videoUploader.click()
-        },
-        async onVideoFileChanged(e) {
-            this.selectedVideoFile = e.target.files[0];
-            if(this.selectedVideoFile !== undefined && this.selectedVideoFile !== null) {
-                this.isVideoSelecting = true;
-                let fileData = new FormData();
-                fileData.append('file', this.selectedVideoFile);
-                await uploadVideo(fileData)
-                .then((res) => {
-                    this.selectedVideoFile = null;
-                    let url = `/uploads/video/${res.data.fileName}`
-                    this.$set(res.data,'imgUrl',url)
-                    this.$set(res.data,'isDeleting',false)
-                    this.shareData.content[0].videoUrl.push(res.data);
-                    this.isVideoSelecting = false
-                }).catch((err) => {
-                    //console.log(err);
-                    this.isVideoSelecting = false
-                });
-            }
-            //reset video file input
-            this.$refs.videoUploader.value = ''
-        },
-        clickUploadFileBtn() {
-            window.addEventListener('focus', () => {
-            }, { once: true })
-            this.$refs.fileUploader.click()
-        },
-        async onFileFileChanged(e) {
-            this.selectedFile = e.target.files[0];
-            if(this.selectedFile !== undefined && this.selectedFile !== null) {
-                this.isFileSelecting = true;
-                let fileData = new FormData();
-                fileData.append('file', this.selectedFile);
-                await uploadOther(fileData)
-                .then((res) => {
-                    this.selectedFile = null;
-                    let url = `/uploads/other/${res.data.fileName}`;
-                    this.$set(res.data,'imgUrl',url)
-                    this.$set(res.data,'isDeleting',false)
-                    this.shareData.content[0].otherUrl.push(res.data);
-                    this.isFileSelecting = false
-                }).catch((err) => {
-                    //console.log(err);
-                    this.isFileSelecting = false
-                });
-            }
-            //reset file input
-            this.$refs.fileUploader.value = ''
-        },
-
-        async removeUploadItem(type, index){
-            switch (type) {
-                case "image":
-                    this.deleteItem = this.shareData.content[0].imgUrl[index];
-                    await this.deleteFileFromServer('image');
-                    this.shareData.content[0].imgUrl.splice(index, 1)
-                    break;
-                case "video":
-                    this.deleteItem = this.shareData.content[0].videoUrl[index];
-                    await this.deleteFileFromServer('video');
-                    this.shareData.content[0].videoUrl.splice(index, 1)
-                    break;
-                case "other":
-                    this.deleteItem = this.shareData.content[0].otherUrl[index];
-                    await this.deleteFileFromServer('other');
-                    this.shareData.content[0].otherUrl.splice(index, 1)
-                    break;
-            }
-            // this.deleteItem = null;
-        },
-
-        async deleteFileFromServer(type){
-            this.deleteItem.isDeleting = true;
-            let filePath = '';
-            if (type == 'image'){
-                filePath = this.deleteItem.path;
-            }
-            else{
-                filePath = this.deleteItem.imgUrl
-            }
-            await deleteFile(filePath)
-            .then((res) => {
-                this.deleteItem.isDeleting = false;
-            }).catch((err) => {
-                //console.log(err);
-                this.deleteItem.isDeleting = false;
-            });
-
-        },
-
+        
         selectPublishType( val ){
             console.log(val);
             if(val == 'spec'){
