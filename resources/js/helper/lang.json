@@ -75,6 +75,9 @@
     "requireResidenceAddress": "户籍地址不能为空",
     "requireIntroduce": "个人介绍不能为空",
 
+    "requireRepairType": "维修物品不能为空",
+    "requireRepairName": "发布位置不能为空",
+
     "requireCorrectPhoneNumber": "请输入正确的电话号码",
     "requireCorrectCardNumber": "请输入正确的身份证号",
     "vacation":"请假",

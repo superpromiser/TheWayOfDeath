@@ -3,11 +3,11 @@
     <div>
       <div v-for="(comment,index) in contentData.comments" :key="index">
         <v-row class="ma-0">
-          <v-col cols="12" class="d-flex align-center justify-space-between">
-              <p class="mb-0">{{comment.users.name}}</p>
-              <p class="mb-0">{{TimeView(comment.created_at)}}</p>
+          <v-col cols="12" class="d-flex align-center justify-space-between py-1">
+              <p class="mb-0 font-size-0-75">{{comment.users.name}}</p>
+              <p class="mb-0 font-size-0-75">{{TimeView(comment.created_at)}}</p>
           </v-col>
-          <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap">{{comment.comments}}</v-col>
+          <v-col cols="12" lg="9" md="8" sm="6" class="text-wrap font-size-0-75 py-1">{{comment.comments}}</v-col>
         </v-row>
         <v-divider v-if="index < contentData.comments.length -1"></v-divider>
       </div>
@@ -22,7 +22,7 @@
         >
           <v-img :src="user.avatar"></v-img>
         </v-avatar>
-        <v-textarea solo name="input-7-4"
+        <v-textarea color="#7879ff" name="input-7-4"
             :append-icon-cb="toggleEmo" 
             :label="''"
             v-model="commentText"

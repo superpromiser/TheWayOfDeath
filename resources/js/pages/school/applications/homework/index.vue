@@ -6,7 +6,7 @@
                     mdi-chevron-left
                 </v-icon>
                 <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.homework}}</p>
-                <v-btn @click="post" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                <v-btn v-if="user.roleId == 7" @click="post" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
                     发布
                 </v-btn>
             </v-row>

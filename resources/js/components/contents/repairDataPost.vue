@@ -1,7 +1,7 @@
 <template>
   <v-container v-if="$isMobile()">
     <v-row>
-      <v-col cols="12" class="d-flex">
+      <v-col cols="12" class="d-flex" @click="showDetail(content)">
         <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="48">
             <span class="white--text headline">{{content.users.name[0]}}</span>
         </v-avatar>
@@ -12,9 +12,21 @@
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
           <div class="d-flex align-center mb-auto">
-            <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color">维修工单</p>
-            <v-chip class="ma-2" color="pink" label text-color="white" v-if="content.repairdata.status == 'done'">
-              <v-icon left> mdi-label </v-icon> 已完成
+            <p class="mb-0 font-size-0-95 font-weight-bold primary-font-color">维修工单</p>
+            <v-chip class="ml-2" color="#999999" small label text-color="white" v-if="content.repairdata.status == 'cancel'">
+                <v-icon left> mdi-label </v-icon> 取消
+            </v-chip>
+            <v-chip class="ml-2" color="#EB5846" small label text-color="white" v-if="content.repairdata.status == 'Undone'">
+                <v-icon left> mdi-label </v-icon> 未完成
+            </v-chip>
+            <v-chip class="ml-2" color="#F19861" small label text-color="white" v-if="content.repairdata.status == 'progress'">
+                <v-icon left> mdi-label </v-icon> 已发布
+            </v-chip>
+            <v-chip class="ml-2" color="#FEB31A" small label text-color="white" v-if="content.repairdata.status == 'done'">
+                <v-icon left> mdi-label </v-icon> 已维修
+            </v-chip>
+            <v-chip class="ml-2" color="#4AD2A0" small label text-color="white" v-if="content.repairdata.status == 'completed'">
+                <v-icon left> mdi-label </v-icon> 已完成
             </v-chip>
           </div>
           <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
@@ -38,6 +50,12 @@
           <strong>维修物品:</strong>
           {{content.repairdata.repairType}}
           </p>
+        </div>
+        <div class="d-flex align-center" v-if="content.repairdata.reason">
+            <p class="text-wrap mb-0 w-100">
+            <strong>未完成原因:</strong>
+            {{content.repairdata.reason}}
+            </p>
         </div>
         <div class="d-flex align-center">
           <p class="text-wrap mb-0">
@@ -130,7 +148,7 @@
             </p>
         </div>
         <div class="d-flex align-center" v-if="content.repairdata.reason">
-            <p class="text-wrap mb-0">
+            <p class="text-wrap mb-0 w-100">
             <strong>未完成原因:</strong>
             {{content.repairdata.reason}}
             </p>

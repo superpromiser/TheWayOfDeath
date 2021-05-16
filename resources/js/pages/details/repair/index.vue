@@ -1,88 +1,166 @@
 <template>
-    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()" >
+    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
         <v-container class="pt-0 px-0 h-100 bg-white">
             <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
                 <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
                 <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >维修工单</p>
-                <v-btn v-if="this.user.roleId == 6" @click="repairUpdate('Undone')" :loading="isIncomplete" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
-                    未完成
-                </v-btn>
-                <v-btn v-if="this.user.roleId == 6" @click="repairUpdate('done')" :loading="isComplete" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
-                    己完成
-                </v-btn>
+                <div v-if="user.roleId == 6" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    <div v-if="contentData.repairdata.status == 'progress'">
+                        <v-btn text  @click="reasonFlag = true">
+                            未完成
+                        </v-btn>
+                        <v-btn text dark color="#7879ff" @click="post('done')" :loading="isPost">
+                            已完成
+                        </v-btn>
+                    </div>
+                </div>
+                <div v-else class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    <div v-if="contentData.repairdata.status == 'progress'">
+                        <v-btn text  @click="cancel('cancel')" :loading="isCancel">
+                            取诮发布
+                        </v-btn>
+                    </div>
+                    <div v-if="contentData.repairdata.status == 'done'">
+                        <v-btn text  @click="reasonFlag = true">
+                            未完成
+                        </v-btn>
+                        <v-btn text color="#7879ff" @click="post('completed')" :loading="isPost">
+                            确认完成
+                        </v-btn>
+                    </div>
+                    <div v-if="contentData.repairdata.status == 'Undone'">
+                        <v-btn text  @click="cancel('cancel')" :loading="isCancel">
+                            关闭
+                        </v-btn>
+                        <v-btn text color="#7879ff" @click="post('progress')" :loading="isPost">
+                            重新发送
+                        </v-btn>
+                    </div>
+                    <div v-if="contentData.repairdata.status == 'cancel'">
+                        <v-btn text color="#7879ff" @click="post('progress')" :loading="isPost">
+                            重新发送
+                        </v-btn>
+                    </div>
+                </div>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
-
-        <v-row class="justify-center align-center z-index-2 banner-custom ">
-            <v-icon size="70" @click="$router.go(-1)" class="position-absolute put-align-center" style="top:50%; left:20px">
-                mdi-chevron-left
-            </v-icon>
-            <h2 class="py-7">维修工单</h2>
-            <div class="ml-auto position-absolute put-align-center" style="top:50%; right:20px" v-if="this.user.roleId == 6">
-                <v-btn class="mr-3" @click="repairUpdate('Undone')" :loading="isIncomplete">
-                    未完成
-                </v-btn>
-                <v-btn dark color="#7879ff" @click="repairUpdate('done')" :loading="isComplete">
-                    己完成
-                </v-btn>
-            </div>
-            <div class="ml-auto position-absolute put-align-center" style="top:50%; right:20px" v-else>
-                <div v-if="contentData.repairdata.status == 'progress'">
-                    <v-btn class="mr-3" @click="repairUpdate('cancel')" :loading="isCancelPost">
-                        取诮发布
-                    </v-btn>
-                </div>
-                <div v-if="contentData.repairdata.status == 'done'">
-                    <v-btn class="mr-3" @click="repairUpdate('progress')" :loading="isIncomplete">
-                        未完成
-                    </v-btn>
-                    <v-btn dark color="#7879ff" @click="repairUpdate('completed')" :loading="isComplete">
-                        确认完成
-                    </v-btn>
-                </div>
-            </div>
-        </v-row>
-        <v-row class="pl-5 mt-5 ma-0">
-            <v-col cols="12" class="d-flex justify-space-between align-center">
-                <p class="mb-0" >姓名 </p>
-                <p class="mb-0" >{{contentData.repairdata.userName}} </p>
-            </v-col>
-        </v-row>
-        <v-divider light></v-divider>
-        <v-row class="ma-0 pl-5">
-            <v-col cols="12" class="d-flex justify-space-between align-center">
-                <p class="mb-0" >交接人姓名 </p>
-                <p class="mb-0" >{{contentData.repairdata.viewListName}} </p>
-            </v-col>
-        </v-row>
-        <v-divider light></v-divider>
-        <v-row class="ma-0 pl-5">
-            <v-col cols="12" class="d-flex justify-space-between align-center">
-                <p class="mb-0" >维修物品 </p>
-                <p class="mb-0" >{{contentData.repairdata.repairType}} </p>
-            </v-col>
-        </v-row>
-        <v-divider light></v-divider>
-        <v-row class="ma-0 pl-5">
-            <v-col cols="12" class="d-flex justify-space-between align-center">
-                <p class="mb-0" >发布时间 </p>
-                <p class="mb-0" >{{TimeViewSam(contentData.repairdata.deadline)}} </p>
-            </v-col>
-        </v-row>
-        <v-divider light></v-divider>
-        <v-col cols="12" class="pl-5 pt-0">
             <v-row class="ma-0">
-                <v-col cols="12">
-                <p class="text-wrap"><read-more more-str="全文" :text="description.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                <v-col cols="12" class="d-flex">
+                    <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="48">
+                        <span class="white--text headline">{{contentData.users.name[0]}}</span>
+                    </v-avatar>
+                    <v-avatar v-else
+                    size="48"
+                    >
+                    <v-img :src="contentData.users.avatar"></v-img>
+                    </v-avatar>
+                    <div class="ml-2 d-flex flex-column">
+                        <div class="d-flex align-center mb-auto">
+                            <p class="mb-0 font-size-0-95 font-weight-bold primary-font-color">维修工单</p>
+                            <v-chip class="ml-2" color="#999999" small label text-color="white" v-if="contentData.repairdata.status == 'cancel'">
+                                <v-icon left> mdi-label </v-icon> 取消
+                            </v-chip>
+                            <v-chip class="ml-2" color="#EB5846" small label text-color="white" v-if="contentData.repairdata.status == 'Undone'">
+                                <v-icon left> mdi-label </v-icon> 未完成
+                            </v-chip>
+                            <v-chip class="ml-2" color="#F19861" small label text-color="white" v-if="contentData.repairdata.status == 'progress'">
+                                <v-icon left> mdi-label </v-icon> 已发布
+                            </v-chip>
+                            <v-chip class="ml-2" color="#FEB31A" small label text-color="white" v-if="contentData.repairdata.status == 'done'">
+                                <v-icon left> mdi-label </v-icon> 已维修
+                            </v-chip>
+                            <v-chip class="ml-2" color="#4AD2A0" small label text-color="white" v-if="contentData.repairdata.status == 'completed'">
+                                <v-icon left> mdi-label </v-icon> 已完成
+                            </v-chip>
+                        </div>
+                        <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(contentData.created_at)}} 转发</span> {{contentData.users.name}}</p>
+                    </div>
                 </v-col>
-                <v-col cols="12" v-if="checkIfAttachExist(description)">
-                <AttachItemViewer :items="description" />
+                <v-col cols="12" class="py-0 font-size-0-8">
+                    <div class="d-flex align-center">
+                        <p class="text-wrap mb-0">
+                            <strong>姓名:</strong>
+                            {{contentData.repairdata.userName}}
+                        </p>
+                    </div>
+                    <div class="d-flex align-center">
+                        <p class="text-wrap mb-0">
+                            <strong>交接人姓名:</strong>
+                            {{contentData.repairdata.viewListName}}
+                        </p>
+                    </div>
+                    <div class="d-flex align-center">
+                        <p class="text-wrap mb-0">
+                            <strong>维修物品:</strong>
+                            {{contentData.repairdata.repairType}}
+                        </p>
+                    </div>
+                    <div class="d-flex align-center" v-if="contentData.repairdata.reason">
+                        <p class="text-wrap mb-0 w-100">
+                            <strong>未完成原因:</strong>
+                            {{contentData.repairdata.reason}}
+                        </p>
+                    </div>
+                    <div class="d-flex align-center">
+                        <p class="text-wrap mb-0">
+                            <strong>发布时间:</strong>
+                            {{TimeViewSam(contentData.repairdata.deadline)}}
+                        </p>
+                    </div>
+                </v-col>
+                <v-col cols="12" class=" py-0">
+                    <p class="text-wrap"><read-more more-str="全文" :text="description.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                    </v-col>
+                    <v-col cols="12" v-if="checkIfAttachExist(description)">
+                    <AttachItemViewer :items="description" />
                 </v-col>
             </v-row>
-        </v-col>
-        
+            <v-dialog
+                overlay-opacity="0"
+                v-model="reasonFlag"
+                persistent
+                max-width="600px"
+            >
+                <v-card>
+                    <v-card-text class="pa-0">
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12">
+                                <v-textarea
+                                    label="拒绝原因"
+                                    required
+                                    v-model="reason"
+                                    color="#7879ff"
+                                    hide-details
+                                ></v-textarea>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="reasonFlag = false"
+                        >
+                            关闭
+                        </v-btn>
+                        <v-btn
+                            color="#7879ff"
+                            text
+                            :loading="isSaving"
+                            @click="saveReason"
+                        >
+                            保存
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+            <CommentView></CommentView>
         </v-container>
     </v-container>
     <v-container v-else class="pa-0">
@@ -220,7 +298,7 @@
             <v-row class="ma-0" v-if="contentData.repairdata.reason">
                 <v-col cols="12" class="d-flex justify-space-between align-center">
                     <p class="mb-0" >未完成原因 </p>
-                    <p class="mb-0" >{{contentData.repairdata.reason}} </p>
+                    <p class="mb-0 text-wrap" style="width:350px;">{{contentData.repairdata.reason}} </p>
                 </v-col>
             </v-row>
             <v-divider light v-if="contentData.repairdata.reason"></v-divider>
@@ -344,7 +422,12 @@ export default {
             await updateRepairData({status:status,repairId:this.contentData.repairdata.id}).then(res=>{
                 console.log(res.data)
                 this.isCancel = false
-                this.$router.push({name:'schoolSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name: 'home'})
+                }
+                else{
+                    this.$router.push({name: 'schoolSpace.news'})
+                }
             }).catch(err=>{
                 this.isCancel = false
                 console.log(err.response)
@@ -359,8 +442,13 @@ export default {
             this.isPost = true
             await updateRepairData({status:status,repairId:this.contentData.repairdata.id}).then(res=>{
                 console.log(res.data)
-                this.isPost = false
-                this.$router.push({name:'schoolSpace.news'})
+                this.isPost = false;
+                if(this.$isMobile()){
+                    this.$router.push({name: 'home'})
+                }
+                else{
+                    this.$router.push({name: 'schoolSpace.news'})
+                }
             }).catch(err=>{
                 this.isPost = false
                 console.log(err.response)
@@ -378,7 +466,12 @@ export default {
             updateRepairData({status:status,repairId:this.contentData.repairdata.id,reason:this.reason}).then(res=>{
                 console.log(res.data)
                 this.isSaving = false
-                this.$router.push({name:'schoolSpace.news'})
+                if(this.$isMobile()){
+                    this.$router.push({name: 'home'})
+                }
+                else{
+                    this.$router.push({name: 'schoolSpace.news'})
+                }
                 this.reasonFlag = false
             }).catch(err=>{
                 this.isSaving = false
