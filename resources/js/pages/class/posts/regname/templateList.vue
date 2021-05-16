@@ -10,7 +10,7 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.voting}}模板清单</h2>
+                    <h2>{{lang.regname}}模板清单</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
@@ -26,39 +26,38 @@
                 </v-col>
             </v-row>
         </v-container>
-        
         <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
             <v-progress-circular
                 indeterminate
                 color="primary"
             ></v-progress-circular>
         </div>
-        <v-row v-else class="px-10">
-            <v-col cols="4" sm="6" md="4" v-for="template in templateList" :key="template.id">
+        <v-row v-else>
+            <v-col cols="4" sm="6" md="4" v-for="tempData in tempList" :key="tempData.id">
                 <v-card
-                class="mx-auto"
-                max-width="400"
+                    class="mx-auto"
+                    max-width="300"
                 >
                     <v-card-text>
                         <p class="display-1 text--primary">
-                            {{template.tempTitle}}
+                            {{tempData.tempTitle}}
                         </p>
                         <div class="text--primary">
-                            {{template.description}}
+                            {{tempData.description}}
                         </div>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn
                             text
                             color="#7879ff"
-                            @click="selTemp(template)"
+                            @click="selTemp(tempData)"
                         >
                             选项
                         </v-btn>
                         <v-btn
                             text
                             color="#f19861"
-                            @click="delTemp(template)"
+                            @click="delTemp(tempData)"
                         >
                             删除
                         </v-btn>
@@ -71,28 +70,26 @@
 
 <script>
 import lang from '~/helper/lang.json'
-import {getTemplateList,deleteTemplate} from '~/api/voting'
+import {getTemplateList,deleteTemplate} from '~/api/regname'
 export default {
-    middleware:'auth',
     data:()=>({
         lang,
-        templateList:[],
-        isLoading:false,
-        baseUrl:window.Laravel.base_url,
         isSubmit:false,
+        tempList:[],
+        isDelete:false,
+        isLoading:false,
     }),
-    
     computed:{
         currentPath(){
             return this.$route
         }
     },
-
     async created(){
+        // this.$router.push({name:'posts.share'})
         this.isLoading = true
-        await getTemplateList({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+        getTemplateList({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
             console.log(res.data)
-            this.templateList = res.data
+            this.tempList = res.data
             this.isLoading = false
         }).catch(err=>{
             console.log(err.response)
@@ -100,23 +97,28 @@ export default {
         })
     },
     methods:{
-        selTemp(tempData){
-            console.log("++++++++++",tempData)
-            this.$router.push({name:'posts.Cvoting',query:{tempData:JSON.stringify(tempData.content)}})
-        },
         submit(){
-            this.$router.push({name:'Cvoting.newTemp'})
+            this.$router.push({name:'CregName.newTemplate'})
         },
-        delTemp(tempData){
-            console.log(tempData)
-            deleteTemplate ({id:tempData.id}).then(res=>{
+        selTemp(tempData){
+            // console.log("-=-=--==-=-=-=-",tempData)
+            // return
+            this.$router.push({name:'posts.CregName',query:{tempData:JSON.stringify(tempData.content)}})
+        },
+        async delTemp(tempData){
+            // console.log(tempData)
+            // return
+            this.isDelete = true
+            await deleteTemplate({id:tempData.id}).then(res=>{
                 console.log(res.data)
-                let index = this.templateList.indexOf(tempData)
+                this.isDelete = false
+                let index = this.tempList.indexOf(tempData)
                 if(index > -1){
-                    this.templateList.splice(index,1)
+                    this.tempList.splice(index,1)
                 }
             }).catch(err=>{
                 console.log(err.response)
+                this.isDelete = false
             })
         }
     }

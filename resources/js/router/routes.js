@@ -266,9 +266,12 @@ export default [
       {path:'scoring',name:'CquestionnaireTemplate.scoring',component:page('class/posts/questionnaire/scoring.vue')}
     ]
   },
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/voting', name:'posts.Cvoting', component:page('class/posts/voting/new.vue')},
-  {path:'/schoolSpace/:schoolId/post/voting/templateList', name:'Cvoting.tempList', component:page('class/posts/voting/templateList.vue')},
-  {path:'/schoolSpace/:schoolId/post/voting/newTemplate', name:'Cvoting.newTemp', component:page('class/posts/voting/newTemplate.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/voting', name:'posts.Cvoting', component:page('class/posts/voting/new.vue'),
+    children:[
+      {path:'templateList',name:'Cvoting.templateList',component:page('class/posts/voting/templateList.vue')}
+    ]
+  },
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/voting/newTemplate', name:'Cvoting.newTemp', component:page('class/posts/voting/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/homework', name:'posts.Chomework', component:page('class/posts/homework/index.vue'),
     children:[
       {path:'setRule', name:'Chomework.setRule',component:page('class/posts/homework/rule.vue')},
@@ -297,8 +300,12 @@ export default [
     ]
   },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/share/newTemplate',name:'Cshare.newTemplate',component:page('class/posts/share/newTemplate.vue')},
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.CregName',component:page('class/posts/regname/new.vue')},
-  // {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.Cshare',component:page('class/posts/share/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName',name:'posts.CregName',component:page('class/posts/regname/new.vue'),
+    children:[
+      {path:'templateList',name:"CregName.templateList",component:page('class/posts/regname/templateList.vue')}
+    ]
+  },
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName/newTemplate',name:'CregName.newTemplate',component:page('class/posts/regname/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement',name:'posts.Cannouncement',component:page('class/posts/announcement/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/safeStudy',name:'posts.CsafeStudy',component:page('class/posts/safeStudy/index.vue'),
     children:[
