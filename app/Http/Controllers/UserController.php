@@ -59,7 +59,7 @@ class UserController extends Controller
     {
         $groupArr = array();
         array_push($groupArr, 0);
-        $roelId = $request->roleId;
+        $roleId = $request->roleId;
         if (!is_null($request->lessonId)) {
             array_push($groupArr, $request->lessonId);
             $roleId = 7;
