@@ -1,7 +1,7 @@
 <template>
     <v-container v-if="$isMobile()" class="bg-white pa-0">
         <v-container v-if="isShareView" class="pa-0">
-            <v-row class="ma-0 text-area-without-nav-bottom" @click="$refs.textarea.focus()" style="">
+            <v-row :class="isAnnouncement? 'ma-0 text-area-without-nav-bottom-announcement': 'ma-0 text-area-without-nav-bottom'" @click="$refs.textarea.focus()" style="">
                 <v-col cols="12">
                     <v-textarea
                         class="v-textarea-cus-border-0 v-textarea-px-0 mt-0 pt-0"
@@ -567,6 +567,11 @@ export default {
             required: false,
             default: false
         },
+        isAnnouncement: {
+            type : Boolean,
+            required: false,
+            default: false
+        }
         // contentItem:{
         //     type:Object,
         //     required:false
