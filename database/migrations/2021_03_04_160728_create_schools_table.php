@@ -21,7 +21,7 @@ class CreateSchoolsTable extends Migration
             $table->unsignedBigInteger('zipCode')->unique();
             $table->string('head');
             $table->json('address');
-            $table->longText('introduce');
+            $table->string('introduce');
             $table->string('imgUrl')->default('/');
             $table->timestamps();
         });

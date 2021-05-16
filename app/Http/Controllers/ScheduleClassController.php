@@ -16,25 +16,26 @@ use Illuminate\Support\Facades\Auth;
 class ScheduleClassController extends Controller
 {
     //
-    public function getSCheduleClass(){
+    public function getSCheduleClass()
+    {
         $lessonId = Auth::user()->lessonId;
-        $lessonName = Lesson::where(['id'=>$lessonId])->first()->lessonName;
+        $lessonName = Lesson::where(['id' => $lessonId])->first()->lessonName;
         $lastSession = Session::latest('id')->first();
-        
-        if($lastSession){ // error appears next line with id is non defined, so setted if condition
-            $subjectOrder = Subject::where(['schoolId'=>Auth::user()->schoolId, 'sessionId'=>$lastSession->id])->get();
-            $mySchoolScheduleTeacherData = ScheduleTeacher::where(['schoolId'=>Auth::user()->schoolId])->get();
-    
+
+        if ($lastSession) { // error appears next line with id is non defined, so setted if condition
+            $subjectOrder = Subject::where(['schoolId' => Auth::user()->schoolId, 'sessionId' => $lastSession->id])->get();
+            $mySchoolScheduleTeacherData = ScheduleTeacher::where(['schoolId' => Auth::user()->schoolId])->get();
+
             $scheduleTeacherDataArr = array();
-            foreach ($mySchoolScheduleTeacherData as $key => $scheduleTeacherData){
+            foreach ($mySchoolScheduleTeacherData as $key => $scheduleTeacherData) {
                 $lessonArr = $scheduleTeacherData->lessons;
-                foreach ($lessonArr as $key => $lesson){
-                    if($lesson == $lessonName){
+                foreach ($lessonArr as $key => $lesson) {
+                    if ($lesson == $lessonName) {
                         array_push($scheduleTeacherDataArr, $scheduleTeacherData);
                     }
                 }
             }
-            $scheduleData = ScheduleClass::where(['lessonId'=>$lessonId])->get();
+            $scheduleData = ScheduleClass::where(['lessonId' => $lessonId])->get();
             return response()->json([
                 'scheduleData' => $scheduleData,
                 'lastSession' => $lastSession,
@@ -44,9 +45,10 @@ class ScheduleClassController extends Controller
         }
     }
 
-    public function createScheduleClass(Request $request){
-        $this->validate($request,[
-            'classSchedule'=>'required',
+    public function createScheduleClass(Request $request)
+    {
+        $this->validate($request, [
+            'classSchedule' => 'required',
         ]);
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
@@ -54,30 +56,31 @@ class ScheduleClassController extends Controller
         $lessonId = Auth::user()->lessonId;
 
         $scheduleData = json_encode($request->classSchedule);
-        
+
         ScheduleClass::create([
             'userId' => $userId,
             'schoolId' => $schoolId,
             'gradeId' => $gradeId,
             'lessonId' => $lessonId,
-            'scheduleData'=> $scheduleData
+            'scheduleData' => $scheduleData
         ]);
         return response()->json([
             'msg' => 1,
         ]);
     }
 
-    public function updateScheduleClass(Request $request){
-        $this->validate($request,[
-            'id'=>'required',
-            'classSchedule'=>'required',
+    public function updateScheduleClass(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'classSchedule' => 'required',
         ]);
         $scheduleData = json_encode($request->classSchedule);
 
         $userId = Auth::user()->id;
         $schoolId = Auth::user()->schoolId;
 
-        ScheduleClass::where(['id'=>$request->id])->update([
+        ScheduleClass::where(['id' => $request->id])->update([
             'scheduleData' => $scheduleData,
         ]);
 
@@ -86,7 +89,7 @@ class ScheduleClassController extends Controller
         ]);
     }
 
-    public function deleteScheduleClass(Request $request){
-
+    public function deleteScheduleClass(Request $request)
+    {
     }
 }
