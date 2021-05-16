@@ -54,9 +54,9 @@
                     <v-btn
                     text
                     color="#999999"
-                    @click="selContent('template')"
+                    @click="templateList"
                     >
-                        可用模板 0， 草稿 0
+                        可用模板 {{templateCnt}}， 草稿 {{draftCnt}}
                     </v-btn>
                     <v-btn
                         tile
@@ -106,7 +106,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createSafeStudy} from '~/api/safeStudy'
+import {createSafeStudy,getTemplateCnt,createTemplate} from '~/api/safeStudy'
 import quickMenu from '~/components/quickMenu'
 import { mapGetters } from 'vuex'
 export default {
@@ -151,6 +151,9 @@ export default {
          
         isSuccessed:false,
         isPosting:false,
+        templateCnt:0,
+        draftCnt:0,
+
     }),
     computed:{
         currentPath(){
@@ -180,10 +183,42 @@ export default {
         if(this.currentPath.name == 'posts.CsafeStudy'){
             this.isPosting = true
         }
+        getTemplateCnt({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+            this.templateCnt = res.data.templateCnt
+            this.draftCnt = res.data.draftCnt
+        })
     },
     methods:{
-        saveDraft(){
-
+        templateList(){
+            this.isPosting = false
+            this.$router.push({name:'CsafeStudy.templateList'})
+        },
+        async saveDraft(){
+            this.$refs.child.emitData()
+            let draftData = {}
+            draftData.tempType = 2
+            draftData.content = this.contentData
+            draftData.schoolId = this.currentPath.params.schoolId
+            if(this.currentPath.params.lessonId){
+                draftData.lessonId = this.currentPath.params.lessonId
+            }
+            let currentTime = Date.now();
+            draftData.title = 'title-' + currentTime
+            draftData.description = 'description-' + currentTime
+            console.log(draftData)
+            if(this.shareData.content.length == 0){
+                return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+            }
+            draftData.content = this.shareData.content
+            this.isDraft = true
+            await createTemplate(draftData).then(res=>{
+                console.log(res.data)
+                this.isDraft = false
+                this.draftCnt ++ 
+            }).catch(err=>{
+                console.log(err.response)
+                this.isDraft = false
+            })
         },
         async submit(){
             this.$refs.child.emitData()

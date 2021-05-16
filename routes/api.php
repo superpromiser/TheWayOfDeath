@@ -433,11 +433,21 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('classStory', 'ClassStoryController@updateClassStory');
     Route::delete('classStory', 'ClassStoryController@deleteClassStory');
 
+    Route::get('classStory/templateCnt', 'ClassStoryController@getTemplateCnt');
+    Route::get('classStory/template', 'ClassStoryController@getTemplateList');
+    Route::post('classStory/template', 'ClassStoryController@createTemplate');
+    Route::put('classStory/template', 'ClassStoryController@updateTemplate');
+    Route::delete('classStory/template', 'ClassStoryController@deleteTemplate');
     //interClassStory
     Route::get('interClassStory', 'InterClassStoryController@getInterClassStory');
     Route::post('interClassStory', 'InterClassStoryController@createInterClassStory');
     Route::put('interClassStory', 'InterClassStoryController@updateInterClassStory');
     Route::delete('interClassStory', 'InterClassStoryController@deleteInterClassStory');
+
+    Route::get('interClassStory/templateCnt', 'InterClassStoryController@getTemplateCnt');
+    Route::get('interClassStory/template', 'InterClassStoryController@getTemplateList');
+    Route::post('interClassStory/template', 'InterClassStoryController@createTemplate');
+    Route::put('interClassStory/template', 'InterClassStoryController@deleteTemplate');
 
     //fence
     Route::get('fence', 'FenceController@getFenceData');

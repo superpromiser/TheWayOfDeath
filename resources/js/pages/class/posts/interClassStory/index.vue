@@ -53,7 +53,7 @@
                             color="#999999"
                             @click="templateList"
                         >
-                            可用模板 0， 草稿 0
+                            可用模板 {{templateCnt}}， 草稿 {{draftCnt}}
                         </v-btn>
                         
                         <v-btn
@@ -103,7 +103,7 @@
 <script>
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {createInterClassStory} from '~/api/interClassStory'
+import {createInterClassStory,getTemplateCnt,createTemplate} from '~/api/interClassStory'
 import quickMenu from '~/components/quickMenu'
 import {mapGetters} from 'vuex'
 export default {
@@ -133,6 +133,8 @@ export default {
         },
         isSuccessed:false,
         isPosting:false,
+        templateCnt:0,
+        draftCnt:0,
         viewList:[
             {
                 label:'公开',
@@ -176,10 +178,38 @@ export default {
         if(this.currentPath.name == 'posts.interClassStory'){
             this.isPosting = true
         }
+        getTemplateCnt({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+            this.templateCnt = res.data.templateCnt
+            this.draftCnt = res.data.draftCnt
+        })
     },
     methods:{
-        saveDraft(){
-
+        async saveDraft(){
+             this.$refs.child.emitData()
+            let draftData = {}
+            draftData.tempType = 2
+            draftData.content = this.contentData
+            draftData.schoolId = this.currentPath.params.schoolId
+            if(this.currentPath.params.lessonId){
+                draftData.lessonId = this.currentPath.params.lessonId
+            }
+            let currentTime = Date.now();
+            draftData.title = 'title-' + currentTime
+            draftData.description = 'description-' + currentTime
+            console.log(draftData)
+            if(this.shareData.content.length == 0){
+                return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+            }
+            draftData.content = this.shareData.content
+            this.isDraft = true
+            await createTemplate(draftData).then(res=>{
+                console.log(res.data)
+                this.isDraft = false
+                this.draftCnt ++ 
+            }).catch(err=>{
+                console.log(err.response)
+                this.isDraft = false
+            })
         },
         async submit(){
             this.$refs.child.emitData()
@@ -209,16 +239,18 @@ export default {
 
         loadContentData(data){
             if(data.text === ''){
-                this.shareData.content = null;
+                this.shareData.content = [];
                 return;
             }
-            this.shareData.content = data
+            this.shareData.content = []
+            this.shareData.content.push(data)
         },
         something(){
 
         },
         templateList(){
-            
+            this.isPosting = false
+            this.$router.push({name:'interClassStory.templateList'})
         },
         selViewList(){
             if(this.shareData.publishType == 'spec'){
