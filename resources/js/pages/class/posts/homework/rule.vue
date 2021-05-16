@@ -1,47 +1,49 @@
 <template>
-    <v-container v-if="$isMobile()">
-        <v-row class="ma-0 align-center">
-            <v-col cols="12">
-                <v-datetime-picker 
-                    label="截止时间" 
-                    v-model="testTime"
-                    :okText='lang.ok'
-                    :clearText='lang.cancel'
-                > </v-datetime-picker>
-            </v-col>
-            <v-col cols="12">
-                <v-select
-                    :items="userList"
-                    label="课代表"
-                    item-text="name"
-                    item-value="id"
-                    color="#7879ff"
-                    class="mt-0 pt-0"
-                    v-model="homeworkData.monitorName"
-                    :menu-props="{ top: false, offsetY: true }"
-                ></v-select>
-            </v-col> 
-            <v-col cols="12" class="d-flex align-center justify-space-between">
-                <p class="mb-0">家长评价提示</p>
-                <v-switch
-                    v-model="homeworkData.parentCheck"
-                    color="#7879ff"
-                    hide-details
-                    class="mt-0 pt-0"
-                ></v-switch>
-            </v-col>
-            <v-col cols="12" class="text-right">
-                <v-btn
-                    tile
-                    color="#feb31a"
-                    @click="submit"
-                    :loading="isSubmit"
-                    dark
-                    >
-                    确定
+    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
+        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.homework}}</p>
+                <v-btn @click="submit" :loading="isSubmit" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
                 </v-btn>
-            </v-col>
-        </v-row>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0 mo-glow bg-white">
+                <v-col cols="12" sm="6" md="4">
+                    <v-datetime-picker 
+                        label="截止时间" 
+                        v-model="testTime"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    > </v-datetime-picker>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        :items="userList"
+                        label="课代表"
+                        item-text="name"
+                        item-value="id"
+                        color="#7879ff"
+                        class="mt-0 pt-0"
+                        v-model="homeworkData.monitorName"
+                        :menu-props="{ top: false, offsetY: true }"
+                        hide-details
+                    ></v-select>
+                </v-col>
+                <v-col cols="12" class="d-flex align-center justify-space-between">
+                    <p class="mb-0">家长评价提示</p>
+                    <v-switch
+                        v-model="homeworkData.parentCheck"
+                        color="#7879ff"
+                        hide-details
+                        class="mt-0 pt-0"
+                    ></v-switch>
+                </v-col>
+            </v-row>
+        </v-container>
     </v-container>
     <v-container v-else class="pa-0">
         <v-container class="px-10 z-index-2 banner-custom">
@@ -162,6 +164,12 @@ export default {
             //     return this.$snackbar.showMessage({content: "确定日期", color: "error"})
             // }
             // console.log('rule',this.homeworkData)
+            if(this.homeworkData.monitorName == ''){
+                return this.$snackbar.showMessage({content: this.lang.homework+this.lang.requireMonitorName, color: "error"});
+            }
+            if(this.testTime == ''){
+                return this.$snackbar.showMessage({content: this.lang.homework+this.lang.requireDeadline, color: "error"});
+            }
             console.log(this.testTime.toString())
             this.homeworkData.deadline = this.testTime.toString()
             console.log(this.homeworkData)

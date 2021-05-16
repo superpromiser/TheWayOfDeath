@@ -1,56 +1,67 @@
 <template>
-    <v-container class="ma-0 pa-0" v-if="$isMobile()">
-        <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
-                <v-avatar class="" >
-                    <v-img :src="`${baseUrl}/asset/img/appIcon/homeSchool/作业.png`" alt="postItem" width="48" height="48" ></v-img>
-                </v-avatar>
-                <h2 class="ml-3">{{lang.homework}}</h2>
-            </v-col>
-        </v-row>
-        <v-container v-if="showRule == false">
-            <v-row class="ma-0">
-                <v-col cols="12">
-                    <v-text-field
-                        v-model="homeworkData.subjectName"
-                        color="#7879ff"
-                        label="科目"
-                        clearable
-                        hide-details
-                        class="mt-0 pt-0"
-                    ></v-text-field>
-                </v-col>
-                <v-col cols="12">
+    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
+        <v-container v-if="showRule == false" class="pa-0 h-100 bg-white mb-16 pb-3" >
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="navToBackCustom" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.homework}}</p>
+                <v-btn @click="submit" :loading="isSubmit" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0 mo-glow bg-white">
+                <v-col cols="12" sm="6" md="4">
                     <v-select
-                        :items="homeworkType"
-                        label="类型"
-                        item-text="label"
-                        item-value="value"
+                        :menu-props="{ top: false, offsetY: true }"
                         color="#7879ff"
+                        :items="subjectList"
+                        v-model="homeworkData.subjectName"
+                        label="科目"
                         hide-details
                         class="mt-0 pt-0"
-                        v-model="homeworkData.homeworkType"
-                        :menu-props="{ top: false, offsetY: true }"
                     ></v-select>
                 </v-col>
-                <v-col cols="12" class="d-flex align-center justify-space-between" @click="setRule">
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        :menu-props="{ top: false, offsetY: true }"
+                        color="#7879ff"
+                        :items="homeworkType"
+                        v-model="homeworkData.homeworkType"
+                        item-text="label"
+                        item-value="value"
+                        label="类型"
+                        hide-details
+                        class="mt-0 pt-0"
+                    ></v-select>
+                </v-col>
+                <v-col @click="setRule" v-ripple cols="12" class="d-flex align-center justify-space-between">
                     <p class="mb-0">发布规则</p>
-                    <div class="d-flex align-center">
-                        <span>即时发布</span>
-                        <v-icon right> mdi-chevron-right </v-icon>
-                    </div>
+                    <v-icon right> mdi-chevron-right </v-icon>
                 </v-col>
             </v-row>
-            <v-row class="ma-0">
-                <v-col cols="12" class="mb-16">
-                    <QuestionItem Label="作业内容" :emoji="true"  ref="child" @contentData="loadContentData"></QuestionItem>
-                </v-col>
-            </v-row>
+            <QuestionItem Label="" :emoji="true" :isAnnouncement="true" :isShareView="true" :item="homeworkData.content" ref="child" @contentData="loadContentData"></QuestionItem>
+            <v-btn @click="templateList" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="bottom: 54px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>
+            <v-menu top offset-y :close-on-content-click="true" :content-class="publishSpecUserList !== null&&publishSpecUserList.length > 0 ? 'box-shadow-none publish-type-menu-with-btn': 'box-shadow-none publish-type-menu'" tile min-width="90">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="bottom: 54px; right: 12px;"> <v-icon left>mdi-earth</v-icon>
+                        {{homeworkData.publishType=="all"? '公开' : homeworkData.publishType=="me"? '私密' : publishSpecUserList == null ? '部分看见' : `部分看见(${publishSpecUserList.length})`}}
+                    </v-btn>
+                </template>
+                <div class="pa-3 text-right">
+                    <v-radio-group class="mt-0 pt-0" v-model="homeworkData.publishType" @change="selectPublishType" mandatory dense hide-details >
+                        <v-radio name="homeworkData.publishType" color="#7879ff" label="公开" value="all" ></v-radio>
+                        <v-radio name="homeworkData.publishType" color="#7879ff" label="私密" value="me" ></v-radio>
+                        <v-radio name="homeworkData.publishType" color="#7879ff" label="部分看见" value="some" ></v-radio>
+                    </v-radio-group>
+                    <v-btn v-if="publishSpecUserList !== null&&publishSpecUserList.length > 0" elevation="0" small text color="#7879ff" @click="changeSelectedUserList">重选名单</v-btn>
+                </div>
+            </v-menu>
         </v-container>
-        <div v-else>
+        <v-container class="pa-0 ma-0" v-else>
             <router-view></router-view>
-        </div>
-        <quick-menu v-if="showRule == false" @clickDraft="something" @clickPublish="submit" :isPublishing="isSubmit"></quick-menu>
+        </v-container>
     </v-container>
     <v-container v-else class="pa-0">
         <div v-if="showRule == false">
@@ -185,15 +196,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {getMySubject,createHomeworkData} from '~/api/homework'
-import quickMenu from '~/components/quickMenu'
 import {getLessonUserList} from '~/api/user'
 export default {
     components:{
         QuestionItem,
-        quickMenu,
     },
     data:()=>({
         lang,
@@ -204,12 +214,18 @@ export default {
         baseUrl:window.Laravel.base_url,
         homeworkData:{
             subjectName:'',
-            homeworkType:'offline',
-            content:null,
+            homeworkType:'',
+            content:{
+                text: '',
+                imgUrl: [],
+                otherUrl: [],
+                videoUrl: []
+            },
             deadline:'',
             monitorName:'',
             parentCheck:false,
             viewList:[],
+            publishType: 'all'
         },
         homeworkType:[
             {
@@ -247,7 +263,16 @@ export default {
     computed:{
         currentPath(){
             return this.$route
-        }
+        },
+        ...mapGetters({
+            user: 'auth/user',
+            publishContent: 'mo/publishContent',
+            publishSpecUserList: 'mo/publishSpecUserList',
+            backWithoutSelect: 'mo/backWithoutSelect',
+            backWithChange: 'mo/backWithChange',
+            clickedChange: 'mo/clickedChange',
+            specUsers:'member/specUsers',
+       }),
     },
     watch:{
         currentPath:{
@@ -270,6 +295,16 @@ export default {
     },
     created(){
         this.$router.push({name:'posts.Chomework'})
+
+        if(this.publishContent !== null){
+            this.homeworkData = this.publishContent;
+        }
+        if(this.backWithoutSelect == true){
+            this.homeworkData.publishType = 'all';
+        }
+        // if(this.currentPath.name == 'posts.Cannouncement'){
+        //     this.isPosting = true
+        // }
         getMySubject({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
             this.subjectList = res.data
         })
@@ -287,25 +322,48 @@ export default {
         submit(){
             console.log("submit")
             this.$refs.child.emitData()
-            if(this.homeworkData.content == null){
-                return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})
-            }
+            
             if(this.homeworkData.subjectName == ''){
-                return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})             
+                return this.$snackbar.showMessage({content: this.lang.homework+this.lang.requireSubjectName, color: "error"})             
+            }
+            if(this.homeworkData.homeworkType == ''){
+                return this.$snackbar.showMessage({content: this.lang.homework+this.lang.requireSubjectType, color: "error"})             
+            }
+            if(this.homeworkData.deadline == '' || this.homeworkData.monitorName == ''){
+                return this.$snackbar.showMessage({content: '您没有设定发布规则', color: "error"})             
+            }
+
+            if(this.homeworkData.content.text.trim() == ''){
+                return this.$snackbar.showMessage({content: this.lang.homework+this.lang.requireContent, color: "error"})
             }
             this.isSubmit = true
-            if(this.viewType == 'all'){
-                this.userList.map(user=>{
-                    this.homeworkData.viewList.push(user.id)
-                })
-            }else if(this.viewType == 'me'){
-                this.homeworkData.viewlist.push(0)
-            }else if(this.viewType == 'some'){
-                this.userList.map(user=>{
-                    if(user.checkbox == true){
+            if(this.$isMobile()){
+                if(this.homeworkData.publishType == 'all'){
+                    this.userList.map(user=>{
                         this.homeworkData.viewList.push(user.id)
-                    }
-                })
+                    })
+                }
+                else if(this.homeworkData.publishType == 'me'){
+                    this.homeworkData.viewList.push(0)
+                }
+                else if(this.homeworkData.publishType == 'some'){
+                    this.homeworkData.viewList = this.publishSpecUserList;
+                }
+            }
+            else{
+                if(this.viewType == 'all'){
+                    this.userList.map(user=>{
+                        this.homeworkData.viewList.push(user.id)
+                    })
+                }else if(this.viewType == 'me'){
+                    this.homeworkData.viewList.push(0)
+                }else if(this.viewType == 'some'){
+                    this.userList.map(user=>{
+                        if(user.checkbox == true){
+                            this.homeworkData.viewList.push(user.id)
+                        }
+                    })
+                }
             }
             console.log("this.homeworkData",this.homeworkData)
             // return
@@ -322,6 +380,7 @@ export default {
             }).then(res=>{
                 this.isSubmit = false
                 console.log(res.data)
+                this.clearStore();
                 if(this.$isMobile()){
                     this.$router.push({name:'home'})
                 }
@@ -331,6 +390,7 @@ export default {
                 
             }).catch(err=>{
                 console.log(err.response)
+                this.clearStore();
                 this.isSubmit = false
             })
         },
@@ -348,7 +408,7 @@ export default {
         loadContentData(data){
             console.log(data)
             if(data.text == ''){
-                this.homeworkData.content = []
+                // this.homeworkData.content = []
                 return
             }
             this.homeworkData.content = data
@@ -357,8 +417,43 @@ export default {
             console.log(this.viewType)
         },
 
-        something(){
+        selectPublishType( val ){
+            console.log(val, this.homeworkData.content);
+            if(val == 'some'){
+                if(this.homeworkData.content.text.trim() == ''){
+                    this.homeworkData.publishType = null;
+                    return this.$snackbar.showMessage({content: this.lang.homework+this.lang.requireContent, color: "error"})
+                }
+                this.$store.dispatch('mo/onPublishContent', this.homeworkData);
+                this.$store.dispatch('mo/onBackWithoutSelect', false);
+                this.$router.push({name: 'member.selectMo'});
+            }
+            else{
+                if(this.publishSpecUserList !== null){
+                    this.$store.dispatch('mo/onPublishSpecUserList', null);
+                }
+                if(this.clickedChange == true){
+                    this.$store.dispatch('mo/onClickedChange', false);
+                }
+            }
+        },
 
+        changeSelectedUserList(){
+            this.$store.dispatch('mo/onClickedChange', true);
+            this.$router.push({name: 'member.selectMo'});
+        },
+
+        navToBackCustom(){
+            this.clearStore();
+            this.$router.go(-1);
+        },
+
+        clearStore(){
+            this.$store.dispatch('mo/onPublishContent', null);
+            this.$store.dispatch('mo/onPublishSpecUserList', null);
+            this.$store.dispatch('mo/onBackWithoutSelect', false);
+            this.$store.dispatch('mo/onClickedChange', false);
+            this.$store.dispatch('mo/onBackWithChange', false);
         }
     }
 }
