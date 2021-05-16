@@ -32,7 +32,7 @@
         <v-container class="pa-0 ma-0" v-else>
             <router-view></router-view>
         </v-container>
-  </v-container>
+    </v-container>
     <v-container class="pa-0" v-else>
         <div v-if="isPosting == true">
             <v-container class="px-10 z-index-2 banner-custom">

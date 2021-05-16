@@ -94,12 +94,10 @@ export default {
     data:() => ({
         lang,
         baseUrl:window.Laravel.base_url,
-        schoolstory: {},
+        schoolstory: null,
     }),
     created(){
-
-      this.schoolstory = JSON.parse(this.content.schoolstory.content);
-      console.log("content.users", this.content);
+      this.schoolstory = (JSON.parse(this.content.schoolstory.content))[0];
     },
     computed:{
       currentPath(){
