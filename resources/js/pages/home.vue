@@ -671,13 +671,16 @@ export default {
       selectedItemGroupForSchoolDiaStore : 'mo/selectedItemGroupForSchoolDiaStore',
       selectedItemGroupForClassDiaStore : 'mo/selectedItemGroupForClassDiaStore',
       schoolStoryList: 'mo/schoolStoryList',
-      classStoryList: 'mo/classStoryList'
+      classStoryList: 'mo/classStoryList',
+      isSchoolSpaceStore: 'mo/isSchoolSpace'
     }),
 
     
   },
 
   async created(){
+    this.isSchoolSpace = this.isSchoolSpaceStore;
+    
     if(this.user.roleId == 1){
       this.schoolSpaceItems = this.adminSchoolItems;
       this.classSpaceItems = this.adminClassItems;
@@ -699,7 +702,7 @@ export default {
       this.classSpaceItems = this.studentClassItems;
     }
     if(this.$isMobile()){
-      if(this.schoolStoryList == null){
+      if(this.schoolStoryList == null || this.classStoryList == null){
         let obj = {
           schoolId: this.user.schoolId,
           lessonId: this.user.lessonId
@@ -730,7 +733,7 @@ export default {
         });
       }
       else{
-        if(this.isSchoolSpace){
+        if(this.isSchoolSpace == true){
           this.selectedStoryGroup =  JSON.parse(JSON.stringify(this.schoolStoryList))
         }
         else{

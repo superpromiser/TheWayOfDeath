@@ -247,6 +247,11 @@ export default {
                 console.log(res)
                 this.isSubmit = false
                 if(this.$isMobile()){
+                    this.$store.dispatch('mo/onPublishContent', null);
+                    this.$store.dispatch('mo/onPublishSpecUserList', null);
+                    this.$store.dispatch('mo/onBackWithoutSelect', false);
+                    this.$store.dispatch('mo/onClickedChange', false);
+                    this.$store.dispatch('mo/onBackWithChange', false);
                     this.$router.push({name:'home'})
                 }
                 else{
@@ -264,9 +269,6 @@ export default {
             }
             this.shareData.content = [];
             this.shareData.content.push(data)
-        },
-        something(){
-
         },
         templateList(){
             this.isPosting = false
@@ -307,7 +309,7 @@ export default {
             this.$store.dispatch('mo/onBackWithChange', false);
             this.$router.go(-1);
         },
-        
+
         selPublishType(){
             if(this.shareData.publishType == 'spec'){
                 this.isPosting = false

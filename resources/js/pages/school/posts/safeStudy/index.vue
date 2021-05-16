@@ -1,8 +1,8 @@
 <template>
-    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
-        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+    <v-container v-if="$isMobile()"  class="ma-0 pa-0 h-100">
+        <v-container v-if="isPosting == true" class="pa-0 h-100 bg-white mb-16 pb-3" >
             <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
-                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                <v-icon @click="navToBackCustom" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
                 <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.safeStudy}}</p>
@@ -11,29 +11,26 @@
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
-            <v-row class="ma-0 mo-glow">
-                <v-col cols="12">
-                    <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" ref="child" @contentData="loadContentData"></QuestionItem>
-                </v-col>
-            </v-row>
-            <v-snackbar
-                timeout="3000"
-                v-model="requiredText"
-                color="error"
-                absolute
-                top
-                >
-                {{lang.requiredText}}
-            </v-snackbar>
-            <v-snackbar
-            timeout="3000"
-                v-model="isSuccessed"
-                color="success"
-                absolute
-                top
-                >
-                {{lang.successText}}
-            </v-snackbar>
+            <QuestionItem Label="" :emoji="true" :isShareView="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
+            <v-btn @click="templateList()" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="bottom: 54px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>
+            <v-menu top offset-y :close-on-content-click="true" :content-class="publishSpecUserList !== null&&publishSpecUserList.length > 0 ? 'box-shadow-none publish-type-menu-with-btn': 'box-shadow-none publish-type-menu'" tile min-width="90">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="bottom: 54px; right: 12px;"> <v-icon left>mdi-earth</v-icon>
+                        {{shareData.publishType=="pub"? '公开' : shareData.publishType=="pvt"? '私密' : publishSpecUserList == null ? '部分看见' : `部分看见(${publishSpecUserList.length})`}}
+                    </v-btn>
+                </template>
+                <div class="pa-3 text-right">
+                    <v-radio-group class="mt-0 pt-0" v-model="shareData.publishType" @change="selectPublishType" mandatory dense hide-details >
+                        <v-radio name="shareData.publishType" color="#7879ff" label="公开" value="pub" ></v-radio>
+                        <v-radio name="shareData.publishType" color="#7879ff" label="私密" value="pvt" ></v-radio>
+                        <v-radio name="shareData.publishType" color="#7879ff" label="部分看见" value="spec" ></v-radio>
+                    </v-radio-group>
+                    <v-btn v-if="publishSpecUserList !== null&&publishSpecUserList.length > 0" elevation="0" small text color="#7879ff" @click="changeSelectedUserList">重选名单</v-btn>
+                </div>
+            </v-menu>
+        </v-container>
+        <v-container class="pa-0 ma-0" v-else>
+            <router-view></router-view>
         </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
@@ -157,8 +154,13 @@ export default {
             return this.$route
         },
         ...mapGetters({
-            specUsers:'member/specUsers'
-        })
+            publishContent: 'mo/publishContent',
+            publishSpecUserList: 'mo/publishSpecUserList',
+            backWithoutSelect: 'mo/backWithoutSelect',
+            backWithChange: 'mo/backWithChange',
+            clickedChange: 'mo/clickedChange',
+            specUsers:'member/specUsers',
+        }),
     },
     created(){
         getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
@@ -169,6 +171,12 @@ export default {
             console.log(err.response)
         })
         this.shareData.schoolId = this.currentPath.params.schoolId
+        if(this.publishContent !== null){
+            this.shareData = this.publishContent;
+        }
+        if(this.backWithoutSelect == true){
+            this.shareData.publishType = 'pub';
+        }
         if(this.currentPath.name == 'posts.safeStudy'){
             this.isPosting = true
         }
@@ -218,11 +226,11 @@ export default {
         async submit(){
             this.$refs.child.emitData()
             if(this.shareData.content.length == 0){
-                return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
+                return this.$snackbar.showMessage({content: this.lang.safeStudy+this.lang.requireContent, color: "error"})
             }
             if(this.shareData.publishType == 'spec'){
                 if(this.$isMobile()){
-                    // this.$set(this.shareData, 'specUsers', this.publishSpecUserList);
+                    this.$set(this.shareData, 'specUsers', this.publishSpecUserList);
                 }
                 else{
                    this.$set(this.shareData,'specUsers',this.specUsers)
@@ -235,6 +243,11 @@ export default {
                 this.isSubmit = false
                 this.isSuccessed = true;
                 if(this.$isMobile()){
+                    this.$store.dispatch('mo/onPublishContent', null);
+                    this.$store.dispatch('mo/onPublishSpecUserList', null);
+                    this.$store.dispatch('mo/onBackWithoutSelect', false);
+                    this.$store.dispatch('mo/onClickedChange', false);
+                    this.$store.dispatch('mo/onBackWithChange', false);
                     this.$router.push({name:'home'})
                 }
                 else{
@@ -259,6 +272,42 @@ export default {
             this.$router.push({name:"safeStudy.templateList"})
             this.isPosting = false
         },
+
+        selectPublishType( val ){
+            console.log(val);
+            if(val == 'spec'){
+                if(this.shareData.content[0].text.trim() == ''){
+                    this.shareData.publishType = null;
+                    return this.$snackbar.showMessage({content: this.lang.share+this.lang.requireContent, color: "error"})
+                }
+                this.$store.dispatch('mo/onPublishContent', this.shareData);
+                this.$store.dispatch('mo/onBackWithoutSelect', false);
+                this.$router.push({name: 'member.selectMo'});
+            }
+            else{
+                if(this.publishSpecUserList !== null){
+                    this.$store.dispatch('mo/onPublishSpecUserList', null);
+                }
+                if(this.clickedChange == true){
+                    this.$store.dispatch('mo/onClickedChange', false);
+                }
+            }
+        },
+
+        navToBackCustom(){
+            this.$store.dispatch('mo/onPublishContent', null);
+            this.$store.dispatch('mo/onPublishSpecUserList', null);
+            this.$store.dispatch('mo/onBackWithoutSelect', false);
+            this.$store.dispatch('mo/onClickedChange', false);
+            this.$store.dispatch('mo/onBackWithChange', false);
+            this.$router.go(-1);
+        },
+
+        changeSelectedUserList(){
+            this.$store.dispatch('mo/onClickedChange', true);
+            this.$router.push({name: 'member.selectMo'});
+        },
+        
         selPublishType(){
             if(this.shareData.publishType == 'spec'){
                 this.isPosting = false

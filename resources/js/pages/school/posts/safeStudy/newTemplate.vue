@@ -1,5 +1,40 @@
 <template>
-    <v-container class="pa-0">
+<v-container class="pa-0" v-if="$isMobile()">
+        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.safeStudy}}模板清单</p>
+                <v-btn @click="submit" :loading="isSubmit" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0 mo-glow bg-white">
+                <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                        color="#7879ff"
+                        v-model="templateData.title"
+                        label="模板名称"
+                        hide-details
+                        class="mt-0 pt-0"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                        color="#7879ff"
+                        v-model="templateData.description"
+                        label="说明"
+                        hide-details
+                        class="mt-0 pt-0"
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+            <QuestionItem Label="" :emoji="true" :isShareView="true" :item="templateData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
+        </v-container>
+    </v-container>
+    <v-container v-else class="pa-0">
         <v-container class="z-index-2 mb-15 banner-custom px-10">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
