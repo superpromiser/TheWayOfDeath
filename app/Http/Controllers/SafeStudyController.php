@@ -22,7 +22,7 @@ class SafeStudyController extends Controller
                 'views',
                 'comments.users:id,name',
                 'safestudy',
-                'users:id,name'
+                'users:id,name,avatar'
             ])
             ->orderBy('fixTop', 'desc')
             ->orderBy('created_at', 'desc')

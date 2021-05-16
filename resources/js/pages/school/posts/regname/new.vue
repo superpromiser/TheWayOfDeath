@@ -365,8 +365,10 @@ export default {
     watch:{
         currentPath:{
             handler(val){
-                if(val.query.tempData){
+                if(val.name == 'posts.regname'){
                     this.isPosting = true
+                }
+                if(val.query.tempData){
                     console.log("JSON.parse(val.query.tempData)",JSON.parse(val.query.tempData))
                     this.regNameData.content = JSON.parse(val.query.tempData)
                 }
