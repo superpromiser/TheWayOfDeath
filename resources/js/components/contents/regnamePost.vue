@@ -86,7 +86,7 @@
             </v-btn>
           </template>
           <v-list>
-            <v-list-item link  v-if="user.roelId < 3">
+            <v-list-item link  v-if="user.roleId < 3">
               <v-list-item-title class="px-2" @click="fixTop(content)" v-if="content.fixTop == null">{{lang.toTop}}</v-list-item-title>
               <v-list-item-title class="px-2" @click="relaseTop(content.id)" v-else>{{lang.toRelase}}</v-list-item-title>
             </v-list-item>
@@ -184,14 +184,14 @@ export default {
         }).catch(err=>{
           console.log(err.response)
         })
-        // console.log(this.user)
+        console.log("this.user.roleIdthis.user.roleId",this.user.roleId)
         // return
         this.$store.dispatch('content/storePostDetail',content);
-        if(this.user.roleId !== 4 || this.user.roleId !== 5){
-            this.$router.push({name:'details.regnameResult'});
+        if(this.user.roleId == 5){
+            this.$router.push({name:'details.regnameAnswer'});
         }
         else{
-            this.$router.push({name:'details.regnameAnswer'});
+            this.$router.push({name:'details.regnameResult'});
         }
       },
       

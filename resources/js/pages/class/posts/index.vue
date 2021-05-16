@@ -587,6 +587,12 @@ export default {
                         imgUrl:"/asset/img/newIcon/safeStudy.png",
                         path:"posts.CsafeStudy"
                     },
+                    {
+                        color:"#98BB3A",
+                        title:"今日值日",//오늘의 의무
+                        imgUrl:"/asset/img/newIcon/safeStudy.png",
+                        path:"posts.CtodayDuty"
+                    },
                 ]
             },
             {

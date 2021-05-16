@@ -79,7 +79,7 @@
                         dark
                         class="mr-5"
                         @click="post"
-                        v-if="user.roleId == 1 || user.roleId == 2 || user.roelId == 3 || user.roleId == 7"
+                        v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7"
                         >
                         <v-icon left>
                             mdi-book-plus 

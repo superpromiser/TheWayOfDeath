@@ -312,7 +312,8 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/regName/newTemplate',name:'CregName.newTemplate',component:page('class/posts/regname/newTemplate.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement',name:'posts.Cannouncement',component:page('class/posts/announcement/new.vue'),
     children:[
-      {path:'templateList',name:'Cannouncement.templateList',component:page('class/posts/announcement/templateList.vue')}
+      {path:'templateList',name:'Cannouncement.templateList',component:page('class/posts/announcement/templateList.vue')},
+      {path:'contacts',name:'Cannouncement.contacts',component:page('class/contacts.vue')},
     ]
   },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/anouncement/newTemplate',name:'Cannouncement.newTemplate',component:page('class/posts/announcement/newTemplate.vue')},
@@ -325,6 +326,11 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/safeStudy/newTemplate',name:'CsafeStudy.newTemplate',component:page('class/posts/safeStudy/newTemplate.vue')},  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/repair',name:'posts.Crepair',component:page('class/posts/repair/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/vacation',name:'posts.Cvacation',component:page('class/posts/vacation/student/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/todayDuty',name:'posts.CtodayDuty',component:page('class/posts/todayDuty/index.vue'),
+    children:[
+      {path:'contacts',name:'todayDuty.contacts',component:page('class/contacts.vue')}
+    ]
+  },
   //class member  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/add',name:'classSpace.addMember',component:page('member/addMember.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/member/invite',name:'classSpace.inviteMember',component:page('member/inviteMember.vue')},
@@ -407,7 +413,7 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/interClassStory',name:'classSpace.applications.interClassStory',component:page('class/applications/interClassStory/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/recognition',name:'classSpace.applications.recognition',component:page('class/applications/recognition/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/vacation',name:'classSpace.applications.vacation',component:page('class/applications/vacation/index.vue')},
-
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/todayDuty',name:'classSpace.applications.todayDuty',component:page('class/applications/todayDuty/index.vue')},
   //manage guest
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests/index.vue')},
   //return team

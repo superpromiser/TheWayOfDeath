@@ -50,6 +50,7 @@ class AnouncementController extends Controller
             'title' => $request->title,
             'signName' => $request->signName,
             'showList' => $request->showList,
+            'viewList' => $request->viewList,
             'scopeFlag' => $request->scopeFlag,
             'content' => json_encode($request->content),
             'schoolId' => $request->schoolId,

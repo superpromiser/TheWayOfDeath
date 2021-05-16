@@ -272,42 +272,22 @@ export default {
                 label: "手机号码",
                 value: "phoneNumber"
             },
-            // {
-            //     label: "民族",
-            //     value: "nation"
-            // },
             {
                 label: "出生日期",
                 value: "birthday"
             },
-            // {
-            //     label: "毕业院校",
-            //     value: "gradedUniversity"
-            // },
             {
                 label: "家庭地址",
                 value: "familyAddress"
             },
-            // {
-            //     label: "户籍地址",
-            //     value: "livingAddress"
-            // },
             {
                 label: "身份证号",
                 value: "cardNum"
             },
-            // {
-            //     label: "email",
-            //     value: "email"
-            // },
             {
                 label: "父亲姓名",
                 value: "fatherName"
             },
-            // {
-            //     label: "父亲年龄",
-            //     value: "fatherAge"
-            // },
             {
                 label: "父亲联系方式",
                 value: "fatherPhone"
@@ -316,43 +296,6 @@ export default {
                 label: "父亲工作单位",
                 value: "fatherJob"
             },
-            // {
-            //     label: "母亲姓名",
-            //     value: "motherName"
-            // },
-            // {
-            //     label: "母亲年龄",
-            //     value: "motherAge"
-            // },
-            // {
-            //     label: "母亲备注",
-            //     value: "motherMemo"
-            // },
-            // {
-            //     label: "父亲备注",
-            //     value: "fatherMemo"
-            // },
-            // {
-            //     label: "母亲联系方式",
-            //     value: "motherPhoneNumber"
-            // },
-            // {
-            //     label: "母亲工作单位",
-            //     value: "motherJob"
-            // },
-            // {
-            //     label: "家长是否陪同",
-            //     value: "parentTogether"
-            // },
-            // {
-            //     label: "来访事由",
-            //     value: "reasonOfVisit"
-            // },
-            // {
-            //     label: "户籍所在地",
-            //     value: "homeRegPlace"
-            // },
-
         ],
         templateCnt:0,
         draftCnt:0,

@@ -124,15 +124,8 @@
                                         </v-list-item>
                                     </v-list-item-group>
                                 </v-list>
-                                <v-card-actions>
-                                    <v-btn
-                                        color="deep-purple lighten-2"
-                                        text
-                                        @click="chooseSignName"
-                                    >
-                                        {{lang.ok}}
-                                    </v-btn>
-
+                                <v-card-actions class="justify-end">
+                                   
                                     <v-btn
                                         color="deep-purple lighten-2"
                                         text
@@ -140,6 +133,14 @@
                                     >
                                         {{lang.cancel}}
                                     </v-btn>
+                                     <v-btn
+                                        color="deep-purple lighten-2"
+                                        text
+                                        @click="chooseSignName"
+                                    >
+                                        {{lang.ok}}
+                                    </v-btn>
+
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
@@ -179,7 +180,7 @@
                             :items='viewList'
                             item-text="label"
                             item-value="value"
-                            v-model="viewType"
+                            v-model="announcementData.publishType"
                             @change="selViewList"
                         ></v-select>
                     </v-col>
@@ -246,6 +247,7 @@ export default {
             content:[],
             schoolId:null,
             lessonId:null,
+            publishType:'pub'
         },
         newSignFlag:false,
         newSignName:'',
@@ -265,7 +267,6 @@ export default {
                 value:'spec'
             },
         ],
-        viewType:'pub',
         userList:[],
         isPosting:false,
         templateCnt:0,
@@ -276,6 +277,7 @@ export default {
     computed: {
        ...mapGetters({
            user: 'auth/user',
+           specUsers:'member/specUsers',
        }),
         currentPath(){
             return this.$route
@@ -351,11 +353,7 @@ export default {
                 this.announcementData.showList.push(this.user.id)
             }else{
                 this.announcementData.showList = []
-                this.userList.map(user=>{
-                    if(user.isChecked == true){
-                        this.announcementData.showList.push(user.id)
-                    }
-                })
+                this.announcementData.showList = this.specUsers
             }
             
             // console.log(this.announcementData)
@@ -406,6 +404,10 @@ export default {
         },
         selViewList(){
             console.log(this.viewType)
+            if(this.announcementData.publishType == 'spec'){
+                this.isPosting = false
+                this.$router.push({name:'Cannouncement.contacts'})
+            }
         },
         templateList(){
             this.isPosting = false
