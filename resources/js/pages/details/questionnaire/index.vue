@@ -194,33 +194,40 @@
       </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
-        <v-row class="px-10 z-index-2 banner-custom">
-          <v-col cols="6" md="4" class="d-flex align-center position-relative">
-            <a @click="$router.go(-1)" class="float-left">
-              <v-icon size="70" class=" left-24p">
-                  mdi-chevron-left
-              </v-icon>
-            </a>
-          </v-col>
-          <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-            <h2>{{lang.questionnaire}}</h2>
-          </v-col>
-          <v-col cols="12" md="4" class="d-flex align-center justify-end">
-            <v-btn
-              dark
-              color="#7879ff"
-              class="mr-8"
-              tile
-              @click="answerUsers"
-              v-if="answerUserShow == false"
-            >
-              已答 {{answerDataList.length}}
-              <v-icon right>
-                  mdi-chevron-right
-              </v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
+      <v-row class="px-10 z-index-2 banner-custom">
+        <v-col cols="6" md="4" class="d-flex align-center position-relative">
+          <a @click="$router.go(-1)" class="float-left">
+            <v-icon size="70" class=" left-24p">
+                mdi-chevron-left
+            </v-icon>
+          </a>
+        </v-col>
+        <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+          <h2>{{lang.questionnaire}}</h2>
+        </v-col>
+        <v-col cols="12" md="4" class="d-flex align-center justify-end">
+          <v-btn
+            dark
+            color="#7879ff"
+            class="mr-8"
+            tile
+            @click="answerUsers"
+            v-if="answerUserShow == false"
+          >
+            已答 {{answerDataList.length}}
+            <v-icon right>
+                mdi-chevron-right
+            </v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+          <v-progress-circular
+              indeterminate
+              color="primary"
+          ></v-progress-circular>
+      </div>
+      <div v-else>
         <!----title---->
         <v-col cols="12" class="d-flex align-center hover-cursor-point mt-5 px-10">
             <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="60" class="ma-5">
@@ -403,6 +410,7 @@
         <div v-else>
           <router-view :answerUsers="answerDataList"></router-view>
         </div>
+      </div>
     </v-container>
 </template>
 
@@ -440,6 +448,7 @@ export default {
         isSubmit:false,
         alreadyAnswer:false,
         answerUserShow:false,
+        isLoading:false
     }),
 
     computed:{
@@ -469,6 +478,7 @@ export default {
             this.$router.push({name:'schoolSpace.news'})
           }
         }
+        this.isLoading = true
         this.contentData.questionnaires.content = JSON.parse(this.contentData.questionnaires.content);
         await getAnswerQuestionnaire({postId:this.contentData.id}).then(res=>{
           this.answerDataList = res.data;
@@ -479,7 +489,9 @@ export default {
               this.alreadyAnswer = true
             }
           })
+          this.isLoading = false
         }).catch(err=>{
+          this.isLoading = false
           console.log(err.response)
         })
     },

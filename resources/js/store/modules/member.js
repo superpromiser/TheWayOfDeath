@@ -9,6 +9,7 @@ export const state = {
   clubMembers:[],
   clubName:'',
   specUsers:[],
+  dutyUsers:[],
 }
 
 // getters
@@ -20,7 +21,8 @@ export const getters = {
   selectedOne: state => state.selectedOne,
   clubMembers:  state=>state.clubMembers,
   clubName: state=>state.clubName,
-  specUsers:state=>state.specUsers
+  specUsers:state=>state.specUsers,
+  dutyUsers:state=>state.dutyUsers,
 }
 
 // mutations
@@ -48,6 +50,9 @@ export const mutations = {
     },
     [types.STORE_SPEC_USERS] (state,selUsers){
         state.specUsers = selUsers
+    },
+    [types.STORE_DUTY_USERS] (state,selUsers){
+        state.dutyUsers = selUsers
     }
 }
 
@@ -76,5 +81,8 @@ export const actions = {
     },
     storeSpecUsers ({ commit }, payload) {
         commit(types.STORE_SPEC_USERS, payload)
+    },
+    storeDutyUsers ({ commit }, payload) {
+        commit(types.STORE_DUTY_USERS, payload)
     },
 }

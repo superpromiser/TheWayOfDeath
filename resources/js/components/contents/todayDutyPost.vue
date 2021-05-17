@@ -63,11 +63,21 @@
       </div>
     </v-col>
     <v-col cols="12" class="pl-10 pt-0">
-      date:{{content.todayduty.dutyDate}}
+      日期:{{content.todayduty.dutyDate}}
     </v-col>
-    <v-col cols="12" class="pl-10 pt-0">
-      {{content.todayduty.userList}}
-    </v-col>
+    <v-row class="px-10">
+      <v-col cols="3" v-for="dutyUser in content.todayduty.userList" :key="dutyUser.id">
+        <v-avatar v-if="dutyUser.name !== '' && dutyUser.avatar == '/'" color="primary" size="25">
+            <span class="white--text headline">{{dutyUser.name[0]}}</span>
+        </v-avatar>
+        <v-avatar v-else
+          size="25"
+        >
+          <v-img :src="dutyUser.avatar"></v-img>
+        </v-avatar>
+        <span>{{dutyUser.name}}</span>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -93,6 +103,7 @@ export default {
         shareData: {},
     }),
     created(){
+      console.log('todayduty post-----',this.content.todayduty.userList)
       // this.shareData = JSON.parse(this.content.shares.content);
     },
     computed:{

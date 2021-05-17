@@ -28,7 +28,7 @@
             </v-row>
         </v-container>
     </v-container>
-    <v-container v-else>
+    <v-container v-else class="pa-0">
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -53,7 +53,13 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-row>
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+        </div>
+        <v-row v-else>
             <v-col class="d-flex justify-space-between align-center" cols="12" v-if="user != null">
                 <p class="pl-2">
                 </p>
@@ -87,17 +93,18 @@ export default {
     },
     data:()=>({
         user:null,
+        isLoading:false
     }),
     async created(){
-        console.log('=======',this.contentData)
+        this.isLoading = true
         await getOfflineStudent({postId:this.contentData.id}).then(res=>{
-            console.log("res.data",res.data)
             if(res.data != ''){
                 this.user = res.data
             }
-            console.log(typeof this.user)     
+            this.isLoading = false
         }).catch(err=>{
             console.log(err.response)
+            this.isLoading = false
         })
     }
 }

@@ -81,47 +81,55 @@
                 </v-col>
             </v-row>
         </v-container>
-        <div v-if="alreadyAnswer == false" class="px-10 mt-5">
-            <QuestionItem Label='答卷' ref="child" @contentData="loadContentData"></QuestionItem>
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
         </div>
-        <div v-else class="mt-5">
-            <div class="category px-0">答卷内容</div>
-            <v-row class="px-10">
-                <v-col cols="12">
-                    <p class="mb-0 d-flex align-center"> 
+        <div v-else>
+            <div v-if="alreadyAnswer == false" class="px-10 mt-5">
+                <QuestionItem Label='答卷' ref="child" @contentData="loadContentData"></QuestionItem>
+            </div>
+            <div v-else class="mt-5">
+                <div class="category px-0">答卷内容</div>
+                <v-row class="px-10">
+                    <v-col cols="12">
+                        <p class="mb-0 d-flex align-center"> 
+                        </p>
+                        <p class="text-wrap pl-3 mb-0">{{ answerData.text }}</p>
+                    </v-col>
+                    <v-col v-if="checkIfAttachExist(answerData)">
+                        <AttachItemViewer :items="answerData" />
+                    </v-col>
+                </v-row>
+                <div class="category mt-15 px-0">批改详情</div>
+                <v-row v-if="homeworkResult.teacherAnswer != ''" class="px-10">
+                        <v-col cols="12" class="pb-0">
+                        <p class="text-wrap mb-0"><read-more more-str="全文" :text="homeworkResult.teacherAnswer.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                    </v-col>
+                    <v-col cols="12" class="py-0" v-if="checkIfAttachExist(homeworkResult.teacherAnswer)">
+                        <AttachItemViewer :items="homeworkResult.teacherAnswer" />
+                    </v-col>
+                </v-row>
+                <div class="category mt-15 px-0">成绩评价</div>
+                <v-col class="d-flex justify-space-between align-center px-10" cols="12" v-if="homeworkResult.rating != null">
+                    <p class="">
+                        {{user.name}} 成绩评价
                     </p>
-                    <p class="text-wrap pl-3 mb-0">{{ answerData.text }}</p>
+                    <v-rating
+                        half-increments
+                        hover
+                        background-color="orange lighten-3"
+                        color="orange"
+                        length="5"
+                        size="25"
+                        value="0"
+                        v-model="homeworkResult.rating"
+                        readonly
+                    ></v-rating>
                 </v-col>
-                <v-col v-if="checkIfAttachExist(answerData)">
-                    <AttachItemViewer :items="answerData" />
-                </v-col>
-            </v-row>
-            <div class="category mt-15 px-0">批改详情</div>
-            <v-row v-if="homeworkResult.teacherAnswer != null" class="px-10">
-                    <v-col cols="12" class="pb-0">
-                    <p class="text-wrap mb-0"><read-more more-str="全文" :text="homeworkResult.teacherAnswer.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
-                </v-col>
-                <v-col cols="12" class="py-0" v-if="checkIfAttachExist(homeworkResult.teacherAnswer)">
-                    <AttachItemViewer :items="homeworkResult.teacherAnswer" />
-                </v-col>
-            </v-row>
-            <div class="category mt-15 px-0">成绩评价</div>
-            <v-col class="d-flex justify-space-between align-center px-10" cols="12" v-if="homeworkResult.rating != null">
-                <p class="">
-                    {{user.name}} 成绩评价
-                </p>
-                <v-rating
-                    half-increments
-                    hover
-                    background-color="orange lighten-3"
-                    color="orange"
-                    length="5"
-                    size="25"
-                    value="0"
-                    v-model="homeworkResult.rating"
-                    readonly
-                ></v-rating>
-            </v-col>
+            </div>
         </div>
     </v-container>
 </template>
@@ -150,6 +158,7 @@ export default {
         alreadyAnswer:false,
         answerData:null,
         homeworkResult:null,
+        isLoading:false
     }),
     computed:{
         currentPath(){
@@ -160,6 +169,7 @@ export default {
         })
     },
     async created(){
+        this.isLoading = true
         console.log("this.contentData",this.contentData)
         await getHomeworkResult({
             schoolId:this.currentPath.params.schoolId,
@@ -170,13 +180,15 @@ export default {
             if(res.data != ''){
                 this.alreadyAnswer = true
                 this.answerData = JSON.parse(res.data.content)
-                if(res.data.teacherAnswer != null){
+                if(res.data.teacherAnswer != ''){
                     res.data.teacherAnswer = JSON.parse(res.data.teacherAnswer)
                 }
                 this.homeworkResult = res.data
             }
+            this.isLoading = false
         }).catch(err=>{
             console.log(err.response)
+            this.isLoading = false
         })
     },
     methods:{

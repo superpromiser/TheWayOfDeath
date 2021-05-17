@@ -16,6 +16,9 @@ use App\Attendance;
 use App\ClassStory;
 use App\ScheduleSetting;
 use App\SchoolStory;
+use App\Grade;
+use App\User;
+use App\TodayDuty;
 
 class TabletController extends Controller
 {
@@ -96,7 +99,7 @@ class TabletController extends Controller
         }
 
         $announcementData = array();
-        $allAnounceData = Anouncement::where('schoolId', $schoolId)->with('users:id,name,avatar')->get();
+        $allAnounceData = Anouncement::where('schoolId', $schoolId)->with('users:id,name,avatar')->take(2);
         foreach ($allAnounceData as $data) {
             $lessonArr = $data->viewList;
             if (!is_null($lessonArr)) {
@@ -131,10 +134,21 @@ class TabletController extends Controller
                 }
             }
         }
+        $schoolId = Auth::user()->schoolId;
+        $gradeId = Auth::user()->gradeId;
+        $lessonId = Auth::user()->lessonId;
+        $gradeName = Grade::where('id', $gradeId)->first()->gradeName;
+        $lessonName = Lesson::where('id', $lessonId)->first()->lessonName;
+        $banzhuren = User::where(['lessonId' => $lessonId, 'roleId' => 7])->first()->name;
+        $profileData['lessonName'] = $gradeName . $lessonName;
+        $profileData['banzhuren'] = $banzhuren;
 
+        $tdoayDutyData = TodayDuty::whereDate('dutyDate', date('Y-m-d'))->get();
+        $resultData['profileData'] = $profileData;
         $resultData['timeTableData'] = $subjectArr;
         $resultData['albumData'] = $albumData;
         $resultData['announceData'] = $announcementData;
+        $resultData['todayDutyData'] = $tdoayDutyData;
         $resultData['attendanceData'] = $attendData;
         $resultData['schoolStoryData'] = $schoolStoryData;
         $resultData['classStoryData'] = $classStoryData;

@@ -15,7 +15,7 @@ class CreateTodayDutiesTable extends Migration
     {
         Schema::create('today_duties', function (Blueprint $table) {
             $table->id();
-            $table->json('userList');
+            $table->longText('userList');
             $table->date('dutyDate');
             $table->unsignedBigInteger('schoolId');
             $table->unsignedBigInteger('lessonId');

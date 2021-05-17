@@ -56,20 +56,28 @@
                 </v-col>
             </v-row>
         </v-container>
-        <div v-if="homeworkCheck == false" class="px-10 mt-5">
-            <v-row v-for="(user,idx) in userList" :key="user.id" class=" ma-0">
-                <v-col class="d-flex justify-space-between align-center hover-cursor-point" cols="12" @click="selUser(user)">
-                    <span class="pl-2">
-                        {{idx + 1}}.
-                        {{user.name}}
-                    </span>
-                    <v-icon>mdi-chevron-right</v-icon>
-                </v-col>
-                <v-divider class="thick-border"></v-divider>
-            </v-row>
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
         </div>
-        <div v-else class="mt-5">
-            <router-view :studentName='studentName'></router-view>
+        <div>
+            <div v-if="homeworkCheck == false" class="px-10 mt-5">
+                <v-row v-for="(user,idx) in userList" :key="user.id" class=" ma-0">
+                    <v-col class="d-flex justify-space-between align-center hover-cursor-point" cols="12" @click="selUser(user)">
+                        <span class="pl-2">
+                            {{idx + 1}}.
+                            {{user.name}}
+                        </span>
+                        <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                    <v-divider class="thick-border"></v-divider>
+                </v-row>
+            </div>
+            <div v-else class="mt-5">
+                <router-view :studentName='studentName'></router-view>
+            </div>
         </div>
     </v-container>
 </template>
