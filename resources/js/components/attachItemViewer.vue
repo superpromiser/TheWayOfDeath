@@ -54,7 +54,7 @@
                 </v-card>
             </v-col>
         </v-row>
-        <v-dialog :overlay-opacity="$isMobile()? '0': '0.3'" persistent v-model="videoViewDialog" width="100%" max-width="1000">
+        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="videoViewDialog" width="100%" max-width="1000">
             <v-card>
                 <v-card-title class="title">
                 {{selectedViedoName}}

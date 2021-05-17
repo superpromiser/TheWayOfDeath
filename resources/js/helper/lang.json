@@ -52,11 +52,13 @@
     "requireTitle": "标题不能为空",
     "requireDescription": "说明不能为空",
     "requireDeadline": "截止时间不能为空",
+    "requireStartTime": "开始时间不能为空",
     "requireMember": "参与人员不能为空",
     "requireContent": "内容不能为空",
     "requireDeadlineOrder": "截止时间不能早于当前时间",
     "requireVotingType": "请指定投票格式",
     "requireVotingMax": "请选择每人投票上限",
+    "requirePainDesc": "症状不能为空",
     
 
     "requireName": "姓名不能为空",

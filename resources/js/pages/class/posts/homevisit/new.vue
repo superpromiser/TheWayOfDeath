@@ -44,7 +44,7 @@
                 <QuestionItem :Label="lang.contentPlace" :emoji="true" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-col>
         </v-row>
-        <v-dialog persistent v-model="detailDialog" max-width="900px" style="background:white!important">
+        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="detailDialog" max-width="900px" style="background:white!important">
             <v-container class="pa-0">
                 <v-card>
                     <v-card-title class="headline grey lighten-2">
@@ -151,7 +151,7 @@
             </v-row>
             
         </v-container>
-        <v-dialog persistent v-model="detailDialog" max-width="900px" style="background:white!important">
+        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="detailDialog" max-width="900px" style="background:white!important">
             <v-container class="pa-0">
                 <v-card>
                     <v-card-title class="headline grey lighten-2">

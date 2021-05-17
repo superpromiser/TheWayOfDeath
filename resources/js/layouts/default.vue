@@ -59,7 +59,10 @@ export default {
           (val.path.includes('schoolSpace')&&val.path.includes('application')) ||
           (val.path.includes('classSpace')&&val.path.includes('application')) ||
           (val.path.includes('classSpace')&&val.path.includes('addTeacher')) ||
-          (val.path.includes('classSpace')&&val.path.includes('addMember')) 
+          (val.path.includes('classSpace')&&val.path.includes('addMember')) ||
+          (val.path.includes('attendance')&&val.path.includes('vacation')) ||
+          (val.path.includes('vacation')&&val.path.includes('teacher')&&val.path.includes('reply')) ||
+          (val.path.includes('admin')&&val.path.includes('schedule')&&val.path.includes('class')) 
           ){
           this.isPostOrDetail = true;
         }

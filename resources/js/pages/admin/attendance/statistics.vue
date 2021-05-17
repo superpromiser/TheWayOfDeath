@@ -104,7 +104,7 @@
       </v-data-table>
     </div>
     <v-row justify="center">
-      <v-dialog
+      <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
         v-model="dialog"
         max-width="700px"
       >

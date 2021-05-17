@@ -1,114 +1,96 @@
 <template>
-    <v-container v-if="$isMobile()">
-        <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center">
-                <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/newIcon/请假单.png`" alt="postItem" width="48" height="48" ></v-img>
-                </v-avatar>
-                <h2 class="ml-3">请假</h2>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0 mo-glow mt-5">
-            <v-col cols="12" sm="6" class="d-flex justify-space-between align-center">
-                <span class="mr-14 pa-3 mo-glow-inverse">请假人</span>
-                <v-text-field
-                    class="mo-glow-v-text"
-                    solo
-                    v-model="newVacationData.studentName"
-                    label="请假人"
-                    hide-details
-                    readonly
-                ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" class="d-flex justify-space-between align-center">
-                <span class="mr-14 pa-3 mo-glow-inverse">审批人</span>
-                <v-text-field
-                    class="mo-glow-v-text"
-                    solo
-                    v-model="newVacationData.teacherName"
-                    label="审批人"
-                    hide-details
-                    readonly
-                ></v-text-field>
-            </v-col>
-        
-            <v-col cols="12" sm="6" class="d-flex justify-space-between align-center">
-                <span class="mr-11 pa-3 mo-glow-inverse">开始时间</span>
-                <v-datetime-picker 
-                    label="开始时间" 
-                    v-model="newVacationData.startTime"
-                    :okText='lang.ok'
-                    :clearText='lang.cancel'
-                > </v-datetime-picker>
-            </v-col>
-            <v-col cols="12" sm="6" class="d-flex justify-space-between align-center">
-                <span class="mr-11 pa-3 mo-glow-inverse">结束时间</span>
-                <v-datetime-picker 
-                    label="结束时间" 
-                    v-model="newVacationData.endTime"
-                    :okText='lang.ok'
-                    :clearText='lang.cancel'
-                > </v-datetime-picker>
-            </v-col>
-        
-            <v-col cols="12" class="d-flex justify-space-between align-start">
-                <span class="mr-11  pa-3 mo-glow-inverse">请假原因</span>
-                <v-textarea
-                    class="mo-glow-v-text"
-                    solo
-                    v-model="newVacationData.reason"
-                    label="请假原因"
-                    hide-details
-                ></v-textarea>
-            </v-col>
-        
-            <v-col cols="12" sm="6" class="d-flex justify-space-between align-center">
-                <span @click="newVacationData.reasonFlag = false" class="  pa-3 mo-glow">病假</span>
-                <v-switch
-                    v-model="newVacationData.reasonFlag"
-                    color="error"
-                    hide-details
-                    class="pt-0 mt-0"
-                ></v-switch>
-                <span @click="newVacationData.reasonFlag = true" class=" pa-3 mo-glow">事假</span>
-            </v-col>
-       
-            <transition  name="page" mode="out-in">
-                <v-col cols="12" v-if="newVacationData.reasonFlag == false">
-                    <v-checkbox
-                        v-model="newVacationData.isHeat"
-                        label="是否发热"
-                        color="error"
+    <v-container class="pa-0" v-if="$isMobile()">
+        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >请假</p>
+                <v-btn @click="postVacationData" :loading="isLoading" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0">
+                <v-col cols="12" sm="6">
+                    <v-text-field
+                        color="#7879ff"
+                        v-model="newVacationData.studentName"
+                        label="请假人"
                         hide-details
-                    ></v-checkbox>
+                        class="mt-0 pt-0"
+                        readonly
+                    ></v-text-field>
                 </v-col>
-            </transition>
-            <transition  name="page" mode="out-in">
-                <v-col v-if="newVacationData.reasonFlag == false" cols="12" class="d-flex justify-space-between align-start">
-                    <span class="mr-10 mt-3 pa-3 mo-glow-inverse">症状</span>
-                    <v-textarea
-                        class="mo-glow-v-text"
-                        solo
-                        v-model="newVacationData.painDesc"
-                        label="症状"
+                <v-col cols="12" sm="6" >
+                    <v-text-field
+                        color="#7879ff"
+                        v-model="newVacationData.teacherName"
+                        label="审批人"
                         hide-details
+                        class="mt-0 pt-0"
+                        readonly
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" >
+                    <v-datetime-picker 
+                        label="开始时间" 
+                        v-model="newVacationData.startTime"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    > </v-datetime-picker>
+                </v-col>
+                <v-col cols="12" sm="6" >
+                    <v-datetime-picker 
+                        label="结束时间" 
+                        v-model="newVacationData.endTime"
+                        :okText='lang.ok'
+                        :clearText='lang.cancel'
+                    > </v-datetime-picker>
+                </v-col>
+                <v-col cols="12" sm="6">
+                    <v-textarea
+                        color="#7879ff"
+                        v-model="newVacationData.reason"
+                        label="请假原因"
+                        hide-details
+                        class="mt-0 pt-0"
                     ></v-textarea>
                 </v-col>
-            </transition>
-
-            <v-col cols="12" sm="6" class="d-flex justify-end align-center">
-                <v-btn small fab class="mo-glow ml-auto mr-3" style="color:#eb6846" @click="$router.go(-1)"><v-icon>mdi-undo-variant</v-icon></v-btn>
-                <v-btn
-                    dark
-                    color="#7879ff"
-                    rounded
-                    :loading="isLoading"
-                    @click="postVacationData"
-                >
-                    提交
-                </v-btn>
-            </v-col>
-        </v-row>
+                <v-col cols="12" sm="6" class="d-flex justify-space-between align-center">
+                    <p @click="newVacationData.reasonFlag = false" class="mb-0 font-size-0-8  pa-3 mo-glow">病假</p>
+                    <v-switch
+                        v-model="newVacationData.reasonFlag"
+                        color="error"
+                        hide-details
+                        class="pt-0 mt-0"
+                    ></v-switch>
+                    <p @click="newVacationData.reasonFlag = true" class="mb-0 font-size-0-8 pa-3 mo-glow">事假</p>
+                </v-col>
+        
+                <transition  name="page" mode="out-in">
+                    <v-col cols="12" v-if="newVacationData.reasonFlag == false">
+                        <v-checkbox
+                            v-model="newVacationData.isHeat"
+                            label="是否发热"
+                            color="error"
+                            hide-details
+                        ></v-checkbox>
+                    </v-col>
+                </transition>
+                <transition  name="page" mode="out-in">
+                    <v-col cols="12" v-if="newVacationData.reasonFlag == false">
+                        <v-textarea
+                            color="#7879ff"
+                            v-model="newVacationData.painDesc"
+                            label="症状"
+                            hide-details
+                            class="mt-0 pt-0"
+                        ></v-textarea>
+                    </v-col>
+                </transition>
+            </v-row>
+        </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
         <v-container class="banner-custom mb-10 z-index-2">
@@ -292,6 +274,15 @@ export default {
     methods:{
         async postVacationData(){
             console.log(this.newVacationData);
+            if(this.newVacationData.startTime == ''){
+                return this.$snackbar.showMessage({content: this.lang.requireStartTime, color: 'error'});
+            }
+            if(this.newVacationData.endTime == ''){
+                return this.$snackbar.showMessage({content: this.lang.requireDeadline, color: 'error'});
+            }
+            if(this.newVacationData.isHeat == true && this.newVacationData.painDesc == ''){
+                return this.$snackbar.showMessage({content: this.lang.requirePainDesc, color: 'error'});
+            }
             this.isLoading = true
             await createVacationData(this.newVacationData).then(res=>{
                 console.log(res.data)

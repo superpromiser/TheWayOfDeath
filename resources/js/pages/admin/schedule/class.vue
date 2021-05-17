@@ -1,73 +1,94 @@
 <template>
-  <v-container class="pa-0">
-    <v-container class="px-10 z-index-2 banner-custom">
-        <v-row>
-            <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70" class="left-24p">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-            </v-col>
-            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                <h2>课程表</h2>
-            </v-col>
-            <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                <v-btn
-                    color="#f19861"
-                    dark
-                    class="mb-2 ml-2"
-                    tile
-                    v-if="isEditable == false"
-                    @click="editable"
-                    >
-                    <v-icon left>
-                        mdi-check
-                    </v-icon>
-                    修改
-                </v-btn>
-                <v-btn
-                    color="#7879ff"
-                    dark
-                    class="mb-2 ml-2"
-                    tile
-                    v-if="isEditable == true"
-                    :loading="isLoadingNewData"
-                    @click="onSubmit"
-                    >
-                    <v-icon left>
-                        mdi-alert-circle-outline
-                    </v-icon>
-                    <!-- 无法修改 -->
-                    <!-- {{lang.submit}} -->
-                    保存
-                </v-btn>
-            </v-col>
-        </v-row>
-    </v-container>
-    <v-row class="mt-5">
-      <v-col cols="12" class="px-10">
-        <v-data-table
-          :headers="headers"
-          :items="scheduleData"
-          :loading="isLoadingSchoolData"
-          loading-text="正在加载..."
-          sort-by="calories"
-          class="elevation-1"
-        >
-            <!-- <template v-slot:top>
-                <v-toolbar
-                    flat
+    <v-container class="pa-0" v-if="$isMobile()">
+        <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >课程表</p>
+                <div class="d-flex align-center position-absolute put-align-center" style="right: 0px; top:50%">
+                    <v-btn v-if="isEditable == false" @click="editable" small text color="#49d29e" >
+                        修改
+                    </v-btn>
+                    <v-btn v-if="isEditable == true" @click="onSubmit" :loading="isLoadingNewData" small text color="#7879ff" >
+                        保存
+                    </v-btn>
+                </div>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0">
+            <v-col cols="12">
+                <v-data-table
+                :headers="headers"
+                :items="scheduleData"
+                :loading="isLoadingSchoolData"
+                loading-text="正在加载..."
+                sort-by="calories"
+                class="elevation-1"
                 >
-                    <v-toolbar-title><strong>{{someData.grade.className}}2021学下学期课程表</strong></v-toolbar-title>
-                    <v-toolbar-title><strong>{{sessionName}}</strong></v-toolbar-title>
-                    <v-divider
-                    class="mx-4"
-                    inset
-                    vertical
-                    ></v-divider>
-                    <v-spacer></v-spacer>
-
+                    <template v-slot:body="{ items, headers }">
+                        <tbody>
+                            <tr v-for="(item,idx) in items" :key="idx">
+                                <td v-for="(header,key) in headers" :key="key" >
+                                    <div v-if="key == 0">
+                                        <!-- something -->
+                                        {{item.ord}}
+                                    </div>
+                                    <div v-else-if="key == 8">
+                                        <v-icon
+                                            small
+                                            color="success"
+                                            class="mr-2"
+                                            :disabled="!isEditable"
+                                            @click="editItem(item)"
+                                        >
+                                            mdi-pencil
+                                        </v-icon>
+                                        <v-icon
+                                            small
+                                            color="error"
+                                            :disabled="!isEditable"
+                                            @click="deleteItem(item)"
+                                        >
+                                            mdi-delete
+                                        </v-icon>
+                                    </div>
+                                    <v-select v-else
+                                        :items="subjectItem"
+                                        :menu-props="{ top: false, offsetY: true }"
+                                        item-text="subjectName"
+                                        item-value="subjectName"
+                                        v-model="item[header.value]"
+                                        hide-details
+                                        :disabled="!isEditable"
+                                    >
+                                    </v-select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </template>
+                    <template v-slot:no-data>
+                        <p>暂无</p>
+                    </template>
+                </v-data-table>
+            </v-col>
+            </v-row>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+                <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                    <a @click="$router.go(-1)">
+                        <v-icon size="70" class="left-24p">
+                            mdi-chevron-left
+                        </v-icon>
+                    </a>
+                </v-col>
+                <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                    <h2>课程表</h2>
+                </v-col>
+                <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
                         color="#f19861"
                         dark
@@ -93,71 +114,126 @@
                         <v-icon left>
                             mdi-alert-circle-outline
                         </v-icon>
-                       
-                        {{lang.submit}}
+                        <!-- 无法修改 -->
+                        <!-- {{lang.submit}} -->
                         保存
                     </v-btn>
-                    <v-btn
-                        color="#7879ff"
-                        dark
-                        class="mb-2 ml-2"
-                        tile
-                        :loading="isLoadingNewData"
-                        @click="onSubmit"
-                        >
-                        {{lang.submit}}
-                    </v-btn>
-                </v-toolbar>
-            </template> -->
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-row class="mt-5">
+        <v-col cols="12" class="px-10">
+            <v-data-table
+            :headers="headers"
+            :items="scheduleData"
+            :loading="isLoadingSchoolData"
+            loading-text="正在加载..."
+            sort-by="calories"
+            class="elevation-1"
+            >
+                <!-- <template v-slot:top>
+                    <v-toolbar
+                        flat
+                    >
+                        <v-toolbar-title><strong>{{someData.grade.className}}2021学下学期课程表</strong></v-toolbar-title>
+                        <v-toolbar-title><strong>{{sessionName}}</strong></v-toolbar-title>
+                        <v-divider
+                        class="mx-4"
+                        inset
+                        vertical
+                        ></v-divider>
+                        <v-spacer></v-spacer>
 
-            <template v-slot:body="{ items, headers }">
-                <tbody>
-                    <tr v-for="(item,idx) in items" :key="idx">
-                        <td v-for="(header,key) in headers" :key="key" >
-                            <div v-if="key == 0">
-                                <!-- something -->
-                                {{item.ord}}
-                            </div>
-                            <div v-else-if="key == 8">
-                                <v-icon
-                                    small
-                                    color="success"
-                                    class="mr-2"
-                                    :disabled="!isEditable"
-                                    @click="editItem(item)"
-                                >
-                                    mdi-pencil
-                                </v-icon>
-                                <v-icon
-                                    small
-                                    color="error"
-                                    :disabled="!isEditable"
-                                    @click="deleteItem(item)"
-                                >
-                                    mdi-delete
-                                </v-icon>
-                            </div>
-                            <v-select v-else
-                                :items="subjectItem"
-                                :menu-props="{ top: false, offsetY: true }"
-                                item-text="subjectName"
-                                item-value="subjectName"
-                                v-model="item[header.value]"
-                                hide-details
-                                :disabled="!isEditable"
+                        <v-btn
+                            color="#f19861"
+                            dark
+                            class="mb-2 ml-2"
+                            tile
+                            v-if="isEditable == false"
+                            @click="editable"
                             >
-                            </v-select>
-                        </td>
-                    </tr>
-                </tbody>
-            </template>
-            <template v-slot:no-data>
-                <p>暂无</p>
-            </template>
-        </v-data-table>
-      </v-col>
-    </v-row>
-  </v-container>
+                            <v-icon left>
+                                mdi-check
+                            </v-icon>
+                            修改
+                        </v-btn>
+                        <v-btn
+                            color="#7879ff"
+                            dark
+                            class="mb-2 ml-2"
+                            tile
+                            v-if="isEditable == true"
+                            :loading="isLoadingNewData"
+                            @click="onSubmit"
+                            >
+                            <v-icon left>
+                                mdi-alert-circle-outline
+                            </v-icon>
+                        
+                            {{lang.submit}}
+                            保存
+                        </v-btn>
+                        <v-btn
+                            color="#7879ff"
+                            dark
+                            class="mb-2 ml-2"
+                            tile
+                            :loading="isLoadingNewData"
+                            @click="onSubmit"
+                            >
+                            {{lang.submit}}
+                        </v-btn>
+                    </v-toolbar>
+                </template> -->
+
+                <template v-slot:body="{ items, headers }">
+                    <tbody>
+                        <tr v-for="(item,idx) in items" :key="idx">
+                            <td v-for="(header,key) in headers" :key="key" >
+                                <div v-if="key == 0">
+                                    <!-- something -->
+                                    {{item.ord}}
+                                </div>
+                                <div v-else-if="key == 8">
+                                    <v-icon
+                                        small
+                                        color="success"
+                                        class="mr-2"
+                                        :disabled="!isEditable"
+                                        @click="editItem(item)"
+                                    >
+                                        mdi-pencil
+                                    </v-icon>
+                                    <v-icon
+                                        small
+                                        color="error"
+                                        :disabled="!isEditable"
+                                        @click="deleteItem(item)"
+                                    >
+                                        mdi-delete
+                                    </v-icon>
+                                </div>
+                                <v-select v-else
+                                    :items="subjectItem"
+                                    :menu-props="{ top: false, offsetY: true }"
+                                    item-text="subjectName"
+                                    item-value="subjectName"
+                                    v-model="item[header.value]"
+                                    hide-details
+                                    :disabled="!isEditable"
+                                >
+                                </v-select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </template>
+                <template v-slot:no-data>
+                    <p>暂无</p>
+                </template>
+            </v-data-table>
+        </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>

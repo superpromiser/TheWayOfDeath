@@ -108,7 +108,7 @@
                 </v-list-item-group>
             </v-list>
         </div>
-        <v-dialog
+        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
             v-model="addDialog"
             fullscreen
             hide-overlay
@@ -199,7 +199,7 @@
                                 </v-col>
                             </v-row>
                         </v-col>
-                        <v-dialog persistent v-model="groupNameDialog" transition="dialog-bottom-transition" max-width="500">   
+                        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="groupNameDialog" transition="dialog-bottom-transition" max-width="500">   
                             <v-card>
                                 <v-card-text class="pa-5">
                                     <v-text-field

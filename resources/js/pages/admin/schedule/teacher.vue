@@ -52,7 +52,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-dialog
+        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
             v-model="dialog"
             persistent
             max-width="500px"
@@ -131,7 +131,7 @@
                 </v-card-actions>
                 </v-card>
         </v-dialog>
-        <v-dialog persistent v-model="dialogDelete" max-width="500px">
+        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="dialogDelete" max-width="500px">
             <v-card>
             <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
             <v-card-actions>

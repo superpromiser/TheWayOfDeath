@@ -21,7 +21,7 @@
     </v-container>
     <v-row class="pa-0 px-10">
         <v-col cols="12" class="d-flex align-center ">
-            <v-dialog persistent v-model="addSessionDialog" transition="dialog-bottom-transition" width="100%" max-width="500">   
+            <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="addSessionDialog" transition="dialog-bottom-transition" width="100%" max-width="500">   
                 <v-card>
                     <v-card-title>
                       <span class="headline">加学期</span>
@@ -104,7 +104,7 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-            <v-dialog persistent v-model="deleteSessionDialog" transition="dialog-bottom-transition" width="100%" max-width="500px">
+            <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="deleteSessionDialog" transition="dialog-bottom-transition" width="100%" max-width="500px">
                 <v-card>
                     <v-card-title class="headline">你确定要删除这个学期吗?</v-card-title>
                     <v-card-actions>
@@ -186,7 +186,7 @@
                     ></v-divider> -->
                     <v-spacer></v-spacer>
 
-                    <v-dialog
+                    <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
                     v-model="dialog"
                     persistent
                     max-width="500px"
@@ -364,7 +364,7 @@
                         </v-card-actions>
                         </v-card>
                     </v-dialog>
-                    <v-dialog persistent v-model="dialogDelete" max-width="500px">
+                    <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="dialogDelete" max-width="500px">
                         <v-card>
                         <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
                         <v-card-actions>

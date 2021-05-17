@@ -110,7 +110,7 @@
         </div>
         <v-divider class="thick-border" light></v-divider>
         <v-row justify="center">
-            <v-dialog
+            <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
                 v-model="dialog"
                 max-width="500"
                 height="150"
