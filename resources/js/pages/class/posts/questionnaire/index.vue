@@ -302,7 +302,7 @@
           <div class="cus-divider"></div>
           <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
             <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
-              <div class="text-center px-2">
+              <div class="text-center px-2" @click="selContent('template')">
                 <v-icon>mdi-buffer</v-icon>
                 <p class="mb-0 font-color-gray-dark">模板</p>
               </div>
@@ -783,7 +783,12 @@ export default {
   computed: {
       currentPath(){
         return this.$route;
-      }
+      },
+      ...mapGetters({
+        selectedSchoolItem: 'mo/selectedSchoolItem',
+        user: 'auth/user',
+        previewData: 'mo/previewData',
+      })
   },
 
   watch:{
@@ -803,6 +808,12 @@ export default {
   },
 
   created(){
+    if( this.$isMobile() && this.selectedSchoolItem == null){
+      return this.$router.push({name: 'home'});
+    }
+    if(this.previewData !== null){
+      this.newQuestionnaireData = this.previewData.data
+    }
     if(this.currentPath.name == 'posts.Cquestionnaire'){
       this.postNew = true
     }
@@ -903,6 +914,7 @@ export default {
       await createQuestionnaire(this.newQuestionnaireData).then(res => {
         //console.log(res)
         // this.newQuestionnaireData = null
+        this.$store.dispatch('mo/onPreviewData', null);
         if(this.$isMobile()){
           this.$router.push({name:'home'})
         }
