@@ -412,7 +412,8 @@ class PostController extends Controller
         $this->validate($request, [
             'postId' => 'required'
         ]);
-        return Post::where('id', $request->postId)->delete();
+        Post::where('id', $request->postId)->delete();
+        return $request->postId;
     }
 
     public function getReadCnt(Request $request)
@@ -459,7 +460,7 @@ class PostController extends Controller
         $post->fixTop = $currentTime;
         // $post->touch();
         $post->update();
-        return true;
+        return $post->id;
     }
 
     public function relaseTop(Request $request)
@@ -474,6 +475,6 @@ class PostController extends Controller
         $post->fixTop = $currentTime;
         // $post->touch();
         $post->update();
-        return true;
+        return $post->id;
     }
 }

@@ -13,39 +13,7 @@ export default{
         })
     },
     created(){
-        // this.provinceListJsonArr = cityListJson.split("#");
-        // for (let i = 0; i < this.provinceListJsonArr.length; i++) {
-        //     let provinceObj = {
-        //         value : 1,
-        //         label : "",
-        //         city : []
-        //     }
-        //     let province = this.provinceListJsonArr[i].split("$")[0];
-        //     provinceObj.value = province.split("-")[0];
-        //     provinceObj.label = province.split("-")[1];
-        //     this.madeJsonFromString.push(provinceObj);
-        //     let TArea = this.provinceListJsonArr[i].split("$")[1].split("|");
-        //     for(let j = 0 ; j < TArea.length ; j++){
-        //         let cityObj = {
-        //             value : 1,
-        //             label : "",
-        //             region : []
-        //         }
-        //         let cityArr = TArea[j].split(",");
-        //         cityObj.value = cityArr[0].split("-")[0];
-        //         cityObj.label = cityArr[0].split("-")[1];
-        //         for( let k = 1 ; k < cityArr.length ; k++){
-        //             let regionObj = {
-        //                 value : 1, 
-        //                 label : "",
-        //             }
-        //             regionObj.value = cityArr[k].split("-")[0];
-        //             regionObj.label = cityArr[k].split("-")[1];
-        //             cityObj.region.push(regionObj);
-        //         }
-        //         this.madeJsonFromString[i].city.push(cityObj);
-        //     }
-        // }
+        
     },
     methods:{
 
@@ -179,14 +147,16 @@ export default{
         },
         fixTop(data){
             axios.put('/api/v1/post',{postId:data.id}).then(res=>{
-                this.$snackbar.showMessage({content: '成功', color: "success"})
+                console.log("content top",res.data)
+                this.$snackbar.showMessage({content: '置顶 成功', color: "success"})
             }).catch(err=>{
                 console.log(err.response)
             })
         },
         relaseTop(id){
             axios.put('/api/v1/post/relaseTop',{postId:id}).then(res=>{
-                this.snackbar.showMessage({content: '成功', color: "success"})
+                console.log("release top",res.data)
+                this.snackbar.showMessage({content: '取消置顶 成功', color: "success"})
             }).catch(err=>{
                 console.log(err.response)
             })
@@ -194,7 +164,8 @@ export default{
         postRemove(data){
             axios.delete('/api/v1/post',{data:{postId:data.id}}).then(res=>{
                 // alert('删除成功')
-                this.$snackbar.showMessage({content: '删除成功', color: "success"})
+                console.log("content delete",res.data)
+                this.$snackbar.showMessage({content: '删除 成功', color: "success"})
             }).catch(err=>{
                 //console.log(err.response)
             });

@@ -30,7 +30,7 @@
                             background-color="orange lighten-3"
                             color="orange"
                             length="5"
-                            size="20"
+                            size="15"
                             v-model="user.rating"
                         ></v-rating>
                     </v-col>
@@ -50,7 +50,7 @@
                             background-color="orange lighten-3"
                             color="orange"
                             length="5"
-                            size="20"
+                            size="15"
                             v-model="user.rating"
                             readonly
                         ></v-rating>
@@ -87,46 +87,54 @@
                 </v-col>
             </v-row>
         </v-container>
-        <div v-if="alreadyAnswer == false">
-            <v-row v-for="(user,idx) in userList" :key="user.id" class=" ma-0">
-                <v-col class="d-flex justify-space-between align-center" cols="12">
-                    <p class="pl-2">
-                        {{idx + 1}}.
-                        {{user.name}}
-                    </p>
-                    <v-rating
-                        half-increments
-                        hover
-                        background-color="orange lighten-3"
-                        color="orange"
-                        length="5"
-                        size="50"
-                        v-model="user.rating"
-                    ></v-rating>
-                </v-col>
-                <v-divider class="thick-border"></v-divider>
-            </v-row>
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
         </div>
         <div v-else>
-            <v-row v-for="(user,idx) in userList" :key="user.id">
-                <v-col class="d-flex justify-space-between align-center" cols="12">
-                    <p class="pl-2">
-                        {{idx + 1}}.
-                        {{user.user.name}}
-                    </p>
-                    <v-rating
-                        half-increments
-                        hover
-                        background-color="orange lighten-3"
-                        color="orange"
-                        length="5"
-                        size="50"
-                        v-model="user.rating"
-                        readonly
-                    ></v-rating>
-                </v-col>
-                <v-divider class="thick-border"></v-divider>
-            </v-row>
+            <div v-if="alreadyAnswer == false" class="px-10">
+                <v-row v-for="(user,idx) in userList" :key="user.id" class=" ma-0">
+                    <v-col class="d-flex justify-space-between align-center" cols="12">
+                        <p class="pl-2">
+                            {{idx + 1}}.
+                            {{user.name}}
+                        </p>
+                        <v-rating
+                            half-increments
+                            hover
+                            background-color="orange lighten-3"
+                            color="orange"
+                            length="5"
+                            size="25"
+                            v-model="user.rating"
+                        ></v-rating>
+                    </v-col>
+                    <v-divider class="thick-border"></v-divider>
+                </v-row>
+            </div>
+            <div v-else class="px-10">
+                <v-row v-for="(user,idx) in userList" :key="user.id">
+                    <v-col class="d-flex justify-space-between align-center" cols="12">
+                        <p class="pl-2">
+                            {{idx + 1}}.
+                            {{user.user.name}}
+                        </p>
+                        <v-rating
+                            half-increments
+                            hover
+                            background-color="orange lighten-3"
+                            color="orange"
+                            length="5"
+                            size="25"
+                            v-model="user.rating"
+                            readonly
+                        ></v-rating>
+                    </v-col>
+                    <v-divider class="thick-border"></v-divider>
+                </v-row>
+            </div>
         </div>
     </v-container>
 </template>
@@ -198,7 +206,7 @@ export default {
             this.userList.map(user=>{
                 if(user.rating == 0){
                     this.rating = false
-                    return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})
+                    return this.$snackbar.showMessage({content: "请输入您的分数", color: "error"})
                 }
             })
             console.log(this.userList)

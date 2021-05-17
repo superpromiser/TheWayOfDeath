@@ -98,89 +98,97 @@
                 </v-col>
             </v-row>
         </div>
-        <div v-if="answerUserShow == false" class=" px-10 mt-5">
-            <v-col cols="12" class="d-flex align-center hover-cursor-point">
-                <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="60" class="ma-5">
-                    <span class="white--text headline">{{contentData.users.name[0]}}</span>
-                </v-avatar>
-                <v-avatar v-else
-                class="ma-5"
-                size="60"
-                >
-                <v-img :src="contentData.users.avatar"></v-img>
-                </v-avatar>
-                <div>
-                <p class="font-weight-black fs-15 mb-3"> {{lang.questionnaire}}  </p>
-                <div class="d-flex align-center">
-                    <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
-                    <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
-                    <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
-                    <p class="mb-0">{{contentData.users.name}}</p>
-                </div>
-                </div>
-                <div class="ml-auto mr-5">
-                <v-menu offset-y >
-                    <template v-slot:activator="{ attrs, on }">
-                    <v-btn icon color="primary" v-bind="attrs" v-on="on" >
-                        <v-icon size="30">mdi-chevron-down </v-icon>
-                    </v-btn>
-                    </template>
-                    <v-list>
-                    <v-list-item link >
-                        <v-list-item-title class="px-2" @click="fixTop(contentData)">{{lang.toTop}}</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item link >
-                        <v-list-item-title class="px-2" @click="postRemove(contentData)">{{lang.remove}}</v-list-item-title>
-                    </v-list-item>
-                    </v-list>
-                </v-menu>
-                </div>
-            </v-col>
-            <v-row class="ma-0 mt-5">
-                <v-col cols="12">
-                    <p class="mb-0 d-flex align-center"> 
-                        <!-- {{index + 1}}.   -->
-                        <v-chip class="ma-2" color="success" outlined >
-                            <strong v-if="contentData.votings.maxVote>1">多选</strong>
-                            <strong v-else>单选</strong>
-                        </v-chip>
-                    </p>
-                    <p class="text-wrap pl-3 mb-0">{{ content[0].text }}</p>
-                </v-col>
-                <v-col v-if="checkIfAttachExist(content[0])">
-                    <AttachItemViewer :items="content[0]" />
-                </v-col>
-                <v-col class="pl-6" cols="12" v-for="(multiData, multiDataIndex) in content" :key="multiDataIndex" v-if="multiDataIndex !== 0">
-                    <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiDataIndex)" :class="{active: answerData.indexOf(multiDataIndex) > -1}"> 
-                        <v-chip
-                        class="mr-2"
-                        color="success"
-                        outlined
-                        >
-                        <strong>{{alphabet[multiDataIndex-1]}}</strong>
-                        </v-chip>
-                        <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
-                    </div>
-                    <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
-                </v-col>
-            </v-row>
-            <v-row class="d-flex justify-end mx-0 my-10 px-10">
-                <v-btn
-                    :dark="!alreadyAnswer"
-                    color="#7879ff"
-                    tile
-                    :loading="isSubmit"
-                    :disabled="alreadyAnswer"
-                    @click="submit"
-                > 
-                    {{lang.submit}}
-                </v-btn>
-            </v-row>
-            <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
-            <CommentView></CommentView>
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
         </div>
         <div v-else>
-            <router-view :answerUsers="answerDataList"></router-view>
+            <div v-if="answerUserShow == false" class=" px-10 mt-5">
+                <v-col cols="12" class="d-flex align-center hover-cursor-point">
+                    <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="60" class="ma-5">
+                        <span class="white--text headline">{{contentData.users.name[0]}}</span>
+                    </v-avatar>
+                    <v-avatar v-else
+                    class="ma-5"
+                    size="60"
+                    >
+                    <v-img :src="contentData.users.avatar"></v-img>
+                    </v-avatar>
+                    <div>
+                    <p class="font-weight-black fs-15 mb-3"> {{lang.questionnaire}}  </p>
+                    <div class="d-flex align-center">
+                        <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                        <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
+                        <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                        <p class="mb-0">{{contentData.users.name}}</p>
+                    </div>
+                    </div>
+                    <div class="ml-auto mr-5">
+                    <v-menu offset-y >
+                        <template v-slot:activator="{ attrs, on }">
+                        <v-btn icon color="primary" v-bind="attrs" v-on="on" >
+                            <v-icon size="30">mdi-chevron-down </v-icon>
+                        </v-btn>
+                        </template>
+                        <v-list>
+                        <v-list-item link >
+                            <v-list-item-title class="px-2" @click="fixTop(contentData)">{{lang.toTop}}</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item link >
+                            <v-list-item-title class="px-2" @click="postRemove(contentData)">{{lang.remove}}</v-list-item-title>
+                        </v-list-item>
+                        </v-list>
+                    </v-menu>
+                    </div>
+                </v-col>
+                <v-row class="ma-0 mt-5">
+                    <v-col cols="12">
+                        <p class="mb-0 d-flex align-center"> 
+                            <!-- {{index + 1}}.   -->
+                            <v-chip class="ma-2" color="success" outlined >
+                                <strong v-if="contentData.votings.maxVote>1">多选</strong>
+                                <strong v-else>单选</strong>
+                            </v-chip>
+                        </p>
+                        <p class="text-wrap pl-3 mb-0">{{ content[0].text }}</p>
+                    </v-col>
+                    <v-col v-if="checkIfAttachExist(content[0])">
+                        <AttachItemViewer :items="content[0]" />
+                    </v-col>
+                    <v-col class="pl-6" cols="12" v-for="(multiData, multiDataIndex) in content" :key="multiDataIndex" v-if="multiDataIndex !== 0">
+                        <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiDataIndex)" :class="{active: answerData.indexOf(multiDataIndex) > -1}"> 
+                            <v-chip
+                            class="mr-2"
+                            color="success"
+                            outlined
+                            >
+                            <strong>{{alphabet[multiDataIndex-1]}}</strong>
+                            </v-chip>
+                            <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
+                        </div>
+                        <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
+                    </v-col>
+                </v-row>
+                <v-row class="d-flex justify-end mx-0 my-10 px-10">
+                    <v-btn
+                        :dark="!alreadyAnswer"
+                        color="#7879ff"
+                        tile
+                        :loading="isSubmit"
+                        :disabled="alreadyAnswer"
+                        @click="submit"
+                    > 
+                        {{lang.submit}}
+                    </v-btn>
+                </v-row>
+                <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+                <CommentView></CommentView>
+            </div>
+            <div v-else>
+                <router-view :answerUsers="answerDataList"></router-view>
+            </div>
         </div>
     </v-container>
 </template>
@@ -211,6 +219,7 @@ export default {
         isSubmit:false,
         alreadyAnswer:false,
         answerUserShow:false,        
+        isLoading:false
     }),
 
     computed:{
@@ -241,22 +250,21 @@ export default {
             this.$router.push({name:'schoolSpace.news'})
           }
         }
-        console.log(this.contentData)
         this.answerData.postId = this.contentData.id
         this.content = JSON.parse(this.contentData.votings.content)
-        console.log('-----------+++++-------',this.content)
-        // //console.log('detail index')
+        this.isLoading = true
         await getAnswerVoting({postId:this.answerData.postId}).then(res=>{
             this.answerDataList = res.data
             this.answerDataList.map(answerData=>{
                 if(answerData.userId == this.user.id){
-                    console.log("answerData",answerData)
                     this.answerData = JSON.parse(answerData.answerData)
                     this.alreadyAnswer = true
                 }
             })
+            this.isLoading = false
         }).catch(err=>{
-            //console.log(err.console)
+            console.log(err.console)
+            this.isLoading = false
         })
     },
     methods:{

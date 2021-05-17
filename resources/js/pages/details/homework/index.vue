@@ -76,6 +76,7 @@
                             dark
                             tile
                             color="#7879ff"
+                            v-if="user.roleId == 3 || user.roleId == 5 || user.roleId == 7"
                             @click="viewDetail"
                         >
                             查看详情

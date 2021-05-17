@@ -73,7 +73,7 @@
                         @click="submit"
                         :loading="isSubmit"
                         :disabled="isMarked"
-                        :dark="!isMarked"
+                        dark
                     >
                         {{lang.submit}}
                     </v-btn>
@@ -83,86 +83,97 @@
 
     </v-container>
     <v-container class="pa-0" v-else>
-        <div class="category px-10">作业内容</div>
-        <v-row class="px-10">
-            <v-col cols="12">学生姓名：{{studentName}}</v-col>
-            <v-col cols="12">作业科目：{{contentData.homework.subjectName}}</v-col>
-            <v-col cols="12">作业类型：{{contentData.homework.homeworkType}}</v-col>
-            <v-col cols="12" class="pb-0">
-                <p class="text-wrap mb-0"><read-more more-str="全文" :text="`作业内容：${contentData.homework.content.text}`" link="#" less-str="收起" :max-chars="250"></read-more></p>
-            </v-col>
-            <v-col cols="12" class="py-0" v-if="checkIfAttachExist(contentData.homework.content)">
-                <AttachItemViewer :items="contentData.homework.content" />
-            </v-col>
-        </v-row>
-        <div class="" v-if="homeworkResult != null">
-            <div class="category mt-15 px-10">答卷内容</div>
-            <v-row  class="px-10">
-                <v-col cols="12" class="pb-0">
-                    <p class="text-wrap mb-0"><read-more more-str="全文" :text="homeworkResult.content.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
-                </v-col>
-                <v-col cols="12" class="py-0" v-if="checkIfAttachExist(homeworkResult.content)">
-                    <AttachItemViewer :items="homeworkResult.content" />
-                </v-col>
-            </v-row>
-            <div class="category my-15 px-10">批改详情</div>
-            <v-row v-if="homeworkResult.teacherAnswer == null"  class="px-10">
-                <QuestionItem Label='答卷' ref="child" @contentData="loadContentData"></QuestionItem>
-            </v-row>
-            <v-row v-else  class="px-10">
-                    <v-col cols="12" class="pb-0">
-                    <p class="text-wrap mb-0"><read-more more-str="全文" :text="homeworkResult.teacherAnswer.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
-                </v-col>
-                <v-col cols="12" class="py-0" v-if="checkIfAttachExist(homeworkResult.teacherAnswer)">
-                    <AttachItemViewer :items="homeworkResult.teacherAnswer" />
-                </v-col>
-            </v-row>
-            <div class="category mt-15 px-10">成绩评价</div>
-            <v-row class="px-10">
-                <v-col class="d-flex justify-space-between align-center" cols="12" v-if="homeworkResult.rating != null">
-                    <p class="">
-                        {{studentName}} 成绩评价
-                    </p>
-                    <v-rating
-                        half-increments
-                        hover
-                        background-color="orange lighten-3"
-                        color="orange"
-                        length="5"
-                        size="25"
-                        value="0"
-                        v-model="homeworkResult.rating"
-                        readonly
-                    ></v-rating>
-                </v-col>
-                <v-col class="d-flex justify-space-between align-center" cols="12" v-else>
-                    <p class="">
-                        {{studentName}} 成绩评价
-                    </p>
-                    <v-rating
-                        half-increments
-                        hover
-                        background-color="orange lighten-3"
-                        color="orange"
-                        length="5"
-                        size="25"
-                        value="0"
-                        v-model="teacherRating"
-                    ></v-rating>
-                </v-col>
-                <v-col class="d-flex align-center justify-end px-10">
-                    <v-btn
-                        color="#7879ff"
-                        @click="submit"
-                        :loading="isSubmit"
-                        :disabled="isMarked"
-                    >
-                        {{lang.submit}}
-                    </v-btn>
-                </v-col>
-            </v-row>
+        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
         </div>
+        <div v-else>
+            <div class="category px-10">作业内容</div>
+            <v-row class="px-10">
+                <v-col cols="12">学生姓名：{{studentName}}</v-col>
+                <v-col cols="12">作业科目：{{contentData.homework.subjectName}}</v-col>
+                <v-col cols="12">作业类型：{{contentData.homework.homeworkType}}</v-col>
+                <v-col cols="12" class="pb-0">
+                    <p class="text-wrap mb-0"><read-more more-str="全文" :text="`作业内容：${contentData.homework.content.text}`" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                </v-col>
+                <v-col cols="12" class="py-0" v-if="checkIfAttachExist(contentData.homework.content)">
+                    <AttachItemViewer :items="contentData.homework.content" />
+                </v-col>
+            </v-row>
+            <div class="" v-if="homeworkResult != null">
+                <div class="category mt-15 px-10">答卷内容</div>
+                <v-row  class="px-10">
+                    <v-col cols="12" class="pb-0">
+                        <p class="text-wrap mb-0"><read-more more-str="全文" :text="homeworkResult.content.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                    </v-col>
+                    <v-col cols="12" class="py-0" v-if="checkIfAttachExist(homeworkResult.content)">
+                        <AttachItemViewer :items="homeworkResult.content" />
+                    </v-col>
+                </v-row>
+                <div class="category my-15 px-10">批改详情</div>
+                <v-row v-if="homeworkResult.teacherAnswer == null"  class="px-10">
+                    <QuestionItem Label='答卷' ref="child" @contentData="loadContentData"></QuestionItem>
+                </v-row>
+                <v-row v-else  class="px-10">
+                        <v-col cols="12" class="pb-0">
+                        <p class="text-wrap mb-0"><read-more more-str="全文" :text="homeworkResult.teacherAnswer.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                    </v-col>
+                    <v-col cols="12" class="py-0" v-if="checkIfAttachExist(homeworkResult.teacherAnswer)">
+                        <AttachItemViewer :items="homeworkResult.teacherAnswer" />
+                    </v-col>
+                </v-row>
+                <div class="category mt-15 px-10">成绩评价</div>
+                <v-row class="px-10">
+                    <v-col class="d-flex justify-space-between align-center" cols="12" v-if="homeworkResult.rating != null">
+                        <p class="">
+                            {{studentName}} 成绩评价
+                        </p>
+                        <v-rating
+                            half-increments
+                            hover
+                            background-color="orange lighten-3"
+                            color="orange"
+                            length="5"
+                            size="25"
+                            value="0"
+                            v-model="homeworkResult.rating"
+                            readonly
+                        ></v-rating>
+                    </v-col>
+                    <v-col class="d-flex justify-space-between align-center" cols="12" v-else>
+                        <p class="">
+                            {{studentName}} 成绩评价
+                        </p>
+                        <v-rating
+                            half-increments
+                            hover
+                            background-color="orange lighten-3"
+                            color="orange"
+                            length="5"
+                            size="25"
+                            value="0"
+                            v-model="teacherRating"
+                        ></v-rating>
+                    </v-col>
+                    <v-col class="d-flex align-center justify-end px-10">
+                        <v-btn
+                            color="#7879ff"
+                            @click="submit"
+                            :loading="isSubmit"
+                            :disabled="isMarked"
+                            dark
+                        >
+                            {{lang.submit}}
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </div>
+            <div v-else>
 
+            </div>
+        </div>
     </v-container>
 </template>
 
@@ -190,7 +201,8 @@ export default {
         teacherRating:null,
         lang,
         isSubmit:false,
-        isMarked:false
+        isMarked:false,
+        isLoading:false
     }),
     computed:{
         currentPath(){
@@ -238,9 +250,9 @@ export default {
         async submit(){
             console.log('submit')
             this.$refs.child.emitData()
-            if(this.teacherAnswer == null){
-                return this.$snackbar.showMessage({content: "老师的答复不能为空", color: "error"})
-            }
+            // if(this.teacherAnswer == null){
+            //     return this.$snackbar.showMessage({content: "老师的答复不能为空", color: "error"})
+            // }
             if(this.teacherRating == null){
                 return this.$snackbar.showMessage({content: "请输入问卷。", color: "error"})
             }

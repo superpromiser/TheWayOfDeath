@@ -125,7 +125,7 @@ export default {
     computed:{
         ...mapGetters({
             user:'auth/user',
-            specUsers:'member/specUsers'
+            dutyUsers:'member/dutyUsers'
         }),
         currentPath(){
             return this.$route
@@ -160,8 +160,8 @@ export default {
         .then(res => {
             res.data.map(user => {
                 this.$set(user, "checkbox", false);
-                this.specUsers.map(selUser=>{
-                    if(user.id == selUser){
+                this.dutyUsers.map(selUser=>{
+                    if(user.id == selUser.id){
                         user.checkbox = true
                     }
                 })
@@ -185,7 +185,7 @@ export default {
             let selUsers = []
             this.userList.map(user=>{
                 if(user.checkbox == true){
-                    selUsers.push(user.id)
+                    selUsers.push(user)
                 }
             })
             this.isSubmit = true
