@@ -1,5 +1,176 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+        <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="navToBack" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p v-if="isRemainTeam" class="mb-0 font-size-0-95 font-weight-bold pa-3" >剩余团队的详细信息</p>
+                <p v-else class="mb-0 font-size-0-95 font-weight-bold pa-3" >退货团队的详细信息</p>
+                <v-btn v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7"
+                    :dark="!isDetailView" :disabled="isDetailView" @click="submit" :loading="isUpdating" 
+                    text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    新建归程队
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-container v-if="isRemainTeam == false && (user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7)" class="pa-0">
+                <v-row class="ma-0 hover-cursor-point" v-ripple @click="clickUploadImageBtn">
+                    <v-col cols="12" class="d-flex justify-space-between align-center">
+                        <p class="mb-0 font-size-0-8" >头像 </p>
+                        <div class="d-flex align-center">
+                            <v-avatar size="50" :color="teamData.name == '' && teamData.avatar == null ? '#999999': '#7879ff'">
+                                <v-img v-if="teamData.avatar !== null" :src="`${baseUrl}${teamData.avatar}`"> </v-img>
+                                <span v-else-if="teamData.name !== ''" class="white--text headline">{{teamData.name[0]}}</span>
+                                <v-icon v-else dark >
+                                    mdi-account
+                                </v-icon>
+                            </v-avatar>
+                            <v-icon class="ml-2" color="#999999" size="25">
+                                    mdi-chevron-right
+                            </v-icon>
+                        </div>
+                    </v-col>
+                </v-row>
+                <input
+                    ref="imageUploader"
+                    class="d-none"
+                    type="file"
+                    accept="image/*"
+                    @change="onImageFileChanged"
+                >
+                <v-divider light></v-divider>
+                <v-row class="ma-0 hover-cursor-point" v-ripple @click="$refs.returnTeamName.focus()">
+                    <v-col cols="12" class="d-flex justify-space-between align-center ">
+                        <p class="mb-0 w-50 font-size-0-8"  >归程队名称 </p>
+                        <v-text-field
+                            class="pt-0 mt-0"
+                            color="#7879ff"
+                            single-line
+                            v-model="teamData.name"
+                            label="清输入归程队名称"
+                            hide-details
+                            ref="returnTeamName"
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-divider light></v-divider>
+                <v-row class="ma-0 hover-cursor-point" v-ripple @click="navToAddTeacher">
+                    <v-col cols="12" class="d-flex justify-space-between align-center">
+                        <p class="mb-0 font-size-0-8"  >领队教师 </p>
+                        <div class="d-flex align-center">
+                            <p class="mb-0 secondary-text">{{teamData.teacher_id.name}}</p>
+                            <v-icon class="ml-2" color="#999999" size="25">
+                                mdi-chevron-right
+                            </v-icon>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-divider light></v-divider>
+                <v-row class="ma-0 hover-cursor-point" v-ripple @click="navToAddMember">
+                    <v-col cols="12" class="d-flex justify-space-between align-center">
+                        <p class="mb-0 font-size-0-8"  >归程队成员</p>
+                        <div class="d-flex align-center">
+                            <p v-if="teamData.member.length !== 0" class="mb-0 secondary-text">{{teamData.member.length}} 个已选择</p>
+                            <v-icon class="ml-2" color="#999999" size="25">
+                                mdi-chevron-right
+                            </v-icon>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-divider light></v-divider>
+                <v-row class="ma-0 hover-cursor-point" v-ripple @click="openSelectLeaderDialog">
+                    <v-col cols="12" class="d-flex justify-space-between align-center">
+                        <p class="mb-0 font-size-0-8"  >归程队组长 </p>
+                        <div class="d-flex align-center">
+                            <p class="mb-0 secondary-text">{{teamData.leader_id.name}}</p>
+                            <v-icon class="ml-2" color="#999999" size="25">
+                                mdi-chevron-right
+                            </v-icon>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-divider light class="thick-border"></v-divider>
+                <v-dialog overlay-opacity="0" persistent v-model="selectLeaderDialog" width="100%" max-width="500">
+                    <v-card>
+                        <v-card-title class="title"> 归程队组长 </v-card-title>
+                        <v-card-text v-if="teamData.member.length == 0">
+                            请首先选择归程团队成员
+                        </v-card-text>
+                        <v-card-text v-else class="">
+                            <v-select 
+                                :items="teamData.member"
+                                :menu-props="{ top: false, offsetY: true }"
+                                item-text="name"
+                                item-value="id"
+                                v-model="teamData.leader_id"
+                                hide-details
+                                return-object
+                                @change="onSelectLeader"
+                                color="#7879ff"
+                            >
+                            </v-select>
+                        </v-card-text>
+                        
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                text
+                                color="#7879ff"
+                                @click="onSubmitSelectedLeader"
+                            >
+                                {{lang.ok}}
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-container>
+            <v-container class="pa-0" v-if="isDetailView == false && isRemainTeam == true && (user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7)">
+                <v-row class="ma-0 hover-cursor-point" v-ripple @click="navToAddMember">
+                    <v-col cols="12" class="d-flex justify-space-between align-center">
+                        <p class="mb-0 font-size-0-8">留堂成员</p>
+                        <div class="d-flex align-center">
+                            <p v-if="teamData.member.length !== 0" class="mb-0 secondary-text">{{teamData.member.length}} 个已选择</p>
+                            <v-icon class="ml-2" color="#999999" size="25">
+                                mdi-chevron-right
+                            </v-icon>
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-divider light class="thick-border"></v-divider>
+            </v-container>
+            <v-container class="pa-0">
+                <v-row class="ma-0 py-2">
+                    <v-col cols="12" v-if="teamData.member.length == 0" class="d-flex align-center justify-start">
+                        <v-chip class="ma-2" color="primary" outlined pill >
+                            没有人选择
+                            <v-icon right>
+                            mdi-cancel 
+                            </v-icon>
+                        </v-chip>
+                    </v-col>
+                    <v-col class="pa-0 px-3 pt-1" v-else v-for="(user, i) in teamData.member" :key="i" cols="12" sm="6" md="4" lg="3" xl="2" >
+                        <div class="w-100 d-flex align-center">
+                            <v-avatar color="#49d29e" size="60" class="rounded-lg"  >
+                                <span v-if="user.avatar == '/'" class="white--text headline">{{user.name[0]}}</span>
+                                <v-img v-else :src="`${baseUrl}${user.avatar}`"></v-img>
+                            </v-avatar>
+                            <div class="ml-3">
+                                <p >{{user.name}}</p>
+                                <p class="mb-0">{{ pnEncrypt(user.phoneNumber) }}</p>
+                            </div>
+                            <v-spacer></v-spacer>
+                            <v-chip v-if="teamData.leader_id !== null && user.id == teamData.leader_id.id" dark color="#7879ff" >
+                                组长  
+                            </v-chip>
+                        </div>
+                        <div v-if="i < teamData.member.length - 1" class=" cus-divider-light-gray-height"></div>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">

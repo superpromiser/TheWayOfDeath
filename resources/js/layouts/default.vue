@@ -47,7 +47,8 @@ export default {
   watch:{
     currentPath:{
       handler(val){
-        if ((val.path.includes('post')&&val.path.includes('schoolSpace')) || 
+        if (
+          (val.path.includes('post')&&val.path.includes('schoolSpace')) || 
           (val.path.includes('post')&&val.path.includes('classSpace')) || 
           (val.path.includes('detail')&&val.path.includes('schoolSpace')) ||
           (val.path.includes('detail')&&val.path.includes('classSpace')) ||
@@ -56,7 +57,9 @@ export default {
           (val.path.includes('profile')&&val.path.includes('myfile')) ||
           (val.path.includes('chat')&&val.path.includes('mobile')&&val.path.includes('detail')) ||
           (val.path.includes('schoolSpace')&&val.path.includes('application')) ||
-          (val.path.includes('classSpace')&&val.path.includes('application'))
+          (val.path.includes('classSpace')&&val.path.includes('application')) ||
+          (val.path.includes('classSpace')&&val.path.includes('addTeacher')) ||
+          (val.path.includes('classSpace')&&val.path.includes('addMember')) 
           ){
           this.isPostOrDetail = true;
         }
