@@ -361,7 +361,7 @@ export default {
       { text: '用户头像', value: 'avatar', sortable: false },
       { text: '电话号码', value: 'phoneNumber' },
       { text: '性別', value: 'gender', sortable: false },
-      { text: '民族', value: 'imei', sortable: false },
+      { text: '民族', value: 'nation', sortable: false },
       { text: '身份证号', value: 'cardNum'},
       { text: '家长姓名', value: 'fatherName', sortable: false },
       { text: '家长电话', value: 'fatherPhone', sortable: false },

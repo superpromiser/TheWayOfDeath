@@ -365,6 +365,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     //tabelt
     Route::get('tablet/dashboard', 'TabletController@getDashboardData');
     Route::get('tablet/lessonSchedule', 'TabletController@getLessonTimeTable');
+    Route::get('/tablet/lessonList', 'TabletController@getLessonList');
 
     //alarm
     Route::get('alarm', 'AlarmController@getAlarm');
@@ -385,6 +386,8 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
 
     //employee
     Route::get('employee', 'UserController@getEmployeeList');
+    Route::post('employee', 'UserController@createEmployee');
+    Route::put('employee', 'UserController@updateEmployee');
 
     //shiftMng
     Route::get('shiftMng', 'ShiftMngController@getShiftMng');

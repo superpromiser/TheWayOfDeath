@@ -606,9 +606,54 @@ class UserController extends Controller
     {
         $schoolId = Auth::user()->schoolId;
         if ($schoolId == 0) {
-            return User::where(['roleId' => 6])->get();
+            return User::select('id', 'name', 'schoolId')->where(['roleId' => 6])->get();
         }
-        return User::where(['roleId' => 6, 'schoolId' => $schoolId])->get();
+        return User::select('id', 'name', 'schoolId', 'nation', 'cardNum', 'gender', 'phoneNumber', 'avatar')->where(['roleId' => 6, 'schoolId' => $schoolId])->get();
+    }
+
+    public function createEmployee(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'phoneNumber' => 'required',
+            'gender' => 'required',
+            'nation' => 'required',
+            'cardNum' => 'required',
+            'avatar' => 'required'
+        ]);
+        $schoolId = Auth::user()->schoolId;
+        User::create([
+            'name' => $request->name,
+            'phoneNumber' => $request->phoneNumber,
+            'gender' => $request->gender,
+            'nation' => $request->nation,
+            'cardNum' => $request->cardNum,
+            'avatar' => $request->avatar,
+            'schoolId' => $schoolId,
+            'roleId' => 6
+        ]);
+        return true;
+    }
+
+    public function updateEmployee(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'phoneNumber' => 'required',
+            'gender' => 'required',
+            'nation' => 'required',
+            'cardNum' => 'required',
+            'avatar' => 'required'
+        ]);
+        User::where('id', $request->id)->update([
+            'name' => $request->name,
+            'phoneNumber' => $request->phoneNumber,
+            'gender' => $request->gender,
+            'nation' => $request->nation,
+            'cardNum' => $request->cardNum,
+            'avatar' => $request->avatar
+        ]);
+        return true;
     }
 
     public function getMyFile()

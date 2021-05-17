@@ -24,6 +24,11 @@
                     <v-icon class="mr-2">mdi-file-account</v-icon>学生
                 </v-tab>
                 <v-tab
+                    to="/admin/userlist/employee"
+                >
+                    <v-icon class="mr-2">mdi-file-account</v-icon>员工
+                </v-tab>
+                <v-tab
                     to="/admin/userlist/excelImport"
                 >
                     <v-icon class="mr-2">mdi-microsoft-excel</v-icon>导入

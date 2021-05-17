@@ -67,6 +67,13 @@ function updateProfile(payload){
 function getEmployeeList(){
     return axios.get('/api/v1/employee')
 }
+function createEmployee(payload){
+    return axios.post('/api/v1/employee',payload)
+}
+
+function updateEmployee(payload){
+    return axios.put('/api/v1/employee',payload)
+}
 
 function getMyFile(){
     return axios.get('/api/v1/user/profile/myfile')
@@ -103,6 +110,8 @@ export{
     updateProfile,
     addGroupMember,
     getEmployeeList,
+    createEmployee,
+    updateEmployee,
     getMyFile,
     getUserListExcel,
     getSchoolUsers,

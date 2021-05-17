@@ -17,6 +17,7 @@ use App\ClassStory;
 use App\ScheduleSetting;
 use App\SchoolStory;
 use App\Grade;
+use App\School;
 use App\User;
 use App\TodayDuty;
 
@@ -165,5 +166,13 @@ class TabletController extends Controller
         $lessonId = Auth::user()->lessonId;
         $schedule = ScheduleClass::where('lessonId', $lessonId)->first()->scheduleData;
         return $schedule;
+    }
+
+    public function getLessonList()
+    {
+        $schoolId = Auth::user()->schoolId;
+        // $schoolInfo = School::select('id', 'schoolName')->where('id', $schoolId)->with('grades:id,gradeName,schoolId')->first();
+        $gradeInfo = Grade::select('id', 'gradeName as name')->where('schoolId', $schoolId)->with('children:id,lessonName as name,gradeId')->get();
+        return $gradeInfo;
     }
 }
