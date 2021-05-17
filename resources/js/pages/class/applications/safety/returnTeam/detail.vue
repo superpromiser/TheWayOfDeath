@@ -214,7 +214,7 @@ export default {
     created(){
 
         if(this.detailData == null){
-            return this.$router.push({name: 'classSpace.returnTeam'});
+            return this.$router.push({name: 'classSpace.applications.returnTeam'});
         }
 
         if(this.detailData.name == '留堂成员'){
@@ -329,7 +329,7 @@ export default {
                     ///////////////////update TodayReturnArr///////////////////
     
                     this.$store.dispatch('member/storeSelectedGroup', null);
-                    this.$router.push({name: 'classSpace.returnTeam'});
+                    this.$router.push({name: 'classSpace.applications.returnTeam'});
                 }
                 else if(res.data.msg == 'aleardyExist'){
                     return this.$snackbar.showMessage({content: "保留团队信息已存在", color: "error"})
@@ -354,7 +354,7 @@ export default {
                 return this.$router.push({name: 'classSpace.remainReturnTeam'});
             }
 
-            this.$router.push({name: 'classSpace.returnTeam'});
+            this.$router.push({name: 'classSpace.applications.returnTeam'});
         }
     }
 }

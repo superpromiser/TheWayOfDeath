@@ -415,9 +415,9 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/vacation',name:'classSpace.applications.vacation',component:page('class/applications/vacation/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/todayDuty',name:'classSpace.applications.todayDuty',component:page('class/applications/todayDuty/index.vue')},
   //manage guest
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.manageGuests', component:page('class/applications/safety/manageGuests/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/manageGuests', name:'classSpace.applications.manageGuests', component:page('class/applications/safety/manageGuests/index.vue')},
   //return team
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam', name:'classSpace.returnTeam', component:page('class/applications/safety/returnTeam/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam', name:'classSpace.applications.returnTeam', component:page('class/applications/safety/returnTeam/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/new', name:'classSpace.newReturnTeam', component:page('class/applications/safety/returnTeam/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/detail', name:'classSpace.detailReturnTeam', component:page('class/applications/safety/returnTeam/detail.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/remain', name:'classSpace.remainReturnTeam', component:page('class/applications/safety/returnTeam/remain.vue')},

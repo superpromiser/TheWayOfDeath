@@ -325,7 +325,7 @@ export default {
                     this.$store.dispatch('returnteam/storeTodayReturnTeamArr', this.todayReturnTeamArr)
                 }
                 this.$store.dispatch('member/storeSelectedGroup', null);
-                this.$router.push({name: 'classSpace.returnTeam'});
+                this.$router.push({name: 'classSpace.applications.returnTeam'});
 
             }).catch((err) => {
                 
@@ -366,7 +366,7 @@ export default {
             this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
             this.$store.dispatch('member/storeSelectedGroup', null);
             this.$store.dispatch('member/storeSelectedTeacher', null);
-            this.$router.push({name: 'classSpace.returnTeam'});
+            this.$router.push({name: 'classSpace.applications.returnTeam'});
         }
     }
 }
