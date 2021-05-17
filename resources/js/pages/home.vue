@@ -550,7 +550,7 @@ export default {
       {
         title:"报名",//이름등록
         imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
-        path:"regName"
+        path:"regname"
       },
       {
         title:"公告",//공시
@@ -602,7 +602,7 @@ export default {
       {
         title:"报名",//이름등록
         imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
-        path:"regName"
+        path:"regname"
       },
       {
         title:"公告",//공시
@@ -664,7 +664,7 @@ export default {
       {
         title:"报名",//이름등록
         imgUrl:"/asset/img/appIcon/basicCommunity/regName.png",
-        path:"regName"
+        path:"regname"
       },
       {
         title:"公告",//공시

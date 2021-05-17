@@ -192,6 +192,7 @@ export default {
                 this.previewData.data.deadline = this.TimeView(this.previewData.data.deadline)
                 this.isSubmit = true
                 await createQuestionnaire(this.previewData.data).then(res => {
+                    this.$store.dispatch('mo/onPreviewData', null);
                     if(this.$isMobile()){
                         this.$router.push({name:'home'})
                     }

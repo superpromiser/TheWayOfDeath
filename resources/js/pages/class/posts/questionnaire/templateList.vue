@@ -1,5 +1,54 @@
 <template>
-    <v-container class="pa-0">
+<v-container class="pa-0" v-if="$isMobile()">
+        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="navToNew" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.questionnaire}}模板清单</p>
+                <v-btn @click="submit" :loading="isSubmit" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row v-if="isLoading == true" class="ma-0 d-flex justify-center align-center py-16">
+                <v-progress-circular
+                    indeterminate
+                    color="#7879ff"
+                ></v-progress-circular>
+            </v-row>
+            <v-row v-else-if="noData == true" class="ma-0 d-flex justify-center align-center py-16">
+                <v-chip class="ma-2" color="#7879ff" outlined pill >
+                    {{lang.noData}}
+                    <v-icon right> mdi-cancel  </v-icon>
+                </v-chip>
+            </v-row>
+            <v-row v-else class="ma-0">
+                <v-col cols="12" v-for="tempData in templateList" :key="tempData.id">
+                    <v-card class="mx-auto">
+                        <v-card-text>
+                            <p class="display-1 text--primary">
+                                {{tempData.tempTitle}}
+                            </p>
+                            <div class="text--primary">
+                                {{tempData.description}}
+                            </div>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn text color="#7879ff" @click="selTemp(tempData)" >
+                                选项
+                            </v-btn>
+                            <v-btn text color="#f19861" @click="delTemp(tempData)" >
+                                删除
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="pa-0" v-if="istemplateNew == true">
             <v-container class="z-index-2 mb-15 banner-custom px-10">
                 <v-row>
@@ -84,6 +133,7 @@ export default {
         istemplateNew:false,
         baseUrl:window.Laravel.base_url,
         isSubmit:false,
+        noData: false,
     }),
     computed:{
         currentPath(){
@@ -99,6 +149,9 @@ export default {
             console.log(res.data)
             this.isLoading = false
             this.templateList = res.data
+            if(this.templateList.length == 0){
+                this.noData = true;
+            }
         }).catch(err=>{
             this.isLoading = false
             //console.log(err.response)
@@ -132,10 +185,17 @@ export default {
                 if(index > -1){
                     this.templateList.splice(index,1)
                 }
+                if(this.templateList.length == 0){
+                    this.noData = true;
+                }
                 // this.$router.path({name:'posts.questionnaire'})
             }).catch(err=>{
                 console.log(err.response)
             })    
+        },
+
+        navToNew(){
+            this.$router.go(-1)
         }
     }
 }
