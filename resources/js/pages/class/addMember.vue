@@ -11,7 +11,9 @@ export default {
     },
     computed:{
         ...mapGetters({
-            isDetail: 'returnteam/isDetail'
+            isDetail: 'returnteam/isDetail',
+            isCreateNewRemain: 'returnteam/isCreateNewRemain'
+
         })
     },
     methods:{
@@ -19,6 +21,9 @@ export default {
             this.$store.dispatch('member/storeSelectedGroup', selectedMemberList);
             if(this.isDetail == true){
                 this.$router.push({name: 'classSpace.detailReturnTeam'});
+            }
+            else if(this.isCreateNewRemain == true){
+                this.$router.push({name: 'classSpace.newRemainTeam'});
             }
             else{
                 this.$router.push({name: 'classSpace.newReturnTeam'});

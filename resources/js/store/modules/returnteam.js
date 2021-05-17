@@ -10,6 +10,7 @@ export const state = {
   detailData: null,
   updatedDetailData: null,
   isDetailView: false,
+  isCreateNewRemain: false,
 }
 
 // getters
@@ -23,6 +24,7 @@ export const getters = {
   detailData: state => state.detailData,
   updatedDetailData: state => state.updatedDetailData,
   isDetailView: state => state.isDetailView,
+  isCreateNewRemain: state => state.isCreateNewRemain,
 }
 
 // mutations
@@ -54,6 +56,9 @@ export const mutations = {
     [types.STORE_IS_DETAIL_VIEW] (state, isDetailView ) {
         state.isDetailView = isDetailView
     },
+    [types.STORE_IS_CREATE_NEW_REMAIN] (state, isCreateNewRemain ) {
+        state.isCreateNewRemain = isCreateNewRemain
+    },
 }
 
 // actions
@@ -84,5 +89,8 @@ export const actions = {
     },
     storeIsDetailView ({ commit }, payload) {
         commit(types.STORE_IS_DETAIL_VIEW, payload)
+    },
+    storeIsCreateNewRemain ({ commit }, payload) {
+        commit(types.STORE_IS_CREATE_NEW_REMAIN, payload)
     },
 }

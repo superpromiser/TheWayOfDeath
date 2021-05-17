@@ -28,7 +28,7 @@
                     </v-btn>
                 </v-col>
             </v-row>
-            <v-row class="ma-0">
+            <!-- <v-row class="ma-0">
                 <v-col cols="12">
                     <v-menu
                         ref="menu"
@@ -75,7 +75,7 @@
                         </v-date-picker>
                     </v-menu>
                 </v-col>
-            </v-row>
+            </v-row> -->
             <v-row class="ma-0">
                 <v-col cols="12" class="pa-0">
                     <v-container class="pa-0" v-for="(remainTeam, i) in remainTeamArr" :key="i">
@@ -164,7 +164,7 @@
                     :disabled="noData || isLoading"
                 ></v-checkbox>
                 <v-spacer> </v-spacer>
-                <v-menu
+                <!-- <v-menu
                     ref="menu"
                     v-model="menu"
                     :close-on-content-click="false"
@@ -207,7 +207,7 @@
                         {{lang.ok}}
                     </v-btn>
                     </v-date-picker>
-                </v-menu>
+                </v-menu> -->
             </v-col>
         </v-row>
         <v-row class="ma-0">

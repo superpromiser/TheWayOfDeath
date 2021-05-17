@@ -375,6 +375,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     //returnteam
     Route::get('returnteam', 'ReturnTeamController@getReturnTeam');
     Route::post('returnteam', 'ReturnTeamController@createReturnTeam');
+    Route::post('remainteam', 'ReturnTeamController@createRemainTeam');
     Route::put('returnteam', 'ReturnTeamController@updateReturnTeam');
     Route::delete('returnteam', 'ReturnTeamController@deleteReturnTeam');
 

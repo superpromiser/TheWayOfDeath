@@ -241,7 +241,7 @@ export default {
             await createSafeStudy(this.shareData).then(res=>{
                 console.log(res)
                 this.isSubmit = false
-                this.isSuccessed = true;
+                 
                 if(this.$isMobile()){
                     this.$store.dispatch('mo/onPublishContent', null);
                     this.$store.dispatch('mo/onPublishSpecUserList', null);
