@@ -91,7 +91,7 @@
                                     <p class="mb-0"> {{TimeViewYMD(remainTeam.updated_at)}}</p>
                                 </template>
                             </v-checkbox>
-                            <v-icon color="#333333" size="25" class="hover-cursor-point" @click="openRemoveReturnTeamOneDialag(remainTeam, i)">
+                            <v-icon color="#616161" size="25" class="hover-cursor-point" @click="openRemoveReturnTeamOneDialag(remainTeam, i)">
                                 mdi-trash-can-outline
                             </v-icon>
                         </v-row>
