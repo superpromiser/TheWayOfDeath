@@ -48,7 +48,7 @@
                             item-text="label"
                             item-value="value"
                             @change="selectedInputType"
-                            label="可见范围"
+                            label="报名信息可见"
                             hide-details
                         ></v-select>
                     </v-col>
@@ -245,6 +245,7 @@ export default {
         isDraft:false,
         requiredText:false,
         regNameData:{
+            title: '',
             schoolId:null,
             lessonId:null,
             content:[],
@@ -338,6 +339,18 @@ export default {
 
         async submit(){
             this.$refs.child.emitData()
+            if(this.regNameData.title.trim() == ''){
+                return this.$snackbar.showMessage({content: this.lang.requireTitle, color: "error"})
+            }
+            if(this.regNameData.startTime == null){
+                return this.$snackbar.showMessage({content: this.lang.requireStartTime, color: "error"})
+            }
+            if(this.regNameData.endTime == null){
+                return this.$snackbar.showMessage({content: this.lang.requireDeadline, color: "error"})
+            }
+            if(this.regNameData.inputTypeList.length == 0){
+                return this.$snackbar.showMessage({content: "报名信息可见不能为空", color: "error"})
+            }
             if(this.regNameData.content.length == 0){
                 return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"})
             }
@@ -345,7 +358,7 @@ export default {
             await createRegname(this.regNameData).then(res=>{
                 console.log(res)
                 this.isSubmit = false
-                this.isSuccessed = true;
+                 
                 if(this.$isMobile()){
                     this.$router.push({name:'home'})
                 }

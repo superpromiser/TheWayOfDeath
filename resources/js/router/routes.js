@@ -420,6 +420,7 @@ export default [
   //return team
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam', name:'classSpace.applications.returnTeam', component:page('class/applications/safety/returnTeam/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/new', name:'classSpace.newReturnTeam', component:page('class/applications/safety/returnTeam/new.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/new/remain', name:'classSpace.newRemainTeam', component:page('class/applications/safety/returnTeam/newRemain.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/detail', name:'classSpace.detailReturnTeam', component:page('class/applications/safety/returnTeam/detail.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/application/returnTeam/remain', name:'classSpace.remainReturnTeam', component:page('class/applications/safety/returnTeam/remain.vue')},
 

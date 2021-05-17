@@ -453,23 +453,6 @@ export default {
                 if(this.todayReturnTeamArr.length == 0){
                     let arr = [];
                     arr.push(this.returnTeamData);
-                    let remainTeam = {
-                        avatar: "/",
-                        checkbox: false,
-                        id: res.data.remainTeamId,
-                        isDelete: false,
-                        leaderId: null,
-                        leader_id: null,
-                        lessonId: this.user.lessonId,
-                        member: [],
-                        name: "留堂成员",
-                        postId: null,
-                        schoolId: this.user.schoolId,
-                        teacherId: null,
-                        teacher_id: null,
-                        userId: this.user.id
-                    }
-                    arr.push(remainTeam);
                     this.$store.dispatch('returnteam/storeTodayReturnTeamArr', arr)
                 }
                 else{ 

@@ -2,7 +2,7 @@
     <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
         <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
             <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
-                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                <v-icon @click="$router.push({name: 'home'})" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
                 <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >归程队管理</p>
@@ -68,7 +68,8 @@
                     <v-icon left>mdi-history</v-icon>
                 历史留堂
             </v-btn>
-            <v-btn link :to="{name: 'classSpace.detailReturnTeam', params:{ teamData: remainTeam}}"
+            <v-btn :dark="!isExistTodayRemainTeam" :disabled="isExistTodayRemainTeam" 
+                link :to="{name: 'classSpace.newRemainTeam'}"
                 rounded color="#E0E0E0" small elevation="0" 
                 class="position-absolute font-color-gray-dark-btn" 
                 style="bottom: 20px; right: 12px;"> 
@@ -81,7 +82,7 @@
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                    <a @click="$router.go(-1)">
+                    <a @click="$router.push({name: 'classSpace.application'})">
                         <v-icon size="70" class="left-24p">
                             mdi-chevron-left
                         </v-icon>
@@ -94,7 +95,7 @@
                     <v-btn dark color="#3989ff" link :to="{name: 'classSpace.remainReturnTeam'}">
                         历史留堂
                     </v-btn>
-                    <v-btn dark class="mx-2" color="#feb31a" link :to="{name: 'classSpace.detailReturnTeam', params:{ teamData: remainTeam}}">
+                    <v-btn :dark="!isExistTodayRemainTeam" :disabled="isExistTodayRemainTeam" class="mx-2" color="#feb31a" link :to="{name: 'classSpace.newRemainTeam'}">
                         发布留堂信息
                     </v-btn>
                     <v-btn dark color="#7879ff" link :to="{name: 'classSpace.newReturnTeam'}">
@@ -179,6 +180,7 @@ export default {
         isLoading: false,
         noData: false,
         remainTeamArr: [],
+        isExistTodayRemainTeam: false,
     }),
 
     async created(){
@@ -197,6 +199,7 @@ export default {
                         this.$set(returnTeam, "checkbox", false);
                         this.$set(returnTeam, "isDelete", false);
                         this.remainTeam = returnTeam;
+                        this.isExistTodayRemainTeam = true;
                     }
                     if(returnTeam.name == '留堂成员'){
                         this.$set(returnTeam, "checkbox", false);
@@ -223,6 +226,7 @@ export default {
                 this.todayReturnTeamArr.map(x=>{
                     if(x.name == '留堂成员'){
                         this.remainTeam = x;
+                        this.isExistTodayRemainTeam = true;
                     }
                 });
             }
@@ -235,6 +239,10 @@ export default {
             this.$store.dispatch('returnteam/storeDetailData', returnTeam);
             this.$router.push({name: 'classSpace.detailReturnTeam'});
         },
+        navToNew(){
+            this.$router.push({name: 'classSpace.newRemainTeam'})
+            
+        }
     }
 }
 </script>

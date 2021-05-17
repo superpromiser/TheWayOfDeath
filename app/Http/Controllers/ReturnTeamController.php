@@ -27,24 +27,24 @@ class ReturnTeamController extends Controller
         $userId = Auth::user()->id;
         $lessonId = Auth::user()->lessonId;
         $schoolId = Auth::user()->schoolId;
+        
+        // //create remain team when first create of return team
+        // $remainTeamData = ReturnTeam::where([
+        //     'lessonId' => $lessonId,
+        //     'schoolId' => $schoolId,
+        //     'name' => '留堂成员',
+        // ])->whereDate('updated_at', Carbon::today())->first();
 
-        //create remain team when first create of return team
-        $remainTeamData = ReturnTeam::where([
-            'lessonId' => $lessonId,
-            'schoolId' => $schoolId,
-            'name' => '留堂成员',
-        ])->whereDate('updated_at', Carbon::today())->first();
-
-        if ($remainTeamData == null) {
-            $remainTeamData = ReturnTeam::create([
-                'userId' => $userId,
-                'lessonId' => $lessonId,
-                'schoolId' => $schoolId,
-                'name' => '留堂成员',
-                'member' => []
-            ]);
-        }
-
+        // if ($remainTeamData == null) {
+        //     $remainTeamData = ReturnTeam::create([
+        //         'userId' => $userId,
+        //         'lessonId' => $lessonId,
+        //         'schoolId' => $schoolId,
+        //         'name' => '留堂成员',
+        //         'member' => []
+        //     ]);
+        // }
+        
         $returnTeamData = ReturnTeam::create([
             'userId' => $userId,
             'lessonId' => $lessonId,
@@ -58,10 +58,90 @@ class ReturnTeamController extends Controller
 
         return response()->json([
             'msg' => 1,
-            'remainTeamId' => $remainTeamData->id,
         ]);
     }
 
+
+    public function createRemainTeam(Request $request)
+    {
+        $this->validate($request, [
+            'member' => 'required',
+        ]);
+
+        $userId = Auth::user()->id;
+        $lessonId = Auth::user()->lessonId;
+        $schoolId = Auth::user()->schoolId;
+
+        $remainTeamData = ReturnTeam::where([
+            'lessonId' => $lessonId,
+            'schoolId' => $schoolId,
+            'name' => '留堂成员',
+        ])->whereDate('updated_at', Carbon::today())->first();
+        
+        if ($remainTeamData == null) {
+            $viewList = array();
+            array_push($viewList, $userId);
+            $postId = Post::create([
+                'contentId' => 27,
+                'userId' => $userId,
+                'schoolId' => $schoolId,
+                'classId' => $lessonId,
+                'viewList'=>$viewList
+            ])->id;
+
+            $remainTeamData = ReturnTeam::create([
+                'userId' => $userId,
+                'lessonId' => $lessonId,
+                'schoolId' => $schoolId,
+                'teacherId' => null,
+                'leaderId' => null,
+                'name' => '留堂成员',
+                'avatar' => '/',
+                'member' => $request->member
+            ]);
+
+            //prepare member...
+            $userArr = User::whereIn('id',$remainTeamData->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
+            $remainTeamData->member = $userArr;
+
+            ///////////////////////////boradcasting New Return Team///////////////////////////
+            //make broadcasting data
+            $broadcastingData['id'] = $remainTeamData->id;
+            $broadcastingData['avatar'] = $remainTeamData->avatar;
+            $broadcastingData['name'] = $remainTeamData->name;
+            $broadcastingData['member'] = $remainTeamData->member;
+            $broadcastingData['leaderId'] = null;
+            $broadcastingData['teacherId'] = null;
+
+            $returnTeamMemberArr = $request->member;
+            foreach ($returnTeamMemberArr as $key => $returnTeamMember){
+                $student = User::where('id', $returnTeamMember)->first();
+                $parent = User::where(['phoneNumber' => $student->fatherPhone, ])->first();
+                if($parent){
+                    //save new alarm to parent
+                    $alarm = Alarm::create([
+                        'userId' => $parent->id,
+                        'type' => 'NewReturnTeam',
+                        'returnTeamId' => $remainTeamData->id,
+                        'content' => json_encode($broadcastingData),
+                    ]);
+                    //Emit Event and push notification to parent of memeber
+                    broadcast(new NewReturnTeam($alarm, $parent->id));
+                }
+            }
+
+            return response()->json([
+                'msg' => 1,
+            ]);
+        }
+        else{
+            return response()->json([
+                'msg' => 'alreadyExist',
+                'teamData' => $remainTeamData
+            ]);
+        }
+    }
+    
     public function getReturnTeam()
     {
         $returnTeamArr = ReturnTeam::where([

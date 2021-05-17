@@ -8,6 +8,10 @@ function createReturnTeam(payload){
     return axios.post('/api/v1/returnteam',payload);
 }
 
+function createRemainTeam(payload){
+    return axios.post('/api/v1/remainteam',payload);
+}
+
 function updateReturnTeam(payload){
     return axios.put('/api/v1/returnteam',payload);
 }
@@ -19,6 +23,7 @@ function deleteReturnTeam(payload){
 export{
     getReturnTeam,
     createReturnTeam,
+    createRemainTeam,
     updateReturnTeam,
     deleteReturnTeam,
 }

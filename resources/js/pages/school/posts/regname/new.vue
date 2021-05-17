@@ -424,7 +424,7 @@ export default {
             await createRegname(this.regNameData).then(res=>{
                 console.log(res)
                 this.isSubmit = false
-                this.isSuccessed = true;
+                 
                 if(this.$isMobile()){
                     this.$router.push({name:'home'})
                 }
