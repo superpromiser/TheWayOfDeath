@@ -852,8 +852,6 @@ export default {
       classStoryList: 'mo/classStoryList',
       isSchoolSpaceStore: 'mo/isSchoolSpace'
     }),
-
-    
   },
 
   async created(){

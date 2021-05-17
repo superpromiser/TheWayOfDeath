@@ -51,7 +51,7 @@ class GuestController extends Controller
             }
             else{
                 $teacherData = User::where([
-                    'roleId' => 3,
+                    'roleId' => 7,
                     'lessonId' => $memberData->lessonId,
                 ])->first();
             }

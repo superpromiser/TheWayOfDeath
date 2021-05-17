@@ -2,13 +2,23 @@
   <v-container v-if="$isMobile()">
     <v-row>
       <v-col cols="12" class="d-flex" @click="showDetail(content)">
-        <v-avatar>
-          <v-img :src="`${baseUrl}/asset/img/icon/recognition.png`" alt="postItem" ></v-img>
+        <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="48">
+          <span class="white--text headline">{{content.users.name[0]}}</span>
+        </v-avatar>
+        <v-avatar v-else
+          size="48"
+        >
+          <v-img :src="content.users.avatar"></v-img>
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
           <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.recognition}}  </p>
           <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
         </div>
+      </v-col>
+      <v-col cols="12" class="">
+        <v-chip small v-for="student in students" :key="student.id" class="ml-2 hover-cursor-point">
+          @{{student.name}}
+        </v-chip>
       </v-col>
     </v-row>
   </v-container>
