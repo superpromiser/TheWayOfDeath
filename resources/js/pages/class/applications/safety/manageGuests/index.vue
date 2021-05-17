@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pa-0">
         <RouterBack title='访客管理'></RouterBack>
         <v-row class="ma-0">
             <v-col cols="12" class="text-center" v-if="guestRequestData.length == 0">
