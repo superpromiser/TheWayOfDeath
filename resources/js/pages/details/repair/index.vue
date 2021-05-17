@@ -117,8 +117,8 @@
                     <AttachItemViewer :items="description" />
                 </v-col>
             </v-row>
-            <v-dialog
-                overlay-opacity="0"
+            <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
+                 
                 v-model="reasonFlag"
                 persistent
                 max-width="600px"
@@ -320,7 +320,7 @@
                 </v-row>
             </v-col>
             <v-row justify="center">
-                <v-dialog
+                <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
                     v-model="reasonFlag"
                     persistent
                     max-width="600px"

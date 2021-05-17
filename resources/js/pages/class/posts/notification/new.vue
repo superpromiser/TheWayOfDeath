@@ -19,7 +19,7 @@
                 ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-                <v-dialog
+                <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
                     persistent
                     v-model="chooseSignNameDialog"
                     max-width="500px"
@@ -163,7 +163,7 @@
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <v-dialog
+                    <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
                         persistent
                         v-model="chooseSignNameDialog"
                         max-width="500px"

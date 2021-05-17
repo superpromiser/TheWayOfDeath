@@ -99,7 +99,7 @@
             </carousel>
             <v-divider class="mx-3" light></v-divider>
 
-          <v-dialog overlay-opacity="0" persistent v-model="addItemDialog" width="100%" max-width="500" scrollable>
+          <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"    persistent v-model="addItemDialog" width="100%" max-width="500" scrollable>
               <v-card>
                   <v-card-title class="title"> 添加 </v-card-title>
                   <v-card-text class="px-0" style="height: 300px; ">
@@ -639,7 +639,7 @@ export default {
       {
         title:"请假审批",//휴가심사
         imgUrl:"/asset/img/appIcon/attendance/vocationReply.png",
-        path:"vocation"
+        path:"vacation"
       },
       {
         title:"课程表",//시간표
@@ -1230,7 +1230,12 @@ export default {
             this.$router.push({name: `schoolSpace.applications.${item.path}`, params: {schoolId:this.selectedSchoolItem.schoolId}});
         }
         else{
+          if(item.path == 'admin.scheduleClass'){
+            this.$router.push({name: item.path})
+          }
+          else{
             this.$router.push({name:`classSpace.applications.${item.path}`,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
+          }
         }
     },
     openAddItemDialog(){

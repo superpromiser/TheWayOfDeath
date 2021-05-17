@@ -55,7 +55,7 @@
                     </div>
                 </v-col>
             </v-row>
-            <v-dialog persistent v-model="medalDetailDialog" max-width="500px" width="100%">
+            <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="medalDetailDialog" max-width="500px" width="100%">
                 <v-card v-if="selectedMedal !== null">
                     <v-card-title class="d-flex justify-center">
                         <div class="medal-item" >
@@ -145,7 +145,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-dialog persistent v-model="medalDetailDialog" max-width="500px" width="100%">
+        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="medalDetailDialog" max-width="500px" width="100%">
             <v-card v-if="selectedMedal !== null">
                 <v-card-title class="d-flex justify-center">
                     <div class="medal-item" >

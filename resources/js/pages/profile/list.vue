@@ -25,7 +25,7 @@
                 <v-btn color="#3989fc" outlined rounded small @click="openMoStatusDialog">
                     <v-icon left> mdi-plus </v-icon> {{user.status}}
                 </v-btn>
-                <v-dialog 
+                <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  
                     width="100%" 
                     max-width="500" 
                     scrollable
@@ -174,7 +174,7 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <v-dialog v-model="logoutDialog" overlay-opacity="0"  width="100%" max-width="500" >
+        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  v-model="logoutDialog"    width="100%" max-width="500" >
             <v-card>
                 <v-card-title class="title"> <v-icon color="#F19861" class="mr-2">mdi-alert-circle</v-icon> 您确定要注销吗？ </v-card-title>
                  <v-card-actions>
@@ -317,7 +317,7 @@
                 </v-icon>
             </v-col>
         </v-row>
-        <v-dialog v-model="updateDialog" width="100%" max-width="500" scrollable>
+        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  v-model="updateDialog" width="100%" max-width="500" scrollable>
             <v-card>
                 <v-card-title class="title">
                     {{isName ? "更新名称" : "更新电话号码"}}

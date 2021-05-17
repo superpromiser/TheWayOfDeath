@@ -70,7 +70,7 @@
             <v-row class=" justify-start align-center pt-1 pb-4">
               <v-img :src="`${baseUrl}/asset/img/wechat.svg`" max-width="45" class="mt-3"></v-img>
             </v-row>
-            <v-dialog persistent v-model="terms" width="90%" >
+            <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="terms" width="90%" >
               <v-card>
                 <v-card-title class="title">
                   Terms
@@ -93,7 +93,7 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-dialog
+            <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
               persistent
               v-model="conditions"
               width="90%"
@@ -232,7 +232,7 @@
                           企业微信
                         </v-btn>
                       </v-row>
-                      <v-dialog persistent v-model="terms" width="70%" >
+                      <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="terms" width="70%" >
                         <v-card>
                           <v-card-title class="title">
                             Terms
@@ -255,7 +255,7 @@
                           </v-card-actions>
                         </v-card>
                       </v-dialog>
-                      <v-dialog
+                      <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
                         persistent
                         v-model="conditions"
                         width="70%"

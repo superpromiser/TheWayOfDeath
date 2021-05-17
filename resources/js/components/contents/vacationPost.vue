@@ -1,8 +1,8 @@
 
 <template>
-    <v-container v-if="$isMobile()">
+  <v-container v-if="$isMobile()">
     <v-row>
-      <v-col cols="12" class="d-flex hover-cursor-point align-center" @click="showDetail(content)">
+      <v-col cols="12" class="d-flex" @click="showDetail(content)">
         <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="primary" size="48">
             <span class="white--text headline">{{content.users.name[0]}}</span>
         </v-avatar>
@@ -12,15 +12,78 @@
           <v-img :src="content.users.avatar"></v-img>
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
-          <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.share}}  </p>
+          <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.schoolStory}}  </p>
           <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
         </div>
       </v-col>
-      <v-col cols="12" class="pb-0">
-        <p class="text-wrap mb-0 font-size-0-75"><read-more more-str="全文" :text="shareData[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
-      </v-col>
-      <v-col cols="12" class="py-0" v-if="checkIfAttachExist(shareData[0])">
-        <AttachItemViewer :items="shareData[0]" />
+      <v-col cols="12" class=" font-size-0-8">
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+            <strong>开始时间:</strong>
+            {{TimeView(vacationData.startTime)}}
+          </p>
+        </div>
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+            <strong>结束时间:</strong>
+            {{TimeView(vacationData.endTime)}}
+          </p>
+        </div>
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+            <strong>结束时间:</strong>
+            {{vacationData.reason}}
+          </p>
+        </div>
+        <div class="d-flex align-center">
+          <p class="text-wrap mb-0">
+            <strong>结束时间:</strong>
+            {{vacationData.teacherName}}
+          </p>
+        </div>
+        <div class="d-flex align-center font-size-0-8">
+          <p class="text-wrap mb-0">
+            <strong>结束时间:</strong>
+            <v-chip small v-if="vacationData.status == 'deny'" class="ma-2" color="pink" label text-color="white" >
+              <v-icon left> mdi-cancel </v-icon> 否定
+            </v-chip>
+            <v-chip small v-else-if="vacationData.status == 'allow'" class="ma-2" color="success"  label text-color="white" >
+              <v-icon left> mdi-hand   </v-icon> 允许
+            </v-chip>
+            <v-chip small v-else-if="vacationData.status == 'pending'" class="ma-2" color="orange"  label text-color="white" >
+              <v-icon left> mdi-clock-outline   </v-icon> 待办的
+            </v-chip>
+          </p>
+        </div>
+        <div class="d-flex align-center font-size-0-8">
+          <v-tooltip bottom v-if="vacationData.status == 'pending'">
+            <v-icon
+                small
+                @click="replyItem(vacationData)"
+            >
+                mdi-reply
+            </v-icon>
+            <span>回复</span>
+          </v-tooltip>
+          <v-tooltip bottom v-if="vacationData.status == 'allow'">
+            <v-icon
+                small
+                @click="denyItem(vacationData)"
+            >
+                mdi-cancel
+            </v-icon>
+            <span>否定</span>
+          </v-tooltip>
+          <v-tooltip bottom v-if="vacationData.status == 'deny'">
+            <v-icon
+                small
+                @click="allowItem(vacationData)"
+            >
+                mdi-hand
+            </v-icon>
+            <span>允许</span>
+          </v-tooltip>
+        </div>
       </v-col>
     </v-row>
   </v-container>

@@ -22,11 +22,11 @@
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                    <v-dialog
+                    <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
                             persistent
                             v-model="chooseSignNameDialog"
                             max-width="500px"
-                            overlay-opacity="0"
+                             
                         >
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field
@@ -202,7 +202,7 @@
                         ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                        <v-dialog
+                        <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
                             persistent
                             v-model="chooseSignNameDialog"
                             max-width="500px"

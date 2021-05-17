@@ -81,7 +81,7 @@
     </v-row>
     <!-- fence modal -->
     <v-row justify="center">
-      <v-dialog
+      <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
         v-model="fenceModal"
         persistent
         max-width="600px"
@@ -135,7 +135,7 @@
     </v-row>
     <!-- phoneNumber modal -->
     <v-row justify="center">
-      <v-dialog
+      <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
         v-model="familyModal"
         persistent
         max-width="600px"
@@ -196,7 +196,7 @@
     </v-row>
       <!-- trackModal  -->
       <v-row justify="center">
-      <v-dialog
+      <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
         v-model="trackModal"
         persistent
         max-width="600px"
