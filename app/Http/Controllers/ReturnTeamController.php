@@ -27,7 +27,6 @@ class ReturnTeamController extends Controller
         $userId = Auth::user()->id;
         $lessonId = Auth::user()->lessonId;
         $schoolId = Auth::user()->schoolId;
-<<<<<<< HEAD
         
         // //create remain team when first create of return team
         // $remainTeamData = ReturnTeam::where([
@@ -46,26 +45,6 @@ class ReturnTeamController extends Controller
         //     ]);
         // }
         
-=======
-
-        //create remain team when first create of return team
-        $remainTeamData = ReturnTeam::where([
-            'lessonId' => $lessonId,
-            'schoolId' => $schoolId,
-            'name' => '留堂成员',
-        ])->whereDate('updated_at', Carbon::today())->first();
-
-        if ($remainTeamData == null) {
-            $remainTeamData = ReturnTeam::create([
-                'userId' => $userId,
-                'lessonId' => $lessonId,
-                'schoolId' => $schoolId,
-                'name' => '留堂成员',
-                'member' => []
-            ]);
-        }
-
->>>>>>> 0401403bbba9ff918c98ebc2aeb3a05d94f804a1
         $returnTeamData = ReturnTeam::create([
             'userId' => $userId,
             'lessonId' => $lessonId,
@@ -82,7 +61,6 @@ class ReturnTeamController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
 
     public function createRemainTeam(Request $request)
     {
@@ -164,8 +142,6 @@ class ReturnTeamController extends Controller
         }
     }
     
-=======
->>>>>>> 0401403bbba9ff918c98ebc2aeb3a05d94f804a1
     public function getReturnTeam()
     {
         $returnTeamArr = ReturnTeam::where([
