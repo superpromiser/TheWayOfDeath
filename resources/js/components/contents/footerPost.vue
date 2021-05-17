@@ -202,8 +202,6 @@ export default {
         },
     }),
     created(){
-        console.log("this.footerInfo",this.footerInfo)
-        console.log("!!!!!!!!!!!", this.selectedSchoolItem);
     },
     mounted(){
         let index = this.footerInfo.likes.map(x=>{
@@ -265,11 +263,9 @@ export default {
         },
         async showReadUsers(){
             this.isReadCnt = true
-            console.log(this.footerInfo.readList)
             await getReadCnt({userList:this.footerInfo.readList}).then(res=>{
                 this.isReadCnt = false
                 this.dialog = true
-                console.log(res.data)
                 this.readUsers = res.data
             }).catch(err=>{
                 this.isReadCnt = false
@@ -279,7 +275,6 @@ export default {
         postComment(){
             this.isPosting = true
             addComment({text:this.commentText,postId:this.footerInfo.id}).then(res=>{
-                console.log(res)
                 this.isPosting = false
                 this.footerInfo.comments.unshift(res.data)
             }).catch(err=>{

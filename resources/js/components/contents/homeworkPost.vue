@@ -138,17 +138,14 @@ export default {
       })
     },
     created(){
-        console.log(this.content)
         if(this.content){
             this.homeworkData = this.content.homework
             this.homeworkData.content = JSON.parse(this.homeworkData.content)
         }
-        console.log(this.user)
     },
     methods:{
       showDetail(){
         createReadCnt({postId:this.content.id}).then(res=>{
-          console.log(res.data)
         }).catch(err=>{
           console.log(err.response)
         })

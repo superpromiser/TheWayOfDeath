@@ -91,7 +91,6 @@ export default {
     async created(){
         this.isLoading = true
         await getTemplateList({schoolId:this.currentPath.params.schoolId}).then(res=>{
-            console.log(res.data)
             this.templateList = res.data
             this.isLoading = false
         }).catch(err=>{
@@ -101,16 +100,13 @@ export default {
     },
     methods:{
         selTemp(tempData){
-            console.log("++++++++++",tempData)
             this.$router.push({name:'posts.voting',query:{tempData:JSON.stringify(tempData.content)}})
         },
         submit(){
             this.$router.push({name:'voting.newTemp'})
         },
         delTemp(tempData){
-            console.log(tempData)
             deleteTemplate ({id:tempData.id}).then(res=>{
-                console.log(res.data)
                 let index = this.templateList.indexOf(tempData)
                 if(index > -1){
                     this.templateList.splice(index,1)

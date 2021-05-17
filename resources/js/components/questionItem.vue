@@ -625,7 +625,6 @@ export default {
         if(this.item){
             this.contentData = this.item;
         }
-        console.log('index',this.index)
     },
 
     mounted(){

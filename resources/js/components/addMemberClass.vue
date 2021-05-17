@@ -150,24 +150,20 @@ export default {
     },
     methods: {
         selectAll() {
-            console.log(this.checkAll);
             if (this.checkAll == false) {
                 this.userList.map(user => {
                 user.checkbox = false;
                 });
             } else {
                 this.userList.map(user => {
-                user.checkbox = true;
-                console.log(user.checkbox);
+                    user.checkbox = true;
                 });
             }
         },
         selectMem(user) {
-            console.log(user.checkbox);
             this.checkAll = true;
             this.userList.map(user => {
                 if (user.checkbox == false) {
-                console.log(user.checkbox);
                 this.checkAll = false;
                 }
             });
@@ -179,7 +175,6 @@ export default {
                 }
             });
             
-            console.log(this.selected);
             if(this.selected.length == 0){
                 return this.$snackbar.showMessage({content: "必须至少选择一个", color: "error"})
             }

@@ -12,7 +12,8 @@ class ScheduleTeacher extends Model
         'lessons' => 'array',
     ];
 
-    public function teacher(){
-        return $this->hasOne('App\User','userId');
+    public function teacher()
+    {
+        return $this->belongsTo('App\User', 'teacherId');
     }
 }

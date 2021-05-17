@@ -314,7 +314,6 @@ export default {
         // this.newVacationData.teacherName = this.....
         // this.isLoading = true
         await getCurrentData({vId:this.currentPath.params.vId}).then(res=>{
-            console.log(res.data)
             this.newVacationData = res.data
             this.newVacationData.startTime = this.TimeView(this.newVacationData.startTime)
             this.newVacationData.endTime = this.TimeView(this.newVacationData.endTime)
@@ -337,7 +336,6 @@ export default {
 
         allowVacation(){
             updateVacationData({status:'allow',vId:this.currentPath.params.vId}).then(res=>{
-                console.log(res.data)
                 this.$router.push({name:'schoolSpace.news'})
             }).catch(err=>{
                 console.log(err.response)
@@ -346,7 +344,6 @@ export default {
 
         denyVacation(){
             updateVacationData({status:'deny',vId:this.currentPath.params.vId}).then(res=>{
-                console.log(res.data)
                 this.$router.push({name:'schoolSpace.news'})
             }).catch(err=>{
                 console.log(err.response)

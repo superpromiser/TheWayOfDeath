@@ -152,14 +152,11 @@ export default {
       })
     },
     created(){
-      console.log("this.user", this.user  );
     },
     methods:{
       showDetail(content){
-        console.log(this.user)
         // return
         createReadCnt({postId:content.id}).then(res=>{
-          console.log(res.data)
         }).catch(err=>{
           console.log(err.response)
         })

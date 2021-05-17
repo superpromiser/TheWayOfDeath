@@ -53,6 +53,7 @@ class TabletController extends Controller
         $todaySchedule = array();
         foreach ($scheduleData as $key => $oneDaySchedule) {
             $schedule['name'] = $oneDaySchedule->$weekday;
+
             array_push($todaySchedule, $schedule);
         }
         for ($i = 0; $i < count($subjectArr); $i++) {
@@ -98,9 +99,11 @@ class TabletController extends Controller
         $allAnounceData = Anouncement::where('schoolId', $schoolId)->with('users:id,name,avatar')->get();
         foreach ($allAnounceData as $data) {
             $lessonArr = $data->viewList;
-            foreach ($lessonArr as $lesson) {
-                if ($lesson == $lessonId) {
-                    array_push($announcementData, $data);
+            if (!is_null($lessonArr)) {
+                foreach ($lessonArr as $lesson) {
+                    if ($lesson == $lessonId) {
+                        array_push($announcementData, $data);
+                    }
                 }
             }
         }

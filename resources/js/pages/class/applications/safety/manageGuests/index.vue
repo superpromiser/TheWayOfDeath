@@ -143,7 +143,6 @@ export default {
         listen(){
             Echo.private('newguest.'+ this.user.id)
                 .listen('NewGuest', (alarm) => {
-                    console.log(alarm)
                     this.guestRequestData.push(alarm.guest.content);
                 });
             },

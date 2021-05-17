@@ -151,7 +151,6 @@ export default {
     },
     methods: {
         selectAll() {
-            console.log(this.checkAll);
             if (this.checkAll == false) {
                 this.userList.map(user => {
                 user.checkbox = false;
@@ -159,7 +158,6 @@ export default {
             } else {
                 this.userList.map(user => {
                 user.checkbox = true;
-                console.log(user.checkbox);
                 });
             }
         },

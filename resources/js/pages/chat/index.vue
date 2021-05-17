@@ -312,7 +312,6 @@ export default {
 
         //chat partner select
         updatechatwith(userInfo) {
-            console.log("userInfo", userInfo);
             this.ChatWith = userInfo.user.id;
             this.contactNow = userInfo.user.name;
             this.ChatIn = null;
@@ -363,10 +362,8 @@ export default {
                 to: this.ChatIn,
                 from: this.currentUser.id,
             };
-            console.log("payload",payload)
             getGroupChatMessage(payload)
                 .then((res) => {
-                    console.log("res", res);
                 for(let i = 0; i < res.data.messages.length ; i++){
                     if(res.data.messages[i].file){
                     res.data.messages[i].file = JSON.parse(res.data.messages[i].file);
@@ -415,9 +412,6 @@ export default {
             })
         Echo.private('newMessage.'+ this.currentUser.id)
             .listen('NewMessage', (message) => {
-                console.log('newMessage.'+ this.currentUser.id);
-                console.log("---listenIndex________________", message)
-                console.log(this.currentUser.id, this.ChatWith)
                 if (
                 message.message.to == this.currentUser.id &&
                 message.message.from.id == this.ChatWith
@@ -604,7 +598,6 @@ export default {
                 await postMessageImage(fileData)
                 .then((res) => {
                     this.fab = false;
-                    console.log(res)
                     this.messages.push(res.data.message);
                     this.isUploadingFileInChat = false
                     this.selectedImageFile = null
@@ -628,7 +621,6 @@ export default {
                     this.messages.push(res.data.message);
                     this.fab = false;
                     this.selectedVideoFile = null;
-                    console.log(res)
                     this.isUploadingFileInChat = false
                 }).catch((err) => {
                     //console.log(err);
@@ -651,7 +643,6 @@ export default {
                     this.messages.push(res.data.message);
                     this.fab = false;
                     this.selectedFile = null;
-                    console.log(res);
                     this.isUploadingFileInChat = false
                 }).catch((err) => {
                     //console.log(err);

@@ -76,14 +76,14 @@
         <v-col cols="12" class="pl-10 pt-0 mt-5">
             <v-row>
                 <v-col cols="12">
-                <p class="text-wrap"><read-more more-str="全文" :text="schoolStory.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+                <p class="text-wrap"><read-more more-str="全文" :text="schoolStory[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
                 </v-col>
-                <v-col cols="12" v-if="checkIfAttachExist(schoolStory)">
-                <AttachItemViewer :items="schoolStory" />
+                <v-col cols="12" v-if="checkIfAttachExist(schoolStory[0])">
+                <AttachItemViewer :items="schoolStory[0]" />
                 </v-col>
             </v-row>
         </v-col>
-        <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+        <FooterPost :footerInfo='contentData'></FooterPost>
         <CommentView></CommentView>
     </v-container>
 </template>

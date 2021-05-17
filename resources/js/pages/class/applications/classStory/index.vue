@@ -207,14 +207,12 @@ export default {
             let vm = this;
             await getClassStory({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId})
             .then(res=>{
-                console.log("res.dat",res.data)
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
                     $state.complete();
                     return;
                 }
                 vm.lastpageOfContent = res.data.last_page;
                 $.each(res.data.data, function(key, value){
-                    console.log("value",value)
                     vm.contentList.push(value); 
                 });
                 if (vm.pageOfContent - 1 === vm.lastpageOfContent) {

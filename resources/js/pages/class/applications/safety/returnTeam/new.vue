@@ -213,7 +213,6 @@ export default {
     },
 
     created(){
-        console.log("this.todayReturnTeamArr", this.todayReturnTeamArr);
         this.returnTeamData.name = this.returnTeamName;
         this.returnTeamData.avatar = this.returnTeamAvatar;
         this.returnTeamData.leader = this.returnTeamLeader;

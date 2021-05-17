@@ -686,7 +686,6 @@ export default {
             if(this.sessionDate == ''){
                 return this.$snackbar.showMessage({content:'', color:"error"})
             }
-            console.log("this.sessionDate",this.sessionDate)
             if(this.sessionEditMode == false){
 
                 this.isAddingSession = true;

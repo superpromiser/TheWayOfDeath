@@ -421,17 +421,12 @@ export default {
 
         openBottomNav() {
             
-            console.log(document.getElementById('push-popup-bottom-nav'))
             // document.getElementById("main").style.marginBottom = "250px";
         },
         
         closeBottomNav() {
             this.pellSetting = false;
             document.getElementById("push-popup-bottom-nav").style.height = "0";
-            console.log(this.selectedFontSize)
-            console.log(this.selectedFontColor)
-            console.log(this.selectedFontStyle)
-            console.log(this.selectedFontOrderStyle)
             // document.getElementById("main").style.marginBottom = "0";
         },
 

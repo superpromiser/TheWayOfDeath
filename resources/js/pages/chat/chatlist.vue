@@ -388,7 +388,6 @@ export default {
                 if(this.chatGroupList.length == 0 && this.contactList.length == 0){
                     this.isNoContactList = true;
                 }
-                console.log("this.contactList", res.data);
                 for(let i = 0; i < this.contactList.length ; i++){
                     this.totalNewMessageCount = this.totalNewMessageCount + this.contactList[i].new_msg_count;
                 }
@@ -403,7 +402,6 @@ export default {
             this.isGettingContactList = false;
         }
         this.model = this.chatGroupList.length;
-        console.log("this.contactList", this.contactList);
     },
 
     methods: {
@@ -490,9 +488,7 @@ export default {
                 })
             Echo.private('newMessage.'+ this.currentUser.id)
                 .listen('NewMessage', (message) => {
-                    console.log("---listenListNewChannel-——————————", message);
                     if ( message.message.to == this.currentUser.id ) {
-                        console.log("Badge", message.message.from.id);
                         for(let i = 0; i < this.contactList.length; i++){
                             if( message.message.from.id == this.contactList[i].contactUserId ){
                                 this.totalNewMessageCount = this.totalNewMessageCount + 1;
@@ -505,7 +501,6 @@ export default {
                     }
                     else if(message.message.roomId !== null){
                         if ( (((message.message.roomId.invited)).includes(this.currentUser.id) || message.message.roomId.userId == this.currentUser.id ) && message.message.from.id !== this.currentUser.id  ) {
-                            console.log("Badge", message.message.from.id);
                             for(let i = 0; i < this.chatGroupList.length; i++){
                                 if( message.message.roomId == this.chatGroupList[i].roomId ){
                                     this.totalNewMessageCount = this.totalNewMessageCount + 1;
@@ -563,11 +558,9 @@ export default {
                 newgroup: this.newGroup,
                 groupName: this.groupName
             }
-            console.log("this.newGroup",payload);
             this.isCreatingNewGroup = true;
             postNewGroup(payload)
             .then(res=>{
-                console.log(res.data);
                 this.chatGroupList.unshift(res.data.newGroup);
                 this.isCreatingNewGroup = false;
                 this.close();
@@ -598,12 +591,8 @@ export default {
             let payload = {
                 userId : user.id
             }
-            console.log(user);
-            console.log(payload);
-            console.log(this.contactList);
             removeContactUser(payload)
             .then(res=>{
-                console.log(res);
                 if(res.data.msg == 1){
                     let removedUserId = user.id;
                     for (let i = 0; i < this.contactList.length ; i++){
@@ -627,7 +616,6 @@ export default {
             }
             leaveGroup(payload)
             .then(res=>{
-                console.log(res);
                 if(res.data.msg == 1){
                     let removedGroupId = res.data.roomId;
                     for (let i = 0; i < this.chatGroupList.length ; i++){

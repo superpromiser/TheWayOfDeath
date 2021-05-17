@@ -98,7 +98,6 @@ export default {
     }),
     created(){
       this.shareData = JSON.parse(this.content.shares.content);
-      console.log(this.content)
     },
     computed:{
       currentPath(){

@@ -135,7 +135,6 @@ export default {
         },
         onFileFileChanged(e) {
             const files = e.target.files;
-            console.log(files);
             if (!files.length) {
                 return ;
             } else if (!/\.(xls|xlsx)$/.test(files[0].name.toLowerCase())) {
@@ -156,11 +155,9 @@ export default {
                     for (var i = 0; i < ws.length; i++) {
                         excellist.push(ws[i]);
                     }
-                    console.log("Read results", excellist); // At this point, you get an array containing objects that need to be processed
                     this.uploadData = excellist
                     const a = workbook.Sheets[workbook.SheetNames[0]];
                     const headers = this.getHeader(a);
-                    console.log('headers', headers);
                 } catch (e) {
                     return alert("Read failure!");;
                 }
@@ -170,7 +167,6 @@ export default {
             input.value = "";
         },
         async uploadExcel(){
-            console.log(this.uploadData)
             let serverData = []
             this.uploadData.map(upData=>{
                 let newData = {}
@@ -206,10 +202,8 @@ export default {
                 newData.groupArr = groupArr
                 serverData.push(newData)
             })
-            console.log('--------',serverData)
             this.isUploading = true
             await uploadExcelApi({serverData:serverData}).then(res=>{
-                console.log(res.data)
                 this.isUploading = false
             }).catch(err=>{
                 console.log(err.response)

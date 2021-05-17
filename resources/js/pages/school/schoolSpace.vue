@@ -68,14 +68,14 @@ export default {
             this.isPost = true
         }
 
-        if(this.user.roleId == 7){
-            console.log('dahboard called')
-            getDashboardData().then(res=>{
-                console.log('getdashboardData',res.data)
-            }).catch(err=>{
-                console.log(err.response)
-            })
-        }
+        // if(this.user.roleId == 7){
+        //     console.log('dahboard called')
+        //     getDashboardData().then(res=>{
+        //         console.log('getdashboardData',res.data)
+        //     }).catch(err=>{
+        //         console.log(err.response)
+        //     })
+        // }
     },
     methods:{
         post(){

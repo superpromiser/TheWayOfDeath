@@ -210,7 +210,6 @@ export default {
                 if(this.chatGroupList.length == 0 && this.contactList.length == 0){
                     this.isNoContactList = true;
                 }
-                console.log("this.contactList", res.data);
                 for(let i = 0; i < this.contactList.length ; i++){
                     this.totalNewMessageCount = this.totalNewMessageCount + this.contactList[i].new_msg_count;
                 }
@@ -225,11 +224,9 @@ export default {
             this.isGettingContactList = false;
         }
         // this.model = this.chatGroupList.length;
-        console.log("this.contactList", this.contactList);
     },
 
     mounted(){
-        console.log("SSSSS");
         Echo.join('chats')
             .here(user=>{
                 this.activeUserList = user;
@@ -300,9 +297,7 @@ export default {
                 })
             Echo.private('newMessage.'+ this.currentUser.id)
                 .listen('NewMessage', (message) => {
-                    console.log("---listenList", message);
                     if ( message.message.to == this.currentUser.id ) {
-                        console.log("Badge", message.message.from.id);
                         for(let i = 0; i < this.contactList.length; i++){
                             if( message.message.from.id == this.contactList[i].contactUserId ){
                                 this.totalNewMessageCount = this.totalNewMessageCount + 1;
@@ -313,16 +308,13 @@ export default {
 
                                 if(message.message.text !== null){
                                     this.contactList[i].last_messsage = message.message.text;
-                                    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",this.contactList);
                                     this.$store.dispatch('chat/storeContactList',this.contactList)
-                                    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", this.contactListStore)
                                 }
                             }
                         }
                     }
                     else if(message.message.roomId !== null){
                         if ( (((message.message.roomId.invited)).includes(this.currentUser.id) || message.message.roomId.userId == this.currentUser.id ) && message.message.from.id !== this.currentUser.id  ) {
-                            console.log("Badge", message.message.from.id);
                             for(let i = 0; i < this.chatGroupList.length; i++){
                                 if( message.message.roomId == this.chatGroupList[i].roomId ){
                                     this.totalNewMessageCount = this.totalNewMessageCount + 1;
@@ -348,7 +340,6 @@ export default {
         },
 
         updatechatwith(userInfo) {
-            console.log("userInfo_news", userInfo)
             for(let i = 0; i < this.contactList.length; i++){
                 if( userInfo.user.id == this.contactList[i].contactUserId ){
                     this.totalNewMessageCount = this.totalNewMessageCount - this.contactList[i].new_msg_count;
@@ -376,12 +367,8 @@ export default {
             let payload = {
                 userId : user.id
             }
-            console.log(user);
-            console.log(payload);
-            console.log(this.contactList);
             removeContactUser(payload)
             .then(res=>{
-                console.log(res);
                 if(res.data.msg == 1){
                     let removedUserId = user.id;
                     for (let i = 0; i < this.contactList.length ; i++){
@@ -405,7 +392,6 @@ export default {
             }
             leaveGroup(payload)
             .then(res=>{
-                console.log(res);
                 if(res.data.msg == 1){
                     let removedGroupId = res.data.roomId;
                     for (let i = 0; i < this.chatGroupList.length ; i++){
@@ -429,7 +415,6 @@ export default {
             }
             removeGroup(payload)
             .then(res=>{
-                console.log(res);
                 if(res.data.msg == 1){
                     let removedGroupId = group.roomId;
                     for (let i = 0; i < this.chatGroupList.length ; i++){
@@ -502,17 +487,13 @@ export default {
         },
 
         onLongPressStart(index){
-            console.log("%c long press event triggered", 'color:red');
             let el = document.getElementById(`contact-user-${index}`);
-            console.log(el)
             
             this.removeIndex = index;
 
         },
 
         startTouchContact(e){
-            console.log(e.touches[0].clientX, e.touches[0].clientY)
-            console.log(e.touches[0].pageX, e.touches[0].pageY)
             this.globalTouchEvent = e;
             this.timer = setTimeout(this.onLongTouch, this.touchDuration); 
         },
@@ -525,9 +506,6 @@ export default {
         },
 
         onLongTouch(){
-            console.log("%c open menu here ", 'color: green; font-weight:bold;')
-            console.log("this.globalTouchEvent", this.globalTouchEvent);
-            console.log("this.globalTouchEvent", this.globalTouchEvent.touches[0]);
             
             let moChatCusMenu = document.getElementById('mo-chat-contact-cus-menu');
             let moChatCusMenuOverlay = document.getElementById('v-overlay__scrim-cus');
@@ -559,14 +537,11 @@ export default {
         },
 
         removeContact(){
-            console.log(this.removeIndex)
-            console.log(this.contactList[this.removeIndex].contactUserId)
             let payload = {
                 userId : this.contactList[this.removeIndex].contactUserId
             }
             removeContactUser(payload)
             .then(res=>{
-                console.log(res);
                 if(res.data.msg == 1){
                     let removedUserId = payload.userId;
                     for (let i = 0; i < this.contactList.length ; i++){

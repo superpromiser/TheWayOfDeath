@@ -180,11 +180,9 @@ export default {
 
       showDetail(content){
         createReadCnt({postId:content.id}).then(res=>{
-          console.log(res.data)
         }).catch(err=>{
           console.log(err.response)
         })
-        console.log("this.user.roleIdthis.user.roleId",this.user.roleId)
         // return
         this.$store.dispatch('content/storePostDetail',content);
         if(this.user.roleId == 5){

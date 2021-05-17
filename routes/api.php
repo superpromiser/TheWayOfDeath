@@ -463,6 +463,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('schoolUsers', 'UserController@getSchoolUsers');
     Route::get('lessonUsers', 'UserController@getLessonUsers');
     Route::get('lessonUserList', 'UserController@getLessonUserList');
+
+    //todayDuty
+    Route::get('todayDuty', 'TodayDutyController@getTodayDutyData');
+    Route::post('todayDuty', 'TodayDutyController@createTodayDutyData');
+    Route::put('todayDuty', 'TodayDutyController@updateTodayDutyData');
+    Route::delete('todayDuty', 'TodayDutyController@deleteTodayDutyData');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {

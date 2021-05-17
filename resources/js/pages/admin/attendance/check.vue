@@ -535,13 +535,11 @@ export default {
         this.studentList.map( x => {
           x.familyAddress = this.convertAddress(x.familyAddress);
         })
-        console.log(")))))", this.studentList)
       }).catch((err) => {
         console.log(err)
       });
 
       getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
-        console.log('++++++++',res.data)
         res.data.map(checkData=>{
           let clonedEditedItem = Object.assign({}, checkData);
           let selectedStudentData = {};
@@ -607,7 +605,6 @@ export default {
         // this.$nextTick(() => {
         //   this.editedItem =  JSON.parse(JSON.stringify(this.defaultItem))
         // })
-        console.log("************", this.editedItem, this.defaultItem)
       },
 
       closeDelete () {
@@ -626,7 +623,6 @@ export default {
         if (this.editedIndex > -1) {
           // this.isCreatingSchool = true;
           // this.isCreatingSchool = false;
-          console.log("Updatethis.editedItem", this.editedItem);
           let clonedEditedItem = Object.assign({}, this.editedItem);
           let selectedStudentData = {};
           this.studentList.map( x =>{
@@ -646,9 +642,7 @@ export default {
           let payload = Object.assign({},this.editedItem);
           payload.checkInDate = this.checkAttendanceDate
           payload.checkAttendanceType = this.checkAttendanceType
-          console.log("payload",payload)
           await createCheckInData(payload).then(res=>{
-            console.log(res.data)
           }).catch(err=>{
             console.log(err.response)
           })
@@ -739,7 +733,6 @@ export default {
         this.checkAttendanceDate = val;
         this.checkData = []
         getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
-        console.log('++++++++',res.data)
         res.data.map(checkData=>{
           let clonedEditedItem = Object.assign({}, checkData);
           let selectedStudentData = {};

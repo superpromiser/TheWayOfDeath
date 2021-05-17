@@ -260,7 +260,6 @@ export default {
     },
 
     created(){
-        console.log(this.chatto, this.chatfrom, this.chatin, this.messages);
         this.ChatWith = this.chatto;
         this.ChatIn = this.chatin;
         if(this.ChatWith == null && this.ChatIn == null){
@@ -557,7 +556,6 @@ export default {
                     roomId: this.ChatIn,
                     from: this.currentUser.id,
                 }
-                console.log("payload",payload);
                 postMessage(payload)
                     .then((res) => {
                     }).catch((err) => {
@@ -623,8 +621,6 @@ export default {
             })
         Echo.private('newMessage.'+ this.currentUser.id)
             .listen('NewMessage', (message) => {
-                console.log("---listenIndex", message)
-                console.log(this.currentUser.id, this.ChatWith)
                 if (
                 message.message.to == this.currentUser.id &&
                 message.message.from.id == this.ChatWith
@@ -655,10 +651,8 @@ export default {
                 to: this.ChatIn,
                 from: this.currentUser.id,
             };
-            console.log("payload",payload)
             getGroupChatMessage(payload)
                 .then((res) => {
-                    console.log("res", res);
                 for(let i = 0; i < res.data.messages.length ; i++){
                     if(res.data.messages[i].file){
                     res.data.messages[i].file = JSON.parse(res.data.messages[i].file);

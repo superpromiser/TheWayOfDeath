@@ -43,10 +43,8 @@ export default {
             this.$router.push({name: 'schoolSpace.news'});
         }
         else{
-            console.log("^^^", this.contentData);
             this.regNameData = this.contentData.regnames;
             this.regNameData.content = JSON.parse(this.regNameData.content)
-            console.log("###",this.regNameData);
         }
     }
 }

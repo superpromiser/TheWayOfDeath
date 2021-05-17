@@ -983,7 +983,6 @@ export default {
 
     }
 
-    console.log("this.schoolTree", this.schoolTree);
     if(this.user.roleId == 1){
       this.schoolList = this.schoolTree;
       this.schoolTree.map((school, schoolIndex)=>{
@@ -1020,7 +1019,6 @@ export default {
             this.schoolListDropdownItem.push(dividerObj);
         } )
       })
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@this.schoolListDropdownItem",this.schoolListDropdownItem);
     }
     else if (this.user.roleId == 2){
       let myschoolData = {}
@@ -1119,7 +1117,6 @@ export default {
           myschoolData = schoolItem
         }
       })
-      console.log("myschoolData-------",myschoolData)
       myschoolData.grades = [] 
       this.mySchoolList.push(myschoolData)
     }
@@ -1137,7 +1134,6 @@ export default {
         grade.lessons.map(lesson=>{
           this.user.groupArr.map(groupId=>{
             if(lesson.id == groupId){
-              console.log('^^^^^^^',lesson)
               let index = clonedVal1.grades.indexOf(grade)
               if(index > -1){
                 clonedVal1.grades[index].lessons.push(lesson)
@@ -1154,7 +1150,6 @@ export default {
       })
       this.mySchoolList.push(clonedVal1)
     }
-    console.log("#########", "this.mySchoolList", this.mySchoolList);
 
     if(this.selectedSchoolItem == null){
       this.selectedItem = this.schoolListDropdownItem[0];
@@ -1234,11 +1229,9 @@ export default {
 
     selectItem(item){
         if(this.isSchoolSpace == true){
-            console.log(item);
             this.$router.push({name: `schoolSpace.applications.${item.path}`, params: {schoolId:this.selectedSchoolItem.schoolId}});
         }
         else{
-            console.log(item);
             this.$router.push({name:`classSpace.applications.${item.path}`,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
         }
     },

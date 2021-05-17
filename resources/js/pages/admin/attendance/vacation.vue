@@ -237,14 +237,12 @@ export default {
       },
 
       deleteItem (item) {
-            console.log('---',item)
             this.editedIndex = this.vacationData.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
       },
 
         async deleteItemConfirm () {
-            console.log(this.editedItem)
             this.isDeleteSchool = true
             await deleteVacationData({postId:this.editedItem.postId}).then(res=>{
                 this.vacationData.splice(this.editedIndex, 1)
@@ -304,22 +302,17 @@ export default {
         },
 
         replyItem(item){
-            console.log(item);
             this.$router.push({ name : 'posts.vacationTeacherReply', params:{vId:item.id} })
         },
         async denyItem(item){
-            console.log('deny',item)
             await updateVacationData({vId:item.id,status:'deny'}).then(res=>{
-                console.log(res.data)
                 item.status = 'deny'
             }).catch(err=>{
                 console.log(err.response)
             })
         },
         async allowItem(item){
-            console.log('allow',item)
             await updateVacationData({vId:item.id,status:'allow'}).then(res=>{
-                console.log(res.data)
                 item.status = 'allow'
             }).catch(err=>{
                 console.log(err.response)

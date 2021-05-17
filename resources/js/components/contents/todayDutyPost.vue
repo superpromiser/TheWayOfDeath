@@ -35,7 +35,7 @@
         <v-img :src="content.users.avatar"></v-img>
       </v-avatar>
       <div>
-        <p class="font-weight-black fs-15 mb-3"> {{lang.share}}  </p>
+        <p class="font-weight-black fs-15 mb-3"> {{lang.todayDuty}}</p>
         <div class="d-flex align-center">
           <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
           <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
@@ -63,14 +63,10 @@
       </div>
     </v-col>
     <v-col cols="12" class="pl-10 pt-0">
-      <v-row>
-        <v-col cols="12">
-          <p class="text-wrap"><read-more more-str="全文" :text="shareData[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
-        </v-col>
-        <v-col cols="12" v-if="checkIfAttachExist(shareData[0])">
-          <AttachItemViewer :items="shareData[0]" />
-        </v-col>
-      </v-row>
+      date:{{content.todayduty.dutyDate}}
+    </v-col>
+    <v-col cols="12" class="pl-10 pt-0">
+      {{content.todayduty.userList}}
     </v-col>
   </v-container>
 </template>
@@ -97,8 +93,7 @@ export default {
         shareData: {},
     }),
     created(){
-      this.shareData = JSON.parse(this.content.shares.content);
-      console.log(this.content)
+      // this.shareData = JSON.parse(this.content.shares.content);
     },
     computed:{
       currentPath(){
@@ -112,7 +107,6 @@ export default {
 
       showDetail(content){
         createReadCnt({postId:content.id}).then(res=>{
-          console.log(res.data)
         }).catch(err=>{
           console.log(err.response)
         })

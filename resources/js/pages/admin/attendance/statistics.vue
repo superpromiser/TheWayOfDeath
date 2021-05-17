@@ -220,7 +220,6 @@ export default {
       this.desserts = []
       this.isLoading = true
       await getLessonUserList().then(res=>{
-        console.log('=================',res.data)
         res.data.map(user=>{
           if(this.user.roleId != 5){
             let statObj = {}

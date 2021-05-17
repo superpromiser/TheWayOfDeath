@@ -517,7 +517,6 @@ export default {
         // this needs very high skill...
           // this.isLoadingSchoolData = true;
         getLessonItem({schoolId:this.user.schoolId}).then(res=>{
-          console.log("-----------------",res.data)
           res.data.map(data=>{
             let lessonItem = {}
             lessonItem.lessonTimeName = data.subjectOrderName
@@ -529,7 +528,6 @@ export default {
           console.log(err.response)
         })
         getLessonAttendanceData({attDate:this.attendanceDate}).then(res=>{
-          console.log("res.data1",res.data)
           res.data.map(item=>{
             item.resultArr = JSON.parse(item.resultArr)
           })
@@ -539,7 +537,6 @@ export default {
         })
 
         getLessonUserList().then(res=>{
-          console.log("res.data2",res.data)
           res.data.map(data=>{
             let element = {}
             element.studentName = data.name
@@ -614,7 +611,6 @@ export default {
         },
 
         async save () {
-          console.log("this.editedItem",this.editedItem)
             //update attendanceData
             this.isCreatingSchool = true;
             if (this.editedIndex > -1) {
@@ -625,7 +621,6 @@ export default {
             else {
                 await createLessonAttendanceData(this.editedItem).then(res=>{
                   this.isCreatingSchool = false;
-                  console.log(res.data)
                   this.attendanceData.push(this.editedItem)
                 }).catch(err=>{
                   console.log(err.response)
