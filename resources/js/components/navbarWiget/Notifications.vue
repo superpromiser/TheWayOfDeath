@@ -41,12 +41,13 @@
         @click="onClickAlarm(alarm)"
         class="nav-v-list-item"
       > 
-        <v-list-item-avatar v-if="alarm.type == 'NewGuest'">
-          <span>v</span>
+        <v-list-item-avatar color="#49d29e" class="rounded-lg" v-if="alarm.type == 'NewGuest'">
+          <v-icon>mdi-account</v-icon> 
         </v-list-item-avatar>
         <v-list-item-content v-if="alarm.type == 'NewGuest'">
           <v-list-item-title>{{ alarm.content.memberName }} 来拜访 {{alarm.content.name}}</v-list-item-title>
         </v-list-item-content>
+
         <v-list-item-avatar color="#49d29e" class="rounded-lg" v-if="alarm.type == 'NewReturnTeam'">
           <span>{{alarm.content.name[0]}}</span>
         </v-list-item-avatar>
@@ -119,7 +120,11 @@ export default {
     onClickAlarm(alarm){
       if(alarm.type == 'NewReturnTeam'){
         this.removeAlarm(alarm.id);
-        this.$router.push({name: 'classSpace.returnTeam', params: {schoolId: this.user.schoolId, gradeId: this.user.gradeId, lessonId: this.user.lessonId}})
+        this.$router.push({name: 'classSpace.applications.returnTeam', params: {schoolId: this.user.schoolId, gradeId: this.user.gradeId, lessonId: this.user.lessonId}})
+      }
+      if(alarm.type == 'NewGuest'){
+        this.removeAlarm(alarm.id);
+        this.$router.push({name: 'classSpace.applications.manageGuests', params: {schoolId: this.user.schoolId, gradeId: this.user.gradeId, lessonId: this.user.lessonId}})
       }
     },
 

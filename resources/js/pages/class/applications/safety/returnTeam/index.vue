@@ -1,5 +1,83 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+        <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >归程队管理</p>
+                <v-btn link :to="{name: 'classSpace.newReturnTeam'}" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    新建归程队
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row v-if="isLoading" class="pa-5 d-flex align-center justify-center">
+                <v-progress-circular
+                    indeterminate
+                    color="primary"
+                ></v-progress-circular>
+            </v-row>
+            <v-row v-else-if="noData" class="pa-5 d-flex justify-center align-center">
+                <v-chip color="primary" outlined pill >
+                    暂无
+                    <v-icon right>
+                    mdi-cancel 
+                    </v-icon>
+                </v-chip>
+            </v-row>
+            <v-container v-else class="pa-0">
+                <v-row  v-if="returnTeam.name !==  '留堂成员'" class="ma-0 hover-cursor-point" v-ripple v-for="(returnTeam, i) in todayReturnTeamArr" :key="i" @click="navToDetail(returnTeam)">
+                    <v-col cols="12" class="d-flex justify-space-between align-center">
+                        <div class="d-flex align-center">
+                            <v-avatar size="50" :color="returnTeam.name == '' && returnTeam.avatar == null ? '#999999': '#7879ff'">
+                                <v-img v-if="returnTeam.avatar !== null" :src="`${baseUrl}${returnTeam.avatar}`"> </v-img>
+                                <span v-else-if="returnTeam.name !== ''" class="white--text headline">{{returnTeam.name[0]}}</span>
+                                <v-icon v-else dark >
+                                    mdi-account
+                                </v-icon>
+                            </v-avatar>
+                            <p class="mb-0 ml-4"  >{{returnTeam.name}} </p>
+                        </div>
+                        <div class="d-flex align-center">
+                            <p class="mb-0"> {{returnTeam.leader_id.name}} 和另外 {{returnTeam.member.length - 1}}个人</p>
+                            <v-icon class="ml-2" color="#999999" size="25">
+                                mdi-chevron-right
+                            </v-icon>
+                        </div>
+                    </v-col>
+                    <div v-if="i<todayReturnTeamArr.length-1" class="cus-divider-light-gray-height"></div>
+                </v-row>
+                <v-divider v-if="remainTeam !== null" light class="thick-border"></v-divider>
+                <v-row  v-if="remainTeam !== null" class="ma-0 hover-cursor-point" v-ripple @click="navToDetail(remainTeam)">
+                    <v-col cols="12" class="d-flex justify-space-between align-center ">
+                        <div class="d-flex align-center">
+                            <v-avatar size="50" :color="remainTeam.name == '' && remainTeam.avatar == null ? '#999999': '#7879ff'">
+                                <span  class="white--text headline">留</span>
+                            </v-avatar>
+                            <p class="mb-0 ml-4"  >{{remainTeam.name}} </p>
+                        </div>
+                        <v-icon class="ml-2" color="#999999" size="25">
+                            mdi-chevron-right
+                        </v-icon>
+                    </v-col>
+                </v-row>
+            </v-container>
+            <v-btn link :to="{name: 'classSpace.remainReturnTeam'}" rounded  color="#E0E0E0" 
+                small  elevation="0"  class="position-absolute font-color-gray-dark-btn" 
+                style="bottom: 20px; left: 12px;"> 
+                    <v-icon left>mdi-history</v-icon>
+                历史留堂
+            </v-btn>
+            <v-btn link :to="{name: 'classSpace.detailReturnTeam', params:{ teamData: remainTeam}}"
+                rounded color="#E0E0E0" small elevation="0" 
+                class="position-absolute font-color-gray-dark-btn" 
+                style="bottom: 20px; right: 12px;"> 
+                发布留堂信息
+                    <v-icon right>mdi-eye</v-icon>
+            </v-btn>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">

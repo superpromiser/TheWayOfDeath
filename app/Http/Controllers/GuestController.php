@@ -51,7 +51,7 @@ class GuestController extends Controller
             }
             else{
                 $teacherData = User::where([
-                    'roleId' => 3,
+                    'roleId' => 7,
                     'lessonId' => $memberData->lessonId,
                 ])->first();
             }
@@ -110,7 +110,7 @@ class GuestController extends Controller
                 'schoolId' => Auth::user()->schoolId,
                 ])->get();
         }
-        else if(Auth::user()->roleId == 3){
+        else if(Auth::user()->roleId == 7){
             return Guest::where([
                 'memberSchoolId' => Auth::user()->schoolId,
                 'memberGradeId' => Auth::user()->gradeId,

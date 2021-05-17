@@ -1,152 +1,146 @@
 <template>
-    <v-container v-if="$isMobile()">
-        <v-row class="ma-0">
-            <v-col cols="12" class="mo-glow d-flex align-center justify-center">
-                <v-avatar class="mo-glow-small-shadow" >
-                    <v-img :src="`${baseUrl}/asset/img/icon/recognition.png`" alt="postItem" width="48" height="48" ></v-img>
-                </v-avatar>
-                <h2 class="ml-3">表彰</h2>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0 mo-glow">
-            <v-col cols="12" sm="6" md="4">
-                <v-select
-                    class="mo-glow-v-select mt-0 pt-0"
-                    :menu-props="{ top: false, offsetY: true }"
-                    color="#7879ff"
-                    :items="typeItem"
-                    item-text="label"
-                    item-value="value"
-                    v-model="recognitionData.type"
-                    label="表彰类型"
-                    hide-details
-                ></v-select>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-                <v-select
-                    class="mo-glow-v-select mt-0 pt-0"
-                    color="#7879ff"
-                    multiple
-                    small-chips
-                    :menu-props="{ top: false, offsetY: true }"
-                    :items="userListItem"
-                    :loading="isLoading"
-                    item-text="name"
-                    item-value="id"
-                    @change="selectedUser"
-                    :label="noData? '没有学生资料':'表彰对象'"
-                    :disabled="noData"
-                    hide-details
-                    return-object
-                    v-model="recognitionData.students"
-                ></v-select>
-            </v-col>
-            <v-col
-                cols="12"
-                sm="6"
-                md="4"
-                >
-                <v-menu
-                    ref="menu"
-                    v-model="menu"
-                    :close-on-content-click="false"
-                    :return-value.sync="recognitionData.publishDate"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                >
-                    <template v-slot:activator="{ on, attrs }">
+    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
+        <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.recognition}}</p>
+                <v-btn @click="submit" :loading="isCreating" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{lang.submit}}
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0 mo-glow">
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        class="mo-glow-v-select mt-0 pt-0"
+                        :menu-props="{ top: false, offsetY: true }"
+                        color="#7879ff"
+                        :items="typeItem"
+                        item-text="label"
+                        item-value="value"
+                        v-model="recognitionData.type"
+                        label="表彰类型"
+                        hide-details
+                    ></v-select>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                    <v-select
+                        class="mo-glow-v-select mt-0 pt-0"
+                        color="#7879ff"
+                        multiple
+                        small-chips
+                        :menu-props="{ top: false, offsetY: true }"
+                        :items="userListItem"
+                        :loading="isLoading"
+                        item-text="name"
+                        item-value="id"
+                        @change="selectedUser"
+                        :label="noData? '没有学生资料':'表彰对象'"
+                        :disabled="noData"
+                        hide-details
+                        return-object
+                        v-model="recognitionData.students"
+                    ></v-select>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                    >
+                    <v-menu
+                        ref="menu"
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        :return-value.sync="recognitionData.publishDate"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            class="mo-glow-v-text mt-0 pt-0"
+                            color="#7879ff"
+                            v-model="recognitionData.publishDate"
+                            prepend-inner-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            hide-details
+                            placeholder="颁发日期"
+                        ></v-text-field>
+                        </template>
+                        <v-date-picker
+                        v-model="recognitionData.publishDate"
+                        no-title
+                        scrollable
+                        locale="zh-cn"
+                        >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            text
+                            color="primary"
+                            @click="menu = false"
+                        >
+                            {{lang.cancel}}
+                        </v-btn>
+                        <v-btn
+                            text
+                            color="primary"
+                            @click="$refs.menu.save(recognitionData.publishDate)"
+                        >
+                            {{lang.ok}}
+                        </v-btn>
+                        </v-date-picker>
+                    </v-menu>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
                     <v-text-field
                         class="mo-glow-v-text mt-0 pt-0"
                         color="#7879ff"
-                        v-model="recognitionData.publishDate"
-                        prepend-inner-icon="mdi-calendar"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                        hide-details
-                        placeholder="颁发日期"
+                        v-model="recognitionData.awardTitle"
+                        label="表彰称号"
+                        counter="8"
+                        :rules="maxEightRule"
+                        hint="选填(最多8个字)"
                     ></v-text-field>
-                    </template>
-                    <v-date-picker
-                    v-model="recognitionData.publishDate"
-                    no-title
-                    scrollable
-                    locale="zh-cn"
-                    >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        text
+                </v-col>
+                <v-col cols="12">
+                    <v-textarea 
+                        class="mo-glow-v-text mt-0 pt-0"
+                        counter
+                        color="#7879ff"
+                        label="表彰内容"
+                        :rules="maxFourtyRule"
+                        v-model="recognitionData.description"
+                        hint="限40字"
+                    ></v-textarea>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0 mo-glow">
+                <v-col cols="12">
+                    <v-chip
+                        class="ma-2 px-5"
                         color="primary"
-                        @click="menu = false"
+                        outlined
                     >
-                        {{lang.cancel}}
-                    </v-btn>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.menu.save(recognitionData.publishDate)"
-                    >
-                        {{lang.ok}}
-                    </v-btn>
-                    </v-date-picker>
-                </v-menu>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                    class="mo-glow-v-text mt-0 pt-0"
-                    color="#7879ff"
-                    v-model="recognitionData.awardTitle"
-                    label="表彰称号"
-                    counter="8"
-                    :rules="maxEightRule"
-                    hint="选填(最多8个字)"
-                ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-                <v-textarea 
-                    class="mo-glow-v-text mt-0 pt-0"
-                    counter
-                    color="#7879ff"
-                    label="表彰内容"
-                    :rules="maxFourtyRule"
-                    v-model="recognitionData.description"
-                    hint="限40字"
-                ></v-textarea>
-            </v-col>
-        </v-row>
-        <v-row class="ma-0 mo-glow">
-            <v-col cols="12">
-                <v-chip
-                    class="ma-2 px-5"
-                    color="primary"
-                    outlined
-                >
-                    <v-icon left>
-                        mdi-file-image-outline
-                    </v-icon>
-                    模板
-                </v-chip>
-            </v-col>
-            <v-col cols="12">
-                <v-row>
-                    <v-col v-for="(imgUrl, index) in imgUrlItem" :key="index" cols="12" sm="6" md="4" class="position-relative hover-cursor-point" @click="chooseImageTemplate(index)">
-                        <v-img :src="`${baseUrl}${imgUrl.path}`" min-height="300" max-height="300" alt="recognition" class="recognition-image" ></v-img>
-                        <v-icon :color="imgUrl.selected ? 'green' : 'grey'" class="recognition-img-check-icon position-absolute" size="30">mdi-check-circle</v-icon>
-                    </v-col>
-                </v-row>
-            </v-col>
-        </v-row>
-        <v-snackbar
-            timeout="3000"
-            v-model="isRequired"
-            color="error"
-            absolute
-            top
-            >
-            {{lang.requiredText}}
-        </v-snackbar>
-        <quick-menu @clickDraft="something" @clickPublish="submit" :isPublishing="isCreating"></quick-menu>
+                        <v-icon left>
+                            mdi-file-image-outline
+                        </v-icon>
+                        模板
+                    </v-chip>
+                </v-col>
+                <v-col cols="12">
+                    <v-row>
+                        <v-col v-for="(imgUrl, index) in imgUrlItem" :key="index" cols="12" sm="6" md="4" class="position-relative hover-cursor-point" @click="chooseImageTemplate(index)">
+                            <v-img :src="`${baseUrl}${imgUrl.path}`" min-height="300" max-height="300" alt="recognition" class="recognition-image" ></v-img>
+                            <v-icon :color="imgUrl.selected ? 'green' : 'grey'" class="recognition-img-check-icon position-absolute" size="30">mdi-check-circle</v-icon>
+                        </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
+        </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">

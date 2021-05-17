@@ -1,5 +1,60 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+        <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="navToBack" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{title}}</p>
+                <v-btn  @click="submit" :loading="isSubmit" :disabled="noUser" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    {{ lang.submit }}
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-container v-if="isLoading" class="pa-5 d-flex justify-center align-center">
+                <v-progress-circular
+                    indeterminate
+                    color="primary"
+                ></v-progress-circular>
+            </v-container>
+            <v-container v-else-if="noUser" class="pa-5 d-flex justify-center align-center">
+                <v-chip class="ma-2" color="primary" outlined pill >
+                    没有数据
+                    <v-icon right>
+                    mdi-cancel 
+                    </v-icon>
+                </v-chip>
+            </v-container>
+            <v-container v-else v-for="(user, index) in userList" :key="index" class="pa-0">
+                <v-row class="ma-0 ">
+                    <v-col cols="12" class="">
+                        <v-checkbox
+                            class="mt-0 pt-0"
+                            v-model="user.checkbox"
+                            @click="selectMem(user)"
+                            hide-details
+                            color="#49d29e"
+                        >
+                            <template v-slot:label>
+                                <div class="d-flex">
+                                    <v-avatar color="#49d29e" size="60" class="rounded-lg ml-3"  >
+                                        <span v-if="user.avatar == '/'" class="white--text headline">{{user.name[0]}}</span>
+                                        <v-img v-else :src="`${baseUrl}${user.avatar}`"></v-img>
+                                    </v-avatar>
+                                    <div class="ml-3">
+                                        <p >{{user.name}}</p>
+                                        <p class="mb-0">{{ pnEncrypt(user.phoneNumber) }}</p>
+                                    </div>
+                                </div>
+                            </template>
+                        </v-checkbox>
+                    </v-col>
+                </v-row>
+                <v-divider v-if="index < userList.length - 1" light class="thick-border"></v-divider>
+            </v-container>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">

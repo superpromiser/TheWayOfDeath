@@ -1,5 +1,140 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="ma-0 pa-0 h-100" v-if="$isMobile()">
+        <v-container class="pt-0 px-0 h-100 bg-white mb-16 pb-10-px">
+            <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                    mdi-chevron-left
+                </v-icon>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >历史留堂信息</p>
+                <v-btn text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                    全部删除
+                </v-btn>
+            </v-row>
+            <div class="cus-divider-light-gray-height"></div>
+            <v-row class="ma-0">
+                <v-col cols="12" class="d-flex justify-space-between align-center">
+                    <v-checkbox
+                        v-model="checkAll"
+                        label="全选"
+                        @click="selectAll"
+                        color="#7879ff"
+                        :disabled="noData || isLoading"
+                        class="mt-0 pt-0"
+                        hide-details
+                    ></v-checkbox>
+                    <v-spacer> </v-spacer>
+                    <v-btn text :disabled="!selectedAnyTeam" @click="openRemoveReturnTeamGroupDia">
+                        删除所选项目
+                    </v-btn>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0">
+                <v-col cols="12">
+                    <v-menu
+                        ref="menu"
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        :return-value.sync="date"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
+                    >
+                        <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            v-model="date"
+                            label="请选择日期"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            hide-details
+                            class="mt-0 pt-0"
+                            v-bind="attrs"
+                            v-on="on"
+                        ></v-text-field>
+                        </template>
+                        <v-date-picker
+                        v-model="date"
+                        no-title
+                        scrollable
+                        locale="zh-cn"
+                        >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            text
+                            color="primary"
+                            @click="menu = false"
+                        >
+                            {{lang.cancel}}
+                        </v-btn>
+                        <v-btn
+                            text
+                            color="primary"
+                            @click="$refs.menu.save(date)"
+                        >
+                            {{lang.ok}}
+                        </v-btn>
+                        </v-date-picker>
+                    </v-menu>
+                </v-col>
+            </v-row>
+            <v-row class="ma-0">
+                <v-col cols="12" class="pa-0">
+                    <v-container class="pa-0" v-for="(remainTeam, i) in remainTeamArr" :key="i">
+                        <v-row class="ma-0 justify-space-between align-center bg-secondary py-1 px-3">
+                            <v-checkbox
+                                v-model="remainTeam.checkbox"
+                                @click="selectTeam"
+                                color="#7879ff"
+                                hide-details
+                                class="pt-0 mt-0"
+                            >
+                                <template v-slot:label>
+                                    <p class="mb-0"> {{TimeViewYMD(remainTeam.updated_at)}}</p>
+                                </template>
+                            </v-checkbox>
+                            <v-icon color="#333333" size="25" class="hover-cursor-point" @click="openRemoveReturnTeamOneDialag(remainTeam, i)">
+                                mdi-trash-can-outline
+                            </v-icon>
+                        </v-row>
+                        <v-row class="ma-0 justify-space-between align-center hover-cursor-point py-1 px-3" v-ripple @click="navToDetail(remainTeam)">
+                            <div class="d-flex align-center ">
+                                <v-avatar color="#7879ff" size="60" class="mr-3 " >
+                                    <span v-if="remainTeam.avatar == '/'" class="white--text headline">{{remainTeam.name[0]}}</span>
+                                    <v-img v-else :src="`${baseUrl}${remainTeam.avatar}`"></v-img>
+                                </v-avatar>
+                                <p class="mb-0">{{remainTeam.name}}</p>
+                            </div>
+                            <v-icon color="#999999" size="25" class="">
+                                mdi-chevron-right
+                            </v-icon>
+                        </v-row>
+                    </v-container>
+                </v-col>
+            </v-row>
+            <v-dialog overlay-opacity="0" persistent v-model="dialogDelete" max-width="500px">
+                <v-card>
+                    <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+                        <v-btn color="blue darken-1" text @click="deleteTeamGroupConfirm" :loading="isDeleteTeam">{{lang.ok}}</v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog overlay-opacity="0" persistent v-model="removeReturnTeamOneDialog" max-width="500px">
+                <v-card>
+                    <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="closeDeleteOne">{{lang.cancel}}</v-btn>
+                        <v-btn color="blue darken-1" text @click="removeOneReturnTeam" :loading="isDeleteTeam">{{lang.ok}}</v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </v-container>
+    </v-container>
+    <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">

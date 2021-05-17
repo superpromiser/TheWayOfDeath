@@ -678,13 +678,13 @@ export default {
       },
       {
         title:"访客管理",//방문자관리
-        imgUrl:"/asset/img/newIcon/manageGuests.png",
-        path:"classSpace.manageGuests"
+        imgUrl:"/asset/img/appIcon/schoolSafety/manageGuests.png",
+        path:"manageGuests"
       },
       {
         title:"归程队",//귀한팀관리
         imgUrl:"/asset/img/appIcon/schoolSafety/returnTeam.png",
-        path:"classSpace.returnTeam"
+        path:"returnTeam"
       },
       {
         title:"维修工单",//수리공
@@ -803,7 +803,7 @@ export default {
       {
         title:"归程队",//귀한팀관리
         imgUrl:"/asset/img/appIcon/schoolSafety/returnTeam.png",
-        path:"classSpace.returnTeam"
+        path:"returnTeam"
       },
       {
         title:"维修工单",//수리공
@@ -852,8 +852,6 @@ export default {
       classStoryList: 'mo/classStoryList',
       isSchoolSpaceStore: 'mo/isSchoolSpace'
     }),
-
-    
   },
 
   async created(){

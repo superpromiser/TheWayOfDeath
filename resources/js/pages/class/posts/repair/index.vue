@@ -1,5 +1,5 @@
 <template>
-    <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
+    <v-container class="pa-0" v-if="$isMobile()">
         <v-container class="pa-0 h-100 bg-white mb-16 pb-3" >
             <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
                 <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
@@ -22,59 +22,38 @@
                         class="mt-0 pt-0"
                     ></v-text-field>
                 </v-col>
-            </v-row>
-            <!-- <v-row class="ma-0 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <p class="mb-0">发布位置</p>
-                    <p class="mb-0">{{repairData.viewList}}</p>
-                </v-col>
-            </v-row> -->
-            <v-row class="ma-0 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <v-select
+                <v-col cols="12" class="d-flex align-center">
+                    <v-text-field
                         color="#7879ff"
-                        small-chips
-                        :items="returnSchoolTree(currentPath.params.schoolId)"
-                        :menu-props="{ top: false, offsetY: true }"
-                        item-text="lessonName"
-                        item-value="lessonId"
-                        @change="selectedLesson"
+                        v-model="repairData.viewListName"
                         label="发布位置"
                         hide-details
-                        return-object
-                        v-model="viewList"
                         class="mt-0 pt-0"
-                    ></v-select>
+                    ></v-text-field>
                 </v-col>
-            </v-row>
-            <v-row class="ma-0 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
-                    <v-datetime-picker 
-                        label="发布时间" 
-                        v-model="repairData.deadline"
-                        :okText='lang.ok'
-                        :clearText='lang.cancel'
-                    ></v-datetime-picker>
-                </v-col>
-            </v-row>
-            <v-row class="ma-0 hover-cursor-point">
-                <v-col cols="12" class="d-flex justify-space-between align-center">
+                <v-col cols="12" class="d-flex align-center">
                     <v-select
-                        :menu-props="{ top: false, offsetY: true }"
+                        label="维修物品"
                         :items="itemList"
                         color="#7879ff"
                         v-model="repairData.repairType"
-                        class="mt-0 pt-0"
-                        label="维修物品"
                         hide-details
+                        class="mt-0 pt-0"
                     ></v-select>
                 </v-col>
-            </v-row>
-            <v-row class="ma-0 hover-cursor-point">
-                <v-col cols="12">
-                    <QuestionItem :Label="lang.contentPlaceFirst" ref="child" @contentData="loadContentData"></QuestionItem>            
+                <v-col cols="12" class="d-flex align-center">
+                    <v-text-field
+                        color="#7879ff"
+                        v-model="repairData.deadline"
+                        value="shiftData.prevName"
+                        label="发布时间"
+                        hide-details
+                        readonly
+                        class="mt-0 pt-0"
+                    ></v-text-field>
                 </v-col>
             </v-row>
+            <QuestionItem Label="请输入维修物品的详细信息，例如：桌子、椅子等" ref="child" @contentData="loadContentData"></QuestionItem>            
         </v-container>
     </v-container>
     <v-container class="pa-0" v-else>

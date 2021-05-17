@@ -318,13 +318,13 @@ export default {
                     color:"#98BB3A",
                     title:"访客管理",//방문자관리
                     imgUrl:"/asset/img/newIcon/manageGuests.png",
-                    path:"classSpace.manageGuests"
+                    path:"classSpace.applications.manageGuests"
                 },
                 {
                     color:"#98BB3A",
                     title:"归程队",//귀한팀관리
                     imgUrl:"/asset/img/newIcon/returnTeam.png",
-                    path:"classSpace.returnTeam"
+                    path:"classSpace.applications.returnTeam"
                 },
                 {
                     color:"#98BB3A",
@@ -449,7 +449,7 @@ export default {
         //             color:"#98BB3A",
         //             title:"归程队",//귀한팀관리
         //             imgUrl:"/asset/img/newIcon/returnTeam.png",
-        //             path:"classSpace.returnTeam"
+        //             path:"classSpace.applications.returnTeam"
         //         },
         //         {
         //             color:"#98BB3A",
@@ -580,7 +580,7 @@ export default {
                     color:"#98BB3A",
                     title:"归程队",//귀한팀관리
                     imgUrl:"/asset/img/newIcon/returnTeam.png",
-                    path:"classSpace.returnTeam"
+                    path:"classSpace.applications.returnTeam"
                 },
                 // {
                 //     color:"#98BB3A",

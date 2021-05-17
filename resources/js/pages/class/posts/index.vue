@@ -221,7 +221,7 @@ export default {
                     //     color:"#98BB3A",
                     //     title:"归程队",//귀한팀관리
                     //     imgUrl:"/asset/img/newIcon/returnTeam.png",
-                    //     path:"classSpace.returnTeam"
+                    //     path:"classSpace.applications.returnTeam"
                     // },
                     // {
                     //     color:"#98BB3A",
@@ -394,7 +394,7 @@ export default {
                     //     color:"#98BB3A",
                     //     title:"归程队",//귀한팀관리
                     //     imgUrl:"/asset/img/newIcon/returnTeam.png",
-                    //     path:"classSpace.returnTeam"
+                    //     path:"classSpace.applications.returnTeam"
                     // },
                     // {
                     //     color:"#98BB3A",
@@ -567,7 +567,7 @@ export default {
                         color:"#98BB3A",
                         title:"归程队",//귀한팀관리
                         imgUrl:"/asset/img/newIcon/returnTeam.png",
-                        path:"classSpace.returnTeam"
+                        path:"classSpace.applications.returnTeam"
                     },
                     // {
                     //     color:"#98BB3A",
@@ -746,7 +746,7 @@ export default {
                     //     color:"#98BB3A",
                     //     title:"归程队",//귀한팀관리
                     //     imgUrl:"/asset/img/newIcon/returnTeam.png",
-                    //     path:"classSpace.returnTeam"
+                    //     path:"classSpace.applications.returnTeam"
                     // },
                     // {
                     //     color:"#98BB3A",
@@ -919,7 +919,7 @@ export default {
                     //     color:"#98BB3A",
                     //     title:"归程队",//귀한팀관리
                     //     imgUrl:"/asset/img/newIcon/returnTeam.png",
-                    //     path:"classSpace.returnTeam"
+                    //     path:"classSpace.applications.returnTeam"
                     // },
                     // {
                     //     color:"#98BB3A",
