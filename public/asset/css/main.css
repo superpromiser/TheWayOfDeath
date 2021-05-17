@@ -1716,3 +1716,7 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
 .width-100-without-68-px{
     width: calc(100% - 68px);
 }
+
+.owl-item{
+    background: white!important;
+}
