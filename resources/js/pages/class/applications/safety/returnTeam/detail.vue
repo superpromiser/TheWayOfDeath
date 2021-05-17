@@ -476,6 +476,7 @@ export default {
                 idArr.push(mem.id);
             });
             payload.member = idArr;
+            console.log('+++++++++',payload)
             this.isUpdating = true;
             await updateReturnTeam(payload)
             .then((res) => {

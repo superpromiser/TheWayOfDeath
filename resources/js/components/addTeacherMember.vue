@@ -68,7 +68,7 @@
                     <h2>{{title}}</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn dark color="#49d29e" :loading="isSubmit" @click="submit" :disabled="noUser">
+                    <v-btn dark color="#7879ff" :loading="isSubmit" @click="submit" :disabled="noUser">
                         {{ lang.submit }}
                     </v-btn>
                 </v-col>

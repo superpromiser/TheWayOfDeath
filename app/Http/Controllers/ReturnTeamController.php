@@ -27,6 +27,7 @@ class ReturnTeamController extends Controller
         $userId = Auth::user()->id;
         $lessonId = Auth::user()->lessonId;
         $schoolId = Auth::user()->schoolId;
+<<<<<<< HEAD
         
         // //create remain team when first create of return team
         // $remainTeamData = ReturnTeam::where([
@@ -45,6 +46,26 @@ class ReturnTeamController extends Controller
         //     ]);
         // }
         
+=======
+
+        //create remain team when first create of return team
+        $remainTeamData = ReturnTeam::where([
+            'lessonId' => $lessonId,
+            'schoolId' => $schoolId,
+            'name' => '留堂成员',
+        ])->whereDate('updated_at', Carbon::today())->first();
+
+        if ($remainTeamData == null) {
+            $remainTeamData = ReturnTeam::create([
+                'userId' => $userId,
+                'lessonId' => $lessonId,
+                'schoolId' => $schoolId,
+                'name' => '留堂成员',
+                'member' => []
+            ]);
+        }
+
+>>>>>>> 0401403bbba9ff918c98ebc2aeb3a05d94f804a1
         $returnTeamData = ReturnTeam::create([
             'userId' => $userId,
             'lessonId' => $lessonId,
@@ -59,9 +80,9 @@ class ReturnTeamController extends Controller
         return response()->json([
             'msg' => 1,
         ]);
-
     }
 
+<<<<<<< HEAD
 
     public function createRemainTeam(Request $request)
     {
@@ -143,6 +164,8 @@ class ReturnTeamController extends Controller
         }
     }
     
+=======
+>>>>>>> 0401403bbba9ff918c98ebc2aeb3a05d94f804a1
     public function getReturnTeam()
     {
         $returnTeamArr = ReturnTeam::where([
@@ -150,42 +173,39 @@ class ReturnTeamController extends Controller
             'lessonId' => Auth::user()->lessonId,
         ])->orderBy('created_at', 'desc')->get();
 
-        foreach ($returnTeamArr as $key => $returnTeam){
-            $userArr = User::whereIn('id',$returnTeam->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
+        foreach ($returnTeamArr as $key => $returnTeam) {
+            $userArr = User::whereIn('id', $returnTeam->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
             $returnTeam->member = $userArr;
         }
 
         return response()->json([
-            'returnTeamArr'=> $returnTeamArr->load('teacherId', 'leaderId')
-        ],200);
-
+            'returnTeamArr' => $returnTeamArr->load('teacherId', 'leaderId')
+        ], 200);
     }
 
     public function deleteReturnTeam(Request $request)
     {
         // $id = $request->id;
         // $idArr = $request->idArr;
-        if($request->id){
+        if ($request->id) {
             $postId = ReturnTeam::where('id', $request->id)->first()->postId;
             Post::where('id', $postId)->delete();
             return ReturnTeam::where('id', $request->id)->delete();
-        }   
-        elseif($request->idArr){
+        } elseif ($request->idArr) {
             $idArr = $request->idArr;
             foreach ($idArr as $key => $value) {
                 $postId = ReturnTeam::where('id', $value)->first()->postId;
                 Post::where('id', $postId)->delete();
             }
-            return ReturnTeam::whereIn('id',$request->idArr)->delete();
+            return ReturnTeam::whereIn('id', $request->idArr)->delete();
         }
-
     }
 
     public function updateReturnTeam(Request $request)
-    {   
+    {
         $user = Auth::user();
-        if($request->name == '留堂成员'){
-            
+        if ($request->name == '留堂成员') {
+
             //if remain team data exist! then we don't need to update it.
             $remainTeamData = ReturnTeam::where([
                 'lessonId' => $request->lessonId,
@@ -193,7 +213,7 @@ class ReturnTeamController extends Controller
                 'name' => '留堂成员',
             ])->whereDate('updated_at', Carbon::today())->first();
 
-            if( $remainTeamData->member == []){
+            if ($remainTeamData->member == []) {
                 $viewList = array();
                 array_push($viewList, $user->id);
                 $postId = Post::create([
@@ -201,9 +221,9 @@ class ReturnTeamController extends Controller
                     'userId' => $user->id,
                     'schoolId' => $user->schoolId,
                     'classId' => $user->lessonId,
-                    'viewList'=>$viewList
+                    'viewList' => $viewList
                 ])->id;
-                
+
                 ReturnTeam::where('id', $request->id)->update([
                     'avatar' => $request->avatar,
                     'name' => $request->name,
@@ -215,7 +235,7 @@ class ReturnTeamController extends Controller
 
                 $remainTeamData = ReturnTeam::where('id', $request->id)->first();
                 //prepare member...
-                $userArr = User::whereIn('id',$remainTeamData->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
+                $userArr = User::whereIn('id', $remainTeamData->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
                 $remainTeamData->member = $userArr;
 
                 ///////////////////////////boradcasting New Return Team///////////////////////////
@@ -228,10 +248,10 @@ class ReturnTeamController extends Controller
                 $broadcastingData['teacherId'] = null;
 
                 $returnTeamMemberArr = $request->member;
-                foreach ($returnTeamMemberArr as $key => $returnTeamMember){
+                foreach ($returnTeamMemberArr as $key => $returnTeamMember) {
                     $student = User::where('id', $returnTeamMember)->first();
-                    $parent = User::where(['phoneNumber' => $student->fatherPhone, ])->first();
-                    if($parent){
+                    $parent = User::where(['phoneNumber' => $student->fatherPhone,])->first();
+                    if ($parent) {
                         //save new alarm to parent
                         $alarm = Alarm::create([
                             'userId' => $parent->id,
@@ -244,14 +264,12 @@ class ReturnTeamController extends Controller
                     }
                 }
                 ///////////////////////////boradcasting New Return Team///////////////////////////
-            }
-            else{
+            } else {
                 return response()->json([
                     'msg' => 'aleardyExist',
                 ]);
             }
-        }  
-        else{
+        } else {
             ReturnTeam::where('id', $request->id)->update([
                 'avatar' => $request->avatar,
                 'name' => $request->name,
@@ -259,7 +277,7 @@ class ReturnTeamController extends Controller
                 'teacherId' => $request->teacherId,
                 'member' => $request->member,
             ]);
-        }  
+        }
 
         return response()->json([
             'msg' => 1,
