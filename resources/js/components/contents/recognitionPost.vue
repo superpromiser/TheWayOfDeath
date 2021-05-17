@@ -91,9 +91,9 @@ export default {
         })
         this.$store.dispatch('content/storePostDetail',content)
         if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.classDefault'});
+          this.$router.push({name:'details.classRecognition'});
         }else{
-          this.$router.push({name:'details.schoolDefault'});
+          this.$router.push({name:'details.classRecognition'});
         }
         
       }
