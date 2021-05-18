@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0" v-if="$isMobile()">
-        <v-row class="ma-0">
+        <v-row class="ma-0 pt-12">
             <v-col cols="12" class="mo-glow d-flex align-center justify-center">
                 <v-avatar class="" >
                     <v-img :src="`${baseUrl}/asset/img/icon/评价.png`" alt="postItem" width="48" height="48" ></v-img>

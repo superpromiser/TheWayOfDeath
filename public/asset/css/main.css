@@ -1072,7 +1072,7 @@ a {
 }
 
 .position-sticky-top-0 {
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 2;
     width: 100%;
@@ -1097,7 +1097,7 @@ a {
 }
 
 .mo-chat-index-nav {
-    position: sticky !important;
+    position: fixed !important;
     top: 0px;
     z-index: 1;
     width: 100%;
@@ -1717,6 +1717,14 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
     width: calc(100% - 68px);
 }
 
-.owl-item{
+.position-fixed-top-0 {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    /* -webkit-transform: translate3d(0,0,0); */
+}
+
+.carusel-item-bg-white .owl-carousel .owl-stage-outer .owl-stage .owl-item{
     background: white!important;
 }

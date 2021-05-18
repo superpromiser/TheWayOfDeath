@@ -6,7 +6,7 @@
                 <v-img :src="`${baseUrl}${imgUrl.path}`" alt="upload image" class="uploaded-image" ></v-img>
             </v-col>
         </v-row> -->
-        <v-row v-if="$isMobile()" v-viewer="optionsMo" class="images clearfix">
+        <v-row v-if="$isMobile()" v-viewer="moOptions" class="images clearfix">
             <div v-for="(img, i) in items.imgUrl" :key="i" class="image-con text-center">
                 <img :src="`${baseUrl}${img.path}`" :data-source="`${baseUrl}${img.path}`" :key="img.path" class="mo-image">
             </div>

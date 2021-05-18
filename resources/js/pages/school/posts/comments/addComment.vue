@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0 h-100" v-if="$isMobile()">
-        <v-container class="pa-0 add-comment-out-height-mo">
+        <v-container class="pa-0 add-comment-out-height-mo pt-12">
             <v-container class="pa-0 bg-white position-sticky-top-0" >
                 <v-row class="ma-0 bg-white justify-center " >
                     <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >

@@ -1,57 +1,52 @@
 <template>
-    <v-container class="pa-0 h-100"
+    <v-container class="pa-0 h-100 pt-12"
         v-touch="{
             left: () => swipe('Left'),
             right: () => swipe('Right'),
         }"
     >   
-        <v-row v-if="isDetailPage" class="ma-0 bg-white justify-center position-sticky-top-0" >
-            <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
-                mdi-chevron-left
-            </v-icon>
-            <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{contactNow}}</p>
-        </v-row>
+        <v-col cols="12" class="pa-0 mo-glow-bg"> 
+            
 
-        <v-col v-else cols="12" class="d-flex mo-chat-index-nav py-0 bg-white align-center">
-          <transition name="page" mode="out-in">
-            <v-text-field
-              v-if="isSearching" key="1"
-              solo
-              class="mo-search-input-text-field-chat"
-              v-model="searchKeyword"
-              label="请输入您的搜索词"
-              prepend-inner-icon="mdi-magnify"
-              hide-details
-              color="#7879ff"
-              dense 
-            >
-              <v-icon
-                  v-if="searchKeyword.trim() !== ''"
-                  slot="append"
-                  @click="searchKeyword = ''"
-                  small
+            <v-col v-if="!isDetailPage" cols="12" class="d-flex mo-chat-index-nav py-0 bg-white align-center">
+            <transition name="page" mode="out-in">
+                <v-text-field
+                v-if="isSearching" key="1"
+                solo
+                class="mo-search-input-text-field-chat"
+                v-model="searchKeyword"
+                label="请输入您的搜索词"
+                prepend-inner-icon="mdi-magnify"
+                hide-details
+                color="#7879ff"
+                dense 
                 >
-                mdi-close-circle
-              </v-icon>
-            </v-text-field>
-            <v-tabs class="mo-chat-contact-tab" v-model="moChatTab" color="#666666" v-else background-color="#fffff">
-                <v-tab @click="navToChatNews" :ripple="false" active-class="mo-chat-nav-active">消息</v-tab>
-                <v-tab @click="navToChatContact" :ripple="false" active-class="mo-chat-nav-active"> 联系人</v-tab>
-            </v-tabs>
-          </transition>
-          <transition name="page" mode="out-in">
-            <v-btn text small v-if="isSearching" key="3" class="ml-3 px-0 min-width-0" @click="onFalseSearching">
-                取消
-            </v-btn>
-            <v-btn icon plain v-else key="4" class="" @click="isSearching = true">
-                <v-icon size="30">
-                mdi-magnify
+                <v-icon
+                    v-if="searchKeyword.trim() !== ''"
+                    slot="append"
+                    @click="searchKeyword = ''"
+                    small
+                    >
+                    mdi-close-circle
                 </v-icon>
-            </v-btn>
-          </transition>
-        </v-col>
-        <v-col cols="12" class="pa-0"> 
-            <router-view @updatechatwith="updatechatwith" @updatechatIn="updatechatIn" :chatto="ChatWith" :chatin="ChatIn" :messages="messages" :chatfrom="currentUser.id" ></router-view>
+                </v-text-field>
+                <v-tabs class="mo-chat-contact-tab" v-model="moChatTab" color="#666666" v-else background-color="#fffff">
+                    <v-tab @click="navToChatNews" :ripple="false" active-class="mo-chat-nav-active">消息</v-tab>
+                    <v-tab @click="navToChatContact" :ripple="false" active-class="mo-chat-nav-active"> 联系人</v-tab>
+                </v-tabs>
+            </transition>
+            <transition name="page" mode="out-in">
+                <v-btn text small v-if="isSearching" key="3" class="ml-3 px-0 min-width-0" @click="onFalseSearching">
+                    取消
+                </v-btn>
+                <v-btn icon plain v-else key="4" class="" @click="isSearching = true">
+                    <v-icon size="30">
+                    mdi-magnify
+                    </v-icon>
+                </v-btn>
+            </transition>
+            </v-col>
+            <router-view @updatechatwith="updatechatwith" @updatechatIn="updatechatIn" :chatto="ChatWith" :chatin="ChatIn" :contactNow="contactNow" :messages="messages" :chatfrom="currentUser.id" ></router-view>
         </v-col>
     </v-container>
 </template>

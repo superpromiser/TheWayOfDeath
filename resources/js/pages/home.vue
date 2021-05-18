@@ -1,7 +1,7 @@
 <template>
   <v-container class="pa-0">
-    <v-container v-if="$isMobile()" class="pa-0" >
-      <v-col cols="12" class="d-flex align-center bg-white py-1 position-sticky-top-0" v-touch="{
+    <v-container v-if="$isMobile()" class="pa-0 pt-12" >
+      <v-col cols="12" class="d-flex align-center bg-white py-1 position-fixed-top-0" v-touch="{
         left: () => swipe('Left'),
         right: () => swipe('Right'),
       }">
@@ -79,7 +79,7 @@
                 </v-sheet>
               </v-col>
             </carousel>
-            <carousel class="mb-3" v-else-if="chooseableItemGroup.length > 0" :key="carouselKey" :nav="false" :items="5" :loop="false" :dots="false">
+            <carousel class="mb-3 carusel-item-bg-white" v-else-if="chooseableItemGroup.length > 0" :key="carouselKey" :nav="false" :items="5" :loop="false" :dots="false">
               <v-col class="pa-0 d-flex justify-center" v-for="(chooseableItem, i) in chooseableItemGroup" :key="i" @click="selectItem(chooseableItem)">
                 <v-sheet tile class=" d-flex justify-center align-center">
                   <div class="text-center">

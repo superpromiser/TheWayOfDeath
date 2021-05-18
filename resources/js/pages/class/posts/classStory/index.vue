@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="$isMobile()"  class="ma-0 pa-0 h-100">
-    <v-container v-if="isPosting == true" class="pa-0 h-100 bg-white mb-16 pb-3" >
+    <v-container v-if="isPosting == true" class="pa-0 h-100 bg-white mb-16 pb-3 pt-12" >
       <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
         <v-icon @click="navToBackCustom" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
           mdi-chevron-left
