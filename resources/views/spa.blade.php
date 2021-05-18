@@ -12,7 +12,7 @@ $config = [
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
-
+  <link rel="icon" type="image/png" href="{{ asset('asset/img/favicon.png') }}" sizes="16x16">
   <title>{{ config('app.name') }}</title>
   <link rel="stylesheet" href="{{ mix('dist/css/all.css')}}">
   <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">

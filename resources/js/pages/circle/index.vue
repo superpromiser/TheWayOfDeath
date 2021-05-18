@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-0" v-touch="{
+  <v-container class="pa-0 pt-12" v-touch="{
     left: () => swipe('Left'),
     right: () => swipe('Right'),
   }" v-if="isSchoolSpace">
@@ -131,7 +131,7 @@
       </InfiniteLoading>
     </v-row>
   </v-container>
-  <v-container v-else class="pa-0" v-touch="{
+  <v-container v-else class="pa-0 pt-12" v-touch="{
     left: () => swipe('Left'),
     right: () => swipe('Right'),
   }">

@@ -2,8 +2,14 @@
     <v-container class="h-100 pa-0">
         <v-row class="h-100 ma-0">
             <v-col cols="12" sm="12" md="9" class="h-100 mo-glow-bg pa-0">
-                <v-row class="mo-glow-bg mo-ch-area-height ma-0 ">
-                    <v-col cols="12" class="overflowY-auto h-100 mo-glow-bg mo-glow-inverse" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
+                <v-row class="mo-glow-bg mo-ch-area-height ma-0" id="mo-ch-area-height">
+                    <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
+                        <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
+                            mdi-chevron-left
+                        </v-icon>
+                        <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{contactNow}}</p>
+                    </v-row>
+                    <v-col cols="12" class=" mo-glow-bg mo-glow-inverse pb-16 mb-5" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
                         <ChatMessage
                             v-for="(message, index) in messages"
                             :key="index"
@@ -168,6 +174,10 @@ export default {
             type:Number,
             required:false
         },
+        contactNow:{
+            type:String,
+            required:false
+        },
         messages:{
             type:Array,
             required:false
@@ -220,7 +230,6 @@ export default {
         },
         ChatWith: null,
         ChatIn: null,
-        contactNow: null,
         //recording
         recording: {
             src:null,
@@ -236,6 +245,8 @@ export default {
         toggle_none: null,
         isEmojiSheet: false,
         isFileUploadSheet: false,
+
+        chatItemContainer: null,
                 
     }),
 
@@ -266,9 +277,23 @@ export default {
             this.$router.push({name: "mochat.news"});
         }
         this.listen();
+        
+    },
+
+    mounted(){
+        this.chatItemContainer = document.getElementsByClassName('mo-ch-area-height')[0];
+        this.scrollToBottom()
     },
 
     methods:{
+        scrollToBottom(){
+            let shouldScroll = this.chatItemContainer.scrollTop + this.chatItemContainer.clientHeight === this.chatItemContainer.scrollHeight;
+            if (!shouldScroll) {
+                this.chatItemContainer.scrollTop = this.chatItemContainer.scrollHeight - 500;
+                console.log(shouldScroll, this.chatItemContainer.scrollTop, this.chatItemContainer.scrollHeight)
+            }
+        },
+
         syncCenterAndZoom(e){
             const {lng, lat} = e.target.getCenter()
             this.marker.lng = lng
@@ -349,6 +374,7 @@ export default {
                     this.isUploadingFileInChat = false;
                     this.selectedImageFile = null;
                     this.closeSheetSecond()
+                    this.scrollToBottom();
                     //for contact user
                     for (let i = 0 ; i < this.contactListStore.length ; i++){
                         if(this.contactListStore[i].contactUserId == this.ChatWith){
@@ -385,6 +411,7 @@ export default {
                     console.log(res)
                     this.isUploadingFileInChat = false;
                     this.closeSheetSecond()
+                    this.scrollToBottom();
                     //for contact user
                     for (let i = 0 ; i < this.contactListStore.length ; i++){
                         if(this.contactListStore[i].contactUserId == this.ChatWith){
@@ -421,6 +448,7 @@ export default {
                     console.log(res);
                     this.isUploadingFileInChat = false;
                     this.closeSheetSecond()
+                    this.scrollToBottom();
                     //for contact user
                     for (let i = 0 ; i < this.contactListStore.length ; i++){
                         if(this.contactListStore[i].contactUserId == this.ChatWith){
@@ -457,6 +485,8 @@ export default {
             }
             if(this.ChatIn == null){
                 if(this.text){
+                    this.closeSheet();
+
                     this.emoStatus = false;
                     let currentTime = new Date();
                     let from = {}
@@ -471,6 +501,7 @@ export default {
                         created_at:currentTime,
                     };
                     this.messages.push(messageData);
+                    this.scrollToBottom();
                     let messageText = this.text;
                     this.text = "";
                 
@@ -480,9 +511,11 @@ export default {
                         from: this.currentUser.id,
                     }
 
-                    document.getElementById("push-popup-bottom-nav").style.height = "0";
-                    this.isFileUploadSheet = false;
-                    this.isEmojiSheet = false;
+                    
+
+                    // document.getElementById("push-popup-bottom-nav").style.height = "0";
+                    // this.isFileUploadSheet = false;
+                    // this.isEmojiSheet = false;
 
                     postMessage(payload)
                     .then((res) => {

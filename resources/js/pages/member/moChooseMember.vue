@@ -1,5 +1,5 @@
 <template>
-    <v-container class="mx-auto position-relative pa-0">
+    <v-container class="mx-auto position-relative pa-0 pt-12">
         <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
             <v-icon @click="backWithOutSelect" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                 mdi-chevron-left

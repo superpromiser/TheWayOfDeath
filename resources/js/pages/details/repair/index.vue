@@ -1,6 +1,6 @@
 <template>
     <v-container v-if="$isMobile()" class="ma-0 pa-0 h-100">
-        <v-container class="pt-0 px-0 h-100 bg-white">
+        <v-container class="pt-0 px-0 h-100 bg-white pt-12">
             <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
                 <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
