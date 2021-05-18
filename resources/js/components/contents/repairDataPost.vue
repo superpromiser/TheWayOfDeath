@@ -41,7 +41,7 @@
         </div>
         <div class="d-flex align-center">
           <p class="text-wrap mb-0">
-          <strong>交接人姓名:</strong>
+          <strong>发布位置:</strong>
           {{content.repairdata.viewListName}}
           </p>
         </div>
@@ -137,7 +137,7 @@
         </div>
         <div class="d-flex align-center">
             <p class="text-wrap mb-0">
-            <strong>交接人姓名:</strong>
+            <strong>发布位置:</strong>
             {{content.repairdata.viewListName}}
             </p>
         </div>

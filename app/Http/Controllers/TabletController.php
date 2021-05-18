@@ -58,15 +58,21 @@ class TabletController extends Controller
         foreach ($scheduleData as $key => $oneDaySchedule) {
             $schedule['name'] = $oneDaySchedule->$weekday;
             $splitArr = explode('-', $oneDaySchedule->$weekday);
-            $teacherName = $splitArr[1];
-            $teacherName = str_replace(' ', '', $teacherName);
-            $teacherInfo = User::select('id', 'name', 'avatar', 'phoneNumber')->where('name', $teacherName)->first();
-            $schedule['teacherInfo'] = $teacherInfo;
+            if (count($splitArr) > 1) {
+                $teacherName = $splitArr[1];
+                $teacherName = str_replace(' ', '', $teacherName);
+                $teacherInfo = User::select('id', 'name', 'avatar', 'phoneNumber')->where('name', $teacherName)->first();
+                $schedule['teacherInfo'] = $teacherInfo;
+            }
             array_push($todaySchedule, $schedule);
         }
         for ($i = 0; $i < count($subjectArr); $i++) {
             $subjectArr[$i]['name'] = $todaySchedule[$i]['name'];
-            $subjectArr[$i]['teacherInfo'] = $todaySchedule[$i]['teacherInfo'];
+            if (count($todaySchedule[$i]) > 1) {
+                $subjectArr[$i]['teacherInfo'] = $todaySchedule[$i]['teacherInfo'];
+            } else {
+                $subjectArr[$i]['teacherInfo'] = null;
+            }
         }
         $posts = Post::whereIn('contentId', [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
             ->where('classId', $lessonId)
@@ -105,7 +111,7 @@ class TabletController extends Controller
         }
 
         $announcementData = array();
-        $allAnounceData = Anouncement::where('schoolId', $schoolId)->with('users:id,name,avatar')->take(2);
+        $allAnounceData = Anouncement::where('schoolId', $schoolId)->with('users:id,name,avatar')->take(2)->get();
         foreach ($allAnounceData as $data) {
             $lessonArr = $data->viewList;
             if (!is_null($lessonArr)) {
