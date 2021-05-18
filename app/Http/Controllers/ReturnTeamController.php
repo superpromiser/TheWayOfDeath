@@ -27,7 +27,7 @@ class ReturnTeamController extends Controller
         $userId = Auth::user()->id;
         $lessonId = Auth::user()->lessonId;
         $schoolId = Auth::user()->schoolId;
-        
+
         // //create remain team when first create of return team
         // $remainTeamData = ReturnTeam::where([
         //     'lessonId' => $lessonId,
@@ -44,7 +44,7 @@ class ReturnTeamController extends Controller
         //         'member' => []
         //     ]);
         // }
-        
+
         $returnTeamData = ReturnTeam::create([
             'userId' => $userId,
             'lessonId' => $lessonId,
@@ -77,7 +77,7 @@ class ReturnTeamController extends Controller
             'schoolId' => $schoolId,
             'name' => '留堂成员',
         ])->whereDate('updated_at', Carbon::today())->first();
-        
+
         if ($remainTeamData == null) {
             $viewList = array();
             array_push($viewList, $userId);
@@ -86,7 +86,7 @@ class ReturnTeamController extends Controller
                 'userId' => $userId,
                 'schoolId' => $schoolId,
                 'classId' => $lessonId,
-                'viewList'=>$viewList
+                'viewList' => $viewList
             ])->id;
 
             $remainTeamData = ReturnTeam::create([
@@ -97,11 +97,12 @@ class ReturnTeamController extends Controller
                 'leaderId' => null,
                 'name' => '留堂成员',
                 'avatar' => '/',
+                'postId' => $postId,
                 'member' => $request->member
             ]);
 
             //prepare member...
-            $userArr = User::whereIn('id',$remainTeamData->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
+            $userArr = User::whereIn('id', $remainTeamData->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
             $remainTeamData->member = $userArr;
 
             ///////////////////////////boradcasting New Return Team///////////////////////////
@@ -114,10 +115,10 @@ class ReturnTeamController extends Controller
             $broadcastingData['teacherId'] = null;
 
             $returnTeamMemberArr = $request->member;
-            foreach ($returnTeamMemberArr as $key => $returnTeamMember){
+            foreach ($returnTeamMemberArr as $key => $returnTeamMember) {
                 $student = User::where('id', $returnTeamMember)->first();
-                $parent = User::where(['phoneNumber' => $student->fatherPhone, ])->first();
-                if($parent){
+                $parent = User::where(['phoneNumber' => $student->fatherPhone,])->first();
+                if ($parent) {
                     //save new alarm to parent
                     $alarm = Alarm::create([
                         'userId' => $parent->id,
@@ -133,15 +134,14 @@ class ReturnTeamController extends Controller
             return response()->json([
                 'msg' => 1,
             ]);
-        }
-        else{
+        } else {
             return response()->json([
                 'msg' => 'alreadyExist',
                 'teamData' => $remainTeamData
             ]);
         }
     }
-    
+
     public function getReturnTeam()
     {
         $returnTeamArr = ReturnTeam::where([
