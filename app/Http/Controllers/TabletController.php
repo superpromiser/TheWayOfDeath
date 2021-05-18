@@ -136,16 +136,18 @@ class TabletController extends Controller
             if (is_null($startTime) && is_null($endTime)) {
                 $attendData['absent']++;
             }
-            if ($startTime >  strtotime($standStartTime)) {
+            if (strtotime($startTime) >  strtotime($standStartTime)) {
                 $attendData['late']++;
             } else {
-                if ($endTime > strtotime($standEndTime)) {
+                if (strtotime($endTime) > strtotime($standEndTime)) {
                     $attendData['normal']++;
                 } else {
                     $attendData['leave']++;
                 }
             }
         }
+        $attendData['total'] = $attendData['absent'] + $attendData['late'] + $attendData['normal'] + $attendData['leave'];
+        $attendData['curCnt'] = $attendData['late'] + $attendData['normal'] + $attendData['leave'];
         $schoolId = Auth::user()->schoolId;
         $gradeId = Auth::user()->gradeId;
         $lessonId = Auth::user()->lessonId;

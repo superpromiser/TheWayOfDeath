@@ -146,6 +146,7 @@ export default{
             return returnVal;
         },
         fixTop(data){
+            console.log('fixTop-----',data)
             axios.put('/api/v1/post',{postId:data.id}).then(res=>{
                 console.log("content top",res.data)
                 this.$snackbar.showMessage({content: '置顶 成功', color: "success"})
@@ -154,6 +155,7 @@ export default{
             })
         },
         relaseTop(id){
+            console.log('relaseTop-----',id)
             axios.put('/api/v1/post/relaseTop',{postId:id}).then(res=>{
                 console.log("release top",res.data)
                 this.snackbar.showMessage({content: '取消置顶 成功', color: "success"})
@@ -162,6 +164,7 @@ export default{
             })
         },
         postRemove(data){
+            console.log('postRemove-----',data)
             axios.delete('/api/v1/post',{data:{postId:data.id}}).then(res=>{
                 // alert('删除成功')
                 console.log("content delete",res.data)

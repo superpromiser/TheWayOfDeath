@@ -90,6 +90,13 @@
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
+                        color="primary"
+                        tile
+                        @click="showTime"
+                    >
+                        timeTable
+                    </v-btn>
+                    <v-btn
                         color="#f19861"
                         dark
                         class="mb-2 ml-2"
@@ -388,7 +395,9 @@ export default {
     },
 
     methods: {
-
+        showTime(){
+            this.$router.push({name:'admin.timeTableTest'});
+        },
       editItem (item) {
             this.editedIndex = this.scheduleData.indexOf(item)
             this.editedItem = Object.assign({}, item)

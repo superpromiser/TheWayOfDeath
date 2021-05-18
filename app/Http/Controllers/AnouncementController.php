@@ -17,12 +17,16 @@ class AnouncementController extends Controller
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
+        $userId = Auth::user()->id;
         return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 5])
             ->with([
                 'likes',
                 'views',
                 'comments.users:id,name',
-                'anouncements',
+                'anouncements' => function ($query) use ($userId) {
+                    $query->where("showList", "like", "%{$userId}")
+                        ->orWhere('showList', null);;
+                },
                 'users:id,name,avatar'
             ])
             ->orderBy('fixTop', 'desc')

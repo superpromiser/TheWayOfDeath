@@ -21,22 +21,28 @@ class PostController extends Controller
         // $isLiked = Like::where('userId',$userId)->count();
         return Post::whereIn('contentId', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 24])
             ->where('schoolId', $request->schoolId)
+            // ->where('classId', $request->lessonId)
             ->with([
                 'likes',
                 'views',
                 'comments.users:id,name',
                 'questionnaires',
                 'votings',
-                'sms',
-                'campus',
                 'anouncements',
-                'bulletinBoards',
-                'homeVisit',
-                'shares',
+                'shares' => function ($query) use ($userId) {
+                    $query->where("viewList", "like", "%{$userId}")
+                        ->orWhere('viewList', null);;
+                },
                 'shiftMng',
-                'safestudy',
+                'safestudy' => function ($query) use ($userId) {
+                    $query->where("viewList", "like", "%{$userId}")
+                        ->orWhere('viewList', null);;
+                },
                 'repairdata',
-                'schoolstory',
+                'schoolstory' => function ($query) use ($userId) {
+                    $query->where("viewList", "like", "%{$userId}")
+                        ->orWhere('viewList', null);;
+                },
                 'regnames',
                 'users:id,name,avatar'
             ])
@@ -61,7 +67,10 @@ class PostController extends Controller
                 'comments.users:id,name',
                 'questionnaires',
                 'votings',
-                'anouncements',
+                'anouncements' => function ($query) use ($userId) {
+                    $query->where("showList", "like", "%{$userId}")
+                        ->orWhere('showList', null);;
+                },
                 'homeVisit',
                 'notifications',
                 'evaluations',
@@ -69,10 +78,19 @@ class PostController extends Controller
                 'homework.homeworkresult',
                 'homeworkResult.homework',
                 'safestudy',
-                'shares',
+                'shares' => function ($query) use ($userId) {
+                    $query->where("viewList", "like", "%{$userId}")
+                        ->orWhere('viewList', null);
+                },
                 'regnames',
-                'classstory',
-                'interclassstory',
+                'classstory' => function ($query) use ($userId) {
+                    $query->where("viewList", "like", "%{$userId}")
+                        ->orWhere('viewList', null);;
+                },
+                'interclassstory' => function ($query) use ($userId) {
+                    $query->where("viewList", "like", "%{$userId}")
+                        ->orWhere('viewList', null);;
+                },
                 'vacations',
                 'returnteam',
                 'repairdata',

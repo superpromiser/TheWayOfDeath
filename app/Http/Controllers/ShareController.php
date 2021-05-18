@@ -16,13 +16,17 @@ class ShareController extends Controller
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
+        $userId = Auth::user()->id;
         if ($request->userId) {
             return Post::where(['schoolId' => $request->schoolId, 'userId' => $request->userId, 'contentId' => 23])
                 ->with([
                     'likes',
                     'views',
                     'comments.users:id,name',
-                    'shares',
+                    'shares' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}")
+                            ->orWhere('viewList', null);;
+                    },
                     'users:id,name,avatar'
                 ])
                 ->orderBy('fixTop', 'desc')

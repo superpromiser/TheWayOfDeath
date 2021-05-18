@@ -16,12 +16,16 @@ class SchoolStoryController extends Controller
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
+        $userId = Auth::user()->id;
         return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 11])
             ->with([
                 'likes',
                 'views',
                 'comments.users:id,name',
-                'schoolstory',
+                'schoolstory' => function ($query) use ($userId) {
+                    $query->where("viewList", "like", "%{$userId}")
+                        ->orWhere('viewList', null);;
+                },
                 'users:id,name,avatar'
             ])
             ->orderBy('fixTop', 'desc')

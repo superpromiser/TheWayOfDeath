@@ -82,6 +82,7 @@ export default [
   { path: '/admin/scheduleSetting', name: 'admin.scheduleSetting', component: page('admin/schedule/setting.vue')  },
   { path: '/admin/scheduleTeacher', name: 'admin.scheduleTeacher', component: page('admin/schedule/teacher.vue')  },
   { path: '/admin/schedule/class', name: 'admin.scheduleClass', component: page('admin/schedule/class.vue')  },
+  { path: '/admin/schedule/timeTable', name: 'admin.timeTableTest', component: page('admin/schedule/timeTable.vue')  },
   { path: '/admin/userlist', name: 'admin.userlist', component: page('admin/userList.vue'),
     children : [
       {path:'',redirect:{name: 'userlist.teacher'}},

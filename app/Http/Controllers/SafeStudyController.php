@@ -16,12 +16,16 @@ class SafeStudyController extends Controller
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
+        $userId = Auth::user()->id;
         return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 8])
             ->with([
                 'likes',
                 'views',
                 'comments.users:id,name',
-                'safestudy',
+                'safestudy' => function ($query) use ($userId) {
+                    $query->where("viewList", "like", "%{$userId}")
+                        ->orWhere('viewList', null);;
+                },
                 'users:id,name,avatar'
             ])
             ->orderBy('fixTop', 'desc')
