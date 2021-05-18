@@ -1306,7 +1306,7 @@ export default {
       })
       story.schoolstory.content = JSON.stringify(story.schoolstory.content);
       this.$store.dispatch('content/storePostDetail',story)
-      this.$router.push({name:'details.schoolDefault'});
+      this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
     },
 
     showDetailClassStory(story){
@@ -1315,7 +1315,7 @@ export default {
       })
       story.classstory.content = JSON.stringify(story.classstory.content);
       this.$store.dispatch('content/storePostDetail',story)
-      this.$router.push({name:'details.classDefault'});
+      this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId, gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}});
     },
   }
 }

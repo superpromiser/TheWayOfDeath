@@ -6,7 +6,12 @@
                 <v-img :src="`${baseUrl}${imgUrl.path}`" alt="upload image" class="uploaded-image" ></v-img>
             </v-col>
         </v-row> -->
-        <v-row v-viewer="$isMobile()?moOptions:options" class="images clearfix">
+        <v-row v-if="$isMobile()" v-viewer="optionsMo" class="images clearfix">
+            <div v-for="(img, i) in items.imgUrl" :key="i" class="image-con text-center">
+                <img :src="`${baseUrl}${img.path}`" :data-source="`${baseUrl}${img.path}`" :key="img.path" class="mo-image">
+            </div>
+        </v-row>
+        <v-row v-else v-viewer="$isMobile()?moOptions:options" class="images clearfix">
             <template v-for="img in items.imgUrl">
                 <img :src="`${baseUrl}${img.path}`" :data-source="`${baseUrl}${img.path}`" class="image" :key="img.path" >
             </template>
@@ -207,11 +212,26 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .image {
-    width: calc(20% - 10px);
-    cursor: pointer;
-    margin: 5px;
-    display: inline-block;
-    max-height: 280px;
-  }
+    .image {
+        width: calc(20% - 10px);
+        cursor: pointer;
+        margin: 5px;
+        display: inline-block;
+        max-height: 280px;
+    }
+    .mo-image{
+        width: 100%;
+        cursor: pointer;
+        display: inline-block;
+        max-height: 280px;
+        height: calc(20vw - 10px);
+        border-radius: 10px;
+    }
+    .image-con{
+        width: calc(20% - 10px);
+        cursor: pointer;
+        margin: 5px;
+        display: inline-block;
+        max-height: 280px;
+    }
 </style>

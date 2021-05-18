@@ -911,9 +911,6 @@ class UserController extends Controller
                     }
                     break;
                 case 23:    //shares
-                    $asdfa = $post->shares;
-                    $asdfa = $post->shares;
-                    $asdfa = $post->shares;
                     $contentData = json_decode($post->shares->content);
                     foreach ($contentData as $questionItem) {
                         $imgUrls = $questionItem->imgUrl;
@@ -966,7 +963,7 @@ class UserController extends Controller
                     }
                     break;
                 case 11:    //schoolstory
-                    $contentData = json_decode($post->schoolstory->content);
+                    $contentData = json_decode($post->schoolstory->content)[0];
                     $imgUrls = $contentData->imgUrl;
                     foreach ($imgUrls as $imgUrl) {
                         $path = $imgUrl->path;
@@ -1032,7 +1029,7 @@ class UserController extends Controller
                     }
                     break;
                 case 25:    //classstory
-                    $contentData = json_decode($post->classstory->content);
+                    $contentData = json_decode($post->classstory->content)[0];
                     $imgUrls = $contentData->imgUrl;
                     foreach ($imgUrls as $imgUrl) {
                         $path = $imgUrl->path;
@@ -1048,7 +1045,7 @@ class UserController extends Controller
                     }
                     break;
                 case 26:    //interclassstory
-                    $contentData = json_decode($post->interclassstory->content);
+                    $contentData = json_decode($post->interclassstory->content)[0];
                     $imgUrls = $contentData->imgUrl;
                     foreach ($imgUrls as $imgUrl) {
                         $path = $imgUrl->path;
