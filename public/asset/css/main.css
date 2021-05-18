@@ -1105,6 +1105,7 @@ a {
 
 .mo-ch-area-height {
     height: calc(100vh - 108px);
+    overflow-y: auto;
 }
 
 .mo-chat-emoji-area-popup .emoji-mart.emoji-mart-static {

@@ -5,9 +5,7 @@
             right: () => swipe('Right'),
         }"
     >   
-        <v-col cols="12" class="pa-0 mo-glow-bg"> 
-            
-
+        <v-col cols="12" class="pa-0"> 
             <v-col v-if="!isDetailPage" cols="12" class="d-flex mo-chat-index-nav py-0 bg-white align-center">
             <transition name="page" mode="out-in">
                 <v-text-field
