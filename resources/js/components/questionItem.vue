@@ -86,7 +86,7 @@
                     </v-container>
                 </v-col>
             </v-row>
-            <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-secondary">
+            <v-row class="ma-0 position-fixed-bottom-0 w-100" style="background: #F2F2F2;">
                 <v-col cols="3" @click="clickUploadImageBtn" class="d-flex justify-center align-center py-1" v-ripple>
                     <v-progress-circular v-if="isImageSelecting" indeterminate color="#676767" :width="3" size="30"></v-progress-circular>
                     <v-icon v-else size="30">mdi-file-image-outline</v-icon>
