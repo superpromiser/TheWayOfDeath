@@ -28,6 +28,7 @@ class GuestController extends Controller
 
         //save base 64 file to public directory
         $image = $request->avatar;  // your base64 encoded
+        
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
         $imageName = time().'.'.'png';
