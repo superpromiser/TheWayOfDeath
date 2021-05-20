@@ -49,7 +49,7 @@ class HomeworkController extends Controller
             'subjectName' => $request->subjectName,
             'homeworkType' => $request->homeworkType,
             'content' => json_encode($request->content),
-            'deadline' => json_encode($request->deadline),
+            'deadline' => $request->deadline,
             'monitorName' => $request->monitorName,
             'parentCheck' => $request->parentCheck,
             'viewList' => json_encode($request->viewList),

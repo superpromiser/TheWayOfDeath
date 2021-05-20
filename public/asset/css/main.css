@@ -1059,6 +1059,10 @@ a {
     width: 90% !important;
 }
 
+.w-80 {
+    width: 80% !important;
+}
+
 .circle-cus-btn {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

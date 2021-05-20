@@ -108,61 +108,56 @@
                     </v-col>
                 </v-row>
             </v-container>
-            <v-container class="pa-10">
-                <v-row class="mt-1 align-center">
-                    <v-col cols="6" md="10">
-                        <p class="">科目</p>
+            <v-container class="px-10">
+                <v-row class="ma-0">
+                    <v-col cols="6" class="d-flex align-center text-left">
+                        <p class="mb-0">科目</p>
                     </v-col>
-                    <v-col cols="6" md="2">
-                        <!-- <v-text-field
-                            v-model="homeworkData.subjectName"
-                            solo
-                            label="科目"
-                            clearable
-                        ></v-text-field> -->
+                    <v-col cols="6" class="d-flex align-center">
                         <v-select
                             :items="subjectList"
                             v-model="homeworkData.subjectName"
                             label="科目"
                             solo
                             :menu-props="{ top: false, offsetY: true }"
+                            class="mt-0 pt-0"
+                            hide-details
                         ></v-select>
                     </v-col>
                 </v-row>
                 <v-divider light></v-divider>
-                <v-row class="mt-1 align-center">
-                    <v-col cols="6" md="10">
-                        <p class="">类型</p>
+                <v-row class="ma-0">
+                    <v-col cols="6" class="d-flex align-center text-left">
+                        <p class="mb-0 w-100">类型</p>
                     </v-col>
-                    <v-col cols="6" md="2">
+                    <v-col cols="6" class="d-flex align-center">
                         <v-select
                             :items="homeworkType"
-                            label=""
+                            label="类型"
                             item-text="label"
                             item-value="value"
                             solo
                             v-model="homeworkData.homeworkType"
                             :menu-props="{ top: false, offsetY: true }"
+                            class="mt-0 pt-0"
+                            hide-details
                         ></v-select>
                     </v-col>
                 </v-row>
                 <v-divider light></v-divider>
-                <v-row class="mt-1 align-center hover-cursor-point" @click="setRule">
-                    <v-col cols="6">
-                        <p class="">发布规则</p>
-                    </v-col>
-                    <v-col cols="6" class="text-right">
-                        <span>即时发布</span>
-                        <v-icon
-                            right  
-                        >
-                            mdi-chevron-right
-                        </v-icon>
-                            
+                <v-row class="ma-0 hover-cursor-point" v-ripple @click="setRule">
+                    <v-col cols="12" class="d-flex align-center justify-space-between py-6">
+                        <p class="mb-0">发布规则</p>
+                        <div class="d-flex align-center">
+                            <span>即时发布</span>
+                            <v-icon right>
+                                mdi-chevron-right
+                            </v-icon>
+                        </div>
                     </v-col>
                 </v-row>
                 <v-divider light></v-divider>
-                <QuestionItem Label="作业内容" :emoji="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                <QuestionItem class="mt-3" Label="作业内容" :emoji="true"  ref="child" @contentData="loadContentData"></QuestionItem>
                 <v-row>
                     <v-col cols="8" md="10"></v-col>
                     <v-col cols="4" class="justify-end" md="2">
@@ -172,6 +167,7 @@
                             item-value="value"
                             v-model="viewType"
                             @change="selViewList"
+                            :menu-props="{ top: false, offsetY: true }"
                         ></v-select>
                     </v-col>
                 </v-row>
@@ -376,7 +372,7 @@ export default {
                 subjectName:this.homeworkData.subjectName,
                 homeworkType:this.homeworkData.homeworkType,
                 content:this.homeworkData.content,
-                deadline:this.homeworkData.deadline,
+                deadline:this.TimeViewSam(this.homeworkData.deadline),
                 monitorName:this.homeworkData.monitorName,
                 parentCheck:this.homeworkData.parentCheck,
                 viewList:this.homeworkData.viewList
