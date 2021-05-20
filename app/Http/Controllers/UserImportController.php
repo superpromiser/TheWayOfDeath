@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\User;
+use App\Contact;
 class UserImportController extends Controller
 {
     //
@@ -32,7 +33,7 @@ class UserImportController extends Controller
             foreach($groups as $group){
                 array_push($groupArr,$group);
             }
-            User::create([
+            $user = User::create([
                 'name'=>$userData['name'],
                 'phoneNumber'=>$userData['phoneNumber'],
                 'password'=>bcrypt('password'),
@@ -54,6 +55,11 @@ class UserImportController extends Controller
                 'subjectName'=>$userData['subjectName'],
                 'groupArr'=>$groupArr
             ]);
+
+            //create contact with chatbot
+            $contactInfo['userId'] = $user->id;
+            $contactInfo['contactUserId'] = 1;
+            $contact = Contact::create($contactInfo);
         }
         return true;
     }

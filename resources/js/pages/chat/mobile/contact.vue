@@ -229,6 +229,7 @@ export default {
             chatGroupListStore: 'chat/chatGroupListStore',
             addressedUsersStore: 'chat/addressedUsersStore',
             totalNewMessageCountStore: 'chat/totalNewMessageCountStore',
+            bot: 'chat/bot'
         }),
 
         filteredContacts(){
@@ -404,6 +405,7 @@ export default {
             .then((res) => {
                 this.users = res.data;
                 this.users = this.users.users.filter((user) => user.id !== this.currentUser.id);
+                this.users = this.users.filter((user) => user.avatar !== '/asset/img/bot/bot1.png');
                 this.users.map( user => {
                     user['isSelected'] = false;
                                         
@@ -427,6 +429,14 @@ export default {
             .then((res) => {
                 this.chatGroupList = res.data.chatGroups;
                 this.contactList = res.data.contactUsers;
+
+                this.contactList.map(contact => {
+                    if(contact.user.avatar == '/asset/img/bot/bot1.png'){
+                        this.$store.dispatch('chat/storeBot',contact)
+                    }
+                })
+                this.contactList = this.contactList.filter((user) => user.user.avatar !== '/asset/img/bot/bot1.png');
+                
                 this.$store.dispatch('chat/storeContactList',this.contactList)
                 this.$store.dispatch('chat/storeGroupList',this.chatGroupList)
                 if(this.chatGroupList.length == 0 && this.contactList.length == 0){

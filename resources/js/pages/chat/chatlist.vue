@@ -56,6 +56,25 @@
                             
                             <v-divider inset ></v-divider>
                         </v-list>
+                        <v-list v-if="bot !== null" class="py-0 position-relative">
+                            <v-list-item @click="updatechatwith(bot)">
+                                <v-avatar class="ma-3" v-if="bot.user.avatar == '/asset/img/bot/bot1.png'" size="50" color="indigo">
+                                    <v-img :src="`${baseUrl}${bot.user.avatar}`" :alt="bot.user.name[0]" class="chat-user-avatar"></v-img>
+                                </v-avatar>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{bot.user.name}}</v-list-item-title>
+                                    <v-list-item-subtitle></v-list-item-subtitle>
+                                </v-list-item-content>
+                                <div v-if="bot.new_msg_count !== 0" class="mr-8">
+                                    <v-badge
+                                        color="red"
+                                        :content="bot.new_msg_count"
+                                        >
+                                    </v-badge>
+                                </div>
+                            </v-list-item>
+                            <v-divider inset ></v-divider>
+                        </v-list>
                         <v-list v-for="user in filteredContacts" :key="user.id" class="py-0 position-relative">
                             <v-list-item @click="updatechatwith(user)">
                                 <v-badge bordered bottom v-if="checkOnline(user.user.id)"
@@ -322,6 +341,8 @@ export default {
         isCreatingNewGroup: false,
         groupNameDialog: false,
         groupName: '',
+
+        bot: null,
     }),
 
     mounted(){
@@ -363,9 +384,13 @@ export default {
             .then((res) => {
                 this.users = res.data;
                 this.users = this.users.users.filter((user) => user.id !== this.currentUser.id);
+                this.users = this.users.filter((user) => user.avatar !== '/asset/img/bot/bot1.png');
                 this.users.map( user => {
                     user['isSelected'] = false;
+                    
                 })
+
+
                 this.$store.dispatch('chat/storeUsers',this.users)
             }).catch((err) => {
                 console.log(err);
@@ -383,6 +408,13 @@ export default {
             .then((res) => {
                 this.chatGroupList = res.data.chatGroups;
                 this.contactList = res.data.contactUsers;
+                this.contactList.map(contact => {
+                    if(contact.user.avatar == '/asset/img/bot/bot1.png'){
+                        this.bot = contact;
+                    }
+                })
+                this.contactList = this.contactList.filter((user) => user.user.avatar !== '/asset/img/bot/bot1.png');
+
                 this.$store.dispatch('chat/storeContactList',this.contactList)
                 this.$store.dispatch('chat/storeGroupList',this.chatGroupList)
                 if(this.chatGroupList.length == 0 && this.contactList.length == 0){

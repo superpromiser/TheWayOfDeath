@@ -47,6 +47,39 @@
                         
                         <v-divider inset ></v-divider>
                     </v-list>
+                    <v-list v-if="bot !== null" class="py-0 position-relative">
+                        <v-list-item 
+                            @click="updatechatwith(bot)" 
+                        >   
+                            <v-avatar  class="mr-3" size="50" color="#7879ff">
+                                <v-img :src="`${baseUrl}${bot.user.avatar}`" :alt="bot.user.name[0]" class="chat-user-avatar"></v-img>
+                            </v-avatar>
+                            <v-list-item-content>
+                                <v-list-item-title class="d-flex justify-space-between">
+                                    <p class="mb-0"> {{bot.user.name}} </p>
+                                    <p class="mb-0 font-size-0-8" v-if="bot.last_time !== null"> 
+                                        <timeago :datetime="convertTime(bot.last_time)" :auto-update="60"></timeago>
+                                        <!-- <timeago :datetime="convertTime(user.last_time)" locale="zhCN" :auto-update="60"></timeago>  -->
+                                    </p>
+                                    <p class="mb-0" v-else></p>
+                                </v-list-item-title>
+                                <v-list-item-subtitle class="d-flex justify-space-between line-height-1-7">
+                                    <p class="mb-0" v-if="bot.last_message !== null&& bot.last_message == 'sammie-image'" ><span class="d-flex align-center"><v-icon left>mdi-file-image-outline</v-icon>图片</span></p>
+                                    <p class="mb-0" v-else-if="bot.last_message !== null&& bot.last_message == 'sammie-video'"><span class="d-flex align-center"><v-icon left>mdi-file-video-outline</v-icon>视频</span></p>
+                                    <p class="mb-0" v-else-if="bot.last_message !== null&& bot.last_message == 'sammie-file'"><span  class="d-flex align-center"><v-icon left>mdi-file-upload-outline</v-icon>文档</span></p>   
+                                    <p class="mb-0 w-50 over-flow-text" v-else>{{bot.last_message}}</p>
+                                    <div v-if="bot.new_msg_count !== 0" class="mr-8">
+                                        <v-badge
+                                            color="red"
+                                            :content="bot.new_msg_count"
+                                            >
+                                        </v-badge>
+                                    </div>
+                                </v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-divider inset></v-divider>
+                    </v-list>
                     <v-list v-for="(user, index) in filteredContacts" :key="index" class="py-0 position-relative">
                         <v-list-item 
                             @click="updatechatwith(user)" 
@@ -172,7 +205,6 @@ export default {
 
     async created(){
         this.$timeago.locale = 'zhCN'
-        // this.$timeago.locale = 'zhCN';
         this.listen();
         if(this.usersStore !== null){
             this.users = this.usersStore;
@@ -183,6 +215,7 @@ export default {
             .then((res) => {
                 this.users = res.data;
                 this.users = this.users.users.filter((user) => user.id !== this.currentUser.id);
+                this.users = this.users.filter((user) => user.avatar !== '/asset/img/bot/bot1.png');
                 this.users.map( user => {
                     user['isSelected'] = false;
                 })
@@ -205,6 +238,14 @@ export default {
             .then((res) => {
                 this.chatGroupList = res.data.chatGroups;
                 this.contactList = res.data.contactUsers;
+
+                this.contactList.map(contact => {
+                    if(contact.user.avatar == '/asset/img/bot/bot1.png'){
+                        this.$store.dispatch('chat/storeBot',contact)
+                    }
+                })
+                this.contactList = this.contactList.filter((user) => user.user.avatar !== '/asset/img/bot/bot1.png');
+
                 this.$store.dispatch('chat/storeContactList',this.contactList)
                 this.$store.dispatch('chat/storeGroupList',this.chatGroupList)
                 if(this.chatGroupList.length == 0 && this.contactList.length == 0){
@@ -246,6 +287,7 @@ export default {
             contactListStore: 'chat/contactListStore',
             chatGroupListStore: 'chat/chatGroupListStore',
             totalNewMessageCountStore: 'chat/totalNewMessageCountStore',
+            bot: 'chat/bot'
         }),
 
         filteredContacts(){
