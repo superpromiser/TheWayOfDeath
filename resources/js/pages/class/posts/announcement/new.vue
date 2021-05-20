@@ -329,6 +329,7 @@
                             item-value="value"
                             v-model="announcementData.publishType"
                             @change="selViewList"
+                            :menu-props="{ top: false, offsetY: true }"
                         ></v-select>
                     </v-col>
                 </v-row>

@@ -98,6 +98,8 @@
                     solo
                     v-model="homeworkData.monitorName"
                     hide-details
+                    :loading="isLoading"
+                    :menu-props="{ top: false, offsetY: true }"
                 ></v-select>
             </v-col>
         </v-row>
@@ -134,20 +136,23 @@ export default {
         testTime:'',
         menu:false,
         date: new Date().toISOString().substr(0, 10),
-        userList:[]
+        userList:[],
+        isLoading: false,
     }),
     computed:{
         currentPath(){
             return this.$route
         }
     },
-    created(){
-        getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
+    async created(){
+        this.isLoading = true;
+        await getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
             console.log(res.data)
             this.userList = res.data
         }).catch(err=>{
             console.log(err.response)
         })
+        this.isLoading = false;
     },
     methods:{
         templateList(){
