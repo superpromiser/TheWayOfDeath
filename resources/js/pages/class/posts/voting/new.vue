@@ -361,6 +361,8 @@ export default {
             for(let index = 1;  index <= this.initialCnt; index++){
                 this.$refs[index][0].emitData()
             }
+            console.log(this.votingData)
+            return
             let dateNow = new Date();
             if(this.votingData.votingType.trim() == ''){
                 return this.$snackbar.showMessage({content: this.lang.requireVotingType, color: "error"})
