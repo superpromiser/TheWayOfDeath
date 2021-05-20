@@ -630,6 +630,7 @@ class UserController extends Controller
             'cardNum' => $request->cardNum,
             'avatar' => $request->avatar,
             'schoolId' => $schoolId,
+            'password' => bcrypt('password'),
             'roleId' => 6
         ]);
         return true;

@@ -204,7 +204,7 @@
           </template>
           <template v-slot:[`item.status`]="{ item }">
             <v-chip small v-if="item.status == 'deny'" class="ma-2" color="pink" label text-color="white" >
-              <v-icon left> mdi-cancel </v-icon> 否定
+              <v-icon left> mdi-cancel </v-icon> 拒绝
             </v-chip>
             <v-chip small v-else-if="item.status == 'allow'" class="ma-2" color="success"  label text-color="white" >
               <v-icon left> mdi-hand   </v-icon> 允许

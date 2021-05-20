@@ -7,7 +7,7 @@
                 </v-icon>
                 <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >新建归程队</p>
                 <v-btn  @click="submit" :loading="isCreating" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
-                    新建归程队
+                    保存
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
@@ -166,7 +166,7 @@
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn dark color="#7879ff" @click="submit" :loading="isCreating">
-                        新建归程队
+                        保存
                     </v-btn>
                 </v-col>
             </v-row>
@@ -445,7 +445,9 @@ export default {
                 this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
                 this.$store.dispatch('member/storeSelectedGroup', null);
                 this.$store.dispatch('member/storeSelectedTeacher', null);
-
+                this.$store.dispatch('member/storeClassGroupList',null)
+                console.log('-------------',this.selectedGroup)
+                console.log('++++++++++++++',this.selectedTeacherData)
                 //make modified return team data to useful...
                 this.$set(this.returnTeamData, "leader_id", this.returnTeamData.leader);
                 this.$set(this.returnTeamData, "teacher_id", this.returnTeamData.teacher);

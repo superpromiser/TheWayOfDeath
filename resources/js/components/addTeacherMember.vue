@@ -144,7 +144,7 @@ export default {
     props:{
         title:{
             type: String,
-            default: '老师选拔',
+            default: '老师名单',
             required: false
         },
 

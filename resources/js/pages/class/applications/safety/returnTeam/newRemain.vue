@@ -5,9 +5,9 @@
                 <v-icon @click="navToBack" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
-                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >新建归程队</p>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >发布留堂</p>
                 <v-btn  @click="submit" :loading="isCreating" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
-                    新建归程队
+                    发布
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
@@ -15,7 +15,7 @@
                 
                 <v-row class="ma-0  hover-cursor-point" v-ripple @click="navToAddMember">
                     <v-col cols="12" class="d-flex justify-space-between align-center">
-                        <p class="mb-0 font-size-0-8"  >归程队成员</p>
+                        <p class="mb-0 font-size-0-8"  >留堂成员</p>
                         <div class="d-flex align-center">
                             <p v-if="remainTeamData.member.length !== 0" class="mb-0 secondary-text">{{remainTeamData.member.length}} 个已选择</p>
                             <v-icon class="ml-2" color="#999999" size="25">
@@ -29,7 +29,7 @@
                 <v-row class="ma-0 ">
                     <v-col cols="12" v-if="remainTeamData.member.length == 0" class="d-flex align-center justify-start">
                         <v-chip class="ma-2" color="#7879ff" outlined pill >
-                            没有人选择
+                            暂无
                             <v-icon right>
                             mdi-cancel 
                             </v-icon>
@@ -63,11 +63,11 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>新建归程队</h2>
+                    <h2>发布留堂</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn dark color="#7879ff" @click="submit" :loading="isCreating">
-                        新建归程队
+                        发布
                     </v-btn>
                 </v-col>
             </v-row>
@@ -75,7 +75,7 @@
         <v-container class="pa-0">
             <v-row class="ma-0 py-2 hover-cursor-point" v-ripple @click="navToAddMember">
                 <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
-                    <p class="mb-0"  >归程队成员</p>
+                    <p class="mb-0"  >留堂成员</p>
                     <div class="d-flex align-center">
                         <p v-if="remainTeamData.member.length !== 0" class="mb-0 secondary-text">{{remainTeamData.member.length}} 个已选择</p>
                         <v-icon class="ml-4" color="#999999" size="40">
@@ -87,8 +87,8 @@
             <v-divider light class="thick-border"></v-divider>
             <v-row class="ma-0 py-2 pl-8 pr-8">
                 <v-col cols="12" v-if="remainTeamData.member.length == 0" class="d-flex align-center justify-start">
-                    <v-chip class="ma-2" color="#7879ff" outlined pill >
-                        没有人选择
+                    <v-chip class="ma-2 text-center" color="#7879ff" outlined pill >
+                        暂无
                         <v-icon right>
                         mdi-cancel 
                         </v-icon>
@@ -166,8 +166,8 @@ export default {
                         this.$router.push({name: 'home'})
                     }
                     else{
-                        this.$router.push({name: 'classSpace.application'});
-                        
+                        // this.$router.push({name: 'classSpace.application'});
+                        this.$router.push({name:'classSpace.applications.returnTeam'})
                     }
                 }
                 else if(res.data.msg == 'alreadyExist'){
