@@ -124,6 +124,8 @@
                             :items="subjectList"
                             v-model="homeworkData.subjectName"
                             label="科目"
+                            solo
+                            :menu-props="{ top: false, offsetY: true }"
                         ></v-select>
                     </v-col>
                 </v-row>
@@ -140,6 +142,7 @@
                             item-value="value"
                             solo
                             v-model="homeworkData.homeworkType"
+                            :menu-props="{ top: false, offsetY: true }"
                         ></v-select>
                     </v-col>
                 </v-row>
@@ -329,9 +332,9 @@ export default {
             if(this.homeworkData.homeworkType == ''){
                 return this.$snackbar.showMessage({content: this.lang.homework+this.lang.requireSubjectType, color: "error"})             
             }
-            if(this.homeworkData.deadline == '' || this.homeworkData.monitorName == ''){
-                return this.$snackbar.showMessage({content: '您没有设定发布规则', color: "error"})             
-            }
+            // if(this.homeworkData.deadline == '' || this.homeworkData.monitorName == ''){
+            //     return this.$snackbar.showMessage({content: '您没有设定发布规则', color: "error"})             
+            // }
 
             if(this.homeworkData.content.text.trim() == ''){
                 return this.$snackbar.showMessage({content: this.lang.homework+this.lang.requireContent, color: "error"})
