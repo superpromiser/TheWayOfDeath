@@ -92,7 +92,7 @@
                 <QuestionItem Label='答卷' ref="child" @contentData="loadContentData"></QuestionItem>
             </div>
             <div v-else class="mt-5">
-                <div class="category px-0">答卷内容</div>
+                <div class="category px-10">答卷内容</div>
                 <v-row class="px-10">
                     <v-col cols="12">
                         <p class="mb-0 d-flex align-center"> 
@@ -103,8 +103,8 @@
                         <AttachItemViewer :items="answerData" />
                     </v-col>
                 </v-row>
-                <div class="category mt-15 px-0">批改详情</div>
-                <v-row v-if="homeworkResult.teacherAnswer != ''" class="px-10">
+                <div class="category mt-15 px-10">批改详情</div>
+                <v-row v-if="homeworkResult.teacherAnswer != null" class="px-10">
                         <v-col cols="12" class="pb-0">
                         <p class="text-wrap mb-0"><read-more more-str="全文" :text="homeworkResult.teacherAnswer.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
                     </v-col>
@@ -112,7 +112,7 @@
                         <AttachItemViewer :items="homeworkResult.teacherAnswer" />
                     </v-col>
                 </v-row>
-                <div class="category mt-15 px-0">成绩评价</div>
+                <div class="category mt-15 px-10">成绩评价</div>
                 <v-col class="d-flex justify-space-between align-center px-10" cols="12" v-if="homeworkResult.rating != null">
                     <p class="">
                         {{user.name}} 成绩评价
@@ -176,14 +176,15 @@ export default {
             lessonId:this.currentPath.params.lessonId,
             homeworkId:this.contentData.homework.id
         }).then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             if(res.data != ''){
                 this.alreadyAnswer = true
                 this.answerData = JSON.parse(res.data.content)
-                if(res.data.teacherAnswer != ''){
+                if(res.data.teacherAnswer != null){
                     res.data.teacherAnswer = JSON.parse(res.data.teacherAnswer)
                 }
                 this.homeworkResult = res.data
+                console.log(this.homeworkResult)
             }
             this.isLoading = false
         }).catch(err=>{

@@ -31,19 +31,19 @@
         </div>
         <div class="d-flex align-center">
           <p class="text-wrap mb-0">
-            <strong>结束时间:</strong>
+            <strong>请假原因:</strong>
             {{vacationData.reason}}
           </p>
         </div>
         <div class="d-flex align-center">
           <p class="text-wrap mb-0">
-            <strong>结束时间:</strong>
+            <strong>审批人:</strong>
             {{vacationData.teacherName}}
           </p>
         </div>
         <div class="d-flex align-center font-size-0-8">
           <p class="text-wrap mb-0">
-            <strong>结束时间:</strong>
+            <strong>审批状态:</strong>
             <v-chip small v-if="vacationData.status == 'deny'" class="ma-2" color="pink" label text-color="white" >
               <v-icon left> mdi-cancel </v-icon> 否定
             </v-chip>
@@ -142,19 +142,19 @@
       </div>
       <div class="d-flex align-center">
         <p class="text-wrap mb-0">
-          <strong>结束时间:</strong>
+          <strong>请假原因:</strong>
           {{vacationData.reason}}
         </p>
       </div>
       <div class="d-flex align-center">
         <p class="text-wrap mb-0">
-          <strong>结束时间:</strong>
+          <strong>审批人:</strong>
           {{vacationData.teacherName}}
         </p>
       </div>
       <div class="d-flex align-center">
         <p class="text-wrap mb-0">
-          <strong>结束时间:</strong>
+          <strong>审批状态:</strong>
           <v-chip v-if="vacationData.status == 'deny'" class="ma-2" color="pink" label text-color="white" >
             <v-icon left> mdi-cancel </v-icon> 否定
           </v-chip>

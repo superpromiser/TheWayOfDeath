@@ -274,6 +274,7 @@ export default {
                 }
                 this.isSubmit = true
                 await createShare(this.shareData).then(res=>{
+                    this.$store.dispatch('member/storeSpecUsers', []);
                     this.$router.push({name:'classSpace.news'})
                 }).catch(err=>{
                 })
