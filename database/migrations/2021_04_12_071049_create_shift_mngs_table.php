@@ -24,7 +24,7 @@ class CreateShiftMngsTable extends Migration
             $table->tinyInteger('schoolId');
             $table->tinyInteger('lessonId')->nullable();
             $table->char('scheduleDate');
-            $table->string('itemList');
+            $table->string('itemList')->nullable();
             $table->unsignedBigInteger('postId');
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();

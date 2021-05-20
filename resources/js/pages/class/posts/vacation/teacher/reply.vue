@@ -435,9 +435,9 @@ export default {
         },
 
         async denyVacation(){
-            if(this.reason == ''){
-                return this.$snackbar.showMessage({content: "必须至少选择一个", color: "error"})
-            }
+            // if(this.reason == ''){
+            //     return this.$snackbar.showMessage({content: "必须至少选择一个", color: "error"})
+            // }
             this.isSaving = true
             await updateVacationData({status:'deny',vId:this.currentPath.params.vId,denyReason:this.reason}).then(res=>{
                 console.log(res.data)

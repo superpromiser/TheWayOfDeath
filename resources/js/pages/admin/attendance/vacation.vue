@@ -94,13 +94,13 @@
                     </v-icon>
                     <v-icon
                         v-if="item.status == 'allow'"
-                        @click="denyItem(item)"
+                        @click="replyItem(item)"
                     >
                         mdi-cancel
                     </v-icon>
                     <v-icon
                         v-if="item.status == 'deny'"
-                        @click="allowItem(item)"
+                        @click="replyItem(item)"
                     >
                         mdi-hand
                     </v-icon>
@@ -231,7 +231,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-icon
                             small
-                            @click="denyItem(item)"
+                            @click="replyItem(item)"
                             v-bind="attrs"
                             v-on="on"
                         >
@@ -244,7 +244,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-icon
                             small
-                            @click="allowItem(item)"
+                            @click="replyItem(item)"
                             v-bind="attrs"
                             v-on="on"
                         >

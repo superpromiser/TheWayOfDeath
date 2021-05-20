@@ -30,18 +30,18 @@ class PostController extends Controller
                 'votings',
                 'anouncements',
                 'shares' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}")
-                        ->orWhere('viewList', null);;
+                    $query->where('viewList', null)
+                        ->orWhere("viewList", "like", "%{$userId}%");
                 },
                 'shiftMng',
                 'safestudy' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}")
-                        ->orWhere('viewList', null);;
+                    $query->where('viewList', null)
+                        ->orWhere("viewList", "like", "%{$userId}%");
                 },
                 'repairdata',
                 'schoolstory' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}")
-                        ->orWhere('viewList', null);;
+                    $query->where("viewList", "like", "%{$userId}%")
+                        ->orWhere('viewList', null);
                 },
                 'regnames',
                 'users:id,name,avatar'
@@ -68,8 +68,8 @@ class PostController extends Controller
                 'questionnaires',
                 'votings',
                 'anouncements' => function ($query) use ($userId) {
-                    $query->where("showList", "like", "%{$userId}")
-                        ->orWhere('showList', null);;
+                    $query->where("showList", "like", "%{$userId}%")
+                        ->orWhere('showList', null);
                 },
                 'homeVisit',
                 'notifications',
@@ -79,17 +79,17 @@ class PostController extends Controller
                 'homeworkResult.homework',
                 'safestudy',
                 'shares' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}")
+                    $query->where("viewList", "like", "%{$userId}%")
                         ->orWhere('viewList', null);
                 },
                 'regnames',
                 'classstory' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}")
-                        ->orWhere('viewList', null);;
+                    $query->where("viewList", "like", "%{$userId}%")
+                        ->orWhere('viewList', null);
                 },
                 'interclassstory' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}")
-                        ->orWhere('viewList', null);;
+                    $query->where("viewList", "like", "%{$userId}%")
+                        ->orWhere('viewList', null);
                 },
                 'vacations',
                 'returnteam',
