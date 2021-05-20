@@ -31,7 +31,7 @@
 
         <v-container>
             <v-row class="my-10 d-flex align-center">
-                <v-btn color="primary" text @click="addContent" class="mr-5" >
+                <v-btn color="#7879ff" text @click="addContent" class="mr-5" >
                     <v-icon>
                         mdi-plus
                     </v-icon>

@@ -14,7 +14,7 @@
             <template v-slot:actions>
             <v-btn
                 text
-                color="primary"
+                color="#7879ff"
             >
                 可用模板 0， 草稿 0
             </v-btn>
@@ -79,14 +79,14 @@
                         <v-spacer></v-spacer>
                         <v-btn
                             text
-                            color="primary"
+                            color="#7879ff"
                             @click="menu = false"
                         >
                             {{lang.cancel}}
                         </v-btn>
                         <v-btn
                             text
-                            color="primary"
+                            color="#7879ff"
                             @click="$refs.menu.save(date)"
                         >
                             {{lang.ok}}
@@ -114,7 +114,7 @@
                     <span>匿名问卷</span>
                     <v-switch
                         v-model="newQuestionnaireData.questionnaireFlag"
-                        color="primary"
+                        color="#7879ff"
                         value="primary"
                         hide-details
                         inset
@@ -125,7 +125,7 @@
                     <span>答卷人可见结果</span>
                     <v-switch
                         v-model="newQuestionnaireData.resultFlag"
-                        color="primary"
+                        color="#7879ff"
                         value="primary"
                         hide-details
                         inset
@@ -136,7 +136,7 @@
                     <span>外部人员可作答</span>
                     <v-switch
                         v-model="newQuestionnaireData.answerFlag"
-                        color="primary"
+                        color="#7879ff"
                         value="primary"
                         hide-details
                         inset

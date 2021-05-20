@@ -127,7 +127,7 @@
                             ></v-progress-circular>
                         </v-list-item-title>
                         <v-list-item-title v-else-if="noData" class="pa-5 d-flex align-center justify-center">
-                            <v-chip class="ma-2" color="primary" outlined pill >
+                            <v-chip class="ma-2" color="#7879ff" outlined pill >
                                 暂无
                                 <v-icon right> mdi-cancel  </v-icon>
                             </v-chip>

@@ -16,7 +16,7 @@
         <v-row v-if="isLoading" class="justify-center">
             <v-progress-circular
                 indeterminate
-                color="primary"
+                color="#7879ff"
             ></v-progress-circular>
         </v-row>
         <v-row v-else-if="imgUrlList.length == 0" class="justify-center">
@@ -48,7 +48,7 @@
         <v-row v-if="isLoading" class="justify-center">
             <v-progress-circular
                 indeterminate
-                color="primary"
+                color="#7879ff"
             ></v-progress-circular>
         </v-row>
         <v-row v-else-if="imgUrlList.length == 0" class="justify-center">

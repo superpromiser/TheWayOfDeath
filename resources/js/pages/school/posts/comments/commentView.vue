@@ -14,7 +14,7 @@
     </div>
     <v-row class="ma-0 mt-3">
       <v-col cols="12" class="d-flex">        
-        <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="48">
+        <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="48">
           <span class="white--text headline">{{user.name[0]}}</span>
         </v-avatar>
         <v-avatar v-else
@@ -80,7 +80,7 @@
     </div>
     <v-row class="mt-3">
       <v-col cols="12" class="d-flex">        
-        <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="48">
+        <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="48">
           <span class="white--text headline">{{user.name[0]}}</span>
         </v-avatar>
         <v-avatar v-else

@@ -90,7 +90,7 @@
                 <v-divider light class="thick-border"></v-divider>
                 <v-row class="ma-0 ">
                     <v-col cols="12" v-if="returnTeamData.member.length == 0" class="d-flex align-center justify-start">
-                        <v-chip class="ma-2" color="primary" outlined pill >
+                        <v-chip class="ma-2" color="#7879ff" outlined pill >
                             没有人选择
                             <v-icon right>
                             mdi-cancel 
@@ -269,7 +269,7 @@
             <v-divider light class="thick-border"></v-divider>
             <v-row class="ma-0 py-2 pl-8 pr-8">
                 <v-col cols="12" v-if="returnTeamData.member.length == 0" class="d-flex align-center justify-start">
-                    <v-chip class="ma-2" color="primary" outlined pill >
+                    <v-chip class="ma-2" color="#7879ff" outlined pill >
                         没有人选择
                         <v-icon right>
                         mdi-cancel 

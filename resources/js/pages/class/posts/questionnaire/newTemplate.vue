@@ -99,7 +99,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)" >
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)" >
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)" >
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
@@ -143,7 +143,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)">
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)" >
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)" >
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
@@ -187,7 +187,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)">
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)">
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
@@ -218,7 +218,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)" >
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)">
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
@@ -249,7 +249,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)">
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)">
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
@@ -391,7 +391,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)" >
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)" >
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)" >
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
@@ -435,7 +435,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)">
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)" >
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)" >
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
@@ -479,7 +479,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)">
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)">
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
@@ -510,7 +510,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)" >
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)">
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>
@@ -541,7 +541,7 @@
                       <v-btn icon color="green" class="mr-2" @click="pushDown(index)" :disabled="index == (newQuestionnaireTemplateData.content.length-1)">
                         <v-icon>mdi-arrow-down-bold</v-icon>
                       </v-btn>
-                      <v-btn fab dark x-small color="primary" class="mx-2" @click="editContent(data, index)">
+                      <v-btn fab dark x-small color="#7879ff" class="mx-2" @click="editContent(data, index)">
                         <v-icon dark>
                           mdi-pencil
                         </v-icon>

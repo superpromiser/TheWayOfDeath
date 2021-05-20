@@ -65,14 +65,14 @@
                                     <v-spacer></v-spacer>
                                     <v-btn
                                         text
-                                        color="primary"
+                                        color="#7879ff"
                                         @click="subjectDateMenu = false"
                                     >
                                         {{lang.cancel}}
                                     </v-btn>
                                     <v-btn
                                         text
-                                        color="primary"
+                                        color="#7879ff"
                                         @click="$refs.subjectDateMenu.save(sessionDate)"
                                     >
                                         {{lang.ok}}
@@ -325,14 +325,14 @@
                                         <v-spacer></v-spacer>
                                         <v-btn
                                             text
-                                            color="primary"
+                                            color="#7879ff"
                                             @click="subjectDateMenu = false"
                                         >
                                             {{lang.cancel}}
                                         </v-btn>
                                         <v-btn
                                             text
-                                            color="primary"
+                                            color="#7879ff"
                                             @click="$refs.subjectDateMenu.save(editedItem.subjectStartDate)"
                                         >
                                             {{lang.ok}}

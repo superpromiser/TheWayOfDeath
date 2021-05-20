@@ -295,7 +295,7 @@
         <!--- my image file --->
         <v-row>
             <v-col cols="12">
-                <v-chip class="ma-2 px-5" color="primary" outlined >
+                <v-chip class="ma-2 px-5" color="#7879ff" outlined >
                     我的图片文件
                     <v-icon right> mdi-file-image  </v-icon>
                 </v-chip>
@@ -303,7 +303,7 @@
             <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
                 <v-progress-circular
                     indeterminate
-                    color="primary"
+                    color="#7879ff"
                 ></v-progress-circular>
             </v-col>
             <v-col v-else-if="noImageFile" cols="12" class="d-flex justify-center align-center">
@@ -321,7 +321,7 @@
         <!--- my video file --->
         <v-row>
             <v-col cols="12">
-                <v-chip class="ma-2 px-5" color="primary" outlined >
+                <v-chip class="ma-2 px-5" color="#7879ff" outlined >
                     我的视频文件数据
                     <v-icon right> mdi-file-video  </v-icon>
                 </v-chip>
@@ -329,7 +329,7 @@
             <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
                 <v-progress-circular
                     indeterminate
-                    color="primary"
+                    color="#7879ff"
                 ></v-progress-circular>
             </v-col>
             <v-col v-else-if="noVideoFile" cols="12" class="d-flex justify-center align-center">
@@ -371,7 +371,7 @@
                     <v-spacer></v-spacer>
                     <v-btn
                         text
-                        color="primary"
+                        color="#7879ff"
                         @click="videoViewDialog = false"
                     >
                         {{lang.ok}}
@@ -383,7 +383,7 @@
         <!--- my other file --->
         <v-row class="ma-0 mb-16">
             <v-col cols="12">
-                <v-chip class="ma-2 px-5" color="primary" outlined >
+                <v-chip class="ma-2 px-5" color="#7879ff" outlined >
                     我的文件
                     <v-icon right> mdi-file  </v-icon>
                 </v-chip>
@@ -391,7 +391,7 @@
             <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
                 <v-progress-circular
                     indeterminate
-                    color="primary"
+                    color="#7879ff"
                 ></v-progress-circular>
             </v-col>
             <v-col v-else-if="noOtherFile" cols="12" class="d-flex justify-center align-center">

@@ -79,10 +79,10 @@
           <template v-slot:[`item.other`]="{ item }">
             <div v-if="item.other == null"> - </div>
             <div v-else> 
-                <v-btn v-if="item.other.type == 1" color="primary" text>
+                <v-btn v-if="item.other.type == 1" color="#7879ff" text>
                     病假
                 </v-btn>    
-                <v-btn v-else-if="item.other.type == 2" color="primary" text>
+                <v-btn v-else-if="item.other.type == 2" color="#7879ff" text>
                     事假
                 </v-btn>    
             </div>

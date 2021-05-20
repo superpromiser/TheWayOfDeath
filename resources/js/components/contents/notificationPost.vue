@@ -30,16 +30,16 @@
             <div>
               <p class="font-weight-black fs-15 mb-3"> {{lang.notification}}  </p>
               <div class="d-flex align-center">
-                <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                <v-icon medium color="#7879ff" class="mr-2">mdi-clock-outline </v-icon>
                 <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
-                <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                <v-icon medium color="#7879ff" class="mr-2">mdi-account </v-icon>
                 <p class="mb-0">{{content.users.name}}</p>
               </div>
             </div>
             <div class="ml-auto" v-if="user.roleId < 3 || content.users.id == user.id">
               <v-menu offset-y >
                 <template v-slot:activator="{ attrs, on }">
-                  <v-btn icon color="primary" v-bind="attrs" v-on="on" >
+                  <v-btn icon color="#7879ff" v-bind="attrs" v-on="on" >
                     <v-icon size="30">mdi-chevron-down </v-icon>
                   </v-btn>
                 </template>

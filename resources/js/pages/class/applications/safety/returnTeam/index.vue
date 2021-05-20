@@ -14,11 +14,11 @@
             <v-row v-if="isLoading" class="pa-5 d-flex align-center justify-center">
                 <v-progress-circular
                     indeterminate
-                    color="primary"
+                    color="#7879ff"
                 ></v-progress-circular>
             </v-row>
             <v-row v-else-if="noData" class="pa-5 d-flex justify-center align-center">
-                <v-chip color="primary" outlined pill >
+                <v-chip color="#7879ff" outlined pill >
                     暂无
                     <v-icon right>
                     mdi-cancel 
@@ -107,11 +107,11 @@
         <v-container v-if="isLoading" class="d-flex align-center justify-center">
             <v-progress-circular
                 indeterminate
-                color="primary"
+                color="#7879ff"
             ></v-progress-circular>
         </v-container>
         <v-container v-else-if="noData" class="d-flex justify-center align-center">
-            <v-chip class="ma-2" color="primary" outlined pill >
+            <v-chip class="ma-2" color="#7879ff" outlined pill >
                 暂无
                 <v-icon right>
                 mdi-cancel 

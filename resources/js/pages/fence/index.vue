@@ -15,7 +15,7 @@
         <v-col cols="12" md="4" class="d-flex align-center justify-end">
           <!-- <v-btn
             text
-            color="primary"
+            color="#7879ff"
             @click="selContent('template')"
           >
               可用模板 {{tempCnt}}， 草稿 {{draftCnt}}

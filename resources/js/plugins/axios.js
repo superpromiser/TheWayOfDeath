@@ -3,7 +3,7 @@ import store from '~/store'
 import router from '~/router'
 import Swal from 'sweetalert2'
 import i18n from '~/plugins/i18n'
-
+import snackbar from './snackbar'
 // Request interceptor
 axios.interceptors.request.use(request => {
   const token = store.getters['auth/token']
@@ -52,30 +52,33 @@ axios.interceptors.response.use(response => response, error => {
   }
   else{
     if (status >= 500) {
-      Swal.fire({
-        type: 'error',
-        title: "哎呀",
-        text: "出了些问题",
-        reverseButtons: true,
-        confirmButtonText: "确认",
-        cancelButtonText: "取消"
-      })
-      
+      // Swal.fire({
+      //   type: 'error',
+      //   title: "哎呀",
+      //   text: "出了些问题",
+      //   reverseButtons: true,
+      //   confirmButtonText: "确认",
+      //   cancelButtonText: "取消"
+      // })
+      // snackbar.showMessage({content: '出了些问题', color: 'error'});
+      // snackbar.show({text: '出了些问题', textColor:'#ffffff', pos:'top-center', backgroundColor:'red'});
     }
   
     if (status === 401 && store.getters['auth/check']) {
-      Swal.fire({
-        type: 'warning',
-        title: "会话已过期！",
-        text: "请再次登录以继续",
-        reverseButtons: true,
-        confirmButtonText: "确认",
-        cancelButtonText: "取消"
-      }).then(() => {
-        store.commit('auth/LOGOUT')
+      // Swal.fire({
+      //   type: 'warning',
+      //   title: "会话已过期！",
+      //   text: "请再次登录以继续",
+      //   reverseButtons: true,
+      //   confirmButtonText: "确认",
+      //   cancelButtonText: "取消"
+      // }).then(() => {
+      //   store.commit('auth/LOGOUT')
   
-        router.push({ name: 'login' })
-      })
+      //   router.push({ name: 'login' })
+      // })
+      // Snackbar.show({text: '出了些问题', textColor:'#ffffff', pos:'top-center', backgroundColor:'red'});
+      router.push({ name: 'login' })
     }
   
     return Promise.reject(error)

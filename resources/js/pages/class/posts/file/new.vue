@@ -21,7 +21,7 @@
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"
-                    color="primary"
+                    color="#7879ff"
                     outlined
                 >
                     影片档案
@@ -33,7 +33,7 @@
             <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
                 <v-progress-circular
                     indeterminate
-                    color="primary"
+                    color="#7879ff"
                 ></v-progress-circular>
             </v-col>
             <v-col v-else-if="noVideo" cols="12" class="d-flex justify-center align-center">
@@ -102,7 +102,7 @@
                 <v-spacer></v-spacer>
                 <v-btn
                     text
-                    color="primary"
+                    color="#7879ff"
                     @click="videoViewDialog = false"
                 >
                     {{lang.ok}}
@@ -115,7 +115,7 @@
             <v-col cols="12">
                 <v-chip
                     class="ma-2 px-5"
-                    color="primary"
+                    color="#7879ff"
                     outlined
                 >
                     文件
@@ -127,7 +127,7 @@
             <v-col v-if="isLoading" cols="12" class="d-flex justify-center align-center">
                 <v-progress-circular
                     indeterminate
-                    color="primary"
+                    color="#7879ff"
                 ></v-progress-circular>
             </v-col>
             <v-col v-else-if="noFile" cols="12" class="d-flex justify-center align-center">

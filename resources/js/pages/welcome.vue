@@ -85,7 +85,7 @@
                   <v-spacer></v-spacer>
                   <v-btn
                     text
-                    color="primary"
+                    color="#7879ff"
                     @click="terms = false"
                   >
                     Ok
@@ -112,7 +112,7 @@
                   <v-spacer></v-spacer>
                   <v-btn
                     text
-                    color="primary"
+                    color="#7879ff"
                     @click="conditions = false"
                   >
                     Ok
@@ -247,7 +247,7 @@
                             <v-spacer></v-spacer>
                             <v-btn
                               text
-                              color="primary"
+                              color="#7879ff"
                               @click="terms = false"
                             >
                               Ok
@@ -274,7 +274,7 @@
                             <v-spacer></v-spacer>
                             <v-btn
                               text
-                              color="primary"
+                              color="#7879ff"
                               @click="conditions = false"
                             >
                               Ok

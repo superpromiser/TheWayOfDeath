@@ -10,7 +10,7 @@
             <div v-if="isGettingContactList" class="justify-center align-center d-flex pt-3 m-0" >
                 <v-progress-circular
                 indeterminate
-                color="primary"
+                color="#7879ff"
                 ></v-progress-circular>
             </div>
             <div v-else-if="isNoContactList" class="pa-3 text-center ">

@@ -29,7 +29,7 @@
                     <p>{{item}}:{{user[item]}}</p>
                 </v-col>
                 <v-col cols="12" class="text-right">
-                    <v-btn @click="submit" color="primary" tile :loading="isAnswering" :disabled="isAlreadyAnswer">
+                    <v-btn @click="submit" color="#7879ff" tile :loading="isAnswering" :disabled="isAlreadyAnswer">
                         {{lang.submit}}
                     </v-btn>
                 </v-col>
@@ -46,12 +46,12 @@
         <div v-if="isLoadingContents == true" class="d-flex justify-center align-center py-16">
             <v-progress-circular
                 indeterminate
-                color="primary"
+                color="#7879ff"
             ></v-progress-circular>
         </div>
         <div v-else>
             <v-col cols="12" class="d-flex align-center hover-cursor-point">
-                <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="primary" size="60" class="ma-5">
+                <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="#7879ff" size="60" class="ma-5">
                     <span class="white--text headline">{{contentData.users.name[0]}}</span>
                 </v-avatar>
                 <v-avatar v-else
@@ -63,16 +63,16 @@
                 <div>
                     <p class="font-weight-black fs-15 mb-3"> {{lang.regname}}  </p>
                     <div class="d-flex align-center">
-                    <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                    <v-icon medium color="#7879ff" class="mr-2">mdi-clock-outline </v-icon>
                     <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
-                    <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                    <v-icon medium color="#7879ff" class="mr-2">mdi-account </v-icon>
                     <p class="mb-0">{{contentData.users.name}}</p>
                     </div>
                 </div>
                 <div class="ml-auto mr-5">
                     <v-menu offset-y >
                     <template v-slot:activator="{ attrs, on }">
-                        <v-btn icon color="primary" v-bind="attrs" v-on="on" >
+                        <v-btn icon color="#7879ff" v-bind="attrs" v-on="on" >
                         <v-icon size="30">mdi-chevron-down </v-icon>
                         </v-btn>
                     </template>

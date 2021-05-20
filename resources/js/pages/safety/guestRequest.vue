@@ -156,7 +156,7 @@
                             <v-col cols="12">
                                 <v-btn
                                     depressed
-                                    color="primary"
+                                    color="#7879ff"
                                     class="float-right"
                                     @click="submit"
                                     :loading="isSubmit"

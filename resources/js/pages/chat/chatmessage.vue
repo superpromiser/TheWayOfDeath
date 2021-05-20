@@ -174,7 +174,7 @@
                     </div>
                     <p class="mb-0">{{message.file.size}} bytes</p>
                     <a class="msg-file-download-ico-send-a" :href="message.file.path" :download="message.file.name">
-                        <v-icon size="25" class="msg-file-download-ico msg-file-download-ico-send" color="primary">
+                        <v-icon size="25" class="msg-file-download-ico msg-file-download-ico-send" color="#7879ff">
                             mdi-download
                         </v-icon>
                     </a>
@@ -210,7 +210,7 @@
                     </div>
                     <p class="mb-0">{{message.file.size}} bytes</p>
                     <a class="msg-file-download-ico-a" :href="message.file.path" :download="message.file.name">
-                        <v-icon size="25" class="msg-file-download-ico" color="primary">
+                        <v-icon size="25" class="msg-file-download-ico" color="#7879ff">
                             mdi-download
                         </v-icon>
                     </a>

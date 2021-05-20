@@ -181,7 +181,7 @@
                     <span @click="newVacationData.reasonFlag = false" class="hover-cursor-point">病假</span>
                     <v-switch
                         v-model="newVacationData.reasonFlag"
-                        color="primary"
+                        color="#7879ff"
                         hide-details
                         inset
                         class="pt-0 mt-0"

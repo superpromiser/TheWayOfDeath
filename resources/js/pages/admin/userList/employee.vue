@@ -77,7 +77,7 @@
                               label="民族"
                             ></v-autocomplete>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4" >
+                        <v-col cols="12" sm="6" md="6" >
                             <v-text-field
                             v-model="editedItem.cardNum"
                             class="max-length-18-staff-input"
@@ -88,7 +88,7 @@
                       </v-row>
                       <v-row class=" align-center">
                         <v-col cols="12" md="4" sm="6" class="d-flex justify-center">
-                            <v-avatar v-if="editedItem.name !== '' && editedItem.avatar == '/'" color="primary" size="127" tile>
+                            <v-avatar v-if="editedItem.name !== '' && editedItem.avatar == '/'" color="#7879ff" size="127" tile>
                                 <span class="white--text headline">{{editedItem.name[0]}}</span>
                             </v-avatar>
                             <img v-else-if="editedItem.name == '' && editedItem.avatar == '/'" :src="`${baseUrl}/asset/img/icon/anonymous_avatar.png`" alt="UserAvatar" style="width:127px; height: 127px;">
@@ -123,11 +123,11 @@
               </v-dialog>
               <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="dialogDelete" max-width="500px">
                 <v-card>
-                  <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
+                  <v-card-title class="headline">你确定要删除这个项目吗？</v-card-title>
                   <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">OK</v-btn>
+                  <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
                   <v-spacer></v-spacer>
                   </v-card-actions>
                 </v-card>
@@ -149,7 +149,7 @@
                     <v-spacer></v-spacer>
                     <v-btn
                       text
-                      color="primary"
+                      color="#7879ff"
                       @click="indroduceDialog = false"
                     >
                       Ok
@@ -161,7 +161,7 @@
           </template>
           <template v-slot:[`item.avatar`]="{ item }">
             <img v-if="item.avatar !== '/'" :src="`${baseUrl}${item.avatar}`" alt="ManagerAvatar" class="school-manager-img">
-            <v-avatar v-else size="120" color="primary" > 
+            <v-avatar v-else size="120" color="#7879ff" > 
               <span> {{item.name[0]}} </span>
             </v-avatar>
           </template>
@@ -480,10 +480,8 @@ export default {
           await updateEmployee(this.editedItem)
           .then((res) => {
             this.isCreatingSchool = false;
-            if(res.data.msg == 1){
-              //update schoolManagerData LAW
-              
-            }
+            Object.assign(this.schoolManagerData[this.editedIndex], this.editedItem)
+            this.close()
           }).catch((err) => {
             this.isCreatingSchool = false;
             //console.log(err)            
@@ -501,12 +499,13 @@ export default {
 
                 //push data to schoolManagerDataLaw
                 this.schoolManagerData.push(this.editedItem);
+                this.close()
             }).catch((err) => {
-                //console.log(err)
+                console.log(err)
                 this.isCreatingSchool = false;
             });
         }
-        this.close()
+        // this.close()
       },
 
 

@@ -16,7 +16,7 @@
                     ></v-progress-circular>
                 </v-col>
                 <v-col cols="12" v-else-if="noData" class="d-flex align-center justify-center pa-5">
-                    <v-chip class="ma-2" color="primary" outlined pill >
+                    <v-chip class="ma-2" color="#7879ff" outlined pill >
                         没有客人 <v-icon right> mdi-cancel  </v-icon>
                     </v-chip>
                 </v-col>
@@ -73,7 +73,7 @@
                 ></v-progress-circular>
             </v-col>
             <v-col cols="12" class="text-center" v-else-if="noData">
-                <v-chip class="ma-2" color="primary" outlined pill >
+                <v-chip class="ma-2" color="#7879ff" outlined pill >
                     没有客人 <v-icon right> mdi-cancel  </v-icon>
                 </v-chip>
             </v-col>

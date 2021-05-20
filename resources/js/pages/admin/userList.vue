@@ -3,7 +3,7 @@
         <v-row>
             <v-tabs
                 background-color="transparent"
-                color="primary"
+                color="#7879ff"
                 grow
                 class="my-7"
                 >

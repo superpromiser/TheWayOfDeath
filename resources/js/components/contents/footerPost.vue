@@ -35,7 +35,7 @@
     <v-col cols="12" class="pt-2 px-10" v-else>
         <div class="d-flex align-center justify-end mb-5">
             <v-btn @click="showReadUsers" icon color="blue accent-3" :loading="isReadCnt" >
-                <v-icon medium color="primary" class="mr-2">mdi-eye</v-icon>
+                <v-icon medium color="#7879ff" class="mr-2">mdi-eye</v-icon>
                 <p class="mb-0 mr-8">{{footerInfo.readList ? footerInfo.readList.length : 0}}人</p>
             </v-btn>
             <v-btn icon color="red accent-3" :loading="isLiking">
@@ -51,7 +51,7 @@
         <div v-if="isComment == true" class="position-relative">
             <v-row>
                 <v-col cols="12" class="d-flex">
-                    <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="48">
+                    <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="48">
                         <span class="white--text headline">{{user.name[0]}}</span>
                         </v-avatar>
                         <v-avatar v-else
@@ -122,7 +122,7 @@
                     <v-card-text>
                         <v-row>
                             <v-col cols="12" md="6" v-for="user in readUsers" :key="user.id" style="width:50px">
-                                <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="50" class="ma-5">
+                                <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="50" class="ma-5">
                                     <span class="white--text headline">{{user.name[0]}}</span>
                                 </v-avatar>
                                 <v-avatar v-else

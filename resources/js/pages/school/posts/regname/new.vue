@@ -205,7 +205,7 @@
                         <span>是否需要审核</span>
                         <v-switch
                             v-model="regNameData.checkFlag"
-                            color="primary"
+                            color="#7879ff"
                             hide-details
                             inset
                             class="pt-0 mt-0"

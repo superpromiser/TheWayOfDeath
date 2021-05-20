@@ -90,13 +90,6 @@
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
-                        color="primary"
-                        tile
-                        @click="showTime"
-                    >
-                        timeTable
-                    </v-btn>
-                    <v-btn
                         color="#f19861"
                         dark
                         class="mb-2 ml-2"
@@ -133,6 +126,7 @@
             <v-data-table
             :headers="headers"
             :items="scheduleData"
+            hide-default-footer
             :loading="isLoadingSchoolData"
             loading-text="正在加载..."
             sort-by="calories"

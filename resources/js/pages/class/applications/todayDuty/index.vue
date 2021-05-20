@@ -92,7 +92,7 @@
             <div slot="no-more" class="pa-3 ma-3 text-center">
                 <v-chip
                 class="ma-2"
-                color="primary"
+                color="#7879ff"
                 outlined
                 pill
                 >
@@ -116,15 +116,15 @@
 
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
-import {getShare} from '~/api/share';
-import SharePost from '~/components/contents/sharePost'
+import {getTodayDutyData} from '~/api/todayDuty';
+import TodayDutyPost from '~/components/contents/todayDutyPost'
 import FooterPost from '~/components/contents/footerPost'
 import lang from '~/helper/lang.json'
 import {mapGetters} from 'vuex'
 export default {
     components:{
         InfiniteLoading,
-        SharePost,
+        TodayDutyPost,
         FooterPost
     },
     data:()=>({
@@ -154,7 +154,7 @@ export default {
                 timeOut = 1000;
             }
             let vm = this;
-            await getShare({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId})
+            await getTodayDutyData({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId})
             .then(res=>{
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
                     $state.complete();
@@ -172,11 +172,13 @@ export default {
                     $state.loaded();
                 }
                 vm.pageOfContent = vm.pageOfContent + 1;
+            }).catch(err=>{
+                console.log(err.response)
             });
             this.isLoadingContents = false;
         },
         post(){
-            this.$router.push({name:"posts.Cshare"})
+            this.$router.push({name:"posts.CtodayDuty"})
         }
     }
 }

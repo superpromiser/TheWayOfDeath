@@ -20,7 +20,7 @@
                   >
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                    color="primary"
+                    color="#7879ff"
                     dark
                     class="mb-2"
                     v-bind="attrs"
@@ -92,7 +92,7 @@
                 </v-dialog>
                 <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="dialogDelete" max-width="500px">
                   <v-card>
-                    <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
+                    <v-card-title class="headline">你确定要删除这个项目吗？</v-card-title>
                     <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
@@ -120,7 +120,7 @@
           </template>
           <template v-slot:no-data>
             <v-btn
-              color="primary"
+              color="#7879ff"
               @click="initialize"
             >
               Reset

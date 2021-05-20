@@ -310,7 +310,7 @@
                         <span>签名反馈</span>
                         <v-switch
                             v-model="announcementData.scopeFlag"
-                            color="primary"
+                            color="#7879ff"
                             hide-details
                             inset
                             class="pt-0 mt-0"

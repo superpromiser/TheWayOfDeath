@@ -36,7 +36,7 @@
                     <v-spacer></v-spacer>
                     <v-btn
                     text
-                    color="primary"
+                    color="#7879ff"
                     @click="reasonDialog = false"
                     >
                         {{lang.ok}}
@@ -164,7 +164,7 @@
             <v-spacer></v-spacer>
             <v-btn
             text
-            color="primary"
+            color="#7879ff"
             @click="reasonDialog = false"
             >
                 {{lang.ok}}

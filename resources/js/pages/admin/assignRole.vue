@@ -105,7 +105,7 @@
                     </template>
                     <template v-slot:no-data>
                         <v-btn
-                            color="primary"
+                            color="#7879ff"
                             @click="initialize"
                         >
                             Reset

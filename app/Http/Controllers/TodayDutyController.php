@@ -37,6 +37,12 @@ class TodayDutyController extends Controller
             'lessonId' => 'required',
         ]);
         $userId = Auth::user()->id;
+        $todayData = TodayDuty::whereDate('dutyDate', $request->dutyDate)->first();
+        if (!is_null($todayData)) {
+            return response()->json([
+                'msg' => "duty data already exist",
+            ], 405);
+        }
         $postId = Post::create([
             'contentId' => 15,
             'userId' => $userId,
@@ -51,7 +57,9 @@ class TodayDutyController extends Controller
             'userId' => $userId,
             'postId' => $postId,
         ]);
-        return true;
+        return response()->json([
+            'msg' => 'successfully created'
+        ], 201);
     }
 
     public function updateTodayDutyData(Request $request)

@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-btn
-        color="primary"
+        color="#7879ff"
         class="text-none"
         round
         depressed

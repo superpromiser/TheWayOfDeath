@@ -19,7 +19,7 @@
             <template v-slot:actions>
             <v-btn
                 text
-                color="primary"
+                color="#7879ff"
                 @click="templateList"
             >
                 可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
@@ -81,14 +81,14 @@
                     <v-spacer></v-spacer>
                     <v-btn
                         text
-                        color="primary"
+                        color="#7879ff"
                         @click="menu = false"
                     >
                         {{lang.cancel}}
                     </v-btn>
                     <v-btn
                         text
-                        color="primary"
+                        color="#7879ff"
                         @click="$refs.menu.save(date)"
                     >
                         {{lang.ok}}
@@ -127,7 +127,7 @@
             <v-col cols="12">
                 <v-btn
                     depressed
-                    color="primary"
+                    color="#7879ff"
                     class="float-right"
                     @click="submit"
                     :loading="isSubmit"

@@ -233,7 +233,7 @@
                     <span class="hover-cursor-point">病假</span>
                     <v-switch
                         v-model="newVacationData.reasonFlag"
-                        color="primary"
+                        color="#7879ff"
                         readonly
                         hide-details
                         inset

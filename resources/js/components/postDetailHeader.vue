@@ -11,9 +11,9 @@
             </v-col>
             <v-col cols="12" md="6">
                 <v-row class="ma-0 align-center justify-center justify-md-end" >
-                    <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                    <v-icon medium color="#7879ff" class="mr-2">mdi-clock-outline </v-icon>
                     <p class="mb-0 mr-8" v-if="contentData !== null">{{TimeView(contentData.created_at)}}</p>
-                    <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                    <v-icon medium color="#7879ff" class="mr-2">mdi-account </v-icon>
                     <p class="mb-0">{{contentData.users.name}}</p>
                 </v-row>
             </v-col>

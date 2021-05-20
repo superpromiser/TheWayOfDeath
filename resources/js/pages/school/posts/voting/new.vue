@@ -166,7 +166,7 @@
                 <!-- <div class="d-flex align-center justify-center">
                     <v-btn
                         text
-                        color="primary"
+                        color="#7879ff"
                         @click="tempList"
                     >
                         可用模板 0， 草稿 0
@@ -250,7 +250,7 @@
                         <span> 匿名投票 </span>
                         <v-switch
                             v-model="votingData.anonyVote"
-                            color="primary"
+                            color="#7879ff"
                             hide-details
                             inset
                             class="pt-0 mt-0"
@@ -261,7 +261,7 @@
                     <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :item="votingData.content[index-1]" :index="index" :ref="index" @contentData="loadContentData"/>
                     <v-divider></v-divider>
                 </div>
-                <v-btn color="primary" text @click="addContent" class="mt-10">
+                <v-btn color="#7879ff" text @click="addContent" class="mt-10">
                     <v-icon>
                         mdi-plus
                     </v-icon>

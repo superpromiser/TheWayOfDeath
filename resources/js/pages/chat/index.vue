@@ -21,7 +21,7 @@
                                     <v-icon v-model="fab" size="30" v-if="fab" class="hover-cursor-point">
                                         mdi-close
                                     </v-icon>
-                                    <v-progress-circular indeterminate color="primary" v-else-if="isUploadingFileInChat"></v-progress-circular>
+                                    <v-progress-circular indeterminate color="#7879ff" v-else-if="isUploadingFileInChat"></v-progress-circular>
                                     <v-icon v-model="fab" size="30" v-else class="hover-cursor-point">
                                         mdi-paperclip
                                     </v-icon>
@@ -118,7 +118,7 @@
                             @keydown.enter.shift.exact.prevent
                             @keydown="sendTypingEvent"
                         ></v-text-field>
-                        <v-btn fab dark small color="primary" @click="goToContactList" class="position-absolute hidden-md-and-up" style="right: 30px; top: -50px;">
+                        <v-btn fab dark small color="#7879ff" @click="goToContactList" class="position-absolute hidden-md-and-up" style="right: 30px; top: -50px;">
                             <v-icon dark>
                                 mdi-backup-restore
                             </v-icon>

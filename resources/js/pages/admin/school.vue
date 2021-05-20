@@ -189,7 +189,7 @@
                     <v-spacer></v-spacer>
                     <v-btn
                       text
-                      color="primary"
+                      color="#7879ff"
                       @click="indroduceDialog = false"
                     >
                       Ok

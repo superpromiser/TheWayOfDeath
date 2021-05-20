@@ -80,14 +80,14 @@
                         <v-spacer></v-spacer>
                         <v-btn
                             text
-                            color="primary"
+                            color="#7879ff"
                             @click="menu = false"
                         >
                             {{lang.cancel}}
                         </v-btn>
                         <v-btn
                             text
-                            color="primary"
+                            color="#7879ff"
                             @click="$refs.menu.save(recognitionData.publishDate)"
                         >
                             {{lang.ok}}
@@ -122,7 +122,7 @@
                 <v-col cols="12">
                     <v-chip
                         class="ma-2 px-5"
-                        color="primary"
+                        color="#7879ff"
                         outlined
                     >
                         <v-icon left>
@@ -246,14 +246,14 @@
                         <v-spacer></v-spacer>
                         <v-btn
                             text
-                            color="primary"
+                            color="#7879ff"
                             @click="menu = false"
                         >
                             {{lang.cancel}}
                         </v-btn>
                         <v-btn
                             text
-                            color="primary"
+                            color="#7879ff"
                             @click="$refs.menu.save(recognitionData.publishDate)"
                         >
                             {{lang.ok}}
@@ -276,7 +276,7 @@
                 <v-col cols="12">
                     <v-chip
                         class="ma-2 px-5"
-                        color="primary"
+                        color="#7879ff"
                         outlined
                     >
                         <v-icon left>

@@ -60,14 +60,14 @@
                         <v-spacer></v-spacer>
                         <v-btn
                             text
-                            color="primary"
+                            color="#7879ff"
                             @click="menu = false"
                         >
                             {{lang.cancel}}
                         </v-btn>
                         <v-btn
                             text
-                            color="primary"
+                            color="#7879ff"
                             @click="$refs.menu.save(date)"
                         >
                             {{lang.ok}}
@@ -194,14 +194,14 @@
                     <v-spacer></v-spacer>
                     <v-btn
                         text
-                        color="primary"
+                        color="#7879ff"
                         @click="menu = false"
                     >
                         {{lang.cancel}}
                     </v-btn>
                     <v-btn
                         text
-                        color="primary"
+                        color="#7879ff"
                         @click="$refs.menu.save(date)"
                     >
                         {{lang.ok}}

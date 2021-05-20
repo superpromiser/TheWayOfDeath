@@ -67,7 +67,7 @@
                 <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
                     <v-progress-circular
                         indeterminate
-                        color="primary"
+                        color="#7879ff"
                     ></v-progress-circular>
                 </div>
                 <div v-for="(user, index) in filteredList" :key="index" v-else>
@@ -181,7 +181,6 @@ export default {
             this.$router.push({name:'todayDuty.contacts'})
         },
         async submit(){
-            console.log(this.specUsers)
             let selUsers = []
             this.userList.map(user=>{
                 if(user.checkbox == true){
@@ -201,10 +200,13 @@ export default {
             }).catch(err=>{
                 console.log(err.response)
                 this.isSubmit = false
+                if(err.response.status == 405){
+                    return this.$snackbar.showMessage({content: '值班数据已经存在', color: 'error'})
+                }
+                
             })
         },
         selectAll() {
-            console.log(this.checkAll);
             if (this.checkAll == false) {
                 this.userList.map(user => {
                     user.checkbox = false;
@@ -216,7 +218,6 @@ export default {
             }
         },
         selectMem(user) {
-            console.log(this.userList);
             this.checkAll = true;
             this.userList.map(user => {
                 if (user.checkbox == false) {

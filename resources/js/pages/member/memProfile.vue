@@ -3,7 +3,7 @@
         <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
             <v-progress-circular
                 indeterminate
-                color="primary"
+                color="#7879ff"
             ></v-progress-circular>
         </div>
         <div v-else class="">
@@ -41,7 +41,7 @@
                     <span>头像</span>
                 </v-col>
                 <v-col cols="6"  class="py-2"  @click="clickUploadImageBtn">
-                    <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="40" class="float-right">
+                    <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="40" class="float-right">
                         <span class="white--text headline">{{user.name[0]}}</span>
                     </v-avatar>
                     <v-avatar v-else

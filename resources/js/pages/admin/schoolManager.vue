@@ -111,7 +111,7 @@
                       </v-row>
                       <v-row class=" align-center">
                         <v-col cols="12" md="4" sm="6" class="d-flex justify-center">
-                            <v-avatar v-if="editedItem.name !== '' && editedItem.avatar == '/'" color="primary" size="127" tile>
+                            <v-avatar v-if="editedItem.name !== '' && editedItem.avatar == '/'" color="#7879ff" size="127" tile>
                                 <span class="white--text headline">{{editedItem.name[0]}}</span>
                             </v-avatar>
                             <img v-else-if="editedItem.name == '' && editedItem.avatar == '/'" :src="`${baseUrl}/asset/img/icon/anonymous_avatar.png`" alt="UserAvatar" style="width:127px; height: 127px;">
@@ -261,7 +261,7 @@
                     <v-spacer></v-spacer>
                     <v-btn
                       text
-                      color="primary"
+                      color="#7879ff"
                       @click="indroduceDialog = false"
                     >
                       Ok
@@ -276,7 +276,7 @@
           </template>
           <template v-slot:[`item.avatar`]="{ item }">
             <img v-if="item.avatar !== '/'" :src="`${baseUrl}${item.avatar}`" alt="ManagerAvatar" class="school-manager-img">
-            <v-avatar v-else size="120" color="primary" > 
+            <v-avatar v-else size="120" color="#7879ff" > 
               <span> {{item.name[0]}} </span>
             </v-avatar>
           </template>

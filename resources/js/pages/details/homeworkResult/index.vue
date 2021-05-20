@@ -51,9 +51,9 @@
             <div>
                 <p class="font-weight-black fs-15 mb-3"> {{lang.homework}}  </p>
                 <div class="d-flex align-center">
-                    <v-icon medium color="primary" class="mr-2">mdi-clock-outline </v-icon>
+                    <v-icon medium color="#7879ff" class="mr-2">mdi-clock-outline </v-icon>
                     <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
-                    <v-icon medium color="primary" class="mr-2">mdi-account </v-icon>
+                    <v-icon medium color="#7879ff" class="mr-2">mdi-account </v-icon>
                     <p class="mb-0">{{contentData.users.name}}</p>
                 </div>
             </div>

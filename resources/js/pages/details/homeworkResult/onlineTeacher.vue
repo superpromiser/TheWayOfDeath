@@ -44,7 +44,7 @@
         <v-row class="float-right">
             <v-col cols="12">
                 <v-btn
-                    color="primary"
+                    color="#7879ff"
                     @click="submit"
                     :disabled="alreadyAnswer"
                     :loading="isSubmit"

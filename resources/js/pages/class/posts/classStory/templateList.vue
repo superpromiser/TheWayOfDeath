@@ -78,7 +78,7 @@
         <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
             <v-progress-circular
                 indeterminate
-                color="primary"
+                color="#7879ff"
             ></v-progress-circular>
         </div>
         <v-row v-else class="px-10">

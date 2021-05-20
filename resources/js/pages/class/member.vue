@@ -56,7 +56,7 @@
       <v-row v-if="isLoading" class="d-flex justify-center align-center py-16">
         <v-progress-circular
             indeterminate
-            color="primary"
+            color="#7879ff"
         ></v-progress-circular>
       </v-row>
       <v-row v-else>
@@ -67,7 +67,7 @@
         <v-col v-for="user in userList.teachers" :key="user.id"  cols="12" sm="6" md="4" lg="2" @click="selMember(user)" class="hover-cursor-point">
           <v-card>
             <div class="mx-auto text-center">
-              <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="60" class="ma-5">
+              <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="60" class="ma-5">
                   <span class="white--text headline">{{user.name[0]}}</span>
               </v-avatar>
               <v-avatar v-else
@@ -95,7 +95,7 @@
         <v-col v-for="user in userList.students" :key="user.id"  cols="12" sm="6" md="4" lg="2" @click="selMember(user)" class="hover-cursor-point">
           <v-card>
             <div class="mx-auto text-center">
-              <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="60" class="ma-5">
+              <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="60" class="ma-5">
                   <span class="white--text headline">{{user.name[0]}}</span>
               </v-avatar>
               <v-avatar v-else
@@ -123,7 +123,7 @@
         <v-col v-for="user in userList.parents" :key="user.id"  cols="12" sm="6" md="4" lg="2" @click="selMember(user)" class="hover-cursor-point">
           <v-card>
             <div class="mx-auto text-center" >
-              <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="primary" size="60" class="ma-5">
+              <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="60" class="ma-5">
                   <span class="white--text headline">{{user.name[0]}}</span>
               </v-avatar>
               <v-avatar v-else
