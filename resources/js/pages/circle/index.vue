@@ -122,7 +122,7 @@
           </div>
           <div slot="no-results" class="position-relative row m-0 p-2 h-50 d-flex justify-content-center align-items-center">
               <div class="w-100 text-center p-5 m-5 mt-10">
-                  <v-icon size="150" color="grey darken-1">
+                  <v-icon size="30" color="grey darken-1">
                     mdi-magnify
                   </v-icon>
                   <h5>暂无</h5>
@@ -247,7 +247,7 @@
           </div>
           <div slot="no-results" class="position-relative row m-0 p-2 h-50 d-flex justify-content-center align-items-center">
               <div class="w-100 text-center p-5 m-5 mt-10">
-                  <v-icon size="150" color="grey darken-1">
+                  <v-icon size="30" color="grey darken-1">
                     mdi-magnify
                   </v-icon>
                   <h5>暂无</h5>
