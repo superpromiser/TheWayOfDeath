@@ -417,7 +417,7 @@ class UserController extends Controller
         $lessonId = $request->lessonId;
         if (Auth::user()->roleId == 2) {
             if ($lessonId) {
-                return User::select('id', 'name', 'lessonId', 'avatar', 'studentId')->where(['lessonId' => $lessonId, 'roleId' => 5])->get();
+                return User::select('id', 'name', 'lessonId', 'avatar', 'studentId')->where('groupArr', 'like', "%{$lessonId}%")->where('roleId', 5)->get();
             } else {
                 $schoolId = Auth::user()->schoolId;
                 return User::select('id', 'name', 'lessonId', 'avatar')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
@@ -427,7 +427,7 @@ class UserController extends Controller
             if ($request->lessonId) {
                 $lessonId = $request->lessonId;
             }
-            return User::select('id', 'name', 'lessonId', 'avatar', 'studentId')->where(['lessonId' => $lessonId, 'roleId' => 5])->get();
+            return User::select('id', 'name', 'lessonId', 'avatar', 'studentId')->where('groupArr', 'like', "%{$lessonId}%")->where('roleId', 5)->get();
         }
     }
 
@@ -507,13 +507,13 @@ class UserController extends Controller
             }
         } elseif ($request->roleId) {
             if ($request->lessonId) {
-                return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'roleId' => $request->roleId])->get();
+                return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where('groupArr','like',"%{$request->lessonId}%")->where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
             } else {
                 return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
             }
         } else {
             if ($request->lessonId) {
-                return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where(['schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->get();
+                return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where('groupArr', 'like', "%{$request->lessonId}%")->where(['schoolId' => $request->schoolId])->get();
             } else {
                 return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where(['schoolId' => $request->schoolId])->get();
             }

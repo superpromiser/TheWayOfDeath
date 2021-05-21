@@ -60,7 +60,7 @@
           <v-icon>mdi-map</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-title>地图</v-list-item-title>
+        <v-list-item-title>学生轨迹</v-list-item-title>
       </v-list-item>
       <v-list-group
         active-class="header-active"

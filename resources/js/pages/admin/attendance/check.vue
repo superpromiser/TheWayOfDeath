@@ -520,11 +520,12 @@ export default {
 
 
       }
-      // this.isLoadingSchoolData = true;
-      // this.isLoadingSchoolData = false;
+      
+      
       if(this.user.lessonId == 0 || this.user.gradeId == 0){
         return ;
       }
+      this.isLoadingSchoolData = true;
       let payload = {
         lessonId: this.user.lessonId,
         gradeId: this.user.gradeId,
@@ -534,9 +535,11 @@ export default {
         this.studentList = res.data;
         this.studentList.map( x => {
           x.familyAddress = this.convertAddress(x.familyAddress);
+         
         })
       }).catch((err) => {
         console.log(err)
+        this.isLoadingSchoolData = false;
       });
 
       getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
@@ -556,7 +559,10 @@ export default {
           // console.log("clonedEditedItem",clonedEditedItem)
           this.checkData.push(clonedEditedItem);
         })
-        
+         this.isLoadingSchoolData = false;
+      }).catch(err=>{
+        console.log(err.response)
+         this.isLoadingSchoolData = false;
       })
     },
 
