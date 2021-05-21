@@ -55,7 +55,7 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" >
+              <v-col cols="12" sm="6" class="d-flex align-center">
                 <h3>{{editedItem.attendanceDay}}</h3>
               </v-col>
               <v-col cols="12" sm="6" >
@@ -192,15 +192,15 @@
             @click="close"
           >
             {{lang.cancel}}
-          </v-btn>
+          </v-btn> -->
           <v-btn
             color="blue darken-1"
             text
             :loading="isCreatingSchool"
-            @click="save"
+            @click="viewDialog = false"
           >
-            {{lang.save}}
-          </v-btn> -->
+            {{lang.ok}}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -339,6 +339,8 @@
 import {getLessonUserList,} from '~/api/user'
 import {getLessonAttendanceData,
         createLessonAttendanceData,
+        updateLessonAttendanceData,
+        deleteLessonAttendanceData,
       getLessonItem}
   from '~/api/attendance';
 import lang from '~/helper/lang.json'
@@ -401,79 +403,7 @@ export default {
             resultValue : "其他",
           },
         ],
-        attendanceData: [
-            // {
-            //     attendanceDay: '2021年3月15日',
-            //     attendanceTime: '早自习',
-            //     resultArr:[
-            //       {
-            //         studentName: 'sammie',
-            //         attendanceResult: '正常出勤',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'tommy',
-            //         attendanceResult: '出勤(带病)',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'hommy',
-            //         attendanceResult: '正常出勤',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'gammy',
-            //         attendanceResult: '正常出勤',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'gammy',
-            //         attendanceResult: '出勤(带病)',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'ummy',
-            //         attendanceResult: '迟到',
-            //         other: 'something',
-            //       },
-            //       {
-            //         studentName: 'ommy',
-            //         attendanceResult: '迟到',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'vammy',
-            //         attendanceResult: '病假',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'zemmy',
-            //         attendanceResult: '事假',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'hommy',
-            //         attendanceResult: '缺勤',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'ammy',
-            //         attendanceResult: '其他',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'lommy',
-            //         attendanceResult: '缺勤',
-            //         other: '',
-            //       },
-            //       {
-            //         studentName: 'pummy',
-            //         attendanceResult: '事假',
-            //         other: '',
-            //       },
-            //     ]
-            // },
-        ],
+        attendanceData: [],
         
         editedIndex: -1,
         editedItem: {
@@ -506,7 +436,10 @@ export default {
       },
       ...mapGetters({
         user:'auth/user'
-      })
+      }),
+      currentPath(){
+        return this.$route
+      }
 
     },
 
@@ -515,7 +448,7 @@ export default {
 
         //we have to make result array for editedItem from student list
         // this needs very high skill...
-          // this.isLoadingSchoolData = true;
+          this.isLoadingSchoolData = true;
         getLessonItem({schoolId:this.user.schoolId}).then(res=>{
           res.data.map(data=>{
             let lessonItem = {}
@@ -536,7 +469,7 @@ export default {
           console.log(err.response)
         })
 
-        getLessonUserList().then(res=>{
+        getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
           res.data.map(data=>{
             let element = {}
             element.studentName = data.name
@@ -592,30 +525,29 @@ export default {
       },
 
         async deleteItemConfirm () {
+          this.isDeleteSchool = true
+          console.log(this.editedItem)
+          await deleteLessonAttendanceData({id:this.editedItem.id}).then(res=>{
+            this.isDeleteSchool = false
             this.attendanceData.splice(this.editedIndex, 1)
-            // let payload = {
-            //     id : this.editedItem.id
-            // }
-            // this.isDeleteSchool = true;
-            // await deleteSchool(payload)
-            // .then((res) => {
-            //     if(res.data.msg == 1){
-                    
-            //     }
-            //     this.isDeleteSchool = false;
-            // }).catch((err) => {
-            //     console.log(err)
-            //     this.isDeleteSchool = false;
-            // });
-            this.closeDelete()
+          }).catch(err=>{
+            console.log(err.response)
+            this.isDeleteSchool = false
+          })
+          this.closeDelete()
         },
 
         async save () {
             //update attendanceData
             this.isCreatingSchool = true;
             if (this.editedIndex > -1) {
-              this.isCreatingSchool = false;
-              Object.assign(this.attendanceData[this.editedIndex], this.editedItem)
+              await updateLessonAttendanceData(this.editedItem).then(res=>{
+                this.isCreatingSchool = false;
+                Object.assign(this.attendanceData[this.editedIndex], this.editedItem)
+              }).catch(err=>{
+                console.log(err.response)
+                this.isCreatingSchool = false
+              })
             } 
             //save attendanceData
             else {

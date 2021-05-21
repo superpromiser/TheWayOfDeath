@@ -170,7 +170,7 @@ export default {
         { text: '出勤', value: 'attendance' }, 
         { text: '迟到', value: 'late' },
         { text: '缺勤', value: 'absent' },
-        { text: '清假', value: 'sick' },
+        { text: '请假', value: 'sick' },
         { text: '操作', value: 'actions' },
 
       ],
@@ -186,7 +186,7 @@ export default {
         { text: '出勤', value: 'attendance' }, 
         { text: '迟到', value: 'late' },
         { text: '缺勤', value: 'absent' },
-        { text: '清假', value: 'sick' },
+        { text: '请假', value: 'sick' },
         { text: '备注', value: 'remark' },
 
       ],

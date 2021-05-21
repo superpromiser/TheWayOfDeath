@@ -287,6 +287,9 @@ export default {
             if(this.newVacationData.endTime < this.newVacationData.startTime){
                 return this.$snackbar.showMessage({content:this.lang.startTimeAndEndTime, color:'error'})
             }
+            if(this.newVacationData.reason.trim() == ''){
+                return this.$snackbar.showMessage({content:this.lang.vacationReason, color:'error'})
+            }
             this.isLoading = true
             await createVacationData(this.newVacationData).then(res=>{
                 console.log(res.data)
@@ -298,6 +301,7 @@ export default {
                     this.$router.push({name:'classSpace.news'})
                 }
             }).catch(err=>{
+                this.isLoading = false
                 console.log(err.response)
             })
         }
