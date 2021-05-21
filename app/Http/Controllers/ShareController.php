@@ -17,33 +17,65 @@ class ShareController extends Controller
             'schoolId' => 'required'
         ]);
         $userId = Auth::user()->id;
-        if ($request->userId) {
-            return Post::where(['schoolId' => $request->schoolId, 'userId' => $request->userId, 'contentId' => 23])
-                ->with([
-                    'likes',
-                    'views',
-                    'comments.users:id,name',
-                    'shares' => function ($query) use ($userId) {
-                        $query->where("viewList", "like", "%{$userId}")
-                            ->orWhere('viewList', null);;
-                    },
-                    'users:id,name,avatar'
-                ])
-                ->orderBy('fixTop', 'desc')
-                ->orderBy('created_at', 'desc')
-                ->paginate(5);
+        $roleId = Auth::user()->roleId;
+        if ($roleId < 3) {
+            if ($request->userId) {
+                return Post::where(['schoolId' => $request->schoolId, 'userId' => $request->userId, 'contentId' => 23])
+                    ->with([
+                        'likes',
+                        'views',
+                        'comments.users:id,name',
+                        'shares',
+                        'users:id,name,avatar'
+                    ])
+                    ->orderBy('fixTop', 'desc')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(5);
+            } else {
+                return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 23])
+                    ->with([
+                        'likes',
+                        'views',
+                        'comments.users:id,name',
+                        'shares',
+                        'users:id,name,avatar'
+                    ])
+                    ->orderBy('fixTop', 'desc')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(5);
+            }
         } else {
-            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 23])
-                ->with([
-                    'likes',
-                    'views',
-                    'comments.users:id,name',
-                    'shares',
-                    'users:id,name,avatar'
-                ])
-                ->orderBy('fixTop', 'desc')
-                ->orderBy('created_at', 'desc')
-                ->paginate(5);
+            if ($request->userId) {
+                return Post::where(['schoolId' => $request->schoolId, 'userId' => $request->userId, 'contentId' => 23])
+                    ->with([
+                        'likes',
+                        'views',
+                        'comments.users:id,name',
+                        'shares' => function ($query) use ($userId) {
+                            $query->where("viewList", "like", "%{$userId}")
+                                ->orWhere('viewList', null);
+                        },
+                        'users:id,name,avatar'
+                    ])
+                    ->orderBy('fixTop', 'desc')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(5);
+            } else {
+                return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 23])
+                    ->with([
+                        'likes',
+                        'views',
+                        'comments.users:id,name',
+                        'shares' => function ($query) use ($userId) {
+                            $query->where("viewList", "like", "%{$userId}")
+                                ->orWhere('viewList', null);
+                        },
+                        'users:id,name,avatar'
+                    ])
+                    ->orderBy('fixTop', 'desc')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(5);
+            }
         }
     }
 

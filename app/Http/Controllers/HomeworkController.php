@@ -17,20 +17,35 @@ class HomeworkController extends Controller
             'lessonId' => 'required',
         ]);
         $userId = Auth::user()->id;
-        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 14])
-            ->orWhere('viewList', 'like', "%{$request->lessonId}%")
-            ->with([
-                'likes',
-                'views',
-                'comments.users:id,name',
-                'homework:postId,content' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}%")
-                        ->orWhere('viewList', null);
-                },
-                'users:id,name,avatar'
-            ])
-            ->orderBy('updated_at', 'desc')
-            ->paginate(5);
+        $roleId = Auth::user()->roleId;
+        if ($roleId < 3) {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 14])
+                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'homework:postId,content',
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('updated_at', 'desc')
+                ->paginate(5);
+        } else {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 14])
+                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'homework:postId,content' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}%")
+                            ->orWhere('viewList', null);
+                    },
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('updated_at', 'desc')
+                ->paginate(5);
+        }
     }
 
     public function createHomeworkData(Request $request)
@@ -46,7 +61,7 @@ class HomeworkController extends Controller
         $deadline = $request->deadline;
 
         //if teacher set post time of homework
-        if($deadline){
+        if ($deadline) {
             return Homework::create([
                 'subjectName' => $request->subjectName,
                 'homeworkType' => $request->homeworkType,
@@ -59,15 +74,14 @@ class HomeworkController extends Controller
                 'lessonId' => $request->lessonId,
                 'userId' => $userId,
             ]);
-        }
-        else{
+        } else {
             $postId = Post::create([
                 'contentId' => 14,
                 'userId' => $userId,
                 'schoolId' => $request->schoolId,
                 'classId' => $request->lessonId
             ])->id;
-            
+
             return Homework::create([
                 'subjectName' => $request->subjectName,
                 'homeworkType' => $request->homeworkType,
