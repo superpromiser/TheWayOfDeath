@@ -15,11 +15,12 @@ class LessonAttendanceController extends Controller
     public function getLessonAttendance(Request $request)
     {
         $this->validate($request, [
-            'attDate' => 'required'
+            'attDate' => 'required',
+            'lessonId' => 'required'
         ]);
         $attDate = $request->attDate;
-        $lessonId = Auth::user()->lessonId;
-        return LessonAttendance::select('attendanceDay', 'attendanceTime', 'resultArr')->where(['attendanceDay' => $request->attDate, 'lessonId' => $lessonId])->get();
+        $lessonId = $request->lessonId;
+        return LessonAttendance::select('id', 'attendanceDay', 'attendanceTime', 'resultArr', 'resultNormal', 'resultLate', 'resultMiss', 'resultRest')->where(['attendanceDay' => $attDate, 'lessonId' => $lessonId])->get();
     }
 
     public function createLessonAttendance(Request $request)
@@ -27,23 +28,58 @@ class LessonAttendanceController extends Controller
         $this->validate($request, [
             'attendanceDay' => 'required',
             'attendanceTime' => 'required',
-            'resultArr' => 'required'
+            'resultArr' => 'required',
+            'resultNormal' => 'required',
+            'resultLate' => 'required',
+            'resultMiss' => 'required',
+            'resultRest' => 'required',
+            'schoolId' => 'required',
+            'gradeId' => 'required',
+            'lessonId' => 'required'
         ]);
-        $lessonId = Auth::user()->lessonId;
-        $schoolId = Auth::user()->schoolId;
-        $gradeId = Auth::user()->gradeId;
+        $data = LessonAttendance::where(['attendanceDay' => $request->attendanceDay, 'attendanceTime' => $request->attendanceTime])->first();
+        if (!is_null($data)) {
+            return response()->json([
+                'msg' => 'attendace data already exist',
+                'status' => 207
+            ]);
+        }
         return LessonAttendance::create([
             'attendanceDay' => $request->attendanceDay,
             'attendanceTime' => $request->attendanceTime,
             'resultArr' => json_encode($request->resultArr),
-            'schoolId' => $schoolId,
-            'gradeId' => $gradeId,
-            'lessonId' => $lessonId
+            'resultNormal' => $request->resultNormal,
+            'resultLate' => $request->resultLate,
+            'resultMiss' => $request->resultMiss,
+            'resultRest' => $request->resultRest,
+            'schoolId' => $request->schoolId,
+            'gradeId' => $request->gradeId,
+            'lessonId' => $request->lessonId
         ]);
     }
 
     public function updateLessonAttendance(Request $request)
     {
+        $this->validate($request, [
+            'id' => 'required',
+            'attendanceDay' => 'required',
+            'attendanceTime' => 'required',
+            'resultArr' => 'required',
+            'resultNormal' => 'required',
+            'resultLate' => 'required',
+            'resultMiss' => 'required',
+            'resultRest' => 'required'
+        ]);
+
+        return LessonAttendance::where('id', $request->id)->update([
+            'attendanceDay' => $request->attendanceDay,
+            'attendanceTime' => $request->attendanceTime,
+            'resultArr' => $request->resultArr,
+            'resultNormal' => $request->resultNormal,
+            'resultLate' => $request->resultLate,
+            'resultMiss' => $request->resultMiss,
+            'resultRest' => $request->resultRest,
+        ]);
     }
 
     public function deleteLessonAttendance(Request $request)

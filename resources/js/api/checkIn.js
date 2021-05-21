@@ -8,7 +8,7 @@ function createCheckInData(payload){
     return axios.post('/api/v1/checkIn',payload)
 }
 
-function updateCheckInData(){
+function updateCheckInData(payload){
     return axios.put('/api/v1/checkIn',payload)
 }
 
