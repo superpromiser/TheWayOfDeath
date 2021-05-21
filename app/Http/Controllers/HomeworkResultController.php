@@ -25,6 +25,14 @@ class HomeworkResultController extends Controller
         ])->first();
     }
 
+    public function getCurrentHomeworkResult(Request $request)
+    {
+        $this->validate($request, [
+            'homeworkId' => 'required'
+        ]);
+        return HomeworkResult::select('id', 'homeworkId', 'userId')->where('homeworkId', $request->homeworkId)->get();
+    }
+
     public function createHomeworkResult(Request $request)
     {
         $this->validate($request, [
@@ -90,7 +98,7 @@ class HomeworkResultController extends Controller
             'id' => 'required'
         ]);
         $teacherAnswer = '';
-        if($request->teacherAnswer){
+        if ($request->teacherAnswer) {
             $teacherAnswer = json_encode($request->teacherAnswer);
         }
 

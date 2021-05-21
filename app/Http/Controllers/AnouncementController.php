@@ -21,7 +21,6 @@ class AnouncementController extends Controller
         $roleId = Auth::user()->roleId;
         if ($roleId < 3) {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 5])
-                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
                 ->with([
                     'likes',
                     'views',

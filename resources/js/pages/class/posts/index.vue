@@ -551,6 +551,12 @@ export default {
                         imgUrl:"/asset/img/newIcon/homework.png",
                         path:"posts.Chomework"
                     },
+                    {
+                        color: "#E4BC16",
+                        title: "今日值日", //오늘의 의무
+                        imgUrl: "/asset/img/newIcon/duty.png",
+                        path: "posts.CtodayDuty"
+                    }
                 ]
             },
             {
@@ -586,12 +592,6 @@ export default {
                         title:"安全教育",//안전교육
                         imgUrl:"/asset/img/newIcon/safeStudy.png",
                         path:"posts.CsafeStudy"
-                    },
-                    {
-                        color:"#98BB3A",
-                        title:"今日值日",//오늘의 의무
-                        imgUrl:"/asset/img/newIcon/safeStudy.png",
-                        path:"posts.CtodayDuty"
                     },
                 ]
             },

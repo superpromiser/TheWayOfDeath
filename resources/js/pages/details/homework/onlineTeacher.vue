@@ -21,7 +21,15 @@
                             {{idx + 1}}.
                             {{user.name}}
                         </span>
-                        <v-icon>mdi-chevron-right</v-icon>
+                        <div>
+                            <v-chip class="ma-2" color="#EB5846" label text-color="white" v-if="user.studentAnswer == false">
+                                <v-icon left> mdi-label </v-icon> 未完成
+                            </v-chip>
+                            <v-chip class="ma-2" color="#4AD2A0" label text-color="white" v-else>
+                                <v-icon left> mdi-label </v-icon> 已完成
+                            </v-chip>
+                            <v-icon>mdi-chevron-right</v-icon>
+                        </div>
                     </v-col>
                     <v-divider v-if="idx < userList.length - 1" class="thick-border"></v-divider>
                 </v-row>
@@ -70,7 +78,16 @@
                             {{idx + 1}}.
                             {{user.name}}
                         </span>
-                        <v-icon>mdi-chevron-right</v-icon>
+                        <div>
+                            <v-chip class="ma-2" color="#EB5846" label text-color="white" v-if="user.studentAnswer == false">
+                                <v-icon left> mdi-label </v-icon> 未完成
+                            </v-chip>
+                            <v-chip class="ma-2" color="#4AD2A0" label text-color="white" v-else>
+                                <v-icon left> mdi-label </v-icon> 已完成
+                            </v-chip>
+                            <v-icon>mdi-chevron-right</v-icon>
+                        </div>
+                        
                     </v-col>
                     <v-divider class="thick-border"></v-divider>
                 </v-row>
@@ -86,8 +103,8 @@
 import AttachItemViewer from '~/components/attachItemViewer';
 import QuestionItem from '~/components/questionItem'
 import lang from '~/helper/lang.json'
-import {createTeacherAnswer} from '~/api/homeworkResult'
-import {getLessonUserList} from '~/api/user'
+import {createTeacherAnswer,getCurrentHomeworkResult} from '~/api/homeworkResult'
+import {getStudentWithIds} from '~/api/user'
 export default {
     props:{
         contentData:{
@@ -119,33 +136,28 @@ export default {
     },
     async created(){
         this.isLoading = true;
-        await getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
-            console.log(res.data)
-            res.data.map(user=>{
-                let item = {}
-                item.name = user.name
-                item.userId = user.id
-                item.rating = 0
-                item.schoolId = this.currentPath.params.schoolId
-                item.lessonId = user.lessonId
-                item.homeworkId = this.contentData.homework.id
-                item.postId = this.contentData.id
-                item.homeworkType = '常规作业'
-                this.userList.push(item)
-            })
-            // this.userList = res.data
+        let studentList = this.contentData.homework.viewList
+        studentList.splice(-1,1)
+        let currentHomeworkResult = []
+        await getCurrentHomeworkResult({homeworkId:this.contentData.homework.id}).then(res=>{
+            currentHomeworkResult = res.data
         }).catch(err=>{
             console.log(err.response)
         })
-
+        await getStudentWithIds({studentList:studentList}).then(res=>{
+            res.data.map(user=>{
+                let index = currentHomeworkResult.findIndex(result=>result.userId == user.id)
+                this.$set(user,'studentAnswer',false)
+                if(index > -1){
+                    user.studentAnswer = true
+                }
+            })
+            console.log('+++++',res.data)
+            this.userList = res.data
+        }).catch(err=>{
+            console.log(err.response)
+        })
         this.isLoading = false;
-        // console.log('onlineTeacher',this.contentData)
-        // this.studentAnswer = JSON.parse(this.contentData.homework_result.content)
-        // this.teacherAnswer = JSON.parse(this.contentData.homework_result.teacherAnswer)
-        // this.rating = parseInt(this.contentData.homework_result.rating)
-        // if(this.teacherAnswer != null){
-        //     this.alreadyAnswer = true
-        // }
     },
     watch:{
         currentPath:{
@@ -205,7 +217,7 @@ export default {
             console.log(user)
             this.studentName = user.name
             this.homeworkCheck = true
-            this.$router.push({name:"details.homworkResult.onlineTeacher.selUser",params:{userId:user.userId}})
+            this.$router.push({name:"details.homworkResult.onlineTeacher.selUser",params:{userId:user.id}})
         }
     }
 }

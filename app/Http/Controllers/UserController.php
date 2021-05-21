@@ -120,7 +120,7 @@ class UserController extends Controller
         array_push($groupArr, $request->lessonId);
         $studentData['groupArr'] = $groupArr;
         $student = User::create($studentData);
-        
+
         //create contact with chatbot
         $contactInfo['userId'] = $student->id;
         $contactInfo['contactUserId'] = 1;
@@ -174,15 +174,7 @@ class UserController extends Controller
     public function getstudentBylessonId(Request $request)
     {
         $lessonId = $request->lessonId;
-        $gradeId = $request->gradeId;
-        $studentList = [];
-        $memberList = Member::where([['lessonId', '=', $lessonId]])->where([['gradeId', '=', $gradeId]])->where([['userRoleId', '=', 5]])->get();
-        foreach ($memberList as $key => $member) {
-            $userId = $member->userId;
-            $userData = User::where([['id', '=', $userId]])->where([['roleId', '=', 5]])->first();
-            array_push($studentList, $userData);
-        }
-        return $studentList;
+        return User::where("groupArr", "like", "%{$lessonId}%")->where('roleId', 5)->get();
     }
 
     public function readUser()
@@ -671,6 +663,14 @@ class UserController extends Controller
             'avatar' => $request->avatar
         ]);
         return true;
+    }
+
+    public function getStudentWithIds(Request $request)
+    {
+        $this->validate($request, [
+            'studentList' => 'required'
+        ]);
+        return User::select('id', 'name', 'avatar', 'phoneNumber', 'imei')->whereIn('id', $request->studentList)->get();
     }
 
     public function getMyFile()

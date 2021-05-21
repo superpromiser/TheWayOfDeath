@@ -140,7 +140,7 @@
 </template>
 
 <script>
-import {getLessonUserList} from '~/api/user'
+import {getStudentWithIds} from '~/api/user'
 import lang from '~/helper/lang.json'
 import {getOfflineTeacherAnswer, createOfflineTeacherAnswer} from '~/api/homeworkResult'
 export default {
@@ -180,21 +180,21 @@ export default {
             console.log(err.response)
         })
         if(this.alreadyAnswer == false){
-            await getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
-                console.log(res.data)
+            let studentList = this.contentData.homework.viewList
+            studentList.splice(-1,1)
+            await getStudentWithIds({studentList:studentList}).then(res=>{
                 res.data.map(user=>{
                     let item = {}
                     item.name = user.name
                     item.userId = user.id
                     item.rating = 0
                     item.schoolId = this.currentPath.params.schoolId
-                    item.lessonId = user.lessonId
+                    item.lessonId = this.currentPath.params.lessonId
                     item.homeworkId = this.contentData.homework.id
                     item.postId = this.contentData.id
                     item.homeworkType = '常规作业'
                     this.userList.push(item)
                 })
-                // this.userList = res.data
             }).catch(err=>{
                 console.log(err.response)
             })

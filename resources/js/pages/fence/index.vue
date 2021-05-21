@@ -56,6 +56,7 @@
           <v-row class="hover-cursor-point pa-3" :class="{'selDevice':user.active}" @click="selDevice(user)">
             <v-col>
               {{user.imei}}
+              ({{user.name}})
             </v-col>
           </v-row>
           <v-divider light class="thick-border"></v-divider>
@@ -68,9 +69,12 @@
           </div>
           <bm-polygon :path="polygonPath" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="true" @lineupdate="updatePolygonPath"/>
           <bm-polyline :path="trackPath" stroke-color="red" :stroke-opacity="0.5" :stroke-weight="2"></bm-polyline>
-          <bm-marker :position="{lng: userlng, lat: userlat}" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
-              <!-- <bm-label content="Tiananmen" :labelStyle="{color: 'red', fontSize : '24px'}" :offset="{width: -35, height: 30}"/> -->
-          </bm-marker>
+          <div v-for="user in userDeviceList" :key="user.imei">
+            <bm-marker :position="{lng: user.lng, lat: user.lat}" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
+            </bm-marker>
+          </div>
+          <!-- <bm-marker :position="{lng: userlng, lat: userlat}" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
+          </bm-marker> -->
           <bm-control>
               
           </bm-control>
@@ -322,12 +326,27 @@ export default {
   },
 
   created(){
-    this.accessToken = this.authToken
-    if(this.accessToken == undefined){
-      this.getAccessTokenFunc()
+    // this.accessToken = this.authToken
+    // if(this.accessToken == undefined){
+    //   this.getAccessTokenFunc()
+    // }
+    // console.log("this.accessToken",this.accessToken)
+    // this.getUserDeveiceList()
+    let minm = 100000000000;
+    let maxm = 999999999999;
+    let lngMin = 123474900;
+    let lngMax = 123499999;
+    let latMin = 41695000;
+    let latMax = 41699999;
+    for(let i=0;i<20;i++){
+      let user = {}
+      user.imei = Math.floor(Math.random() * (maxm - minm + 1)) + minm;
+      
+      user.lng = (Math.floor(Math.random() * (lngMax - lngMin + 1)) + lngMin)/1000000;
+      user.lat = (Math.floor(Math.random() * (latMax - latMin + 1)) + latMin)/1000000;
+      user.name = this.randomName()
+      this.userDeviceList.push(user)
     }
-    console.log("this.accessToken",this.accessToken)
-    this.getUserDeveiceList()
   },
 
   methods:{
@@ -336,6 +355,14 @@ export default {
       this.center.lng = 116.404
       this.center.lat = 39.915
       this.zoom = 15
+    },
+    randomName(num=8){
+      let res = '';
+      for(let i = 0; i < num; i++){
+          const random = Math.floor(Math.random() * 27);
+          res += String.fromCharCode(97 + random);
+      };
+      return res;
     },
 
     addFence(){

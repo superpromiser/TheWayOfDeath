@@ -13,4 +13,7 @@ class Homework extends Model
     {
         return $this->hasOne(HomeworkResult::class, 'homeworkId');
     }
+    protected $casts = [
+        'viewList' => 'array'
+    ];
 }

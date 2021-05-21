@@ -355,6 +355,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::put('homeworkData', 'HomeworkController@updateHomeworkData');
     Route::delete('homeworkData', 'HomeworkController@deleteHomeworkData');
     Route::get('homeworkResult', 'HomeworkResultController@getHomeworkResult');
+    Route::get('currentHomeworkResult', 'HomeworkResultController@getCurrentHomeworkResult');
     Route::post('homeworkResult', 'HomeworkResultController@createHomeworkResult');
     Route::put('homeworkTeacherAnswer', 'HomeworkResultController@updateTeacherAnswer');
     Route::post('offlineTeacher', 'HomeworkResultController@createOfflineTeacher');
@@ -467,7 +468,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('schoolUsers', 'UserController@getSchoolUsers');
     Route::get('lessonUsers', 'UserController@getLessonUsers');
     Route::get('lessonUserList', 'UserController@getLessonUserList');
-
+    Route::get('studentWithIds', 'UserController@getStudentWithIds');
     //todayDuty
     Route::get('todayDuty', 'TodayDutyController@getTodayDutyData');
     Route::post('todayDuty', 'TodayDutyController@createTodayDutyData');

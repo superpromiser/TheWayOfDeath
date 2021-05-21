@@ -249,6 +249,14 @@ export default [
       {path:'member', name:'classSpace.member',component:page('class/member.vue')},
     ]
   },
+
+  //attendance
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/attendance/index', name:'posts.attendance', component:page('admin/attendance/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/attendance/lesson', name:'posts.attendance.lesson', component:page('admin/attendance/lesson.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/attendance/check', name:'posts.attendance.check', component:page('admin/attendance/check.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/attendance/vacation', name:'posts.attendance.vacation', component:page('admin/attendance/vacation.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/attendance/statistics', name:'posts.attendance.statistics', component:page('admin/attendance/statistics.vue')},
+
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post', name:'classSpace.post', component:page('class/posts/index.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/questionnaire',name:'posts.Cquestionnaire', component:page('class/posts/questionnaire/index.vue'),
     children:[
@@ -352,13 +360,7 @@ export default [
   {path:'/admin/vacation/teacher', name:'posts.vacationTeacher', component:page('class/posts/vacation/teacher/new.vue')},
   {path:'/admin/vacation/teacher/:vId/reply', name:'posts.vacationTeacherReply', component:page('class/posts/vacation/teacher/reply.vue')},
 
-  //attendance
-  {path:'/admin/attendance/index', name:'posts.attendance', component:page('admin/attendance/index.vue')},
-  {path:'/admin/attendance/lesson', name:'posts.attendance.lesson', component:page('admin/attendance/lesson.vue')},
-  {path:'/admin/attendance/check', name:'posts.attendance.check', component:page('admin/attendance/check.vue')},
-  {path:'/admin/attendance/vacation', name:'posts.attendance.vacation', component:page('admin/attendance/vacation.vue')},
-  {path:'/admin/attendance/statistics', name:'posts.attendance.statistics', component:page('admin/attendance/statistics.vue')},
-
+  
   //classPostDetail
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/detail', name:"classSpace.detail", component:page('details/index.vue'),
     children:[

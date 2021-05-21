@@ -328,7 +328,7 @@ export default {
                     })
                 }
                 else if(this.homeworkData.publishType == 'me'){
-                    this.homeworkData.viewList.push(0)
+                    
                 }
                 else if(this.homeworkData.publishType == 'some'){
                     this.homeworkData.viewList = this.publishSpecUserList;
@@ -340,12 +340,12 @@ export default {
                         this.homeworkData.viewList.push(user.id)
                     })
                 }else if(this.viewType == 'me'){
-                    this.homeworkData.viewList.push(0)
+
                 }else if(this.viewType == 'some'){
                     this.homeworkData.viewList = this.specUsers
-                    this.homeworkData.viewList.push(this.user.id)
                 }
             }
+            this.homeworkData.viewList.push(this.user.id)
             console.log("this.homeworkData",this.homeworkData)
             // return
             createHomeworkData({

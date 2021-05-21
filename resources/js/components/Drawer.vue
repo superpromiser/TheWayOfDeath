@@ -65,7 +65,7 @@
       <v-list-group
         active-class="header-active"
         prepend-icon="mdi-cog-outline"
-        v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7"
+        v-if="user.roleId == 1 || user.roleId == 2"
       >
         <template v-slot:activator>
           <v-list-item-title v-if="user.roleId == 2">学校管理</v-list-item-title>
@@ -168,7 +168,7 @@
               
             </v-list-group>
           </v-list>
-          <v-list class="py-0" v-if="user.role.id == 2">
+          <!-- <v-list class="py-0" v-if="user.role.id == 2">
             <v-list-group  active-class="header-active">
               <template v-slot:activator>
                 <v-list-item-title class="ml-9">考勤</v-list-item-title>
@@ -183,7 +183,7 @@
                   <v-icon>mdi-account-clock </v-icon>
                 </v-list-item-icon>
               </v-list-item>
-              <!-- <v-list-item
+              <v-list-item
                 active-class="sub-header-active"
                 link
                 to="/admin/attendance/lesson"
@@ -192,7 +192,7 @@
                 <v-list-item-icon>
                  <v-icon>mdi-badge-account  </v-icon>
                 </v-list-item-icon>
-              </v-list-item> -->
+              </v-list-item>
               <v-list-item
                 active-class="sub-header-active"
                 link
@@ -203,7 +203,7 @@
                   <v-icon>mdi-account-search </v-icon>
                 </v-list-item-icon>
               </v-list-item>
-              <!-- <v-list-item
+              <v-list-item
                 active-class="sub-header-active"
                 link
                 to="/admin/attendance/vacation"
@@ -212,7 +212,7 @@
                 <v-list-item-icon>
                   <v-icon>mdi-check-decagram-outline </v-icon>
                 </v-list-item-icon>
-              </v-list-item> -->
+              </v-list-item>
               <v-list-item
                 active-class="sub-header-active"
                 link
@@ -224,7 +224,7 @@
                 </v-list-item-icon>
               </v-list-item>
             </v-list-group>
-          </v-list>
+          </v-list> -->
           
           <!-- teacher admin -->
           

@@ -227,7 +227,7 @@ export default {
             studentName:'',
             teacherName:'',
             reasonFlag: true,
-            startTime: '',
+            startTime: new Date(),
             endTime: '',
             reason: '',
             painDesc: '',
@@ -237,6 +237,7 @@ export default {
             lessonId:null,
         },
         isLoading:false,
+        
     }),
 
     components: {
@@ -282,6 +283,9 @@ export default {
             }
             if(this.newVacationData.isHeat == true && this.newVacationData.painDesc == ''){
                 return this.$snackbar.showMessage({content: this.lang.requirePainDesc, color: 'error'});
+            }
+            if(this.newVacationData.endTime < this.newVacationData.startTime){
+                return this.$snackbar.showMessage({content:this.lang.startTimeAndEndTime, color:'error'})
             }
             this.isLoading = true
             await createVacationData(this.newVacationData).then(res=>{

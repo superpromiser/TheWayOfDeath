@@ -129,7 +129,7 @@
                         class="mt-0 pt-0"
                     ></v-select>
                 </v-col>
-                <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
+                <!-- <v-col cols="12" sm="6" md="4" class="d-flex align-center justify-space-between">
                     <span>签名反馈</span>
                     <v-switch
                         v-model="announcementData.scopeFlag"
@@ -137,7 +137,7 @@
                         hide-details
                         class="pt-0 mt-0"
                     ></v-switch>
-                </v-col>
+                </v-col> -->
             </v-row>
             <QuestionItem Label="" :emoji="true" :isAnnouncement="true" :isShareView="true" :item="announcementData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             <v-btn @click="tempList" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="bottom: 54px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>
@@ -306,7 +306,7 @@
                             hide-details
                         ></v-select>
                     </v-col>
-                    <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
+                    <!-- <v-col cols="6" sm="6" md="4" class="d-flex align-center justify-space-around">
                         <span>签名反馈</span>
                         <v-switch
                             v-model="announcementData.scopeFlag"
@@ -315,7 +315,7 @@
                             inset
                             class="pt-0 mt-0"
                         ></v-switch>
-                    </v-col>
+                    </v-col> -->
                     <v-col cols="12">
                         <QuestionItem Label="分享内容" :emoji="true" :item="announcementData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
                     </v-col>

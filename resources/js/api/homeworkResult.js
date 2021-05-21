@@ -24,6 +24,10 @@ function getOnlineTeacherCheck(payload){
     return axios.get('/api/v1/onlineTeacherCheck',{params:payload})
 }
 
+function getCurrentHomeworkResult(payload){
+    return axios.get('/api/v1/currentHomeworkResult',{params:payload})
+}
+
 export{
     getHomeworkResult,
     createTeacherAnswer,
@@ -31,4 +35,5 @@ export{
     createOfflineTeacherAnswer,
     getOfflineStudent,
     getOnlineTeacherCheck,
+    getCurrentHomeworkResult
 }

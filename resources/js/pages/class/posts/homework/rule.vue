@@ -33,7 +33,7 @@
                         hide-details
                     ></v-select>
                 </v-col>
-                <v-col cols="12" class="d-flex align-center justify-space-between">
+                <!-- <v-col cols="12" class="d-flex align-center justify-space-between">
                     <p class="mb-0">家长评价提示</p>
                     <v-switch
                         v-model="homeworkData.parentCheck"
@@ -41,7 +41,7 @@
                         hide-details
                         class="mt-0 pt-0"
                     ></v-switch>
-                </v-col>
+                </v-col> -->
             </v-row>
         </v-container>
     </v-container>
@@ -104,7 +104,7 @@
             </v-col>
         </v-row>
         <v-divider light></v-divider>
-        <v-row class="mt-1 mx-7 ma-0">
+        <!-- <v-row class="mt-1 mx-7 ma-0">
             <v-col class="d-flex align-center justify-space-between" cols="12">
                 <p class="mb-0">家长评价提示</p>
                 <v-switch
@@ -113,7 +113,7 @@
                     class="mt-0 pt-0"
                 ></v-switch>
             </v-col>
-        </v-row>
+        </v-row> -->
     </v-container>
 </template>
 

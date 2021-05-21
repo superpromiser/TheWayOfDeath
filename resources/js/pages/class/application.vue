@@ -237,12 +237,36 @@ export default {
         title: "智能考勤", //지능출근
         icon: "mdi-calendar-month-outline",
         items: [
-          // {
-          //     color:"#3EBBE8",
-          //     title:"请假审批",//휴가심사
-          //     imgUrl:"/asset/img/newIcon/vocationReply.png",
-          //     path:"classSpace.applications.vacation"
-          // },
+          {
+              color:"#3EBBE8",
+              title:"考勤",//출근
+              imgUrl:"/asset/img/newIcon/attendance.png",
+              path:"posts.attendance"
+          },
+          {
+              color:"#3EBBE8",
+              title:"课堂考勤",//수업출석
+              imgUrl:"/asset/img/newIcon/attendance.png",
+              path:"posts.attendance.lesson"
+          },
+          {
+              color:"#3EBBE8",
+              title:"晨午检",//아침저녁검사
+              imgUrl:"/asset/img/newIcon/attendance.png",
+              path:"posts.attendance.check"
+          },
+          {
+              color:"#3EBBE8",
+              title:"请假审批",//휴가심사
+              imgUrl:"/asset/img/newIcon/vocationReply.png",
+              path:"posts.attendance.vacation"
+          },
+           {
+              color:"#3EBBE8",
+              title:"统计",//통계
+              imgUrl:"/asset/img/newIcon/statistics.png",
+              path:"posts.attendance.statistics"
+          },
           {
             color: "#3EBBE8",
             title: "课程表", //시간표
@@ -302,6 +326,12 @@ export default {
             title: "作业", //숙제
             imgUrl: "/asset/img/newIcon/homework.png",
             path: "classSpace.applications.homework"
+          },
+          {
+            color: "#E4BC16",
+            title: "今日值日", //오늘의 의무
+            imgUrl: "/asset/img/newIcon/duty.png",
+            path: "classSpace.applications.todayDuty"
           }
         ]
       },
@@ -333,12 +363,7 @@ export default {
             imgUrl: "/asset/img/newIcon/safeStudy.png",
             path: "classSpace.applications.safeStudy"
           },
-          {
-            color: "#98BB3A",
-            title: "今日值日", //오늘의 의무
-            imgUrl: "/asset/img/newIcon/safeStudy.png",
-            path: "classSpace.applications.todayDuty"
-          }
+          
         ]
       },
       {
