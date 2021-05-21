@@ -81,7 +81,7 @@
             <v-container class="pa-10">
                 <QuestionItem Label="内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
-            <v-row class="px-10">
+            <v-row class="px-10 ma-0">
                 <v-col cols="8" md="10"></v-col>
                 <v-col cols="4" class="justify-end" md="2">
                     <v-select

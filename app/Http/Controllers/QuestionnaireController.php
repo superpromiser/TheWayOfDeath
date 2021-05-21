@@ -17,6 +17,7 @@ class QuestionnaireController extends Controller
         ]);
         if ($request->lessonId) {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 12])
+                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
                 ->with([
                     'likes',
                     'views',
@@ -76,7 +77,7 @@ class QuestionnaireController extends Controller
             'userId' => $userId,
             'schoolId' => $request->schoolId,
             'classId' => $classId,
-            'viewList'=>$request->viewList
+            'viewList' => $request->viewList
         ])->id;
         $data = Questionnaire::create([
             'title' => $title,

@@ -69,7 +69,7 @@
                     background-color="orange lighten-3"
                     color="orange"
                     length="5"
-                    size="50"
+                    size="25"
                     value="0"
                     v-model="user.rating"
                     readonly

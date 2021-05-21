@@ -91,7 +91,7 @@
             </v-row>
         </v-container>
         <!-- <v-divider class="thick-border"></v-divider> -->
-        <v-container v-if="contentList.length" class="pa-5" v-for="content in contentList" :key="content.id" >
+        <v-container v-if="contentList.length && content.homework" class="pa-5" v-for="content in contentList" :key="content.id" >
             <v-row class="pa-0 mt-1">
                 <HomeworkPost :content="content"></HomeworkPost>
                 <FooterPost :footerInfo='content'></FooterPost>
@@ -220,6 +220,7 @@ export default {
             let vm = this;
             await getAppHomeworkData({page:this.pageOfContent,schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId})
             .then(res=>{
+                console.log(res.data)
                 if(vm.pageOfContent == 1 && res.data.data.length == 0){
                     $state.complete();
                     return;

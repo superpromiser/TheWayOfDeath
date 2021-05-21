@@ -526,6 +526,7 @@ export default {
                 else{
                     this.announcementData.showList = this.specUsers
                 }
+                this.announcementData.showList.push(this.user.id)
             }
 
             if(this.announcementData.title.trim() == ''){
@@ -627,6 +628,7 @@ export default {
             this.$store.dispatch('mo/onBackWithoutSelect', false);
             this.$store.dispatch('mo/onClickedChange', false);
             this.$store.dispatch('mo/onBackWithChange', false);
+            this.$store.dispatch('member/storeSpecUsers',[])
         }
     }
 }

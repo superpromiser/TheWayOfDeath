@@ -82,7 +82,7 @@
                     color="#7879ff"
                 ></v-progress-circular>
             </div>
-            <v-row class="px-10" v-else>
+            <v-row class="px-10 ma-0" v-else>
                 <v-col cols="4" sm="6" md="4" v-for="template in templateList" :key="template.id">
                     <v-card
                     class="mx-auto"

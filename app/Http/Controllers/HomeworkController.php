@@ -16,12 +16,17 @@ class HomeworkController extends Controller
             'schoolId' => 'required',
             'lessonId' => 'required',
         ]);
-         return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 14])
+        $userId = Auth::user()->id;
+        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 14])
+            ->orWhere('viewList', 'like', "%{$request->lessonId}%")
             ->with([
                 'likes',
                 'views',
                 'comments.users:id,name',
-                'homework:postId,content',
+                'homework:postId,content' => function ($query) use ($userId) {
+                    $query->where("viewList", "like", "%{$userId}%")
+                        ->orWhere('viewList', null);
+                },
                 'users:id,name,avatar'
             ])
             ->orderBy('updated_at', 'desc')
@@ -65,13 +70,17 @@ class HomeworkController extends Controller
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
+        $userId = Auth::user()->id;
         if ($request->lessonId) {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 14])
                 ->with([
                     'likes',
                     'views',
                     'comments',
-                    'homework',
+                    'homework' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}%")
+                            ->orWhere('viewList', null);
+                    },
                     'users:id,name,avatar'
                 ])
                 ->orderBy('created_at', 'desc')

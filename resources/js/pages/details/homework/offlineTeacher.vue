@@ -94,10 +94,10 @@
             ></v-progress-circular>
         </div>
         <div v-else>
-            <div v-if="alreadyAnswer == false" class="px-10">
+            <div v-if="alreadyAnswer == false" class="px-10 mt-5">
                 <v-row v-for="(user,idx) in userList" :key="user.id" class=" ma-0">
                     <v-col class="d-flex justify-space-between align-center" cols="12">
-                        <p class="pl-2">
+                        <p class="pl-2 d-flex align-center">
                             {{idx + 1}}.
                             {{user.name}}
                         </p>
@@ -114,10 +114,10 @@
                     <v-divider class="thick-border"></v-divider>
                 </v-row>
             </div>
-            <div v-else class="px-10">
+            <div v-else class="px-10 mt-5">
                 <v-row v-for="(user,idx) in userList" :key="user.id">
                     <v-col class="d-flex justify-space-between align-center" cols="12">
-                        <p class="pl-2">
+                        <p class="pl-2 d-flex align-center">
                             {{idx + 1}}.
                             {{user.user.name}}
                         </p>
@@ -203,6 +203,7 @@ export default {
     },
     methods:{
         submit(){
+            this.rating = true
             this.userList.map(user=>{
                 if(user.rating == 0){
                     this.rating = false

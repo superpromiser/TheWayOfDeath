@@ -19,13 +19,14 @@ class AnouncementController extends Controller
         ]);
         $userId = Auth::user()->id;
         return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 5])
+            ->orWhere('viewList', 'like', "%{$request->lessonId}%")
             ->with([
                 'likes',
                 'views',
                 'comments.users:id,name',
                 'anouncements' => function ($query) use ($userId) {
                     $query->where("showList", "like", "%{$userId}")
-                        ->orWhere('showList', null);;
+                        ->orWhere('showList', null);
                 },
                 'users:id,name,avatar'
             ])

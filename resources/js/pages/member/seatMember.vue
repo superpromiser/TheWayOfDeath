@@ -63,7 +63,7 @@
                     </v-row>
                 </v-col>
             </v-row>
-            <v-row class="px-10" v-for="(row, idx1) in seatList" :key="idx1">
+            <v-row class="px-10 ma-0" v-for="(row, idx1) in seatList" :key="idx1">
                 <v-col v-for="(col, idx2) in row" :key="idx2">
                     <v-select
                         v-model="seatList[idx1][idx2]"

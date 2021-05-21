@@ -93,7 +93,7 @@
             </div>
             <div v-else class="mt-5">
                 <div class="category px-10">答卷内容</div>
-                <v-row class="px-10">
+                <v-row class="px-10 ma-0">
                     <v-col cols="12">
                         <p class="mb-0 d-flex align-center"> 
                         </p>
