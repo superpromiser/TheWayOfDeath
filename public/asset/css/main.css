@@ -1533,7 +1533,8 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
     overflow-y: auto;
 }
 .add-comment-out-height-mo{
-    height: calc(100vh - 0px);
+    height: calc(100vh - 63px);
+    transition: 0.5s;
     overflow-y: auto;
 }
 

@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0 h-100" v-if="$isMobile()">
-        <v-container class="pa-0 add-comment-out-height-mo pt-12">
+        <v-container class="pa-0 add-comment-out-height-mo pt-12" id="add-comment-out-height-mo">
             <v-container class="pa-0 bg-white position-sticky-top-0" >
                 <v-row class="ma-0 bg-white justify-center " >
                     <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
@@ -346,7 +346,8 @@ export default {
     computed:{
         ...mapGetters({
             contentData:'content/postDetail',
-            user:'auth/user'
+            user:'auth/user',
+            isOpenEmojiComment: 'mo/isOpenEmojiComment'
         }),
         currentpath(){
             return this.$route
@@ -369,6 +370,19 @@ export default {
             this.$set(comment,'isDeleting',false)
         })
         console.log('CommentData',this.contentData)
+    },
+    watch:{
+        isOpenEmojiComment:{
+            handler(val){
+                if(val == false){
+                    document.getElementById("add-comment-out-height-mo").style.height = "calc(100vh - 63px)";
+                }
+                else if(val == true){
+                    document.getElementById("add-comment-out-height-mo").style.height = "calc(100vh - 413px)";
+                }
+            },
+            deeper:true
+        }
     },
     methods:{
         outSidePicker(){

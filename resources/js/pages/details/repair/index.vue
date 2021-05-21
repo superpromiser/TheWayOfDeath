@@ -75,7 +75,7 @@
                                 <v-icon left> mdi-label </v-icon> 已完成
                             </v-chip>
                         </div>
-                        <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(contentData.created_at)}} 转发</span> {{contentData.users.name}}</p>
+                        <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(contentData.created_at)}}  </span> {{contentData.users.name}}</p>
                     </div>
                 </v-col>
                 <v-col cols="12" class="py-0 font-size-0-8">

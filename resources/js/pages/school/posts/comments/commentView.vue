@@ -12,29 +12,8 @@
         <v-divider v-if="index < contentData.comments.length -1"></v-divider>
       </div>
     </div>
-    <v-row class="ma-0 mt-3">
-      <v-col cols="12" class="d-flex">        
-        <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="48">
-          <span class="white--text headline">{{user.name[0]}}</span>
-        </v-avatar>
-        <v-avatar v-else
-          size="48"
-        >
-          <v-img :src="user.avatar"></v-img>
-        </v-avatar>
-        <v-textarea color="#7879ff" name="input-7-4"
-            :append-icon-cb="toggleEmo" 
-            :label="''"
-            v-model="commentText"
-            hide-details
-            class="ml-2"
-            rows="1"
-        ></v-textarea>
-        
-      </v-col>
-    </v-row>
     
-    <v-row class="ma-0 mb-4">
+    <!-- <v-row class="ma-0 mb-4">
       <v-col cols="12" class="d-flex align-center position-relative">
         <v-icon class="ml-14" @click="emoStatus = !emoStatus">
           mdi-emoticon-excited-outline
@@ -60,8 +39,60 @@
             提交评论
         </v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
+
+    <div id="push-popup-bottom-nav" class="push-popup-bottom-nav">
+      <v-row class="bg-secondary ma-0 pa-0 w-100" style="position:absolute; top: -62px; ">
+          <v-col cols="12" class="d-flex align-center position-relative" style="border-bottom: 1px solid lightgray;">
+              <div class="ch-icon-area d-flex align-center position-relative">
+                  <v-icon @click="toggleSheet()" size="30" class="hover-cursor-point mr-4">
+                      mdi-emoticon-happy-outline
+                  </v-icon>
+              </div>
+              <v-text-field
+                  solo
+                  class="mo-select-white-bg"
+                  v-model="commentText"
+                  :append-outer-icon="'mdi-send'"
+                  label="输入内容"
+                  dense
+                  type="text"
+                  hide-details
+                  color="#7879ff"
+                  ref="textField"
+                  :loading="isPosting"
+                  @click:append-outer="postComment"
+                  @click:clear="cancelComment"
+                  @focus="closeWithFocus()"
+                  
+                  @keydown.enter.exact.prevent 
+                  @keyup.enter.exact="newline" 
+                  @keydown.enter.shift.exact="postComment" 
+                  @keydown.enter.shift.exact.prevent
+              ></v-text-field>
+          </v-col>
+      </v-row>
+      <v-sheet class="" color="#F2F2F2">
+          <transition name="page" mode="out-in">
+              <v-container key="2" class="pa-0" :style="{ transitionDelay: delay }">
+                  <Picker 
+                      class="w-100 h-350-px" 
+                      title="选择你的表情符号..." 
+                      set="twitter" 
+                      color="#7879ff"
+                      :data="emojiIndex" 
+                      :showPreview="false"
+                      :showSearch="false"
+                      :i18n="emojiI18n"
+                      @select="onInput" 
+                      />
+              </v-container>
+          </transition>
+      </v-sheet>
+    </div>
   </v-container>
+
+
   <v-container class="px-10" v-else>
     <div>
       <div v-for="(comment,index) in contentData.comments" :key="index">
@@ -175,22 +206,25 @@ export default {
     isPosting:false,
     
     emojiI18n: { 
-            search: 'Recherche', 
-            categories: { 
-                search: '//Search Results',
-                recent: '最近常用',
-                smileys: '黄脸',
-                people: '人和手势',
-                nature: '动物和植物',
-                foods: '食物',
-                activity: '活动',
-                places: '交通 ',
-                objects: '物品',
-                symbols: '标志',
-                flags: '国旗',
-                custom: '其他',
-            } 
-        },
+      search: 'Recherche', 
+      categories: { 
+        search: '//Search Results',
+        recent: '最近常用',
+        smileys: '黄脸',
+        people: '人和手势',
+        nature: '动物和植物',
+        foods: '食物',
+        activity: '活动',
+        places: '交通 ',
+        objects: '物品',
+        symbols: '标志',
+        flags: '国旗',
+        custom: '其他',
+      } 
+    },
+
+    delay: "0.25s",
+    isOpenSheet : false,
 
   }),
   methods:{
@@ -245,6 +279,45 @@ export default {
         comment.isDeleting = false
       })
 
+    },
+
+    focusTextFields(){
+      this.$refs.textField.focus();
+    }
+    ,
+    blurTextFields(){
+      this.$refs.textField.blur();
+    },
+
+    closeSheet() {
+      document.getElementById("push-popup-bottom-nav").style.height = "0";
+      this.$store.dispatch('mo/onIsOpenEmojiComment', false);
+    },
+
+    showSheet(){
+      document.getElementById("push-popup-bottom-nav").style.height = "350px";
+      this.$store.dispatch('mo/onIsOpenEmojiComment', true);
+    },
+
+    toggleSheet(){
+      this.isOpenSheet = !this.isOpenSheet;
+      if(this.isOpenSheet == true){
+        this.showSheet();
+      }
+      else{
+        this.closeSheet();
+        this.focusTextFields();
+      }
+    },
+
+    closeWithFocus(){
+      this.focusTextFields();
+      this.closeSheet();
+    },
+
+    closeWithBlur(){
+      this.blurTextFields();
+      this.closeSheet();
     }
   }
 };
