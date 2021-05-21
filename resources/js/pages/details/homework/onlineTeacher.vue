@@ -22,10 +22,10 @@
                             {{user.name}}
                         </span>
                         <div>
-                            <v-chip class="ma-2" color="#EB5846" label text-color="white" v-if="user.studentAnswer == false">
+                            <v-chip class="ma-0" color="#EB5846" small outlined label text-color="#EB5846" v-if="user.studentAnswer == false">
                                 <v-icon left> mdi-label </v-icon> 未完成
                             </v-chip>
-                            <v-chip class="ma-2" color="#4AD2A0" label text-color="white" v-else>
+                            <v-chip class="ma-0" color="#4AD2A0" small outlined label text-color="#4AD2A0" v-else>
                                 <v-icon left> mdi-label </v-icon> 已完成
                             </v-chip>
                             <v-icon>mdi-chevron-right</v-icon>
