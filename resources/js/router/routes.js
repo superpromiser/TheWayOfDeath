@@ -186,6 +186,7 @@ export default [
   {path:'/schoolSpace/:schoolId/post/homework', name:'posts.homework', component:page('school/posts/homework/index.vue'),
     children:[
       {path:'setRule', name:'homework.setRule',component:page('school/posts/homework/rule.vue')},
+      
     ]
   },
   {path:'/schoolSpace/:schoolId/post/shiftMng', name:'posts.shift', component:page('school/posts/shiftManagement/index.vue'),
@@ -277,6 +278,7 @@ export default [
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/homework', name:'posts.Chomework', component:page('class/posts/homework/index.vue'),
     children:[
       {path:'setRule', name:'Chomework.setRule',component:page('class/posts/homework/rule.vue')},
+      {path:'contacts',name:'Chomework.contacts',component:page('class/contacts.vue')}
     ]
   },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/homevisit', name:'posts.Chomevisit', component:page('class/posts/homevisit/new.vue')},

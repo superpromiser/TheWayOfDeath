@@ -157,7 +157,7 @@
                     </v-col>
                 </v-row>
                 <v-divider light></v-divider>
-                <QuestionItem class="mt-3" Label="作业内容" :emoji="true"  ref="child" @contentData="loadContentData"></QuestionItem>
+                <QuestionItem class="mt-3" Label="作业内容" :emoji="true"  ref="child" @contentData="loadContentData" :item="homeworkData.content"></QuestionItem>
                 <v-row>
                     <v-col cols="8" md="10"></v-col>
                     <v-col cols="4" class="justify-end" md="2">
@@ -171,21 +171,6 @@
                         ></v-select>
                     </v-col>
                 </v-row>
-                <div v-if="viewType == 'some'">
-                    <v-row v-for="user in userList" :key="user.id" class=" ma-0">
-                        <v-col class="d-flex justify-space-between align-center" cols="12">
-                            <v-checkbox
-                                v-model="user.checkbox"
-                                :label="user.name"
-                            ></v-checkbox>
-                            <!-- <span class="pl-2">
-                                {{idx + 1}}.
-                                {{user.name}}
-                            </span> -->
-                        </v-col>
-                        <v-divider class="thick-border"></v-divider>
-                    </v-row>
-                </div>
             </v-container>
         </div>
         <div v-else>
@@ -235,10 +220,10 @@ export default {
                 label:'在线作业',
                 value:'在线作业'
             },
-            {
-                label:'在线测试',
-                value:'在线测试'
-            }
+            // {
+            //     label:'在线测试',
+            //     value:'在线测试'
+            // }
         ],
         subjectList:[],
         showRule:false,
@@ -357,11 +342,8 @@ export default {
                 }else if(this.viewType == 'me'){
                     this.homeworkData.viewList.push(0)
                 }else if(this.viewType == 'some'){
-                    this.userList.map(user=>{
-                        if(user.checkbox == true){
-                            this.homeworkData.viewList.push(user.id)
-                        }
-                    })
+                    this.homeworkData.viewList = this.specUsers
+                    this.homeworkData.viewList.push(this.user.id)
                 }
             }
             console.log("this.homeworkData",this.homeworkData)
@@ -414,6 +396,11 @@ export default {
         },
         selViewList(){
             console.log(this.viewType)
+            
+            if(this.viewType == 'some'){
+                this.showRule = true
+                this.$router.push({name:'Chomework.contacts'})
+            }
         },
 
         selectPublishType( val ){
@@ -453,6 +440,7 @@ export default {
             this.$store.dispatch('mo/onBackWithoutSelect', false);
             this.$store.dispatch('mo/onClickedChange', false);
             this.$store.dispatch('mo/onBackWithChange', false);
+            this.$store.dispatch('member/storeSpecUsers',[])
         }
     }
 }

@@ -83,7 +83,7 @@
             <v-container class="pa-10">
                 <QuestionItem Label="分享内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
-            <v-row class="px-10">
+            <v-row class="px-10 ma-0">
                 <v-col cols="8" md="10"></v-col>
                 <v-col cols="4" class="justify-end" md="2">
                     <v-select
@@ -170,7 +170,8 @@ export default {
             backWithoutSelect: 'mo/backWithoutSelect',
             backWithChange: 'mo/backWithChange',
             clickedChange: 'mo/clickedChange',
-            specUsers:'member/specUsers'
+            specUsers:'member/specUsers',
+            user:'auth/user'
         }),
     },
     watch:{
@@ -251,6 +252,7 @@ export default {
                 }
                 if(this.shareData.publishType == 'spec'){
                     this.$set(this.shareData, 'specUsers', this.publishSpecUserList);
+                    this.shareData.specUsers.push(this.user.id)
                 }
                 console.log("MO", this.shareData);
                 this.isSubmit = true
@@ -272,6 +274,7 @@ export default {
                 }
                 if(this.shareData.publishType == 'spec'){
                     this.$set(this.shareData, 'specUsers', this.specUsers);
+                    this.shareData.specUsers.push(this.user.id)
                 }
                 this.isSubmit = true
                 await createShare(this.shareData).then(res=>{

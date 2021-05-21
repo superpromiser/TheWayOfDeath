@@ -18,20 +18,35 @@ class ClassStoryController extends Controller
             'lessonId' => 'required'
         ]);
         $userId = Auth::user()->id;
-        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 25])
-            ->with([
-                'likes',
-                'views',
-                'comments.users:id,name',
-                'classstory' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}")
-                        ->orWhere('viewList', null);;
-                },
-                'users:id,name,avatar'
-            ])
-            ->orderBy('fixTop', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        $roleId = Auth::user()->roleId;
+        if ($roleId < 3) {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 25])
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'classstory',
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        } else {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 25])
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'classstory' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}")
+                            ->orWhere('viewList', null);;
+                    },
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        }
     }
 
     public function createClassStory(Request $request)

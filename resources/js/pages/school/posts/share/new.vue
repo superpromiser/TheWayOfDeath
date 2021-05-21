@@ -83,7 +83,7 @@
             <v-container class="pa-10">
                 <QuestionItem Label="分享内容" :emoji="true" :item="shareData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             </v-container>
-            <v-row class="px-10">
+            <v-row class="px-10 ma-0">
                 <v-col cols="8" md="10"></v-col>
                 <v-col cols="4" class="justify-end" md="2">
                     <v-select
@@ -178,6 +178,7 @@ export default {
             backWithChange: 'mo/backWithChange',
             clickedChange: 'mo/clickedChange',
             specUsers:'member/specUsers',
+            user:'auth/user'
         }),
     },
     watch:{
@@ -269,6 +270,7 @@ export default {
                 else{
                     this.$set(this.shareData, 'specUsers', this.specUsers);
                 }
+                this.shareData.specUsers.push(this.user.id)
             }
             this.isSubmit = true
             await createShare(this.shareData).then(res=>{

@@ -26,7 +26,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-row class="px-10">
+        <v-row class="px-10 ma-0">
             <v-col cols="12" sm="6" md="4">
                 <v-text-field
                 solo

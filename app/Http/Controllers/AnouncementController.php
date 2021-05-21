@@ -18,20 +18,37 @@ class AnouncementController extends Controller
             'schoolId' => 'required'
         ]);
         $userId = Auth::user()->id;
-        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 5])
-            ->with([
-                'likes',
-                'views',
-                'comments.users:id,name',
-                'anouncements' => function ($query) use ($userId) {
-                    $query->where("showList", "like", "%{$userId}")
-                        ->orWhere('showList', null);;
-                },
-                'users:id,name,avatar'
-            ])
-            ->orderBy('fixTop', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        $roleId = Auth::user()->roleId;
+        if ($roleId < 3) {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 5])
+                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'anouncements',
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        } else {
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 5])
+                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'anouncements' => function ($query) use ($userId) {
+                        $query->where("showList", "like", "%{$userId}")
+                            ->orWhere('showList', null);
+                    },
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        }
     }
 
     public function createAnouncement(Request $request)

@@ -19,36 +19,64 @@ class PostController extends Controller
         ]);
         $userId = Auth::user()->id;
         // $isLiked = Like::where('userId',$userId)->count();
-        return Post::whereIn('contentId', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 24])
-            ->where('schoolId', $request->schoolId)
-            // ->where('classId', $request->lessonId)
-            ->with([
-                'likes',
-                'views',
-                'comments.users:id,name',
-                'questionnaires',
-                'votings',
-                'anouncements',
-                'shares' => function ($query) use ($userId) {
-                    $query->where('viewList', null)
-                        ->orWhere("viewList", "like", "%{$userId}%");
-                },
-                'shiftMng',
-                'safestudy' => function ($query) use ($userId) {
-                    $query->where('viewList', null)
-                        ->orWhere("viewList", "like", "%{$userId}%");
-                },
-                'repairdata',
-                'schoolstory' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}%")
-                        ->orWhere('viewList', null);
-                },
-                'regnames',
-                'users:id,name,avatar'
-            ])
-            ->orderBy('fixTop', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        $roleId = Auth::user()->roleId;
+        if ($roleId < 3) {
+            return Post::whereIn('contentId', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 24])
+                ->where('schoolId', $request->schoolId)
+                // ->where('classId', $request->lessonId)
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'questionnaires',
+                    'votings',
+                    'anouncements',
+                    'shares',
+                    'shiftMng',
+                    'safestudy',
+                    'repairdata',
+                    'schoolstory',
+                    'regnames',
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        } else {
+            return Post::whereIn('contentId', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 24])
+                ->where('schoolId', $request->schoolId)
+                // ->where('classId', $request->lessonId)
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'questionnaires',
+                    'votings',
+                    'anouncements' => function ($query) use ($userId) {
+                        $query->where("showList", "like", "%{$userId}%")
+                            ->orWhere('showList', null);
+                    },
+                    'shares' => function ($query) use ($userId) {
+                        $query->where('viewList', null)
+                            ->orWhere("viewList", "like", "%{$userId}%");
+                    },
+                    'shiftMng',
+                    'safestudy' => function ($query) use ($userId) {
+                        $query->where('viewList', null)
+                            ->orWhere("viewList", "like", "%{$userId}%");
+                    },
+                    'repairdata',
+                    'schoolstory' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}%")
+                            ->orWhere('viewList', null);
+                    },
+                    'regnames',
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        }
     }
 
     public function getClassPost(Request $request)
@@ -58,48 +86,88 @@ class PostController extends Controller
         ]);
         $userId = Auth::user()->id;
         $classId = $request->classId;
-        return Post::whereIn('contentId', [1, 2, 5, 7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
-            ->where('classId', $classId)
-            ->orWhere('viewList', 'like', "%{$classId}%")
-            ->with([
-                'likes',
-                'views',
-                'comments.users:id,name',
-                'questionnaires',
-                'votings',
-                'anouncements' => function ($query) use ($userId) {
-                    $query->where("showList", "like", "%{$userId}%")
-                        ->orWhere('showList', null);
-                },
-                'homeVisit',
-                'notifications',
-                'evaluations',
-                'recognitions',
-                'homework.homeworkresult',
-                'homeworkResult.homework',
-                'safestudy',
-                'shares' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}%")
-                        ->orWhere('viewList', null);
-                },
-                'regnames',
-                'classstory' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}%")
-                        ->orWhere('viewList', null);
-                },
-                'interclassstory' => function ($query) use ($userId) {
-                    $query->where("viewList", "like", "%{$userId}%")
-                        ->orWhere('viewList', null);
-                },
-                'vacations',
-                'returnteam',
-                'repairdata',
-                'todayduty',
-                'users:id,name,avatar'
-            ])
-            ->orderBy('fixTop', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        $roleId = Auth::user()->roleId;
+        if ($roleId < 3) {
+            return Post::whereIn('contentId', [1, 2, 5, 7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
+                ->where('classId', $classId)
+                ->orWhere('viewList', 'like', "%{$classId}%")
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'questionnaires',
+                    'votings',
+                    'anouncements',
+                    'homeVisit',
+                    'notifications',
+                    'evaluations',
+                    'recognitions',
+                    'homework',
+                    // 'homeworkResult.homework',
+                    'safestudy',
+                    'shares',
+                    'regnames',
+                    'classstory',
+                    'interclassstory',
+                    'vacations',
+                    'returnteam',
+                    'repairdata',
+                    'todayduty',
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        } else {
+            return Post::whereIn('contentId', [1, 2, 5, 7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
+                ->where('classId', $classId)
+                ->orWhere('viewList', 'like', "%{$classId}%")
+                ->with([
+                    'likes',
+                    'views',
+                    'comments.users:id,name',
+                    'questionnaires',
+                    'votings',
+                    'anouncements' => function ($query) use ($userId) {
+                        $query->where("showList", "like", "%{$userId}%")
+                            ->orWhere('showList', null);
+                    },
+                    'homeVisit',
+                    'notifications',
+                    'evaluations',
+                    'recognitions',
+                    'homework' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}%")
+                            ->orWhere('viewList', null);
+                    },
+                    // 'homeworkResult.homework',
+                    'safestudy' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}%")
+                            ->orWhere('viewList', null);
+                    },
+                    'shares' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}%")
+                            ->orWhere('viewList', null);
+                    },
+                    'regnames',
+                    'classstory' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}%")
+                            ->orWhere('viewList', null);
+                    },
+                    'interclassstory' => function ($query) use ($userId) {
+                        $query->where("viewList", "like", "%{$userId}%")
+                            ->orWhere('viewList', null);
+                    },
+                    'vacations',
+                    'returnteam',
+                    'repairdata',
+                    'todayduty',
+                    'users:id,name,avatar'
+                ])
+                ->orderBy('fixTop', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        }
     }
 
     public function getClassPhoto(Request $request)

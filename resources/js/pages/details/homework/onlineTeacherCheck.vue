@@ -91,7 +91,7 @@
         </div>
         <div v-else>
             <div class="category px-10">作业内容</div>
-            <v-row class="px-10">
+            <v-row class="px-10 ma-0">
                 <v-col cols="12">学生姓名：{{studentName}}</v-col>
                 <v-col cols="12">作业科目：{{contentData.homework.subjectName}}</v-col>
                 <v-col cols="12">作业类型：{{contentData.homework.homeworkType}}</v-col>
@@ -125,7 +125,7 @@
                     </v-col>
                 </v-row>
                 <div class="category mt-15 px-10">成绩评价</div>
-                <v-row class="px-10">
+                <v-row class="px-10 ma-0">
                     <v-col class="d-flex justify-space-between align-center" cols="12" v-if="homeworkResult.rating != null">
                         <p class="">
                             {{studentName}} 成绩评价

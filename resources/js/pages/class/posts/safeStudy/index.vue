@@ -81,7 +81,7 @@
             <v-container class="pa-10">
                 <QuestionItem :Label="lang.contentPlaceFirst" :emoji="true" ref="child" @contentData="loadContentData" :item="shareData.content[0]"></QuestionItem>
             </v-container>
-            <v-row class="px-10">
+            <v-row class="px-10 ma-0">
                 <v-col cols="8" md="10"></v-col>
                 <v-col cols="4" class="justify-end" md="2">
                     <v-select
@@ -161,7 +161,8 @@ export default {
             backWithoutSelect: 'mo/backWithoutSelect',
             backWithChange: 'mo/backWithChange',
             clickedChange: 'mo/clickedChange',
-            specUsers:'member/specUsers'
+            specUsers:'member/specUsers',
+            user:'member/user'
         })
     },
     watch:{
@@ -240,6 +241,7 @@ export default {
                 else{
                     this.$set(this.shareData, 'specUsers', this.specUsers);
                 }
+                this.shareData.specUsers.push(this.user.id)
             }
             //console.log(this.shareData)
             this.isSubmit = true
@@ -316,6 +318,7 @@ export default {
             this.$store.dispatch('mo/onBackWithoutSelect', false);
             this.$store.dispatch('mo/onClickedChange', false);
             this.$store.dispatch('mo/onBackWithChange', false);
+            this.$store.dispatch('member/storeSpecUsers',[])
         }
     }
 }

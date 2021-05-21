@@ -19,6 +19,7 @@ class VotingController extends Controller
         ]);
         if ($request->lessonId) {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 13])
+                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
                 ->with([
                     'likes',
                     'views',
@@ -72,7 +73,7 @@ class VotingController extends Controller
             'userId' => $userId,
             'schoolId' => $request->schoolId,
             'classId' => $classId,
-            'viewList'=>$request->viewList,
+            'viewList' => $request->viewList,
         ])->id;
         $data = Voting::create([
             'votingType' => $votingType,
@@ -102,9 +103,9 @@ class VotingController extends Controller
     public function createTemplate(Request $request)
     {
         $userId = Auth::user()->id;
-        if($request->lessonId){
+        if ($request->lessonId) {
             $contentId = 13;
-        }else{
+        } else {
             $contentId = 2;
         }
         Template::create([
@@ -115,7 +116,7 @@ class VotingController extends Controller
             'content' => $request->content,
             'schoolId' => $request->schoolId,
             'tempType' => $request->tempType,
-            'lessonId'=>$request->lessonId
+            'lessonId' => $request->lessonId
         ]);
         return true;
     }
@@ -125,34 +126,35 @@ class VotingController extends Controller
             'schoolId' => 'required'
         ]);
         $userId = Auth::user()->id;
-        if($request->lessonId){
+        if ($request->lessonId) {
             $contentId = 13;
-        }else{
+        } else {
             $contentId = 2;
         }
-        return Template::where(['contentId' => $contentId, 'userId' => $userId, 'schoolId' => $request->schoolId,'lessonId'=>$request->lessonId])->get();
-        
+        return Template::where(['contentId' => $contentId, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId])->get();
     }
 
-    public function deleteTemplate(Request $request){
-        $this->validate($request,[
-            'id'=>'required'
+    public function deleteTemplate(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required'
         ]);
-        return Template::where('id',$request->id)->delete();
+        return Template::where('id', $request->id)->delete();
     }
 
-    public function getTemplateCnt(Request $request){
+    public function getTemplateCnt(Request $request)
+    {
         $this->validate($request, [
             'schoolId' => 'required',
         ]);
-        if($request->lessonId){
+        if ($request->lessonId) {
             $contentId = 13;
-        }else{
+        } else {
             $contentId = 2;
         }
         $userId = Auth::user()->id;
-        $result['draftCnt'] = Template::where(['contentId' => $contentId, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 2])->count();
-        $result['templateCnt'] = Template::where(['contentId' => $contentId, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 1])->count();
+        $result['draftCnt'] = Template::where(['contentId' => $contentId, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'tempType' => 2])->count();
+        $result['templateCnt'] = Template::where(['contentId' => $contentId, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'tempType' => 1])->count();
         return $result;
     }
 }

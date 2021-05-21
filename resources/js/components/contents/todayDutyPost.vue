@@ -65,7 +65,7 @@
     <v-col cols="12" class="pl-10 pt-0">
       日期:{{content.todayduty.dutyDate}}
     </v-col>
-    <v-row class="px-10">
+    <v-row class="px-10 ma-0">
       <v-col cols="3" v-for="dutyUser in content.todayduty.userList" :key="dutyUser.id">
         <v-avatar v-if="dutyUser.name !== '' && dutyUser.avatar == '/'" color="#7879ff" size="25">
             <span class="white--text headline">{{dutyUser.name[0]}}</span>
