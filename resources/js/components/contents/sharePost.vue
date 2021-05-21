@@ -12,7 +12,7 @@
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
           <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.share}}  </p>
-          <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+          <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}}  </span> {{content.users.name}}</p>
         </div>
       </v-col>
       <v-col cols="12" class="pb-0">
@@ -98,13 +98,15 @@ export default {
     }),
     created(){
       this.shareData = JSON.parse(this.content.shares.content);
+      console.log("this.selectedSchoolItem",this.selectedSchoolItem);
     },
     computed:{
       currentPath(){
         return this.$route
       },
       ...mapGetters({
-        user:'auth/user'
+        user:'auth/user',
+        selectedSchoolItem : 'mo/selectedSchoolItem',
       })
     },
     methods:{
@@ -116,10 +118,21 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',content)
-        if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.classDefault'});
-        }else{
-          this.$router.push({name:'details.schoolDefault'});
+
+        if(this.$isMobile()){
+          if(this.selectedSchoolItem.type == 'school'){
+            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+          }
+          else{
+            this.$router.push({name:'details.classDefault', params:{schoolId:this.selectedSchoolItem.schoolId, lessonId:this.selectedSchoolItem.lessonId}});
+          }
+        }
+        else{
+          if(this.currentPath.params.lessonId){
+            this.$router.push({name:'details.classDefault'});
+          }else{
+            this.$router.push({name:'details.schoolDefault'});
+          }
         }
         
       },

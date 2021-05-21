@@ -1,8 +1,7 @@
 <template>
     <v-col cols="12" class="py-2 pt-0" v-if="$isMobile()">
         <div class="d-flex align-center justify-space-between">
-            <p class="mb-0 font-size-0-8" v-if="footerInfo.views.length > 0">浏览{{footerInfo.views.length}}次</p>
-            <p class="mb-0 font-size-0-8" v-else>浏览0次</p>
+            <p class="mb-0 font-size-0-8" > 浏览 {{footerInfo.readList ? footerInfo.readList.length : 0}}次</p>
             <v-speed-dial
                 v-model="fab"
                 direction="left"
@@ -214,7 +213,7 @@ export default {
     methods :{
         async addLike(){
             this.isLiking = true;
-            this.fab = true;
+            // this.fab = true;
             await addLike({postId:this.footerInfo.id}).then(res=>{
                 this.footerInfo.likes.push(res)
                 this.$set(this.footerInfo,'isLiked',true)
@@ -222,11 +221,11 @@ export default {
                 //console.log(err.response)
             })
             this.isLiking = false;
-            this.fab = false;
+            // this.fab = false;
         },
         async removeLike(){
             this.isLiking = true;
-            this.fab = true;
+            // this.fab = true;
             await removeLike({postId:this.footerInfo.id}).then(res=>{
                 let index = this.footerInfo.likes.map(x=>{
                     return x.userId
@@ -237,7 +236,7 @@ export default {
                 //console.log(err.response)
             })
             this.isLiking = false;
-            this.fab = false;
+            // this.fab = false;
         },
         
         showComment(){

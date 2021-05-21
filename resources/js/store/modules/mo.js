@@ -27,6 +27,9 @@ export const state = {
   //back with change button
   clickedChange: false, //new post page
   backWithChange: false, //select memeber page
+
+  //comment emoji popup and change height
+  isOpenEmojiComment : false,
 }
 
 // getters
@@ -52,6 +55,7 @@ export const getters = {
   backWithoutSelect: state => state.backWithoutSelect,
   clickedChange: state => state.clickedChange,
   backWithChange: state => state.backWithChange,
+  isOpenEmojiComment: state => state.isOpenEmojiComment,
 }
 
 // mutations
@@ -104,6 +108,9 @@ export const mutations = {
     [types.BACK_WITH_CHANGE] (state,  backWithChange ) {
         state.backWithChange = backWithChange
     },
+    [types.IS_OPEN_EMOJI_COMMENT] (state,  isOpenEmojiComment ) {
+        state.isOpenEmojiComment = isOpenEmojiComment
+    },
 }
 
 // actions
@@ -155,5 +162,8 @@ export const actions = {
     },
     onBackWithChange ({ commit }, payload) {
         commit(types.BACK_WITH_CHANGE, payload)
+    },
+    onIsOpenEmojiComment ({ commit }, payload) {
+        commit(types.IS_OPEN_EMOJI_COMMENT, payload)
     },
 }

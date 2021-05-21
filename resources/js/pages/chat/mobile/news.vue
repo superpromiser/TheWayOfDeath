@@ -6,10 +6,10 @@
             color="#7879ff"
             ></v-progress-circular>
         </div>
-        <div v-else-if="isNoContactList" class="pa-3 text-center ">
+        <!-- <div v-else-if="isNoContactList" class="pa-3 text-center ">
             请添加新朋友
-        </div>
-        <v-list three-line class="py-0 mb-16">
+        </div> -->
+        <v-list v-else three-line class="py-0 mb-16">
             <v-list-item-group
                 color="#7879ff"
             >

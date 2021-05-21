@@ -13,7 +13,7 @@
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
           <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.schoolStory}}  </p>
-          <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}} 转发</span> {{content.users.name}}</p>
+          <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}}  </span> {{content.users.name}}</p>
         </div>
       </v-col>
       <v-col cols="12" class=" font-size-0-8">
@@ -231,7 +231,8 @@ export default {
         return this.$route
       },
       ...mapGetters({
-        user:'auth/user'
+        user:'auth/user',
+        selectedSchoolItem : 'mo/selectedSchoolItem',
       })
     },
     methods:{

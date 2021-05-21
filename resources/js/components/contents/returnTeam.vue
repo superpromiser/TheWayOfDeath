@@ -78,7 +78,8 @@ export default {
         return this.$route
       },
       ...mapGetters({
-        user:'auth/user'
+        user:'auth/user',
+        selectedSchoolItem : 'mo/selectedSchoolItem',
       })
     },
     methods:{

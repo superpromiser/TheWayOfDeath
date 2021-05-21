@@ -44,7 +44,7 @@ class postHomework extends Command
                             ->whereNull('postId')
                             ->where('deadline', '<', \Carbon\Carbon::now()->setTimezone('Asia/Shanghai'))
                             ->get();
-        echo 'Hello '.$scheduledHomeworkArr.'!'.\Carbon\Carbon::now()->setTimezone('Asia/Shanghai');
+        // echo 'Hello '.$scheduledHomeworkArr.'!'.\Carbon\Carbon::now()->setTimezone('Asia/Shanghai');
         foreach ($scheduledHomeworkArr as $key => $scheduledHomework){
             echo 'Compare '.$scheduledHomework->deadline.'!'.\Carbon\Carbon::now()->setTimezone('Asia/Shanghai');
             $postId = Post::create([

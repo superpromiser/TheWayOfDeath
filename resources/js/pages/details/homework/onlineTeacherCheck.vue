@@ -13,7 +13,7 @@
             </v-col>
         </v-row>
         <v-container class="pa-0" v-if="homeworkResult != null">
-            <v-row class="category mt-15 ma-0">答卷内容</v-row>
+            <v-row class="category mt-5 ma-0">答卷内容</v-row>
             <v-row  class="ma-0">
                 <v-col cols="12" class="pb-0">
                     <p class="text-wrap mb-0"><read-more more-str="全文" :text="homeworkResult.content.text" link="#" less-str="收起" :max-chars="250"></read-more></p>
@@ -22,7 +22,7 @@
                     <AttachItemViewer :items="homeworkResult.content" />
                 </v-col>
             </v-row>
-            <v-row class="category mt-15 ma-0">批改详情</v-row>
+            <v-row class="category mt-5 ma-0">批改详情</v-row>
             <v-row v-if="homeworkResult.teacherAnswer == null"  class="ma-0">
                 <QuestionItem Label='答卷' ref="child" @contentData="loadContentData"></QuestionItem>
             </v-row>
@@ -34,7 +34,7 @@
                     <AttachItemViewer :items="homeworkResult.teacherAnswer" />
                 </v-col>
             </v-row>
-            <v-row class="category mt-15 ma-0">成绩评价</v-row>
+            <v-row class="category mt-5 ma-0">成绩评价</v-row>
             <v-row class="ma-0">
                 <v-col class="d-flex justify-space-between align-center" cols="12" v-if="homeworkResult.rating != null">
                     <p class="mb-0">
