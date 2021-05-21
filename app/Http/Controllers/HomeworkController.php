@@ -43,26 +43,45 @@ class HomeworkController extends Controller
             'content' => 'required',
         ]);
         $userId = Auth::user()->id;
-        $postId = Post::create([
-            'contentId' => 14,
-            'userId' => $userId,
-            'schoolId' => $request->schoolId,
-            'classId' => $request->lessonId
-        ])->id;
         $deadline = $request->deadline;
-        return Homework::create([
-            'subjectName' => $request->subjectName,
-            'homeworkType' => $request->homeworkType,
-            'content' => json_encode($request->content),
-            'deadline' => $request->deadline,
-            'monitorName' => $request->monitorName,
-            'parentCheck' => $request->parentCheck,
-            'viewList' => json_encode($request->viewList),
-            'schoolId' => $request->schoolId,
-            'lessonId' => $request->lessonId,
-            'userId' => $userId,
-            'postId' => $postId
-        ]);
+
+        //if teacher set post time of homework
+        if($deadline){
+            return Homework::create([
+                'subjectName' => $request->subjectName,
+                'homeworkType' => $request->homeworkType,
+                'content' => json_encode($request->content),
+                'deadline' => $request->deadline,
+                'monitorName' => $request->monitorName,
+                'parentCheck' => $request->parentCheck,
+                'viewList' => json_encode($request->viewList),
+                'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
+                'userId' => $userId,
+            ]);
+        }
+        else{
+            $postId = Post::create([
+                'contentId' => 14,
+                'userId' => $userId,
+                'schoolId' => $request->schoolId,
+                'classId' => $request->lessonId
+            ])->id;
+            
+            return Homework::create([
+                'subjectName' => $request->subjectName,
+                'homeworkType' => $request->homeworkType,
+                'content' => json_encode($request->content),
+                'deadline' => $request->deadline,
+                'monitorName' => $request->monitorName,
+                'parentCheck' => $request->parentCheck,
+                'viewList' => json_encode($request->viewList),
+                'schoolId' => $request->schoolId,
+                'lessonId' => $request->lessonId,
+                'userId' => $userId,
+                'postId' => $postId,
+            ]);
+        }
     }
 
     public function getAppHomeworkData(Request $request)

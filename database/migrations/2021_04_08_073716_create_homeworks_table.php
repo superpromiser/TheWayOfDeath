@@ -26,7 +26,7 @@ class CreateHomeworksTable extends Migration
             $table->unsignedBigInteger('userId');
             $table->string('viewList');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('postId');
+            $table->unsignedBigInteger('postId')->nullable();
             $table->foreign('postId')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });

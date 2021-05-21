@@ -354,7 +354,7 @@ export default {
                 subjectName:this.homeworkData.subjectName,
                 homeworkType:this.homeworkData.homeworkType,
                 content:this.homeworkData.content,
-                deadline:this.TimeViewSam(this.homeworkData.deadline),
+                deadline: this.homeworkData.deadline=='' ? null : this.TimeViewSam(this.homeworkData.deadline),
                 monitorName:this.homeworkData.monitorName,
                 parentCheck:this.homeworkData.parentCheck,
                 viewList:this.homeworkData.viewList

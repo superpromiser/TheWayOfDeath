@@ -14,6 +14,7 @@ use App\UserRole;
 use App\Member;
 use App\Post;
 use App\Like;
+use App\Contact;
 
 use Hash;
 use Carbon\Carbon;
@@ -48,6 +49,10 @@ class UserController extends Controller
         }
         $staffData['groupArr'] = $groupArr;
         $manager = User::create($staffData);
+
+        $contactInfo['userId'] = $manager->id;
+        $contactInfo['contactUserId'] = 1;
+        $contact = Contact::create($contactInfo);
 
         return response()->json([
             'msg' => 1,
@@ -115,6 +120,11 @@ class UserController extends Controller
         array_push($groupArr, $request->lessonId);
         $studentData['groupArr'] = $groupArr;
         $student = User::create($studentData);
+        
+        //create contact with chatbot
+        $contactInfo['userId'] = $student->id;
+        $contactInfo['contactUserId'] = 1;
+        $contact = Contact::create($contactInfo);
 
         $memberData['schoolId'] = $schoolId;
         $memberData['gradeId'] = $request->gradeId;
@@ -622,7 +632,7 @@ class UserController extends Controller
             'avatar' => 'required'
         ]);
         $schoolId = Auth::user()->schoolId;
-        User::create([
+        $employee = User::create([
             'name' => $request->name,
             'phoneNumber' => $request->phoneNumber,
             'gender' => $request->gender,
@@ -633,6 +643,12 @@ class UserController extends Controller
             'password' => bcrypt('password'),
             'roleId' => 6
         ]);
+
+        //create contact with chatbot
+        $contactInfo['userId'] = $employee->id;
+        $contactInfo['contactUserId'] = 1;
+        $contact = Contact::create($contactInfo);
+
         return true;
     }
 

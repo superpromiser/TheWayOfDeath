@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\postHomework::class,
     ];
 
     /**
@@ -23,9 +23,12 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected function schedule(Schedule $schedule)
-    {
-        // $schedule->command('inspire')
-        //          ->hourly();
+    {   
+        $file = 'command1_output.log';
+        $schedule->command('post:homework')
+                ->timezone('Asia/Shanghai')
+                ->appendOutputTo($file)
+                ->everyMinute();
     }
 
     /**
