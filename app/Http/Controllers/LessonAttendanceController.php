@@ -7,6 +7,7 @@ use App\LessonAttendance;
 use App\Session;
 use App\Subject;
 use Illuminate\Support\Facades\Auth;
+use App\Post;
 
 class LessonAttendanceController extends Controller
 {
@@ -44,6 +45,13 @@ class LessonAttendanceController extends Controller
                 'status' => 207
             ]);
         }
+        $userId = Auth::user()->id;
+        $postId = Post::create([
+            'contentId' => 16,
+            'userId' => $userId,
+            'schoolId' => $request->schoolId,
+            'classId' => $request->lessonId
+        ])->id;
         return LessonAttendance::create([
             'attendanceDay' => $request->attendanceDay,
             'attendanceTime' => $request->attendanceTime,
@@ -54,7 +62,8 @@ class LessonAttendanceController extends Controller
             'resultRest' => $request->resultRest,
             'schoolId' => $request->schoolId,
             'gradeId' => $request->gradeId,
-            'lessonId' => $request->lessonId
+            'lessonId' => $request->lessonId,
+            'postId' => $postId
         ]);
     }
 

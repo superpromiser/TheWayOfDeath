@@ -94,14 +94,19 @@
                             :counter="18"
                             ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4" >
+                        
+                      </v-row>
+                      <v-row>
+                        <v-col cols="12">
                             <v-select
-                                :items="classSelectionItem"
-                                :menu-props="{ top: false, offsetY: true }"
-                                item-text="lessonName"
-                                item-value="lessonId"
-                                @change="selectedLesson"
-                                label="班级"
+                                :items="studentList"
+                                v-model="editedItem.studentList"
+                                multiple
+                                small-chips
+                                :menu-props="{ maxHeight: '200' }"
+                                item-text="name"
+                                item-value="id"
+                                label="学生"
                             ></v-select>
                         </v-col>
                       </v-row>
@@ -310,7 +315,7 @@ import { mapGetters } from 'vuex'
 import cityListJson from '!!raw-loader!../cityLaw.txt';
 import UploadImage from '~/components/UploadImage';
 import { getSchoolTree } from '~/api/school'
-import { createStaff, updateStaff, getStaff, deleteUser } from '~/api/user'
+import { createStaff, updateStaff, getStaff, deleteUser,getSchoolUsers } from '~/api/user'
 
 export default {
   components:{
@@ -382,8 +387,7 @@ export default {
         },
         avatar : '/',
         roleId : null,
-        lessonId : null,
-        gradeId : null,
+        studentList:[]
     },
       
     defaultItem: {
@@ -407,8 +411,7 @@ export default {
         },
         avatar : '/',
         roleId : null,
-        lessonId : null,
-        gradeId : null,
+        studentList:[]
     },
     provinceListJsonArr:[],
     madeJsonFromString : [],
@@ -485,6 +488,7 @@ export default {
       '外国血统中国籍人士'
     ],
     maxLengthItem: [],
+    studentList:[],
   }),
 
   mounted(){
@@ -543,7 +547,7 @@ export default {
 
       }
       this.isLoadingSchoolData = true;
-      getStaff()
+      await getStaff()
       .then((res) => {
         res.data.map( x => {
             if(x.roleId == 4){
@@ -561,35 +565,12 @@ export default {
         //console.log(err);
         this.isLoadingSchoolData = false;
       });
-      getSchoolTree()
-      .then((res) => {
-            res.data.map( x => { 
-                if( x.id == this.user.schoolId){
-                    this.managerSchoolData = x;
-                }
-            })
-            // classSelectionItem
-            this.managerSchoolData.grades.map( grade => {
-                let gradeObj = {
-                    header : grade.gradeName,
-                }
-                this.classSelectionItem.push(gradeObj)
-                grade.lessons.map( lesson => {
-                    let lessonObj = {
-                        lessonId : lesson.id,
-                        gradeId : grade.id,
-                        lessonName : lesson.lessonName,
-                    }
-                    this.classSelectionItem.push(lessonObj)
-                } )
-                let dividerObj = {
-                    divider : true
-                }
-                this.classSelectionItem.push(dividerObj)
-            })
-      }).catch((err) => {
-          //console.log(err)
-      });
+      await getSchoolUsers().then(res=>{
+        console.log(res.data)
+        this.studentList = res.data
+      }).catch(err=>{
+        console.log(err.response)
+      })
     },
 
     watch: {
@@ -701,8 +682,8 @@ export default {
           return this.$snackbar.showMessage({content: this.lang.requireCorrectCardNumber, color: 'error'});
         }
         //lessonId
-        if(this.editedItem.lessonId == null){
-          return this.$snackbar.showMessage({content: this.lang.requireLessonId, color: "error"})
+        if(this.editedItem.studentList.length == 0){
+          return this.$snackbar.showMessage({content: this.lang.requiredStudentName, color: "error"})
         }
         //residence address
         if(this.editedItem.residenceAddress.city == null || 

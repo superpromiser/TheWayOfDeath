@@ -31,8 +31,8 @@
           <TodayDutyPost :content='content'></TodayDutyPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 16 && content.home_visit">
-          <HomeVisitPost :content="content"></HomeVisitPost>
+        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 16 && content.lattendance">
+          <LessonAttendancePost :content="content"></LessonAttendancePost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
         <v-row class="pa-0 mt-1" v-else-if="content.contentId == 17 && content.notifications">
@@ -182,6 +182,7 @@ import ReturnTeam from '~/components/contents/returnTeam'
 import VacationPost from '~/components/contents/vacationPost'
 import RepairDataPost from '~/components/contents/repairDataPost'
 import TodayDutyPost from '~/components/contents/todayDutyPost'
+import LessonAttendancePost from '~/components/contents/lessonAttendancePost'
 export default {
   components :{
     QusetionnairePost,
@@ -204,6 +205,7 @@ export default {
     VacationPost,
     RepairDataPost,
     TodayDutyPost,
+    LessonAttendancePost
   },
 
   data: () => ({

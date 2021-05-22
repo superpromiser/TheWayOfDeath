@@ -39,6 +39,7 @@ class UserController extends Controller
         $staffData['roleId'] = $request->roleId;
         if ($request->roleId == 4) {
             $staffData['status'] = "上课中";
+            $staffData['children'] = $request->studentList;
         }
         $staffData['familyAddress'] = json_encode($request->familyAddress);
         $staffData['residenceAddress'] = json_encode($request->residenceAddress);
@@ -82,7 +83,8 @@ class UserController extends Controller
             'roleId' => $roleId,
             'familyAddress' => json_encode($request->familyAddress),
             'residenceAddress' => json_encode($request->residenceAddress),
-            'groupArr' => $groupArr
+            'groupArr' => $groupArr,
+            'children' => $request->studentList
         ]);
         Member::where('userId', $request->id)->update([
             'gradeId' => $request->gradeId,
@@ -433,14 +435,20 @@ class UserController extends Controller
 
     public function getSchoolUsers(Request $request)
     {
-        $schoolId = $request->schoolId;
+        if (is_null($request->schoolId)) {
+            $schoolId = Auth::user()->schoolId;
+        } else {
+
+            $schoolId = $request->schoolId;
+        }
+
         return User::select('id', 'name', 'avatar', 'gender', 'phoneNumber')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
     }
 
     public function getLessonUsers(Request $request)
     {
         $lessonId = $request->lessonId;
-        return User::select('id', 'name', 'avatar', 'gender', 'phoneNumber')->where('groupArr', 'like', "%{$lessonId}%")->where(['roleId' => 5])->get();
+        return User::select('id', 'name', 'avatar', 'gender', 'phoneNumber', 'imei')->where('groupArr', 'like', "%{$lessonId}%")->where(['roleId' => 5])->get();
     }
 
     public function getUserByRole(Request $request)
@@ -507,7 +515,7 @@ class UserController extends Controller
             }
         } elseif ($request->roleId) {
             if ($request->lessonId) {
-                return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where('groupArr','like',"%{$request->lessonId}%")->where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
+                return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where('groupArr', 'like', "%{$request->lessonId}%")->where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
             } else {
                 return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where(['schoolId' => $request->schoolId, 'roleId' => $request->roleId])->get();
             }
@@ -518,6 +526,23 @@ class UserController extends Controller
                 return User::select('id', 'name', 'gender', 'phoneNumber', 'avatar')->where(['schoolId' => $request->schoolId])->get();
             }
         }
+    }
+
+    public function getRoleUsers()
+    {
+        $userId = Auth::user()->id;
+        $roleId = Auth::user()->roleId;
+        if ($roleId == 2) {
+            $schoolId = Auth::user()->schoolId;
+            $userList = User::where(['schoolId' => $schoolId, 'roleId' => 5])->get();
+        } else if ($roleId == 7) {
+            $lessonId = Auth::user()->lessonId;
+            $userList = User::where('groupArr', 'like', "%{$lessonId}%")->where('roleId', 5)->get();
+        } else if ($roleId == 4) {
+            $childArr = User::where('id', $userId)->first()->children;
+            $userList = User::whereIn('id', $childArr)->get();
+        }
+        return $userList;
     }
 
     public function postSchoolItem(Request $request)

@@ -98,6 +98,7 @@
     "requiredSignal":"主要症状不能为空",
     "requiredStartTime":"发病时间不能为空",
     "requiredReason":"诊断不能为空",
-    "requiredHospital":"诊断医院不能为空"
+    "requiredHospital":"诊断医院不能为空",
+    "requiredStudentName":"学生姓名不能为空"
     
 }

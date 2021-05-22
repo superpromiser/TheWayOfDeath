@@ -144,6 +144,11 @@ class Post extends Model
         return $this->hasOne(TodayDuty::class, 'postId');
     }
 
+    public function lattendance()
+    {
+        return $this->hasOne(LessonAttendance::class, 'postId');
+    }
+
     protected $casts = [
         'viewList' => 'array',
         'readList' => 'array'
