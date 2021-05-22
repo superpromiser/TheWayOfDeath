@@ -13,18 +13,26 @@
                 <h2>进离校</h2>
             </v-col>
             <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                 <v-btn
-                    dark
-                    color="#7879ff"
-                    tile
-                    class="ml-4"
-                    large
-                >
-                    导出
-                    <v-icon right>
-                        mdi-export 
-                    </v-icon>
-                </v-btn>
+                <export-excel
+                    :data="attendanceData"
+                    :fields="json_fields"
+                    :worksheet="attendanceDate"
+                    :meta="json_meta"
+                    type="xls"
+                    :name="`进离校-${attendanceDate}.xls`">
+                        <v-btn
+                            dark
+                            color="#7879ff"
+                            tile
+                            class="ml-4"
+                            large
+                        >
+                            导出
+                            <v-icon right>
+                                mdi-export 
+                            </v-icon>
+                        </v-btn>
+                </export-excel>
             </v-col>
         </v-row>
     </v-container>
@@ -155,6 +163,23 @@ export default {
         isLoadingSchoolData : false,
         isDeleteSchool : false,
         vacationReasonData : '',
+
+        //excel
+        json_fields:{
+            '姓名': 'user.name',
+            '进校': 'startTime',
+            '离校': 'endTime',
+        },
+
+        json_meta: [
+            [
+                {
+                    'key': 'charset',
+                    'value': 'utf-8'
+                }
+            ]
+        ],
+
     }),
 
     computed: {
@@ -163,7 +188,8 @@ export default {
     async created(){
         this.isLoadingSchoolData = true;
         await getAttendanceData().then(res=>{
-            this.attendanceData = res.data
+            this.attendanceData = res.data;
+            console.log("this.attendanceData", this.attendanceData);
             this.isLoadingSchoolData = false;
         }).catch(err=>{
             console.log(err.response)
@@ -221,6 +247,10 @@ export default {
                 console.log(err.response)
                 this.isLoadingSchoolData = false;
             })
+        },
+
+        exportToExcel(){
+
         }
     },
 }
