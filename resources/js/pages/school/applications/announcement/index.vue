@@ -11,7 +11,7 @@
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
-            <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+            <v-container v-if="contentList.length && content.anouncements" class="pa-0" v-for="content in contentList" :key="content.id" >
                 <v-row class="mt-1 ma-0">
                     <AnouncementPost :content="content"></AnouncementPost>
                     <FooterPost :footerInfo='content'></FooterPost>
