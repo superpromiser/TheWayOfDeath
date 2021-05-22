@@ -200,7 +200,7 @@
           this.userRoleList = res.data
           this.userRoleList.map(item=>{
             item.created_at = this.TimeView(item.created_at)
-            item.permission = JSON.parse(item.permission)
+            // item.permission = JSON.parse(item.permission)
           })
         })
       },
@@ -255,7 +255,7 @@
           await createUserRole(this.editedItem).then(res=>{
             res.data.created_at = this.TimeView(res.data.created_at)
             this.editedItem = res.data
-            this.editedItem.permission = JSON.parse(this.editedItem.permission);
+            // this.editedItem.permission = JSON.parse(this.editedItem.permission);
             this.userRoleList.push(this.editedItem)
           }).catch(err=>{
             //console.log(err)

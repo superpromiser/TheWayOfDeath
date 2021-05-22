@@ -94,6 +94,9 @@ function getLessonUsers(payload){
 function getStudentWithIds(payload){
     return axios.get('/api/v1/studentWithIds',{params:payload})
 }
+function getRoleUsers(payload){
+    return axios.get('/api/v1/roleUsers',{params:payload})
+}
 
 export{
     createStaff,
@@ -121,4 +124,5 @@ export{
     getSchoolUsers,
     getLessonUsers,
     getStudentWithIds,
+    getRoleUsers,
 }

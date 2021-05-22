@@ -469,6 +469,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('lessonUsers', 'UserController@getLessonUsers');
     Route::get('lessonUserList', 'UserController@getLessonUserList');
     Route::get('studentWithIds', 'UserController@getStudentWithIds');
+    Route::get('roleUsers', 'UserController@getRoleUsers');
     //todayDuty
     Route::get('todayDuty', 'TodayDutyController@getTodayDutyData');
     Route::post('todayDuty', 'TodayDutyController@createTodayDutyData');

@@ -113,6 +113,7 @@ class PostController extends Controller
                     'returnteam',
                     'repairdata',
                     'todayduty',
+                    'lattendance',
                     'users:id,name,avatar'
                 ])
                 ->orderBy('fixTop', 'desc')
@@ -162,6 +163,7 @@ class PostController extends Controller
                     'returnteam',
                     'repairdata',
                     'todayduty',
+                    'lattendance',
                     'users:id,name,avatar'
                 ])
                 ->orderBy('fixTop', 'desc')

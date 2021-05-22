@@ -257,6 +257,7 @@
 
 <script>
 import {getData,getFence,createFence,deleteFence} from '~/api/fence'
+import {getRoleUsers} from '~/api/user'
 import lang from '~/helper/lang.json'
 import {mapGetters,} from 'vuex'
 import axios from 'axios'
@@ -321,32 +322,26 @@ export default {
   
   computed:{
     ...mapGetters({
-      authToken:'fence/authToken'
+      authToken:'fence/authToken',
+      user:'auth/user'
     })
   },
 
-  created(){
-    // this.accessToken = this.authToken
-    // if(this.accessToken == undefined){
-    //   this.getAccessTokenFunc()
-    // }
-    // console.log("this.accessToken",this.accessToken)
-    // this.getUserDeveiceList()
-    let minm = 100000000000;
-    let maxm = 999999999999;
-    let lngMin = 123474900;
-    let lngMax = 123499999;
-    let latMin = 41695000;
-    let latMax = 41699999;
-    for(let i=0;i<20;i++){
-      let user = {}
-      user.imei = Math.floor(Math.random() * (maxm - minm + 1)) + minm;
-      
-      user.lng = (Math.floor(Math.random() * (lngMax - lngMin + 1)) + lngMin)/1000000;
-      user.lat = (Math.floor(Math.random() * (latMax - latMin + 1)) + latMin)/1000000;
-      user.name = this.randomName()
-      this.userDeviceList.push(user)
-    }
+  async created(){
+    await getRoleUsers().then(res=>{
+      console.log('userList',res.data)
+      let lngMin = 123474900;
+      let lngMax = 123499999;
+      let latMin = 41695000;
+      let latMax = 41699999;
+      res.data.map(user=>{
+        user.lng = (Math.floor(Math.random() * (lngMax - lngMin + 1)) + lngMin)/1000000;
+        user.lat = (Math.floor(Math.random() * (latMax - latMin + 1)) + latMin)/1000000;
+      })
+      this.userDeviceList = res.data
+    }).catch(err=>{
+      console.log(err.response)
+    })
   },
 
   methods:{
