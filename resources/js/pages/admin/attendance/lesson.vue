@@ -41,7 +41,7 @@
                       class="ml-4"
                       large
                       :disabled="attendanceDate == ''"
-                      @click="dialog = !dialog"
+                      @click="newAttendance"
                     >
                       新增考勤
                     <v-icon right>
@@ -217,10 +217,9 @@
       <v-card>
         <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
         <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
-        <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+          <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -283,7 +282,7 @@
               color="green"
               text-color="white"
             >
-              {{getNumberOfAttendanceResult('normal', item)}}
+              {{item.resultNormal}}
             </v-chip>
           </template>
           <template v-slot:[`item.resultLate`]="{ item }">
@@ -292,7 +291,7 @@
               color="orange"
               text-color="white"
             >
-              {{getNumberOfAttendanceResult('late', item)}}
+              {{item.resultLate}}
             </v-chip>
           </template>
           <template v-slot:[`item.resultMiss`]="{ item }">
@@ -301,7 +300,7 @@
               color="red"
               text-color="white"
             >
-              {{getNumberOfAttendanceResult('miss', item)}}
+              {{item.resultMiss}}
             </v-chip>
           </template>
           <template v-slot:[`item.resultRest`]="{ item }">
@@ -310,7 +309,7 @@
               color="deep-purple accent-1"
               text-color="white"
             >
-              {{getNumberOfAttendanceResult('rest', item)}}
+              {{item.resultRest}}
             </v-chip>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
@@ -406,31 +405,31 @@ export default {
         ],
         attendanceResultItem : [
           {
-            resultType : "正常出勤", // normal
+            resultType : "正常出勤", // Normal attendance
             resultValue : "正常出勤",
           },
           {
-            resultType : "出勤(带病)", // 
+            resultType : "出勤(带病)", // Attendance (with illness)
             resultValue : "出勤(带病)",
           },
           {
-            resultType : "迟到",
+            resultType : "迟到",//Late
             resultValue : "迟到",
           },
           {
-            resultType : "病假",
+            resultType : "病假",//sick leave
             resultValue : "病假",
           },
           {
-            resultType : "事假",
+            resultType : "事假",//Personal leave
             resultValue : "事假",
           },
           {
-            resultType : "缺勤",
+            resultType : "缺勤",//Absent from work
             resultValue : "缺勤",
           },
           {
-            resultType : "其他",
+            resultType : "其他",//other
             resultValue : "其他",
           },
         ],
@@ -438,16 +437,32 @@ export default {
         
         editedIndex: -1,
         editedItem: {
+          id:0,
           attendanceDay:  new Date().toISOString().substr(0, 10),
-          attendanceTime: '第一节',
+          attendanceTime: '',
           resultArr:[
-          ]
+          ],
+          schoolId:0,
+          gradeId:0,
+          lessonId:0,
+          resultNormal:0,
+          resultLate:0,
+          resultMiss:0,
+          resultRest:0
         },
         defaultItem: {
+          id:0,
           attendanceDay: new Date().toISOString().substr(0, 10),
-          attendanceTime: '第一节',
+          attendanceTime: '',
           resultArr:[
-          ]
+          ],
+          schoolId:0,
+          gradeId:0,
+          lessonId:0,
+          resultNormal:0,
+          resultLate:0,
+          resultMiss:0,
+          resultRest:0
         },
         baseUrl:window.Laravel.base_url,
         isCreatingSchool : false,
@@ -476,7 +491,12 @@ export default {
 
 
     async created(){
-
+        this.editedItem.schoolId = this.currentPath.params.schoolId
+        this.editedItem.gradeId = this.currentPath.params.gradeId
+        this.editedItem.lessonId = this.currentPath.params.lessonId
+        this.defaultItem.schoolId = this.currentPath.params.schoolId
+        this.defaultItem.gradeId = this.currentPath.params.gradeId
+        this.defaultItem.lessonId = this.currentPath.params.lessonId
         //we have to make result array for editedItem from student list
         // this needs very high skill...
           this.isLoadingSchoolData = true;
@@ -491,7 +511,7 @@ export default {
         }).catch(err=>{
           console.log(err.response)
         })
-        getLessonAttendanceData({attDate:this.attendanceDate}).then(res=>{
+        getLessonAttendanceData({attDate:this.attendanceDate,lessonId:this.currentPath.params.lessonId}).then(res=>{
           res.data.map(item=>{
             item.resultArr = JSON.parse(item.resultArr)
           })
@@ -508,9 +528,10 @@ export default {
             element.studentName = data.name
             element.attendanceResult = '正常出勤'
             element.other = ''
-            this.editedItem.resultArr.push(element)
+            this.defaultItem.resultArr.push(element)
           })
-          this.defaultItem = this.editedItem
+          // this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedItem = JSON.parse(JSON.stringify(this.defaultItem))
           this.isLoadingSchoolData = false;
         }).catch(err=>{
           console.log(err.response)
@@ -540,21 +561,36 @@ export default {
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
+      newAttendance(){
+        console.log(this.defaultItem)
+        // this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedItem = JSON.parse(JSON.stringify(this.defaultItem))
+        console.log(this.editedItem)
+        this.dialog = !this.dialog
+      },
 
       close () {
         this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
+        // this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedItem = JSON.parse(JSON.stringify(this.defaultItem))
+        console.log("this.defaultItem",this.defaultItem)
+        console.log("this.editedItem",this.editedItem)
+        this.editedIndex = -1
+        // this.$nextTick(() => {
+        //   this.editedItem = Object.assign({}, this.defaultItem)
+        //   this.editedIndex = -1
+        // })
       },
 
       closeDelete () {
         this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
+        // this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedItem = JSON.parse(JSON.stringify(this.defaultItem))
           this.editedIndex = -1
-        })
+        // this.$nextTick(() => {
+        //   this.editedItem = Object.assign({}, this.defaultItem)
+        //   this.editedIndex = -1
+        // })
       },
 
         async deleteItemConfirm () {
@@ -572,6 +608,16 @@ export default {
 
         async save () {
             //update attendanceData
+            this.editedItem.resultNormal = this.getNumberOfAttendanceResult('normal',this.editedItem)
+            this.editedItem.resultLate = this.getNumberOfAttendanceResult('late',this.editedItem)
+            this.editedItem.resultMiss = this.getNumberOfAttendanceResult('miss',this.editedItem)
+            this.editedItem.resultRest = this.getNumberOfAttendanceResult('rest',this.editedItem)
+            console.log(this.editedItem)
+            // return
+
+            if(this.editedItem.attendanceTime == ''){
+              return this.$snackbar.showMessage({content:this.lang.requiredlessonName,color:'error'})
+            }
             this.isCreatingSchool = true;
             if (this.editedIndex > -1) {
               await updateLessonAttendanceData(this.editedItem).then(res=>{
@@ -585,9 +631,17 @@ export default {
             //save attendanceData
             else {
                 await createLessonAttendanceData(this.editedItem).then(res=>{
+                  console.log(res.data)
                   this.isCreatingSchool = false;
-                  this.attendanceData.push(this.editedItem)
+                  if(res.data.status == 207){
+                    
+                    return this.$snackbar.showMessage({content:this.lang.alreadyExist,color:'error'})
+                  }else{
+                    this.attendanceData.push(this.editedItem)
+                  }
+                  
                 }).catch(err=>{
+                  this.isCreatingSchool = false
                   console.log(err.response)
                 })
             }
@@ -617,7 +671,7 @@ export default {
             break;
             case 'miss':
               item.resultArr.map(x=> {
-                if(x.attendanceResult == '缺勤'){
+                if(x.attendanceResult == '缺勤' || x.attendanceResult == '其他'){
                   counter ++;
                 }
               })

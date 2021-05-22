@@ -90,5 +90,14 @@
     "vacation":"请假",
     "requireComment": "评论不能为空",
     "startTimeAndEndTime":"结束时间不能早于开始时间",
-    "vacationReason":"请假原因不能为空"
+    "vacationReason":"请假原因不能为空",
+    "requiredlessonName":"选择课时名称",
+    "alreadyExist":"此资料已存在",
+    "requiredCheckType":"项目不能为空",
+    "requiredName":"姓名不能为空",
+    "requiredSignal":"主要症状不能为空",
+    "requiredStartTime":"发病时间不能为空",
+    "requiredReason":"诊断不能为空",
+    "requiredHospital":"诊断医院不能为空"
+    
 }

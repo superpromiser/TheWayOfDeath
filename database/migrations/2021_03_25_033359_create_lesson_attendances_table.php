@@ -21,12 +21,13 @@ class CreateLessonAttendancesTable extends Migration
             $table->unsignedBigInteger('gradeId');
             $table->unsignedBigInteger('lessonId');
             $table->LONGTEXT('resultArr');
-            // $table->char('attendanceResult');
-            // $table->char('studentName');
-            // $table->char('other');
             $table->foreign('schoolId')->references('id')->on('schools')->onDelete('cascade');
             $table->foreign('gradeId')->references('id')->on('grades')->onDelete('cascade');
             $table->foreign('lessonId')->references('id')->on('lessons')->onDelete('cascade');
+            $table->integer('resultNormal')->default(0);
+            $table->integer('resultLate')->default(0);
+            $table->integer('resultMiss')->default(0);
+            $table->integer('resultRest')->default(0);
             $table->timestamps();
         });
     }

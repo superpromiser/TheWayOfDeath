@@ -218,9 +218,9 @@
           <template v-slot:[`item.imgUrl`]="{ item }">
             <img :src="`${baseUrl}${item.imgUrl}`" alt="Logo" class="school-table-img">
           </template>
-          <template v-slot:[`item.startTime`]="{ item }">
+          <!-- <template v-slot:[`item.startTime`]="{ item }">
             {{TimeView(item.startTime)}}
-          </template>
+          </template> -->
           <template v-slot:[`item.introduce`]="{ item }">
             <v-btn
               outlined
@@ -453,7 +453,7 @@ export default {
       checkType: '',
       studentId: 0,
       signal: '',
-      startTime: null,
+      startTime: '',
       reason: '',
       hospital: '',
     },
@@ -462,7 +462,7 @@ export default {
       checkType: '',
       studentId: 0,
       signal: '',
-      startTime: null,
+      startTime: '',
       reason: '',
       hospital: '',
     },
@@ -544,6 +544,7 @@ export default {
 
       getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
         res.data.map(checkData=>{
+          checkData.startTime = this.TimeView(checkData.startTime)
           let clonedEditedItem = Object.assign({}, checkData);
           let selectedStudentData = {};
           this.studentList.map( x =>{
@@ -567,19 +568,23 @@ export default {
     },
 
     watch: {
-      dialog (val) {
-        val || this.close()
-      },
-      dialogDelete (val) {
-        val || this.closeDelete()
-      },
+      // dialog (val) {
+      //   val || this.close()
+      // },
+      // dialogDelete (val) {
+      //   val || this.closeDelete()
+      // },
     },
 
     methods: {
 
       editItem (item) {
+        console.log('----',item)
         this.editedIndex = this.checkData.indexOf(item)
-        this.editedItem = Object.assign({}, item)
+        console.log(this.editedIndex)
+        // this.editedItem = Object.assign({}, item)
+        this.editedItem = JSON.parse(JSON.stringify(item))
+        console.log('++++',this.editedItem)
         this.dialog = true
       },
 
@@ -590,24 +595,30 @@ export default {
       },
 
       async deleteItemConfirm () {
-        let payload = {
-          id : this.editedItem.id
-        }
-        this.checkData.splice(this.editedIndex, 1)
-        this.closeDelete()
+        this.isDeleteSchool = true
+        console.log(this.editedItem)
+        await deleteCheckInData({id:this.editedItem.id}).then(res=>{
+          this.isDeleteSchool = false
+          this.checkData.splice(this.editedIndex, 1)
+          this.closeDelete()
+        }).catch(err=>{
+          this.isDeleteSchool = false
+          console.log(err.response)
+        })
         // this.isDeleteSchool = true;
         // this.isDeleteSchool = false;
       },
 
       close () {
         this.dialog = false
-        this.editedItem.checkType = '';
-        this.editedItem.signal = '';
-        this.editedItem.startTime = '';
-        this.editedItem.reason = '';
-        this.editedItem.hospital = '';
-        this.editedItem.studentId = 0;
-        this.editedIndex = -1
+        this.editedItem = JSON.parse(JSON.stringify(this.editedItem))
+        // this.editedItem.checkType = '';
+        // this.editedItem.signal = '';
+        // this.editedItem.startTime = '';
+        // this.editedItem.reason = '';
+        // this.editedItem.hospital = '';
+        // this.editedItem.studentId = 0;
+        // this.editedIndex = -1
         // this.$nextTick(() => {
         //   this.editedItem =  JSON.parse(JSON.stringify(this.defaultItem))
         // })
@@ -615,33 +626,61 @@ export default {
 
       closeDelete () {
         this.dialogDelete = false
-        this.editedItem.checkType = '';
-        this.editedItem.signal = '';
-        this.editedItem.startTime = '';
-        this.editedItem.reason = '';
-        this.editedItem.hospital = '';
-        this.editedItem.studentId = 0;
-        this.editedIndex = -1
+        this.editedItem = JSON.parse(JSON.stringify(this.editedItem))
+        // this.editedItem.checkType = '';
+        // this.editedItem.signal = '';
+        // this.editedItem.startTime = '';
+        // this.editedItem.reason = '';
+        // this.editedItem.hospital = '';
+        // this.editedItem.studentId = 0;
+        // this.editedIndex = -1
       },
 
       async save () {
+        console.log(this.editedItem)
+        // return
+        if(this.editedItem.checkType == ''){
+          return this.$snackbar.showMessage({content:this.lang.requiredCheckType,color:'error'})
+        }
+        if(this.editedItem.hospital == ''){
+          return this.$snackbar.showMessage({content:this.lang.requiredHospital,color:'error'})
+        }
+        if(this.editedItem.reason == ''){
+          return this.$snackbar.showMessage({content:this.lang.requiredReason,color:'error'})
+        }
+        if(this.editedItem.signal == ''){
+          return this.$snackbar.showMessage({content:this.lang.requiredSignal,color:'error'})
+        }
+        if(this.editedItem.studentId == 0){
+          return this.$snackbar.showMessage({content:this.lang.requiredName,color:'error'})
+        }
+        if(this.editedItem.startTime == ''){
+          return this.$snackbar.showMessage({content:this.lang.requiredStartTime,color:'error'})
+        }
+        this.isCreatingSchool = true;
         //update checkData
         if (this.editedIndex > -1) {
-          // this.isCreatingSchool = true;
-          // this.isCreatingSchool = false;
-          let clonedEditedItem = Object.assign({}, this.editedItem);
-          let selectedStudentData = {};
-          this.studentList.map( x =>{
-            if(x.id == this.editedItem.studentId){
-              selectedStudentData = x;
-            }
+          await updateCheckInData(this.editedItem).then(res=>{
+            this.isCreatingSchool = false;
+            let clonedEditedItem = Object.assign({}, this.editedItem);
+            let selectedStudentData = {};
+            this.studentList.map( x =>{
+              if(x.id == this.editedItem.studentId){
+                selectedStudentData = x;
+              }
+            })
+            clonedEditedItem["name"] = selectedStudentData.name;
+            clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
+            clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
+            clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
+            clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+            Object.assign(this.checkData[this.editedIndex], clonedEditedItem)
+          }).catch(err=>{
+            console.log(err.response)
+            this.isCreatingSchool = false;
           })
-          clonedEditedItem["name"] = selectedStudentData.name;
-          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
-          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
-          clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
-          clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
-          Object.assign(this.checkData[this.editedIndex], clonedEditedItem)
+          // this.isCreatingSchool = false;
+          
         } 
         //save checkData
         else {
@@ -651,6 +690,7 @@ export default {
           await createCheckInData(payload).then(res=>{
           }).catch(err=>{
             console.log(err.response)
+            this.isCreatingSchool = false;
           })
           let clonedEditedItem = Object.assign({}, this.editedItem);
           let selectedStudentData = {};
@@ -666,6 +706,7 @@ export default {
           clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
           // console.log("clonedEditedItem",clonedEditedItem)
           this.checkData.push(clonedEditedItem);
+          this.isCreatingSchool = false;
           // this.isCreatingSchool = true;
           // creatxxx()
           // .then((res) => {
