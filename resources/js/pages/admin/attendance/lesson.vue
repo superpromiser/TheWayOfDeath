@@ -13,18 +13,27 @@
                 <h2>课堂考勤</h2>
             </v-col>
             <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                 <v-btn
-                    dark
-                    color="#7879ff"
-                    tile
-                    class="ml-4"
-                    large
-                >
-                    导出
-                    <v-icon right>
-                        mdi-export 
-                    </v-icon>
-                </v-btn>
+              <export-excel
+                  :data="attendanceDataForExcel"
+                  :fields="json_fields"
+                  :worksheet="attendanceData.attendanceDay"
+                  :meta="json_meta"
+                  type="xls"
+                  :name="`课堂考勤-${attendanceData.attendanceDay}.xls`">
+                    <v-btn
+                        dark
+                        color="#7879ff"
+                        tile
+                        class="ml-4"
+                        large
+                    >
+                        导出
+                        <v-icon right>
+                            mdi-export 
+                        </v-icon>
+                    </v-btn>
+              </export-excel>
+                 
                 <v-btn
                       :dark="attendanceDate !== ''"
                       color="#f19861"
@@ -364,6 +373,28 @@ export default {
             { text: '请假', value: 'resultRest', align:'center', sortable: false },
             { text: '操作', value: 'actions', sortable: false, align:'center',},
         ],
+
+        //excel
+        json_fields:{
+            '考勤日期': 'attendanceDay',
+            '考勤时间': 'attendanceTime',
+            '出勤': 'normalCnt',
+            '迟到': 'lateCnt',
+            '缺勤': 'missCnt',
+            '请假': 'restCnt',
+        },
+
+        json_meta: [
+            [
+                {
+                    'key': 'charset',
+                    'value': 'utf-8'
+                }
+            ]
+        ],
+
+        attendanceDataForExcel:[],
+
         dialogHeaders: [
             { text: '考勤人员', value: 'studentName',sortable: false, align: 'start',},
             { text: '考勤结果', value: 'attendanceResult', sortable: false ,},
@@ -485,6 +516,8 @@ export default {
             item.resultArr = JSON.parse(item.resultArr)
           })
           this.attendanceData = res.data
+          this.convertForExcel(this.attendanceData);
+          console.log("this.attendanceData", this.attendanceData);
         }).catch(err=>{
           console.log(err.response)
         })
@@ -667,6 +700,7 @@ export default {
             })
             this.isLoadingSchoolData = false
             this.attendanceData = res.data
+            this.convertForExcel(this.attendanceData);
           }).catch(err=>{
             console.log(err.response)
           })
@@ -675,6 +709,37 @@ export default {
         viewItem(item){
           this.editedItem = item;
           this.viewDialog = true
+        },
+
+        convertForExcel(attendanceDataArr){
+          var convertedData = [];
+          attendanceDataArr.map(attendanceData => {
+            var normalCnt, lateCnt, missCnt, restCnt = 0;
+            attendanceData.resultArr.map(result => {
+              if(result.attendanceResult == '正常出勤' || result.attendanceResult == '出勤(带病)'){
+                normalCnt ++;
+              }
+              if(result.attendanceResult == '迟到'){
+                lateCnt ++;
+              }
+              if(result.attendanceResult == '缺勤'){
+                missCnt ++;
+              }
+              if(result.attendanceResult == '病假' || result.attendanceResult == '事假'){
+                restCnt ++;
+              }
+            })
+            var obj = {
+              attendanceDay: attendanceData.attendanceDay,
+              attendanceTime: attendanceData.attendanceTime,
+              normalCnt: normalCnt,
+              lateCnt: lateCnt,
+              missCnt: missCnt,
+              restCnt: restCnt
+            }
+            this.attendanceDataForExcel = [...this.attendanceDataForExcel, obj];
+            console.log("this.attendanceDataForExcel", this.attendanceDataForExcel);
+          })
         }
     },
 }
