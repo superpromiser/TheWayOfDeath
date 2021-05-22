@@ -102,6 +102,11 @@ a {
     height: 120px;
     border-radius: 50%;
 }
+.reg-name-student-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
 .member-avatar {
     width: 60px;
     height: 60px;

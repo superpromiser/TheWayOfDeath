@@ -73,12 +73,24 @@ class RegnameController extends Controller
         $this->validate($request, [
             'answer' => 'required'
         ]);
-        AnswerRegname::create([
-            'userId' => Auth::user()->id,
-            'postId' => $request->postId,
-            'regnameId' => $request->regnameId,
-            'answer' => json_encode($request->answer)
-        ]);
+        $regNameData = Regname::where('id', $request->regnameId)->first();
+        if($regNameData->checkFlag == 0){
+            AnswerRegname::create([
+                'userId' => Auth::user()->id,
+                'postId' => $request->postId,
+                'regnameId' => $request->regnameId,
+                'answer' => json_encode($request->answer)
+            ]);
+        }
+        else{
+            AnswerRegname::create([
+                'userId' => Auth::user()->id,
+                'postId' => $request->postId,
+                'regnameId' => $request->regnameId,
+                'answer' => json_encode($request->answer),
+                'status' => 'pending'
+            ]);
+        }
 
         return response()->json([
             'msg' => 'ok'

@@ -401,26 +401,35 @@ export default {
                 this.$refs[index][0].emitData()
             }
             console.log(this.votingData)
+            
             // return
             let dateNow = new Date();
             if(this.votingData.votingType.trim() == ''){
+                this.votingData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.requireVotingType, color: "error"})
             }
             if(this.votingData.viewList.length == 0){
+                this.votingData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.requireMember, color: "error"})
             }
             if(this.votingData.deadline == ""){
+                this.votingData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.requireDeadline, color: "error"})
             }
             if( dateNow > this.votingData.deadline){
+                this.votingData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.requireDeadlineOrder, color: "error"})
             }
             if(this.votingData.maxVote == null){
+                this.votingData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.requireVotingMax, color: "error"})
             }
             if(this.votingData.content.length < 4){
+                this.votingData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.voting+this.lang.requireContent, color: "error"})
             }
+
+            
             
             this.votingData.deadline = this.TimeView(this.votingData.deadline)
             this.isCreating = true

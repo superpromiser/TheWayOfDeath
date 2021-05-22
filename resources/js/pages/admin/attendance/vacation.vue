@@ -75,13 +75,13 @@
                     {{TimeView(item.endTime)}}
                 </template>
                 <template v-slot:[`item.status`]="{ item }">
-                    <v-chip small v-if="item.status == 'deny'" class="ma-2" color="pink" label text-color="white" >
+                    <v-chip small v-if="item.status == 'deny'" class="ma-2" color="#eb5846" label text-color="white" >
                     <v-icon left> mdi-cancel </v-icon> 否定
                     </v-chip>
-                    <v-chip small v-else-if="item.status == 'allow'" class="ma-2" color="success"  label text-color="white" >
+                    <v-chip small v-else-if="item.status == 'allow'" class="ma-2" color="#49d29e"  label text-color="white" >
                     <v-icon left> mdi-hand   </v-icon> 允许
                     </v-chip>
-                    <v-chip small v-else-if="item.status == 'pending'" class="ma-2" color="orange"  label text-color="white" >
+                    <v-chip small v-else-if="item.status == 'pending'" class="ma-2" color="#feb31a"  label text-color="white" >
                     <v-icon left> mdi-clock-outline   </v-icon> 待办的
                     </v-chip>
                 </template>
@@ -203,13 +203,13 @@
               {{TimeView(item.endTime)}}
           </template>
           <template v-slot:[`item.status`]="{ item }">
-            <v-chip small v-if="item.status == 'deny'" class="ma-2" color="pink" label text-color="white" >
+            <v-chip small v-if="item.status == 'deny'" class="ma-2" color="#eb5846" label text-color="white" >
               <v-icon left> mdi-cancel </v-icon> 拒绝
             </v-chip>
-            <v-chip small v-else-if="item.status == 'allow'" class="ma-2" color="success"  label text-color="white" >
+            <v-chip small v-else-if="item.status == 'allow'" class="ma-2" color="#49d29e"  label text-color="white" >
               <v-icon left> mdi-hand   </v-icon> 允许
             </v-chip>
-            <v-chip small v-else-if="item.status == 'pending'" class="ma-2" color="orange"  label text-color="white" >
+            <v-chip small v-else-if="item.status == 'pending'" class="ma-2" color="#feb31a"  label text-color="white" >
               <v-icon left> mdi-clock-outline   </v-icon> 待办的
             </v-chip>
           </template>

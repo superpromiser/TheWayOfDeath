@@ -67,26 +67,60 @@
             <template v-slot:[`item.fatherPhone`]="{ item }">
               {{pnEncrypt(item.fatherPhone)}}
             </template>
-            <!-- <template v-slot:[`item.birthday`]="{ item }">
-              {{TimeViewYMD(item.familyAddress)}}
-            </template> -->
-            <template v-slot:[`item.gender`]="{ item }">
-              {{transGender(item.gender)}}
+            <template v-slot:[`item.birthday`]="{ item }">
+              {{TimeViewYMD(item.birthday)}}
+            </template>
+            <template v-slot:[`item.status`]="{ item }">
+              <v-chip small v-if="item.status == 'deny'" class="ma-2" color="#eb5846" label text-color="white" >
+                <v-icon left> mdi-cancel </v-icon> 拒绝
+              </v-chip>
+              <v-chip small v-else-if="item.status == 'allow'" class="ma-2" color="#49d29e"  label text-color="white" >
+                <v-icon left> mdi-hand   </v-icon> 允许
+              </v-chip>
+              <v-chip small v-else-if="item.status == 'pending'" class="ma-2" color="#feb31a"  label text-color="white" >
+                <v-icon left> mdi-clock-outline   </v-icon> 待办的
+              </v-chip>
             </template>
             <template v-slot:[`item.actions`]="{ item }">
-                <v-icon
-                    small
-                    class="mr-2"
-                    @click="allowItem(item)"
-                >
-                    mdi-pencil
-                </v-icon>
-                <v-icon
-                    small
-                    @click="denyItem(item)"
-                >
-                    mdi-delete
-                </v-icon>
+                <v-tooltip bottom v-if="regNameData.checkFlag == 1 && (item.status == 'pending' || item.status == 'allow')">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-icon
+                            small
+                            @click="denyItem(item)"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            mdi-cancel
+                        </v-icon>
+                    </template>
+                    <span>否定</span>
+                </v-tooltip>
+                <v-tooltip bottom v-if="regNameData.checkFlag == 1 && (item.status == 'pending' || item.status == 'deny')">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-icon
+                            small
+                            @click="allowItem(item)"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            mdi-hand
+                        </v-icon>
+                    </template>
+                    <span>允许</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-icon
+                            small
+                            @click="deleteItem(item)"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            mdi-delete
+                        </v-icon>
+                    </template>
+                    <span>删除</span>
+                </v-tooltip>
             </template>
             <template v-slot:no-data>
               没有数据
@@ -200,8 +234,8 @@
               </v-toolbar>
             </template> -->
             <template v-slot:[`item.avatar`]="{ item }">
-              <img v-if="item.avatar !== '/'" :src="`${baseUrl}${item.avatar}`" alt="ManagerAvatar" class="school-manager-img">
-              <v-avatar v-else size="120" color="#7879ff" > 
+              <img v-if="item.avatar !== '/'" :src="`${baseUrl}${item.avatar}`" alt="ManagerAvatar" class="reg-name-student-img">
+              <v-avatar v-else size="60" color="#7879ff" > 
                 <span> {{item.name[0]}} </span>
               </v-avatar>
             </template>
@@ -214,26 +248,63 @@
             <template v-slot:[`item.fatherPhone`]="{ item }">
               {{pnEncrypt(item.fatherPhone)}}
             </template>
-            <!-- <template v-slot:[`item.birthday`]="{ item }">
-              {{TimeViewYMD(item.familyAddress)}}
-            </template> -->
+            <template v-slot:[`item.birthday`]="{ item }">
+              {{TimeViewYMD(item.birthday)}}
+            </template>
             <template v-slot:[`item.gender`]="{ item }">
               {{transGender(item.gender)}}
             </template>
+            <template v-slot:[`item.status`]="{ item }">
+              <v-chip small v-if="item.status == 'deny'" class="ma-2" color="#eb5846" label text-color="white" >
+                <v-icon left> mdi-cancel </v-icon> 拒绝
+              </v-chip>
+              <v-chip small v-else-if="item.status == 'allow'" class="ma-2" color="#49d29e"  label text-color="white" >
+                <v-icon left> mdi-hand   </v-icon> 允许
+              </v-chip>
+              <v-chip small v-else-if="item.status == 'pending'" class="ma-2" color="#feb31a"  label text-color="white" >
+                <v-icon left> mdi-clock-outline   </v-icon> 待办的
+              </v-chip>
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
-                <v-icon
-                    small
-                    class="mr-2"
-                    @click="allowItem(item)"
-                >
-                    mdi-pencil
-                </v-icon>
-                <v-icon
-                    small
-                    @click="denyItem(item)"
-                >
-                    mdi-delete
-                </v-icon>
+                <v-tooltip bottom v-if="regNameData.checkFlag == 1 && (item.status == 'pending' || item.status == 'allow')">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-icon
+                            small
+                            @click="denyItem(item)"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            mdi-cancel
+                        </v-icon>
+                    </template>
+                    <span>否定</span>
+                </v-tooltip>
+                <v-tooltip bottom v-if="regNameData.checkFlag == 1 && (item.status == 'pending' || item.status == 'deny')">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-icon
+                            small
+                            @click="allowItem(item)"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            mdi-hand
+                        </v-icon>
+                    </template>
+                    <span>允许</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-icon
+                            small
+                            @click="deleteItem(item)"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            mdi-delete
+                        </v-icon>
+                    </template>
+                    <span>删除</span>
+                </v-tooltip>
             </template>
             <template v-slot:no-data>
               没有数据
@@ -266,6 +337,7 @@
 </template>
 
 <script>
+import cityListJson from '!!raw-loader!../../cityLaw.txt';
 import lang from '~/helper/lang.json'
 import {mapGetters} from 'vuex';
 import {getAnswerList, } from '~/api/regname'
@@ -288,6 +360,8 @@ import CommentView from '~/pages/school/posts/comments/commentView';
         baseUrl:window.Laravel.base_url,
         headers: [],
         answerDataList:[],
+        provinceListJsonArr:[],
+        madeJsonFromString : [],
         inputTypeItem:[
             {
                 label: "姓名",
@@ -347,6 +421,39 @@ import CommentView from '~/pages/school/posts/comments/commentView';
     },
 
     async created () {
+      this.provinceListJsonArr = cityListJson.split("#");
+        for (let i = 0; i < this.provinceListJsonArr.length; i++) {
+          let provinceObj = {
+              value : 1,
+              label : "",
+              city : []
+          }
+          let province = this.provinceListJsonArr[i].split("$")[0];
+          provinceObj.value = province.split("-")[0];
+          provinceObj.label = province.split("-")[1];
+          this.madeJsonFromString.push(provinceObj);
+          let TArea = this.provinceListJsonArr[i].split("$")[1].split("|");
+          for(let j = 0 ; j < TArea.length ; j++){
+              let cityObj = {
+                  value : 1,
+                  label : "",
+                  region : []
+              }
+              let cityArr = TArea[j].split(",");
+              cityObj.value = cityArr[0].split("-")[0];
+              cityObj.label = cityArr[0].split("-")[1];
+              for( let k = 1 ; k < cityArr.length ; k++){
+                  let regionObj = {
+                      value : 1, 
+                      label : "",
+                  }
+                  regionObj.value = cityArr[k].split("-")[0];
+                  regionObj.label = cityArr[k].split("-")[1];
+                  cityObj.region.push(regionObj);
+              }
+              this.madeJsonFromString[i].city.push(cityObj);
+          }
+      }
         this.isLoadingContents = true
         if(this.contentData == null){
             this.$router.push({name: 'schoolSpace.news'});
@@ -369,7 +476,9 @@ import CommentView from '~/pages/school/posts/comments/commentView';
                 }
               } )
             })
+            let statusItem = {text: '审批状态', value: 'status', sortable: false}
             let actionItem = { text: '操作', value: 'actions', sortable: false }
+            this.headers.push(statusItem)
             this.headers.push(actionItem)
 
             let payload = {
@@ -378,9 +487,13 @@ import CommentView from '~/pages/school/posts/comments/commentView';
 
             await getAnswerList(payload)
             .then((res) => {
+                console.log("##################", res);
                 res.data.answer.map(item=>{
-                  this.answerDataList.push(JSON.parse(item.answer))
+                  item.answer = JSON.parse(item.answer);
+                  item = {...item, ...item.answer}
+                  this.answerDataList.push((item))
                 })
+                console.log("this.answerDataList", this.answerDataList);
                 this.isLoadingContents = false
             }).catch((err) => {
                 console.log(err)
@@ -396,9 +509,35 @@ import CommentView from '~/pages/school/posts/comments/commentView';
       denyItem(item){
         console.log('deny',item)
       },
+      deleteItem(item){
+        console.log('delete', item);
+      },
       updateFooterInfo(){
 
-      }
+      },
+
+      convertAddress(address){
+        address = JSON.parse(address);
+        let province = '';
+        let city = '';
+        let region = '';
+        for(let i = 0 ; i < this.madeJsonFromString.length ; i++){
+        if( address.province == this.madeJsonFromString[i].value ){
+            province = this.madeJsonFromString[i].label;
+            for(let j = 0 ; j < this.madeJsonFromString[i].city.length ; j++){
+            if( address.city == this.madeJsonFromString[i].city[j].value ){
+                city = this.madeJsonFromString[i].city[j].label;
+                for(let k = 0 ; k < this.madeJsonFromString[i].city[j].region.length ; k++){
+                if( address.region == this.madeJsonFromString[i].city[j].region[k].value ){
+                    region = this.madeJsonFromString[i].city[j].region[k].label;
+                }
+                }
+            }
+            }
+        }
+        }
+        return province + ' ' + city + ' ' + region + ' ' + address.detail;
+      },
     },
   }
 </script>

@@ -22,7 +22,7 @@ class CreateAnswerRegnamesTable extends Migration
             $table->unsignedBigInteger('regnameId');
             $table->foreign('regnameId')->references('id')->on('regnames')->onDelete('cascade');
             $table->LONGTEXT('answer');
-            $table->enum('status', ['pending', 'allow', 'deny'])->default('pending');
+            $table->enum('status', ['pending', 'allow', 'deny'])->default('allow');
             $table->timestamps();
         });
     }
