@@ -239,7 +239,7 @@ export default {
         items: [
           {
               color:"#3EBBE8",
-              title:"考勤",//출근
+              title:"进离校",//출근
               imgUrl:"/asset/img/newIcon/attendance.png",
               path:"posts.attendance"
           },

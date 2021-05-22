@@ -46,23 +46,34 @@
             </v-col>
         </v-row>
     </v-container>
-    <v-container v-else>
-        <div v-for="index in initialCnt" :key="index" class="mt-3">
+    <v-container class="pa-0" v-else>
+        <v-container class="px-10 z-index-2 banner-custom">
+            <v-row>
+              <v-col cols="6" md="4" class="d-flex align-center position-relative">
+                <a @click="$router.go(-1)">
+                    <v-icon size="70" class=" left-24p">
+                        mdi-chevron-left
+                    </v-icon>
+                </a>
+              </v-col>
+              <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+                 <h2>单选题</h2>
+              </v-col>
+              <v-col cols="12" md="4" class="d-flex align-center justify-end">
+                <v-btn tile dark color="#F19861" @click="addContent" >
+                    <v-icon> mdi-plus </v-icon>
+                    {{lang.addOption}}
+                </v-btn>
+                <v-btn tile dark color="#7879ff" class="mx-2" @click="addSingleContent" >
+                    {{lang.submit}}
+                </v-btn>
+              </v-col>
+            </v-row>
+        </v-container>
+        <div v-for="index in initialCnt" :key="index" class="mt-3 px-10">
             <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
             <v-divider></v-divider>
         </div>
-        <v-container>
-            <v-row class="my-10 d-flex align-center">
-                <v-btn color="#7879ff" text @click="addContent" class="mr-5" >
-                    <v-icon>
-                        mdi-plus
-                    </v-icon>
-                    {{lang.addOption}}
-                </v-btn>
-                
-                <v-btn large rounded dark color="#7879ff" @click="addSingleContent">{{lang.submit}}</v-btn>
-            </v-row>
-        </v-container>
         <v-snackbar
             timeout="3000"
             v-model="requiredText"

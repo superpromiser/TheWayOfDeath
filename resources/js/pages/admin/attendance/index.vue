@@ -36,7 +36,7 @@
             </v-col>
         </v-row>
     </v-container>
-    <v-row class="px-10 mt-5">
+    <v-row class="px-7 ma-0 mt-5 ">
       <v-col cols="12">
         <v-data-table
           :headers="headers"
