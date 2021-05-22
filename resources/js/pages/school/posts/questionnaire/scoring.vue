@@ -28,12 +28,31 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-container v-else>
-    <div class="mt-3 mb-10">
+  <v-container class="pa-0" v-else>
+    <v-container class="px-10 z-index-2 banner-custom">
+        <v-row>
+          <v-col cols="6" md="4" class="d-flex align-center position-relative">
+            <a @click="$router.go(-1)">
+                <v-icon size="70" class=" left-24p">
+                    mdi-chevron-left
+                </v-icon>
+            </a>
+          </v-col>
+          <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
+              <h2>评分题</h2>
+          </v-col>
+          <v-col cols="12" md="4" class="d-flex align-center justify-end">
+            <v-btn tile dark color="#7879ff" class="mx-2" @click="addScoringContent" >
+                {{lang.submit}}
+            </v-btn>
+          </v-col>
+        </v-row>
+    </v-container>
+    <div class="mt-3 mb-10 px-10">
       <QuestionItem class="" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
       <v-divider light class="thick-border"></v-divider>
     </div>
-    <v-row>
+    <v-row class="ma-0 px-10">
       <v-col cols="12" md="6" class="d-flex align-end">
         <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
         <v-select
@@ -56,11 +75,6 @@
         </v-row> -->
       </v-col>
     </v-row>
-    <v-container>
-      <v-row class="my-10 d-flex align-center">
-        <v-btn large rounded dark color="#7879ff" @click="addScoringContent">{{lang.submit}}</v-btn>
-      </v-row>
-    </v-container>
   </v-container>
 </template>
 

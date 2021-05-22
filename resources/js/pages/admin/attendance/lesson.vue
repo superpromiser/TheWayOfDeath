@@ -14,24 +14,24 @@
             </v-col>
             <v-col cols="12" md="4" class="d-flex align-center justify-end">
               <export-excel
-                  :data="attendanceDataForExcel"
+                  :data="attendanceData"
                   :fields="json_fields"
-                  :worksheet="attendanceData.attendanceDay"
+                  :worksheet="attendanceDate"
                   :meta="json_meta"
                   type="xls"
-                  :name="`课堂考勤-${attendanceData.attendanceDay}.xls`">
+                  :name="`进离校-${attendanceDate}.xls`">
                     <v-btn
-                        dark
-                        color="#7879ff"
-                        tile
-                        class="ml-4"
-                        large
-                    >
-                        导出
-                        <v-icon right>
-                            mdi-export 
-                        </v-icon>
-                    </v-btn>
+                      dark
+                      color="#7879ff"
+                      tile
+                      class="ml-4"
+                      large
+                  >
+                      导出
+                      <v-icon right>
+                          mdi-export 
+                      </v-icon>
+                  </v-btn>
               </export-excel>
                  
                 <v-btn
@@ -224,7 +224,7 @@
       </v-card>
     </v-dialog>
                 
-    <v-row class="pa-10">
+    <v-row class="pa-10 px-7 ma-0">
       <v-col cols="12">
         <v-data-table
           :headers="headers"
@@ -373,15 +373,14 @@ export default {
             { text: '请假', value: 'resultRest', align:'center', sortable: false },
             { text: '操作', value: 'actions', sortable: false, align:'center',},
         ],
-
         //excel
         json_fields:{
             '考勤日期': 'attendanceDay',
             '考勤时间': 'attendanceTime',
-            '出勤': 'normalCnt',
-            '迟到': 'lateCnt',
-            '缺勤': 'missCnt',
-            '请假': 'restCnt',
+            '出勤': 'resultNormal',
+            '迟到': 'resultLate',
+            '缺勤': 'resultMiss',
+            '请假': 'resultRest',
         },
 
         json_meta: [
@@ -392,8 +391,6 @@ export default {
                 }
             ]
         ],
-
-        attendanceDataForExcel:[],
 
         dialogHeaders: [
             { text: '考勤人员', value: 'studentName',sortable: false, align: 'start',},
@@ -473,7 +470,8 @@ export default {
         addAttendenceData: {
           lessonTime: '',
           lessonTimeValue: ''
-        }
+        },
+        
     }),
 
     computed: {
@@ -516,8 +514,6 @@ export default {
             item.resultArr = JSON.parse(item.resultArr)
           })
           this.attendanceData = res.data
-          this.convertForExcel(this.attendanceData);
-          console.log("this.attendanceData", this.attendanceData);
         }).catch(err=>{
           console.log(err.response)
         })
@@ -694,13 +690,12 @@ export default {
           this.defaultItem.attendanceDay = val;
           this.isLoadingSchoolData = true
 
-          await getLessonAttendanceData({attDate:val}).then(res=>{
+          await getLessonAttendanceData({attDate:val,lessonId:this.currentPath.params.lessonId}).then(res=>{
             res.data.map(item=>{
               item.resultArr = JSON.parse(item.resultArr)
             })
             this.isLoadingSchoolData = false
             this.attendanceData = res.data
-            this.convertForExcel(this.attendanceData);
           }).catch(err=>{
             console.log(err.response)
           })
@@ -709,37 +704,6 @@ export default {
         viewItem(item){
           this.editedItem = item;
           this.viewDialog = true
-        },
-
-        convertForExcel(attendanceDataArr){
-          var convertedData = [];
-          attendanceDataArr.map(attendanceData => {
-            var normalCnt, lateCnt, missCnt, restCnt = 0;
-            attendanceData.resultArr.map(result => {
-              if(result.attendanceResult == '正常出勤' || result.attendanceResult == '出勤(带病)'){
-                normalCnt ++;
-              }
-              if(result.attendanceResult == '迟到'){
-                lateCnt ++;
-              }
-              if(result.attendanceResult == '缺勤'){
-                missCnt ++;
-              }
-              if(result.attendanceResult == '病假' || result.attendanceResult == '事假'){
-                restCnt ++;
-              }
-            })
-            var obj = {
-              attendanceDay: attendanceData.attendanceDay,
-              attendanceTime: attendanceData.attendanceTime,
-              normalCnt: normalCnt,
-              lateCnt: lateCnt,
-              missCnt: missCnt,
-              restCnt: restCnt
-            }
-            this.attendanceDataForExcel = [...this.attendanceDataForExcel, obj];
-            console.log("this.attendanceDataForExcel", this.attendanceDataForExcel);
-          })
         }
     },
 }
