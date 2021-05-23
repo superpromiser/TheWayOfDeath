@@ -11,27 +11,31 @@ class FenceController extends Controller
     //
     public function getFenceData(Request $request)
     {
-        $this->validate($request, [
-            'imei' => 'required'
-        ]);
-        return Fence::where('imei', $request->imei)->get();
+        $userId = Auth::user()->id;
+        return Fence::where('userId', $userId)->get();
     }
 
     public function createFenceData(Request $request)
     {
         $this->validate($request, [
-            'imei' => 'required',
+            'studentList' => 'required',
             'fenceName' => 'required',
             'fenceType' => 'required',
             'location' => 'required'
         ]);
         $userId = Auth::user()->id;
+        $roleId = Auth::user()->roleId;
+        $schoolId = Auth::user()->schoolId;
+        $lessonId = Auth::user()->lessonId;
         return Fence::create([
-            'imei' => $request->imei,
+            'studentList' => $request->studentList,
             'fenceName' => $request->fenceName,
             'fenceType' => $request->fenceType,
             'location' => $request->location,
-            'userId' => $userId
+            'userId' => $userId,
+            'schoolId' => $schoolId,
+            'lessonId' => $lessonId,
+            'roleId' => $roleId
         ]);
     }
 
@@ -41,5 +45,9 @@ class FenceController extends Controller
 
     public function deleteFenceData(Request $request)
     {
+        $this->validate($request, [
+            'id' => 'required'
+        ]);
+        return Fence::where('id', $request->id)->delete();
     }
 }

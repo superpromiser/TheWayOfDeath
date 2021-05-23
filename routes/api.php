@@ -475,6 +475,12 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('todayDuty', 'TodayDutyController@createTodayDutyData');
     Route::put('todayDuty', 'TodayDutyController@updateTodayDutyData');
     Route::delete('todayDuty', 'TodayDutyController@deleteTodayDutyData');
+
+    //fence instruction
+    Route::get('instruction', 'InstructionController@getInstruction');
+    Route::post('instruction', 'InstructionController@createInstruction');
+    Route::put('instruction', 'InstructionController@putInstruction');
+    Route::delete('instruction', 'InstructionController@deleteInstruction');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {

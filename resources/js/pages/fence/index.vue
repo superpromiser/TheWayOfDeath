@@ -20,12 +20,16 @@
           >
               可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
           </v-btn> -->
+          <v-btn @click="fetchHole">
+            test            
+          </v-btn>
           <v-btn
               tile
               dark
               color="#7879ff"
               class="mx-2"
               @click="addFence"
+              :disabled="isSelected == true"
           >
               <span v-if="isAdding == false">添加</span>
               <span v-else>加...</span> 
@@ -35,6 +39,7 @@
               dark
               class="mx-2"
               color="#F19861"
+              :disabled="isSelected == false"
               @click="familyModal = true"
           >
               亲情号码
@@ -42,7 +47,8 @@
           <v-btn
               tile
               dark
-              color="#7879FF"
+              color="#4AD2A0"
+              :disabled="isSelected == false"
               @click="trackModal = true"
           >
               轨迹回放
@@ -50,7 +56,13 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-row>
+    <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+      <v-progress-circular
+          indeterminate
+          color="#7879ff"
+      ></v-progress-circular>
+    </div>
+    <v-row v-else>
       <v-col cols="3">
         <div v-for="user in userDeviceList" :key="user.imei">
           <v-row class="hover-cursor-point pa-3" :class="{'selDevice':user.active}" @click="selDevice(user)">
@@ -63,14 +75,14 @@
         </div>
       </v-col>
       <v-col cols="9">
-        <baidu-map class="map" :center="{lng:centerLng,lat:centerLat}" :zoom="15" :scroll-wheel-zoom="true" @click="addPoint" @rightclick="drawNewpolygon">
+        <baidu-map class="map" :center="{lng:centerLng,lat:centerLat}" :zoom="15" :scroll-wheel-zoom="true" @click="addPoint" @rightclick="removePoint">
           <div v-for="(polygonPathData,i) in allPolygonPath" :key="i">
-              <bm-polygon :path="polygonPathData.location" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" @click="selPolygon(polygonPathData,i)" :editing="true" @lineupdate="updatePolygonPath"/>
+              <bm-polygon :path="polygonPathData.location" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" @click="selPolygon(polygonPathData,i)" :editing="isAdding" @lineupdate="updatePolygonPath"/>
           </div>
-          <bm-polygon :path="polygonPath" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="true" @lineupdate="updatePolygonPath"/>
+          <bm-polygon :path="polygonPath" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="isAdding"  @lineupdate="updatePolygonPath"/>
           <bm-polyline :path="trackPath" stroke-color="red" :stroke-opacity="0.5" :stroke-weight="2"></bm-polyline>
           <div v-for="user in userDeviceList" :key="user.imei">
-            <bm-marker :position="{lng: user.lng, lat: user.lat}" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
+            <bm-marker :position="{lng: user.lng, lat: user.lat}" @infowindowopen="userInfo(e)" animation="BMAP_ANIMATION_BOUNCE">
             </bm-marker>
           </div>
           <!-- <bm-marker :position="{lng: userlng, lat: userlat}" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
@@ -139,7 +151,7 @@
     </v-row>
     <!-- phoneNumber modal -->
     <v-row justify="center">
-      <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
+      <v-dialog eager :overlay-opacity="$isMobile()? '0': '0.4'" 
         v-model="familyModal"
         persistent
         max-width="600px"
@@ -151,29 +163,55 @@
           <v-card-text>
             <v-container>
               <v-row>
-                
-                <v-col cols="12">
+                <v-col cols="12" md="6">
+                  <v-text-field
+                    label="姓名1*"
+                    required
+                    v-model="familyData.name1"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="6">
                   <v-text-field
                     label="号码1*"
                     required
+                    class="max-length-11-staff-input"
                     v-model="familyData.phone1"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12">
+              </v-row>
+              <v-row>
+                <v-col cols="12" md="6">
+                  <v-text-field
+                    label="姓名2*"
+                    required
+                    v-model="familyData.name2"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="6">
                   <v-text-field
                     label="号码2*"
+                    class="max-length-11-staff-input"
                     v-model="familyData.phone2"
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12">
+              </v-row>
+              <v-row>
+                <v-col cols="12" md="6">
+                  <v-text-field
+                    label="姓名3*"
+                    required
+                    v-model="familyData.name3"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="6">
                   <v-text-field
                     label="号码3*"
+                    class="max-length-11-staff-input"
                     v-model="familyData.phone3"
                     required
                   ></v-text-field>
                 </v-col>
-                
               </v-row>
             </v-container>
           </v-card-text>
@@ -256,7 +294,7 @@
 </template>
 
 <script>
-import {getData,getFence,createFence,deleteFence} from '~/api/fence'
+import {getData,getFence,createFence,deleteFence,createInstruction} from '~/api/fence'
 import {getRoleUsers} from '~/api/user'
 import lang from '~/helper/lang.json'
 import {mapGetters,} from 'vuex'
@@ -268,13 +306,16 @@ export default {
         fenceName:'',
         fenceType:'',
         location:[],
-        imei:'',
+        studentList:[],
     },
     lang,
     familyModal:false,
     familyData:{
+      name1:'',
       phone1:'',
+      name2:'',
       phone2:'',
+      name3:'',
       phone3:'',
     },
     trackModal:false,
@@ -284,12 +325,14 @@ export default {
     },
     allPolygonPath:[],
     polygonPath: [],
+    isLoading:false,
     isSaving:false,
     isAdding:false,
     isChecking:false,
     isEditing:false,
     isDeleting:false,
     isSelected:false,
+    selUserInfo:null,
     centerLng:123.474976,
     centerLat:41.695735,
     userlng:123.474976,
@@ -298,19 +341,6 @@ export default {
     fenceCheck:'',
     selectedIdx:null,
     isNew:true,
-    accessToken:'',
-    refreshToken:'',
-    openApiUrl:'https://cors-anywhere.herokuapp.com/http://open.aichezaixian.com/route/rest',
-    time:'',
-    format:'json',
-    sign_method:'md5',
-    user_id:'辽宁国荣科技',
-    userPass:'VVuFiyVd6uaGfCj',
-    user_pwd_md5:'',
-    expires_in:7200,
-    v:'1.0',
-    appKey:'8FB345B8693CCD0078950C62F0A8C431',
-    appSecret:'0aedd5165f824284b57c918595a8cac4',
     imeiStr:'',
     userDeviceList:[],
     fenceModal:false,
@@ -328,6 +358,7 @@ export default {
   },
 
   async created(){
+    this.isLoading = true
     await getRoleUsers().then(res=>{
       console.log('userList',res.data)
       let lngMin = 123474900;
@@ -341,27 +372,41 @@ export default {
       this.userDeviceList = res.data
     }).catch(err=>{
       console.log(err.response)
+      this.isLoading = false
     })
+    await getFence().then(res=>{
+      console.log(res.data)
+      this.allPolygonPath = res.data
+    }).catch(err=>{
+      console.log(err.response)
+      this.isLoading = false
+    })
+    this.isLoading = false
   },
-
+  mounted(){
+    var ele_11 = $('.max-length-11-staff-input')
+    ele_11.find('input').attr("maxlength","11")
+  },
   methods:{
-    handler ({BMap, map}) {
-      console.log(BMap, map)
-      this.center.lng = 116.404
-      this.center.lat = 39.915
-      this.zoom = 15
+    getDeviceLocationList(){
+      let lngMin = 123474900;
+      let lngMax = 123499999;
+      let latMin = 41695000;
+      let latMax = 41699999;
+        
+      this.userDeviceList.map(user=>{
+        user.lng = (Math.floor(Math.random() * (lngMax - lngMin + 1)) + lngMin)/1000000;
+        user.lat = (Math.floor(Math.random() * (latMax - latMin + 1)) + latMin)/1000000;
+      })
     },
-    randomName(num=8){
-      let res = '';
-      for(let i = 0; i < num; i++){
-          const random = Math.floor(Math.random() * 27);
-          res += String.fromCharCode(97 + random);
-      };
-      return res;
-    },
-
     addFence(){
-      this.isAdding = true
+      if(this.isAdding == true){
+        if(this.polygonPath.length < 3){
+          return this.$snackbar.showMessage({content:'test',color:'error'})
+        }
+        this.fenceModal = true
+      }
+      this.isAdding = !this.isAdding
     },
     addPoint(e){
         if(!this.isAdding){
@@ -370,421 +415,153 @@ export default {
         const {lng,lat} = e.Ag;
         this.addPolygonPoint(lng,lat)
     },
+    removePoint(e){
+      // this.isAdding = false
+      // const {lng,lat} = e.Ag
+      // let item ={}
+      // item.lng = lng
+      // item.lat = lat
+      // console.log(item)
+      // console.log(this.polygonPath)
+      // let index = this.polygonPath.indexOf(item)
+      // console.log(index)
+      this.polygonPath = []
+      this.isAdding = false
+    },
+    removePolygon(e){
+      console.log(e.type,e.target)
+    },
     addPolygonPoint (lng,lat) {
         this.polygonPath.push({lng: lng, lat: lat})
     },
     
     async saveFence(){
-      this.fenceData.imei = this.imeiStr
       this.fenceData.location = this.polygonPath
+      this.userDeviceList.map(user=>{
+        this.fenceData.studentList.push(user.id)
+      })
       console.log(this.fenceData)
+      // return
       this.isSaving = true
       await createFence(this.fenceData).then(res=>{
         console.log(res.data)
         this.isSaving = false
         this.allPolygonPath.push(res.data)
         this.fenceModal = false
+        this.polygonPath = []
       }).catch(err=>{
         console.log(err.response)
         this.isSaving = false
       })
     },
-    drawNewpolygon(e){
-        if(this.polygonPath.length < 3){
-          return
-        }
-        this.fenceModal = true
-    },
-    selPolygon(fence,i){
-        for(let i=0;i<this.allPolygonPath.length;i++){
-            delete this.allPolygonPath[i].editing
-        }
-        this.$set(fence,'editing',true)
-        console.log(fence)
+    // drawNewpolygon(e){
+    //     if(this.polygonPath.length < 3){
+    //       return
+    //     }
+    //     this.fenceModal = true
+    // },
+    selPolygon(fence,index){
+      console.log(index)
+       this.allPolygonPath.map(polygon=>{
+         polygon.editing = 0
+       })
+       fence.editing = 1
+      console.log(this.allPolygonPath)
+      // return this.$snackbar.showMessage({content:fence.fenceName,color:'success'})
     },
     updatePolygonPath (e) {
         this.polygonPath = e.target.getPath()
     },
-    generateSign(methodType){
-      var md5 = require('md5');
-      var moment= require('moment') 
-      let paramPut = {}
-      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
-      this.user_pwd_md5 = md5(this.userPass)
-      paramPut.timestamp = this.time
-      paramPut.v = this.v
-      paramPut.app_key = this.appKey
-      paramPut.method = methodType
-      paramPut.format = this.format
-      paramPut.sign_method = this.sign_method
-      paramPut.user_id = this.user_id
-      paramPut.user_pwd_md5 = this.user_pwd_md5
-      paramPut.expires_in = this.expires_in
-      let ordered = {}
-      Object.keys(paramPut).sort().forEach(function (key){
-          ordered[key] = paramPut[key]
-      })
-      let str = Object.keys(ordered).map(function(key){
-          return "" + key + ordered[key]
-      }).join("")
-      let md5Secret = md5 (this.appSecret + str + this.appSecret)
-      let upper = md5Secret.toUpperCase()
-      return upper
-    },
     
-    async getAccessTokenFunc(){
-      let method = 'jimi.oauth.token.get'
-      let sign = this.generateSign(method)
-      this.isLoading = true
-      await getData({
-          sign:sign,
-          timestamp:this.time,
-          v:this.v,
-          app_key:this.appKey,
-          method:method,
-          format:this.format,
-          sign_method:this.sign_method,
-          user_id:this.user_id,
-          user_pwd_md5:this.user_pwd_md5,
-          expires_in:this.expires_in
-      }).then(res=>{
-          console.log('accessTokenRes',res)
-          this.accessToken = res.data.result.accessToken
-          this.refreshToken = res.data.result.refreshToken
-          this.$store.dispatch('fence/storeAuthToken',this.accessToken)
-          // this.$store.commit('setAccessToken',this.accessToken)
-          // this.$store.commit('setRefreshToken',this.refreshToken)
-          // this.getUserDeviceList()
-          this.isLoading = false
-      }).catch(err=>{
-          console.log('error',err.response)
-          this.isLoading = false
-      })
-    },
-
-    async getUserDeveiceList(){
-      if(this.accessToken == undefined){
-        this.getAccessTokenFunc()
-      }
-      var md5 = require('md5');
-      var moment= require('moment') 
-      let paramPut = {}
-      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
-      this.user_pwd_md5 = md5(this.userPass)
-
-      paramPut.method = 'jimi.user.device.list'
-      paramPut.timestamp = this.time
-      paramPut.app_key = this.appKey
-      paramPut.sign_method = this.sign_method
-      paramPut.v = this.v
-      paramPut.format = this.format
-      paramPut.access_token = this.accessToken
-      paramPut.target = this.user_id
-      let ordered = {}
-      Object.keys(paramPut).sort().forEach(function (key){
-          ordered[key] = paramPut[key]
-      })
-      let str = Object.keys(ordered).map(function(key){
-          return "" + key + ordered[key]
-      }).join("")
-      let md5Secret = md5 (this.appSecret + str + this.appSecret)
-      let upper = md5Secret.toUpperCase()
-      await getData({
-        sign:upper,
-        timestamp:this.time,
-        v:this.v,
-        app_key:this.appKey,
-        method:"jimi.user.device.list",
-        format:this.format,
-        sign_method:this.sign_method,
-        access_token:this.accessToken,
-        target:this.user_id
-      }).then(res=>{
-        this.userDeviceList = res.data.result
-        this.selDevice(res.data.result[0])
-        console.log('this.userDeviceList',this.userDeviceList)
-      }).catch(err=>{
-        console.log(err.response)
-        this.getAccessTokenFunc()
-        this.getUserDeveiceList()
-
-      })
-
-    },
-
     selDevice(device){
       for(let i=0;i<this.userDeviceList.length;i++){
           delete this.userDeviceList[i].active
       }
-      this.$set(device,'active',true)
-      this.imeiStr = device.imei
+      if(this.selUserInfo != null){
+        if(this.selUserInfo.id == device.id){
+          this.selUserInfo = null
+          this.isSelected = false
+        }else{
+          this.$set(device,'active',true)
+          this.selUserInfo = device
+          console.log(this.selUserInfo)
+          this.isSelected = true  
+        }
+      }
+      else{
+        this.$set(device,'active',true)
+        this.selUserInfo = device
+        console.log(this.selUserInfo)
+        this.isSelected = true
+      }
       // this.realTracking()
-      this.getFenceData();
-      this.getDeviceLocationList()
+      // this.getFenceData();
+      // this.getDeviceLocationList()
+    },
+
+    userInfo(e){
+      console.log(e)
+    },
+
+    fetchHole(){
+        console.log('checkFence',this.allPolygonPath)
+        this.getDeviceLocationList()
+        var BMap = require('bmaplib').BMap;
+        var BMapLib = require('bmaplib').BMapLib;
+        var pts = []
+        if(this.allPolygonPath.length == 0){
+            return this.$$snackbar.showMessage({content:'电子围栏不存在。',color:'error'})
+        }
+        for(let i =0; i<this.allPolygonPath.length;i++){
+            for(let j=0;j<this.allPolygonPath[i].location.length;j++){
+                var pt = new BMap.Point(this.allPolygonPath[i].location[j].lng, this.allPolygonPath[i].location[j].lat);
+                pts.push(pt)
+            }
+        }
+        var ply = new BMap.Polygon(pts);
+        this.userDeviceList.map(user=>{
+          let pt =new BMap.Point(user.lng,user.lat );
+          let result = BMapLib.GeoUtils.isPointInPolygon(pt, ply);
+          if(result == false){
+            console.log(user.name,'outside')
+          }else{
+            console.log(user.name,'inside')
+          }
+        })
+        let vm = this
+        setTimeout(function() {
+          vm.fetchHole()
+        }, 3000);
     },
     realTracking(){
-      this.getDeviceLocationList()
-      let self = this
-      clearInterval(this.fenceCheckFlag)
-      this.fenceCheckFlag = setInterval(function(){self.getDeviceLocationList()}, 20000);
-    },
-    async getDeviceLocationList(){
-        if(this.accessToken == undefined){
-            this.getAccessTokenFunc();
-        }
-        var md5 = require('md5');
-        var moment= require('moment') 
-        let paramPut = {}
-        this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
-        this.user_pwd_md5 = md5(this.userPass)
-
-        paramPut.method = 'jimi.device.location.get'
-        paramPut.timestamp = this.time
-        paramPut.app_key = this.appKey
-        paramPut.sign_method = this.sign_method
-        paramPut.v = this.v
-        paramPut.format = this.format
-        paramPut.access_token = this.accessToken
-        paramPut.imeis = this.imeiStr
-        paramPut.map_type='BAIDU'
-        let ordered = {}
-        Object.keys(paramPut).sort().forEach(function (key){
-            ordered[key] = paramPut[key]
-        })
-        let str = Object.keys(ordered).map(function(key){
-            return "" + key + ordered[key]
-        }).join("")
-        let md5Secret = md5 (this.appSecret + str + this.appSecret)
-        let upper = md5Secret.toUpperCase()
-        this.isLoading = true
-        await getData({
-            sign:upper,
-            timestamp:this.time,
-            v:this.v,
-            app_key:this.appKey,
-            method:"jimi.device.location.get",
-            format:this.format,
-            sign_method:this.sign_method,
-            access_token:this.accessToken,
-            imeis:this.imeiStr,
-            map_type:'BAIDU'
-        }).then(res=>{
-            console.log('deviceLocationList',res)
-            this.deviceLocationList = res.data.result
-            this.userlng = res.data.result[0].lng
-            this.userlat = res.data.result[0].lat
-            this.centerLng = res.data.result[0].lng
-            this.centerLat = res.data.result[0].lat
-            // this.getDeviceFence()
-            // this.fetchHole()
-            this.isLoading = false
-        }).catch(err=>{
-            console.log('error',err)
-            this.getAccessTokenFunc()
-            this.isLoading = false
-        })
     },
 
-    async getFenceData(){
-      console.log(this.imeiStr)
-      await getFence({imei:this.imeiStr}).then(res=>{
-        this.allPolygonPath = res.data
-      }).catch(err=>{
-        console.log(err.response)
-      })
-    },
-
-    getInstructionList(){
-      var md5 = require('md5');
-      var moment= require('moment') 
-      let paramPut = {}
-      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
-      this.user_pwd_md5 = md5(this.userPass)
-
-      paramPut.method = 'jimi.open.instruction.list'
-      paramPut.timestamp = this.time
-      paramPut.app_key = this.appKey
-      paramPut.sign_method = this.sign_method
-      paramPut.v = this.v
-      paramPut.format = this.format
-      paramPut.access_token = this.accessToken
-      paramPut.imei = this.imeiStr
-      let ordered = {}
-      Object.keys(paramPut).sort().forEach(function (key){
-          ordered[key] = paramPut[key]
-      })
-      let str = Object.keys(ordered).map(function(key){
-          return "" + key + ordered[key]
-      }).join("")
-      let md5Secret = md5 (this.appSecret + str + this.appSecret)
-      let upper = md5Secret.toUpperCase()
-      getData({
-        sign:upper,
-        timestamp:this.time,
-        v:this.v,
-        app_key:this.appKey,
-        method:"jimi.open.instruction.list",
-        format:this.format,
-        sign_method:this.sign_method,
-        access_token:this.accessToken,
-        imei:this.imeiStr,
-      }).then(res=>{
+    async instructionSend(){
+      console.log(this.familyData)
+      if(this.familyData.name1.trim() == '' || this.familyData.name2.trim() == '' || this.familyData.name3.trim() == ''){
+        return this.$snackbar.showMessage({content:this.lang.requiredName,color:'error'})
+      }
+      if(this.familyData.phone1.length != 11 ||this.familyData.phone2.length != 11 || this.familyData.phone3.length != 11 ){
+        return this.$snackbar.showMessage({content:this.lang.requireCorrectPhoneNumber,color:'error'})
+      }
+      this.isSaving = true
+      await createInstruction({userId:this.selUserInfo.id,imei:this.selUserInfo.imei,familyData:this.familyData}).then(res=>{
         console.log(res.data)
-      }).catch(err=>{
-        console.log(err.response)
-      })
-    },
-
-    instructionSend(){
-      var md5 = require('md5');
-      var moment= require('moment') 
-      let paramPut = {}
-      let inst_param_json = '{"inst_id":"149","inst_template":"FN&&A&&{0}&&{1}&&{2}&&{3}&&{4}&&{5}##","params":["名称1","' + this.familyData.phone1 + '","名称2","'+ this.familyData.phone2 +'","名称3","' + this.familyData.phone3 + '"],"is_cover":false}'
-      // let inst_param_json = '{"inst_id":"149","inst_template":"FN&&A&&{0}&&{1}&&{2}&&{3}&&{4}&&{5}##","params":["名称1","15640052113","名称2","15640052116","名称3","15640052117"],"is_cover":false}'
-      console.log(inst_param_json)
-      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
-      this.user_pwd_md5 = md5(this.userPass)
-
-      paramPut.method = 'jimi.open.instruction.send'
-      paramPut.timestamp = this.time
-      paramPut.app_key = this.appKey
-      paramPut.sign_method = this.sign_method
-      paramPut.v = this.v
-      paramPut.format = this.format
-      paramPut.access_token = this.accessToken
-      paramPut.imei = this.imeiStr
-      paramPut.inst_param_json = inst_param_json
-      let ordered = {}
-      Object.keys(paramPut).sort().forEach(function (key){
-          ordered[key] = paramPut[key]
-      })
-      let str = Object.keys(ordered).map(function(key){
-          return "" + key + ordered[key]
-      }).join("")
-      let md5Secret = md5 (this.appSecret + str + this.appSecret)
-      let upper = md5Secret.toUpperCase()
-
-      axios.post('https://cors-anywhere.herokuapp.com/http://open.aichezaixian.com/route/rest',null,{params:{
-        sign:upper,
-        timestamp:this.time,
-        v:this.v,
-        app_key:this.appKey,
-        method:"jimi.open.instruction.send",
-        format:this.format,
-        sign_method:this.sign_method,
-        access_token:this.accessToken,
-        imei:this.imeiStr,
-        inst_param_json:inst_param_json
-      }}).then(res=>{
-        console.log(res.data)
+        this.isSaving = false
         this.familyModal = false
       }).catch(err=>{
         console.log(err.response)
-        this.familyModal = false
+        this.isSaving = false
       })
     },
 
-    instructionResult(){
-      var md5 = require('md5');
-      var moment= require('moment') 
-      let paramPut = {}
-      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"));
-      this.user_pwd_md5 = md5(this.userPass)
-
-      paramPut.method = 'jimi.open.instruction.result'
-      paramPut.timestamp = this.time
-      paramPut.app_key = this.appKey
-      paramPut.sign_method = this.sign_method
-      paramPut.v = this.v
-      paramPut.format = this.format
-      paramPut.access_token = this.accessToken
-      paramPut.imei = this.imeiStr
-      let ordered = {}
-      Object.keys(paramPut).sort().forEach(function (key){
-          ordered[key] = paramPut[key]
-      })
-      let str = Object.keys(ordered).map(function(key){
-          return "" + key + ordered[key]
-      }).join("")
-      let md5Secret = md5 (this.appSecret + str + this.appSecret)
-      let upper = md5Secret.toUpperCase()
-      getData({
-        sign:upper,
-        timestamp:this.time,
-        v:this.v,
-        app_key:this.appKey,
-        method:"jimi.open.instruction.result",
-        format:this.format,
-        sign_method:this.sign_method,
-        access_token:this.accessToken,
-        imei:this.imeiStr,
-      }).then(res=>{
-        console.log(res.data)
-      }).catch(err=>{
-        console.log(err.response)
-      })
-    },
-    
     getDeviceTrack(){
-      console.log(this.trackData)
-      console.log(this.TimeViewSam(this.trackData.begin_time))
-      var md5 = require('md5');
-      var moment= require('moment') 
-      let paramPut = {}
-      this.time = moment().format(("YYYY-MM-DD HH:mm:SS"))
-      this.user_pwd_md5 = md5(this.userPass)
-
-      paramPut.method = 'jimi.device.track.list'
-      paramPut.timestamp = this.time
-      paramPut.app_key = this.appKey
-      paramPut.sign_method = this.sign_method
-      paramPut.v = this.v
-      paramPut.format = this.format
-      paramPut.access_token = this.accessToken
-      paramPut.imei = this.imeiStr
-      paramPut.begin_time = this.TimeViewSam(this.trackData.begin_time)
-      paramPut.end_time = this.TimeViewSam(this.trackData.end_time)
-      paramPut.map_type = 'BAIDU'
-      let ordered = {}
-      Object.keys(paramPut).sort().forEach(function (key){
-          ordered[key] = paramPut[key]
-      })
-      let str = Object.keys(ordered).map(function(key){
-          return "" + key + ordered[key]
-      }).join("")
-      let md5Secret = md5 (this.appSecret + str + this.appSecret)
-      let upper = md5Secret.toUpperCase()
-      getData({
-        sign:upper,
-        timestamp:this.time,
-        v:this.v,
-        app_key:this.appKey,
-        method:"jimi.device.track.list",
-        format:this.format,
-        sign_method:this.sign_method,
-        access_token:this.accessToken,
-        imei:this.imeiStr,
-        begin_time:this.TimeViewSam(this.trackData.begin_time),
-        end_time:this.TimeViewSam(this.trackData.end_time),
-        map_type:'BAIDU'
-      }).then(res=>{
-        console.log(res.data)
-        res.data.result.map(data=>{
-          let el = {}
-          el.lng = data.lng
-          el.lat = data.lat
-          this.trackPath.push(el)
-          this.trackModal = false
-        })
-        // this.trackPath = res.data
-        console.log(this.trackPath)
-      }).catch(err=>{
-        console.log(err.response)
-      })
+      
     }
 
 
-  }
+  },
+  
 
 }
 </script>

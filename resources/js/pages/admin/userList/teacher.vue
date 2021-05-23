@@ -511,12 +511,6 @@ export default {
     }),
   },
 
-   mounted(){
-    var ele_11 = $('.max-length-11-staff-input')
-    var ele_18 = $('.max-length-18-staff-input')
-    ele_11.find('input').attr("maxlength","11")
-    ele_18.find('input').attr("maxlength","18")
-  },
 
     async created(){
       this.provinceListJsonArr = cityListJson.split("#");
