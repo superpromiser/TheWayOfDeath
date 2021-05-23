@@ -534,13 +534,13 @@ class UserController extends Controller
         $roleId = Auth::user()->roleId;
         if ($roleId == 2) {
             $schoolId = Auth::user()->schoolId;
-            $userList = User::where(['schoolId' => $schoolId, 'roleId' => 5])->get();
+            $userList = User::select('id', 'name', 'imei', 'lessonId')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
         } else if ($roleId == 7) {
             $lessonId = Auth::user()->lessonId;
-            $userList = User::where('groupArr', 'like', "%{$lessonId}%")->where('roleId', 5)->get();
+            $userList = User::select('id', 'name', 'imei', 'lessonId')->where('groupArr', 'like', "%{$lessonId}%")->where('roleId', 5)->get();
         } else if ($roleId == 4) {
             $childArr = User::where('id', $userId)->first()->children;
-            $userList = User::whereIn('id', $childArr)->get();
+            $userList = User::select('id', 'name', 'imei', 'lessonId')->whereIn('id', $childArr)->get();
         }
         return $userList;
     }

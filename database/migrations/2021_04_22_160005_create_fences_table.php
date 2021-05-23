@@ -15,12 +15,19 @@ class CreateFencesTable extends Migration
     {
         Schema::create('fences', function (Blueprint $table) {
             $table->id();
-            $table->string('imei');
+            // $table->string('imei');
             $table->string('fenceName');
             $table->string('fenceType');
-            $table->json('location');
+            $table->longText('location');
             $table->unsignedBigInteger('userId');
+            $table->json('studentList');
+            $table->tinyInteger('schoolId');
+            $table->tinyInteger('lessonId')->nullable();
+            $table->boolean('editing')->default(false);
+
+            $table->unsignedBigInteger('roleId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('roleId')->references('id')->on('user_roles')->onDelete('cascade');
             $table->timestamps();
         });
     }
