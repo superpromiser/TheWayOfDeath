@@ -32,6 +32,14 @@ function deleteRegname(payload){
     return axios.delete('/api/v1/regname',{data:payload})
 }
 
+function updateStatus(payload){
+    return axios.put('/api/v1/regname/answer/status',payload)
+}
+
+function deleteAnswer(payload){
+    return axios.delete('/api/v1/regname/answer',{data:payload})
+}
+
 function getTemplateCnt(payload){
     return axios.get('/api/v1/regname/templateCnt',{params:payload})
 }
@@ -61,4 +69,6 @@ export{
     getTemplateList,
     createTemplate,
     deleteTemplate,
+    updateStatus,
+    deleteAnswer,
 }

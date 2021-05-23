@@ -146,6 +146,17 @@
           </v-simple-table> -->
         </v-col>
       </v-row>
+      <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"   persistent v-model="dialogDelete" max-width="500px">
+        <v-card>
+          <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+          <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+          <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteAnswer">{{lang.ok}}</v-btn>
+          <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
       <CommentView></CommentView>
     </v-container>
@@ -333,6 +344,17 @@
       <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
       <CommentView></CommentView>
     </div>
+    <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"   persistent v-model="dialogDelete" max-width="500px">
+      <v-card>
+        <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+        <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
+        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteAnswer">{{lang.ok}}</v-btn>
+        <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -340,7 +362,7 @@
 import cityListJson from '!!raw-loader!../../cityLaw.txt';
 import lang from '~/helper/lang.json'
 import {mapGetters} from 'vuex';
-import {getAnswerList, } from '~/api/regname'
+import {getAnswerList, updateStatus, deleteAnswer} from '~/api/regname'
 import AttachItemViewer from '~/components/attachItemViewer';
 import FooterPost from '~/components/contents/footerPost'
 import CommentView from '~/pages/school/posts/comments/commentView';
@@ -409,6 +431,9 @@ import CommentView from '~/pages/school/posts/comments/commentView';
             },
         ],
         isLoadingContents:false,
+        isDeleteAnswer: false,
+        dialogDelete: false,
+        deleteAnswerItem: null,
     }),
     computed: {
         ...mapGetters({
@@ -504,14 +529,54 @@ import CommentView from '~/pages/school/posts/comments/commentView';
 
     methods: {
       allowItem(item){
-        console.log('allow',item)
+        this.updateStatus('allow', item);
       },
       denyItem(item){
-        console.log('deny',item)
+        this.updateStatus('deny', item);
       },
       deleteItem(item){
-        console.log('delete', item);
+        this.deleteAnswerItem = item;
+        this.dialogDelete = true;
       },
+      closeDelete(){
+        this.deleteAnswerItem = null;
+        this.dialogDelete = false;
+      },
+      async deleteItemConfirm(){
+        let payload = {
+          answerId: this.deleteAnswerItem.id
+        }
+        this.isDeleteAnswer = true;
+        await deleteAnswer(payload)
+        .then((res) => {
+          this.answerDataList.map((answer, index) => {
+            if(answer.id == this.deleteAnswerItem.id){
+              this.answerDataList.splice(index, 1)
+            }
+          })
+          this.isDeleteAnswer = false;
+          this.dialogDelete = false;
+          this.deleteAnswerItem = null;
+        }).catch((err) => {
+          this.isDeleteAnswer = false;
+          this.dialogDelete = false;
+          this.deleteAnswerItem = null;
+        });
+        this.isDeleteAnswer = false;
+      },
+
+      updateStatus(actionType, item){
+        let payload = {
+          action: actionType,
+          answerId: item.id
+        }
+        updateStatus(payload)
+        .then((res) => {
+        }).catch((err) => {
+        });
+        item.status = actionType;
+      },
+      
       updateFooterInfo(){
 
       },
