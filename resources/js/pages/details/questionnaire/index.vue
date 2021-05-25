@@ -194,7 +194,7 @@
       </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
-      <v-row class="px-10 z-index-2 banner-custom">
+      <v-row class="px-10 z-index-2 banner-custom ma-0">
         <v-col cols="6" md="4" class="d-flex align-center position-relative">
           <a @click="$router.go(-1)" class="float-left">
             <v-icon size="70" class=" left-24p">
@@ -209,7 +209,6 @@
           <v-btn
             dark
             color="#7879ff"
-            class="mr-8"
             tile
             @click="answerUsers"
             v-if="answerUserShow == false"
@@ -227,7 +226,7 @@
               color="#7879ff"
           ></v-progress-circular>
       </div>
-      <div v-else>
+      <div v-else class="ma-0">
         <!----title---->
         <v-col cols="12" class="d-flex align-center hover-cursor-point mt-5 px-10">
             <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="#7879ff" size="60" class="ma-5">
@@ -396,7 +395,7 @@
           <v-row class="d-flex justify-end px-10 mx-0 my-10">
             <v-btn
                   dark
-                  color="deep-purple accent-3"
+                  color="#7879ff"
                   tile
                   :loading="isSubmit"
                   :disabled="alreadyAnswer"

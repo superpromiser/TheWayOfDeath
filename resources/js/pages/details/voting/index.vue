@@ -117,7 +117,7 @@
                     <v-img :src="contentData.users.avatar"></v-img>
                     </v-avatar>
                     <div>
-                    <p class="font-weight-black fs-15 mb-3"> {{lang.questionnaire}}  </p>
+                    <p class="font-weight-black fs-15 mb-3"> {{lang.voting}}  </p>
                     <div class="d-flex align-center">
                         <v-icon medium color="#7879ff" class="mr-2">mdi-clock-outline </v-icon>
                         <p class="mb-0 mr-8">{{TimeView(contentData.created_at)}}</p>
@@ -172,7 +172,7 @@
                         <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                     </v-col>
                 </v-row>
-                <v-row class="d-flex justify-end mx-0 my-10 px-5">
+                <v-row class="d-flex justify-end mx-0 my-10 px-10">
                     <v-btn
                         :dark="!alreadyAnswer"
                         color="#7879ff"
