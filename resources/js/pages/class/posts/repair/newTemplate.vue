@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import {createTemplate} from '~/api/safeStudy'
+import {createTemplate} from '~/api/repair'
 import QuestionItem from '~/components/questionItem'
 import lang from '~/helper/lang.json'
 export default {
