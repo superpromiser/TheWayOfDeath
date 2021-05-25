@@ -5,7 +5,7 @@
                 <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
-                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.safeStudy}}模板清单</p>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >维修工单模板清单</p>
                 <v-btn @click="submit" :loading="isSubmit" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
                     {{lang.submit}}
                 </v-btn>
@@ -45,7 +45,7 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.safeStudy}}模板清单</h2>
+                    <h2>维修工单模板清单</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn

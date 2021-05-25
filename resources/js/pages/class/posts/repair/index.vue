@@ -267,6 +267,12 @@ export default {
             if(this.repairData.content.length == 0){
                 return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
             }
+            if(this.repairData.viewListName.trim() == ''){
+                return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
+            }
+            if(this.repairData.repairType == ''){
+                return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
+            }
             // console.log(this.viewList)
             // return
             // this.repairData.viewListId = this.viewList.lessonId

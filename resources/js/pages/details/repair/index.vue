@@ -413,7 +413,7 @@ export default {
                 this.$router.push({name:'schoolSpace.news'})
             }
         }
-        this.description = JSON.parse(this.contentData.repairdata.content);
+        this.description = JSON.parse(this.contentData.repairdata.content)[0];
         console.log(this.contentData)
     },
     methods:{

@@ -19,7 +19,7 @@
             </v-col>
         </v-row>
     </v-container>
-    <v-row class="pa-0 px-10">
+    <v-row class="pa-0 px-10 ma-0">
         <v-col cols="12" class="d-flex align-center ">
             <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="addSessionDialog" transition="dialog-bottom-transition" width="100%" max-width="500">   
                 <v-card>
