@@ -16,8 +16,11 @@ class QuestionnaireController extends Controller
             'schoolId' => 'required'
         ]);
         if ($request->lessonId) {
-            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 12])
-                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId])->whereIn('contentId', [1, 12])
+                ->orWhere(function ($query) use ($request) {
+                    $query->where('viewList', 'like', "%{$request->lessonId}%")
+                        ->whereIn('contentId', [1, 12]);
+                })
                 ->with([
                     'likes',
                     'views',

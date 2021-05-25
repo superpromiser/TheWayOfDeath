@@ -18,7 +18,12 @@ class RegnameController extends Controller
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
+        $lessonId = $request->lessonId;
         return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 24])
+            ->orWhere(function ($query) use ($request) {
+                $query->where('viewList', 'like', "%{$request->lessonId}%")
+                    ->where('contentId', 24);
+            })
             ->with([
                 'likes',
                 'views',
@@ -74,15 +79,14 @@ class RegnameController extends Controller
             'answer' => 'required'
         ]);
         $regNameData = Regname::where('id', $request->regnameId)->first();
-        if($regNameData->checkFlag == 0){
+        if ($regNameData->checkFlag == 0) {
             AnswerRegname::create([
                 'userId' => Auth::user()->id,
                 'postId' => $request->postId,
                 'regnameId' => $request->regnameId,
                 'answer' => json_encode($request->answer)
             ]);
-        }
-        else{
+        } else {
             AnswerRegname::create([
                 'userId' => Auth::user()->id,
                 'postId' => $request->postId,
@@ -132,7 +136,7 @@ class RegnameController extends Controller
     }
 
     public function updateAnswerStatus(Request $request)
-    {   
+    {
         AnswerRegname::where('id', $request->answerId)->update([
             'status' => $request->action
         ]);
@@ -142,21 +146,23 @@ class RegnameController extends Controller
     }
 
     public function deleteAnswer(Request $request)
-    {   
+    {
         return AnswerRegname::where('id', $request->answerId)->delete();
     }
 
-    public function getTemplateCnt(Request $request){
+    public function getTemplateCnt(Request $request)
+    {
         $this->validate($request, [
             'schoolId' => 'required',
         ]);
         $userId = Auth::user()->id;
-        $result['draftCnt'] = Template::where(['contentId' => 24, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 2])->count();
-        $result['templateCnt'] = Template::where(['contentId' => 24, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId'=>$request->lessonId, 'tempType' => 1])->count();
+        $result['draftCnt'] = Template::where(['contentId' => 24, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'tempType' => 2])->count();
+        $result['templateCnt'] = Template::where(['contentId' => 24, 'userId' => $userId, 'schoolId' => $request->schoolId, 'lessonId' => $request->lessonId, 'tempType' => 1])->count();
         return $result;
     }
 
-    public function getTemplateList(Request $request){
+    public function getTemplateList(Request $request)
+    {
         $this->validate($request, [
             'schoolId' => 'required'
         ]);
@@ -164,7 +170,8 @@ class RegnameController extends Controller
         return Template::where(['contentId' => 24, 'userId' => $userId, 'schoolId' => $request->schoolId,])->get();
     }
 
-    public function createTemplate(Request $request){
+    public function createTemplate(Request $request)
+    {
         $userId = Auth::user()->id;
         Template::create([
             'contentId' => 24,
@@ -174,15 +181,16 @@ class RegnameController extends Controller
             'content' => $request->content,
             'schoolId' => $request->schoolId,
             'tempType' => $request->tempType,
-            'lessonId'=>$request->lessonId
+            'lessonId' => $request->lessonId
         ]);
         return true;
     }
 
-    public function deleteTemplate(Request $request){
-        $this->validate($request,[
-            'id'=>'required'
+    public function deleteTemplate(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required'
         ]);
-        return Template::where('id',$request->id)->delete();
+        return Template::where('id', $request->id)->delete();
     }
 }

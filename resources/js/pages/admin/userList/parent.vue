@@ -585,6 +585,7 @@ export default {
     methods: {
 
       editItem (item) {
+        console.log(item)
         let address = item.residenceAddress.split(" ");
         let index = this.madeJsonFromString.findIndex(item=>item.label == address[0])
         this.willBeCityDataOfResidenceAddress = this.madeJsonFromString[index].city;

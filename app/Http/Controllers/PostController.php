@@ -23,7 +23,7 @@ class PostController extends Controller
         if ($roleId < 3) {
             return Post::whereIn('contentId', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 24])
                 ->where('schoolId', $request->schoolId)
-                // ->where('classId', $request->lessonId)
+                ->where('classId', $request->lessonId)
                 ->with([
                     'likes',
                     'views',
@@ -45,7 +45,7 @@ class PostController extends Controller
         } else {
             return Post::whereIn('contentId', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 24])
                 ->where('schoolId', $request->schoolId)
-                // ->where('classId', $request->lessonId)
+                ->where('classId', $request->lessonId)
                 ->with([
                     'likes',
                     'views',
