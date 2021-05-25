@@ -22,9 +22,9 @@
                     <v-icon size="45" class="ma-3 mx-auto" color="#999999">
                         mdi-wechat
                     </v-icon>
-                    <p>微信号: {{notSetWechat? '未设置微信号': user.wechat}}</p>
+                    <p>微信号: {{notSetWechat? '未绑定微信号': user.wechat}}</p>
                     <v-btn dark color="#7879ff" @click="openDialog">
-                        {{notSetWechat? '新注册': '更新'}}
+                        {{notSetWechat? '绑定': '更新'}}
                     </v-btn>
                 </div>
             </v-col>

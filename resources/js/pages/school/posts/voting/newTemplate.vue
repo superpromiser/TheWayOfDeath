@@ -45,7 +45,15 @@
                 </v-col>
                 <v-col cols="12" v-for="index in initialCnt" :key="index" class="mt-3">
                     <QuestionItem class="" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
-                    <v-divider class="thick-border" light></v-divider>
+                    <v-divider v-if="index < initialCnt.length - 1" class="thick-border" light></v-divider>
+                </v-col>
+                <v-col cols="12">
+                    <v-btn color="#7879ff" text @click="addContent" class="mt-10">
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>
+                    {{lang.addOption}}
+                </v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -78,7 +86,7 @@ export default {
             schoolId:null,
             lessonId:null,
         },
-        initialCnt:4,
+        initialCnt:3,
     }),
     computed:{
         currentPath(){
@@ -94,7 +102,7 @@ export default {
             for(let index = 1;  index <= this.initialCnt; index++){
                 this.$refs[index][0].emitData()
             }
-            if(this.newTemplateData.content.length < 4){
+            if(this.newTemplateData.content.length < this.initialCnt){
                 return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
             }
             this.isSubmit = true
@@ -117,6 +125,9 @@ export default {
                 return this.$snackbar.showMessage({content: "主题字段为空。", color: "error"})
             }
             this.newTemplateData.content.push(data);
+        },
+        addContent(){
+            this.initialCnt ++;
         },
     },
 }

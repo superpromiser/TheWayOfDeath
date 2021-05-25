@@ -258,7 +258,7 @@
                     </v-col>
                 </v-row>
                 <div v-for="index in initialCnt" :key="index" class="mt-3">
-                    <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : lang.contentPlace" :item="votingData.content[index-1]" :index="index" :ref="index" @contentData="loadContentData"/>
+                    <QuestionItem :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" class="mt-10"  :item="votingData.content[index-1]" :index="index" :ref="index" @contentData="loadContentData"/>
                     <v-divider></v-divider>
                 </div>
                 <v-btn color="#7879ff" text @click="addContent" class="mt-10">
@@ -316,12 +316,8 @@ export default {
                 label : "2", 
                 value : 2 
             },
-            { 
-                label : "3", 
-                value : 3
-            },
         ],
-        initialCnt:4,
+        initialCnt:3,
         votingData:{
             votingType: '',
             viewList:[],
@@ -424,7 +420,7 @@ export default {
                 this.votingData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.requireVotingMax, color: "error"})
             }
-            if(this.votingData.content.length < 4){
+            if(this.votingData.content.length < this.initialCnt){
                 this.votingData.content = [];
                 return this.$snackbar.showMessage({content: this.lang.voting+this.lang.requireContent, color: "error"})
             }
@@ -449,7 +445,7 @@ export default {
             for(let index = 1;  index <= this.initialCnt; index++){
                 this.$refs[index][0].emitData()
             }
-            if(this.votingData.content.length < 4){
+            if(this.votingData.content.length < this.initialCnt){
                 return this.$snackbar.showMessage({content: this.lang.voting+this.lang.requireContent, color: "error"})
             }
             let draftData = {}
