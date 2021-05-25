@@ -131,6 +131,21 @@ class RegnameController extends Controller
         ], 200);
     }
 
+    public function updateAnswerStatus(Request $request)
+    {   
+        AnswerRegname::where('id', $request->answerId)->update([
+            'status' => $request->action
+        ]);
+        return response()->json([
+            'msg' => 'ok'
+        ], 200);
+    }
+
+    public function deleteAnswer(Request $request)
+    {   
+        return AnswerRegname::where('id', $request->answerId)->delete();
+    }
+
     public function getTemplateCnt(Request $request){
         $this->validate($request, [
             'schoolId' => 'required',

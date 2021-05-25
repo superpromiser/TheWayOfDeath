@@ -338,6 +338,8 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::get('regname/answer/one', 'RegnameController@getAnswerOne');
     Route::get('regname/answer', 'RegnameController@getAnswer');
     Route::put('regname/answer', 'RegnameController@updateAnswer');
+    Route::put('regname/answer/status', 'RegnameController@updateAnswerStatus');
+    Route::delete('regname/answer', 'RegnameController@deleteAnswer');
 
     Route::get('regname/templateCnt', 'RegnameController@getTemplateCnt');
     Route::get('regname/template', 'RegnameController@getTemplateList');
