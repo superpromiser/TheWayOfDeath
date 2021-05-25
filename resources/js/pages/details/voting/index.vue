@@ -70,7 +70,7 @@
         </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
-        <div class="px-10 z-index-2 banner-custom">
+        <v-container class="z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
                     <a @click="$router.go(-1)" class="float-left">
@@ -97,7 +97,7 @@
                     </v-btn>
                 </v-col>
             </v-row>
-        </div>
+        </v-container>
         <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
             <v-progress-circular
                 indeterminate
@@ -105,7 +105,7 @@
             ></v-progress-circular>
         </div>
         <div v-else>
-            <div v-if="answerUserShow == false" class=" px-10 mt-5">
+            <div v-if="answerUserShow == false" class=" px-5 mt-5">
                 <v-col cols="12" class="d-flex align-center hover-cursor-point">
                     <v-avatar v-if="contentData.users.name !== '' && contentData.users.avatar == '/'" color="#7879ff" size="60" class="ma-5">
                         <span class="white--text headline">{{contentData.users.name[0]}}</span>
@@ -161,8 +161,9 @@
                         <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiDataIndex)" :class="{active: answerData.indexOf(multiDataIndex) > -1}"> 
                             <v-chip
                             class="mr-2"
-                            color="success"
-                            outlined
+                            :color="answerData.indexOf(multiDataIndex) > -1 ? '#49d29e': '#999999'"
+                            :outlined="!(answerData.indexOf(multiDataIndex) > -1)"
+                            :dark="answerData.indexOf(multiDataIndex) > -1"
                             >
                             <strong>{{alphabet[multiDataIndex-1]}}</strong>
                             </v-chip>
@@ -171,7 +172,7 @@
                         <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                     </v-col>
                 </v-row>
-                <v-row class="d-flex justify-end mx-0 my-10 px-10">
+                <v-row class="d-flex justify-end mx-0 my-10 px-5">
                     <v-btn
                         :dark="!alreadyAnswer"
                         color="#7879ff"

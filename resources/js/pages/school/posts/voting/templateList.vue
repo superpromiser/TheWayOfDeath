@@ -27,7 +27,13 @@
             </v-row>
         </v-container>
         
-        <div v-if="isLoading == true" class="d-flex justify-center align-center py-16">
+        <div v-if="noData == true" class="d-flex justify-center align-center py-16">
+            <v-chip class="ma-2" color="#7879ff" outlined pill >
+                {{lang.noData}}
+                <v-icon right> mdi-cancel  </v-icon>
+            </v-chip>
+        </div>
+        <div v-else-if="isLoading == true" class="d-flex justify-center align-center py-16">
             <v-progress-circular
                 indeterminate
                 color="#7879ff"
@@ -48,6 +54,7 @@
                         </div>
                     </v-card-text>
                     <v-card-actions>
+                        <v-spacer></v-spacer>
                         <v-btn
                             text
                             color="#7879ff"
@@ -80,6 +87,7 @@ export default {
         isLoading:false,
         baseUrl:window.Laravel.base_url,
         isSubmit:false,
+        noData: false,
     }),
     
     computed:{
@@ -92,6 +100,9 @@ export default {
         this.isLoading = true
         await getTemplateList({schoolId:this.currentPath.params.schoolId}).then(res=>{
             this.templateList = res.data
+            if(this.templateList.length == 0){
+                this.noData = true;
+            }
             this.isLoading = false
         }).catch(err=>{
             console.log(err.response)
@@ -110,6 +121,9 @@ export default {
                 let index = this.templateList.indexOf(tempData)
                 if(index > -1){
                     this.templateList.splice(index,1)
+                }
+                if(this.templateList.length == 0){
+                    this.noData = true;
                 }
             }).catch(err=>{
                 console.log(err.response)

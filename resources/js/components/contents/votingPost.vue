@@ -24,7 +24,7 @@
         </div>
         <div class="d-flex align-center">
           <p class="text-wrap mb-0">
-            <strong>调查范围:</strong>
+            <strong>每人选择上限:</strong>
             {{content.votings.maxVote}}
           </p>
         </div>
@@ -52,7 +52,7 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-container v-else>
+  <v-container class="pa-0" v-else>
        <v-col cols="12" class="d-flex align-center hover-cursor-point">
             <v-avatar v-if="content.users.name !== '' && content.users.avatar == '/'" color="#7879ff" size="60" class="ma-5">
                 <span class="white--text headline">{{content.users.name[0]}}</span>
@@ -100,7 +100,7 @@
             </div>
             <div class="d-flex align-center">
               <p class="text-wrap mb-0">
-                <strong>调查范围:</strong>
+                <strong>每人选择上限:</strong>
                 {{content.votings.maxVote}}
               </p>
             </div>
