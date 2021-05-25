@@ -96,19 +96,19 @@
                         v-if="item.status == 'allow'"
                         @click="replyItem(item)"
                     >
-                        mdi-cancel
+                        mdi-stamper
                     </v-icon>
                     <v-icon
                         v-if="item.status == 'deny'"
                         @click="replyItem(item)"
                     >
-                        mdi-hand
+                        mdi-stamper
                     </v-icon>
-                    <v-icon
+                    <!-- <v-icon
                         @click="deleteItem(item)"
                     >
                         mdi-delete
-                    </v-icon>
+                    </v-icon> -->
                 </template>
                 <template v-slot:no-data>
                     <p>没有请假信息</p>
@@ -235,7 +235,7 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            mdi-cancel
+                            mdi-stamper
                         </v-icon>
                     </template>
                     <span>否定</span>
@@ -248,12 +248,12 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            mdi-hand
+                            mdi-stamper
                         </v-icon>
                     </template>
                     <span>允许</span>
                 </v-tooltip>
-                <v-tooltip bottom>
+                <!-- <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
                         <v-icon
                             small
@@ -265,7 +265,7 @@
                         </v-icon>
                     </template>
                     <span>删除</span>
-                </v-tooltip>
+                </v-tooltip> -->
           </template>
           <template v-slot:no-data>
             <p>没有请假信息</p>

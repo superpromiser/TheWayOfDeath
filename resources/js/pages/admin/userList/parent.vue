@@ -342,7 +342,7 @@ export default {
       ],
     headers: [
       { text: '序号', value: 'id', align: 'start', },
-      { text: '人员姓名', value: 'name', sortable: false },
+      { text: '人员姓名', value: 'name', sortable: true },
       { text: '用户头像', value: 'avatar', sortable: false },
       { text: '电话号码', value: 'phoneNumber' },
       { text: '性別', value: 'gender', sortable: false },
@@ -597,7 +597,13 @@ export default {
         this.willBeCityDataOfFamilyAddress = this.madeJsonFromString[findex].city;
         let fcityIndex = this.willBeCityDataOfFamilyAddress.findIndex(item=>item.label == faddress[1])
         this.willBeRegionDataOfFamilyAddress = this.willBeCityDataOfFamilyAddress[fcityIndex].region
-        
+        let studentItem = []
+        item.children.map(user=>{
+          let index = this.studentList.findIndex(stu=>stu.id == user)
+          studentItem.push(this.studentList[index].name)
+        })
+        item.children = studentItem
+        console.log(item)
         this.editedIndex = this.schoolManagerData.indexOf(item)
         this.editedItem = Object.assign({}, item)
         // this.editedItem.password = ''
