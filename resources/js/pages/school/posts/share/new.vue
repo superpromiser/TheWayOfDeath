@@ -233,7 +233,7 @@ export default {
             if(this.currentPath.params.lessonId){
                 draftData.lessonId = this.currentPath.params.lessonId
             }
-            let currentTime = Date.now();
+            let currentTime = this.TimeView(new Date());
             draftData.title = 'title-' + currentTime
             draftData.description = 'description-' + currentTime
             console.log(draftData)

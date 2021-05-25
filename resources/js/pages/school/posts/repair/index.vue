@@ -57,6 +57,7 @@
         </v-container>
     </v-container>
     <v-container class="pa-0" v-else>
+        <div v-if="isPosting == true">
         <v-container class="px-10 z-index-2 banner-custom">
             <v-row>
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
@@ -75,7 +76,7 @@
                         color="#999999"
                         @click="tempList"
                     >
-                        可用模板 0， 草稿 0
+                        可用模板 {{templateCnt}}， 草稿 {{draftCnt}}
                     </v-btn>
                    
                     <v-btn
@@ -83,7 +84,7 @@
                         dark
                         color="#F19861"
                         :loading="isDraft"
-                        @click="draft"
+                        @click="saveDraft"
                         class="mx-2"
                     >
                         {{lang.saveDraft}}
@@ -168,9 +169,13 @@
             </v-row>
             <v-divider light class=""></v-divider>
             <v-row class="ma-0  hover-cursor-point">
-                <QuestionItem Label="请输入维修物品的详细信息，例如：桌子、椅子等" ref="child" @contentData="loadContentData"></QuestionItem>            
+                <QuestionItem Label="请输入维修物品的详细信息，例如：桌子、椅子等" ref="child" @contentData="loadContentData" :item="repairData.content[0]"></QuestionItem>            
             </v-row>
         </v-container>
+        </div>
+        <div v-else>
+            <router-view></router-view>
+        </div>
     </v-container>
 </template>
 
@@ -178,7 +183,7 @@
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
 import {mapGetters} from 'vuex'
-import {createRepairData} from '~/api/repair'
+import {createRepairData,getTemplateCnt,createTemplate} from '~/api/repair'
 import quickMenu from '~/components/quickMenu'
 export default {
     components:{
@@ -190,7 +195,12 @@ export default {
             userName:'',
             viewListName:'',
             repairType:'',
-            content:null,
+            content:[{
+                text:'',
+                imgUrl:[],
+                otherUrl:[],
+                videoUrl:[]
+            },],
             deadline:'',
             schoolId:'',
         },
@@ -205,6 +215,9 @@ export default {
         lang,
         viewList:null,
         baseUrl: window.Laravel.base_url,
+        templateCnt:0,
+        draftCnt:0,
+        isPosting:false
     }),
     computed:{
         currentPath(){
@@ -214,19 +227,41 @@ export default {
             user:'auth/user'
         })
     },
+    watch:{
+        currentPath:{
+            handler(val){
+                if(val.name == 'posts.repair'){
+                    this.isPosting = true
+                }
+                if(val.query.tempData){
+                    console.log(JSON.parse(val.query.tempData))
+                    this.repairData.content = JSON.parse(val.query.tempData)
+                }
+            },
+            deeper:true
+        }
+    },
+
     created(){
         this.repairData.deadline = this.TimeView(Date.now())
         this.repairData.userName = this.user.name
         this.repairData.schoolId = this.currentPath.params.schoolId
+        getTemplateCnt({schoolId:this.currentPath.params.schoolId}).then(res=>{
+            this.templateCnt = res.data.templateCnt
+            this.draftCnt = res.data.draftCnt
+        })
+        if(this.currentPath.name == 'posts.repair'){
+            this.isPosting = true
+        }
     },
     methods:{
         loadContentData(data){
             if(data.text === ''){
                 this.requiredText = true;
-                this.repairData.content = null;
+                this.repairData.content = [];
                 return;
             }
-            this.repairData.content = data
+            this.repairData.content.push(data)
         },
         async submit(){
             this.$refs.child.emitData()
@@ -237,7 +272,7 @@ export default {
             if(this.repairData.repairType == ''){
                 return this.$snackbar.showMessage({content: this.lang.requireRepairType, color: "error"})
             }
-            if(this.repairData.content == null){
+            if(this.repairData.content.length == 0){
                 return this.$snackbar.showMessage({content: this.lang.requireDescription, color: "error"})
             }
             // console.log(this.viewList)
@@ -260,11 +295,36 @@ export default {
                 console.log(err.response)
             })
         },
-        draft(){
-
+        async saveDraft(){
+            this.$refs.child.emitData()
+            let draftData = {}
+            draftData.tempType = 2
+            draftData.content = []
+            draftData.schoolId = this.currentPath.params.schoolId
+            if(this.currentPath.params.lessonId){
+                draftData.lessonId = this.currentPath.params.lessonId
+            }
+            let currentTime = this.TimeView(new Date());
+            draftData.title = 'title-' + currentTime
+            draftData.description = 'description-' + currentTime
+            console.log(draftData)
+            if(this.repairData.content.length == 0){
+                return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+            }
+            draftData.content = this.repairData.content
+            this.isDraft = true
+            await createTemplate(draftData).then(res=>{
+                console.log(res.data)
+                this.isDraft = false
+                this.draftCnt ++ 
+            }).catch(err=>{
+                console.log(err.response)
+                this.isDraft = false
+            })
         },
         tempList(){
-
+            this.isPosting = false
+            this.$router.push({name:'repair.templateList'})
         },
         selectedLesson(val){
             //console.log(val)

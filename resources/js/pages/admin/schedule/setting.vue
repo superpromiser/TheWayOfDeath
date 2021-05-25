@@ -106,7 +106,7 @@
             </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-row class="my-5 align-center px-10">
+        <v-row class="my-5 align-center px-10 ma-0">
             <v-col cols="12" md="6">
                 <p class="mb-0">请选择需要维护的课程</p>
             </v-col>

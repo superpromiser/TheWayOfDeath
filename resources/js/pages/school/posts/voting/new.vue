@@ -359,8 +359,11 @@ export default {
     watch:{
         currentPath:{
             handler(val){
-                if(val.query.tempData){
+                if(val.name == 'posts.voting'){
                     this.isPosting = true
+                }
+                if(val.query.tempData){
+                    
                     this.votingData.content = JSON.parse(val.query.tempData)
                 }
             },
@@ -455,7 +458,7 @@ export default {
             if(this.currentPath.params.lessonId){
                 draftData.lessonId = this.currentPath.params.lessonId
             }
-            let currentTime = Date.now();
+            let currentTime = this.TimeView(new Date());
             draftData.tempTitle = 'title-' + currentTime
             draftData.description = 'description-' + currentTime
             

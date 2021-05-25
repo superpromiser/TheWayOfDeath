@@ -420,6 +420,11 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('repairData', 'RepairDataController@createRepairData');
     Route::put('repairData', 'RepairDataController@updateRepairData');
     Route::delete('repairData', 'RepairDataController@deleteRepairData');
+    Route::get('repairData/templateCnt', 'RepairDataController@getTemplateCnt');
+    Route::get('repairData/template', 'RepairDataController@getTemplateList');
+    Route::post('repairData/template', 'RepairDataController@createTemplate');
+    Route::put('repairData/template', 'RepairDataController@updateTemplate');
+    Route::delete('repairData/template', 'RepairDataController@deleteTemplate');
 
     //schoolStory
     Route::get('schoolStory', 'SchoolStoryController@getSchoolStory');
@@ -490,8 +495,7 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::delete('trackData', 'TrackDataController@deleteTrackData');
 
     //fence alarm
-    Route::post('fenceAlarm','TrackDataController@createFenceAlarm');
-    
+    Route::post('fenceAlarm', 'TrackDataController@createFenceAlarm');
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {

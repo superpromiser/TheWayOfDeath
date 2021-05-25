@@ -83,7 +83,7 @@
                             color="#999999"
                             @click="templateList"
                         >
-                            可用模板 0， 草稿 0
+                            可用模板 {{templateCnt}}， 草稿 {{draftCnt}}
                         </v-btn>
                         
                         <v-btn
@@ -243,6 +243,8 @@ export default {
         ],
         viewType:'all',
         userList:[],
+        templateCnt:0,
+        draftCnt:0,
     }),
     computed:{
         currentPath(){
@@ -279,7 +281,9 @@ export default {
     },
     created(){
         this.$router.push({name:'posts.Chomework'})
-
+        if(this.currentPath.name == 'posts.Chomework'){
+            this.showRule = false
+        }
         if(this.publishContent !== null){
             this.homeworkData = this.publishContent;
         }
@@ -377,6 +381,8 @@ export default {
         },
         templateList(){
             console.log("go to template list")
+            this.showRule = true
+            this.$router.push({name:"Chomework.templateList"})
         },
         saveDraft(){
             console.log("save draft")

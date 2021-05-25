@@ -202,7 +202,12 @@ export default [
     ]
   },
   {path:'/schoolSpace/:schoolId/post/safeStudy/newTempalte',name:'safeStudy.newTemplate',component:page('school/posts/safeStudy/newTemplate.vue')},
-  {path:'/schoolSpace/:schoolId/post/repair', name:'posts.repair', component:page('school/posts/repair/index.vue')},
+  {path:'/schoolSpace/:schoolId/post/repair', name:'posts.repair', component:page('school/posts/repair/index.vue'),
+    children:[
+      {path:'templateList',name:'repair.templateList',component:page('school/posts/repair/templateList.vue')},
+    ]
+  },
+  {path:'/schoolSpace/:schoolId/post/repair/newTemplate',name:'repair.newTemplate',component:page('school/posts/repair/newTemplate.vue')},
   {path:'/schoolSpace/:schoolId/post/schoolStory', name:'posts.schoolStory', component:page('school/posts/schoolStory/index.vue'),
     children:[
       {path:'templateList',name:'schoolStory.templateList',component:page('school/posts/schoolStory/templateList.vue')},

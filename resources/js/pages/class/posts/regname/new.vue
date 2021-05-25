@@ -333,8 +333,32 @@ export default {
         })
     },
     methods:{
-        saveDraft(){
-
+        async saveDraft(){
+            this.$refs.child.emitData()
+            let draftData = {}
+            draftData.tempType = 2
+            draftData.content = this.regNameData.content
+            draftData.schoolId = this.currentPath.params.schoolId
+            if(this.currentPath.params.lessonId){
+                draftData.lessonId = this.currentPath.params.lessonId
+            }
+            let currentTime = this.TimeView(new Date());
+            draftData.title = 'title-' + currentTime
+            draftData.description = 'description-' + currentTime
+            console.log(draftData)
+            console.log('this.regNameData.content.length',this.regNameData.content.length)
+            if(this.regNameData.content.length == 0){
+                return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+            }
+            this.isDraft = true
+            await createTemplate(draftData).then(res=>{
+                console.log(res.data)
+                this.isDraft = false
+                this.draftCnt ++ 
+            }).catch(err=>{
+                console.log(err.response)
+                this.isDraft = false
+            })
         },
 
         async submit(){

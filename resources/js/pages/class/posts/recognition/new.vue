@@ -97,7 +97,7 @@
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                     <v-text-field
-                        class="mo-glow-v-text mt-0 pt-0"
+                        class="mo-glow-v-text mt-0 pt-0 max-length-18-staff-input"
                         color="#7879ff"
                         v-model="recognitionData.awardTitle"
                         label="表彰称号"
@@ -208,6 +208,7 @@
                         label="表彰称号"
                         counter="8"
                         :rules="maxEightRule"
+                        class="max-length-8-staff-input"
                         hint="选填(最多8个字)"
                     ></v-text-field>
                 </v-col>
@@ -269,6 +270,7 @@
                         :rules="maxFourtyRule"
                         v-model="recognitionData.description"
                         hint="限40字"
+                        class="max-length-40-staff-input"
                     ></v-textarea>
                 </v-col>
             </v-row>
@@ -339,43 +341,55 @@ export default {
         isCreating:false,
         typeItem : [
             { 
-                label : "投票后可见", 
-                value : "投票后可见" 
+                label : "班级", 
+                value : "班级" 
             },
             { 
-                label : "投票前后均可见", 
-                value : "投票前后均可见" 
+                label : "校级", 
+                value : "校级" 
             },
             { 
-                label : "投票前后均不可见", 
-                value : "投票前后均不可见" 
+                label : "区级", 
+                value : "区级" 
+            },
+            { 
+                label : "市级", 
+                value : "市级" 
+            },
+            { 
+                label : "省级", 
+                value : "省级" 
+            },
+            { 
+                label : "国家级", 
+                value : "国家级" 
             },
             
         ],
         userListItem : [],
         imgUrlItem : [
             {
-                path: '/asset/img/icon/recognition/2_副本.jpg',
+                path: '/asset/img/icon/recognition/def_commend_model1.jpg',
                 selected : false,
             },
             {
-                path: '/asset/img/icon/recognition/def_commend_model1.png',
+                path: '/asset/img/icon/recognition/def_commend_model2.jpg',
                 selected : false,
             },
             {
-                path: '/asset/img/icon/recognition/def_commend_model3.png',
+                path: '/asset/img/icon/recognition/def_commend_model3.jpg',
                 selected : false,
             },
             {
-                path: '/asset/img/icon/recognition/def_commend_model4.png',
+                path: '/asset/img/icon/recognition/def_commend_model4.jpg',
                 selected : false,
             },
             {
-                path: '/asset/img/icon/recognition/微信图片_20190712095501.jpg',
+                path: '/asset/img/icon/recognition/def_commend_model5.jpg',
                 selected : false,
             },
             {
-                path: '/asset/img/icon/recognition/微信图片_20190712095608.jpg',
+                path: '/asset/img/icon/recognition/def_commend_model6.jpg',
                 selected : false,
             },
         ],
@@ -385,7 +399,12 @@ export default {
         noData: false,
         isLoading: false,
     }),
-
+    mounted(){
+        var ele_8 = $('.max-length-8-staff-input')
+        ele_8.find('input').attr("maxlength","8")
+        var ele_40 = $('.max-length-40-staff-input')
+        ele_40.find('textarea').attr("maxlength","40")
+    },
     components: {
         QuestionItem,
         quickMenu

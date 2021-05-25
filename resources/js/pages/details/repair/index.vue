@@ -255,7 +255,7 @@
                 <p class="mb-0">{{contentData.users.name}}</p>
                 </div>
             </div>
-            <div class="ml-auto mr-5">
+            <div class="ml-auto mr-5" v-if="user.roleId < 3 || contentData.users.id == user.id">
                 <v-menu offset-y >
                 <template v-slot:activator="{ attrs, on }">
                     <v-btn icon color="#7879ff" v-bind="attrs" v-on="on" >
@@ -263,11 +263,12 @@
                     </v-btn>
                 </template>
                 <v-list>
-                    <v-list-item link >
-                    <v-list-item-title class="px-2" @click="fixTop(contentData)">{{lang.toTop}}</v-list-item-title>
+                    <v-list-item link  v-if="user.roleId < 3">
+                        <v-list-item-title class="px-2" @click="fixTop(contentData)" v-if="contentData.fixTop == null">{{lang.toTop}}</v-list-item-title>
+                        <v-list-item-title class="px-2" @click="relaseTop(contentData.id)" v-else>{{lang.toRelase}}</v-list-item-title>
                     </v-list-item>
                     <v-list-item link >
-                    <v-list-item-title class="px-2" @click="postRemove(contentData)">{{lang.remove}}</v-list-item-title>
+                        <v-list-item-title class="px-2" @click="postRemove(contentData)">{{lang.remove}}</v-list-item-title>
                     </v-list-item>
                 </v-list>
                 </v-menu>

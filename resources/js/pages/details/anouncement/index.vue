@@ -81,7 +81,7 @@
                             <p class="mb-0">{{contentData.users.name}}</p>
                         </div>
                     </div>
-                    <div class="ml-auto" v-if="user.roleId < 3 || contentData.users.id == user.id">
+                    <div class="ml-auto mr-5" v-if="user.roleId < 3 || contentData.users.id == user.id">
                         <v-menu offset-y >
                             <template v-slot:activator="{ attrs, on }">
                                 <v-btn icon color="#7879ff" v-bind="attrs" v-on="on" >

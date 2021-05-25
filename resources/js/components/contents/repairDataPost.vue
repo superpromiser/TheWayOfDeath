@@ -198,7 +198,8 @@ export default {
     }),
     
     created(){
-        this.description = JSON.parse(this.content.repairdata.content)
+        this.description = JSON.parse(this.content.repairdata.content)[0]
+        console.log('--------------',this.description)
     },
     computed:{
       currentPath(){
