@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import {createTemplate} from '~/api/classStory'
+import {createTemplate} from '~/api/homework'
 import QuestionItem from '~/components/questionItem'
 import lang from '~/helper/lang.json'
 export default {
@@ -139,7 +139,7 @@ export default {
             await createTemplate(this.templateData).then(res=>{
                 console.log(res.data)
                 this.isSubmit = false
-                this.$router.push({name:'classStory.templateList'})
+                this.$router.push({name:'Chomework.templateList'})
             }).catch(err=>{
                 console.log(err.response)
                 this.isSubmit = false

@@ -141,7 +141,7 @@ export default {
     created(){
         if(this.content){
             this.homeworkData = this.content.homework
-            this.homeworkData.content = JSON.parse(this.homeworkData.content)
+            this.homeworkData.content = JSON.parse(this.homeworkData.content)[0]
         }
     },
     methods:{

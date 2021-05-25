@@ -157,7 +157,7 @@
                     </v-col>
                 </v-row>
                 <v-divider light></v-divider>
-                <QuestionItem class="mt-3" Label="作业内容" :emoji="true"  ref="child" @contentData="loadContentData" :item="homeworkData.content"></QuestionItem>
+                <QuestionItem class="mt-3" Label="作业内容" :emoji="true"  ref="child" @contentData="loadContentData" :item="homeworkData.content[0]"></QuestionItem>
                 <v-row>
                     <v-col cols="8" md="10"></v-col>
                     <v-col cols="4" class="justify-end" md="2">
@@ -183,7 +183,7 @@
 import { mapGetters } from 'vuex'
 import lang from '~/helper/lang.json'
 import QuestionItem from '~/components/questionItem'
-import {getMySubject,createHomeworkData} from '~/api/homework'
+import {getMySubject,createHomeworkData,getTemplateCnt,createTemplate} from '~/api/homework'
 import {getLessonUserList} from '~/api/user'
 export default {
     components:{
@@ -199,12 +199,12 @@ export default {
         homeworkData:{
             subjectName:'',
             homeworkType:'',
-            content:{
+            content:[{
                 text: '',
                 imgUrl: [],
                 otherUrl: [],
                 videoUrl: []
-            },
+            }],
             deadline:'',
             monitorName:'',
             parentCheck:false,
@@ -275,6 +275,9 @@ export default {
                     // this.homeworkData = val.query.rule
                     // console.log(this.homeworkData)
                 }
+                if(val.query.tempData){
+                    this.homeworkData.content = JSON.parse(val.query.tempData)
+                }
             },
             deep:true
         }
@@ -305,6 +308,10 @@ export default {
         }).catch(err=>{
             console.log(err.response)
         })
+        getTemplateCnt({schoolId:this.currentPath.params.schoolId,lessonId:this.currentPath.params.lessonId}).then(res=>{
+            this.templateCnt = res.data.templateCnt
+            this.draftCnt = res.data.draftCnt
+        })
     },
     methods:{
         submit(){
@@ -321,7 +328,7 @@ export default {
             //     return this.$snackbar.showMessage({content: '您没有设定发布规则', color: "error"})             
             // }
 
-            if(this.homeworkData.content.text.trim() == ''){
+            if(this.homeworkData.content[0].text.trim() == ''){
                 return this.$snackbar.showMessage({content: this.lang.homework+this.lang.requireContent, color: "error"})
             }
             this.isSubmit = true
@@ -384,8 +391,32 @@ export default {
             this.showRule = true
             this.$router.push({name:"Chomework.templateList"})
         },
-        saveDraft(){
-            console.log("save draft")
+        async saveDraft(){
+            this.$refs.child.emitData()
+            let draftData = {}
+            draftData.tempType = 2
+            draftData.content = []
+            draftData.schoolId = this.currentPath.params.schoolId
+            if(this.currentPath.params.lessonId){
+                draftData.lessonId = this.currentPath.params.lessonId
+            }
+            let currentTime = this.TimeView(new Date());
+            draftData.title = 'title-' + currentTime
+            draftData.description = 'description-' + currentTime
+            console.log(draftData)
+            if(this.homeworkData.content.length == 0){
+                return this.$snackbar.showMessage({content: this.lang.requireName, color: "error"})
+            }
+            draftData.content = this.homeworkData.content
+            this.isDraft = true
+            await createTemplate(draftData).then(res=>{
+                console.log(res.data)
+                this.isDraft = false
+                this.draftCnt ++ 
+            }).catch(err=>{
+                console.log(err.response)
+                this.isDraft = false
+            })
         },
         setRule(){
             this.showRule = true
@@ -395,10 +426,10 @@ export default {
         loadContentData(data){
             console.log(data)
             if(data.text == ''){
-                // this.homeworkData.content = []
+                this.homeworkData.content = []
                 return
             }
-            this.homeworkData.content = data
+            this.homeworkData.content.push(data)
         },
         selViewList(){
             console.log(this.viewType)

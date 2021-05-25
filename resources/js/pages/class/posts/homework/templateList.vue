@@ -5,7 +5,7 @@
                 <v-icon @click="navToNew" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
-                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.classStory}}模板清单</p>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.homework}}模板清单</p>
                 <v-btn @click="submit" :loading="isSubmit" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
                     {{lang.submit}}
                 </v-btn>
@@ -59,7 +59,7 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2>{{lang.classStory}}模板清单</h2>
+                    <h2>{{lang.homework}}模板清单</h2>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn
@@ -119,7 +119,7 @@
 
 <script>
 import lang from '~/helper/lang.json'
-import {getTemplateList,deleteTemplate} from '~/api/classStory'
+import {getTemplateList,deleteTemplate} from '~/api/homework'
 export default {
     data:()=>({
         lang,
@@ -152,10 +152,10 @@ export default {
     methods:{
         submit(){
             console.log('submit')
-            this.$router.push({name:'classStory.newTemplate'})
+            this.$router.push({name:'Chomework.newTemplate'})
         },
         selTemp(tempData){
-            this.$router.push({name:'posts.classStory',query:{tempData:JSON.stringify(tempData.content)}})
+            this.$router.push({name:'posts.Chomework',query:{tempData:JSON.stringify(tempData.content)}})
         },
         async delTemp(tempData){
             // console.log(tempData)
@@ -178,7 +178,7 @@ export default {
         },
 
         navToNew(){
-            this.$router.push({name: 'posts.classStory'})
+            this.$router.push({name: 'posts.Chomework'})
         }
     }
 }

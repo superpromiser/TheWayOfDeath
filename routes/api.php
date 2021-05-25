@@ -356,6 +356,11 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('homeworkData', 'HomeworkController@createHomeworkData');
     Route::put('homeworkData', 'HomeworkController@updateHomeworkData');
     Route::delete('homeworkData', 'HomeworkController@deleteHomeworkData');
+    Route::get('homeworkData/templateCnt', 'HomeworkController@getTemplateCnt');
+    Route::get('homeworkData/template', 'HomeworkController@getTemplateList');
+    Route::post('homeworkData/template', 'HomeworkController@createTemplate');
+    Route::put('homeworkData/template', 'HomeworkController@updateTemplate');
+    Route::delete('homeworkData/template', 'HomeworkController@deleteTemplate');
     Route::get('homeworkResult', 'HomeworkResultController@getHomeworkResult');
     Route::get('currentHomeworkResult', 'HomeworkResultController@getCurrentHomeworkResult');
     Route::post('homeworkResult', 'HomeworkResultController@createHomeworkResult');

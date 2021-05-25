@@ -24,7 +24,26 @@ function getMySubject(payload){
     return axios.get('/api/v1/mySubject',{params:payload})
 }
 
+function getTemplateCnt(payload){
+    return axios.get('/api/v1/homeworkData/templateCnt',{params:payload})
+}
 
+
+function getTemplateList(payload){
+    return axios.get('/api/v1/homeworkData/template',{params:payload})
+}
+
+function createTemplate(payload){
+    return axios.post('/api/v1/homeworkData/template',payload)
+}
+
+function updateTemplate(payload){
+    return axios.put('/api/v1/homeworkData/template',payload)
+}
+
+function deleteTemplate(payload){
+    return axios.delete('/api/v1/homeworkData/template',{data:payload})
+}
 
 export{
     getHomeworkData,
@@ -33,4 +52,9 @@ export{
     createHomeworkResult,
     getAppHomeworkData,
     getMySubject,
+    getTemplateCnt,
+    getTemplateList,
+    createTemplate,
+    updateTemplate,
+    deleteTemplate
 }
