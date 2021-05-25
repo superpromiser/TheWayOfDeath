@@ -20,9 +20,9 @@
           >
               可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
           </v-btn> -->
-          <v-btn @click="fetchHole">
+          <!-- <v-btn @click="fetchHole">
             实时跟踪            
-          </v-btn>
+          </v-btn> -->
           <v-btn
               tile
               dark
@@ -387,7 +387,7 @@ export default {
       console.log(err.response)
       this.isLoading = false
     })
-    // this.fetchHole()
+    this.fetchHole()
     this.isLoading = false
   },
   mounted(){
@@ -408,7 +408,7 @@ export default {
     },
     
 
-    getDeviceLocationList(){
+    async getDeviceLocationList(){
       let lngMin = 123470000;
       let lngMax = 123499999;
       let latMin = 41600000;

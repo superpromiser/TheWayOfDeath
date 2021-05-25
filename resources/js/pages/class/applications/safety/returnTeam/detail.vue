@@ -5,8 +5,8 @@
                 <v-icon @click="navToBack" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
-                <p v-if="isRemainTeam" class="mb-0 font-size-0-95 font-weight-bold pa-3" >剩余团队的详细信息</p>
-                <p v-else class="mb-0 font-size-0-95 font-weight-bold pa-3" >退货团队的详细信息</p>
+                <p v-if="isRemainTeam" class="mb-0 font-size-0-95 font-weight-bold pa-3" >留堂成员的详细信息</p>
+                <p v-else class="mb-0 font-size-0-95 font-weight-bold pa-3" >留堂成员的详细信息</p>
                 <v-btn v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7"
                     :dark="!isDetailView||!isRemainTeam" :disabled="isDetailView||isRemainTeam" @click="submit" :loading="isUpdating" 
                     text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
@@ -181,8 +181,8 @@
                     </a>
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                    <h2 v-if="isRemainTeam">剩余团队的详细信息</h2>
-                    <h2 v-else>退货团队的详细信息</h2>
+                    <h2 v-if="isRemainTeam">留堂成员的详细信息</h2>
+                    <h2 v-else>留堂成员的详细信息</h2>
                 </v-col>
                 <v-col v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7" cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn :dark="!isDetailView||!isRemainTeam" color="#7879ff" :disabled="isDetailView||isRemainTeam" @click="submit" :loading="isUpdating">
