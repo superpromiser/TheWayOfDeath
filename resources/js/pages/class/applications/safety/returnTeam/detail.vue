@@ -185,8 +185,8 @@
                     <h2 v-else>退货团队的详细信息</h2>
                 </v-col>
                 <v-col v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7" cols="12" md="4" class="d-flex align-center justify-end">
-                    <v-btn :dark="!isDetailView||!isRemainTeam" color="#7879ff" :disabled="isDetailView||isRemainTeam" @click="submit" :loading="isUpdating">
-                        新建归程队
+                    <v-btn :dark="!isDetailView" color="#7879ff" :disabled="isDetailView" @click="submit" :loading="isUpdating">
+                        {{isRemainTeam?'发布':'新建归程队'}}
                     </v-btn>
                 </v-col>
             </v-row>
@@ -303,7 +303,7 @@
             </v-dialog>
         </v-container>
         <v-container class="pa-0" v-if="isDetailView == false && isRemainTeam == true && (user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7)">
-            <v-row class="ma-0 hover-cursor-point" >
+            <v-row class="ma-0 hover-cursor-point" v-ripple @click="navToAddMember">
                 <v-col cols="12" class="d-flex justify-space-between align-center pl-10 pr-8">
                     <p class="mb-0">留堂成员</p>
                     <div class="d-flex align-center">

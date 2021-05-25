@@ -189,7 +189,7 @@ class ReturnTeamController extends Controller
                 'name' => '留堂成员',
             ])->whereDate('updated_at', Carbon::today())->first();
 
-            if ($remainTeamData->member == []) {
+            // if ($remainTeamData->member == []) {
                 $viewList = array();
                 array_push($viewList, $user->id);
                 $postId = Post::create([
@@ -240,11 +240,11 @@ class ReturnTeamController extends Controller
                     }
                 }
                 ///////////////////////////boradcasting New Return Team///////////////////////////
-            } else {
-                return response()->json([
-                    'msg' => 'aleardyExist',
-                ]);
-            }
+            // } else {
+            //     return response()->json([
+            //         'msg' => 'aleardyExist',
+            //     ]);
+            // }
         } else {
             ReturnTeam::where('id', $request->id)->update([
                 'avatar' => $request->avatar,
