@@ -80,7 +80,7 @@
     </v-container>
     <v-container class="pa-0" v-else>
         <v-container class="px-10 z-index-2 banner-custom">
-            <v-row>
+            <v-row class="ma-0">
                 <v-col cols="6" md="4" class="d-flex align-center position-relative">
                     <a @click="$router.push({name: 'classSpace.application'})">
                         <v-icon size="70" class="left-24p">

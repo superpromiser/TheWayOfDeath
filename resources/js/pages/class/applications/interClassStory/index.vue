@@ -53,7 +53,7 @@
     </v-container>
     <v-container class="pa-0" v-else>
         <v-container class="banner-custom z-index-2" color="white" sticky elevation="20">
-            <v-row>
+            <v-row class="ma-0">
                 <v-col cols="12" class="justify-space-between d-flex ma-0 align-center">
                     <a @click="$router.go(-1)">
                         <v-icon size="70">
@@ -79,7 +79,7 @@
             </v-row>
         </v-container>
         <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
-            <v-row class="px-5 mt-1">
+            <v-row class="px-5 mt-1 ma-0">
                 <InterClassStoryPost :content="content"></InterClassStoryPost>
                 <FooterPost :footerInfo='content'></FooterPost>
             </v-row>
@@ -153,7 +153,7 @@
                 </v-icon>
                 </v-chip>
             </div>
-            <div slot="no-results" class="position-relative row m-0 p-2 h-50 d-flex justify-content-center align-items-center">
+            <div slot="no-results" class="position-relative row ma-0 p-2 h-50 d-flex justify-content-center align-items-center">
                 <div class="w-100 text-center p-5 m-5 mt-10">
                     <v-icon size="150" color="grey darken-1">
                         mdi-magnify
