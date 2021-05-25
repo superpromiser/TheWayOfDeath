@@ -343,7 +343,12 @@ export default [
     ]
   },
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/safeStudy/newTemplate',name:'CsafeStudy.newTemplate',component:page('class/posts/safeStudy/newTemplate.vue')},  
-  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/repair',name:'posts.Crepair',component:page('class/posts/repair/index.vue')},
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/repair',name:'posts.Crepair',component:page('class/posts/repair/index.vue'),
+    children:[
+      {path:'templateList',name:'Crepair.templateList',component:page('class/posts/repair/templateList.vue')},  
+    ]
+  },
+  {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/repair/newTemplate',name:'Crepair.newTemplate',component:page('class/posts/repair/newTemp\late.vue')},  
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/vacation',name:'posts.Cvacation',component:page('class/posts/vacation/student/new.vue')},
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/post/todayDuty',name:'posts.CtodayDuty',component:page('class/posts/todayDuty/index.vue'),
     children:[
