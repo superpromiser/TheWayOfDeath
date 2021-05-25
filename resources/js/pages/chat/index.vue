@@ -312,6 +312,7 @@ export default {
 
         //chat partner select
         updatechatwith(userInfo) {
+            console.log("userInfo",userInfo)
             this.ChatWith = userInfo.user.id;
             this.contactNow = userInfo.user.name;
             this.ChatIn = null;

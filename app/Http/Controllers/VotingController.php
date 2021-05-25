@@ -18,8 +18,11 @@ class VotingController extends Controller
             'schoolId' => 'required'
         ]);
         if ($request->lessonId) {
-            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 13])
-                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
+            return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId])->whereIn('contentId', [2, 13])
+                ->orWhere(function ($query) use ($request) {
+                    $query->where('viewList', 'like', "%{$request->lessonId}%")
+                        ->whereIn('contentId', [2, 13]);
+                })
                 ->with([
                     'likes',
                     'views',

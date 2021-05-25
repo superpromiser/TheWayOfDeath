@@ -483,6 +483,15 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'v1'], function () {
     Route::post('instruction', 'InstructionController@createInstruction');
     Route::put('instruction', 'InstructionController@putInstruction');
     Route::delete('instruction', 'InstructionController@deleteInstruction');
+    //fence track
+    Route::get('trackData', 'TrackDataController@getTrackData');
+    Route::post('trackData', 'TrackDataController@createTrackData');
+    Route::put('trackData', 'TrackDataController@updateTrackData');
+    Route::delete('trackData', 'TrackDataController@deleteTrackData');
+
+    //fence alarm
+    Route::post('fenceAlarm','TrackDataController@createFenceAlarm');
+    
 });
 
 Route::group(['middleware' => 'guest:api', 'prefix' => 'v1'], function () {

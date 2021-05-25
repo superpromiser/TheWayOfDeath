@@ -42,6 +42,26 @@ function deleteInstruction(payload){
     return axios.delete('/api/v1/instruction',{data:payload})
 }
 
+function getTrackData(payload){
+    return axios.get('/api/v1/trackData',{params:payload})
+}
+
+function createTrackData(payload){
+    return axios.post('/api/v1/trackData',payload)
+}
+
+function updateTrackData(payload){
+    return axios.put('/api/v1/trackData',payload)
+}
+
+function deleteTrackData(payload){
+    return axios.delete('/api/v1/trackData',payload)
+}
+
+function createFenceAlarm(payload){
+    return axios.post('/api/v1/fenceAlarm',payload)
+}
+
 export{
     getData,
     getFence,
@@ -52,4 +72,9 @@ export{
     createInstruction,
     updateInstruction,
     deleteInstruction,
+    getTrackData,
+    createTrackData,
+    updateTrackData,
+    deleteTrackData,
+    createFenceAlarm,
 }

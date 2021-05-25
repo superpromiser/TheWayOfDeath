@@ -14,11 +14,11 @@
           <SafeStudyPost :content='content'></SafeStudyPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 12 && content.questionnaires">
+        <v-row class="pa-0 mt-1" v-else-if="(content.contentId == 12 || content.contentId == 1)&& content.questionnaires">
           <QusetionnairePost :content="content"></QusetionnairePost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>
-        <v-row class="pa-0 mt-1" v-else-if="content.contentId == 13 && content.votings">
+        <v-row class="pa-0 mt-1" v-else-if="(content.contentId == 13 || content.contentId == 2)&& content.votings">
           <VotingPost :content='content'></VotingPost>
           <FooterPost :footerInfo='content' @updateFooterInfo="updateFooterInfo"></FooterPost>
         </v-row>

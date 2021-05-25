@@ -33,7 +33,10 @@ class AnouncementController extends Controller
                 ->paginate(5);
         } else {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 5])
-                ->orWhere('viewList', 'like', "%{$request->lessonId}%")
+                ->orWhere(function ($query) use ($request) {
+                    $query->where('viewList', 'like', "%{$request->lessonId}%")
+                        ->where('contentId', 5);
+                })
                 ->with([
                     'likes',
                     'views',
