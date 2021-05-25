@@ -13,46 +13,49 @@ class ChatController extends Controller
 {
     public function getUserList()
     {
-        $users = User::all('id', 'name','avatar', 'roleId', 'schoolId', 'gradeId', 'lessonId');
+        $users = User::all('id', 'name', 'avatar', 'roleId', 'schoolId', 'gradeId', 'lessonId');
         return response()->json([
             'users' => $users
-        ],200);
+        ], 200);
     }
 
     public function getContactList()
-    {   
+    {
         $userId = Auth::user()->id;
         //
         $contactUsers = Contact::where([
-            [ 'userId', '=', $userId],
-            [ 'contactUserId', '<>', null],
-        ])->with( array('user' => function($query) { $query->select('id', 'name','avatar'); }) )
-            ->orderBy('created_at','desc')
+            ['userId', '=', $userId],
+            ['contactUserId', '<>', null],
+        ])->with(array('user' => function ($query) {
+            $query->select('id', 'name', 'avatar');
+        }))
+            ->orderBy('created_at', 'desc')
             ->get([
                 'userId',
-                'roomId', 
-                'new_msg_count', 
-                'contactUserId', 
-                'id', 
-                'last_message', 
+                'roomId',
+                'new_msg_count',
+                'contactUserId',
+                'id',
+                'last_message',
                 'last_time'
             ]);
         $chatGroups = Contact::where([
-            [ 'userId', '=', $userId],
-            [ 'roomId', '<>', null],
-        ])->with('roomId.user')->orderBy('created_at','desc')->get();
+            ['userId', '=', $userId],
+            ['roomId', '<>', null],
+        ])->with('roomId.user')->orderBy('created_at', 'desc')->get();
         return response()->json([
             'contactUsers' => $contactUsers,
             'chatGroups' => $chatGroups,
-        ],200);
-        Post::query()
-            ->with(array('user' => function($query) {
-                $query->select('id','username');
-            }))
-            ->get();
+        ], 200);
+        // Post::query()
+        //     ->with(array('user' => function($query) {
+        //         $query->select('id','username');
+        //     }))
+        //     ->get();
     }
-    
-    public function postContactList(Request $request){
+
+    public function postContactList(Request $request)
+    {
         $userId = Auth::user()->id;
         $contactUserId = $request->contactId;
 
@@ -67,15 +70,14 @@ class ChatController extends Controller
                 'addedToContactUser' => $contactUserId
             ], 409);
         }
-        
+
         $contactInfo['userId'] = $userId;
         $contactInfo['contactUserId'] = $contactUserId;
         $contact = Contact::create($contactInfo);
-        $contact = Contact::where('contactUserId',$contactUserId)->with('user')->get();
+        $contact = Contact::where('contactUserId', $contactUserId)->with('user')->get();
         return response()->json([
             'addedToContactUser' => $contact
-        ],200);
-
+        ], 200);
     }
 
     public function addNewMessageCount(Request $request)
@@ -83,14 +85,13 @@ class ChatController extends Controller
         $updateItem = $request->new_msg_count;
         $userId = Auth::user()->id;
         $contactUserId = $updateItem['contactUserId'];
-        if($contactUserId !== null){
+        if ($contactUserId !== null) {
             $newCount = $updateItem['new_msg_count'];
-            Contact::where('userId', $userId)->where('contactUserId', $contactUserId)->update(array('new_msg_count' => $newCount ));
-        }
-        else{
+            Contact::where('userId', $userId)->where('contactUserId', $contactUserId)->update(array('new_msg_count' => $newCount));
+        } else {
             $roomId = $updateItem['roomId'];
             $newCount = $updateItem['new_msg_count'];
-            Contact::where('userId', $userId)->where('roomId', $roomId)->update(array('new_msg_count' => $newCount ));
+            Contact::where('userId', $userId)->where('roomId', $roomId)->update(array('new_msg_count' => $newCount));
         }
     }
 
@@ -105,35 +106,33 @@ class ChatController extends Controller
 
         $chatRoomInfo = ChatRoom::where('id', $roomId)->first();
         $createdUserId = $chatRoomInfo['userId'];
-        if($userId == $createdUserId){
+        if ($userId == $createdUserId) {
             return response()->json([
                 'roomId' => $chatRoomInfo->id,
                 'msg' => 1
-            ],200);
-        }
-        else{
+            ], 200);
+        } else {
             $invitedArr = $chatRoomInfo['invited'];
             // $invitedArr = $chatRoomInfo['invited'];
-            foreach ($invitedArr as $key => $invitedUserId){
-                if($invitedUserId == $userId){
+            foreach ($invitedArr as $key => $invitedUserId) {
+                if ($invitedUserId == $userId) {
                     unset($invitedArr[$key]);
                 }
             }
-            
+
             // if (($key = array_search($userId, $invitedArr)) !== false) {
             //     unset($invitedArr[$key]);
             // }
-            if( sizeof($invitedArr) == 0){
+            if (sizeof($invitedArr) == 0) {
                 ChatRoom::where('id', $roomId)->delete();
-            }
-            else{
+            } else {
                 $chatRoomInfo->invited = $invitedArr;
                 $chatRoomInfo->save();
             }
             return response()->json([
                 'msg' => 1,
                 'roomId' => $chatRoomInfo->id,
-            ],200);
+            ], 200);
         }
     }
 
@@ -144,12 +143,12 @@ class ChatController extends Controller
 
         $chatGroup = json_encode(array(
             "room_id" => array(
-               "invited" => null,
+                "invited" => null,
             ),
             "roomId" => $roomId,
-       ));
+        ));
 
-       $chatGroup = json_decode($chatGroup);
+        $chatGroup = json_decode($chatGroup);
         //broadcast Event
         broadcast(new NewGroup($chatGroup))->toOthers();
 
@@ -160,7 +159,7 @@ class ChatController extends Controller
 
         return response()->json([
             'msg' => 1,
-        ],200);
+        ], 200);
     }
 
     public function removeUser(Request $request)
@@ -175,6 +174,6 @@ class ChatController extends Controller
 
         return response()->json([
             'msg' => 1,
-        ],200);
+        ], 200);
     }
 }

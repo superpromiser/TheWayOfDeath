@@ -21,7 +21,7 @@
               可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
           </v-btn> -->
           <v-btn @click="fetchHole">
-            test            
+            实时跟踪            
           </v-btn>
           <v-btn
               tile
@@ -75,18 +75,20 @@
         </div>
       </v-col>
       <v-col cols="9">
-        <baidu-map class="map" :center="{lng:centerLng,lat:centerLat}" :zoom="15" :scroll-wheel-zoom="true" @click="addPoint" @rightclick="removePoint">
+        <baidu-map class="map" :center="{lng:centerLng,lat:centerLat}" :zoom="15" :scroll-wheel-zoom="true" @click="addPoint"  @rightclick="removePoint">
           <div v-for="(polygonPathData,i) in allPolygonPath" :key="i">
-              <bm-polygon :path="polygonPathData.location" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" @click="selPolygon(polygonPathData,i)" :editing="isAdding" @lineupdate="updatePolygonPath"/>
+              <bm-polygon :path="polygonPathData.location" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="isAdding" @lineupdate="updatePolygonPath" @click="removePolygon(polygonPathData)"/>
           </div>
           <bm-polygon :path="polygonPath" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="isAdding"  @lineupdate="updatePolygonPath"/>
           <bm-polyline :path="trackPath" stroke-color="red" :stroke-opacity="0.5" :stroke-weight="2"></bm-polyline>
-          <div v-for="user in userDeviceList" :key="user.imei">
-            <bm-marker :position="{lng: user.lng, lat: user.lat}" @infowindowopen="userInfo(e)" animation="BMAP_ANIMATION_BOUNCE">
+          <div v-if="selUserInfo != null">
+            <bm-marker :position="{lng: selUserInfo.lng, lat: selUserInfo.lat}" animation="BMAP_ANIMATION_BOUNCE">
             </bm-marker>
           </div>
-          <!-- <bm-marker :position="{lng: userlng, lat: userlat}" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
-          </bm-marker> -->
+          <div v-for="user in userDeviceList" :key="user.imei" v-else>
+            <bm-marker :position="{lng: user.lng, lat: user.lat}" animation="BMAP_ANIMATION_BOUNCE">
+            </bm-marker>
+          </div>
           <bm-control>
               
           </bm-control>
@@ -133,7 +135,7 @@
             <v-btn
               color="blue darken-1"
               text
-              @click="fenceModal = false"
+              @click="cancelFence"
             >
               关闭
             </v-btn>
@@ -290,11 +292,22 @@
         </v-card>
       </v-dialog>
     </v-row>
+    <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="dialogDelete" max-width="500px">
+      <v-card>
+        <v-card-title class="headline">你确定要删除这个项目吗？</v-card-title>
+        <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" text @click="dialogDelete = false">{{lang.cancel}}</v-btn>
+        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleting">{{lang.ok}}</v-btn>
+        <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
-import {getData,getFence,createFence,deleteFence,createInstruction} from '~/api/fence'
+import {getFence,createFence,deleteFence,getInstruction,createInstruction,getTrackData,createTrackData,createFenceAlarm} from '~/api/fence'
 import {getRoleUsers} from '~/api/user'
 import lang from '~/helper/lang.json'
 import {mapGetters,} from 'vuex'
@@ -328,11 +341,12 @@ export default {
     isLoading:false,
     isSaving:false,
     isAdding:false,
-    isChecking:false,
+    dialogDelete:false,
     isEditing:false,
     isDeleting:false,
     isSelected:false,
     selUserInfo:null,
+    selPolygonInfo:null,
     centerLng:123.474976,
     centerLat:41.695735,
     userlng:123.474976,
@@ -358,29 +372,22 @@ export default {
   },
 
   async created(){
+    this.listen();
     this.isLoading = true
     await getRoleUsers().then(res=>{
-      console.log('userList',res.data)
-      let lngMin = 123474900;
-      let lngMax = 123499999;
-      let latMin = 41695000;
-      let latMax = 41699999;
-      res.data.map(user=>{
-        user.lng = (Math.floor(Math.random() * (lngMax - lngMin + 1)) + lngMin)/1000000;
-        user.lat = (Math.floor(Math.random() * (latMax - latMin + 1)) + latMin)/1000000;
-      })
+      console.log(res.data)
       this.userDeviceList = res.data
     }).catch(err=>{
       console.log(err.response)
       this.isLoading = false
     })
     await getFence().then(res=>{
-      console.log(res.data)
       this.allPolygonPath = res.data
     }).catch(err=>{
       console.log(err.response)
       this.isLoading = false
     })
+    // this.fetchHole()
     this.isLoading = false
   },
   mounted(){
@@ -388,21 +395,43 @@ export default {
     ele_11.find('input').attr("maxlength","11")
   },
   methods:{
+    listen(){
+      console.log(this.user.id)
+      Echo.private('newPosition.'+ this.user.id)
+        .listen('NewPosition', (position) => {
+          let index = this.userDeviceList.findIndex(user=>user.imei == position.position.imei)
+          if(index > -1){
+            this.userDeviceList[index].lat = position.position.lat
+            this.userDeviceList[index].lng = position.position.lng
+          }
+        });
+    },
+    
+
     getDeviceLocationList(){
-      let lngMin = 123474900;
+      let lngMin = 123470000;
       let lngMax = 123499999;
-      let latMin = 41695000;
+      let latMin = 41600000;
       let latMax = 41699999;
         
       this.userDeviceList.map(user=>{
-        user.lng = (Math.floor(Math.random() * (lngMax - lngMin + 1)) + lngMin)/1000000;
-        user.lat = (Math.floor(Math.random() * (latMax - latMin + 1)) + latMin)/1000000;
+        let lng = (Math.floor(Math.random() * (lngMax - lngMin + 1)) + lngMin)/1000000;
+        let lat = (Math.floor(Math.random() * (latMax - latMin + 1)) + latMin)/1000000;
+        let date = this.TimeView(new Date());
+        createTrackData({imei:user.imei,lat:lat,lng:lng,trackDate:date}).then(res=>{
+          console.log(res.data)
+        }).catch(err=>{
+          console.log(err.response)
+        })
       })
     },
     addFence(){
       if(this.isAdding == true){
         if(this.polygonPath.length < 3){
-          return this.$snackbar.showMessage({content:'test',color:'error'})
+          // return this.$snackbar.showMessage({content:'3',color:'error'})
+          this.isAdding = false
+          this.polygonPath = []
+          return
         }
         this.fenceModal = true
       }
@@ -415,21 +444,32 @@ export default {
         const {lng,lat} = e.Ag;
         this.addPolygonPoint(lng,lat)
     },
-    removePoint(e){
-      // this.isAdding = false
-      // const {lng,lat} = e.Ag
-      // let item ={}
-      // item.lng = lng
-      // item.lat = lat
-      // console.log(item)
-      // console.log(this.polygonPath)
-      // let index = this.polygonPath.indexOf(item)
-      // console.log(index)
+    removePoint(){
+      console.log('remove point')
       this.polygonPath = []
-      this.isAdding = false
+      // this.isAdding = false
     },
-    removePolygon(e){
-      console.log(e.type,e.target)
+    removePolygon(polygon){
+      console.log('remove polygon')
+      console.log(polygon)
+      this.selPolygonInfo = polygon
+      this.dialogDelete  = true
+    },
+    async deleteItemConfirm(){
+      this.isDeleting = true
+      await deleteFence({id:this.selPolygonInfo.id}).then(res=>{
+        console.log(res.data)
+        let index = this.allPolygonPath.findIndex(pol=>pol.id == this.selPolygonInfo.id)
+        console.log("index",index)
+        if(index > -1){
+          this.allPolygonPath.splice(index,1)
+        }
+        this.isDeleting = false
+        this.dialogDelete = false
+      }).catch(err=>{
+        console.log(err.response)
+        this.isDeleting = false
+      })
     },
     addPolygonPoint (lng,lat) {
         this.polygonPath.push({lng: lng, lat: lat})
@@ -440,11 +480,8 @@ export default {
       this.userDeviceList.map(user=>{
         this.fenceData.studentList.push(user.id)
       })
-      console.log(this.fenceData)
-      // return
       this.isSaving = true
       await createFence(this.fenceData).then(res=>{
-        console.log(res.data)
         this.isSaving = false
         this.allPolygonPath.push(res.data)
         this.fenceModal = false
@@ -454,14 +491,12 @@ export default {
         this.isSaving = false
       })
     },
-    // drawNewpolygon(e){
-    //     if(this.polygonPath.length < 3){
-    //       return
-    //     }
-    //     this.fenceModal = true
-    // },
+    cancelFence(){
+      this.fenceModal = false
+      this.polygonPath = []
+    },
+   
     selPolygon(fence,index){
-      console.log(index)
        this.allPolygonPath.map(polygon=>{
          polygon.editing = 0
        })
@@ -477,26 +512,29 @@ export default {
       for(let i=0;i<this.userDeviceList.length;i++){
           delete this.userDeviceList[i].active
       }
-      if(this.selUserInfo != null){
-        if(this.selUserInfo.id == device.id){
-          this.selUserInfo = null
-          this.isSelected = false
-        }else{
-          this.$set(device,'active',true)
-          this.selUserInfo = device
-          console.log(this.selUserInfo)
-          this.isSelected = true  
-        }
+      if(this.selUserInfo != null && this.selUserInfo.id == device.id){
+        this.selUserInfo = null
+        this.isSelected = false
       }
       else{
         this.$set(device,'active',true)
         this.selUserInfo = device
-        console.log(this.selUserInfo)
         this.isSelected = true
+        getInstruction({userId:this.selUserInfo.id}).then(res=>{
+          if(res.data){
+            this.familyData = res.data.familyData
+          }else{
+            this.familyData.name1 = ''
+            this.familyData.name2 = ''
+            this.familyData.name3 = ''
+            this.familyData.phone1 = ''
+            this.familyData.phone2 = ''
+            this.familyData.phone3 = ''
+          }
+        }).catch(err=>{
+          console.log(err.response)
+        })
       }
-      // this.realTracking()
-      // this.getFenceData();
-      // this.getDeviceLocationList()
     },
 
     userInfo(e){
@@ -510,7 +548,7 @@ export default {
         var BMapLib = require('bmaplib').BMapLib;
         var pts = []
         if(this.allPolygonPath.length == 0){
-            return this.$$snackbar.showMessage({content:'电子围栏不存在。',color:'error'})
+            return this.$snackbar.showMessage({content:'电子围栏不存在。',color:'error'})
         }
         for(let i =0; i<this.allPolygonPath.length;i++){
             for(let j=0;j<this.allPolygonPath[i].location.length;j++){
@@ -524,6 +562,11 @@ export default {
           let result = BMapLib.GeoUtils.isPointInPolygon(pt, ply);
           if(result == false){
             console.log(user.name,'outside')
+            createFenceAlarm({userName:user.name,ownerId:this.user.id}).then(res=>{
+              console.log(res.data)
+            }).catch(err=>{
+              console.log(err.response)
+            })
           }else{
             console.log(user.name,'inside')
           }
@@ -531,7 +574,7 @@ export default {
         let vm = this
         setTimeout(function() {
           vm.fetchHole()
-        }, 3000);
+        }, 60000);
     },
     realTracking(){
     },
@@ -549,14 +592,33 @@ export default {
         console.log(res.data)
         this.isSaving = false
         this.familyModal = false
+        // this.familyData.name1 = ''
+        // this.familyData.name2 = ''
+        // this.familyData.name3 = ''
+        // this.familyData.phone1 = ''
+        // this.familyData.phone2 = ''
+        // this.familyData.phone3 = ''
       }).catch(err=>{
         console.log(err.response)
         this.isSaving = false
       })
     },
 
-    getDeviceTrack(){
-      
+    async getDeviceTrack(){
+      // console.log(this.trackData)
+      // return
+      this.isSaving = true
+      await getTrackData({imei:this.selUserInfo.imei,startTime:this.TimeView(this.trackData.begin_time),endTime:this.TimeView(this.trackData.end_time)}).then(res=>{
+        console.log(res.data)
+        this.trackPath = res.data
+        this.isSaving = false
+        this.trackModal = false
+        this.trackData.begin_time = ''
+        this.trackData.end_time = ''
+      }).catch(err=>{
+        console.log(err.response)
+        this.isSaving = false
+      })
     }
 
 

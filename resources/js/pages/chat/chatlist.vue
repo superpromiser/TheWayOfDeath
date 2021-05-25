@@ -408,9 +408,11 @@ export default {
             .then((res) => {
                 this.chatGroupList = res.data.chatGroups;
                 this.contactList = res.data.contactUsers;
+                console.log("this.contactList",this.contactList);
                 this.contactList.map(contact => {
                     if(contact.user.avatar == '/asset/img/bot/bot1.png'){
                         this.bot = contact;
+                        console.log("this.bot",this.bot);
                     }
                 })
                 this.contactList = this.contactList.filter((user) => user.user.avatar !== '/asset/img/bot/bot1.png');

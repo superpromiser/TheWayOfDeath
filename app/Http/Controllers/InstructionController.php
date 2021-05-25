@@ -11,6 +11,10 @@ class InstructionController extends Controller
     //
     public function getInstruction(Request $request)
     {
+        $this->validate($request, [
+            'userId' => 'required'
+        ]);
+        return Instruction::select('familyData')->where('userId', $request->userId)->first();
     }
 
     public function createInstruction(Request $request)

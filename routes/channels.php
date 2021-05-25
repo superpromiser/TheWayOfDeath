@@ -37,3 +37,7 @@ Broadcast::channel('newReturnTeam.{id}', function ($user, $id) {
 Broadcast::channel('newMessage.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('newPosition.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});
