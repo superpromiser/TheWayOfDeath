@@ -412,6 +412,9 @@ export default [
       {path:'classRecognition', name:'details.classRecognition', component:page('details/recognition/index.vue')},
       {path:'classStory', name:'details.classStory', component:page('details/classStory/index.vue')},
       {path:'interClassStory', name:'details.interClassStory', component:page('details/interClassStory/index.vue')},
+      {path:'announcement',name:'details.Canouncement',component:page('details/anouncement/index.vue')},
+      {path:'regnameResult', name:'details.CregnameResult', component:page('details/regname/result.vue')},
+      {path:'regnameAnswer', name:'details.CregnameAnswer', component:page('details/regname/answer.vue')},
       {path:'vacation', name:'details.vacation', component:page('details/vacation/index.vue')},
       {path:'repair', name:'details.classRepair', component:page('details/repair/index.vue')},
       {path:'default',name:'details.classDefault',component:page('details/default/index.vue')}

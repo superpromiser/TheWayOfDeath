@@ -186,12 +186,32 @@ export default {
         })
         // return
         this.$store.dispatch('content/storePostDetail',content);
-        if(this.user.roleId == 5){
+        if(this.$isMobile()){
+          if(this.user.roleId == 5){
             this.$router.push({name:'details.regnameAnswer'});
+          }
+          else{
+              this.$router.push({name:'details.regnameResult'});
+          }
+        }else{
+          if(this.currentPath.params.lessonId){
+            if(this.user.roleId == 5){
+                this.$router.push({name:'details.CregnameAnswer'});
+            }
+            else{
+                this.$router.push({name:'details.CregnameResult'});
+            }
+          }else{
+            if(this.user.roleId == 5){
+                this.$router.push({name:'details.CregnameAnswer'});
+            }
+            else{
+                this.$router.push({name:'details.CregnameResult'});
+            }
+          }
+          
         }
-        else{
-            this.$router.push({name:'details.regnameResult'});
-        }
+        
       },
       
     }

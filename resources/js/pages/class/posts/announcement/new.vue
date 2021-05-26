@@ -513,9 +513,9 @@ export default {
 
         async publishcampusData(){
             this.$refs.child.emitData()
-            if(this.viewType == 'pub'){
+            if(this.announcementData.publishType == 'pub'){
                 this.announcementData.showList = null
-            }else if(this.viewType == 'pvt'){
+            }else if(this.announcementData.publishType == 'pvt'){
                 this.announcementData.showList = []
                 this.announcementData.showList.push(this.user.id)
             }else{
@@ -538,7 +538,8 @@ export default {
             if(this.announcementData.content.length == 0){
                     return this.$snackbar.showMessage({content: this.lang.announcement+this.lang.requireContent, color: "error"})
                 }
-            
+            console.log(this.announcementData.showList)
+            // return
             this.isCreating = true
             await createAnouncement(this.announcementData).then(res=>{
                 this.isCreating = false
@@ -580,7 +581,7 @@ export default {
             //console.log(this.signNameItems)
         },
         selViewList(){
-            console.log(this.viewType)
+            console.log(this.announcementData.publishType)
             if(this.announcementData.publishType == 'spec'){
                 this.isPosting = false
                 this.$router.push({name:'Cannouncement.contacts'})

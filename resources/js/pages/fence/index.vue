@@ -10,19 +10,9 @@
           </a>
         </v-col>
         <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-          <h2>地图</h2>
+          <h2>学生轨迹</h2>
         </v-col>
         <v-col cols="12" md="4" class="d-flex align-center justify-end">
-          <!-- <v-btn
-            text
-            color="#7879ff"
-            @click="selContent('template')"
-          >
-              可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
-          </v-btn> -->
-          <!-- <v-btn @click="fetchHole">
-            实时跟踪            
-          </v-btn> -->
           <v-btn
               tile
               dark
@@ -31,8 +21,18 @@
               @click="addFence"
               :disabled="isSelected == true"
           >
-              <span v-if="isAdding == false">添加</span>
-              <span v-else>加...</span> 
+              <span v-if="isAdding == false">设置电子围栏</span>
+              <span v-else>保存</span> 
+          </v-btn>
+          <v-btn
+            tile
+            dark
+            color="#3989FC"
+            @click="editFence"
+            :disabled="isSelected == true"
+          >
+            <span v-if="isEditing == false">edit</span>
+            <span v-else>editng</span>
           </v-btn>
           <v-btn
               tile
@@ -67,8 +67,8 @@
         <div v-for="user in userDeviceList" :key="user.imei">
           <v-row class="hover-cursor-point pa-3" :class="{'selDevice':user.active}" @click="selDevice(user)">
             <v-col>
-              {{user.imei}}
-              ({{user.name}})
+              {{user.name}}
+              ({{user.imei}})
             </v-col>
           </v-row>
           <v-divider light class="thick-border"></v-divider>
@@ -77,23 +77,26 @@
       <v-col cols="9">
         <baidu-map class="map" :center="{lng:centerLng,lat:centerLat}" :zoom="15" :scroll-wheel-zoom="true" @click="addPoint"  @rightclick="removePoint">
           <div v-for="(polygonPathData,i) in allPolygonPath" :key="i">
-              <bm-polygon :path="polygonPathData.location" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="isAdding" @lineupdate="updatePolygonPath" @click="removePolygon(polygonPathData)"/>
+              <div v-if="polygonPathData.roleId == 2">
+                <bm-polygon :path="polygonPathData.location" fill-color="red" stroke-color="blue" :stroke-opacity="1" :stroke-weight="2"  :editing="isManager" @lineupdate="updatePolygonPath(i)" @click="removePolygon(polygonPathData)"/>
+              </div>
+              <div v-if="polygonPathData.roleId == 4">
+                <bm-polygon :path="polygonPathData.location" fill-color="blue" stroke-color="blue" :stroke-opacity="0.7" :stroke-weight="2"  :editing="isParent" @lineupdate="updatePolygonPath(i)" @click="removePolygon(polygonPathData)"/>
+              </div>
+              <div v-if="polygonPathData.roleId == 7">
+                <bm-polygon :path="polygonPathData.location" fill-color="green" stroke-color="blue" :stroke-opacity="0.4" :stroke-weight="2"  :editing="isBanzhu" @lineupdate="updatePolygonPath(i)" @click="removePolygon(polygonPathData)"/>
+              </div>
           </div>
-          <bm-polygon :path="polygonPath" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="isAdding"  @lineupdate="updatePolygonPath"/>
+          <bm-polygon :path="polygonPath" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="true"  @lineupdate="editPolygonPath"/>
           <bm-polyline :path="trackPath" stroke-color="red" :stroke-opacity="0.5" :stroke-weight="2"></bm-polyline>
           <div v-if="selUserInfo != null">
             <bm-marker :position="{lng: selUserInfo.lng, lat: selUserInfo.lat}" animation="BMAP_ANIMATION_BOUNCE">
             </bm-marker>
           </div>
           <div v-for="user in userDeviceList" :key="user.imei" v-else>
-            <bm-marker :position="{lng: user.lng, lat: user.lat}" animation="BMAP_ANIMATION_BOUNCE">
+            <bm-marker :position="{lng: user.lng, lat: user.lat}">
             </bm-marker>
           </div>
-          <bm-control>
-              
-          </bm-control>
-          <bm-local-search :keyword="keyword" :auto-viewport="true" :forceLocal="true" :panel="false" :selectFirstResult="true" location="沈阳"></bm-local-search>
-          <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"></bm-geolocation>
         </baidu-map>
       </v-col>
     </v-row>
@@ -239,7 +242,7 @@
       </v-dialog>
     </v-row>
       <!-- trackModal  -->
-      <v-row justify="center">
+    <v-row justify="center">
       <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
         v-model="trackModal"
         persistent
@@ -362,6 +365,9 @@ export default {
     realTrackingFlag:false,
     trackPath:[],
     baseUrl:window.Laravel.base_url,
+    isManager:false,
+    isBanzhu:false,
+    isParent:false,
   }),
   
   computed:{
@@ -383,6 +389,7 @@ export default {
     })
     await getFence().then(res=>{
       this.allPolygonPath = res.data
+      console.log(res.data)
     }).catch(err=>{
       console.log(err.response)
       this.isLoading = false
@@ -418,11 +425,11 @@ export default {
         let lng = (Math.floor(Math.random() * (lngMax - lngMin + 1)) + lngMin)/1000000;
         let lat = (Math.floor(Math.random() * (latMax - latMin + 1)) + latMin)/1000000;
         let date = this.TimeView(new Date());
-        createTrackData({imei:user.imei,lat:lat,lng:lng,trackDate:date}).then(res=>{
-          console.log(res.data)
-        }).catch(err=>{
-          console.log(err.response)
-        })
+        // createTrackData({imei:user.imei,lat:lat,lng:lng,trackDate:date}).then(res=>{
+        //   // console.log(res.data)
+        // }).catch(err=>{
+        //   console.log(err.response)
+        // })
       })
     },
     addFence(){
@@ -486,6 +493,8 @@ export default {
         this.allPolygonPath.push(res.data)
         this.fenceModal = false
         this.polygonPath = []
+        this.fenceData.fenceName = ''
+        this.fenceData.fenceType = ''
       }).catch(err=>{
         console.log(err.response)
         this.isSaving = false
@@ -494,6 +503,20 @@ export default {
     cancelFence(){
       this.fenceModal = false
       this.polygonPath = []
+    },
+    editFence(){
+      this.isEditing = ! this.isEditing
+      console.log('edit mode')
+      if(this.user.roleId == 2){
+        this.isManager = !this.isManager
+        // this.isBanzhu = !this.isBanzhu
+        // this.isParent = !this.isParent
+      }else if(this.user.roleId == 7){
+        this.isBanzhu = !this.isBanzhu
+        // this.isManager = !this.isManager
+      }else if(this.user.roleId == 4){
+        this.isParent = ! this.isParent
+      }
     },
    
     selPolygon(fence,index){
@@ -504,8 +527,14 @@ export default {
       console.log(this.allPolygonPath)
       // return this.$snackbar.showMessage({content:fence.fenceName,color:'success'})
     },
-    updatePolygonPath (e) {
-        this.polygonPath = e.target.getPath()
+    editPolygonPath(e){
+      this.polygonPath = e.target.getPath()
+    },
+    updatePolygonPath (index,e) {
+      console.log(e)
+      // console.log(e.target.getPath())
+      // this.allPolygonPath[index] = e.target.getPath()
+        // this.polygonPath = e.target.getPath()
     },
     
     selDevice(device){
@@ -542,7 +571,6 @@ export default {
     },
 
     fetchHole(){
-        console.log('checkFence',this.allPolygonPath)
         this.getDeviceLocationList()
         var BMap = require('bmaplib').BMap;
         var BMapLib = require('bmaplib').BMapLib;
@@ -563,7 +591,7 @@ export default {
           if(result == false){
             console.log(user.name,'outside')
             createFenceAlarm({userName:user.name,ownerId:this.user.id}).then(res=>{
-              console.log(res.data)
+              // console.log(res.data)
             }).catch(err=>{
               console.log(err.response)
             })
