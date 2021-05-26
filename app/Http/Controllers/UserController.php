@@ -549,7 +549,6 @@ class UserController extends Controller
 
             foreach ($userList as $user) {
                 $trackData = TrackData::select('lat', 'lng')->where('imei', $user->imei)->orderBy('trackDate', 'desc')->first();
-                $test = $trackData->lat;
                 if (isset($trackData)) {
                     $user->lat = $trackData->lat;
                     $user->lng = $trackData->lng;
