@@ -24,7 +24,7 @@
               <span v-if="isAdding == false">设置电子围栏</span>
               <span v-else>保存</span> 
           </v-btn>
-          <v-btn
+          <!-- <v-btn
             tile
             dark
             color="#3989FC"
@@ -33,7 +33,7 @@
           >
             <span v-if="isEditing == false">edit</span>
             <span v-else>editng</span>
-          </v-btn>
+          </v-btn> -->
           <v-btn
               tile
               dark
@@ -67,6 +67,14 @@
         <div v-for="user in userDeviceList" :key="user.imei">
           <v-row class="hover-cursor-point pa-3" :class="{'selDevice':user.active}" @click="selDevice(user)">
             <v-col>
+               <v-avatar v-if="user.name !== '' && user.avatar == '/'" color="#7879ff" size="48">
+                <span class="white--text headline">{{user.name[0]}}</span>
+              </v-avatar>
+              <v-avatar v-else
+                size="48"
+              >
+                <v-img :src="user.avatar"></v-img>
+              </v-avatar>
               {{user.name}}
               ({{user.imei}})
             </v-col>
@@ -78,16 +86,16 @@
         <baidu-map class="map" :center="{lng:centerLng,lat:centerLat}" :zoom="15" :scroll-wheel-zoom="true" @click="addPoint"  @rightclick="removePoint">
           <div v-for="(polygonPathData,i) in allPolygonPath" :key="i">
               <div v-if="polygonPathData.roleId == 2">
-                <bm-polygon :path="polygonPathData.location" fill-color="red" stroke-color="blue" :stroke-opacity="1" :stroke-weight="2"  :editing="isManager" @lineupdate="updatePolygonPath(i)" @click="removePolygon(polygonPathData)"/>
+                <bm-polygon :path="polygonPathData.location" fill-color="red" stroke-color="blue" :stroke-opacity="1" :stroke-weight="2"  :editing="isManager" @lineupdate="updatePolygonPath" @click="removePolygon(polygonPathData)"/>
               </div>
               <div v-if="polygonPathData.roleId == 4">
-                <bm-polygon :path="polygonPathData.location" fill-color="blue" stroke-color="blue" :stroke-opacity="0.7" :stroke-weight="2"  :editing="isParent" @lineupdate="updatePolygonPath(i)" @click="removePolygon(polygonPathData)"/>
+                <bm-polygon :path="polygonPathData.location" fill-color="blue" stroke-color="blue" :stroke-opacity="1" :stroke-weight="2"  :editing="isParent" @lineupdate="updatePolygonPath" @click="removePolygon(polygonPathData)" />
               </div>
               <div v-if="polygonPathData.roleId == 7">
-                <bm-polygon :path="polygonPathData.location" fill-color="green" stroke-color="blue" :stroke-opacity="0.4" :stroke-weight="2"  :editing="isBanzhu" @lineupdate="updatePolygonPath(i)" @click="removePolygon(polygonPathData)"/>
+                <bm-polygon :path="polygonPathData.location" fill-color="green" stroke-color="blue" :stroke-opacity="1" :stroke-weight="2"  :editing="isBanzhu" @lineupdate="updatePolygonPath" @click="removePolygon(polygonPathData)"/>
               </div>
           </div>
-          <bm-polygon :path="polygonPath" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2"  :editing="true"  @lineupdate="editPolygonPath"/>
+          <bm-polygon :path="polygonPath" fill-color="red" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" :editing="true" @lineupdate="editPolygonPath"/>
           <bm-polyline :path="trackPath" stroke-color="red" :stroke-opacity="0.5" :stroke-weight="2"></bm-polyline>
           <div v-if="selUserInfo != null">
             <bm-marker :position="{lng: selUserInfo.lng, lat: selUserInfo.lat}" animation="BMAP_ANIMATION_BOUNCE">
@@ -389,7 +397,7 @@ export default {
     })
     await getFence().then(res=>{
       this.allPolygonPath = res.data
-      console.log(res.data)
+      console.log('++++++++',this.allPolygonPath)
     }).catch(err=>{
       console.log(err.response)
       this.isLoading = false
@@ -459,6 +467,9 @@ export default {
     removePolygon(polygon){
       console.log('remove polygon')
       console.log(polygon)
+      if(polygon.userId != this.user.id){
+        return
+      }
       this.selPolygonInfo = polygon
       this.dialogDelete  = true
     },
@@ -473,6 +484,8 @@ export default {
         }
         this.isDeleting = false
         this.dialogDelete = false
+        console.log("-------------",this.allPolygonPath)
+        console.log('***********',this.polygonPath)
       }).catch(err=>{
         console.log(err.response)
         this.isDeleting = false
@@ -504,7 +517,7 @@ export default {
       this.fenceModal = false
       this.polygonPath = []
     },
-    editFence(){
+    editFence(index){
       this.isEditing = ! this.isEditing
       console.log('edit mode')
       if(this.user.roleId == 2){
@@ -517,6 +530,7 @@ export default {
       }else if(this.user.roleId == 4){
         this.isParent = ! this.isParent
       }
+      console.log(index)
     },
    
     selPolygon(fence,index){
@@ -525,12 +539,11 @@ export default {
        })
        fence.editing = 1
       console.log(this.allPolygonPath)
-      // return this.$snackbar.showMessage({content:fence.fenceName,color:'success'})
     },
     editPolygonPath(e){
       this.polygonPath = e.target.getPath()
     },
-    updatePolygonPath (index,e) {
+    updatePolygonPath (e) {
       console.log(e)
       // console.log(e.target.getPath())
       // this.allPolygonPath[index] = e.target.getPath()
@@ -576,7 +589,8 @@ export default {
         var BMapLib = require('bmaplib').BMapLib;
         var pts = []
         if(this.allPolygonPath.length == 0){
-            return this.$snackbar.showMessage({content:'电子围栏不存在。',color:'error'})
+            // return this.$snackbar.showMessage({content:'电子围栏不存在。',color:'error'})
+            return
         }
         for(let i =0; i<this.allPolygonPath.length;i++){
             for(let j=0;j<this.allPolygonPath[i].location.length;j++){

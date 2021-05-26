@@ -64,12 +64,25 @@
     </v-col>
     <v-col cols="12" class="pl-10 pt-0">
       <v-row>
-        <!-- <v-col cols="12">
-          <p class="text-wrap"><read-more more-str="全文" :text="shareData[0].text" link="#" less-str="收起" :max-chars="250"></read-more></p>
+        <v-col cols="12">
+          考勤日期:{{content.lattendance.attendanceDay}}
+
         </v-col>
-        <v-col cols="12" v-if="checkIfAttachExist(shareData[0])">
-          <AttachItemViewer :items="shareData[0]" />
-        </v-col> -->
+        <v-col cols="12">
+          考勤时间:{{content.lattendance.attendanceTime}}
+        </v-col>
+        <v-col cols="12">
+          出勤:{{content.lattendance.resultNormal}}
+        </v-col>
+        <v-col cols="12">
+          迟到:{{content.lattendance.resultLate}}
+        </v-col>
+        <v-col cols="12">
+          缺勤:{{content.lattendance.resultMiss}}
+        </v-col>
+        <v-col cols="12">
+          请假:{{content.lattendance.resultRest}}
+        </v-col>
       </v-row>
     </v-col>
   </v-container>

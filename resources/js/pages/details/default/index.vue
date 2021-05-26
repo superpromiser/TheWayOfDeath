@@ -183,7 +183,7 @@
                 <TodayDutyPost :content='contentData'></TodayDutyPost>
             </div>
             <div v-else-if='contentData.contentId == 16'>
-                <HomeVisitPost :content='contentData'></HomeVisitPost>
+                <LessonAttendancePost :content='contentData'></LessonAttendancePost>
             </div>
             <div v-else-if='contentData.contentId == 17'>
                 <NotificationPost :content='contentData'></NotificationPost>
@@ -255,6 +255,7 @@ import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
 let emojiIndex = new EmojiIndex(emojiData);
 import {updateShiftMng} from '~/api/shiftMng'
 import TodayDutyPost from '~/components/contents/todayDutyPost'
+import LessonAttendancePost from '~/components/contents/lessonAttendancePost'
 export default {
     components : {
         QuestionnairePost,
@@ -282,6 +283,7 @@ export default {
         Picker,
         VacationPost,
         TodayDutyPost,
+        LessonAttendancePost
     },
 
     data:() => ({
@@ -326,8 +328,8 @@ export default {
             '问卷',
             '投票',
             '作业',
-            '完成作业',
-            '家访',
+            '今日值日',
+            '课堂考勤',
             '通知',
             '评价',
             '表彰',

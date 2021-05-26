@@ -534,7 +534,7 @@ class UserController extends Controller
         $roleId = Auth::user()->roleId;
         if ($roleId == 2) {
             $schoolId = Auth::user()->schoolId;
-            $userList = User::select('id', 'name', 'imei', 'lessonId')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
+            $userList = User::select('id', 'name', 'imei', 'lessonId', 'avatar')->where(['schoolId' => $schoolId, 'roleId' => 5])->get();
             foreach ($userList as $user) {
                 $trackData = TrackData::select('lat', 'lng')->where('imei', $user->imei)->orderBy('trackDate', 'desc')->first();
                 if (isset($trackData)) {
@@ -544,7 +544,7 @@ class UserController extends Controller
             }
         } else if ($roleId == 7) {
             $lessonId = Auth::user()->lessonId;
-            $userList = User::select('id', 'name', 'imei', 'lessonId')->where('groupArr', 'like', "%{$lessonId}%")->where('roleId', 5)->get();
+            $userList = User::select('id', 'name', 'imei', 'lessonId', 'avatar')->where('groupArr', 'like', "%{$lessonId}%")->where('roleId', 5)->get();
             // $userList = TrackData::select('users.id','users.name','users.imei','')
 
             foreach ($userList as $user) {
@@ -556,7 +556,7 @@ class UserController extends Controller
             }
         } else if ($roleId == 4) {
             $childArr = User::where('id', $userId)->first()->children;
-            $userList = User::select('id', 'name', 'imei', 'lessonId')->whereIn('id', $childArr)->get();
+            $userList = User::select('id', 'name', 'imei', 'lessonId', 'avatar')->whereIn('id', $childArr)->get();
             foreach ($userList as $user) {
                 $trackData = TrackData::select('lat', 'lng')->where('imei', $user->imei)->orderBy('trackDate', 'desc')->first();
                 if (isset($trackData)) {
