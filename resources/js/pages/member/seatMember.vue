@@ -57,7 +57,7 @@
                                 :menu-props="{ top: false, offsetY: true }"
                                 dense
                                 outlined
-                                @change="selColCnt"
+                                @change="selRowCnt"
                             ></v-select>
                         </v-col>
                     </v-row>
@@ -71,6 +71,7 @@
                         :items="userList"
                         item-text="name"
                         item-value="id"
+                        item-disabled="disable"
                         dense
                         outlined
                         @change="selSeat(idx1,idx2)"
@@ -88,7 +89,7 @@ import lang from '~/helper/lang.json'
 export default {
     data:()=>({
         items:[1,2,3,4,5,6,7,8,9],
-        userList:[{id:0,name:'',photo_url:''}],
+        userList:[{id:0,name:'',photo_url:'',disable:false}],
         lang,
         isSubmit:false,
         seatList:[
@@ -125,6 +126,7 @@ export default {
         getLessonUserList({lessonId:this.currentPath.params.lessonId}).then(res=>{
             console.log(res.data)
             res.data.map(data=>{
+                this.$set(data,'disable',false)
                 this.userList.push(data)
             })
             console.log(this.userList)
@@ -179,25 +181,44 @@ export default {
                 this.colList = []
             }
             console.log(this.seatList)
+            this.userList.map(user=>{
+                user.disable = false
+            })
         },
-        selColCnt(){
-            this.seatList = [];
-            for(let i=0;i<this.rowCnt;i++){
-                for(let i=0;i<this.colCnt;i++){
-                    this.colList.push(0)
-                }
-                this.seatList.push(this.colList)
-                this.colList = []
-            }
-            console.log(this.seatList)
-        },
+        // selColCnt(){
+        //     this.seatList = [];
+        //     for(let i=0;i<this.rowCnt;i++){
+        //         for(let i=0;i<this.colCnt;i++){
+        //             this.colList.push(0)
+        //         }
+        //         this.seatList.push(this.colList)
+        //         this.colList = []
+        //     }
+        //     console.log(this.seatList)
+        // },
         selSeat(idx1,idx2){
             console.log(this.seatList[idx1][idx2])
-            let index = this.userList.findIndex(user=>user.id == this.seatList[idx1][idx2])
-            if(index > -1){
-                // this.userList.splice(index,1)
+            if(this.seatList[idx1][idx2] != 0){
+                let index = this.userList.findIndex(user=>user.id == this.seatList[idx1][idx2])
+                if(index > -1){
+                    this.userList[index].disable = ! this.userList[index].disable
+                }
+            }else{
+                console.log(this.seatList)
+                this.userList.map(user=>{
+                    user.disable = false
+                })
+                this.seatList.map(row=>{
+                    row.map(col=>{
+                        if(col > 0){
+                            let index = this.userList.findIndex(user=>user.id == col)
+                            if(index > -1){
+                                this.userList[index].disable = true
+                            }
+                        }
+                    })
+                })
             }
-            console.log(index)
         }
     }
 }
