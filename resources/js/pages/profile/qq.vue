@@ -22,9 +22,9 @@
                     <v-icon size="45" class="ma-3 mx-auto" color="#999999">
                         mdi-qqchat
                     </v-icon>
-                    <p>QQ号: {{notSetQQ? '未设置QQ号': user.qq}}</p>
+                    <p>QQ号: {{notSetQQ? '未绑定QQ号': user.qq}}</p>
                     <v-btn dark color="#7879ff" @click="openDialog">
-                        {{notSetQQ? '新注册': '更新'}}
+                        {{notSetQQ? '绑定': '更新'}}
                     </v-btn>
                 </div>
             </v-col>
