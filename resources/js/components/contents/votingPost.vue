@@ -165,10 +165,19 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',content)
-        if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.classVoting'});
+        if(this.$isMobile()){
+          if(this.selectedSchoolItem.type == 'school'){
+            this.$router.push({name:'details.voting', params:{schoolId: this.selectedSchoolItem.schoolId}});
+          }
+          else{
+            this.$router.push({name:'details.classVoting', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+          }
         }else{
-          this.$router.push({name:'details.voting'});
+          if(this.currentPath.params.lessonId){
+            this.$router.push({name:'details.classVoting'});
+          }else{
+            this.$router.push({name:'details.voting'});
+          }
         }
       },
     }

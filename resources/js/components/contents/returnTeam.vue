@@ -89,11 +89,12 @@ export default {
           console.log(err.response)
         })
             this.$store.dispatch('content/storePostDetail',content)
-            if(this.currentPath.params.lessonId){
-              this.$router.push({name:'classSpace.applications.returnTeam'});
-            }else{
-              this.$router.push({name:'classSpace.applications.returnTeam'});
-            }
+            this.$router.push({name:'classSpace.applications.returnTeam'});
+            // if(this.currentPath.params.lessonId){
+            //   this.$router.push({name:'classSpace.applications.returnTeam'});
+            // }else{
+            //   this.$router.push({name:'classSpace.applications.returnTeam'});
+            // }
         },
     }
 }

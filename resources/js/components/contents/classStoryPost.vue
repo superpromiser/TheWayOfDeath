@@ -122,10 +122,19 @@ export default {
         })
         this.$store.dispatch('content/storePostDetail',content)
         // this.$router.push({name:'details.classStory'})
-        if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.classDefault'});
+        if(this.$isMobile()){
+          if(this.selectedSchoolItem.type == 'school'){
+            this.$router.push({name:'details.classStory', params:{schoolId: this.selectedSchoolItem.schoolId}});
+          }
+          else{
+            this.$router.push({name:'details.classStory', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+          }
         }else{
-          this.$router.push({name:'details.schoolDefault'});
+          if(this.currentPath.params.lessonId){
+            this.$router.push({name:'details.classDefault'});
+          }else{
+            this.$router.push({name:'details.schoolDefault'});
+          }
         }
       },
       

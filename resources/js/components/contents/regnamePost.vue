@@ -187,11 +187,22 @@ export default {
         // return
         this.$store.dispatch('content/storePostDetail',content);
         if(this.$isMobile()){
-          if(this.user.roleId == 5){
-            this.$router.push({name:'details.regnameAnswer'});
+          if(this.selectedSchoolItem.type == 'school'){
+            this.$router.push({name:'details.interClassStory'});
+            if(this.user.roleId == 5){
+                this.$router.push({name:'details.regnameAnswer', params:{schoolId: this.selectedSchoolItem.schoolId}});
+            }
+            else{
+                this.$router.push({name:'details.regnameResult', params:{schoolId: this.selectedSchoolItem.schoolId}});
+            }
           }
           else{
-              this.$router.push({name:'details.regnameResult'});
+             if(this.user.roleId == 5){
+                this.$router.push({name:'details.CregnameAnswer', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+            }
+            else{
+                this.$router.push({name:'details.CregnameResult', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+            }
           }
         }else{
           if(this.currentPath.params.lessonId){

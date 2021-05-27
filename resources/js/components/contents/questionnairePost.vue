@@ -162,10 +162,19 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',content)
-        if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.classQuesionnaire'});
+        if(this.$isMobile()){
+          if(this.selectedSchoolItem.type == 'school'){
+            this.$router.push({name:'details.quesionnaire', params:{schoolId: this.selectedSchoolItem.schoolId}});
+          }
+          else{
+            this.$router.push({name:'details.classQuesionnaire', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+          }
         }else{
-          this.$router.push({name:'details.quesionnaire'});
+          if(this.currentPath.params.lessonId){
+            this.$router.push({name:'details.classQuesionnaire'});
+          }else{
+            this.$router.push({name:'details.quesionnaire'});
+          }
         }
         // this.$router.push({path:'/schoolspace',params:{id:'1',viewType:'postDetail',postType:'1'}})
       },

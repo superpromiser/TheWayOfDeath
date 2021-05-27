@@ -101,12 +101,20 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',content)
-        if(this.currentPath.params.lessonId){
-          this.$router.push({name:'details.classRecognition'});
+        if(this.$isMobile()){
+          if(this.selectedSchoolItem.type == 'school'){
+            this.$router.push({name:'details.classRecognition', params:{schoolId: this.selectedSchoolItem.schoolId}});
+          }
+          else{
+            this.$router.push({name:'details.classRecognition', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+          }
         }else{
-          this.$router.push({name:'details.classRecognition'});
+          if(this.currentPath.params.lessonId){
+            this.$router.push({name:'details.classRecognition'});
+          }else{
+            this.$router.push({name:'details.classRecognition'});
+          }
         }
-        
       }
     },
     created(){
