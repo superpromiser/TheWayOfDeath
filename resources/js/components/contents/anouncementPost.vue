@@ -164,12 +164,20 @@ export default {
         
         this.$store.dispatch('content/storePostDetail',content)
         this.$router.push({name:'details.anouncement'})
-        // if(this.currentPath.params.lessonId){
-        //   this.$router.push({name:'details.classDefault'});
-        // }else{
-        //   this.$router.push({name:'details.schoolDefault'});
-        // }
-        // this.$router.push({name:'details.default'})
+
+        if(this.$isMobile()){
+          if(this.selectedSchoolItem.type == 'school'){
+
+          }
+        }
+        else{
+           if(this.currentPath.params.lessonId){
+              this.$router.push({name:'details.Canouncement'});
+            }else{
+              this.$router.push({name:'details.anouncement'});
+            }
+        }
+       
         
       }
     }

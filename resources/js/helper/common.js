@@ -39,6 +39,7 @@ export default{
             let time = date.getFullYear() + '-' + mnth + '-' + day;
             return time
             // date = date.getTime()
+
             // return date
         },
         TimeViewSam(str){

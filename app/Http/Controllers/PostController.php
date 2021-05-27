@@ -122,7 +122,10 @@ class PostController extends Controller
         } else {
             return Post::whereIn('contentId', [1, 2, 5, 7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
                 ->where('classId', $classId)
-                ->orWhere('viewList', 'like', "%{$classId}%")
+                ->orWhere(function ($query) use ($classId) {
+                    $query->where('viewList', 'like', "%{$classId}%")
+                        ->orWhere('viewList', null);
+                })
                 ->with([
                     'likes',
                     'views',

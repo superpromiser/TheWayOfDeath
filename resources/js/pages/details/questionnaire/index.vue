@@ -303,6 +303,7 @@
                         </v-chip>
                         <p class="mb-0 text-wrap width-100-without-68-px"> {{singleData.text}}</p>
                       </div>
+                      <!-- <div>100%</div> -->
                       <AttachItemViewer :items="singleData" v-if="checkIfAttachExist(singleData)" />
                     </v-col>
                   </v-row>
@@ -488,6 +489,7 @@ export default {
               // console.log(this.answerData)
               this.alreadyAnswer = true
             }
+            
           })
           this.isLoading = false
         }).catch(err=>{
