@@ -378,6 +378,9 @@ export default {
             if(this.regNameData.content.length == 0){
                 return this.$snackbar.showMessage({content: this.lang.requiredText, color: "error"})
             }
+            if(this.regNameData.startTime > this.regNameData.endTime){
+                return this.$snackbar.showMessage({content:this.lang.startTimeAndEndTime, color:'error'})
+            }
             this.isSubmit = true
             await createRegname(this.regNameData).then(res=>{
                 console.log(res)

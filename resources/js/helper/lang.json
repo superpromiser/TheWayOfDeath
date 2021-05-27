@@ -99,6 +99,8 @@
     "requiredStartTime":"发病时间不能为空",
     "requiredReason":"诊断不能为空",
     "requiredHospital":"诊断医院不能为空",
-    "requiredStudentName":"学生姓名不能为空"
-    
+    "requiredStudentName":"学生姓名不能为空",
+    "requiredTitle":"标题不能为空",
+    "requiredViewList":"请选择一个班级",
+    "requiredInputList":"报名信息不能为空"
 }

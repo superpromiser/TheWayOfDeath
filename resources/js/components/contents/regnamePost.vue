@@ -203,10 +203,10 @@ export default {
             }
           }else{
             if(this.user.roleId == 5){
-                this.$router.push({name:'details.CregnameAnswer'});
+                this.$router.push({name:'details.regnameAnswer'});
             }
             else{
-                this.$router.push({name:'details.CregnameResult'});
+                this.$router.push({name:'details.regnameResult'});
             }
           }
           

@@ -129,6 +129,8 @@ export default [
       {path:'repair', name:'details.schoolRepair', component:page('details/repair/index.vue')},
       {path:'schoolStory', name:'details.schoolStory', component:page('details/schoolStory/index.vue')},
       {path:'default',name:'details.schoolDefault',component:page('details/default/index.vue')},
+      {path:'regnameResult', name:'details.regnameResult', component:page('details/regname/result.vue')},
+      {path:'regnameAnswer', name:'details.regnameAnswer', component:page('details/regname/answer.vue')},
     ]
   },
   

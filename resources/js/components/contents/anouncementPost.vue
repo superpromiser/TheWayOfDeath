@@ -167,7 +167,10 @@ export default {
 
         if(this.$isMobile()){
           if(this.selectedSchoolItem.type == 'school'){
-
+            this.$router.push({name:'details.anouncement', params:{schoolId: this.selectedSchoolItem.schoolId}});
+          }
+          else{
+            this.$router.push({name:'details.anouncement', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
           }
         }
         else{
