@@ -433,11 +433,11 @@ export default {
         let lng = (Math.floor(Math.random() * (lngMax - lngMin + 1)) + lngMin)/1000000;
         let lat = (Math.floor(Math.random() * (latMax - latMin + 1)) + latMin)/1000000;
         let date = this.TimeView(new Date());
-        // createTrackData({imei:user.imei,lat:lat,lng:lng,trackDate:date}).then(res=>{
-        //   // console.log(res.data)
-        // }).catch(err=>{
-        //   console.log(err.response)
-        // })
+        createTrackData({imei:user.imei,lat:lat,lng:lng,trackDate:date}).then(res=>{
+          // console.log(res.data)
+        }).catch(err=>{
+          console.log(err.response)
+        })
       })
     },
     addFence(){

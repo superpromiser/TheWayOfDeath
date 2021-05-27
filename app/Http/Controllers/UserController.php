@@ -718,7 +718,7 @@ class UserController extends Controller
         $this->validate($request, [
             'studentList' => 'required'
         ]);
-        return User::select('id', 'name', 'avatar', 'phoneNumber', 'imei')->whereIn('id', $request->studentList)->get();
+        return User::select('id', 'name', 'avatar', 'phoneNumber', 'imei', 'groupArr')->whereIn('id', $request->studentList)->get();
     }
 
     public function getMyFile()

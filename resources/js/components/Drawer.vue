@@ -338,6 +338,7 @@
 <script>
 import { mapGetters, } from 'vuex'
 import lang from '~/helper/lang.json'
+import {getStudentWithIds} from '~/api/user.js'
 export default {
   name: 'DefaultDrawer',
 
@@ -397,7 +398,7 @@ export default {
       deeper:true
     }
   },
-  created() {
+  async created() {
     let path = this.currentPath.path.split('/')
     if(path[1] == 'schoolSpace'){
       this.activeSchool = true
@@ -421,6 +422,47 @@ export default {
       })
       myschoolData.grades = [] 
       this.mySchoolList.push(myschoolData)
+    }else if(this.user.roleId == 4){
+      let myschoolData = {}
+      this.schoolData.map(schoolItem=>{
+        if(this.user.schoolId == schoolItem.id){
+          myschoolData = schoolItem
+        }
+      })
+      let clonedVal1 = JSON.parse(JSON.stringify(myschoolData))
+      let clonedVal2 = JSON.parse(JSON.stringify(myschoolData))
+      clonedVal1.grades = []
+      let userList = []
+      await getStudentWithIds({studentList:this.user.children}).then(res=>{
+        userList = res.data
+      }).catch(err=>{
+        console.log(err.response)
+      })
+      clonedVal2.grades.map(grade=>{
+        grade.lessons.map(lesson=>{
+          userList.map(user=>{
+            user.groupArr.map(groupId=>{
+              // debugger
+              if(lesson.id == groupId){
+                let index = clonedVal1.grades.indexOf(grade)
+                if(index > -1){
+                  let lIndex = clonedVal1.grades[index].lessons.indexOf(lesson)
+                  if(lIndex == -1){
+                    clonedVal1.grades[index].lessons.push(lesson)
+                  }
+                }
+                else{
+                  clonedVal1.grades.push(grade)
+                  let gindex = clonedVal1.grades.indexOf(grade)
+                  clonedVal1.grades[gindex].lessons = []
+                  clonedVal1.grades[gindex].lessons.push(lesson)
+                }
+              }
+            })
+          })
+        })
+      })
+      this.mySchoolList.push(clonedVal1)
     }
     else{
       let myschoolData = {}
