@@ -170,7 +170,7 @@ export default {
             this.$router.push({name:'details.anouncement', params:{schoolId: this.selectedSchoolItem.schoolId}});
           }
           else{
-            this.$router.push({name:'details.anouncement', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+            this.$router.push({name:'details.anouncement', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
           }
         }
         else{

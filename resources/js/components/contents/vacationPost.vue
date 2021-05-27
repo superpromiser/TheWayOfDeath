@@ -252,7 +252,7 @@ export default {
             this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
           }
           else{
-            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
           }
         }else{
           if(this.currentPath.params.lessonId){

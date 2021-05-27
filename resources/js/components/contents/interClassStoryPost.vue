@@ -123,10 +123,10 @@ export default {
         this.$store.dispatch('content/storePostDetail',content)
          if(this.$isMobile()){
           if(this.selectedSchoolItem.type == 'school'){
-            this.$router.push({name:'details.interClassStory', params:{schoolId: this.selectedSchoolItem.schoolId}});
+            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
           }
           else{
-            this.$router.push({name:'details.interClassStory', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
           }
         }else{
           if(this.currentPath.params.lessonId){

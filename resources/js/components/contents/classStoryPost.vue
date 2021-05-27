@@ -123,11 +123,16 @@ export default {
         this.$store.dispatch('content/storePostDetail',content)
         // this.$router.push({name:'details.classStory'})
         if(this.$isMobile()){
+          console.log('mobile class space')
           if(this.selectedSchoolItem.type == 'school'){
-            this.$router.push({name:'details.classStory', params:{schoolId: this.selectedSchoolItem.schoolId}});
+            console.log('------school')
+            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
           }
           else{
-            this.$router.push({name:'details.classStory', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+            console.log('------class')
+            console.log('schoolId',this.selectedSchoolItem.schoolId)
+            console.log('classId',this.selectedSchoolItem.lessonId)
+            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId,  lessonId: this.selectedSchoolItem.lessonId}});
           }
         }else{
           if(this.currentPath.params.lessonId){

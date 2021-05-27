@@ -151,36 +151,72 @@ export default {
           console.log(err.response)
         })
         this.$store.dispatch('content/storePostDetail',this.content)
-        if(this.currentPath.params.lessonId){
-          if(this.content.homework.homeworkType == "常规作业"){
-            if(this.user.roleId == 3 || this.user.roleId == 7){
-              this.$router.push({name:'details.homeworkofflineTeacher'});    
-            }else if(this.user.roleId == 5){
-              this.$router.push({name:'details.homeworkofflineStudent'});    
+        if(this.$isMobile()){
+          if(this.selectedSchoolItem.type == 'school'){
+            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+          }
+          else{
+            // this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+            if(this.content.homework.homeworkType == "常规作业"){
+              if(this.user.roleId == 3 || this.user.roleId == 7){
+                this.$router.push({name:'details.homeworkofflineTeacher', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+              }else if(this.user.roleId == 5){
+                this.$router.push({name:'details.homeworkofflineStudent', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+              }else{
+                this.$router.push({name:'details.classHomework', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+              }
+            }else if(this.content.homework.homeworkType == '在线作业'){
+              if(this.user.roleId == 3 || this.user.roleId == 7){
+                this.$router.push({name:'details.homeworkonlineTeacher', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+              }else if(this.user.roleId == 5){
+                this.$router.push({name:'details.homeworkonlineStudent', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+              }else{
+                this.$router.push({name:'details.classHomework', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+              }
+            }else if(this.content.homework.homeworkType == '在线测试'){
+              if(this.user.roleId == 3 || this.user.roleId == 7){
+                this.$router.push({name:'details.homeworktestTeacher', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+              }else if(this.user.roleId == 5){
+                this.$router.push({name:'details.homeworktestTeacher', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+              }else{
+                this.$router.push({name:'details.classHomework', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+              }
             }else{
-              this.$router.push({name:'details.classHomework'});    
+              this.$router.push({name:'details.classHomework', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
             }
-          }else if(this.content.homework.homeworkType == '在线作业'){
-            if(this.user.roleId == 3 || this.user.roleId == 7){
-              this.$router.push({name:'details.homeworkonlineTeacher'});    
-            }else if(this.user.roleId == 5){
-              this.$router.push({name:'details.homeworkonlineStudent'});    
-            }else{
-              this.$router.push({name:'details.classHomework'});    
-            }
-          }else if(this.content.homework.homeworkType == '在线测试'){
-            if(this.user.roleId == 3 || this.user.roleId == 7){
-              this.$router.push({name:'details.homeworktestTeacher'});    
-            }else if(this.user.roleId == 5){
-              this.$router.push({name:'details.homeworktestTeacher'});    
-            }else{
-              this.$router.push({name:'details.classHomework'});    
-            }
-          }else{
-            this.$router.push({name:'details.classHomework'});
           }
         }else{
-          this.$router.push({name:'details.homework'});
+          if(this.currentPath.params.lessonId){
+            if(this.content.homework.homeworkType == "常规作业"){
+              if(this.user.roleId == 3 || this.user.roleId == 7){
+                this.$router.push({name:'details.homeworkofflineTeacher'});    
+              }else if(this.user.roleId == 5){
+                this.$router.push({name:'details.homeworkofflineStudent'});    
+              }else{
+                this.$router.push({name:'details.classHomework'});    
+              }
+            }else if(this.content.homework.homeworkType == '在线作业'){
+              if(this.user.roleId == 3 || this.user.roleId == 7){
+                this.$router.push({name:'details.homeworkonlineTeacher'});    
+              }else if(this.user.roleId == 5){
+                this.$router.push({name:'details.homeworkonlineStudent'});    
+              }else{
+                this.$router.push({name:'details.classHomework'});    
+              }
+            }else if(this.content.homework.homeworkType == '在线测试'){
+              if(this.user.roleId == 3 || this.user.roleId == 7){
+                this.$router.push({name:'details.homeworktestTeacher'});    
+              }else if(this.user.roleId == 5){
+                this.$router.push({name:'details.homeworktestTeacher'});    
+              }else{
+                this.$router.push({name:'details.classHomework'});    
+              }
+            }else{
+              this.$router.push({name:'details.classHomework'});
+            }
+          }else{
+            this.$router.push({name:'details.homework'});
+          }
         }
       }
     }

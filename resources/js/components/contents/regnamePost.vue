@@ -201,7 +201,7 @@ export default {
                 this.$router.push({name:'details.CregnameAnswer', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
             }
             else{
-                this.$router.push({name:'details.CregnameResult', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+                this.$router.push({name:'details.CregnameResult', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
             }
           }
         }else{
