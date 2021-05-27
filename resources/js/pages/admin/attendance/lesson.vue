@@ -21,11 +21,12 @@
                   type="xls"
                   :name="`进离校-${attendanceDate}.xls`">
                     <v-btn
-                      dark
+                      :dark="!(attendanceData.length == 0)"
                       color="#7879ff"
                       tile
                       class="ml-4"
                       large
+                      :disabled="attendanceData.length == 0"
                   >
                       导出
                       <v-icon right>

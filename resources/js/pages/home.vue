@@ -253,6 +253,7 @@ import { getSchool } from '~/api/school'
 import {getSchoolStoryMo} from '~/api/schoolStory'
 import {getClassStory} from '~/api/classStory'
 import {postChooseableSchoolItem,  postChooseableClassItem, getPostItem} from '~/api/user'
+import {getStudentWithIds} from '~/api/user.js'
 import {createReadCnt} from '~/api/alarm'
 import carousel from 'v-owl-carousel';
 import lang from '~/helper/lang.json'
@@ -1067,6 +1068,7 @@ export default {
         }
       })
     }
+    
     else{
       let myschoolData = {}
       this.schoolTree.map((school, schoolIndex)=>{
@@ -1117,6 +1119,48 @@ export default {
       })
       myschoolData.grades = [] 
       this.mySchoolList.push(myschoolData)
+    }
+    else if(this.user.roleId == 4){
+      let myschoolData = {}
+      this.schoolTree.map(schoolItem=>{
+        if(this.user.schoolId == schoolItem.id){
+          myschoolData = schoolItem
+        }
+      })
+      let clonedVal1 = JSON.parse(JSON.stringify(myschoolData))
+      let clonedVal2 = JSON.parse(JSON.stringify(myschoolData))
+      clonedVal1.grades = []
+      let userList = []
+      await getStudentWithIds({studentList:this.user.children}).then(res=>{
+        userList = res.data
+      }).catch(err=>{
+        console.log(err.response)
+      })
+      clonedVal2.grades.map(grade=>{
+        grade.lessons.map(lesson=>{
+          userList.map(user=>{
+            user.groupArr.map(groupId=>{
+              // debugger
+              if(lesson.id == groupId){
+                let index = clonedVal1.grades.indexOf(grade)
+                if(index > -1){
+                  let lIndex = clonedVal1.grades[index].lessons.indexOf(lesson)
+                  if(lIndex == -1){
+                    clonedVal1.grades[index].lessons.push(lesson)
+                  }
+                }
+                else{
+                  clonedVal1.grades.push(grade)
+                  let gindex = clonedVal1.grades.indexOf(grade)
+                  clonedVal1.grades[gindex].lessons = []
+                  clonedVal1.grades[gindex].lessons.push(lesson)
+                }
+              }
+            })
+          })
+        })
+      })
+      this.mySchoolList.push(clonedVal1)
     }
     else{
       let myschoolData = {}

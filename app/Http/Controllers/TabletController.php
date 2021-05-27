@@ -157,12 +157,13 @@ class TabletController extends Controller
         $profileData['lessonName'] = $gradeName . $lessonName;
         $profileData['banzhuren'] = $banzhuren;
 
-        $tdoayDutyData = TodayDuty::whereDate('dutyDate', date('Y-m-d'))->get();
+        // $todayDutyData = TodayDuty::whereDate('dutyDate', \Carbon\Carbon::today()->setTimezone('Asia/Shanghai'))->get();
+        $todayDutyData = TodayDuty::whereDate('dutyDate', date('Y-m-d'))->get();
         $resultData['profileData'] = $profileData;
         $resultData['timeTableData'] = $subjectArr;
         $resultData['albumData'] = $albumData;
         $resultData['announceData'] = $announcementData;
-        $resultData['todayDutyData'] = $tdoayDutyData;
+        $resultData['todayDutyData'] = $todayDutyData;
         $resultData['attendanceData'] = $attendData;
         $resultData['schoolStoryData'] = $schoolStoryData;
         $resultData['classStoryData'] = $classStoryData;

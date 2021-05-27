@@ -182,11 +182,11 @@
                 </v-col>
                 <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
                     <h2 v-if="isRemainTeam">留堂成员的详细信息</h2>
-                    <h2 v-else>留堂成员的详细信息</h2>
+                    <h2 v-else>{{teamData.name}}</h2>
                 </v-col>
                 <v-col v-if="user.roleId == 1 || user.roleId == 2 || user.roleId == 3 || user.roleId == 7" cols="12" md="4" class="d-flex align-center justify-end">
                     <v-btn :dark="!isDetailView" color="#7879ff" :disabled="isDetailView" @click="submit" :loading="isUpdating">
-                        {{isRemainTeam?'发布':'新建归程队'}}
+                        {{isRemainTeam?'发布':'保存'}}
                     </v-btn>
                 </v-col>
             </v-row>
