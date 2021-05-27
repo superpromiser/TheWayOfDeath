@@ -155,6 +155,7 @@
 import {mapGetters} from 'vuex';
 import { getSchoolMemberList} from "~/api/user";
 import {addGroupMember} from '~/api/group';
+import {getReturnTeam} from '~/api/returnteam'
 import lang from "~/helper/lang.json";
 export default {
     props:{
@@ -180,16 +181,22 @@ export default {
             return this.$route;
         },
         ...mapGetters({
-            classGroupList: 'member/classGroupList'
+            classGroupList: 'member/classGroupList',
+            selectedGroup: 'member/selectedGroup',
+            detailData: 'returnteam/detailData',
         })
     },
     async created() {
         let lessonId = ''
+        console.log("=============",this.detailData)
+        console.log("-------------",this.classGroupList)
         if(this.currentPath.query.otherLesson){
             lessonId = this.currentPath.query.otherLesson
         }else{
             lessonId = this.currentPath.params.lessonId
         }
+        // this.classGroupList = null // sin's dirty code and dirty logic
+        this.$store.dispatch('member/storeClassGroupList',null)
         if(this.classGroupList == null){
 
             this.isLoading = true;
@@ -207,15 +214,41 @@ export default {
                     this.$set(user, "checkbox", false);
                     });
                     this.$store.dispatch('member/storeClassGroupList', res.data);
+                    getReturnTeam().then(res=>{
+                        res.data.returnTeamArr.map(returnTeam=>{
+                            if(returnTeam.name != "留堂成员"){
+                                returnTeam.member.map(member=>{
+                                    let index = this.classGroupList.findIndex(user=>user.id == member.id)
+                                    if(index > -1){
+                                        this.classGroupList.splice(index, 1)
+                                    }
+                                })
+                            }
+                        })
+                    })
+                    if(this.detailData != null){
+                        this.detailData.member.map(member=>{
+                            this.$set(member, "checkbox", true);
+                            this.classGroupList.push(member)
+                        })
+                    }
                     this.userList = this.classGroupList;
+                    this.isLoading = false;
                 }
             })
             .catch(err => {
                 console.log(err.response);
+                this.isLoading = false;
             });
-            this.isLoading = false;
+            
         }
         else{
+            if(this.detailData != null){
+                this.detailData.member.map(member=>{
+                    this.$set(member, "checkbox", true);
+                    this.classGroupList.push(member)
+                })
+            }
             this.userList = this.classGroupList;
         }
     },
