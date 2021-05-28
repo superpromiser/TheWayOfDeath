@@ -191,6 +191,7 @@ export default {
                     console.log(JSON.parse(val.query.tempData))
                     this.shareData.content = JSON.parse(val.query.tempData)
                 }
+                
             },
             deeper:true
         }
