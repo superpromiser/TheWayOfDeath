@@ -375,7 +375,7 @@ export default [
   {path:'/admin/vacation/teacher/:vId/reply', name:'posts.vacationTeacherReply', component:page('class/posts/vacation/teacher/reply.vue')},
 
   
-  //classPostDetail
+  //classPost Detail
   {path:'/classSpace/:schoolId/:gradeId/:lessonId/detail', name:"classSpace.detail", component:page('details/index.vue'),
     children:[
       {path:'questionnaire', name:'details.classQuesionnaire', component:page('details/questionnaire/index.vue'),

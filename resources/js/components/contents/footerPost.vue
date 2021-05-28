@@ -20,9 +20,9 @@
                     </v-btn>
                     <span>{{footerInfo.likes.length > 0 ? footerInfo.likes.length : 0}}</span>
                 </div>
-                <div class="d-flex align-center">
-                    <v-btn icon color="success" >
-                        <v-icon size="20" @click="showComment">mdi-comment-outline</v-icon>
+                <div class="d-flex align-center" @click="showDetail">
+                    <v-btn icon color="success">
+                        <v-icon size="20" >mdi-comment-outline</v-icon>
                     </v-btn>
                     <!-- <span class="font-size-0-8 font-color-white">评论</span> -->
                     <span>{{footerInfo.comments.length > 0 ? footerInfo.comments.length : 0}}</span>
@@ -145,7 +145,7 @@ import {addLike,removeLike} from '~/api/post'
 import {mapGetters} from 'vuex';
 import {getReadCnt} from '~/api/alarm'
 import {addComment,deleteComment} from '~/api/post'
-
+import {createReadCnt} from '~/api/alarm'
 import { Picker, EmojiIndex } from "emoji-mart-vue-fast";
 import "emoji-mart-vue-fast/css/emoji-mart.css";
 import emojiData from "emoji-mart-vue-fast/data/all.json";
@@ -286,6 +286,229 @@ export default {
             this.commentText = ''
             this.emoStatus = false
             this.isComment = false
+        },
+        showDetail(){
+            // console.log(this.footerInfo)
+             createReadCnt({postId:this.footerInfo.id}).then(res=>{
+                 console.log("--------",res.data)
+            }).catch(err=>{
+                console.log(err.response)
+            })
+            // alert(this.footerInfo.contentId)
+            
+            this.$store.dispatch('content/storePostDetail',this.footerInfo)
+            if(this.$isMobile()){
+                switch(this.footerInfo.contentId){
+                    case 1:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.quesionnaire', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classQuesionnaire', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 2:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.voting', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classVoting', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 5:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.anouncement', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.Canouncement', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 7:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolRepair', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classRepair', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 8:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 9:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 11:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 12:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.quesionnaire', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classQuesionnaire', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 13:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.voting', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classVoting', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 14:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            // this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                            if(this.content.homework.homeworkType == "常规作业"){
+                            if(this.user.roleId == 3 || this.user.roleId == 7){
+                                this.$router.push({name:'details.homeworkofflineTeacher', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+                            }else if(this.user.roleId == 5){
+                                this.$router.push({name:'details.homeworkofflineStudent', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+                            }else{
+                                this.$router.push({name:'details.classHomework', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+                            }
+                            }else if(this.content.homework.homeworkType == '在线作业'){
+                            if(this.user.roleId == 3 || this.user.roleId == 7){
+                                this.$router.push({name:'details.homeworkonlineTeacher', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+                            }else if(this.user.roleId == 5){
+                                this.$router.push({name:'details.homeworkonlineStudent', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+                            }else{
+                                this.$router.push({name:'details.classHomework', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+                            }
+                            }else if(this.content.homework.homeworkType == '在线测试'){
+                            if(this.user.roleId == 3 || this.user.roleId == 7){
+                                this.$router.push({name:'details.homeworktestTeacher', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+                            }else if(this.user.roleId == 5){
+                                this.$router.push({name:'details.homeworktestTeacher', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+                            }else{
+                                this.$router.push({name:'details.classHomework', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});    
+                            }
+                            }else{
+                            this.$router.push({name:'details.classHomework', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                            }
+                        }
+                        break;
+                    case 15:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 16:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId:this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId:this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 17:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 19:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.classRecognition', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classRecognition', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 20:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 21:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 23:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId:this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId:this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 24:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.interClassStory'});
+                            if(this.user.roleId == 5){
+                                this.$router.push({name:'details.regnameAnswer', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                            }
+                            else{
+                                this.$router.push({name:'details.regnameResult', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                            }
+                        }
+                        else{
+                            if(this.user.roleId == 5){
+                                this.$router.push({name:'details.CregnameAnswer', params:{schoolId: this.selectedSchoolItem.schoolId, lessonId: this.selectedSchoolItem.lessonId}});
+                            }
+                            else{
+                                this.$router.push({name:'details.CregnameResult', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                            }
+                        }
+                        break;
+                    case 25:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId,  lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 26:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    case 27:
+                        if(this.selectedSchoolItem.type == 'school'){
+                            this.$router.push({name:'classSpace.applications.returnTeam', params:{schoolId: this.selectedSchoolItem.schoolId}});
+                        }
+                        else{
+                            this.$router.push({name:'classSpace.applications.returnTeam', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId,  lessonId: this.selectedSchoolItem.lessonId}});
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

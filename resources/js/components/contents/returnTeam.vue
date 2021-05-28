@@ -85,16 +85,25 @@ export default {
     methods:{
         showDetail(content){
           createReadCnt({postId:content.id}).then(res=>{
-        }).catch(err=>{
-          console.log(err.response)
-        })
-            this.$store.dispatch('content/storePostDetail',content)
-            this.$router.push({name:'classSpace.applications.returnTeam'});
-            // if(this.currentPath.params.lessonId){
-            //   this.$router.push({name:'classSpace.applications.returnTeam'});
-            // }else{
-            //   this.$router.push({name:'classSpace.applications.returnTeam'});
-            // }
+          }).catch(err=>{
+            console.log(err.response)
+          })
+          this.$store.dispatch('content/storePostDetail',content)
+          // this.$router.push({name:'classSpace.applications.returnTeam'});
+          if(this.$isMobile()){
+            if(this.selectedSchoolItem.type == 'school'){
+              this.$router.push({name:'classSpace.applications.returnTeam', params:{schoolId: this.selectedSchoolItem.schoolId}});
+            }
+            else{
+              this.$router.push({name:'classSpace.applications.returnTeam', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId,  lessonId: this.selectedSchoolItem.lessonId}});
+            }
+          }else{
+            if(this.currentPath.params.lessonId){
+              this.$router.push({name:'classSpace.applications.returnTeam'});
+            }else{
+              this.$router.push({name:'classSpace.applications.returnTeam'});
+            }
+          }
         },
     }
 }
