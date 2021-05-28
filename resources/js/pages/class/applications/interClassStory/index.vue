@@ -197,6 +197,38 @@ export default {
             user:'auth/user'
         })
     },
+    watch:{
+        currentPath:{
+            handler(val){
+                if(val.query.fix){
+                    let index = this.contentList.findIndex(content=>content.id == this.currentPath.query.fix)
+                    if(index > -1){
+                        let fixVal = this.contentList[index]
+                        this.contentList.splice(index,1)
+                        let currentTime = this.TimeView(Date.now())
+                        fixVal.fixTop = currentTime;
+                        this.contentList.unshift(fixVal)
+                    }
+                }
+                if(val.query.release){
+                    let index = this.contentList.findIndex(content=>content.id == this.currentPath.query.release)
+                    if(index > -1){
+                        let releaseVal = this.contentList[index]
+                        releaseVal.fixTop = null
+                        this.contentList.splice(index,1)
+                        this.contentList.push(releaseVal)
+                    }
+                }
+                if(val.query.remove){
+                    let index = this.contentList.findIndex(content=>content.id == this.currentPath.query.remove)
+                    if(index > -1){
+                        this.contentList.splice(index,1)
+                    }
+                }
+            },
+            deeper:true
+        }
+    },
     methods:{
         async infiniteHandler($state){
             let timeOut = 0;
