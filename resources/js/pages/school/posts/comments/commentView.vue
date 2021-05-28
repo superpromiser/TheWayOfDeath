@@ -64,7 +64,7 @@
                   @click:append-outer="postComment"
                   @click:clear="cancelComment"
                   @focus="closeWithFocus()"
-                  
+                  :autofocus="isQuery"
                   @keydown.enter.exact.prevent 
                   @keyup.enter.exact="newline" 
                   @keydown.enter.shift.exact="postComment" 
@@ -186,10 +186,17 @@ export default {
   computed:{
     ...mapGetters({
       contentData:'content/postDetail',
-      user:'auth/user'
-    })
+      user:'auth/user',
+      
+    }),
+    currentPath(){
+      return this.$route;
+    }
   },
   created(){
+    if(this.currentPath.query.autoFocus){
+      this.isQuery = true
+    }
     this.contentData.comments.map(comment=>{
       this.$set(comment,'isDeleting',false)
     })
@@ -204,7 +211,7 @@ export default {
     isDeleting:false,
     emojiIndex: emojiIndex,
     isPosting:false,
-    
+    isQuery:false,
     emojiI18n: { 
       search: 'Recherche', 
       categories: { 
@@ -227,6 +234,7 @@ export default {
     isOpenSheet : false,
 
   }),
+  
   methods:{
     toggleEmo(){
       this.emoStatus = ! this.emoStatus

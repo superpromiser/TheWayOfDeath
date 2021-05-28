@@ -6,9 +6,12 @@
             mdi-chevron-left
           </v-icon>
           <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.questionnaire}}</p>
-          <v-btn v-if="answerUserShow == false" @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
-            已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
-          </v-btn>
+          <div>
+            <v-btn color="#7879ff" :dark="!alreadyAnswer" :disabled="alreadyAnswer" :loading="isSubmit" @click="submit"> {{lang.submit}} </v-btn>
+            <v-btn v-if="answerUserShow == false" @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+              已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
+            </v-btn>
+          </div>
         </v-row>
         <div class="cus-divider-light-gray-height"></div>
         <v-row class="ma-0">
@@ -132,33 +135,6 @@
                       ></v-textarea>
                     </v-col>
                   </v-row>
-                  <!--  statistics Datas  -->
-                  <!-- <v-row v-if="content.type == 'stat'">
-                    <v-col cols="12">
-                      <p class="mb-0 d-flex align-center"> 
-                        {{index + 1}}.  
-                        <v-chip class="ma-2" color="success" outlined >
-                          <strong>统计题</strong>
-                        </v-chip>
-                      </p>
-                      <p class="text-wrap pl-3 mb-0">{{ content.statDataArr[0].contentData[0].text }}</p>
-                    </v-col>
-                    <v-col v-if="checkIfAttachExist(content.statDataArr[0].contentData[0])">
-                      <AttachItemViewer :items="content.statDataArr[0].contentData[0]" />
-                    </v-col>
-                    <v-col cols="12">
-                      <v-textarea
-                        clearable
-                        solo
-                        clear-icon="mdi-close-circle"
-                        :label="`${content.statDataArr[0].sValue}~${content.statDataArr[0].eValue}`"
-                        value=""
-                        v-model.number="answerData.statAnswer"
-                        hide-details
-                      ></v-textarea>
-                    </v-col>
-                  </v-row> -->
-                  <!--  score Datas  -->
                   <v-row v-if="content.type == 'score'">
                     <v-col cols="12">
                       <p class="mb-0 d-flex align-center"> 
@@ -182,11 +158,11 @@
           </v-row>
           <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
           <CommentView class="pb-10"></CommentView>
-          <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
+          <!-- <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
               <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
                   <v-btn color="#7879ff" block :dark="!alreadyAnswer" large :disabled="alreadyAnswer" :loading="isSubmit" @click="submit"> {{lang.submit}} </v-btn>
               </v-col>
-          </v-row>
+          </v-row> -->
         </div>
         <div v-else>
           <router-view :answerUsers="answerDataList"></router-view>
