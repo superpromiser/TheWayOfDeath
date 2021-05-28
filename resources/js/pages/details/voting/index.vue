@@ -6,9 +6,12 @@
                     mdi-chevron-left
                 </v-icon>
                 <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.voting}}</p>
-                <v-btn v-if="answerUserShow == false" @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
-                    已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
-                </v-btn>
+                <div>
+                    <v-btn color="#7879ff" :dark="!alreadyAnswer" :disabled="alreadyAnswer" :loading="isSubmit" @click="submit" class="position-absolute put-align-center" style="right: 15%; top:50%"> {{lang.submit}} </v-btn>
+                    <v-btn v-if="answerUserShow == false" @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+                        已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
+                    </v-btn>
+                </div>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
             <v-row class="ma-0">
@@ -58,11 +61,11 @@
                 </v-row>
                 <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
                 <CommentView class="pb-10"></CommentView>
-                <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
+                <!-- <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
                     <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
                         <v-btn color="#7879ff" block :dark="!alreadyAnswer" large :disabled="alreadyAnswer" :loading="isSubmit" @click="submit"> {{lang.submit}} </v-btn>
                     </v-col>
-                </v-row>
+                </v-row> -->
             </div>
             <div v-else>
                 <router-view :answerUsers="answerDataList"></router-view>

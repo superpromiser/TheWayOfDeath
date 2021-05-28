@@ -7,8 +7,8 @@
           </v-icon>
           <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.questionnaire}}</p>
           <div>
-            <v-btn color="#7879ff" :dark="!alreadyAnswer" :disabled="alreadyAnswer" :loading="isSubmit" @click="submit"> {{lang.submit}} </v-btn>
-            <v-btn v-if="answerUserShow == false" @click="answerUsers" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
+            <v-btn color="#7879ff" :dark="!alreadyAnswer" :disabled="alreadyAnswer" :loading="isSubmit" @click="submit" class="position-absolute put-align-center" style="right:15%;top:50%"> {{lang.submit}} </v-btn>
+            <v-btn v-if="answerUserShow == false" @click="answerUsers"  class="position-absolute put-align-center" text color="#7879ff" style="right: 0px; top:50%">
               已答{{answerDataList.length > 0 ? answerDataList.length : ''}}
             </v-btn>
           </div>

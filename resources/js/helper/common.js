@@ -147,19 +147,19 @@ export default{
             return returnVal;
         },
         fixTop(data){
-            console.log('fixTop-----',data)
             axios.put('/api/v1/post',{postId:data.id}).then(res=>{
                 console.log("content top",res.data)
                 this.$snackbar.showMessage({content: '置顶 成功', color: "success"})
+                this.$router.replace({query:{fix:res.data}})
             }).catch(err=>{
                 console.log(err.response)
             })
         },
         relaseTop(id){
-            console.log('relaseTop-----',id)
             axios.put('/api/v1/post/relaseTop',{postId:id}).then(res=>{
                 console.log("release top",res.data)
-                this.snackbar.showMessage({content: '取消置顶 成功', color: "success"})
+                this.$snackbar.showMessage({content: '取消置顶 成功', color: "success"})
+                this.$router.replace({query:{release:res.data}})
             }).catch(err=>{
                 console.log(err.response)
             })
@@ -170,6 +170,8 @@ export default{
                 // alert('删除成功')
                 console.log("content delete",res.data)
                 this.$snackbar.showMessage({content: '删除 成功', color: "success"})
+                this.$router.replace({query:{remove:res.data}})
+                // this.$router.push(path: currentPath, query: {})
             }).catch(err=>{
                 //console.log(err.response)
             });

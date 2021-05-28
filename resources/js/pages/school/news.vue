@@ -210,6 +210,40 @@ export default {
       return this.$route
     }
   },
+  watch:{
+    currentPath:{
+        handler(val){
+            if(val.query.fix){
+              let index = this.contentList.findIndex(content=>content.id == this.currentPath.query.fix)
+              console.log("this.currentPath.query.fix",this.currentPath.query.fix)
+              if(index > -1){
+                console.log(index)
+                let fixVal = this.contentList[index]
+                this.contentList.splice(index,1)
+                this.contentList[0] = fixVal
+                console.log(this.contentList)
+              }
+            }
+            if(val.query.release){
+              console.log("this.currentPath.query.release",this.currentPath.query.release)
+              let index = this.contentList.findIndex(content=>content.id == this.currentPath.query.release)
+              if(index > -1){
+                let releaseVal = this.contentList[index]
+                this.contentList.splice(index,1)
+                this.contentList.push(releaseVal)
+              }
+            }
+            if(val.query.remove){
+              console.log("this.currentPath.query.remove",this.currentPath.query.remove)
+              let index = this.contentList.findIndex(content=>content.id == this.currentPath.query.remove)
+              if(index > -1){
+                this.contentList.splice(index,1)
+              }
+            }
+        },
+        deeper:true
+    }
+  },
   methods:{
     updateFooterInfo(data){
       let index = this.contentList.findIndex(content=>content.id === data.id)

@@ -21,6 +21,8 @@
                 </v-col>
             </v-row>
         </v-container>
+        <FooterPost :footerInfo='contentData'></FooterPost>
+        <CommentView></CommentView>
     </v-container>
     <v-container class="pa-0" v-else>
 
