@@ -496,6 +496,8 @@ export default {
           this.isLoading = false
           console.log(err.response)
         })
+        console.log('========',this.contentData)
+        console.log('--------',this.answerDataList)
     },
 
     methods:{

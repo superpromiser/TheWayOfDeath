@@ -261,6 +261,7 @@ export default {
                 this.repairData.content = [];
                 return;
             }
+            this.repairData.content = [];
             this.repairData.content.push(data)
         },
         async submit(){
@@ -275,11 +276,6 @@ export default {
             if(this.repairData.content.length == 0){
                 return this.$snackbar.showMessage({content: this.lang.requireDescription, color: "error"})
             }
-            // console.log(this.viewList)
-            // return
-            // this.repairData.viewListId = this.viewList.lessonId
-            // this.repairData.viewListName = this.viewList.lessonName 
-            console.log(this.repairData)
             this.isSubmit = true
             await createRepairData(this.repairData).then(res=>{
                 console.log(res.data)
