@@ -13,6 +13,18 @@
                         <v-icon>mdi-dots-horizontal </v-icon>
                     </v-btn>
                 </template>
+                <div class="d-flex align-center">
+                    <v-btn icon color="blue accent-3">
+                        <v-icon @click="postRemove(footerInfo)">mdi-trash-can-outline</v-icon>
+                    </v-btn>
+                </div>
+                <div class="d-flex align-center ">
+                    <v-btn icon color="#7879ff">
+                        <v-icon size="20" @click="fixTop(footerInfo)" v-if="footerInfo.fixTop == null">mdi-arrow-up </v-icon>
+                        <v-icon size="20" @click="relaseTop(footerInfo.id)" v-else>mdi-arrow-down </v-icon>
+                    </v-btn>
+                </div>
+                
                 <div class="d-flex align-center ">
                     <v-btn icon color="red accent-3" :loading="isLiking">
                         <v-icon size="20" v-if="footerInfo.isLiked" @click="removeLike">mdi-heart </v-icon>
@@ -169,6 +181,37 @@ export default {
             return this.$route
         }
     },
+    // watch:{
+    // currentPath:{
+    //     handler(val){
+    //         if(val.query.fix){
+    //             let index = this.contentList.findIndex(content=>content.id == this.currentPath.query.fix)
+    //             if(index > -1){
+    //                 let fixVal = this.contentList[index]
+    //                 this.contentList.splice(index,1)
+    //                 let currentTime = this.TimeView(Date.now())
+    //                 fixVal.fixTop = currentTime;
+    //                 this.contentList.unshift(fixVal)
+    //             }
+    //         }
+    //         if(val.query.release){
+    //             let index = this.contentList.findIndex(content=>content.id == this.currentPath.query.release)
+    //             if(index > -1){
+    //                 let releaseVal = this.contentList[index]
+    //                 releaseVal.fixTop = null
+    //                 this.contentList.splice(index,1)
+    //                 this.contentList.push(releaseVal)
+    //             }
+    //         }
+    //         if(val.query.remove){
+    //             let index = this.contentList.findIndex(content=>content.id == this.currentPath.query.remove)
+    //             if(index > -1){
+    //                 this.contentList.splice(index,1)
+    //             }
+    //         }
+    //     },
+    //     deeper:true
+    // },
     data: ()=> ({
         fab: false,
         isReadCnt:false,

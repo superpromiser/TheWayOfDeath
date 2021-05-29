@@ -733,9 +733,7 @@ class UserController extends Controller
                 'bulletinBoards:postId,content', //6
                 'shares:postId,content', //23
                 'safestudy:postId,content', //8
-                'repairdata' => function ($q) { //7
-                    $q->whereIn('status', ['progress', 'done']);
-                },
+                'repairdata', //7
                 'schoolstory:postId,content', // 11
                 'regnames:postId,content', // 24
                 'homeVisit:postId,content', // 16
@@ -1012,7 +1010,9 @@ class UserController extends Controller
                     }
                     break;
                 case 7:     //repair data
-                    $contentData = json_decode($post->repairdata->content);
+                    $contentData = json_decode($post->repairdata->content)[0];
+                    // $contentData = $post->repairdata->content[0];
+                    // file_put_contents('content.txt', $contentData);
                     $imgUrls = $contentData->imgUrl;
                     foreach ($imgUrls as $imgUrl) {
                         $path = $imgUrl->path;
