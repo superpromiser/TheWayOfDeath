@@ -9,8 +9,15 @@
                 {{lang.addOption}}
             </v-btn>
         </v-row>
-        <div v-for="index in initialCnt" :key="index">
+
+        <div v-if="isNew == true" v-for="index in initialCnt" :key="index">
             <QuestionItem class="mt-2" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+            <v-divider></v-divider>
+        </div>
+        
+        <div v-if="isNew == false" v-for="(item, index) in singleData.singleContentDataArr" :key="index">
+            <QuestionItem class="mt-2" :item="item" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+            <v-divider></v-divider>
         </div>
         <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
             <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
@@ -76,7 +83,7 @@ export default {
     props:{
         type:{
             type:String,
-            requireed:false
+            required:false
         },
 
     },
@@ -106,7 +113,7 @@ export default {
             this.singleData.index = this.currentPath.params.editDataIndex;
             console.log("hey!", this.singleData);
         }
-        //console.log(this.type)
+        console.log("===================",this.type)
         if(this.type == undefined){
             this.$router.push({name:'posts.questionnaire'})
         }

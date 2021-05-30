@@ -6,22 +6,38 @@
       </v-icon>
       <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >评分题</p>
     </v-row>
-    <div>
-      <QuestionItem class="mt-2" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+    <div v-if="isNew == true">
+        <QuestionItem class="mt-2" :Label="lang.contentPlace" ref="childNew" @contentData="loadContentData"/>
+        <v-divider light class="thick-border"></v-divider>
+        <v-row class="ma-0 mt-2 bg-white">
+          <v-col cols="12" md="6" class="d-flex align-end">
+            <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
+            <v-select
+              :items="items"
+              :menu-props="{ top: false, offsetY: true }"
+              :label="lang.maxMinutes"
+              v-model="scoreData.scoringDataArr[0].maxMin"
+              hide-details
+            ></v-select>
+          </v-col>
+        </v-row>
     </div>
-    <v-row class="ma-0 mt-2 bg-white">
-      <v-col cols="12" md="6" class="d-flex align-end">
-        <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
-        <v-select
-          color="#7879ff"
-          :items="items"
-          :menu-props="{ top: false, offsetY: true }"
-          :label="lang.maxMinutes"
-          v-model="scoreData.scoringDataArr[0].maxMin"
-          hide-details
-        ></v-select>
-      </v-col>
-    </v-row>
+    <div v-if="isNew == false">
+        <QuestionItem class="mt-2" :Label="lang.contentPlace" :item="scoreData.scoringDataArr[0].contentData[0]" ref="childEdit" @contentData="loadContentData"/>
+        <v-divider light class="thick-border"></v-divider>
+        <v-row class="ma-0 px-10">
+          <v-col cols="12" md="6" class="d-flex align-end">
+            <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
+            <v-select
+              :items="items"
+              :menu-props="{ top: false, offsetY: true }"
+              :label="lang.maxMinutes"
+              v-model="scoreData.scoringDataArr[0].maxMin"
+              hide-details
+            ></v-select>
+          </v-col>
+        </v-row>
+    </div>
     <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
       <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
         <v-btn color="#7879ff" block dark large @click="addScoringContent"> 确认发布 </v-btn>
@@ -48,33 +64,43 @@
           </v-col>
         </v-row>
     </v-container>
-    <div class="mt-3 mb-10 px-10">
+    <!-- <div class="mt-3 mb-10 px-10">
       <QuestionItem class="" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
       <v-divider light class="thick-border"></v-divider>
-    </div>
-    <v-row class="ma-0 px-10">
-      <v-col cols="12" md="6" class="d-flex align-end">
-        <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
-        <v-select
-          :items="items"
-          :menu-props="{ top: false, offsetY: true }"
-          :label="lang.maxMinutes"
-          v-model="scoreData.scoringDataArr[0].maxMin"
-          hide-details
-        ></v-select>
-        <!-- <v-row>
-          <v-col cols="12">{{lang.maxMinutes}}</v-col>
-          <v-col cols="12">
+    </div> -->
+    <div v-if="isNew == true" class="mt-3 px-10">
+        <QuestionItem :Label="lang.contentPlace" ref="childNew" @contentData="loadContentData"/>
+        <v-divider light class="thick-border"></v-divider>
+        <v-row class="ma-0 px-10">
+          <v-col cols="12" md="6" class="d-flex align-end">
+            <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
             <v-select
               :items="items"
-              label="2"
+              :menu-props="{ top: false, offsetY: true }"
+              :label="lang.maxMinutes"
               v-model="scoreData.scoringDataArr[0].maxMin"
               hide-details
             ></v-select>
           </v-col>
-        </v-row> -->
-      </v-col>
-    </v-row>
+        </v-row>
+    </div>
+    <div v-if="isNew == false" class="mt-3 px-10">
+        <QuestionItem class="mt-10" :Label="lang.contentPlace" :item="scoreData.scoringDataArr[0].contentData[0]" ref="childEdit" @contentData="loadContentData"/>
+        <v-divider light class="thick-border"></v-divider>
+        <v-row class="ma-0 px-10">
+          <v-col cols="12" md="6" class="d-flex align-end">
+            <p class="mb-0 mr-5">{{lang.maxMinutes}}</p>
+            <v-select
+              :items="items"
+              :menu-props="{ top: false, offsetY: true }"
+              :label="lang.maxMinutes"
+              v-model="scoreData.scoringDataArr[0].maxMin"
+              hide-details
+            ></v-select>
+          </v-col>
+        </v-row>
+    </div>
+    
   </v-container>
 </template>
 
@@ -95,6 +121,11 @@ export default {
 
   created(){
       //console.log(this.type)
+      if(this.currentPath.params.editDataArr !== undefined){
+          this.isNew = false;
+          this.scoreData.scoringDataArr = this.currentPath.params.editDataArr;
+          this.scoreData.index = this.currentPath.params.editDataIndex;
+      }
       if(this.type == undefined){
           this.$router.push({name:'posts.questionnaire'})
       }
@@ -109,12 +140,14 @@ export default {
           maxMin:'2'
         }
       ],
-      type : "score"
+      type : "score",
+      index:null,
     },
     items:[
       '2','3','4','5','6','7','8','9','10'
     ],
     requiredText:false,
+    isNew:true,
   }),
 
   computed:{
@@ -125,7 +158,12 @@ export default {
     
   methods:{
     addScoringContent(){
-      this.$refs.child.emitData();
+      // this.$refs.child.emitData();
+      if(this.isNew == true){
+        this.$refs.childNew.emitData();
+      }else{
+        this.$refs.childEdit.emitData();
+      }
       if(this.scoreData.scoringDataArr[0].contentData.length == 0){
         return this.$snackbar.showMessage({content: "标题不能为空", color: "error"})
       }
@@ -142,6 +180,7 @@ export default {
         this.scoreData.scoringDataArr[0].contentData = []
         return this.$snackbar.showMessage({content: "标题不能为空", color: "error"})
       }
+      this.scoreData.scoringDataArr[0].contentData = []
       this.scoreData.scoringDataArr[0].contentData.push(data)
     }
   }

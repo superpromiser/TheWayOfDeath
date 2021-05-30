@@ -6,8 +6,14 @@
       </v-icon>
       <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >问答题</p>
     </v-row>
-    <div>
-        <QuestionItem class="mt-2" :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+    <div v-if="isNew == true">
+        <QuestionItem class="mt-2" :Label="lang.contentPlace" ref="childNew" @contentData="loadContentData"/>
+        <v-divider light class="thick-border"></v-divider>
+    </div>
+    
+    <div v-if="isNew == false">
+        <QuestionItem class="mt-2" :Label="lang.contentPlace" :item="qaData.qaContentDataArr[0]" ref="childEdit" @contentData="loadContentData"/>
+        <v-divider light class="thick-border"></v-divider>
     </div>
     <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
       <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
@@ -35,8 +41,17 @@
           </v-col>
         </v-row>
     </v-container>
-    <div class="mt-3 px-10">
+    <!-- <div class="mt-3 px-10">
         <QuestionItem :Label="lang.contentPlace" ref="child" @contentData="loadContentData"/>
+        <v-divider light class="thick-border"></v-divider>
+    </div> -->
+    <div v-if="isNew == true" class="mt-3 px-10">
+        <QuestionItem :Label="lang.contentPlace" ref="childNew" @contentData="loadContentData"/>
+        <v-divider light class="thick-border"></v-divider>
+    </div>
+    
+    <div v-if="isNew == false" class="mt-3 px-10">
+        <QuestionItem class="mt-10" :Label="lang.contentPlace" :item="qaData.qaContentDataArr[0]" ref="childEdit" @contentData="loadContentData"/>
         <v-divider light class="thick-border"></v-divider>
     </div>
   </v-container>
@@ -57,20 +72,15 @@ export default {
       }
   },
 
-  created(){
-      //console.log(this.type)
-      if(this.type == undefined){
-          this.$router.push({name:'posts.questionnaire'})
-      }
-  },
-  
   data: () => ({
     qaData : {
       type : 'qa',
       qaContentDataArr:[],
+      index:null,
     },
     lang,
     requiredText:false,
+    isNew:true,
   }),
 
   computed:{
@@ -78,10 +88,27 @@ export default {
           return this.$route
       }
   },
+  created(){
+      //console.log(this.type)
+      console.log("++++++++++++++",this.currentPath.params.editDataArr)
+      if(this.currentPath.params.editDataArr !== undefined){
+          this.isNew = false;
+          this.qaData.qaContentDataArr = this.currentPath.params.editDataArr;
+          this.qaData.index = this.currentPath.params.editDataIndex;
+      }
+      if(this.type == undefined){
+          this.$router.push({name:'posts.questionnaire'})
+      }
+  },
     
   methods:{
     addQaContent(){
-      this.$refs.child.emitData()
+      // this.$refs.child.emitData()
+      if(this.isNew == true){
+        this.$refs.childNew.emitData()
+      }else{
+        this.$refs.childEdit.emitData()
+      }
       if(this.qaData.qaContentDataArr.length == 0){
         return
       }
@@ -96,6 +123,7 @@ export default {
       if(data.text === ''){
         return this.$snackbar.showMessage({content: "标题不能为空", color: "error"})
       }
+      this.qaData.qaContentDataArr = []
       this.qaData.qaContentDataArr.push(data)
     }
   },

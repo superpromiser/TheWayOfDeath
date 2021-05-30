@@ -337,7 +337,7 @@
                 </a>
               </v-col>
               <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                 <h2>{{lang.questionnaire}}</h2>
+                <h2>{{lang.questionnaire}}</h2>
               </v-col>
               <v-col cols="12" md="4" class="d-flex align-center justify-end">
                 <v-btn
@@ -368,106 +368,6 @@
                 </v-btn>
               </v-col>
             </v-row>
-            <!-- <div class="d-flex align-center justify-space-between">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-                <div class="">
-                 <h2>{{lang.questionnaire}}</h2>
-                </div>
-                <div>
-                  <v-btn
-                    text
-                    color="#7879ff"
-                    @click="selContent('template')"
-                  >
-                      可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
-                  </v-btn>
-                  <v-btn
-                      tile
-                      dark
-                      color="#7879ff"
-                      class="mx-2"
-                      :loading="isSubmit"
-                      @click="submit"
-                  >
-                      {{lang.submit}}
-                  </v-btn>
-                  <v-btn
-                      tile
-                      dark
-                      color="#F19861"
-                      class="mr-8"
-                      :loading="isDraft"
-                      @click="saveDraft"
-                  >
-                      {{lang.saveDraft}}
-                  </v-btn>
-                </div>
-            </div> -->
-            <!-- <div class="d-flex align-center justify-center">
-              <v-btn
-                text
-                color="#7879ff"
-                @click="selContent('template')"
-              >
-                  可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
-              </v-btn>
-              <v-btn
-                  tile
-                  dark
-                  color="#7879ff"
-                  class="mx-2"
-                  :loading="isSubmit"
-                  @click="submit"
-              >
-                  {{lang.submit}}
-              </v-btn>
-              <v-btn
-                  tile
-                  dark
-                  color="#F19861"
-                  class="mr-8"
-                  :loading="isDraft"
-                  @click="saveDraft"
-              >
-                  {{lang.saveDraft}}
-              </v-btn>
-              
-            </div> -->
-            
-            <!-- <template v-slot:actions>
-            <v-btn
-                text
-                color="#7879ff"
-                @click="selContent('template')"
-            >
-                可用模板 {{tempCnt}}， 草稿 {{draftCnt}}
-            </v-btn>
-            
-            <v-btn
-                tile
-                dark
-                color="#F19861"
-                class="mx-2"
-                :loading="isDraft"
-                @click="saveDraft"
-            >
-                {{lang.saveDraft}}
-            </v-btn>
-            <v-btn
-                tile
-                dark
-                color="#7879ff"
-                class="mr-8"
-                :loading="isSubmit"
-                @click="submit"
-            >
-                {{lang.submit}}
-            </v-btn>
-            </template> -->
         </v-container>
         <v-container class="pa-10">
             <v-row>
@@ -1028,6 +928,15 @@ export default {
       this.postNew = false;
       if(data.type == "single"){
         this.$router.push({name: "questionnaire.single", params: {editDataArr: data.singleContentDataArr, editDataIndex: index}})
+      }
+      if(data.type == "multi"){
+        this.$router.push({name: "questionnaire.multi", params: {editDataArr: data.multiContentDataArr, editDataIndex: index}})
+      }
+      if(data.type == "qa"){
+        this.$router.push({name: "questionnaire.questionAnswer", params: {editDataArr: data.qaContentDataArr, editDataIndex: index}})
+      }
+      if(data.type == "score"){
+        this.$router.push({name: "questionnaire.scoring", params: {editDataArr: data.scoringDataArr, editDataIndex: index}})
       }
     },
 
