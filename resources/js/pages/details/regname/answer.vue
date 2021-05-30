@@ -303,7 +303,16 @@ export default {
 
     methods:{
         async submit(){
-            console.log(this.regAnswerData);
+            // console.log(this.regAnswerData);
+            console.log("this.TimeView(this.contentData.regnames.startTime)",this.TimeView(this.contentData.regnames.startTime))
+            console.log("this.TimeView(Date.now())",this.TimeView(Date.now()))
+            console.log("this.TimeView(this.contentData.regnames.endTime)",this.TimeView(this.contentData.regnames.endTime))
+            if(this.TimeView(this.contentData.regnames.startTime) > this.TimeView(Date.now())){
+                return this.$snackbar.showMessage({content: this.lang.beforeStartTime, color: 'error'})
+            }
+            if(this.TimeView(this.contentData.regnames.endTime) < this.TimeView(Date.now())){
+                return this.$snackbar.showMessage({content: this.lang.deadlinePassed, color: 'error'})
+            }
             // return
             let payload = {
                 postId: this.regNameData.postId,

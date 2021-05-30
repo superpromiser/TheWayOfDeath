@@ -57,7 +57,7 @@
                       <AttachItemViewer :items="content.singleContentDataArr[0]" />
                     </v-col>
                     <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(singleData, singleDataIndex) in content.singleContentDataArr" :key="`${index}_${singleDataIndex}`" v-if="singleDataIndex !== 0">
-                      <div class="d-flex align-center cursor-pointer" @click="singleAnswer(`${index}_${singleDataIndex}`,index,content.type)" :class="{active: answerData.indexOf(`${index}_${singleDataIndex}`) > -1}"> 
+                      <div class="d-flex align-center hover-cursor-point" @click="singleAnswer(`${index}_${singleDataIndex}`,index,content.type)" :class="{active: answerData.indexOf(`${index}_${singleDataIndex}`) > -1}"> 
                         <v-chip
                           class="mr-2"
                           color="success"
@@ -85,7 +85,7 @@
                       <AttachItemViewer :items="content.multiContentDataArr[0]" />
                     </v-col>
                     <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(multiData, multiDataIndex) in content.multiContentDataArr" :key="`${index}_${multiDataIndex}`" v-if="multiDataIndex !== 0">
-                      <div class="d-flex align-center cursor-pointer" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1}" v-if="alreadyAnswer == true"> 
+                      <div class="d-flex align-center hover-cursor-point" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1}" v-if="alreadyAnswer == true"> 
                         <v-chip
                           class="mr-2"
                           color="success"
@@ -95,7 +95,7 @@
                         </v-chip>
                         <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                       </div>
-                      <div class="d-flex align-center cursor-pointer" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1}" v-else>
+                      <div class="d-flex align-center hover-cursor-point" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1}" v-else>
                         <v-chip
                           class="mr-2"
                           color="success"
@@ -269,11 +269,12 @@
                       <AttachItemViewer :items="content.singleContentDataArr[0]" />
                     </v-col>
                     <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(singleData, singleDataIndex) in content.singleContentDataArr" :key="`${index}_${singleDataIndex}`" v-if="singleDataIndex !== 0">
-                      <div class="d-flex align-center cursor-pointer" @click="singleAnswer(`${index}_${singleDataIndex}`,index,content.type)" :class="{active: answerData.indexOf(`${index}_${singleDataIndex}`) > -1}"> 
+                      <div class="d-flex align-center hover-cursor-point" @click="singleAnswer(`${index}_${singleDataIndex}`,index,content.type)" :class="{active: answerData.indexOf(`${index}_${singleDataIndex}`) > -1}"> 
                         <v-chip
                           class="mr-2"
-                          color="success"
-                          outlined
+                          :color="answerData.indexOf(`${index}_${singleDataIndex}`) > -1 ? '#49d29e': '#999999'"
+                          :outlined="!(answerData.indexOf(`${index}_${singleDataIndex}`) > -1)"
+                          :dark="answerData.indexOf(`${index}_${singleDataIndex}`) > -1"
                         >
                           <strong>{{alphabet[singleDataIndex-1]}}</strong>
                         </v-chip>
@@ -298,21 +299,23 @@
                       <AttachItemViewer :items="content.multiContentDataArr[0]" />
                     </v-col>
                     <v-col class="pl-6 hover-cursor-point" cols="12" v-for="(multiData, multiDataIndex) in content.multiContentDataArr" :key="`${index}_${multiDataIndex}`" v-if="multiDataIndex !== 0">
-                      <div class="d-flex align-center cursor-pointer" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1}" v-if="alreadyAnswer == true"> 
+                      <div class="d-flex align-center hover-cursor-point" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1}" v-if="alreadyAnswer == true"> 
                         <v-chip
                           class="mr-2"
-                          color="success"
-                          outlined
+                          :color="answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1 ? '#49d29e': '#999999'"
+                          :outlined="!(answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1)"
+                          :dark="answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1"
                         >
                           <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>
                         <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                       </div>
-                      <div class="d-flex align-center cursor-pointer" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1}" v-else>
+                      <div class="d-flex align-center hover-cursor-point" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1}" v-else>
                         <v-chip
                           class="mr-2"
-                          color="success"
-                          outlined
+                          :color="multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1 ? '#49d29e': '#999999'"
+                          :outlined="!(multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1)"
+                          :dark="multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1"
                         >
                           <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>
@@ -526,6 +529,10 @@ export default {
           if(this.alreadyAnswer == true){
             return this.$snackbar.showMessage({content: '您已经回答了该帖子', color: 'error'})
           }
+
+          if(this.contentData.questionnaires.deadline < this.TimeView(Date.now())){
+            return this.$snackbar.showMessage({content: this.lang.deadlinePassed, color: 'error'})
+          }
           
           this.answerData.map(answer=>{
             this.checkCnt ++;
@@ -562,8 +569,8 @@ export default {
 
 <style>
   .active{
-    background-color:#2d8cf0;
+    /* background-color:#2d8cf0 !important;
     cursor: pointer;
-    color:white
+    color:white !important; */
   }
 </style>

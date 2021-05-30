@@ -102,5 +102,7 @@
     "requiredStudentName":"学生姓名不能为空",
     "requiredTitle":"标题不能为空",
     "requiredViewList":"请选择一个班级",
-    "requiredInputList":"报名信息不能为空"
+    "requiredInputList":"报名信息不能为空",
+    "deadlinePassed":"已结束",
+    "beforeStartTime":"未开始"
 }

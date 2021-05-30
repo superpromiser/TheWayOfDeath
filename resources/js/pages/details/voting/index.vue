@@ -162,7 +162,7 @@
                         <AttachItemViewer :items="content[0]" />
                     </v-col>
                     <v-col class="pl-6" cols="12" v-for="(multiData, multiDataIndex) in content" :key="multiDataIndex" v-if="multiDataIndex !== 0">
-                        <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiDataIndex)" :class="{active: answerData.indexOf(multiDataIndex) > -1}"> 
+                        <div class="d-flex align-center hover-cursor-point" @click="multiAnswer(multiDataIndex)" :class="{active: answerData.indexOf(multiDataIndex) > -1}"> 
                             <v-chip
                             class="mr-2"
                             :color="answerData.indexOf(multiDataIndex) > -1 ? '#49d29e': '#999999'"
@@ -318,6 +318,9 @@ export default {
             if(this.alreadyAnswer == true){
                 return this.$snackbar.showMessage({content: '您已经回答了该帖子', color: 'error'})
             }
+            if(this.contentData.votings.deadline < this.TimeView(Date.now())){
+                return this.$snackbar.showMessage({content: this.lang.deadlinePassed, color: 'error'})
+            }
             this.isSubmit = true
             await createAnswerVoting({answer:this.answerData,postId:this.contentData.id}).then(res=>{
                 this.isSubmit = false
@@ -354,8 +357,8 @@ export default {
 
 <style>
   .active{
-    background-color:#2d8cf0;
-    cursor: pointer;
-    color:white
+    /* background-color:#2d8cf0; */
+    /* cursor: pointer; */
+    /* color:white */
   }
 </style>
