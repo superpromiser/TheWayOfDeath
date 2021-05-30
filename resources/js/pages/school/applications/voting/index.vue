@@ -84,7 +84,7 @@
             </v-row>
         </v-container>
         <!-- <v-divider class="thick-border"></v-divider> -->
-        <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+        <v-container v-if="contentList.length && content.votings" class="pa-0" v-for="content in contentList" :key="content.id" >
             <v-row class="px-5 mt-1 ma-0">
                 <VotingPost :content="content"></VotingPost>
                 <FooterPost :footerInfo='content'></FooterPost>
