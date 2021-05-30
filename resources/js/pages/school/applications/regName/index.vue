@@ -12,7 +12,7 @@
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
-            <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+            <v-container v-if="contentList.length && content.regnames" class="pa-0" v-for="content in contentList" :key="content.id" >
                 <v-row class="mt-1 ma-0">
                     <RegnamePost :content="content"></RegnamePost>
                     <FooterPost :footerInfo='content'></FooterPost>
@@ -84,7 +84,7 @@
             </v-row>
         </v-container>
         <!-- <v-divider class="thick-border"></v-divider> -->
-        <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+        <v-container v-if="contentList.length && content.regnames" class="pa-0" v-for="content in contentList" :key="content.id" >
             <v-row class="px-5 mt-1 ma-0">
                 <RegnamePost :content="content"></RegnamePost>
                 <FooterPost :footerInfo='content'></FooterPost>

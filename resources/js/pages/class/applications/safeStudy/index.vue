@@ -11,7 +11,7 @@
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
-            <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+            <v-container v-if="contentList.length && content.safestudy" class="pa-0" v-for="content in contentList" :key="content.id" >
                 <v-row class="mt-1 ma-0">
                     <SafeStudyPost :content="content"></SafeStudyPost>
                     <FooterPost :footerInfo='content'></FooterPost>
@@ -90,7 +90,7 @@
             </v-row>
         </v-container>
         <!-- <v-divider class="thick-border"></v-divider> -->
-        <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+        <v-container v-if="contentList.length && content.safestudy" class="pa-0" v-for="content in contentList" :key="content.id" >
             <v-row class="pa-0 mt-1 ma-0">
                 <SafeStudyPost :content="content"></SafeStudyPost>
                 <FooterPost :footerInfo='content'></FooterPost>
