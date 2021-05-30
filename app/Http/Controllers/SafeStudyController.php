@@ -20,6 +20,9 @@ class SafeStudyController extends Controller
         $roleId = Auth::user()->roleId;
         if ($roleId < 3) {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 8])
+                ->orwhere(function ($query) use ($request) {
+                    $query->where(['schoolId' => $request->schoolId, 'classId' => null, 'contentId' => 8]);
+                })
                 ->with([
                     'likes',
                     'views',
@@ -32,12 +35,15 @@ class SafeStudyController extends Controller
                 ->paginate(5);
         } else {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 8])
+                ->orwhere(function ($query) use ($request) {
+                    $query->where(['schoolId' => $request->schoolId, 'classId' => null, 'contentId' => 8]);
+                })
                 ->with([
                     'likes',
                     'views',
                     'comments.users:id,name',
                     'safestudy' => function ($query) use ($userId) {
-                        $query->where("viewList", "like", "%{$userId}")
+                        $query->where("viewList", "like", "%{$userId}%")
                             ->orWhere('viewList', null);;
                     },
                     'users:id,name,avatar'

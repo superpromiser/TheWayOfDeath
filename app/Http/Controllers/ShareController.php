@@ -21,6 +21,9 @@ class ShareController extends Controller
         if ($roleId < 3) {
             if ($request->userId) {
                 return Post::where(['schoolId' => $request->schoolId, 'userId' => $request->userId, 'contentId' => 23])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where(['contentId' => 23, 'classId' => null, 'schoolId' => $request->schoolId]);
+                    })
                     ->with([
                         'likes',
                         'views',
@@ -33,6 +36,9 @@ class ShareController extends Controller
                     ->paginate(5);
             } else {
                 return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 23])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where(['contentId' => 23, 'classId' => null, 'schoolId' => $request->schoolId]);
+                    })
                     ->with([
                         'likes',
                         'views',
@@ -47,6 +53,9 @@ class ShareController extends Controller
         } else {
             if ($request->userId) {
                 return Post::where(['schoolId' => $request->schoolId, 'userId' => $request->userId, 'contentId' => 23])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where(['contentId' => 23, 'classId' => null, 'schoolId' => $request->schoolId]);
+                    })
                     ->with([
                         'likes',
                         'views',
@@ -62,12 +71,15 @@ class ShareController extends Controller
                     ->paginate(5);
             } else {
                 return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 23])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where(['contentId' => 23, 'classId' => null, 'schoolId' => $request->schoolId]);
+                    })
                     ->with([
                         'likes',
                         'views',
                         'comments.users:id,name',
                         'shares' => function ($query) use ($userId) {
-                            $query->where("viewList", "like", "%{$userId}")
+                            $query->where("viewList", "like", "%{$userId}%")
                                 ->orWhere('viewList', null);
                         },
                         'users:id,name,avatar'

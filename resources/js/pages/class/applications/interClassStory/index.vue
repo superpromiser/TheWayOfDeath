@@ -11,7 +11,7 @@
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
-            <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+            <v-container v-if="contentList.length && content.interclassstory" class="pa-0" v-for="content in contentList" :key="content.id" >
                 <v-row class="mt-1 ma-0">
                     <InterClassStoryPost :content="content"></InterClassStoryPost>
                     <FooterPost :footerInfo='content'></FooterPost>
@@ -78,7 +78,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-container v-if="contentList.length" class="pa-0" v-for="content in contentList" :key="content.id" >
+        <v-container v-if="contentList.length && content.interclassstory" class="pa-0" v-for="content in contentList" :key="content.id" >
             <v-row class="px-5 mt-1 ma-0">
                 <InterClassStoryPost :content="content"></InterClassStoryPost>
                 <FooterPost :footerInfo='content'></FooterPost>

@@ -21,6 +21,10 @@ class AnouncementController extends Controller
         $roleId = Auth::user()->roleId;
         if ($roleId < 3) {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 5])
+                ->orWhere(function ($query) use ($request) {
+                    $query->where(['schoolId' => $request->schoolId, 'contentId' => 5])
+                        ->where('viewList', 'like', "%{$request->lessonId}%");
+                })
                 ->with([
                     'likes',
                     'views',
@@ -42,7 +46,7 @@ class AnouncementController extends Controller
                     'views',
                     'comments.users:id,name',
                     'anouncements' => function ($query) use ($userId) {
-                        $query->where("showList", "like", "%{$userId}")
+                        $query->where("showList", "like", "%{$userId}%")
                             ->orWhere('showList', null);
                     },
                     'users:id,name,avatar'

@@ -19,11 +19,11 @@ class RegnameController extends Controller
             'schoolId' => 'required'
         ]);
         $lessonId = $request->lessonId;
-        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 24])->where('viewList', 'like', "%{$request->lessonId}%")
-            // ->orWhere(function ($query) use ($request) {
-            //     $query->where('viewList', 'like', "%{$request->lessonId}%")
-            //         ->where('contentId', 24);
-            // })
+        return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 24])
+            ->orWhere(function ($query) use ($request) {
+                $query->where('viewList', 'like', "%{$request->lessonId}%")
+                    ->where('contentId', 24);
+            })
             ->with([
                 'likes',
                 'views',

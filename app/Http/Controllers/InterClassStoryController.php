@@ -38,7 +38,7 @@ class InterClassStoryController extends Controller
                     'views',
                     'comments.users:id,name',
                     'interclassstory' => function ($query) use ($userId) {
-                        $query->where("viewList", "like", "%{$userId}")
+                        $query->where("viewList", "like", "%{$userId}%")
                             ->orWhere('viewList', null);;
                     },
                     'users:id,name,avatar'

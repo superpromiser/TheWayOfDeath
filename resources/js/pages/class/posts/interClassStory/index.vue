@@ -162,7 +162,7 @@ export default {
             backWithChange: 'mo/backWithChange',
             clickedChange: 'mo/clickedChange',
             specUsers:'member/specUsers',
-            user:'member/user',
+            user:'auth/user',
         })
     },
     watch:{
@@ -238,6 +238,7 @@ export default {
                 else{
                     this.$set(this.shareData, 'specUsers', this.specUsers)
                 }
+                console.log("================",this.user)
                 this.shareData.specUsers.push(this.user.id)
             }
             this.isSubmit = true

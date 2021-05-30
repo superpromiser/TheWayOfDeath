@@ -90,7 +90,7 @@
             </v-row>
         </v-container>
         <!-- <v-divider class="thick-border"></v-divider> -->
-        <v-container v-if="contentList.length" class="px-5" v-for="content in contentList" :key="content.id" >
+        <v-container v-if="contentList.length && content.shares" class="px-5" v-for="content in contentList" :key="content.id" >
             <v-row class="pa-0 mt-1 ma-0">
                 <SharePost :content="content"></SharePost>
                 <FooterPost :footerInfo='content'></FooterPost>

@@ -23,6 +23,9 @@ class RepairDataController extends Controller
         $userId = Auth::user()->id;
         if ($request->status == 'all') {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 7])
+                ->orWhere(function ($query) use ($request) {
+                    $query->where(['schoolId' => $request->schoolId, 'contentId' => 7, 'classId' => null]);
+                })
                 ->with([
                     'likes',
                     'views',
@@ -37,6 +40,9 @@ class RepairDataController extends Controller
                 ->paginate(5);
         } else {
             return Post::where(['schoolId' => $request->schoolId, 'classId' => $request->lessonId, 'contentId' => 7])
+                ->orWhere(function ($query) use ($request) {
+                    $query->where(['schoolId' => $request->schoolId, 'contentId' => 7, 'classId' => null]);
+                })
                 ->with([
                     'likes',
                     'views',
