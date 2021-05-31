@@ -122,7 +122,7 @@
                             >
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
-                                      v-model="editItem.birthday"
+                                      v-model="editedItem.birthday"
                                       label="出生日期"
                                       prepend-icon="mdi-calendar"
                                       readonly
@@ -133,7 +133,7 @@
 
                                 <v-date-picker
                                 ref="picker"
-                                v-model="editItem.birthday"
+                                v-model="editedItem.birthday"
                                 :max="new Date().toISOString().substr(0, 10)"
                                 min="1950-01-01"
                                 locale="zh-cn"

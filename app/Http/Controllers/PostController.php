@@ -91,8 +91,8 @@ class PostController extends Controller
             return Post::whereIn('contentId', [1, 2, 5, 7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
                 ->where('classId', $classId)
                 ->orWhere(function ($query) use ($classId) {
-                    $query->where('viewList', 'like', "%{$classId}%")
-                        ->orWhere('viewList', null);
+                    $query->where('viewList', 'like', "%{$classId}%");
+                    // ->orWhere('viewList', null);
                 })
                 ->with([
                     'likes',
@@ -126,8 +126,8 @@ class PostController extends Controller
             return Post::whereIn('contentId', [1, 2, 5, 7, 8, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27])
                 ->where('classId', $classId)
                 ->orWhere(function ($query) use ($classId) {
-                    $query->where('viewList', 'like', "%{$classId}%")
-                        ->orWhere('viewList', null);
+                    $query->where('viewList', 'like', "%{$classId}%");
+                    // ->orWhere('viewList', null);
                 })
                 ->with([
                     'likes',
