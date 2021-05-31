@@ -451,6 +451,11 @@ class UserController extends Controller
         return User::select('id', 'name', 'avatar', 'gender', 'phoneNumber', 'imei')->where('groupArr', 'like', "%{$lessonId}%")->where(['roleId' => 5])->get();
     }
 
+    public function getChildren(Request $request)
+    {
+        return User::select('id', 'name', 'avatar', 'gender', 'phoneNumber')->whereIn('id', $request->children)->get();
+    }
+
     public function getUserByRole(Request $request)
     {
         $this->validate($request, [

@@ -315,7 +315,7 @@ import { mapGetters } from 'vuex'
 import cityListJson from '!!raw-loader!../cityLaw.txt';
 import UploadImage from '~/components/UploadImage';
 import { getSchoolTree } from '~/api/school'
-import { createStaff, updateStaff, getStaff, deleteUser,getSchoolUsers } from '~/api/user'
+import { createStaff, updateStaff, getStaff, deleteUser,getSchoolUsers,getStudentWithIds } from '~/api/user'
 
 export default {
   components:{
@@ -549,6 +549,7 @@ export default {
       this.isLoadingSchoolData = true;
       await getStaff()
       .then((res) => {
+        console.log('getStaff-----',res.data)
         res.data.map( x => {
             if(x.roleId == 4){
                 this.schoolManagerData.push(x);
@@ -584,7 +585,7 @@ export default {
 
     methods: {
 
-      editItem (item) {
+      async editItem (item) {
         console.log(item)
         let address = item.residenceAddress.split(" ");
         let index = this.madeJsonFromString.findIndex(item=>item.label == address[0])
@@ -597,15 +598,17 @@ export default {
         this.willBeCityDataOfFamilyAddress = this.madeJsonFromString[findex].city;
         let fcityIndex = this.willBeCityDataOfFamilyAddress.findIndex(item=>item.label == faddress[1])
         this.willBeRegionDataOfFamilyAddress = this.willBeCityDataOfFamilyAddress[fcityIndex].region
-        let studentItem = []
-        item.children.map(user=>{
-          let index = this.studentList.findIndex(stu=>stu.id == user)
-          studentItem.push(this.studentList[index].name)
+        
+        await getStudentWithIds({studentList:item.children}).then(res=>{
+          console.log('childrenList-----',res.data)
+          item.studentList = res.data  
+        }).catch(err=>{
+          console.log(err.response)
         })
-        item.children = studentItem
-        console.log(item)
+        
         this.editedIndex = this.schoolManagerData.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        console.log("editedItem======",this.editedItem)
         // this.editedItem.password = ''
         this.editedItem.familyAddress = JSON.parse(this.schoolManagerListRaw[this.editedIndex].familyAddress)
         this.editedItem.residenceAddress = JSON.parse(this.schoolManagerListRaw[this.editedIndex].residenceAddress)

@@ -55,7 +55,7 @@
         <v-list-item-title>即时通讯</v-list-item-title>
       </v-list-item>
       <v-list-item
-        active-class="sub-header-active" link to="/fence" v-if="user.roleId != 5 || user.roleId != 6 || user.roleId == 1 || user.roleId !=  3">
+        active-class="sub-header-active" link to="/fence" v-if="user.roleId == 2 || user.roleId == 4 || user.roleId == 7">
         <v-list-item-icon>
           <v-icon>mdi-map</v-icon>
         </v-list-item-icon>

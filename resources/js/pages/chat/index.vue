@@ -90,7 +90,8 @@
                             <div class="emoji-area-popup position-absolute" style="bottom: 50px">
                                 <Picker 
                                     v-if="emoStatus" 
-                                    set="emojione" 
+                                    set="twitter" 
+                                    :data="emojiIndex"
                                     @select="onInput" 
                                     title="选择你的表情符号..." 
                                     v-click-outside="onClickOutsideEmoji" 
@@ -124,31 +125,6 @@
                             </v-icon>
                         </v-btn>
                     </v-col>
-                        <!-- <v-col cols="12" class="d-flex align-center ">
-                            <v-btn color="blue accent-3" fab small dark class="ma-2"
-                                :loading="isUploadingFileInChat"
-                                @click="clickUploadImageBtn" > 
-                                <v-icon>mdi-file-image-outline</v-icon>
-                            </v-btn>
-                            <input ref="imageUploader" class="d-none" type="file" accept="image/*" @change="onImageFileChanged" >
-                            <v-btn color="blue accent-3" fab small dark class="ma-2"
-                                :loading="isUploadingFileInChat"
-                                @click="clickUploadVideoBtn" > 
-                                <v-icon>mdi-video</v-icon>
-                            </v-btn>
-                            <input ref="videoUploader" class="d-none" type="file" accept="video/*" @change="onVideoFileChanged" >
-                            <v-btn color="blue accent-3" fab small dark class="ma-2"
-                                :loading="isUploadingFileInChat"
-                                @click="clickUploadFileBtn" >
-                                <v-icon>mdi-file-upload</v-icon>
-                            </v-btn>
-                            <input ref="fileUploader" class="d-none" type="file" accept=".doc, .docx, .zip, .pdf, .xls, .xlsx, .rp, .mp3, .rp, .ppt, .pptx, .pptm, .apk, .rar" @change="onFileFileChanged" >
-                            <v-btn v-if="emoji" color="blue accent-3" fab small dark class="ma-2"
-                                @click="toggleEmo" >
-                                <v-icon>mdi-emoticon-excited-outline</v-icon>
-                            </v-btn>
-                            <Picker v-if="emoStatus" set="emojione" @select="onInput" title="选择你的表情符号..." />
-                        </v-col> -->
                 </v-row>
           </v-col>
       </v-row>
