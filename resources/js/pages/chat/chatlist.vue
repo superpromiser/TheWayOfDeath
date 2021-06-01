@@ -102,13 +102,13 @@
                                     <v-list-item-title>{{user.user.name}}</v-list-item-title>
                                     <v-list-item-subtitle></v-list-item-subtitle>
                                 </v-list-item-content>
-                                <div v-if="user.new_msg_count !== 0" class="mr-8">
+                                <!-- <div v-if="user.new_msg_count !== 0" class="mr-8">
                                     <v-badge
                                         color="red"
                                         :content="user.new_msg_count"
                                         >
                                     </v-badge>
-                                </div>
+                                </div> -->
                             </v-list-item>
                             <v-menu rounded offset-y bottom left min-width="200" origin="top right" transition="scale-transition">
                                 <template v-slot:activator="{ attrs, on }">

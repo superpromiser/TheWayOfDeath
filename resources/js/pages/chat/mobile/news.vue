@@ -125,13 +125,13 @@
                                     <p class="mb-0" v-else-if="user.last_message !== null&& user.last_message == 'sammie-video'"><span class="d-flex align-center"><v-icon left>mdi-file-video-outline</v-icon>视频</span></p>
                                     <p class="mb-0" v-else-if="user.last_message !== null&& user.last_message == 'sammie-file'"><span  class="d-flex align-center"><v-icon left>mdi-file-upload-outline</v-icon>文档</span></p>   
                                     <p class="mb-0 w-50 over-flow-text" v-else>{{user.last_message}}</p>
-                                    <div v-if="user.new_msg_count !== 0" class="mr-8">
+                                    <!-- <div v-if="user.new_msg_count !== 0" class="mr-8">
                                         <v-badge
                                             color="red"
                                             :content="user.new_msg_count"
                                             >
                                         </v-badge>
-                                    </div>
+                                    </div> -->
                                 </v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item>
@@ -339,13 +339,15 @@ export default {
                 })
             Echo.private('newMessage.'+ this.currentUser.id)
                 .listen('NewMessage', (message) => {
-                    if ( message.message.to == this.currentUser.id ) {
+                    console.log(message)
+                    if ( message.message.to == this.currentUser.id) {
                         for(let i = 0; i < this.contactList.length; i++){
                             if( message.message.from.id == this.contactList[i].contactUserId ){
                                 this.totalNewMessageCount = this.totalNewMessageCount + 1;
                                 // this.$store.state.totalNewMsgCnt = this.totalNewMessageCount;
                                 this.$store.dispatch('chat/storeTotalNewMsgCount',this.totalNewMessageCount)
                                 this.contactList[i].new_msg_count = this.contactList[i].new_msg_count + 1;
+                                console.log(this.contactList[i])
                                 postNewMsgCount({new_msg_count:this.contactList[i]});
 
                                 if(message.message.text !== null){

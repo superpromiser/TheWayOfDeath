@@ -60,8 +60,9 @@
                       <div class="d-flex align-center hover-cursor-point" @click="singleAnswer(`${index}_${singleDataIndex}`,index,content.type)" :class="{active: answerData.indexOf(`${index}_${singleDataIndex}`) > -1}"> 
                         <v-chip
                           class="mr-2"
-                          color="success"
-                          outlined
+                          :color="answerData.indexOf(`${index}_${singleDataIndex}`) > -1 ? '#49d29e': '#999999'"
+                          :outlined="!(answerData.indexOf(`${index}_${singleDataIndex}`) > -1)"
+                          :dark="answerData.indexOf(`${index}_${singleDataIndex}`) > -1"
                         >
                           <strong>{{alphabet[singleDataIndex-1]}}</strong>
                         </v-chip>
@@ -88,8 +89,9 @@
                       <div class="d-flex align-center hover-cursor-point" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1}" v-if="alreadyAnswer == true"> 
                         <v-chip
                           class="mr-2"
-                          color="success"
-                          outlined
+                          :color="answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1 ? '#49d29e': '#999999'"
+                          :outlined="!(answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1)"
+                          :dark="answerData[index].indexOf(`${index}_${multiDataIndex}`) > -1"
                         >
                           <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>
@@ -98,8 +100,9 @@
                       <div class="d-flex align-center hover-cursor-point" @click="multiAnswer(`${index}_${multiDataIndex}`,index,content.type)"  :class="{active: multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1}" v-else>
                         <v-chip
                           class="mr-2"
-                          color="success"
-                          outlined
+                          :color="multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1 ? '#49d29e': '#999999'"
+                          :outlined="!(multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1)"
+                          :dark="multiAnswerArr.indexOf(`${index}_${multiDataIndex}`) > -1"
                         >
                           <strong>{{alphabet[multiDataIndex-1]}}</strong>
                         </v-chip>

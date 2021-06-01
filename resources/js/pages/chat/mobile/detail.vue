@@ -654,6 +654,7 @@ export default {
             })
         Echo.private('newMessage.'+ this.currentUser.id)
             .listen('NewMessage', (message) => {
+                console.log(message)
                 if (
                 message.message.to == this.currentUser.id &&
                 message.message.from.id == this.ChatWith

@@ -49,8 +49,9 @@
                         <div class="d-flex align-center cursor-pointer" @click="multiAnswer(multiDataIndex)" :class="{active: answerData.indexOf(multiDataIndex) > -1}"> 
                             <v-chip
                             class="mr-2"
-                            color="success"
-                            outlined
+                            :color="answerData.indexOf(multiDataIndex) > -1 ? '#49d29e': '#999999'"
+                            :outlined="!(answerData.indexOf(multiDataIndex) > -1)"
+                            :dark="answerData.indexOf(multiDataIndex) > -1"
                             >
                             <strong>{{alphabet[multiDataIndex-1]}}</strong>
                             </v-chip>

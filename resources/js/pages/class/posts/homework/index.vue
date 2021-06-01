@@ -41,7 +41,7 @@
                     <v-icon right> mdi-chevron-right </v-icon>
                 </v-col>
             </v-row>
-            <QuestionItem Label="" :emoji="true" :isAnnouncement="true" :isShareView="true" :item="homeworkData.content" ref="child" @contentData="loadContentData"></QuestionItem>
+            <QuestionItem Label="" :emoji="true" :isAnnouncement="true" :isShareView="true" :item="homeworkData.content[0]" ref="child" @contentData="loadContentData"></QuestionItem>
             <v-btn @click="templateList" rounded color="#E0E0E0" small elevation="0" class="position-absolute font-color-gray-dark-btn" style="bottom: 54px; left: 12px;"> <v-icon left>mdi-buffer</v-icon>模板</v-btn>
             <v-menu top offset-y :close-on-content-click="true" :content-class="publishSpecUserList !== null&&publishSpecUserList.length > 0 ? 'box-shadow-none publish-type-menu-with-btn': 'box-shadow-none publish-type-menu'" tile min-width="90">
                 <template v-slot:activator="{ on, attrs }">

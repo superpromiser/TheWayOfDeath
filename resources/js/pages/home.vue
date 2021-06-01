@@ -637,11 +637,11 @@ export default {
       },
     ],
     teacherClassItems:[
-      {
-        title:"请假审批",//휴가심사
-        imgUrl:"/asset/img/appIcon/attendance/vocationReply.png",
-        path:"vacation"
-      },
+      // {
+      //   title:"请假审批",//휴가심사
+      //   imgUrl:"/asset/img/appIcon/attendance/vocationReply.png",
+      //   path:"vacation"
+      // },
       {
         title:"课程表",//시간표
         imgUrl:"/asset/img/appIcon/attendance/scheduleClass.png",
