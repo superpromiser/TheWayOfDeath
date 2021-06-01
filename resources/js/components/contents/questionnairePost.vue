@@ -31,7 +31,7 @@
             <div class="d-flex align-center">
               <p class="text-wrap mb-0">
                 <strong>截止时间:</strong>
-                {{content.questionnaires.deadline}}
+                {{TimeView(content.questionnaires.deadline)}}
               </p>
             </div>
             <div>

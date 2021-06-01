@@ -909,7 +909,7 @@ export default {
         return this.$snackbar.showMessage({content: this.lang.questionnaire+this.lang.requireContent, color: "error"})
       }
 
-
+      this.newQuestionnaireData.deadline = this.TimeView(this.newQuestionnaireData.deadline)
       this.isSubmit = true
       await createQuestionnaire(this.newQuestionnaireData).then(res => {
         //console.log(res)

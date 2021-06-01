@@ -2,14 +2,14 @@
     <v-container class="h-100 pa-0">
         <v-row class="h-100 ma-0">
             <v-col cols="12" sm="12" md="9" class="h-100 mo-glow-bg pa-0">
-                <v-row class="mo-glow-bg mo-ch-area-height ma-0" id="mo-ch-area-height">
+                <v-row class="mo-glow-bg ma-0" id="mo-ch-area-height">
                     <v-row class="ma-0 bg-white justify-center position-sticky-top-0" >
                         <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                             mdi-chevron-left
                         </v-icon>
                         <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{contactNow}}</p>
                     </v-row>
-                    <v-col cols="12" class=" mo-glow-bg mo-glow-inverse pb-16 mb-5" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
+                    <v-col cols="12" class=" mo-glow-bg mo-ch-area-height  mo-glow-inverse pb-16 mb-5" v-chat-scroll="{always: false, smooth: true}" @v-chat-scroll-top-reached="reachedTop">
                         <ChatMessage
                             v-for="(message, index) in messages"
                             :key="index"
