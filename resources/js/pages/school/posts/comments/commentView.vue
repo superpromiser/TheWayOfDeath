@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="$isMobile()">
+  <v-container v-if="$isMobile()" style="padding-bottom:50px !important">
     <div>
       <div v-for="(comment,index) in contentData.comments" :key="index">
         <v-row class="ma-0">

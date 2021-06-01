@@ -654,11 +654,11 @@ export default {
             })
         Echo.private('newMessage.'+ this.currentUser.id)
             .listen('NewMessage', (message) => {
-                console.log(message)
                 if (
-                message.message.to == this.currentUser.id &&
+                    message.message.to == this.currentUser.id &&
                 message.message.from.id == this.ChatWith
                 ) {
+                    console.log("-----------",message)
                     if(message.message.file){
                         message.message.file = JSON.parse(message.message.file);
                     }
@@ -666,6 +666,7 @@ export default {
                         message.message.map = JSON.parse(message.message.map);
                     }
                     this.messages.push(message.message);
+                    console.log('=======',this.messages)
                 }
                 else if(message.message.roomId !== null && message.message.roomId == this.ChatIn && message.message.from.id !== this.currentUser.id){
                     if(message.message.file){

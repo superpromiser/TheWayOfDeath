@@ -53,6 +53,8 @@
                     <p class="mb-0" v-else> <strong>{{inputTypeItem[item]}}</strong> :{{convertItem(user[item], inputTypeItem[item])}}</p>
                 </v-col>
             </v-row>
+            <FooterPost :footerInfo='contentData' @updateFooterInfo='updateFooterInfo'></FooterPost>
+            <CommentView></CommentView>
         </v-container>
     </v-container>
     <v-container class="pa-0" v-else>

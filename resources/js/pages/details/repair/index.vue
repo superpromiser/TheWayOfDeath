@@ -188,12 +188,12 @@
                         </div>
                     </div>
                     <div v-else>
-                        <div v-if="contentData.repairdata.status == 'progress'">
+                        <div v-if="contentData.repairdata.status == 'progress' &&(user.roleId < 3 || contentData.userId == user.id)">
                             <v-btn class="mr-3" @click="cancel('cancel')" :loading="isCancel">
                                 取诮发布
                             </v-btn>
                         </div>
-                        <div v-if="contentData.repairdata.status == 'done'">
+                        <div v-if="contentData.repairdata.status == 'done' &&(user.roleId < 3 || contentData.userId == user.id)">
                             <v-btn class="mr-3" @click="reasonFlag = true">
                                 未完成
                             </v-btn>
@@ -201,7 +201,7 @@
                                 确认完成
                             </v-btn>
                         </div>
-                        <div v-if="contentData.repairdata.status == 'Undone'">
+                        <div v-if="contentData.repairdata.status == 'Undone' &&(user.roleId < 3 || contentData.userId == user.id)">
                             <v-btn class="mr-3" @click="cancel('cancel')" :loading="isCancel">
                                 关闭
                             </v-btn>
@@ -209,7 +209,7 @@
                                 重新发送
                             </v-btn>
                         </div>
-                        <div v-if="contentData.repairdata.status == 'cancel'">
+                        <div v-if="contentData.repairdata.status == 'cancel' &&(user.roleId < 3 || contentData.userId == user.id)">
                             <v-btn dark color="#7879ff" @click="post('progress')" :loading="isPost">
                                 重新发送
                             </v-btn>
