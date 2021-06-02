@@ -118,7 +118,9 @@ export default {
     },
 
     onClickAlarm(alarm){
-      if(alarm.type == 'NewReturnTeam'){
+
+      
+    if(alarm.type == 'NewReturnTeam'){
         this.removeAlarm(alarm.id);
         this.$router.push({name: 'classSpace.applications.returnTeam', params: {schoolId: this.user.schoolId, gradeId: this.user.gradeId, lessonId: this.user.lessonId}})
       }

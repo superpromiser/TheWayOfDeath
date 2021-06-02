@@ -144,10 +144,16 @@ class ReturnTeamController extends Controller
 
     public function getReturnTeam()
     {
-        $returnTeamArr = ReturnTeam::where([
-            // 'userId' => Auth::user()->id,
-            'lessonId' => Auth::user()->lessonId,
-        ])->orderBy('created_at', 'desc')->get();
+        if (Auth::user()->roleId == 4) {
+            $children = User::where('id', Auth::user()->id)->first()->children;
+            $lessonIds = User::select('lessonId')->whereIn('id', $children)->get();
+            $returnTeamArr = ReturnTeam::whereIn('lessonId', $lessonIds)->orderBy('created_at', 'desc')->get();
+        } else {
+            $returnTeamArr = ReturnTeam::where([
+                // 'userId' => Auth::user()->id,
+                'lessonId' => Auth::user()->lessonId,
+            ])->orderBy('created_at', 'desc')->get();
+        }
 
         foreach ($returnTeamArr as $key => $returnTeam) {
             $userArr = User::whereIn('id', $returnTeam->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
@@ -190,56 +196,56 @@ class ReturnTeamController extends Controller
             ])->whereDate('updated_at', Carbon::today())->first();
 
             // if ($remainTeamData->member == []) {
-                $viewList = array();
-                array_push($viewList, $user->id);
-                $postId = Post::create([
-                    'contentId' => 27,
-                    'userId' => $user->id,
-                    'schoolId' => $user->schoolId,
-                    'classId' => $user->lessonId,
-                    'viewList' => $viewList
-                ])->id;
+            $viewList = array();
+            array_push($viewList, $user->id);
+            $postId = Post::create([
+                'contentId' => 27,
+                'userId' => $user->id,
+                'schoolId' => $user->schoolId,
+                'classId' => $user->lessonId,
+                'viewList' => $viewList
+            ])->id;
 
-                ReturnTeam::where('id', $request->id)->update([
-                    'avatar' => $request->avatar,
-                    'name' => $request->name,
-                    'leaderId' => $request->leaderId,
-                    'teacherId' => $request->teacherId,
-                    'member' => $request->member,
-                    'postId' => $postId,
-                ]);
+            ReturnTeam::where('id', $request->id)->update([
+                'avatar' => $request->avatar,
+                'name' => $request->name,
+                'leaderId' => $request->leaderId,
+                'teacherId' => $request->teacherId,
+                'member' => $request->member,
+                'postId' => $postId,
+            ]);
 
-                $remainTeamData = ReturnTeam::where('id', $request->id)->first();
-                //prepare member...
-                $userArr = User::whereIn('id', $remainTeamData->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
-                $remainTeamData->member = $userArr;
+            $remainTeamData = ReturnTeam::where('id', $request->id)->first();
+            //prepare member...
+            $userArr = User::whereIn('id', $remainTeamData->member)->select('id', 'name', 'avatar', 'phoneNumber')->get();
+            $remainTeamData->member = $userArr;
 
-                ///////////////////////////boradcasting New Return Team///////////////////////////
-                //make broadcasting data
-                $broadcastingData['id'] = $remainTeamData->id;
-                $broadcastingData['avatar'] = $remainTeamData->avatar;
-                $broadcastingData['name'] = $remainTeamData->name;
-                $broadcastingData['member'] = $remainTeamData->member;
-                $broadcastingData['leaderId'] = null;
-                $broadcastingData['teacherId'] = null;
+            ///////////////////////////boradcasting New Return Team///////////////////////////
+            //make broadcasting data
+            $broadcastingData['id'] = $remainTeamData->id;
+            $broadcastingData['avatar'] = $remainTeamData->avatar;
+            $broadcastingData['name'] = $remainTeamData->name;
+            $broadcastingData['member'] = $remainTeamData->member;
+            $broadcastingData['leaderId'] = null;
+            $broadcastingData['teacherId'] = null;
 
-                $returnTeamMemberArr = $request->member;
-                foreach ($returnTeamMemberArr as $key => $returnTeamMember) {
-                    $student = User::where('id', $returnTeamMember)->first();
-                    $parent = User::where(['phoneNumber' => $student->fatherPhone,])->first();
-                    if ($parent) {
-                        //save new alarm to parent
-                        $alarm = Alarm::create([
-                            'userId' => $parent->id,
-                            'type' => 'NewReturnTeam',
-                            'returnTeamId' => $remainTeamData->id,
-                            'content' => json_encode($broadcastingData),
-                        ]);
-                        //Emit Event and push notification to parent of memeber
-                        broadcast(new NewReturnTeam($alarm, $parent->id));
-                    }
+            $returnTeamMemberArr = $request->member;
+            foreach ($returnTeamMemberArr as $key => $returnTeamMember) {
+                $student = User::where('id', $returnTeamMember)->first();
+                $parent = User::where(['phoneNumber' => $student->fatherPhone,])->first();
+                if ($parent) {
+                    //save new alarm to parent
+                    $alarm = Alarm::create([
+                        'userId' => $parent->id,
+                        'type' => 'NewReturnTeam',
+                        'returnTeamId' => $remainTeamData->id,
+                        'content' => json_encode($broadcastingData),
+                    ]);
+                    //Emit Event and push notification to parent of memeber
+                    broadcast(new NewReturnTeam($alarm, $parent->id));
                 }
-                ///////////////////////////boradcasting New Return Team///////////////////////////
+            }
+            ///////////////////////////boradcasting New Return Team///////////////////////////
             // } else {
             //     return response()->json([
             //         'msg' => 'aleardyExist',
