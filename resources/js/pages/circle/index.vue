@@ -139,10 +139,10 @@
           <InterClassStoryPost :content="content"></InterClassStoryPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 27 && content.returnteam">
+        <!-- <v-row class="pa-0 ma-0" v-else-if="content.contentId == 27 && content.returnteam">
           <ReturnTeam :content="content"></ReturnTeam>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
-        </v-row>
+        </v-row> -->
       </v-container>
       <InfiniteLoading 
           class="pb-3 w-100"
@@ -320,10 +320,10 @@
           <InterClassStoryPost :content="content"></InterClassStoryPost>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
         </v-row>
-        <v-row class="pa-0 ma-0" v-else-if="content.contentId == 27 && content.returnteam">
+        <!-- <v-row class="pa-0 ma-0" v-else-if="content.contentId == 27 && content.returnteam">
           <ReturnTeam :content="content"></ReturnTeam>
           <FooterPost :footerInfo='content' @updateFooterInfo='updateFooterInfo'></FooterPost>
-        </v-row>
+        </v-row> -->
       </v-container>
       <InfiniteLoading 
           class="pb-3 w-100"
@@ -391,6 +391,7 @@ import RecognitionPost from '~/components/contents/recognitionPost'
 import HomeworkResultPost from '~/components/contents/homeworkResultPost'
 import ClassStoryPost from '~/components/contents/classStoryPost'
 import InterClassStoryPost from '~/components/contents/interClassStoryPost'
+import ReturnTeam from '~/components/contents/returnTeam'
 export default {
 
   middleware: 'auth',
@@ -417,6 +418,7 @@ export default {
     HomeworkResultPost,
     ClassStoryPost,
     InterClassStoryPost,
+    ReturnTeam
   },
 
     data: ()=> ({
