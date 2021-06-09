@@ -57,6 +57,7 @@
                             </v-chip>
                             <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                         </div>
+                        <p class="answerAnalysis">{{allAnswersCnt[multiDataIndex]}} 人 {{allAnswerUserCnt > 0 ? (100/allAnswerUserCnt*allAnswersCnt[multiDataIndex]).toFixed(2) : '0.00'}} %</p>
                         <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                     </v-col>
                 </v-row>
@@ -174,6 +175,7 @@
                             </v-chip>
                             <p class="mb-0 text-wrap width-100-without-68-px"> {{multiData.text}}</p>
                         </div>
+                        <p class="answerAnalysis">{{allAnswersCnt[multiDataIndex]}} 人 {{allAnswerUserCnt > 0 ? (100/allAnswerUserCnt*allAnswersCnt[multiDataIndex]).toFixed(2) : '0.00'}} %</p>
                         <AttachItemViewer :items="multiData" v-if="checkIfAttachExist(multiData)" />
                     </v-col>
                 </v-row>
@@ -225,7 +227,9 @@ export default {
         isSubmit:false,
         alreadyAnswer:false,
         answerUserShow:false,        
-        isLoading:false
+        isLoading:false,
+        allAnswerUserCnt:0,
+        allAnswersCnt:[]
     }),
 
     computed:{
@@ -258,6 +262,10 @@ export default {
         }
         this.answerData.postId = this.contentData.id
         this.content = JSON.parse(this.contentData.votings.content)
+        console.log("this.content",this.content)
+        this.content.map(content=>{
+            this.allAnswersCnt.push(0)
+        })
         this.isLoading = true
         await getAnswerVoting({postId:this.answerData.postId}).then(res=>{
             this.answerDataList = res.data
@@ -266,6 +274,9 @@ export default {
                     this.answerData = JSON.parse(answerData.answerData)
                     this.alreadyAnswer = true
                 }
+                console.log(JSON.parse(answerData.answerData)[0])
+                this.allAnswersCnt[JSON.parse(answerData.answerData)[0]] ++
+                this.allAnswerUserCnt ++ 
             })
             this.isLoading = false
         }).catch(err=>{
@@ -274,6 +285,8 @@ export default {
         })
         console.log('=======',this.contentData)
         console.log('------',this.answerDataList)
+        console.log('********',this.allAnswerUserCnt)
+        console.log('7&&&&&&&&&&&',this.allAnswersCnt)
     },
     methods:{
         checkIfAttachExist(data){

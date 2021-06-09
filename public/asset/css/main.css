@@ -1751,3 +1751,6 @@ span.mo-text-editor-setting-chip.v-chip.v-size--default {
 .carusel-item-bg-white .owl-carousel .owl-stage-outer .owl-stage .owl-item {
     background: white !important;
 }
+.answerAnalysis {
+    padding: 10px 10px 10px 45px;
+}
