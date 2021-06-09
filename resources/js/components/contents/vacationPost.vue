@@ -12,7 +12,7 @@
           <v-img :src="content.users.avatar"></v-img>
         </v-avatar>
         <div class="ml-2 d-flex flex-column">
-          <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> {{lang.schoolStory}}  </p>
+          <p class="mb-0 font-size-0-95 font-weight-bold mb-auto primary-font-color"> 请假单  </p>
           <p class="mb-0 font-size-0-8"><span class="font-color-gray">{{TimeViewMD(content.created_at)}}  </span> {{content.users.name}}</p>
         </div>
       </v-col>
@@ -99,7 +99,7 @@
         <v-img :src="content.users.avatar"></v-img>
       </v-avatar>
       <div>
-        <p class="font-weight-black fs-15 mb-3"> {{lang.vacation}}  </p>
+        <p class="font-weight-black fs-15 mb-3"> 请假单  </p>
         <div class="d-flex align-center">
           <v-icon medium color="#7879ff" class="mr-2">mdi-clock-outline </v-icon>
           <p class="mb-0 mr-8">{{TimeView(content.created_at)}}</p>
