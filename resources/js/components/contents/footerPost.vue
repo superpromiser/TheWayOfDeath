@@ -13,13 +13,13 @@
                         <v-icon>mdi-dots-horizontal </v-icon>
                     </v-btn>
                 </template>
-                <div class="d-flex align-center">
+                <div class="d-flex align-center" v-if="user.roleId < 3 || footerInfo.users.id == user.id">
                     <v-btn icon color="blue accent-3">
                         <v-icon @click="postRemove(footerInfo)">mdi-trash-can-outline</v-icon>
                     </v-btn>
                 </div>
                 <div class="d-flex align-center ">
-                    <v-btn icon color="#7879ff">
+                    <v-btn icon color="#7879ff" v-if="user.roleId < 3" >
                         <v-icon size="20" @click="fixTop(footerInfo)" v-if="footerInfo.fixTop == null">mdi-arrow-up </v-icon>
                         <v-icon size="20" @click="relaseTop(footerInfo.id)" v-else>mdi-arrow-down </v-icon>
                     </v-btn>

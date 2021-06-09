@@ -1014,7 +1014,7 @@ export default {
                         color:"#3EBBE8",
                         title:"请假审批",//휴가심사
                         imgUrl:"/asset/img/appIcon/attendance/vocationReply.png",
-                        path:"posts.vocation"
+                        path:"posts.attendance.vacation"
                     },
             //         {
             //             color:"#3EBBE8",

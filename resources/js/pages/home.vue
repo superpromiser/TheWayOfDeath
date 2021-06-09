@@ -637,11 +637,11 @@ export default {
       },
     ],
     teacherClassItems:[
-      // {
-      //   title:"请假审批",//휴가심사
-      //   imgUrl:"/asset/img/appIcon/attendance/vocationReply.png",
-      //   path:"vacation"
-      // },
+      {
+        title:"请假审批",//휴가심사
+        imgUrl:"/asset/img/appIcon/attendance/vocationReply.png",
+        path:"posts.attendance.vacation"
+      },
       {
         title:"课程表",//시간표
         imgUrl:"/asset/img/appIcon/attendance/scheduleClass.png",
@@ -1270,12 +1270,15 @@ export default {
     },
 
     selectItem(item){
+      console.log("----------",item)
         if(this.isSchoolSpace == true){
             this.$router.push({name: `schoolSpace.applications.${item.path}`, params: {schoolId:this.selectedSchoolItem.schoolId}});
         }
         else{
           if(item.path == 'admin.scheduleClass'){
             this.$router.push({name: item.path})
+          }else if(item.path == 'posts.attendance.vacation'){
+            this.$router.push({name:item.path})
           }
           else{
             this.$router.push({name:`classSpace.applications.${item.path}`,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})

@@ -5,9 +5,9 @@
                 <v-icon @click="$router.go(-1)" size="35" class="position-absolute put-align-center" style="left: 0px; top:50%" >
                     mdi-chevron-left
                 </v-icon>
-                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >{{lang.vacation}}</p>
+                <p class="mb-0 font-size-0-95 font-weight-bold pa-3" >请假审批</p>
                 <v-btn v-if="user.roleId == 5 || user.roleId == 7" @click="post" text color="#7879ff" class="position-absolute put-align-center" style="right: 0px; top:50%">
-                    {{user.roleId == 5? '发布': user.roleId == 7? '评判': ''}}
+                    {{user.roleId == 5? '发布': user.roleId == 7? '审批': ''}}
                 </v-btn>
             </v-row>
             <div class="cus-divider-light-gray-height"></div>
@@ -69,7 +69,7 @@
                     >
                         <v-img :src="`${baseUrl}/asset/img/newIcon/问卷.png`" alt="postItem" ></v-img>
                     </v-avatar> -->
-                    <h2>{{lang.vacation}}</h2>
+                    <h2>请假审批</h2>
                 <!-- </v-col>
                 <v-col> -->
                     
