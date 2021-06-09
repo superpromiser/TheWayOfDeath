@@ -54,6 +54,8 @@
                 loading-text="正在加载..."
                 sort-by="calories"
                 class="elevation-1"
+                hide-default-footer
+                
                 >
                 <template v-slot:[`item.reasonFlag`]="{ item }">
                     <span v-if="item.reasonFlag == true"> 事假 </span>

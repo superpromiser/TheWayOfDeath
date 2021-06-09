@@ -55,6 +55,12 @@ export default {
           (val.path.includes('member')&&val.path.includes('select')) ||
           (val.path.includes('texteditor')) ||
           (val.path.includes('profile')&&val.path.includes('myfile')) ||
+          (val.path.includes('profile')&&val.path.includes('phone')) ||
+          (val.path.includes('profile')&&val.path.includes('wechat')) ||
+          (val.path.includes('profile')&&val.path.includes('qq')) ||
+          (val.path.includes('profile')&&val.path.includes('passwordMo')) ||
+          (val.path.includes('profile')&&val.path.includes('schoolshare')) ||
+          (val.path.includes('profile')&&val.path.includes('myshare')) ||
           (val.path.includes('chat')&&val.path.includes('mobile')&&val.path.includes('detail')) ||
           (val.path.includes('schoolSpace')&&val.path.includes('application')) ||
           (val.path.includes('classSpace')&&val.path.includes('application')) ||

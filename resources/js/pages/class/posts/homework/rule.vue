@@ -14,7 +14,7 @@
             <v-row class="ma-0 mo-glow bg-white">
                 <v-col cols="12" sm="6" md="4">
                     <v-datetime-picker 
-                        label="截止时间" 
+                        label="发布时间" 
                         v-model="testTime"
                         :okText='lang.ok'
                         :clearText='lang.cancel'
