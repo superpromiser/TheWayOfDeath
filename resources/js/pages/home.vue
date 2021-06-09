@@ -1278,7 +1278,7 @@ export default {
           if(item.path == 'admin.scheduleClass'){
             this.$router.push({name: item.path})
           }else if(item.path == 'posts.attendance.vacation'){
-            this.$router.push({name:item.path})
+            this.$router.push({name:item.path, params: {schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
           }
           else{
             this.$router.push({name:`classSpace.applications.${item.path}`,params:{schoolId:this.selectedSchoolItem.schoolId,gradeId:this.selectedSchoolItem.gradeId,lessonId:this.selectedSchoolItem.lessonId}})
