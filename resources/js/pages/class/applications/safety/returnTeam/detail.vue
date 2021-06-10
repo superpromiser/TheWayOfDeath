@@ -390,6 +390,7 @@ export default {
 
         if(this.detailData.name == '留堂成员'){
             this.isRemainTeam = true;
+            
         }
         
         this.teamData = Object.assign( {}, this.detailData) ;
@@ -459,6 +460,9 @@ export default {
             this.$store.dispatch('returnteam/storeReturnTeamName', this.teamData.name);
             this.$store.dispatch('returnteam/storeReturnTeamAvatar', this.teamData.avatar);
             this.$store.dispatch('returnteam/storeReturnTeamLeader', this.teamData.leader);
+            if(this.isRemainTeam == true){
+                this.$store.dispatch('returnteam/storeIsCreateNewRemain', true);
+            }
             this.$router.push({name: 'classSpace.addMemberName'})
         },
 
@@ -486,6 +490,7 @@ export default {
                     this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
                     this.$store.dispatch('member/storeSelectedGroup', null);
                     this.$store.dispatch('member/storeSelectedTeacher', null);
+                    this.$store.dispatch('returnteam/storeIsCreateNewRemain', false);
                     //detailData
                     this.$store.dispatch('returnteam/storeIsDetail', false);
                     this.$store.dispatch('returnteam/storeDetailData', null);
@@ -517,6 +522,7 @@ export default {
             this.$store.dispatch('returnteam/storeReturnTeamLeader', null);
             this.$store.dispatch('member/storeSelectedGroup', null);
             this.$store.dispatch('member/storeSelectedTeacher', null);
+            this.$store.dispatch('returnteam/storeIsCreateNewRemain', false);
 
             this.$store.dispatch('returnteam/storeIsDetail', false);
             this.$store.dispatch('returnteam/storeDetailData', null);

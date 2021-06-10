@@ -238,6 +238,7 @@ export default {
     methods:{
 
       showDetail(content){
+        // console.log("$$$$$$$$$$$$$", content.vacations.id);
         createReadCnt({postId:content.id}).then(res=>{
         }).catch(err=>{
           console.log(err.response)
@@ -248,17 +249,27 @@ export default {
         })
         this.$store.dispatch('content/storePostDetail',content)
         if(this.$isMobile()){
-          if(this.selectedSchoolItem.type == 'school'){
-            this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+          if(this.user.roleId == 7){
+            this.$router.push({name:'posts.vacationTeacherReply', params:{vId: content.vacations.id}});
           }
           else{
-            this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+            if(this.selectedSchoolItem.type == 'school'){
+              this.$router.push({name:'details.schoolDefault', params:{schoolId: this.selectedSchoolItem.schoolId}});
+            }
+            else{
+              this.$router.push({name:'details.classDefault', params:{schoolId: this.selectedSchoolItem.schoolId,gradeId: this.selectedSchoolItem.gradeId, lessonId: this.selectedSchoolItem.lessonId}});
+            }
           }
         }else{
-          if(this.currentPath.params.lessonId){
-            this.$router.push({name:'details.classDefault'});
-          }else{
-            this.$router.push({name:'details.schoolDefault'});
+          if(this.user.roleId == 7){
+            this.$router.push({name:'posts.vacationTeacherReply', params:{vId: content.vacations.id}});
+          }
+          else{
+            if(this.currentPath.params.lessonId){
+              this.$router.push({name:'details.classDefault'});
+            }else{
+              this.$router.push({name:'details.schoolDefault'});
+            }
           }
         }
       },

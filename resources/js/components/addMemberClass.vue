@@ -184,6 +184,8 @@ export default {
             classGroupList: 'member/classGroupList',
             selectedGroup: 'member/selectedGroup',
             detailData: 'returnteam/detailData',
+            isCreateNewRemain: 'returnteam/isCreateNewRemain',
+
         })
     },
     async created() {
@@ -216,17 +218,17 @@ export default {
                     this.$store.dispatch('member/storeClassGroupList', res.data);
                     getReturnTeam().then(res=>{
                         res.data.returnTeamArr.map(returnTeam=>{
-                            // if(returnTeam.name != "留堂成员"){
+                            if(returnTeam.name != "留堂成员" && this.isCreateNewRemain == false){
                                 returnTeam.member.map(member=>{
                                     let index = this.classGroupList.findIndex(user=>user.id == member.id)
                                     if(index > -1){
                                         this.classGroupList.splice(index, 1)
                                     }
                                 })
-                            // }
+                            }
                         })
                     })
-                    if(this.detailData != null){
+                    if(this.detailData != null && this.isCreateNewRemain == false){
                         this.detailData.member.map(member=>{
                             this.$set(member, "checkbox", true);
                             this.classGroupList.push(member)
