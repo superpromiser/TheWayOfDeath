@@ -36,5 +36,11 @@ class DatabaseSeeder extends Seeder
         */
         $this->call(TimeTableSeeder::class);
         
+        
+        /**
+        * contact seeder.
+        */
+        $this->call(ContactTableSeeder::class);
+        
     }
 }
