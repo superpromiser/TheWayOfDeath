@@ -9,12 +9,17 @@
                 {{lang.addOption}}
             </v-btn>
         </v-row>
-        <div v-for="index in initialCnt" :key="index">
+        <div v-if="isNew == true" v-for="index in initialCnt" :key="index">
             <QuestionItem class="mt-2" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+            <v-divider></v-divider>
         </div>
-        <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
+        <div v-if="isNew == false" v-for="(item, index) in multiData.multiContentDataArr" :key="index" >
+            <QuestionItem class="mt-2" :item="item" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+            <v-divider></v-divider>
+        </div>
+        <v-row class="ma-0 position-absolute-bottom-0 w-100 bg-white pa-3 ">
             <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
-                <v-btn color="#7879ff" block dark large @click="addMultiContent"> 确认发布 </v-btn>
+                <v-btn color="#7879ff" block dark large @click="addMultiContent"> 确认 </v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -42,8 +47,17 @@
               </v-col>
             </v-row>
         </v-container>
-        <div v-for="index in initialCnt" :key="index" class="mt-3 px-10">
+        <!-- <div v-for="index in initialCnt" :key="index" class="mt-3 px-10">
             <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+            <v-divider></v-divider>
+        </div> -->
+        <div v-if="isNew == true" v-for="index in initialCnt" :key="index" class="mt-3 px-10">
+            <QuestionItem class="mt-10" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
+            <v-divider></v-divider>
+        </div>
+        
+        <div v-if="isNew == false" v-for="(item, index) in multiData.multiContentDataArr" :key="index" class="mt-3 px-10">
+            <QuestionItem class="mt-10" :item="item" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
             <v-divider></v-divider>
         </div>
         <v-snackbar
@@ -70,7 +84,7 @@ export default {
     props:{ 
         type:{
             type:String,
-            requireed:false
+            required:false
         }
     },
     data: () =>({
@@ -81,15 +95,64 @@ export default {
         initialCnt:4,
         lang,
         requiredText:false,
+        isNew:true,
     }),
+
+    computed:{
+        currentPath(){
+            return this.$route
+        }
+    },
+
+    created(){
+        console.log(this.currentPath);
+        if(this.currentPath.params.editDataArr !== undefined){
+            this.isNew = false;
+            this.multiData.multiContentDataArr = this.currentPath.params.editDataArr;
+            this.multiData.index = this.currentPath.params.editDataIndex;
+        }
+        console.log('----------------------',this.type)
+        if(this.type == undefined){
+            this.$router.push({name:'posts.Cquestionnaire'})
+        }
+    },
+
     
     methods:{
         addContent(){
             this.initialCnt ++;
         },
+        // addMultiContent(){
+        //     for(let index = 1;  index <= this.initialCnt; index++){
+        //         this.$refs[index][0].emitData()
+        //     }
+        //     if(this.multiData.multiContentDataArr.length<4){
+        //         return
+        //     }
+            
+        //     this.$emit('contentData',this.multiData);
+        //     if(this.type == 'post'){
+        //         this.$router.push({name:'posts.Cquestionnaire'});
+        //     }else{
+        //         this.$router.push({name:'Cquestionnaire.templateNew'})
+        //     }
+        // },
+
         addMultiContent(){
-            for(let index = 1;  index <= this.initialCnt; index++){
-                this.$refs[index][0].emitData()
+            // for(let index = 1;  index <= this.initialCnt; index++){
+            //     this.$refs[index][0].emitData()
+            // }
+             if(this.isNew == false){
+                let initialLength = this.multiData.multiContentDataArr.length;
+                for(let index = 0;  index < initialLength; index++){
+                    this.$refs[index][0].emitData()
+                }
+                this.multiData.multiContentDataArr = this.multiData.multiContentDataArr.splice(0, initialLength );
+            }
+            else{
+                for(let index = 1;  index <= this.initialCnt; index++){
+                    this.$refs[index][0].emitData()
+                }
             }
             if(this.multiData.multiContentDataArr.length<4){
                 return
@@ -102,6 +165,7 @@ export default {
                 this.$router.push({name:'Cquestionnaire.templateNew'})
             }
         },
+
         loadContentData(data){
             if(data.text === ''){
                 this.multiData.multiContentDataArr = [];

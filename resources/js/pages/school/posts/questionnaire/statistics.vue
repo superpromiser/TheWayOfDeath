@@ -66,7 +66,7 @@ export default {
   props:{
       type:{
           type:String,
-          requireed:false
+          required:false
       }
   },
 

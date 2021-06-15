@@ -19,9 +19,9 @@
             <QuestionItem class="mt-2" :item="item" :Label="index == 1 ? lang.contentPlaceFirst : `${lang.contentOptionPlace}${index-1}`" :index="index" :ref="index" @contentData="loadContentData"/>
             <v-divider></v-divider>
         </div>
-        <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
+        <v-row class="ma-0 position-absolute-bottom-0 w-100 bg-white pa-3 ">
             <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
-                <v-btn color="#7879ff" block dark large @click="addSingleContent"> 确认发布 </v-btn>
+                <v-btn color="#7879ff" block dark large @click="addSingleContent"> 确认 </v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -134,6 +134,7 @@ export default {
                 this.singleData.singleContentDataArr.push(contentData)
             }
         },
+        
         addSingleContent(){
             if(this.isNew == false){
                 let initialLength = this.singleData.singleContentDataArr.length;
@@ -163,6 +164,7 @@ export default {
         },
         loadContentData(data){
             if(data.text === ''){
+                this.singleData.singleContentDataArr = []
                 return this.$snackbar.showMessage({content: "标题不能为空", color: "error"})
             }
             this.singleData.singleContentDataArr.push(data);

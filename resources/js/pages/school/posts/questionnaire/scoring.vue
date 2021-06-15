@@ -38,9 +38,9 @@
           </v-col>
         </v-row>
     </div>
-    <v-row class="ma-0 position-fixed-bottom-0 w-100 bg-white pa-3 ">
+    <v-row class="ma-0 position-absolute-bottom-0 w-100 bg-white pa-3 ">
       <v-col cols="12" class="d-flex justify-space-between align-center pa-0">
-        <v-btn color="#7879ff" block dark large @click="addScoringContent"> 确认发布 </v-btn>
+        <v-btn color="#7879ff" block dark large @click="addScoringContent"> 确认 </v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -115,7 +115,7 @@ export default {
   props:{
       type:{
           type:String,
-          requireed:false
+          required:false
       }
   },
 

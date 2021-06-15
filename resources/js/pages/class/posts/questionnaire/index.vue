@@ -310,7 +310,7 @@
             </v-col>
           </v-row>
       </v-container>
-      <div v-else>
+      <div v-else class="h-100">
         <keep-alive>
           <router-view @contentData="saveContent" :type="'post'"></router-view>
         </keep-alive>
@@ -864,27 +864,38 @@ export default {
                 break;
         }
     },
+    // saveContent(data){
+    //   this.postNew = true;
+    //   switch(this.selType){
+    //     case 'single':
+    //       this.newQuestionnaireData.content.push(data)
+    //       break;
+    //     case 'multi':
+    //       this.newQuestionnaireData.content.push(data)
+    //       break;
+    //     case 'question':
+    //       this.newQuestionnaireData.content.push(data)
+    //       break;
+    //     case 'stat':
+    //       this.newQuestionnaireData.content.push(data)
+    //       break;
+    //     case 'scoring':
+    //       this.newQuestionnaireData.content.push(data)
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // },
     saveContent(data){
+      console.log('----------',data)
       this.postNew = true;
-      switch(this.selType){
-        case 'single':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        case 'multi':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        case 'question':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        case 'stat':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        case 'scoring':
-          this.newQuestionnaireData.content.push(data)
-          break;
-        default:
-          break;
+      if(data.index == null){
+        this.newQuestionnaireData.content.push(data)
       }
+      else{
+        this.newQuestionnaireData.content[data.index] = data
+      }
+      console.log('++++++++++',this.newQuestionnaireData)
     },
     async submit(){
       //console.log(this.newQuestionnaireData)
@@ -956,7 +967,20 @@ export default {
     },
 
     editContent(data, index){
-      //console.log(data, index);
+      console.log(data, index);
+      this.postNew = false;
+      if(data.type == "single"){
+        this.$router.push({name: "Cquestionnaire.single", params: {editDataArr: data.singleContentDataArr, editDataIndex: index}})
+      }
+      if(data.type == "multi"){
+        this.$router.push({name: "Cquestionnaire.multi", params: {editDataArr: data.multiContentDataArr, editDataIndex: index}})
+      }
+      if(data.type == "qa"){
+        this.$router.push({name: "Cquestionnaire.questionAnswer", params: {editDataArr: data.qaContentDataArr, editDataIndex: index}})
+      }
+      if(data.type == "score"){
+        this.$router.push({name: "Cquestionnaire.scoring", params: {editDataArr: data.scoringDataArr, editDataIndex: index}})
+      }
     },
 
     deleteContent(index){

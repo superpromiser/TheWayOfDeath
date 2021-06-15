@@ -1445,6 +1445,12 @@ a {
     z-index: 2;
 }
 
+.position-absolute-bottom-0 {
+    position: absolute;
+    bottom: 0px;
+    z-index: 2;
+}
+
 .v-textarea-cus-border .v-input__control .v-input__slot {
     box-shadow: none !important;
     border: 1px solid #e0e0e0;
