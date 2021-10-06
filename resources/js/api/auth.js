@@ -1,9 +1,7 @@
-import axios from 'axios'
+import axios from "axios";
 
-function loginApi(payload){
-    return axios.post('/api/v1/login',payload);
+function loginApi(payload) {
+  return axios.post("/api/v1/login", payload);
 }
 
-export{
-    loginApi,
-}
+export { loginApi };
