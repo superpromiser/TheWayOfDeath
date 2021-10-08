@@ -1,39 +1,37 @@
-import axios from 'axios'
+import axios from "axios";
 
-function getHomeworkResult(){
+function getHomeworkResult() {}
 
+function createTeacherAnswer(payload) {
+  return axios.put("/api/v1/homeworkTeacherAnswer", payload);
 }
 
-function createTeacherAnswer(payload){
-   return axios.put('/api/v1/homeworkTeacherAnswer',payload)
+function getOfflineTeacherAnswer(payload) {
+  return axios.get("/api/v1/offlineTeacher", { params: payload });
 }
 
-function getOfflineTeacherAnswer(payload){
-    return axios.get('/api/v1/offlineTeacher',{params:payload});
+function createOfflineTeacherAnswer(payload) {
+  return axios.post("/api/v1/offlineTeacher", payload);
 }
 
-function createOfflineTeacherAnswer(payload){
-    return axios.post('/api/v1/offlineTeacher',payload)
+function getOfflineStudent(payload) {
+  return axios.get("/api/v1/offlineStudent", { params: payload });
 }
 
-function getOfflineStudent(payload){
-    return axios.get('/api/v1/offlineStudent',{params:payload})
+function getOnlineTeacherCheck(payload) {
+  return axios.get("/api/v1/onlineTeacherCheck", { params: payload });
 }
 
-function getOnlineTeacherCheck(payload){
-    return axios.get('/api/v1/onlineTeacherCheck',{params:payload})
+function getCurrentHomeworkResult(payload) {
+  return axios.get("/api/v1/currentHomeworkResult", { params: payload });
 }
 
-function getCurrentHomeworkResult(payload){
-    return axios.get('/api/v1/currentHomeworkResult',{params:payload})
-}
-
-export{
-    getHomeworkResult,
-    createTeacherAnswer,
-    getOfflineTeacherAnswer,
-    createOfflineTeacherAnswer,
-    getOfflineStudent,
-    getOnlineTeacherCheck,
-    getCurrentHomeworkResult
-}
+export {
+  getHomeworkResult,
+  createTeacherAnswer,
+  getOfflineTeacherAnswer,
+  createOfflineTeacherAnswer,
+  getOfflineStudent,
+  getOnlineTeacherCheck,
+  getCurrentHomeworkResult
+};
