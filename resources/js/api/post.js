@@ -1,38 +1,40 @@
-import axios from 'axios';
+import axios from "axios";
 
-function getSchoolPost(payload){
-    return axios.get('/api/v1/schoolPost',{params:payload});
-}
-
-function getClassPost(classId, page){
-    return axios.get('/api/v1/classPost',{params:{classId:classId, page: page}});
+function getSchoolPost(payload) {
+  return axios.get("/api/v1/schoolPost", { params: payload });
 }
 
-function addLike(payload){
-    return axios.post('/api/v1/like',payload);
+function getClassPost(classId, page) {
+  return axios.get("/api/v1/classPost", {
+    params: { classId: classId, page: page }
+  });
 }
 
-function removeLike(payload){
-    return axios.delete('/api/v1/like',{data:payload});
-}
-function addViewUsers(payload){
-    return axios.post('/api/v1/viewUser', payload);
+function addLike(payload) {
+  return axios.post("/api/v1/like", payload);
 }
 
-function addComment(payload){
-    return axios.post('/api/v1/comment',payload)
+function removeLike(payload) {
+  return axios.delete("/api/v1/like", { data: payload });
+}
+function addViewUsers(payload) {
+  return axios.post("/api/v1/viewUser", payload);
 }
 
-function deleteComment(payload){
-    return axios.delete('/api/v1/comment',{data:payload})
+function addComment(payload) {
+  return axios.post("/api/v1/comment", payload);
 }
 
-export{
-    getSchoolPost,
-    getClassPost,
-    addLike,
-    removeLike,
-    addViewUsers,
-    addComment,
-    deleteComment
+function deleteComment(payload) {
+  return axios.delete("/api/v1/comment", { data: payload });
 }
+
+export {
+  getSchoolPost,
+  getClassPost,
+  addLike,
+  removeLike,
+  addViewUsers,
+  addComment,
+  deleteComment
+};
