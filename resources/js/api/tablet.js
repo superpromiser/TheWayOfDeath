@@ -1,19 +1,15 @@
-import axios from 'axios'
+import axios from "axios";
 
-function getDashboardData(payload){
-    return axios.get('/api/v1/tablet/dashboard',{params:payload})
+function getDashboardData(payload) {
+  return axios.get("/api/v1/tablet/dashboard", { params: payload });
 }
 
-function getLessonSchedule(payload){
-    return axios.get('/api/v1/tablet/lessonSchedule',{params:payload})
+function getLessonSchedule(payload) {
+  return axios.get("/api/v1/tablet/lessonSchedule", { params: payload });
 }
 
-function getLessonList(){
-    return axios.get('/api/v1/tablet/lessonList')
+function getLessonList() {
+  return axios.get("/api/v1/tablet/lessonList");
 }
 
-export{
-    getDashboardData,
-    getLessonSchedule,
-    getLessonList,
-}
+export { getDashboardData, getLessonSchedule, getLessonList };
