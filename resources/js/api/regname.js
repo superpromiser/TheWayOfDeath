@@ -1,74 +1,74 @@
-import axios from 'axios';
+import axios from "axios";
 
-function getRegname(payload){
-    return axios.get('/api/v1/regname',{params:payload});
+function getRegname(payload) {
+  return axios.get("/api/v1/regname", { params: payload });
 }
 
-function getAnswerDataOne(payload){
-    return axios.get('/api/v1/regname/answer/one', {params: payload});
+function getAnswerDataOne(payload) {
+  return axios.get("/api/v1/regname/answer/one", { params: payload });
 }
 
-function getAnswerList(payload){
-    return axios.get('/api/v1/regname/answer', {params: payload});
+function getAnswerList(payload) {
+  return axios.get("/api/v1/regname/answer", { params: payload });
 }
 
-function createRegname(payload){
-    return axios.post('/api/v1/regname',payload)
+function createRegname(payload) {
+  return axios.post("/api/v1/regname", payload);
 }
 
-function answerRegname(payload){
-    return axios.post('/api/v1/regname/answer',payload)
+function answerRegname(payload) {
+  return axios.post("/api/v1/regname/answer", payload);
 }
 
-function updateAnswerRegname(payload){
-    return axios.put('/api/v1/regname/answer',payload)
+function updateAnswerRegname(payload) {
+  return axios.put("/api/v1/regname/answer", payload);
 }
 
-function updateRegname(payload){
-    return axios.put('/api/v1/regname',payload)
+function updateRegname(payload) {
+  return axios.put("/api/v1/regname", payload);
 }
 
-function deleteRegname(payload){
-    return axios.delete('/api/v1/regname',{data:payload})
+function deleteRegname(payload) {
+  return axios.delete("/api/v1/regname", { data: payload });
 }
 
-function updateStatus(payload){
-    return axios.put('/api/v1/regname/answer/status',payload)
+function updateStatus(payload) {
+  return axios.put("/api/v1/regname/answer/status", payload);
 }
 
-function deleteAnswer(payload){
-    return axios.delete('/api/v1/regname/answer',{data:payload})
+function deleteAnswer(payload) {
+  return axios.delete("/api/v1/regname/answer", { data: payload });
 }
 
-function getTemplateCnt(payload){
-    return axios.get('/api/v1/regname/templateCnt',{params:payload})
+function getTemplateCnt(payload) {
+  return axios.get("/api/v1/regname/templateCnt", { params: payload });
 }
 
-function getTemplateList(payload){
-    return axios.get('/api/v1/regname/template',{params:payload})
+function getTemplateList(payload) {
+  return axios.get("/api/v1/regname/template", { params: payload });
 }
 
-function createTemplate(payload){
-    return axios.post('/api/v1/regname/template',payload)
+function createTemplate(payload) {
+  return axios.post("/api/v1/regname/template", payload);
 }
 
-function deleteTemplate(payload){
-    return axios.delete('/api/v1/regname/template',{data:payload})
+function deleteTemplate(payload) {
+  return axios.delete("/api/v1/regname/template", { data: payload });
 }
 
-export{
-    getRegname,
-    createRegname,
-    updateRegname,
-    deleteRegname,
-    answerRegname,
-    getAnswerDataOne,
-    updateAnswerRegname,
-    getAnswerList,
-    getTemplateCnt,
-    getTemplateList,
-    createTemplate,
-    deleteTemplate,
-    updateStatus,
-    deleteAnswer,
-}
+export {
+  getRegname,
+  createRegname,
+  updateRegname,
+  deleteRegname,
+  answerRegname,
+  getAnswerDataOne,
+  updateAnswerRegname,
+  getAnswerList,
+  getTemplateCnt,
+  getTemplateList,
+  createTemplate,
+  deleteTemplate,
+  updateStatus,
+  deleteAnswer
+};
