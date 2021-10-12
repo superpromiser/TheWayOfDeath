@@ -13,30 +13,30 @@
 </template>
 
 <script>
-  export default {
-    name: 'AppTabs',
+export default {
+  name: "AppTabs",
 
-    inject: ['theme'],
+  inject: ["theme"],
 
-    props: {
-      color: {
-        type: String,
-        default: 'primary',
-      },
-    },
+  props: {
+    color: {
+      type: String,
+      default: "primary"
+    }
   }
+};
 </script>
 
 <style lang="sass">
-  .v-tabs--pill
+.v-tabs--pill
+  .v-tab,
+  .v-tab:before
+    border-radius: 24px
+
+  &.v-tabs--icons-and-text
+    &:not(.v-tabs--vertical) > .v-tabs-bar
+      height: 100px
     .v-tab,
     .v-tab:before
-      border-radius: 24px
-
-    &.v-tabs--icons-and-text
-      &:not(.v-tabs--vertical) > .v-tabs-bar
-        height: 100px
-      .v-tab,
-      .v-tab:before
-        border-radius: 4px
+      border-radius: 4px
 </style>
