@@ -1,12 +1,9 @@
 <template>
-  <v-card
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
+  <v-card v-bind="$attrs" v-on="$listeners">
     <slot />
   </v-card>
 </template>
 
 <script>
-  export default { name: 'AppCard' }
+export default { name: "AppCard" };
 </script>
