@@ -1,44 +1,49 @@
 <template>
   <v-container class="pa-0">
     <v-container class="px-10 z-index-2 banner-custom">
-        <v-row>
-            <v-col cols="6" md="4" class="d-flex align-center position-relative">
-                <a @click="$router.go(-1)">
-                    <v-icon size="70" class="left-24p">
-                        mdi-chevron-left
-                    </v-icon>
-                </a>
-            </v-col>
-            <v-col cols="6" md="4" class="d-flex align-center justify-start justify-md-center">
-                <h2>晨午检</h2>
-            </v-col>
-            <v-col cols="12" md="4" class="d-flex align-center justify-end">
-                <v-btn
-                  color="#f19861"
-                  dark
-                  tile
-                  class="mx-2"
-                  @click="dialog = !dialog"
-                  >
-                  <v-icon left>
-                    mdi-plus
-                  </v-icon>
-                添加
-                </v-btn>
-                <!-- <v-btn
+      <v-row>
+        <v-col cols="6" md="4" class="d-flex align-center position-relative">
+          <a @click="$router.go(-1)">
+            <v-icon size="70" class="left-24p">
+              mdi-chevron-left
+            </v-icon>
+          </a>
+        </v-col>
+        <v-col
+          cols="6"
+          md="4"
+          class="d-flex align-center justify-start justify-md-center"
+        >
+          <h2>晨午检</h2>
+        </v-col>
+        <v-col cols="12" md="4" class="d-flex align-center justify-end">
+          <v-btn
+            color="#f19861"
+            dark
+            tile
+            class="mx-2"
+            @click="dialog = !dialog"
+          >
+            <v-icon left>
+              mdi-plus
+            </v-icon>
+            添加
+          </v-btn>
+          <!-- <v-btn
                     color="#7879ff"
                     dark
                     tile
                 >
                   发布
                 </v-btn> -->
-            </v-col>
-        </v-row>
+        </v-col>
+      </v-row>
     </v-container>
-    <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'" 
-    persistent
-    v-model="dialog"
-    max-width="800px"
+    <v-dialog
+      :overlay-opacity="$isMobile() ? '0' : '0.4'"
+      persistent
+      v-model="dialog"
+      max-width="800px"
     >
       <v-card>
         <v-card-title>
@@ -59,7 +64,7 @@
                   :menu-props="{ top: false, offsetY: true }"
                   label="项目"
                   hide-details
-              ></v-select>
+                ></v-select>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-select
@@ -72,7 +77,7 @@
                   :menu-props="{ top: false, offsetY: true }"
                   label="姓名"
                   hide-details
-              ></v-select>
+                ></v-select>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-select
@@ -85,15 +90,16 @@
                   :menu-props="{ top: false, offsetY: true }"
                   label="主要症状"
                   hide-details
-              ></v-select>
+                ></v-select>
               </v-col>
               <v-col cols="12" sm="6">
-                <v-datetime-picker 
-                    label="发病时间" 
-                    v-model="editedItem.startTime"
-                    :okText='lang.ok'
-                    :clearText='lang.cancel'
-                > </v-datetime-picker>
+                <v-datetime-picker
+                  label="发病时间"
+                  v-model="editedItem.startTime"
+                  :okText="lang.ok"
+                  :clearText="lang.cancel"
+                >
+                </v-datetime-picker>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-select
@@ -106,7 +112,7 @@
                   :menu-props="{ top: false, offsetY: true }"
                   label="诊断"
                   hide-details
-              ></v-select>
+                ></v-select>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
@@ -122,12 +128,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="close"
-          >
-            {{lang.cancel}}
+          <v-btn color="blue darken-1" text @click="close">
+            {{ lang.cancel }}
           </v-btn>
           <v-btn
             color="blue darken-1"
@@ -135,23 +137,36 @@
             :loading="isCreatingSchool"
             @click="save"
           >
-            {{lang.save}}
+            {{ lang.save }}
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog :overlay-opacity="$isMobile()? '0': '0.4'"  persistent v-model="dialogDelete" max-width="500px">
+    <v-dialog
+      :overlay-opacity="$isMobile() ? '0' : '0.4'"
+      persistent
+      v-model="dialogDelete"
+      max-width="500px"
+    >
       <v-card>
-        <v-card-title class="headline">{{lang.confirmSentence}}</v-card-title>
+        <v-card-title class="headline">{{ lang.confirmSentence }}</v-card-title>
         <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="closeDelete">{{lang.cancel}}</v-btn>
-        <v-btn color="blue darken-1" text @click="deleteItemConfirm" :loading="isDeleteSchool">{{lang.ok}}</v-btn>
-        <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeDelete">{{
+            lang.cancel
+          }}</v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="deleteItemConfirm"
+            :loading="isDeleteSchool"
+            >{{ lang.ok }}</v-btn
+          >
+          <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
     </v-dialog>
-              
+
     <v-row class="pa-10">
       <v-col cols="12">
         <v-data-table
@@ -163,40 +178,37 @@
           class="elevation-1"
         >
           <template v-slot:top>
-            <v-toolbar
-                flat
-            >
+            <v-toolbar flat>
               <div class="d-flex align-center">
-                
                 <v-menu
-                    ref="checkAttendanceDateMenu"
-                    v-model="checkAttendanceDateMenu"
-                    :close-on-content-click="false"
-                    :return-value.sync="checkAttendanceDate"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
+                  ref="checkAttendanceDateMenu"
+                  v-model="checkAttendanceDateMenu"
+                  :close-on-content-click="false"
+                  :return-value.sync="checkAttendanceDate"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
                 >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field
-                          solo
-                          v-model="checkAttendanceDate"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                          hide-details
-                          class="mr-4"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      solo
                       v-model="checkAttendanceDate"
-                      no-title
-                      scrollable
-                      @change="onSelectCheckAttendanceDate"
-                      locale="zh-cn"
-                    >
-                    </v-date-picker>
+                      prepend-icon="mdi-calendar"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                      hide-details
+                      class="mr-4"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    v-model="checkAttendanceDate"
+                    no-title
+                    scrollable
+                    @change="onSelectCheckAttendanceDate"
+                    locale="zh-cn"
+                  >
+                  </v-date-picker>
                 </v-menu>
                 <v-select
                   solo
@@ -212,11 +224,14 @@
                   class="mr-4"
                 ></v-select>
               </div>
-              
             </v-toolbar>
           </template>
           <template v-slot:[`item.imgUrl`]="{ item }">
-            <img :src="`${baseUrl}${item.imgUrl}`" alt="Logo" class="school-table-img">
+            <img
+              :src="`${baseUrl}${item.imgUrl}`"
+              alt="Logo"
+              class="school-table-img"
+            />
           </template>
           <!-- <template v-slot:[`item.startTime`]="{ item }">
             {{TimeView(item.startTime)}}
@@ -231,31 +246,19 @@
             >
               查看学校介绍
             </v-btn>
-            <router-link :to="{path:`/admin/school/${item.id}/manager`}">
-              <v-btn
-                outlined
-                small
-                color="indigo"
-                class="ma-2"
-              >
+            <router-link :to="{ path: `/admin/school/${item.id}/manager` }">
+              <v-btn outlined small color="indigo" class="ma-2">
                 查看经理数据
               </v-btn>
             </router-link>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-              <v-icon
-                  small
-                  class="mr-2"
-                  @click="editItem(item)"
-              >
-                  mdi-pencil
-              </v-icon>
-              <v-icon
-                  small
-                  @click="deleteItem(item)"
-              >
-                  mdi-delete
-              </v-icon>
+            <v-icon small class="mr-2" @click="editItem(item)">
+              mdi-pencil
+            </v-icon>
+            <v-icon small @click="deleteItem(item)">
+              mdi-delete
+            </v-icon>
           </template>
           <template v-slot:no-data>
             <p>没有晨午检记录</p>
@@ -267,20 +270,25 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { getStudentBylessonId } from '~/api/user'
-import cityListJson from '!!raw-loader!../cityLaw.txt';
-import lang from '~/helper/lang.json'
-import {getCheckInData,createCheckInData,updateCheckInData,deleteCheckInData} from '~/api/checkIn'
+import { mapGetters } from "vuex";
+import { getStudentBylessonId } from "~/api/user";
+import cityListJson from "!!raw-loader!../cityLaw.txt";
+import lang from "~/helper/lang.json";
+import {
+  getCheckInData,
+  createCheckInData,
+  updateCheckInData,
+  deleteCheckInData
+} from "~/api/checkIn";
 export default {
   data: () => ({
     lang,
     dialog: false,
     dialogDelete: false,
-    indroduceDialog : false,
+    indroduceDialog: false,
     checkAttendanceDateMenu: false,
     checkAttendanceDate: new Date().toISOString().substr(0, 10),
-    checkAttendanceType: '晨检',
+    checkAttendanceType: "晨检",
     checkAttendanceTypeItem: [
       {
         label: "晨检",
@@ -289,20 +297,20 @@ export default {
       {
         label: "午检",
         value: "午检"
-      },
+      }
     ],
     headers: [
-      { text: '项目', value: 'checkType', align: 'start'},
-      { text: '姓名', value: 'name', sortable: false },
-      { text: '性别', value: 'gender', sortable: false },
-      { text: '年龄', value: 'age', sortable: false },
-      { text: '家庭住址', value: 'familyAddress', sortable: false },
-      { text: '主要症状', value: 'signal', sortable: false },
-      { text: '发病时间', value: 'startTime', sortable: false },
-      { text: '诊断', value: 'reason', sortable: false },
-      { text: '诊断医院', value: 'hospital', sortable: false },
-      { text: '联系电话', value: 'phoneNumber', sortable: false },
-      { text: '操作', value: 'actions', sortable: false },
+      { text: "项目", value: "checkType", align: "start" },
+      { text: "姓名", value: "name", sortable: false },
+      { text: "性别", value: "gender", sortable: false },
+      { text: "年龄", value: "age", sortable: false },
+      { text: "家庭住址", value: "familyAddress", sortable: false },
+      { text: "主要症状", value: "signal", sortable: false },
+      { text: "发病时间", value: "startTime", sortable: false },
+      { text: "诊断", value: "reason", sortable: false },
+      { text: "诊断医院", value: "hospital", sortable: false },
+      { text: "联系电话", value: "phoneNumber", sortable: false },
+      { text: "操作", value: "actions", sortable: false }
     ],
     checkTypeItem: [
       {
@@ -312,7 +320,7 @@ export default {
       {
         label: "体征异常",
         value: "体征异常"
-      },
+      }
     ],
     signalItem: [
       {
@@ -358,7 +366,7 @@ export default {
       {
         label: "输入症状",
         value: "输入症状"
-      },
+      }
     ],
     reasonItem: [
       {
@@ -444,369 +452,408 @@ export default {
       {
         label: "其它传染病",
         value: "其它传染病"
-      },
+      }
     ],
     checkData: [],
-    checkDataRaw : [],
+    checkDataRaw: [],
     editedIndex: -1,
     editedItem: {
-      checkType: '',
+      checkType: "",
       studentId: 0,
-      signal: '',
-      startTime: '',
-      reason: '',
-      hospital: '',
+      signal: "",
+      startTime: "",
+      reason: "",
+      hospital: ""
     },
-      
+
     defaultItem: {
-      checkType: '',
+      checkType: "",
       studentId: 0,
-      signal: '',
-      startTime: '',
-      reason: '',
-      hospital: '',
+      signal: "",
+      startTime: "",
+      reason: "",
+      hospital: ""
     },
-    provinceListJsonArr:[],
-    madeJsonFromString : [],
-    baseUrl:window.Laravel.base_url,
-    isCreatingSchool : false,
-    isLoadingSchoolData : false,
-    isDeleteSchool : false,
-    studentList : [],
+    provinceListJsonArr: [],
+    madeJsonFromString: [],
+    baseUrl: window.Laravel.base_url,
+    isCreatingSchool: false,
+    isLoadingSchoolData: false,
+    isDeleteSchool: false,
+    studentList: []
   }),
 
   computed: {
     ...mapGetters({
-      user : 'auth/user',
+      user: "auth/user"
     }),
-    formTitle () {
-      return this.editedIndex === -1 ? '新增' : '编辑'
-    },
+    formTitle() {
+      return this.editedIndex === -1 ? "新增" : "编辑";
+    }
   },
 
-    async created(){
-      this.provinceListJsonArr = cityListJson.split("#");
-      for (let i = 0; i < this.provinceListJsonArr.length; i++) {
-          let provinceObj = {
-              value : 1,
-              label : "",
-              city : []
-          }
-          let province = this.provinceListJsonArr[i].split("$")[0];
-          provinceObj.value = province.split("-")[0];
-          provinceObj.label = province.split("-")[1];
-          this.madeJsonFromString.push(provinceObj);
-          let TArea = this.provinceListJsonArr[i].split("$")[1].split("|");
-          for(let j = 0 ; j < TArea.length ; j++){
-              let cityObj = {
-                  value : 1,
-                  label : "",
-                  region : []
-              }
-              let cityArr = TArea[j].split(",");
-              cityObj.value = cityArr[0].split("-")[0];
-              cityObj.label = cityArr[0].split("-")[1];
-              for( let k = 1 ; k < cityArr.length ; k++){
-                  let regionObj = {
-                      value : 1, 
-                      label : "",
-                  }
-                  regionObj.value = cityArr[k].split("-")[0];
-                  regionObj.label = cityArr[k].split("-")[1];
-                  cityObj.region.push(regionObj);
-              }
-              this.madeJsonFromString[i].city.push(cityObj);
-          }
+  async created() {
+    this.provinceListJsonArr = cityListJson.split("#");
+    for (let i = 0; i < this.provinceListJsonArr.length; i++) {
+      let provinceObj = {
+        value: 1,
+        label: "",
+        city: []
+      };
+      let province = this.provinceListJsonArr[i].split("$")[0];
+      provinceObj.value = province.split("-")[0];
+      provinceObj.label = province.split("-")[1];
+      this.madeJsonFromString.push(provinceObj);
+      let TArea = this.provinceListJsonArr[i].split("$")[1].split("|");
+      for (let j = 0; j < TArea.length; j++) {
+        let cityObj = {
+          value: 1,
+          label: "",
+          region: []
+        };
+        let cityArr = TArea[j].split(",");
+        cityObj.value = cityArr[0].split("-")[0];
+        cityObj.label = cityArr[0].split("-")[1];
+        for (let k = 1; k < cityArr.length; k++) {
+          let regionObj = {
+            value: 1,
+            label: ""
+          };
+          regionObj.value = cityArr[k].split("-")[0];
+          regionObj.label = cityArr[k].split("-")[1];
+          cityObj.region.push(regionObj);
+        }
+        this.madeJsonFromString[i].city.push(cityObj);
+      }
+    }
 
-
-      }
-      
-      
-      if(this.user.lessonId == 0 || this.user.gradeId == 0){
-        return ;
-      }
-      this.isLoadingSchoolData = true;
-      let payload = {
-        lessonId: this.user.lessonId,
-        gradeId: this.user.gradeId,
-      }
-      await getStudentBylessonId(payload)
-      .then((res) => {
+    if (this.user.lessonId == 0 || this.user.gradeId == 0) {
+      return;
+    }
+    this.isLoadingSchoolData = true;
+    let payload = {
+      lessonId: this.user.lessonId,
+      gradeId: this.user.gradeId
+    };
+    await getStudentBylessonId(payload)
+      .then(res => {
         this.studentList = res.data;
-        this.studentList.map( x => {
+        this.studentList.map(x => {
           x.familyAddress = this.convertAddress(x.familyAddress);
-         
-        })
-      }).catch((err) => {
-        console.log(err)
+        });
+      })
+      .catch(err => {
+        console.log(err);
         this.isLoadingSchoolData = false;
       });
 
-      getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
-        res.data.map(checkData=>{
-          checkData.startTime = this.TimeView(checkData.startTime)
+    getCheckInData({ checkInDate: this.checkAttendanceDate })
+      .then(res => {
+        res.data.map(checkData => {
+          checkData.startTime = this.TimeView(checkData.startTime);
           let clonedEditedItem = Object.assign({}, checkData);
           let selectedStudentData = {};
-          this.studentList.map( x =>{
-            if(x.id == checkData.studentId){
+          this.studentList.map(x => {
+            if (x.id == checkData.studentId) {
               selectedStudentData = x;
             }
-          })
+          });
           clonedEditedItem["name"] = selectedStudentData.name;
-          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
-          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
+          clonedEditedItem["gender"] = this.convertGender(
+            selectedStudentData.gender
+          );
+          clonedEditedItem["age"] = this.calcAge(
+            new Date(selectedStudentData.birthday)
+          );
           clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
           clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
           // console.log("clonedEditedItem",clonedEditedItem)
           this.checkData.push(clonedEditedItem);
-        })
-         this.isLoadingSchoolData = false;
-      }).catch(err=>{
-        console.log(err.response)
-         this.isLoadingSchoolData = false;
+        });
+        this.isLoadingSchoolData = false;
       })
+      .catch(err => {
+        console.log(err.response);
+        this.isLoadingSchoolData = false;
+      });
+  },
+
+  watch: {
+    // dialog (val) {
+    //   val || this.close()
+    // },
+    // dialogDelete (val) {
+    //   val || this.closeDelete()
+    // },
+  },
+
+  methods: {
+    editItem(item) {
+      console.log("----", item);
+      this.editedIndex = this.checkData.indexOf(item);
+      console.log(this.editedIndex);
+      // this.editedItem = Object.assign({}, item)
+      this.editedItem = JSON.parse(JSON.stringify(item));
+      console.log("++++", this.editedItem);
+      this.dialog = true;
     },
 
-    watch: {
-      // dialog (val) {
-      //   val || this.close()
-      // },
-      // dialogDelete (val) {
-      //   val || this.closeDelete()
-      // },
+    deleteItem(item) {
+      this.editedIndex = this.checkData.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
     },
 
-    methods: {
-
-      editItem (item) {
-        console.log('----',item)
-        this.editedIndex = this.checkData.indexOf(item)
-        console.log(this.editedIndex)
-        // this.editedItem = Object.assign({}, item)
-        this.editedItem = JSON.parse(JSON.stringify(item))
-        console.log('++++',this.editedItem)
-        this.dialog = true
-      },
-
-      deleteItem (item) {
-        this.editedIndex = this.checkData.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
-
-      async deleteItemConfirm () {
-        this.isDeleteSchool = true
-        console.log(this.editedItem)
-        await deleteCheckInData({id:this.editedItem.id}).then(res=>{
-          this.isDeleteSchool = false
-          this.checkData.splice(this.editedIndex, 1)
-          this.closeDelete()
-        }).catch(err=>{
-          this.isDeleteSchool = false
-          console.log(err.response)
+    async deleteItemConfirm() {
+      this.isDeleteSchool = true;
+      console.log(this.editedItem);
+      await deleteCheckInData({ id: this.editedItem.id })
+        .then(res => {
+          this.isDeleteSchool = false;
+          this.checkData.splice(this.editedIndex, 1);
+          this.closeDelete();
         })
-        // this.isDeleteSchool = true;
-        // this.isDeleteSchool = false;
-      },
+        .catch(err => {
+          this.isDeleteSchool = false;
+          console.log(err.response);
+        });
+      // this.isDeleteSchool = true;
+      // this.isDeleteSchool = false;
+    },
 
-      close () {
-        this.dialog = false
-        this.editedItem = JSON.parse(JSON.stringify(this.editedItem))
-        // this.editedItem.checkType = '';
-        // this.editedItem.signal = '';
-        // this.editedItem.startTime = '';
-        // this.editedItem.reason = '';
-        // this.editedItem.hospital = '';
-        // this.editedItem.studentId = 0;
-        // this.editedIndex = -1
-        // this.$nextTick(() => {
-        //   this.editedItem =  JSON.parse(JSON.stringify(this.defaultItem))
-        // })
-      },
+    close() {
+      this.dialog = false;
+      this.editedItem = JSON.parse(JSON.stringify(this.editedItem));
+      // this.editedItem.checkType = '';
+      // this.editedItem.signal = '';
+      // this.editedItem.startTime = '';
+      // this.editedItem.reason = '';
+      // this.editedItem.hospital = '';
+      // this.editedItem.studentId = 0;
+      // this.editedIndex = -1
+      // this.$nextTick(() => {
+      //   this.editedItem =  JSON.parse(JSON.stringify(this.defaultItem))
+      // })
+    },
 
-      closeDelete () {
-        this.dialogDelete = false
-        this.editedItem = JSON.parse(JSON.stringify(this.editedItem))
-        // this.editedItem.checkType = '';
-        // this.editedItem.signal = '';
-        // this.editedItem.startTime = '';
-        // this.editedItem.reason = '';
-        // this.editedItem.hospital = '';
-        // this.editedItem.studentId = 0;
-        // this.editedIndex = -1
-      },
+    closeDelete() {
+      this.dialogDelete = false;
+      this.editedItem = JSON.parse(JSON.stringify(this.editedItem));
+      // this.editedItem.checkType = '';
+      // this.editedItem.signal = '';
+      // this.editedItem.startTime = '';
+      // this.editedItem.reason = '';
+      // this.editedItem.hospital = '';
+      // this.editedItem.studentId = 0;
+      // this.editedIndex = -1
+    },
 
-      async save () {
-        console.log(this.editedItem)
-        // return
-        if(this.editedItem.checkType == ''){
-          return this.$snackbar.showMessage({content:this.lang.requiredCheckType,color:'error'})
-        }
-        if(this.editedItem.hospital == ''){
-          return this.$snackbar.showMessage({content:this.lang.requiredHospital,color:'error'})
-        }
-        if(this.editedItem.reason == ''){
-          return this.$snackbar.showMessage({content:this.lang.requiredReason,color:'error'})
-        }
-        if(this.editedItem.signal == ''){
-          return this.$snackbar.showMessage({content:this.lang.requiredSignal,color:'error'})
-        }
-        if(this.editedItem.studentId == 0){
-          return this.$snackbar.showMessage({content:this.lang.requiredName,color:'error'})
-        }
-        if(this.editedItem.startTime == ''){
-          return this.$snackbar.showMessage({content:this.lang.requiredStartTime,color:'error'})
-        }
-        this.isCreatingSchool = true;
-        //update checkData
-        if (this.editedIndex > -1) {
-          await updateCheckInData(this.editedItem).then(res=>{
+    async save() {
+      console.log(this.editedItem);
+      // return
+      if (this.editedItem.checkType == "") {
+        return this.$snackbar.showMessage({
+          content: this.lang.requiredCheckType,
+          color: "error"
+        });
+      }
+      if (this.editedItem.hospital == "") {
+        return this.$snackbar.showMessage({
+          content: this.lang.requiredHospital,
+          color: "error"
+        });
+      }
+      if (this.editedItem.reason == "") {
+        return this.$snackbar.showMessage({
+          content: this.lang.requiredReason,
+          color: "error"
+        });
+      }
+      if (this.editedItem.signal == "") {
+        return this.$snackbar.showMessage({
+          content: this.lang.requiredSignal,
+          color: "error"
+        });
+      }
+      if (this.editedItem.studentId == 0) {
+        return this.$snackbar.showMessage({
+          content: this.lang.requiredName,
+          color: "error"
+        });
+      }
+      if (this.editedItem.startTime == "") {
+        return this.$snackbar.showMessage({
+          content: this.lang.requiredStartTime,
+          color: "error"
+        });
+      }
+      this.isCreatingSchool = true;
+      //update checkData
+      if (this.editedIndex > -1) {
+        await updateCheckInData(this.editedItem)
+          .then(res => {
             this.isCreatingSchool = false;
             let clonedEditedItem = Object.assign({}, this.editedItem);
             let selectedStudentData = {};
-            this.studentList.map( x =>{
-              if(x.id == this.editedItem.studentId){
+            this.studentList.map(x => {
+              if (x.id == this.editedItem.studentId) {
                 selectedStudentData = x;
               }
-            })
+            });
             clonedEditedItem["name"] = selectedStudentData.name;
-            clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
-            clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
-            clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
+            clonedEditedItem["gender"] = this.convertGender(
+              selectedStudentData.gender
+            );
+            clonedEditedItem["age"] = this.calcAge(
+              new Date(selectedStudentData.birthday)
+            );
+            clonedEditedItem["familyAddress"] =
+              selectedStudentData.familyAddress;
             clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
-            Object.assign(this.checkData[this.editedIndex], clonedEditedItem)
-          }).catch(err=>{
-            console.log(err.response)
+            Object.assign(this.checkData[this.editedIndex], clonedEditedItem);
+          })
+          .catch(err => {
+            console.log(err.response);
             this.isCreatingSchool = false;
-          })
-          // this.isCreatingSchool = false;
-          
-        } 
-        //save checkData
-        else {
-          let payload = Object.assign({},this.editedItem);
-          payload.checkInDate = this.checkAttendanceDate
-          payload.checkAttendanceType = this.checkAttendanceType
-          await createCheckInData(payload).then(res=>{
-          }).catch(err=>{
-            console.log(err.response)
+          });
+        // this.isCreatingSchool = false;
+      }
+      //save checkData
+      else {
+        let payload = Object.assign({}, this.editedItem);
+        payload.checkInDate = this.checkAttendanceDate;
+        payload.checkAttendanceType = this.checkAttendanceType;
+        await createCheckInData(payload)
+          .then(res => {})
+          .catch(err => {
+            console.log(err.response);
             this.isCreatingSchool = false;
-          })
-          let clonedEditedItem = Object.assign({}, this.editedItem);
-          let selectedStudentData = {};
-          this.studentList.map( x =>{
-            if(x.id == this.editedItem.studentId){
-              selectedStudentData = x;
-            }
-          })
-          clonedEditedItem["name"] = selectedStudentData.name;
-          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
-          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
-          clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
-          clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
-          // console.log("clonedEditedItem",clonedEditedItem)
-          this.checkData.push(clonedEditedItem);
-          this.isCreatingSchool = false;
-          // this.isCreatingSchool = true;
-          // creatxxx()
-          // .then((res) => {
-          //   if(res.data.mag == 1)
-          //   this.checkData.push(clonedEditedItem);
-          // }).catch((err) => {
-          //   console.log(err)
-          // });
-          // this.isCreatingSchool = false;
-        }
-        this.close()
-      },
+          });
+        let clonedEditedItem = Object.assign({}, this.editedItem);
+        let selectedStudentData = {};
+        this.studentList.map(x => {
+          if (x.id == this.editedItem.studentId) {
+            selectedStudentData = x;
+          }
+        });
+        clonedEditedItem["name"] = selectedStudentData.name;
+        clonedEditedItem["gender"] = this.convertGender(
+          selectedStudentData.gender
+        );
+        clonedEditedItem["age"] = this.calcAge(
+          new Date(selectedStudentData.birthday)
+        );
+        clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
+        clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
+        // console.log("clonedEditedItem",clonedEditedItem)
+        this.checkData.push(clonedEditedItem);
+        this.isCreatingSchool = false;
+        // this.isCreatingSchool = true;
+        // creatxxx()
+        // .then((res) => {
+        //   if(res.data.mag == 1)
+        //   this.checkData.push(clonedEditedItem);
+        // }).catch((err) => {
+        //   console.log(err)
+        // });
+        // this.isCreatingSchool = false;
+      }
+      this.close();
+    },
 
-      convertAddress(address){
-        address = JSON.parse(address);
-        let province = '';
-        let city = '';
-        let region = '';
-        for(let i = 0 ; i < this.madeJsonFromString.length ; i++){
-          if( address.province == this.madeJsonFromString[i].value ){
-            province = this.madeJsonFromString[i].label;
-            for(let j = 0 ; j < this.madeJsonFromString[i].city.length ; j++){
-              if( address.city == this.madeJsonFromString[i].city[j].value ){
-                city = this.madeJsonFromString[i].city[j].label;
-                for(let k = 0 ; k < this.madeJsonFromString[i].city[j].region.length ; k++){
-                  if( address.region == this.madeJsonFromString[i].city[j].region[k].value ){
-                    region = this.madeJsonFromString[i].city[j].region[k].label;
-                  }
+    convertAddress(address) {
+      address = JSON.parse(address);
+      let province = "";
+      let city = "";
+      let region = "";
+      for (let i = 0; i < this.madeJsonFromString.length; i++) {
+        if (address.province == this.madeJsonFromString[i].value) {
+          province = this.madeJsonFromString[i].label;
+          for (let j = 0; j < this.madeJsonFromString[i].city.length; j++) {
+            if (address.city == this.madeJsonFromString[i].city[j].value) {
+              city = this.madeJsonFromString[i].city[j].label;
+              for (
+                let k = 0;
+                k < this.madeJsonFromString[i].city[j].region.length;
+                k++
+              ) {
+                if (
+                  address.region ==
+                  this.madeJsonFromString[i].city[j].region[k].value
+                ) {
+                  region = this.madeJsonFromString[i].city[j].region[k].label;
                 }
               }
             }
           }
         }
-        return province + ' ' + city + ' ' + region + ' ' + address.detail;
-      },
+      }
+      return province + " " + city + " " + region + " " + address.detail;
+    },
 
-      selectedCheckType( val ){
-        this.editedItem.checkType = val;
-      },
+    selectedCheckType(val) {
+      this.editedItem.checkType = val;
+    },
 
-      selectedStudent( val ){
-        this.editedItem.studentId = val;
-      },
+    selectedStudent(val) {
+      this.editedItem.studentId = val;
+    },
 
-      selectedReason( val ){
-        this.editedItem.reason = val;
-      },
+    selectedReason(val) {
+      this.editedItem.reason = val;
+    },
 
-      selectedSignal( val ){
-        this.editedItem.signal = val;
-      },
+    selectedSignal(val) {
+      this.editedItem.signal = val;
+    },
 
-      convertGender( val ){
-        if(val == 'F'){
-          return "女";
-        }
-        else if(val == 'M') {
-          return "男";
-        }
-      },
+    convertGender(val) {
+      if (val == "F") {
+        return "女";
+      } else if (val == "M") {
+        return "男";
+      }
+    },
 
-      calcAge(val){
-        var diff_ms = Date.now() - val.getTime();
-        var age_dt = new Date(diff_ms); 
-      
-        return Math.abs(age_dt.getUTCFullYear() - 1970);
-      },
+    calcAge(val) {
+      var diff_ms = Date.now() - val.getTime();
+      var age_dt = new Date(diff_ms);
 
-      onSelectCheckAttendanceDate(val){          
-        this.$refs.checkAttendanceDateMenu.save(val);
-        this.checkAttendanceDate = val;
-        this.checkData = []
-        getCheckInData({checkInDate:this.checkAttendanceDate}).then(res=>{
-        res.data.map(checkData=>{
+      return Math.abs(age_dt.getUTCFullYear() - 1970);
+    },
+
+    onSelectCheckAttendanceDate(val) {
+      this.$refs.checkAttendanceDateMenu.save(val);
+      this.checkAttendanceDate = val;
+      this.checkData = [];
+      getCheckInData({ checkInDate: this.checkAttendanceDate }).then(res => {
+        res.data.map(checkData => {
           let clonedEditedItem = Object.assign({}, checkData);
           let selectedStudentData = {};
-          this.studentList.map( x =>{
-            if(x.id == checkData.studentId){
+          this.studentList.map(x => {
+            if (x.id == checkData.studentId) {
               selectedStudentData = x;
             }
-          })
+          });
           clonedEditedItem["name"] = selectedStudentData.name;
-          clonedEditedItem["gender"] = this.convertGender(selectedStudentData.gender);
-          clonedEditedItem["age"] = this.calcAge(new Date(selectedStudentData.birthday));
+          clonedEditedItem["gender"] = this.convertGender(
+            selectedStudentData.gender
+          );
+          clonedEditedItem["age"] = this.calcAge(
+            new Date(selectedStudentData.birthday)
+          );
           clonedEditedItem["familyAddress"] = selectedStudentData.familyAddress;
           clonedEditedItem["phoneNumber"] = selectedStudentData.phoneNumber;
           // console.log("clonedEditedItem",clonedEditedItem)
           this.checkData.push(clonedEditedItem);
-        })
-        
-      })
-      },
-
-      selectedCheckAttendanceTypeItem(val){
-        this.checkAttendanceType = val;
-      }
-
+        });
+      });
     },
-  }
-</script>
-<style>
 
-</style>
+    selectedCheckAttendanceTypeItem(val) {
+      this.checkAttendanceType = val;
+    }
+  }
+};
+</script>
+<style></style>
