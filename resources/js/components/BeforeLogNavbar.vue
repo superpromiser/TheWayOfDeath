@@ -1,48 +1,50 @@
 <template>
-  <v-app-bar
-  color="white" app
-  >
+  <v-app-bar color="white" app>
     <v-toolbar-title>
       <!-- <img :src="`${baseUrl}/asset/img/logoNewWhite.png`" alt="upload-video-icon" class="mo-login-logo"/> -->
-      <img :src="`${baseUrl}/asset/img/logoNewPrimary.png`" alt="Logo" class="logo-img">
+      <img
+        :src="`${baseUrl}/asset/img/logoNewPrimary.png`"
+        alt="Logo"
+        class="logo-img"
+      />
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn text>
       <v-icon left>
         mdi-apple
-      </v-icon> 
+      </v-icon>
       IOS
     </v-btn>
     <v-btn text>
       <v-icon left>
         mdi-android
-      </v-icon> 
+      </v-icon>
       Android
     </v-btn>
     <v-btn text>
       <v-icon left>
         mdi-microsoft-windows
-      </v-icon> 
+      </v-icon>
       Windows
     </v-btn>
     <v-btn text>
       <v-icon left>
         mdi-apple-finder
-      </v-icon> 
+      </v-icon>
       Mac
     </v-btn>
     <v-btn text @click="guestMng">
       <v-icon left>
         mdi-account-arrow-right-outline
-      </v-icon> 
+      </v-icon>
       陌生访客管理
     </v-btn>
   </v-app-bar>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import LocaleDropdown from './LocaleDropdown'
+import { mapGetters } from "vuex";
+import LocaleDropdown from "./LocaleDropdown";
 
 export default {
   components: {
@@ -51,24 +53,24 @@ export default {
 
   data: () => ({
     appName: window.config.appName,
-    baseUrl:window.Laravel.base_url,
+    baseUrl: window.Laravel.base_url
   }),
 
   computed: mapGetters({
-    user: 'auth/user'
+    user: "auth/user"
   }),
 
   methods: {
-    async logout () {
+    async logout() {
       // Log out the user.
-      await this.$store.dispatch('auth/logout')
+      await this.$store.dispatch("auth/logout");
 
       // Redirect to login.
-      this.$router.push({ name: 'login' })
+      this.$router.push({ name: "login" });
     },
-    guestMng(){
-      this.$router.push({name:'guestRequest'})
+    guestMng() {
+      this.$router.push({ name: "guestRequest" });
     }
   }
-}
+};
 </script>
