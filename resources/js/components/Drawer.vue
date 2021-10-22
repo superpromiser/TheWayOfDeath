@@ -7,47 +7,48 @@
     dark
     class="drawer-bg"
     :permanent="!$vuetify.breakpoint.smAndDown"
-  > 
+  >
     <template v-slot:prepend>
-      <v-toolbar
-        color="primary-bg"
-        height="74"
-        >
+      <v-toolbar color="primary-bg" height="74">
         <v-toolbar-title class="d-flex align-center pl-4">
-          <img :src="`${baseUrl}/asset/img/logoNewWhite.png`" alt="Logo" class="logo-img">
+          <img
+            :src="`${baseUrl}/asset/img/logoNewWhite.png`"
+            alt="Logo"
+            class="logo-img"
+          />
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
-
       </v-toolbar>
     </template>
     <!-------------User Info--------------->
     <v-list-item class="pa-2 pl-5" color="blue accent-2">
       <v-list-item-avatar>
-        <v-avatar
-          color="blue accent-3"
-          size="40"
+        <v-avatar color="blue accent-3" size="40">
+          <img
+            v-if="user.avatar !== '/'"
+            :src="`${baseUrl}${user.avatar}`"
+            :alt="user ? user.name[0] : ''"
+          />
+          <span v-else class="white--text headline">
+            {{ user ? user.name[0] : "" }}</span
           >
-          <img v-if="user.avatar !== '/'" :src="`${baseUrl}${user.avatar}`" :alt="user? user.name[0] : ''" />
-          <span v-else class="white--text headline"> {{user? user.name[0] : ''}}</span>
         </v-avatar>
       </v-list-item-avatar>
-      <v-list-item-title>{{user? user.name : ''}}</v-list-item-title>
+      <v-list-item-title>{{ user ? user.name : "" }}</v-list-item-title>
     </v-list-item>
     <!-------------User Info--------------->
     <v-divider></v-divider>
     <!----------------Menu------------------>
     <v-list>
-      <v-list-item
-        active-class="sub-header-active" link to="/home">
+      <v-list-item active-class="sub-header-active" link to="/home">
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-title>{{lang.home}}</v-list-item-title>
+        <v-list-item-title>{{ lang.home }}</v-list-item-title>
       </v-list-item>
-      <v-list-item
-        active-class="sub-header-active" link to="/chat">
+      <v-list-item active-class="sub-header-active" link to="/chat">
         <v-list-item-icon>
           <v-icon>mdi-chat-processing-outline</v-icon>
         </v-list-item-icon>
@@ -55,7 +56,11 @@
         <v-list-item-title>即时通讯</v-list-item-title>
       </v-list-item>
       <v-list-item
-        active-class="sub-header-active" link to="/fence" v-if="user.roleId == 2 || user.roleId == 4 || user.roleId == 7">
+        active-class="sub-header-active"
+        link
+        to="/fence"
+        v-if="user.roleId == 2 || user.roleId == 4 || user.roleId == 7"
+      >
         <v-list-item-icon>
           <v-icon>mdi-map</v-icon>
         </v-list-item-icon>
@@ -68,107 +73,112 @@
         v-if="user.roleId == 1 || user.roleId == 2"
       >
         <template v-slot:activator>
-          <v-list-item-title v-if="user.roleId == 2">学校管理</v-list-item-title>
-          <v-list-item-title v-else-if="user.roleId == 1">系统设置</v-list-item-title>
-          <v-list-item-title v-else-if="user.roleId == 3">考勤管理</v-list-item-title>
-          <v-list-item-title v-else-if="user.roleId == 7">考勤管理</v-list-item-title>
+          <v-list-item-title v-if="user.roleId == 2"
+            >学校管理</v-list-item-title
+          >
+          <v-list-item-title v-else-if="user.roleId == 1"
+            >系统设置</v-list-item-title
+          >
+          <v-list-item-title v-else-if="user.roleId == 3"
+            >考勤管理</v-list-item-title
+          >
+          <v-list-item-title v-else-if="user.roleId == 7"
+            >考勤管理</v-list-item-title
+          >
         </template>
-          <v-list-item
-            active-class="sub-header-active"
-
-            link
-            to="/admin/userlist"
-            v-if="user.role.id == 2"
-            >
-            <v-list-item-title class="ml-9">名单</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-account-group</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            active-class="sub-header-active"
-            link
-            to="/admin/assignRole"
-            v-if="user.role.id == 1"
-            >
-            <v-list-item-title class="ml-9">角色</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-account-box-multiple</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            active-class="sub-header-active"
-            link
-            to="/admin/school"
-            v-if="user.role.id == 1"
-            >
-            <v-list-item-title class="ml-9">学校</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-school</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            active-class="sub-header-active"
-            link
-            to="/admin/grade"
-            v-if="user.role.id == 1"
-            >
-            <v-list-item-title class="ml-9">年级</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-medal</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            active-class="sub-header-active"
-            link
-            to="/admin/class"
-            v-if="user.role.id == 1"
-            >
-            <v-list-item-title class="ml-9">班级</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-google-classroom</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list class="py-0" v-if="user.role.id == 2">
-            <v-list-group  active-class="header-active">
+        <v-list-item
+          active-class="sub-header-active"
+          link
+          to="/admin/userlist"
+          v-if="user.role.id == 2"
+        >
+          <v-list-item-title class="ml-9">名单</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-account-group</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item
+          active-class="sub-header-active"
+          link
+          to="/admin/assignRole"
+          v-if="user.role.id == 1"
+        >
+          <v-list-item-title class="ml-9">角色</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-account-box-multiple</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item
+          active-class="sub-header-active"
+          link
+          to="/admin/school"
+          v-if="user.role.id == 1"
+        >
+          <v-list-item-title class="ml-9">学校</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-school</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item
+          active-class="sub-header-active"
+          link
+          to="/admin/grade"
+          v-if="user.role.id == 1"
+        >
+          <v-list-item-title class="ml-9">年级</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-medal</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item
+          active-class="sub-header-active"
+          link
+          to="/admin/class"
+          v-if="user.role.id == 1"
+        >
+          <v-list-item-title class="ml-9">班级</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-google-classroom</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list class="py-0" v-if="user.role.id == 2">
+          <v-list-group active-class="header-active">
             <template v-slot:activator>
               <v-list-item-title class="ml-9">课程维护</v-list-item-title>
             </template>
-              <v-list-item
-                active-class="sub-header-active"
-                link
-                to="/admin/schedule"
-                >
-                <v-list-item-title class="ml-16">课时维护</v-list-item-title>
-                <v-list-item-icon>
-                  <v-icon>mdi-calendar-month</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-              <v-list-item
-                active-class="sub-header-active"
-                link
-                to="/admin/scheduleSetting"
-                >
-                <v-list-item-title class="ml-16">课程维护</v-list-item-title>
-                <v-list-item-icon>
-                  <v-icon>mdi-calendar-month</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-              <v-list-item
-                active-class="sub-header-active"
-                link
-                to="/admin/scheduleTeacher"
-                >
-                <v-list-item-title class="ml-16">任课教师</v-list-item-title>
-                <v-list-item-icon>
-                  <v-icon>mdi-calendar-month</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-              
-              
-            </v-list-group>
-          </v-list>
-          <!-- <v-list class="py-0" v-if="user.role.id == 2">
+            <v-list-item
+              active-class="sub-header-active"
+              link
+              to="/admin/schedule"
+            >
+              <v-list-item-title class="ml-16">课时维护</v-list-item-title>
+              <v-list-item-icon>
+                <v-icon>mdi-calendar-month</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+            <v-list-item
+              active-class="sub-header-active"
+              link
+              to="/admin/scheduleSetting"
+            >
+              <v-list-item-title class="ml-16">课程维护</v-list-item-title>
+              <v-list-item-icon>
+                <v-icon>mdi-calendar-month</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+            <v-list-item
+              active-class="sub-header-active"
+              link
+              to="/admin/scheduleTeacher"
+            >
+              <v-list-item-title class="ml-16">任课教师</v-list-item-title>
+              <v-list-item-icon>
+                <v-icon>mdi-calendar-month</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+          </v-list-group>
+        </v-list>
+        <!-- <v-list class="py-0" v-if="user.role.id == 2">
             <v-list-group  active-class="header-active">
               <template v-slot:activator>
                 <v-list-item-title class="ml-9">考勤</v-list-item-title>
@@ -225,106 +235,133 @@
               </v-list-item>
             </v-list-group>
           </v-list> -->
-          
-          <!-- teacher admin -->
-          
-          <v-list-item
-            v-if="user.roleId == 3 || user.roleId == 7"
-            active-class="sub-header-active"
-            link
-            to="/admin/attendance/index"
-            >
-            <v-list-item-title class="ml-9">进离校</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-account-clock </v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            v-if="user.roleId == 3 || user.roleId == 7"
-            active-class="sub-header-active"
-            link
-            to="/admin/attendance/lesson"
-            >
-            <v-list-item-title class="ml-9">课堂考勤</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-badge-account  </v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            v-if="user.roleId == 3 || user.roleId == 7"
-            active-class="sub-header-active"
-            link
-            to="/admin/attendance/check"
-            >
-            <v-list-item-title class="ml-9">晨午检</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-account-search </v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            v-if="user.roleId == 3 || user.roleId == 7"
-            active-class="sub-header-active"
-            link
-            to="/admin/attendance/vacation"
-            >
-            <v-list-item-title class="ml-9">请假</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-check-decagram-outline </v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          <v-list-item
-            v-if="user.roleId == 3 || user.roleId == 7"
-            active-class="sub-header-active"
-            link
-            to="/admin/attendance/statistics"
-            >
-            <v-list-item-title class="ml-9">统计</v-list-item-title>
-            <v-list-item-icon>
-              <v-icon>mdi-hexagon-slice-4  </v-icon>
-            </v-list-item-icon>
-          </v-list-item>
+
+        <!-- teacher admin -->
+
+        <v-list-item
+          v-if="user.roleId == 3 || user.roleId == 7"
+          active-class="sub-header-active"
+          link
+          to="/admin/attendance/index"
+        >
+          <v-list-item-title class="ml-9">进离校</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-account-clock </v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item
+          v-if="user.roleId == 3 || user.roleId == 7"
+          active-class="sub-header-active"
+          link
+          to="/admin/attendance/lesson"
+        >
+          <v-list-item-title class="ml-9">课堂考勤</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-badge-account </v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item
+          v-if="user.roleId == 3 || user.roleId == 7"
+          active-class="sub-header-active"
+          link
+          to="/admin/attendance/check"
+        >
+          <v-list-item-title class="ml-9">晨午检</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-account-search </v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item
+          v-if="user.roleId == 3 || user.roleId == 7"
+          active-class="sub-header-active"
+          link
+          to="/admin/attendance/vacation"
+        >
+          <v-list-item-title class="ml-9">请假</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-check-decagram-outline </v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item
+          v-if="user.roleId == 3 || user.roleId == 7"
+          active-class="sub-header-active"
+          link
+          to="/admin/attendance/statistics"
+        >
+          <v-list-item-title class="ml-9">统计</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon>mdi-hexagon-slice-4 </v-icon>
+          </v-list-item-icon>
+        </v-list-item>
       </v-list-group>
-      <v-list-group active-class="header-active" prepend-icon="mdi-school" v-for="(school, indexOfSchool) in mySchoolList" :key="indexOfSchool">
+      <v-list-group
+        active-class="header-active"
+        prepend-icon="mdi-school"
+        v-for="(school, indexOfSchool) in mySchoolList"
+        :key="indexOfSchool"
+      >
         <template v-slot:activator>
-          <v-list-item-title>{{school.schoolName}}</v-list-item-title>
+          <v-list-item-title>{{ school.schoolName }}</v-list-item-title>
         </template>
         <v-list-item
-          :class="{'custom-header-active':activeSchool && school.id == currentPath.params.schoolId}"
+          :class="{
+            'custom-header-active':
+              activeSchool && school.id == currentPath.params.schoolId
+          }"
           class="custom-header"
           link
-          :to="{name:'schoolSpace',params:{schoolId:school.id}}"
-          >
+          :to="{ name: 'schoolSpace', params: { schoolId: school.id } }"
+        >
           <v-list-item-title class="ml-9">学校空间</v-list-item-title>
           <v-list-item-icon>
             <v-icon>mdi-cast-education</v-icon>
           </v-list-item-icon>
         </v-list-item>
         <v-list class="py-0">
-            <v-list-group
-              active-class="header-active"
-              v-for="(grade, indexOfGrade) in school.grades" :key="indexOfGrade"
+          <v-list-group
+            active-class="header-active"
+            v-for="(grade, indexOfGrade) in school.grades"
+            :key="indexOfGrade"
+          >
+            <template v-slot:activator>
+              <v-list-item-title class="ml-9">{{
+                grade.gradeName
+              }}</v-list-item-title>
+            </template>
+            <v-list-item
+              :class="{
+                'custom-header-active':
+                  activeLesson && lesson.id == currentPath.params.lessonId
+              }"
+              v-for="(lesson, index) in grade.lessons"
+              :key="index"
+              link
+              class="custom-header"
+              :to="{
+                name: 'classSpace',
+                params: {
+                  schoolId: school.id,
+                  gradeId: grade.id,
+                  lessonId: lesson.id
+                }
+              }"
             >
-              <template v-slot:activator>
-                <v-list-item-title class="ml-9">{{grade.gradeName}}</v-list-item-title>
-              </template>
-              <v-list-item
-                :class="{'custom-header-active':activeLesson && lesson.id == currentPath.params.lessonId}"
-                v-for="(lesson, index) in grade.lessons" :key="index"
-                link
-                class="custom-header"
-                :to="{name:'classSpace',params:{schoolId:school.id,gradeId:grade.id,lessonId:lesson.id}}"
-                >
-                <v-list-item-title class="ml-16">{{lesson.lessonName}}</v-list-item-title>
-                <v-list-item-icon>
-                  <v-icon>mdi-google-classroom</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-            </v-list-group>
-          </v-list>
+              <v-list-item-title class="ml-16">{{
+                lesson.lessonName
+              }}</v-list-item-title>
+              <v-list-item-icon>
+                <v-icon>mdi-google-classroom</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+          </v-list-group>
+        </v-list>
       </v-list-group>
-      
+
       <v-list-item
-        active-class="sub-header-active" @click="logout" v-if="$isMobile()">
+        active-class="sub-header-active"
+        @click="logout"
+        v-if="$isMobile()"
+      >
         <v-list-item-icon>
           <v-icon>mdi-logout</v-icon>
         </v-list-item-icon>
@@ -336,36 +373,34 @@
 </template>
 
 <script>
-import { mapGetters, } from 'vuex'
-import lang from '~/helper/lang.json'
-import {getStudentWithIds} from '~/api/user.js'
+import { mapGetters } from "vuex";
+import lang from "~/helper/lang.json";
+import { getStudentWithIds } from "~/api/user.js";
 export default {
-  name: 'DefaultDrawer',
+  name: "DefaultDrawer",
 
-  components: {
-    
-  },
-  
+  components: {},
+
   data: () => ({
     admins: [
-      ['Management', 'mdi-account-multiple-outline'],
-      ['Settings', 'mdi-cog-outline'],
+      ["Management", "mdi-account-multiple-outline"],
+      ["Settings", "mdi-cog-outline"]
     ],
     baseUrl: window.Laravel.base_url,
     lang,
-    classData : [],
-    classItemList : [],
-    mySchoolList:[],
-    activeSchool:false,
-    activeLesson:false
+    classData: [],
+    classItemList: [],
+    mySchoolList: [],
+    activeSchool: false,
+    activeLesson: false
   }),
 
   computed: {
     ...mapGetters({
-      mini : 'toggledrawer/mini',
-      user : 'auth/user',
-      schoolData : 'schooltree/schoolData',
-      memberData : 'schooltree/memberData',
+      mini: "toggledrawer/mini",
+      user: "auth/user",
+      schoolData: "schooltree/schoolData",
+      memberData: "schooltree/memberData"
       // drawer : 'toggledrawer/drawer'
     }),
     drawer: {
@@ -373,147 +408,145 @@ export default {
         return this.$store.state.toggledrawer.drawer;
       },
       set(value) {
-        this.$store.dispatch('toggledrawer/turnDrawer', {
-          drawer: value,
-        })
+        this.$store.dispatch("toggledrawer/turnDrawer", {
+          drawer: value
+        });
       }
     },
-    currentPath(){
-      return this.$route
+    currentPath() {
+      return this.$route;
     }
     // ...mapActions(['toggledrawer/turnDrawer'])
   },
-  watch:{
-    currentPath:{
-      handler(val){
-        this.activeSchool = false
-        this.activeLesson = false
-        let path = val.path.split('/')
-        if(path[1] == 'schoolSpace'){
-          this.activeSchool = true
-        }else if(path[1] == 'classSpace'){
-          this.activeLesson = true
+  watch: {
+    currentPath: {
+      handler(val) {
+        this.activeSchool = false;
+        this.activeLesson = false;
+        let path = val.path.split("/");
+        if (path[1] == "schoolSpace") {
+          this.activeSchool = true;
+        } else if (path[1] == "classSpace") {
+          this.activeLesson = true;
         }
       },
-      deeper:true
+      deeper: true
     }
   },
   async created() {
-    let path = this.currentPath.path.split('/')
-    if(path[1] == 'schoolSpace'){
-      this.activeSchool = true
-    }else if(path[1] == 'classSpace'){
-      this.activeLesson = true
+    let path = this.currentPath.path.split("/");
+    if (path[1] == "schoolSpace") {
+      this.activeSchool = true;
+    } else if (path[1] == "classSpace") {
+      this.activeLesson = true;
     }
-    if(this.user.roleId == 1){
-      this.mySchoolList = this.schoolData
-    }else if(this.user.roleId == 2){
-      this.schoolData.map(schoolItem=>{
-        if(this.user.schoolId == schoolItem.id){
-          this.mySchoolList.push(schoolItem)
+    if (this.user.roleId == 1) {
+      this.mySchoolList = this.schoolData;
+    } else if (this.user.roleId == 2) {
+      this.schoolData.map(schoolItem => {
+        if (this.user.schoolId == schoolItem.id) {
+          this.mySchoolList.push(schoolItem);
         }
-      })
-    }else if(this.user.roleId == 6){
-      let myschoolData = {}
-      this.schoolData.map(schoolItem=>{
-        if(this.user.schoolId == schoolItem.id){
-          myschoolData = schoolItem
+      });
+    } else if (this.user.roleId == 6) {
+      let myschoolData = {};
+      this.schoolData.map(schoolItem => {
+        if (this.user.schoolId == schoolItem.id) {
+          myschoolData = schoolItem;
         }
-      })
-      myschoolData.grades = [] 
-      this.mySchoolList.push(myschoolData)
-    }else if(this.user.roleId == 4){
-      let myschoolData = {}
-      this.schoolData.map(schoolItem=>{
-        if(this.user.schoolId == schoolItem.id){
-          myschoolData = schoolItem
+      });
+      myschoolData.grades = [];
+      this.mySchoolList.push(myschoolData);
+    } else if (this.user.roleId == 4) {
+      let myschoolData = {};
+      this.schoolData.map(schoolItem => {
+        if (this.user.schoolId == schoolItem.id) {
+          myschoolData = schoolItem;
         }
-      })
-      let clonedVal1 = JSON.parse(JSON.stringify(myschoolData))
-      let clonedVal2 = JSON.parse(JSON.stringify(myschoolData))
-      clonedVal1.grades = []
-      let userList = []
-      await getStudentWithIds({studentList:this.user.children}).then(res=>{
-        userList = res.data
-      }).catch(err=>{
-        console.log(err.response)
-      })
-      clonedVal2.grades.map(grade=>{
-        grade.lessons.map(lesson=>{
-          userList.map(user=>{
-            user.groupArr.map(groupId=>{
-              // debugger
-              if(lesson.id == groupId){
-                let index = clonedVal1.grades.indexOf(grade)
-                if(index > -1){
-                  let lIndex = clonedVal1.grades[index].lessons.indexOf(lesson)
-                  if(lIndex == -1){
-                    clonedVal1.grades[index].lessons.push(lesson)
-                  }
-                }
-                else{
-                  clonedVal1.grades.push(grade)
-                  let gindex = clonedVal1.grades.indexOf(grade)
-                  clonedVal1.grades[gindex].lessons = []
-                  clonedVal1.grades[gindex].lessons.push(lesson)
-                }
-              }
-            })
-          })
+      });
+      let clonedVal1 = JSON.parse(JSON.stringify(myschoolData));
+      let clonedVal2 = JSON.parse(JSON.stringify(myschoolData));
+      clonedVal1.grades = [];
+      let userList = [];
+      await getStudentWithIds({ studentList: this.user.children })
+        .then(res => {
+          userList = res.data;
         })
-      })
-      this.mySchoolList.push(clonedVal1)
-    }
-    else{
-      let myschoolData = {}
-      this.schoolData.map(schoolItem=>{
-        if(this.user.schoolId == schoolItem.id){
-          myschoolData = schoolItem
-        }
-      })
-      let clonedVal1 = JSON.parse(JSON.stringify(myschoolData))
-      let clonedVal2 = JSON.parse(JSON.stringify(myschoolData))
-      clonedVal1.grades = []
-      clonedVal2.grades.map(grade=>{
-        grade.lessons.map(lesson=>{
-          this.user.groupArr.map(groupId=>{
-            if(lesson.id == groupId){
-              let index = clonedVal1.grades.indexOf(grade)
-              if(index > -1){
-                clonedVal1.grades[index].lessons.push(lesson)
+        .catch(err => {
+          console.log(err.response);
+        });
+      clonedVal2.grades.map(grade => {
+        grade.lessons.map(lesson => {
+          userList.map(user => {
+            user.groupArr.map(groupId => {
+              // debugger
+              if (lesson.id == groupId) {
+                let index = clonedVal1.grades.indexOf(grade);
+                if (index > -1) {
+                  let lIndex = clonedVal1.grades[index].lessons.indexOf(lesson);
+                  if (lIndex == -1) {
+                    clonedVal1.grades[index].lessons.push(lesson);
+                  }
+                } else {
+                  clonedVal1.grades.push(grade);
+                  let gindex = clonedVal1.grades.indexOf(grade);
+                  clonedVal1.grades[gindex].lessons = [];
+                  clonedVal1.grades[gindex].lessons.push(lesson);
+                }
               }
-              else{
-                clonedVal1.grades.push(grade)
-                let gindex = clonedVal1.grades.indexOf(grade)
-                clonedVal1.grades[gindex].lessons = []
-                clonedVal1.grades[gindex].lessons.push(lesson)
+            });
+          });
+        });
+      });
+      this.mySchoolList.push(clonedVal1);
+    } else {
+      let myschoolData = {};
+      this.schoolData.map(schoolItem => {
+        if (this.user.schoolId == schoolItem.id) {
+          myschoolData = schoolItem;
+        }
+      });
+      let clonedVal1 = JSON.parse(JSON.stringify(myschoolData));
+      let clonedVal2 = JSON.parse(JSON.stringify(myschoolData));
+      clonedVal1.grades = [];
+      clonedVal2.grades.map(grade => {
+        grade.lessons.map(lesson => {
+          this.user.groupArr.map(groupId => {
+            if (lesson.id == groupId) {
+              let index = clonedVal1.grades.indexOf(grade);
+              if (index > -1) {
+                clonedVal1.grades[index].lessons.push(lesson);
+              } else {
+                clonedVal1.grades.push(grade);
+                let gindex = clonedVal1.grades.indexOf(grade);
+                clonedVal1.grades[gindex].lessons = [];
+                clonedVal1.grades[gindex].lessons.push(lesson);
               }
             }
-          })
-        })
-      })
-      this.mySchoolList.push(clonedVal1)
+          });
+        });
+      });
+      this.mySchoolList.push(clonedVal1);
     }
   },
 
-  methods:{
-    changedStatusToggle(val){
-      if(val == false){
-        this.$store.dispatch('toggledrawer/turnDrawer', {
-          drawer: val,
-        })
+  methods: {
+    changedStatusToggle(val) {
+      if (val == false) {
+        this.$store.dispatch("toggledrawer/turnDrawer", {
+          drawer: val
+        });
       }
     },
 
-    async logout () {
+    async logout() {
       // Log out the user.
-      await this.$store.dispatch('auth/logout')
+      await this.$store.dispatch("auth/logout");
       // Redirect to login.
-      this.$router.push({ name: 'login' })
-    },
-    
+      this.$router.push({ name: "login" });
+    }
   }
-}
+};
 </script>
 
 <style lang="sass">
