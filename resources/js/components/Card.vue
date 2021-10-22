@@ -12,10 +12,10 @@
 
 <script>
 export default {
-  name: 'Card',
+  name: "Card",
 
   props: {
     title: { type: String, default: null }
   }
-}
+};
 </script>
