@@ -238,34 +238,34 @@ export default {
         icon: "mdi-calendar-month-outline",
         items: [
           {
-              color:"#3EBBE8",
-              title:"进离校",//출근
-              imgUrl:"/asset/img/newIcon/attendance.png",
-              path:"posts.attendance"
+            color: "#3EBBE8",
+            title: "进离校", //출근
+            imgUrl: "/asset/img/newIcon/attendance.png",
+            path: "posts.attendance"
           },
           {
-              color:"#3EBBE8",
-              title:"课堂考勤",//수업출석
-              imgUrl:"/asset/img/newIcon/attendance.png",
-              path:"posts.attendance.lesson"
+            color: "#3EBBE8",
+            title: "课堂考勤", //수업출석
+            imgUrl: "/asset/img/newIcon/attendance.png",
+            path: "posts.attendance.lesson"
           },
           {
-              color:"#3EBBE8",
-              title:"晨午检",//아침저녁검사
-              imgUrl:"/asset/img/newIcon/attendance.png",
-              path:"posts.attendance.check"
+            color: "#3EBBE8",
+            title: "晨午检", //아침저녁검사
+            imgUrl: "/asset/img/newIcon/attendance.png",
+            path: "posts.attendance.check"
           },
           {
-              color:"#3EBBE8",
-              title:"请假审批",//휴가심사
-              imgUrl:"/asset/img/newIcon/vocationReply.png",
-              path:"posts.attendance.vacation"
+            color: "#3EBBE8",
+            title: "请假审批", //휴가심사
+            imgUrl: "/asset/img/newIcon/vocationReply.png",
+            path: "posts.attendance.vacation"
           },
-           {
-              color:"#3EBBE8",
-              title:"统计",//통계
-              imgUrl:"/asset/img/newIcon/statistics.png",
-              path:"posts.attendance.statistics"
+          {
+            color: "#3EBBE8",
+            title: "统计", //통계
+            imgUrl: "/asset/img/newIcon/statistics.png",
+            path: "posts.attendance.statistics"
           },
           {
             color: "#3EBBE8",
@@ -362,8 +362,7 @@ export default {
             title: "安全教育", //안전교육
             imgUrl: "/asset/img/newIcon/safeStudy.png",
             path: "classSpace.applications.safeStudy"
-          },
-          
+          }
         ]
       },
       {
@@ -459,28 +458,28 @@ export default {
         ]
       },
       {
-          title:"校园安全",//교내안전
-          icon:"mdi-account-cog-outline",
-          items:[
-              {
-                  color:"#98BB3A",
-                  title:"归程队",//귀한팀관리
-                  imgUrl:"/asset/img/newIcon/returnTeam.png",
-                  path:"classSpace.applications.returnTeam"
-              },
-              // {
-              //     color:"#98BB3A",
-              //     title:"维修工单",//수리공
-              //     imgUrl:"/asset/img/newIcon/repair.png",
-              //     path:"classSpace.applications.repair"
-              // },
-              {
-                  color:"#98BB3A",
-                  title:"安全教育",//안전교육
-                  imgUrl:"/asset/img/newIcon/safeStudy.png",
-                  path:"classSpace.applications.safeStudy"
-              },
-          ]
+        title: "校园安全", //교내안전
+        icon: "mdi-account-cog-outline",
+        items: [
+          {
+            color: "#98BB3A",
+            title: "归程队", //귀한팀관리
+            imgUrl: "/asset/img/newIcon/returnTeam.png",
+            path: "classSpace.applications.returnTeam"
+          },
+          // {
+          //     color:"#98BB3A",
+          //     title:"维修工单",//수리공
+          //     imgUrl:"/asset/img/newIcon/repair.png",
+          //     path:"classSpace.applications.repair"
+          // },
+          {
+            color: "#98BB3A",
+            title: "安全教育", //안전교육
+            imgUrl: "/asset/img/newIcon/safeStudy.png",
+            path: "classSpace.applications.safeStudy"
+          }
+        ]
       },
       {
         title: "校园文化", //
